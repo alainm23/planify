@@ -1,5 +1,6 @@
 /*
  * Copyright © 2025 Alain M. (https://github.com/alainm23/planify)
+ * Copyright © 2025 byquanton
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -16,7 +17,7 @@
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  * Boston, MA 02110-1301 USA
  *
- * Authored by: Alain M. <alainmh23@gmail.com>
+ * Authored by: byquanton
  */
 
 
@@ -40,14 +41,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var multi_status = yield propfind ("", xml, "0", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-            foreach (var propstat in response.propstats ()) {
-                foreach (var principal in propstat.prop.get_elements_by_tag_name ("current-user-principal")) {
-                    var href_elements = principal.get_elements_by_tag_name ("href");
-                    foreach (var href in href_elements) {
-                        string link = href.text_content.strip ();
-                        return get_absolute_url (link);
-                    }
-                }
+            var link = response.get_prop ("current-user-principal")?.get_child ("href")?.get_text ();
+            if (link != null) {
+                return get_absolute_url (link);
             }
         }
 
@@ -68,14 +64,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var multi_status = yield propfind (principal_url, xml, "0", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-            foreach (var propstat in response.propstats ()) {
-                foreach (var calendar_home in propstat.prop.get_elements_by_tag_name ("calendar-home-set")) {
-                    var href_elements = calendar_home.get_elements_by_tag_name ("href");
-                    foreach (var href in href_elements) {
-                        string link = href.text_content.strip ();
-                        return get_absolute_url (link);
-                    }
-                }
+            var link = response.get_prop ("calendar-home-set")?.get_child ("href")?.get_text ();
+            if (link != null) {
+                return get_absolute_url (link);
             }
         }
         return null;
@@ -96,18 +87,14 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var multi_status = yield propfind (principal_url, xml, "0", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-            foreach (var propstat in response.propstats ()) {
-                var prop = propstat.prop;
+            var name = response.get_prop ("displayname")?.get_text ();
+            if (name != null) {
+                source.caldav_data.user_displayname = name;
+            }
 
-                var names = prop.get_elements_by_tag_name ("displayname");
-                if (names.size > 0) {
-                    source.caldav_data.user_displayname = names[0].text_content.strip ();
-                }
-
-                var emails = prop.get_elements_by_tag_name ("email-address");
-                if (emails.size > 0) {
-                    source.caldav_data.user_email = emails[0].text_content.strip ();
-                };
+            var email = response.get_prop ("email-address")?.get_text ();
+            if (email != null) {
+                source.caldav_data.user_email = email;
             }
         }
 
@@ -146,23 +133,16 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         foreach (var response in multi_status.responses ()) {
             string? href = response.href;
 
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
+            if (is_vtodo_calendar (response)) {
+                var project = new Objects.Project.from_response (response, get_absolute_url (href));
+                project.source_id = source.id;
 
-                var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
-                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
-
-                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
-                    var project = new Objects.Project.from_propstat (propstat, get_absolute_url (href));
-                    project.source_id = source.id;
-
-                    // Deck boards are handled by DeckClient, never via CalDAV
-                    if (project.is_deck) {
-                        continue;
-                    }
-
-                    projects.add (project);
+                // Deck boards are handled by DeckClient, never via CalDAV
+                if (project.is_deck) {
+                    continue;
                 }
+
+                projects.add (project);
             }
         }
 
@@ -186,11 +166,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
 
         var multi_status = yield propfind (source.caldav_data.calendar_home_url, xml, "1", cancellable);
-
+        var responses = multi_status.responses ();
 
         // Delete CalDAV Generic
         var server_urls = new Gee.HashSet<string> ();
-        foreach (var response in multi_status.responses ()) {
+        foreach (var response in responses) {
             if (response.href != null) {
                 server_urls.add (get_absolute_url (response.href));
             }
@@ -203,66 +183,56 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 continue;
             }
             if (!server_urls.contains (local_project.calendar_url)) {
-                Services.Store.instance ().delete_project (local_project);
+                yield Services.Store.instance ().delete_project (local_project);
             }
         }
 
-        foreach (var response in multi_status.responses ()) {
+        foreach (var response in responses) {
             string? href = response.href;
 
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) {
+            // Nextcloud marks Calendars in the Trash Bin with "deleted-calendar"
+            bool is_deleted = response.get_prop ("resourcetype")?.get_child ("deleted-calendar") != null;
+
+            if (is_deleted) {
+                Services.LogService.get_default ().info ("CalDAV", "Removing project locally marked as deleted on the server");
+                Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
+                if (project != null) {
+                    yield Services.Store.instance ().delete_project (project);
+                }
+
+                continue;
+            }
+
+            if (is_vtodo_calendar (response) && href != null && response.get_prop ("displayname") != null) {
+                var project_url = get_absolute_url (href);
+
+                // Deck boards are always handled by DeckClient, skip in CalDAV
+                if ("deck--board" in project_url.down ()) {
+                    Objects.Project ? deck_project = Services.Store.instance ().get_project_via_url (project_url);
+                    if (deck_project != null) {
+                        yield Services.Store.instance ().delete_project (deck_project);
+                    }
                     continue;
                 }
 
-                var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
-                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
+                Objects.Project ? project = Services.Store.instance ().get_project_via_url (project_url);
 
-                if (is_deleted_calendar (resourcetype)) {
-                    Services.LogService.get_default ().info ("CalDAV", "Removing deleted calendar from server");
-                    Objects.Project ? project = Services.Store.instance ().get_project_via_url (get_absolute_url (href));
-                    if (project != null) {
-                        Services.Store.instance ().delete_project (project);
-                    }
+                if (project == null) {
+                    Services.LogService.get_default ().info ("CalDAV", "Discovered new project, fetching items");
+                    project = new Objects.Project.from_response (response, project_url);
+                    project.source_id = source.id;
 
-                    continue;
-                }
-
-                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
-                    var name = propstat.get_first_prop_with_tagname ("displayname");
-
-                    if (href != null && name != null) {
-                        var project_url = get_absolute_url (href);
-
-                        // Deck boards are always handled by DeckClient, skip in CalDAV
-                        if ("deck--board" in project_url.down ()) {
-                            Objects.Project ? deck_project = Services.Store.instance ().get_project_via_url (project_url);
-                            if (deck_project != null) {
-                                Services.Store.instance ().delete_project (deck_project);
-                            }
-                            continue;
-                        }
-
-                        Objects.Project ? project = Services.Store.instance ().get_project_via_url (project_url);
-
-                        if (project == null) {
-                            Services.LogService.get_default ().info ("CalDAV", "Discovered new project, fetching items");
-                            project = new Objects.Project.from_propstat (propstat, project_url);
-                            project.source_id = source.id;
-
-                            Services.Store.instance ().insert_project (project);
-                            yield fetch_items_for_project (project, cancellable);
-                        } else {
-                            project.update_from_propstat (propstat, false);
-                            Services.Store.instance ().update_project (project);
-                        }
-                    }
+                    Services.Store.instance ().insert_project (project);
+                    yield fetch_items_for_project (project, cancellable);
+                } else {
+                    project.update_from_response (response, false);
+                    Services.Store.instance ().update_project (project);
                 }
             }
         }
     }
 
-    public async void fetch_project_details (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+    private async void fetch_project_details (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         Services.LogService.get_default ().debug ("CalDAV", "Fetching project details");
         var xml = """<?xml version='1.0' encoding='utf-8'?>
                     <d:propfind xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:cal="urn:ietf:params:xml:ns:caldav">
@@ -279,20 +249,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var multi_status = yield propfind (project.calendar_url, xml, "1", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) {
-                    continue;
-                }
-
-                var resourcetype = propstat.get_first_prop_with_tagname ("resourcetype");
-                var supported_calendar = propstat.get_first_prop_with_tagname ("supported-calendar-component-set");
-            
-                if (is_vtodo_calendar (resourcetype, supported_calendar)) {
-                    project.update_from_propstat (propstat, false);
-                    Services.Store.instance ().update_project (project);
-                    return;
-                }
+            if (is_vtodo_calendar (response)) {
+                project.update_from_response (response, false);
+                Services.Store.instance ().update_project (project);
+                return;
             }
         }
     }
@@ -348,53 +308,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             var response = responses[index];
             string? href = response.href;
 
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) {
-                    continue;
-                }
-
-                var calendar_data = propstat.get_first_prop_with_tagname ("calendar-data");
-                if (calendar_data == null) {
-                    Services.LogService.get_default ().warn ("CalDAV", "calendar_data is null");
-                    continue;
-                }
-
-                string vtodo_content = calendar_data.text_content;
-
-                if (vtodo_content == null) {
-                    Services.LogService.get_default ().debug ("CalDAV", "calendar_data.text_content is null, checking if data is within CDATA");
-
-                    string temp_vtodo = calendar_data.write_string (cancellable);
-
-                    int cdata_start = temp_vtodo.index_of ("<![CDATA[");
-                    if (cdata_start == -1) {
-                        Services.LogService.get_default ().warn ("CalDAV", "No CDATA start marker found in: %s".printf (temp_vtodo));
-                        continue;
-                    }
-
-                    int cdata_end = temp_vtodo.index_of ("]]>", cdata_start);
-                    if (cdata_end == -1) {
-                        Services.LogService.get_default ().warn ("CalDAV", "No CDATA end marker found in: %s".printf (temp_vtodo));
-                        continue;
-                    }
-
-                    int content_start = cdata_start + 9;
-                    int content_length = cdata_end - content_start;
-                    if (content_start < 0 || content_length < 0 || content_start + content_length > temp_vtodo.length) {
-                        Services.LogService.get_default ().warn ("CalDAV", "Invalid CDATA indices: start=%d, length=%d, string_length=%d".printf (content_start, content_length, temp_vtodo.length));
-                        continue;
-                    }
-
-                    vtodo_content = temp_vtodo.substring (content_start, content_length).strip ();
-                    Services.LogService.get_default ().debug ("CalDAV", "Extracted vtodo_content from CDATA: %s".printf (vtodo_content));
-                }
-
-
-                var getetag = propstat.get_first_prop_with_tagname ("getetag");
-                string etag = getetag != null ? getetag.text_content.strip () : "";
-
-                var resource_url = get_absolute_url (href);
-                upsert_vtodo_content (project, resource_url, etag, vtodo_content, items_list);
+            var calendar_data = response.get_prop ("calendar-data");
+            if (calendar_data != null) {
+                string etag = response.get_prop ("getetag")?.get_text () ?? "";
+                upsert_vtodo_content (project, get_absolute_url (href), etag, calendar_data.text_content, items_list);
+            } else {
+                Services.LogService.get_default ().warn ("CalDAV", "calendar_data is null");
             }
 
             if (progress_callback != null && index % 10 == 0) {
@@ -486,39 +405,34 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 continue;
             }
 
-            foreach (WebDAVPropStat propstat in response.propstats ()) {
-                if (propstat.status == Soup.Status.NOT_FOUND) {
-                    Objects.Item ? item = Services.Store.instance ().get_item_by_ical_url (url);
-                    if (item != null) {
-                        Services.Store.instance ().delete_item (item);
-                    }
-                } else {
-                    bool has_component_parameter = false;
-                    bool is_vtodo = false;
+            if (response.status != Soup.Status.NONE) {
+                Services.LogService.get_default ().warn ("CalDAV", "Skipping %s with status %u".printf (url, response.status));
+                continue;
+            }
 
-                    var getcontenttype = propstat.get_first_prop_with_tagname ("getcontenttype");
-                    if (getcontenttype != null) {
-                        has_component_parameter = getcontenttype.text_content.down ().contains ("component");
-                        is_vtodo = getcontenttype.text_content.down ().contains ("vtodo");
-                    }
+            bool has_component_parameter = false;
+            bool is_vtodo = false;
 
-                    if (!has_component_parameter) {
-                        Services.LogService.get_default ().debug ("CalDAV", "No 'component' parameter present in getcontenttype.");
-                        // See https://datatracker.ietf.org/doc/html/rfc5545#section-8.1 -> The component parameter is optional. If it is not present, the iCal data must always be fetched and parsed.
-                    }
+            var getcontenttype = response.get_prop ("getcontenttype");
+            if (getcontenttype != null) {
+                has_component_parameter = getcontenttype.text_content.down ().contains ("component");
+                is_vtodo = getcontenttype.text_content.down ().contains ("vtodo");
+            }
 
-                    if (!has_component_parameter || is_vtodo) {
-                        var getetag = propstat.get_first_prop_with_tagname ("getetag");
-                        string etag = getetag != null ? getetag.text_content.strip () : "";
+            if (!has_component_parameter) {
+                Services.LogService.get_default ().debug ("CalDAV", "No 'component' parameter present in getcontenttype.");
+                // See https://datatracker.ietf.org/doc/html/rfc5545#section-8.1 -> The component parameter is optional. If it is not present, the iCal data must always be fetched and parsed.
+            }
 
-                        string vtodo_content = yield get_vtodo_by_url (url, cancellable);
-                        upsert_vtodo_content (project, url, etag, vtodo_content);
-                    }
-                }
+            if (!has_component_parameter || is_vtodo) {
+                string etag = response.get_prop ("getetag")?.get_text () ?? "";
+
+                var fetched = yield get_vtodo_by_url (url, cancellable);
+                upsert_vtodo_content (project, url, etag, fetched.data);
             }
         }
 
-        var sync_token = multi_status.get_first_text_content_by_tag_name ("sync-token");
+        var sync_token = multi_status.root.get_child ("sync-token")?.get_text ();
         if (sync_token != null && sync_token != project.sync_id) {
             project.sync_id = sync_token;
             project.update_local ();
@@ -614,7 +528,6 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         Objects.Section ? section = Services.Store.instance ().get_section (uid);
 
         if (section != null) {
-            string old_name = section.name;
             section.patch_from_vtodo (vtodo_content, url);
             section.extra_data = Util.generate_extra_data (url, etag, vtodo_content);
             section.project_id = project.id;
@@ -653,13 +566,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         // Build server map: url → etag
         var server_map = new Gee.HashMap<string, string> ();
         foreach (var response in multi_status.responses ()) {
-            if (response.href == null) continue;
-            string url = get_absolute_url (response.href);
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
-                var getetag = propstat.get_first_prop_with_tagname ("getetag");
-                server_map[url] = getetag != null ? getetag.text_content.strip () : "";
-            }
+            if (response.href == null || response.status != Soup.Status.NONE) continue;
+            server_map[get_absolute_url (response.href)] = response.get_prop ("getetag")?.get_text () ?? "";
         }
 
         Services.LogService.get_default ().debug ("CalDAV", "Project has %d items".printf (server_map.size));
@@ -700,8 +608,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     continue;
                 }
 
-                string vtodo_content = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, server_etag, vtodo_content);
+                var fetched = yield get_vtodo_by_url (url, cancellable);
+                upsert_vtodo_content (project, url, server_etag, fetched.data);
             }
         } finally {
             project.freeze_update = false;
@@ -710,7 +618,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
     }
 
-    private async string? get_vtodo_by_url (string url, GLib.Cancellable cancellable) throws GLib.Error {
+    private async HttpResponse get_vtodo_by_url (string url, GLib.Cancellable cancellable) throws GLib.Error {
         return yield send_request ("GET", url, "", null, null, cancellable, { Soup.Status.OK });
     }
 
@@ -727,14 +635,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var multi_status = yield propfind (project.calendar_url, xml, "1", cancellable);
 
         foreach (var response in multi_status.responses ()) {
-            foreach (var propstat in response.propstats ()) {
-                if (propstat.status != Soup.Status.OK) continue;
-
-                var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
-                if (sync_token != null) {
-                    project.sync_id = sync_token.text_content;
-                    project.update_local ();
-                }
+            var sync_token = response.get_prop ("sync-token");
+            if (sync_token != null) {
+                project.sync_id = sync_token.text_content;
+                project.update_local ();
             }
         }
     }
@@ -862,8 +766,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 headers = new HashTable<string, string> (str_hash, str_equal);
                 headers.insert ("If-Match", item.etag);
             }
-            yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
-            item.extra_data = Util.generate_extra_data (url, last_response_etag ?? "", body);
+            var result = yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
+            item.extra_data = Util.generate_extra_data (url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
             if ("HTTP 412" in e.message) {
@@ -892,26 +796,25 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 headers = new HashTable<string, string> (str_hash, str_equal);
                 headers.insert ("If-Match", item.etag);
             }
-            yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }, headers);
-            item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
+            var result = yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }, headers);
+            item.extra_data = Util.generate_extra_data (item.ical_url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
             if ("HTTP 412" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict on complete (412), re-fetching ETag and retrying");
                 try {
                     var retry_cancellable = new GLib.Cancellable ();
-                    string vtodo_content = yield get_vtodo_by_url (item.ical_url, retry_cancellable);
-                    // Extract fresh ETag via HEAD or from last GET response
-                    string fresh_etag = last_response_etag ?? "";
-                    item.extra_data = Util.generate_extra_data (item.ical_url, fresh_etag, vtodo_content);
+                    var fetched = yield get_vtodo_by_url (item.ical_url, retry_cancellable);
+                    string fresh_etag = fetched.etag ?? "";
+                    item.extra_data = Util.generate_extra_data (item.ical_url, fresh_etag, fetched.data);
 
                     HashTable<string, string>? retry_headers = null;
                     if (fresh_etag != "") {
                         retry_headers = new HashTable<string, string> (str_hash, str_equal);
                         retry_headers.insert ("If-Match", fresh_etag);
                     }
-                    yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }, retry_headers);
-                    item.extra_data = Util.generate_extra_data (item.ical_url, last_response_etag ?? "", body);
+                    var retry_result = yield send_request ("PUT", item.ical_url, "text/calendar", body, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }, retry_headers);
+                    item.extra_data = Util.generate_extra_data (item.ical_url, retry_result.etag ?? "", body);
                     response.status = true;
                 } catch (Error retry_error) {
                     Services.LogService.get_default ().error ("CalDAV", "Retry complete failed: %s".printf (retry_error.message));
@@ -961,8 +864,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var body = item.to_vtodo ();
 
         try {
-            yield send_request ("PUT", destination, "text/calendar", body, null, null, { Soup.Status.CREATED, Soup.Status.NO_CONTENT });
-            item.extra_data = Util.generate_extra_data (destination, last_response_etag ?? "", body);
+            var result = yield send_request ("PUT", destination, "text/calendar", body, null, null, { Soup.Status.CREATED, Soup.Status.NO_CONTENT });
+            item.extra_data = Util.generate_extra_data (destination, result.etag ?? "", body);
 
             yield send_request ("DELETE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
 
@@ -1013,8 +916,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 headers = new HashTable<string, string> (str_hash, str_equal);
                 headers.insert ("If-Match", section.etag);
             }
-            yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
-            section.extra_data = Util.generate_extra_data (url, last_response_etag ?? "", body);
+            var result = yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
+            section.extra_data = Util.generate_extra_data (url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV", "Failed to %s section: %s".printf (update ? "update" : "add", e.message));
@@ -1048,33 +951,22 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
 
-    private bool is_vtodo_calendar (GXml.DomElement? resourcetype, GXml.DomElement? supported_calendar) {
-        if (resourcetype == null) {
+    private bool is_vtodo_calendar (WebDAVResponse response) {
+        if (response.get_prop ("resourcetype")?.get_child ("calendar") == null) {
             return false;
         }
 
-        bool is_calendar = resourcetype.get_elements_by_tag_name ("calendar").length > 0;
-        if (!is_calendar) {
+        var calendar_comps = response.get_prop ("supported-calendar-component-set")?.get_children ("comp");
+        if (calendar_comps == null) {
             return false;
         }
 
-        if (supported_calendar != null) {
-            var calendar_comps = supported_calendar.get_elements_by_tag_name ("comp");
-            foreach (GXml.DomElement calendar_comp in calendar_comps) {
-                if (calendar_comp.get_attribute ("name") == "VTODO") {
-                    return true;
-                }
+        foreach (var calendar_comp in calendar_comps) {
+            if (calendar_comp.get_attribute ("name") == "VTODO") {
+                return true;
             }
         }
 
         return false;
-    }
-
-    public bool is_deleted_calendar (GXml.DomElement? resourcetype) {
-        if (resourcetype == null) {
-            return false;
-        }
-
-        return resourcetype.get_elements_by_tag_name ("deleted-calendar").length > 0;
     }
 }
