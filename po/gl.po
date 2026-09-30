@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-29 11:51+0000\n"
+"PO-Revision-Date: 2026-09-30 13:51+0000\n"
 "Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/gl/>\n"
@@ -98,7 +98,6 @@ msgstr "Nextcloud"
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
-#, fuzzy
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -270,7 +269,7 @@ msgstr "ningunha"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "Repetindo"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
@@ -278,11 +277,11 @@ msgstr ""
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "programadas"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "vindeiras"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
@@ -1006,13 +1005,15 @@ msgstr "Axuste a configuración"
 
 #: core/Utils/Util.vala:672
 msgid "Show your calendar events"
-msgstr ""
+msgstr "Mostrar enventos do calendario"
 
 #: core/Utils/Util.vala:673
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
+"Mode mostrar os eventos do calendario do sistema no Planify. Vaia a «"
+"Preferencias» 🡒 Xeral 🡒 Eventos do calendario par aactivalo."
 
 #: core/Utils/Util.vala:679
 msgid "Enable synchronization with third-party services"
@@ -1064,6 +1065,8 @@ msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
+"Reciba notificacións sobre tarefas ou eventos importantes. Toque o botón do "
+"reloxio de abaixo para engadir un recordatorio."
 
 #: core/Utils/Util.vala:722
 msgid "💼️Work"
@@ -1387,6 +1390,8 @@ msgid ""
 "Calculate the next occurrence from the day you complete the task instead of "
 "its due date"
 msgstr ""
+"Calcular a seguinte aparición desde o día no que se complete a tarefa no "
+"canto da data límite"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
@@ -1704,6 +1709,9 @@ msgid ""
 "Turn your tasks into calendar events automatically. Any task with a date "
 "will appear in your calendar, making it easier to plan your day."
 msgstr ""
+"Converta as tarefas en eventos do calendario automaticamente. Calquera "
+"tarefa cunha data aparecerá no calendario facilitando así a planificación "
+"diaria."
 
 #: src/Dialogs/CalendarSync.vala:53
 msgid ""
@@ -1754,6 +1762,8 @@ msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
+"As súas tarefas están actualmente sincronizadas co seu calendario. Calquera "
+"tarefa cunha data aparece automaticamente como evento do calendario."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
