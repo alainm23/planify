@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-30 13:51+0000\n"
+"PO-Revision-Date: 2026-10-01 18:51+0000\n"
 "Last-Translator: Xosé Calvo <xosecalvo@gmail.com>\n"
 "Language-Team: Galician <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/gl/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -155,7 +155,7 @@ msgstr "Programada"
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1241 src/Layouts/ItemRow.vala:1256
 msgid "Pin"
-msgstr "Fixado"
+msgstr "Prender"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57
@@ -1066,7 +1066,7 @@ msgid ""
 "add a reminder."
 msgstr ""
 "Reciba notificacións sobre tarefas ou eventos importantes. Toque o botón do "
-"reloxio de abaixo para engadir un recordatorio."
+"reloxo de abaixo para engadir un recordatorio."
 
 #: core/Utils/Util.vala:722
 msgid "💼️Work"
@@ -1783,6 +1783,8 @@ msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
+"As súas tarefas están agora sincronizadas co seu calendario. As tarefas con "
+"data aparecen automaticamente como eventos de calendario."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
@@ -2390,15 +2392,15 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Calendar Events"
-msgstr ""
+msgstr "Eventos do calendario"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr ""
+msgstr "Mostrar eventos do calendario"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr ""
+msgstr "Mostrar eventos dos seus calendarios no Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
@@ -2425,121 +2427,123 @@ msgstr "Patreon"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:74
 msgid "Monthly recurring support"
-msgstr ""
+msgstr "Achegas mensuais"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:87
 msgid "PayPal"
-msgstr ""
+msgstr "PayPal"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:88
 msgid "One-time donation"
-msgstr ""
+msgstr "Doazón única"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:101
 msgid "Liberapay"
-msgstr ""
+msgstr "Liberapay"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:102
 msgid "Weekly recurring donations"
-msgstr ""
+msgstr "Doazóns semanais"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:115
 msgid "Ko-fi"
-msgstr ""
+msgstr "Ko-fi"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:116
 msgid "Buy me a coffee ☕"
-msgstr ""
+msgstr "Págueme un café ☕"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:127
 msgid "Choose Your Preferred Platform"
-msgstr ""
+msgstr "Escolla a súa plataforma preferida"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:141
 msgid "Thank you for your support! 🙏"
-msgstr ""
+msgstr "Grazas polo seu apoio! 🙏"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:148
 msgid "Your contribution helps keep Planify alive and growing."
-msgstr ""
+msgstr "A súa contribución axuda a manter o Planify vivo e a crecer."
 
 #: src/Dialogs/Preferences/Pages/General.vala:26
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:36
 #: src/Dialogs/Preferences/PreferencesWindow.vala:79
 msgid "General"
-msgstr ""
+msgstr "Xeral"
 
 #: src/Dialogs/Preferences/Pages/General.vala:36
 msgid "Custom Sort Order"
-msgstr ""
+msgstr "Ordenación personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:923
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:842
 msgid "Alphabetically"
-msgstr ""
+msgstr "Alfabeticamente"
 
 #: src/Dialogs/Preferences/Pages/General.vala:40
 msgid "Sort by"
-msgstr ""
+msgstr "Ordenar por"
 
 #: src/Dialogs/Preferences/Pages/General.vala:45
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendente"
 
 #: src/Dialogs/Preferences/Pages/General.vala:46
 msgid "Descending"
-msgstr ""
+msgstr "Descendente"
 
 #: src/Dialogs/Preferences/Pages/General.vala:49
 msgid "Ordered"
-msgstr ""
+msgstr "Ordenado"
 
 #: src/Dialogs/Preferences/Pages/General.vala:60
 msgid "DE Integration"
-msgstr ""
+msgstr "Integración co escritorio"
 
 #: src/Dialogs/Preferences/Pages/General.vala:69
 msgid "Run on Startup"
-msgstr ""
+msgstr "Executar ao iniciar"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Iniciar o Planify automaticamente ao iniciar o computador"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
-msgstr ""
+msgstr "Executar en segundo plano"
 
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
-msgstr ""
+msgstr "Manter o Planify en execución na bandexa do sistema ao pechar a xanela"
 
 #: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "Busca do Shell de GNOME"
 
 #: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Busque tarefas e proxectos directamente do Shell de GNOME. Actíveo en "
+"Configuración → Busca"
 
 #: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
-msgstr ""
+msgstr "Data e hora"
 
 #: src/Dialogs/Preferences/Pages/General.vala:100
 msgid "24h"
-msgstr ""
+msgstr "24h"
 
 #: src/Dialogs/Preferences/Pages/General.vala:101
 msgid "12h"
-msgstr ""
+msgstr "12h"
 
 #: src/Dialogs/Preferences/Pages/General.vala:104
 msgid "Clock Format"
-msgstr ""
+msgstr "Formato do reloxo"
 
 #: src/Dialogs/Preferences/Pages/General.vala:120
 msgid "Start of the Week"
@@ -2556,7 +2560,7 @@ msgstr "Detecta automaticamente datas como «mañá» ou «próxima semana»"
 #: src/Dialogs/Preferences/Pages/HomeView.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:64
 msgid "Home View"
-msgstr ""
+msgstr "Páxina inicial"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:136
@@ -2678,7 +2682,7 @@ msgstr "Riscas tarefas concluídas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr ""
+msgstr "Comezar"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
@@ -3093,11 +3097,11 @@ msgstr "Substituír a configuración de «markdown» global para este proxecto"
 
 #: src/Dialogs/Project.vala:264
 msgid "Create as Deck Board"
-msgstr ""
+msgstr "Crear como taboleiro de panel"
 
 #: src/Dialogs/Project.vala:265
 msgid "Create a Nextcloud Deck board instead of a task list"
-msgstr ""
+msgstr "Crear un panel de Nextcloud no canto dunha lista de tarefas"
 
 #: src/Dialogs/Project.vala:576
 msgid "Project added successfully!"
@@ -3156,7 +3160,7 @@ msgstr "Abrir/Pechar barra lateral"
 #: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1241
 #: src/Layouts/ItemRow.vala:1256
 msgid "Unpin"
-msgstr ""
+msgstr "Desprender"
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
 #, c-format
@@ -3804,29 +3808,29 @@ msgstr "Copiar mensaxe de erro"
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Para máis detalles comparte o seu ficheiro de rexistro: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
-msgstr ""
+msgstr "Informar dun problema"
 
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
-msgstr ""
+msgstr "Requírese migrar a conta."
 
 #: src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dentro de %d minuto"
+msgstr[1] "Dentro de %d minutos"
 
 #: src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Dentro de %d hora"
+msgstr[1] "Dentro de %d horas"
 
 #: src/Widgets/EventRow.vala:252
 msgid "Happening now"
@@ -3838,45 +3842,47 @@ msgstr ""
 
 #: src/Widgets/EventRow.vala:300
 msgid "Organizer"
-msgstr ""
+msgstr "Organizador/a"
 
 #: src/Widgets/EventRow.vala:314
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:324
 msgid "Calendar"
-msgstr ""
+msgstr "Calendario"
 
 #: src/Widgets/EventRow.vala:419
 msgid "Join"
-msgstr ""
+msgstr "Xuntar"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Desactivar validación do certificado de SSL"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "Non se recomenda - expón a riscos de seguranza"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
 "This will disable SSL validation and exposes you to attacks.\n"
 "Proceed at your own risk"
 msgstr ""
+"Isto desactiva a validación de SSL e expón o sistema a ataques.\n"
+"Proceda pola súa conta e risco"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task uncompleted"
-msgstr ""
+msgstr "Tarefa non concluída"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:52
 msgid "Task moved to project"
-msgstr ""
+msgstr "Tarefa movida a proxecto"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Proxecto descoñecido"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
@@ -3913,17 +3919,17 @@ msgstr "Sen etiquetas"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "Non prendido"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
 msgid "Pin: Active"
-msgstr ""
+msgstr "Prender: Activo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
 msgid "Pin: Inactive"
-msgstr ""
+msgstr "Desprender: Inactivo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
@@ -4132,7 +4138,7 @@ msgstr "Navegar"
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr ""
+msgstr "Abrir páxina inicial"
 
 #: data/resources/ui/shortcuts.ui:101
 msgctxt "shortcut window"
