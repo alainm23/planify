@@ -961,10 +961,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         var body = item.to_vtodo ();
 
         try {
+            string source_url = item.ical_url;
             yield send_request ("PUT", destination, "text/calendar", body, null, null, { Soup.Status.CREATED, Soup.Status.NO_CONTENT });
             item.extra_data = Util.generate_extra_data (destination, last_response_etag ?? "", body);
 
-            yield send_request ("DELETE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
+            yield send_request ("DELETE", source_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.OK });
 
             response.status = true;
         } catch (Error e) {
