@@ -615,10 +615,9 @@ public class Views.Filter : Adw.Bin {
         } else if (filter is Objects.Filters.Unlabeled) {
             should_add = item.labels.size <= 0;
         } else if (filter is Objects.Filters.AllItems) {
-            // Unchecked only, matching what add_items () loads. A newly added item is never
-            // checked, but this path is also reached from valid_update_item (), where the item may
-            // be a completed one whose content changed.
-            should_add = !item.checked;
+            // Matches what add_items () loads. This path is also reached from
+            // valid_update_item (), where the item may be completed, or a subtask.
+            should_add = Objects.Filters.AllItems.includes (item);
         }
 
         if (should_add && item_matches_filters (item)) {
@@ -715,7 +714,8 @@ public class Views.Filter : Adw.Bin {
             // move an item into or out of the list: an item added before it matched arrives here
             // still absent, and one that no longer matches has to go. The view is kept alive in
             // MainWindow's stack between visits, so this signal is the only thing that reaches it.
-            if (items.has_key (item.id) && !item_matches_filters (item)) {
+            // A top-level task that gained a parent is now shown inside that parent's row.
+            if (items.has_key (item.id) && (item.has_parent || !item_matches_filters (item))) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
                 items_list.remove (item);
