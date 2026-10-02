@@ -337,7 +337,7 @@ msgstr ""
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
+#: core/Objects/Item.vala:1998 core/Utils/Util.vala:869
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"
@@ -407,7 +407,7 @@ msgid "This will archive %s and all its tasks."
 msgstr "Điều này sẽ lưu trữ %s và tất cả nhiệm vụ của nó."
 
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:477
-#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
+#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Lưu Trữ"
@@ -3016,7 +3016,7 @@ msgstr ""
 msgid "New Project"
 msgstr "Dự Án Mới"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
+#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
 #: src/Views/Project/Project.vala:387
 msgid "Edit Project"
 msgstr "Chỉnh Sửa Dự Án"
@@ -3133,7 +3133,7 @@ msgstr "Chỉnh Sửa"
 
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1267
 #: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Tạo Bản Sao"
@@ -3232,40 +3232,40 @@ msgstr "Xóa Nhãn"
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Sắp xếp dự án đã thay đổi thành 'Thứ tự sắp xếp tùy chỉnh'"
 
-#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Remove From Favorites"
 msgstr "Xóa Khỏi Mục Ưa Thích"
 
-#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Add to Favorites"
 msgstr "Thêm Vào Mục Ưa Thích"
 
-#: src/Layouts/ProjectRow.vala:702
+#: src/Layouts/ProjectRow.vala:711
 msgid "Refresh"
 msgstr "Làm Mới"
 
-#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
+#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
 msgstr "Xóa Dự Án"
 
-#: src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:717
 msgid "Share"
 msgstr "Chia Sẻ"
 
-#: src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:718
 msgid "Send by E-Mail"
 msgstr "Gửi qua Email"
 
-#: src/Layouts/ProjectRow.vala:710
+#: src/Layouts/ProjectRow.vala:719
 msgid "Export as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:785
+#: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Mở"
 
