@@ -385,7 +385,7 @@ msgstr "Задача успешно экспортирована"
 #: core/Objects/Item.vala:1884 core/Objects/Item.vala:1885
 #: core/Objects/Item.vala:1951 core/Objects/Item.vala:1953
 #: core/Objects/Item.vala:1976 core/Objects/Item.vala:1992
-#: core/Utils/Util.vala:869
+#: core/Utils/Util.vala:869 core/Objects/Item.vala:1998
 #, c-format
 msgid "Moved to %s"
 msgstr "Перемещено в %s"
@@ -470,7 +470,7 @@ msgstr "Это действие заархивирует %s и все его з�
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:673 src/Views/Project/Project.vala:399
 #: src/Layouts/SectionRow.vala:678 src/Layouts/SectionRow.vala:702
-#: src/Layouts/SectionRow.vala:706
+#: src/Layouts/SectionRow.vala:706 src/Layouts/ProjectRow.vala:713
 msgid "Archive"
 msgstr "Архивировать"
 
@@ -3274,7 +3274,7 @@ msgid "New Project"
 msgstr "Новый проект"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
-#: src/Views/Project/Project.vala:387
+#: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
 msgid "Edit Project"
 msgstr "Изменить проект"
 
@@ -3410,7 +3410,7 @@ msgstr "Изменить"
 #: src/Layouts/SectionRow.vala:670 src/Views/Project/Project.vala:388
 #: src/Layouts/SectionRow.vala:675 src/Layouts/SectionRow.vala:699
 #: src/Layouts/ItemRow.vala:1267 src/Layouts/ItemRow.vala:1401
-#: src/Layouts/SectionRow.vala:703
+#: src/Layouts/SectionRow.vala:703 src/Layouts/ProjectRow.vala:710
 msgid "Duplicate"
 msgstr "Дублировать"
 
@@ -3517,35 +3517,37 @@ msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Сортировка проектов изменена на сортировку «Вручную»"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Remove From Favorites"
 msgstr "Удалить из избранного"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Add to Favorites"
 msgstr "Добавить в избранное"
 
-#: src/Layouts/ProjectRow.vala:702
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:711
 msgid "Refresh"
 msgstr "Обновить"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
-#: src/Widgets/ProjectItemRow.vala:154
+#: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
 msgid "Delete Project"
 msgstr "Удалить проект"
 
-#: src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
 msgid "Share"
 msgstr "Поделиться"
 
-#: src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
 msgid "Send by E-Mail"
 msgstr "Отправить по E-Mail"
 
-#: src/Layouts/ProjectRow.vala:710
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
 msgid "Export as PDF"
 msgstr "Экспортировать как PDF"
 
-#: src/Layouts/ProjectRow.vala:785
+#: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
 msgstr ""
 
@@ -4014,6 +4016,7 @@ msgid "Attachments"
 msgstr "Вложения"
 
 #: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
+#: src/Layouts/ProjectRow.vala:796
 msgid "Open"
 msgstr "Открыть"
 

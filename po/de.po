@@ -343,7 +343,7 @@ msgstr "iCalendar-Dateien"
 msgid "Task exported successfully"
 msgstr "Aufgabe erfolgreich exportiert"
 
-#: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
+#: core/Objects/Item.vala:1998 core/Utils/Util.vala:869
 #, c-format
 msgid "Moved to %s"
 msgstr "Verschoben nach: %s"
@@ -416,7 +416,7 @@ msgid "This will archive %s and all its tasks."
 msgstr "Dies wird %s und alle seine Aufgaben archivieren."
 
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:477
-#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
+#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Archivieren"
@@ -3094,7 +3094,7 @@ msgstr "Fortschritt"
 msgid "New Project"
 msgstr "Neues Projekt"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
+#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
 #: src/Views/Project/Project.vala:387
 msgid "Edit Project"
 msgstr "Projekt bearbeiten"
@@ -3214,7 +3214,7 @@ msgstr "Bearbeiten"
 
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1267
 #: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Duplizieren"
@@ -3315,40 +3315,40 @@ msgid "Projects sort changed to 'Custom sort order'"
 msgstr ""
 "Projektsortierung wurde in 'Benutzerdefinierte Sortierreihenfolge' geändert"
 
-#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Remove From Favorites"
 msgstr "Aus Favoriten entfernen"
 
-#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Add to Favorites"
 msgstr "Zu Favoriten hinzufügen"
 
-#: src/Layouts/ProjectRow.vala:702
+#: src/Layouts/ProjectRow.vala:711
 msgid "Refresh"
 msgstr "Neu laden"
 
-#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
+#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
 msgstr "Projekt löschen"
 
-#: src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:717
 msgid "Share"
 msgstr "Teilen"
 
-#: src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:718
 msgid "Send by E-Mail"
 msgstr "Per E-Mail senden"
 
-#: src/Layouts/ProjectRow.vala:710
+#: src/Layouts/ProjectRow.vala:719
 msgid "Export as PDF"
 msgstr "Als PDF exportieren"
 
-#: src/Layouts/ProjectRow.vala:785
+#: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
 msgstr "Projekt als PDF exportiert"
 
-#: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
+#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Öffnen"
 

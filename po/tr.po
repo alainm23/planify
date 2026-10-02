@@ -356,6 +356,7 @@ msgstr "Görev başarıyla dışa aktarıldı"
 # c-format
 #: core/Objects/Item.vala:1953 core/Utils/Util.vala:856
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
+#: core/Objects/Item.vala:1998
 #, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"
@@ -436,6 +437,7 @@ msgstr "Bu, %s ve onun tüm görevlerini arşivleyecektir."
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
+#: src/Layouts/ProjectRow.vala:713
 msgid "Archive"
 msgstr "Arşivle"
 
@@ -3171,7 +3173,8 @@ msgstr "Tamamlanan her görev bir adımdır"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr "Üretkenliğinizi takip etmek için günlük ve haftalık hedefler belirleyin"
+msgstr ""
+"Üretkenliğinizi takip etmek için günlük ve haftalık hedefler belirleyin"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
 msgid "Set Up Goals"
@@ -3207,7 +3210,7 @@ msgid "New Project"
 msgstr "Yeni Proje"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
-#: src/Views/Project/Project.vala:387
+#: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
 msgid "Edit Project"
 msgstr "Projeyi Düzenle"
 
@@ -3329,6 +3332,7 @@ msgstr "Düzenle"
 #: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
+#: src/Layouts/ProjectRow.vala:710
 msgid "Duplicate"
 msgstr "Çoğalt"
 
@@ -3428,10 +3432,12 @@ msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Proje sırası, 'Özel Sıralama Düzeni' olarak değiştirildi"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Remove From Favorites"
 msgstr "Gözdelerden Kaldır"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Add to Favorites"
 msgstr "Gözdelere Ekle"
 
@@ -3440,23 +3446,23 @@ msgid "Refresh"
 msgstr "Yenile"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
-#: src/Widgets/ProjectItemRow.vala:154
+#: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
 msgid "Delete Project"
 msgstr "Projeyi Sil"
 
-#: src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
 msgid "Share"
 msgstr "Paylaş"
 
-#: src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
 msgid "Send by E-Mail"
 msgstr "E-posta İle Gönder"
 
-#: src/Layouts/ProjectRow.vala:710
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
 msgid "Export as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:785
+#: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
 msgstr ""
 
@@ -3501,7 +3507,8 @@ msgstr "Favoriler"
 
 #: src/Layouts/Sidebar.vala:42
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr "Favori bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
+msgstr ""
+"Favori bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
 
 #: src/Layouts/Sidebar.vala:122
 msgid "Add Account"
@@ -3912,6 +3919,7 @@ msgid "Attachments"
 msgstr "Görev Ekle"
 
 #: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
+#: src/Layouts/ProjectRow.vala:796
 msgid "Open"
 msgstr ""
 
