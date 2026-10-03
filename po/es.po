@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-08-30 11:42+0000\n"
-"Last-Translator: Rodrigo Cofre <rampagestate@gmail.com>\n"
+"PO-Revision-Date: 2026-09-30 13:51+0000\n"
+"Last-Translator: Giuliano Lescano <giulescano75@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
 "Language: es\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -682,8 +682,9 @@ msgid "Unknown error"
 msgstr "Error desconocido"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
+#, fuzzy
 msgid "Invalid API token"
-msgstr ""
+msgstr "Token de API inválido"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -737,12 +738,12 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:467
 msgid "Every last day of month"
-msgstr ""
+msgstr "Cada último día del mes"
 
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Cada %d meses (último día)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
@@ -1105,8 +1106,9 @@ msgstr "🏃‍♀️️Seguimiento"
 #: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
 #: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
 #: src/Widgets/MultiSelectToolbar.vala:439
+#, fuzzy
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
-msgstr ""
+msgstr "Aún no es posible mover tareas desde o hacia el tablero Nextcloud Deck"
 
 #: core/Utils/Util.vala:949
 msgid "Task duplicated"
@@ -1326,7 +1328,7 @@ msgstr "Próxima semana"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
-msgstr ""
+msgstr "Guardar"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
 msgid "Daily"
@@ -1360,7 +1362,7 @@ msgstr "Personalizado"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
-msgstr ""
+msgstr "Sin fecha"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
@@ -1394,11 +1396,11 @@ msgstr "Año(s)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:284
 msgid "Last day of month"
-msgstr ""
+msgstr "Último día del mes"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
-msgstr ""
+msgstr "Repetir desde el día completado"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
 msgid ""

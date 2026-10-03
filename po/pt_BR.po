@@ -1,11 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-05-20 16:11+0000\n"
-"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
-"fs@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-10-02 23:09+0000\n"
+"Last-Translator: Fleuquer <fleuquer@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.10\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -740,12 +739,12 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:467
 msgid "Every last day of month"
-msgstr ""
+msgstr "Todo último dia do mês"
 
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "A cada %d meses (último dia)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
@@ -796,16 +795,16 @@ msgstr "%Y"
 
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
-msgstr ""
+msgstr "%a %Y"
 
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
-msgstr ""
+msgstr "%a"
 
 #: core/Utils/Datetime.vala:866
 msgid "%b"
-msgstr ""
+msgstr "%b"
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
@@ -1115,6 +1114,8 @@ msgstr "🏃‍♀️️Acompanhamento"
 #: src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
+"A transferência de tarefas entre quadros do Nextcloud Deck ainda não é "
+"suportada"
 
 #: core/Utils/Util.vala:949
 msgid "Task duplicated"
@@ -1193,7 +1194,7 @@ msgstr "Mês anterior, %s"
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 msgid "%B %Y"
-msgstr ""
+msgstr "%B %Y"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:112
 #, c-format
@@ -1404,17 +1405,19 @@ msgstr "Ano(s)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:284
 msgid "Last day of month"
-msgstr ""
+msgstr "Último dia do mês"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
-msgstr ""
+msgstr "Repita a partir da data de conclusão"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
 msgid ""
 "Calculate the next occurrence from the day you complete the task instead of "
 "its due date"
 msgstr ""
+"Calcule a próxima ocorrência a partir do dia em que você concluir a tarefa, "
+"em vez da data de vencimento"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
@@ -1517,15 +1520,15 @@ msgstr "Qual é a última data para completar esta tarefa?"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "Em 3 dias"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "Em 2 semanas"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "Em um mês"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1591,7 +1594,7 @@ msgstr "Aperte Enter para criar e atribuir"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2033
 msgid "Task description"
-msgstr ""
+msgstr "Descrição da tarefa"
 
 #: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
@@ -1684,11 +1687,11 @@ msgstr "Em 6 horas"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Escolha um momento no futuro"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "Você já tem um lembrete para esse horário"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1937,11 +1940,11 @@ msgstr "Nova Seção"
 
 #: src/Dialogs/ManageSectionOrder.vala:88
 msgid "No Sections"
-msgstr ""
+msgstr "Nenhuma Seção"
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
-msgstr ""
+msgstr "Adicione uma seção para organizar suas tarefas"
 
 #: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
@@ -1959,7 +1962,7 @@ msgstr "Adicionar Fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Task sources you sync with. Drag to reorder."
-msgstr ""
+msgstr "Fontes de tarefas que você sincroniza. Arraste para reordenar."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 #, fuzzy
@@ -1968,11 +1971,11 @@ msgstr "Caixa de Entrada"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 msgid "Detected Accounts"
-msgstr ""
+msgstr "Contas Detectadas"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 msgid "Accounts configured in GNOME Online Accounts"
-msgstr ""
+msgstr "Contas configuradas em Contas do GNOME Online"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #, c-format
@@ -1983,7 +1986,7 @@ msgstr[1] ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
-msgstr ""
+msgstr "Importar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
@@ -2086,6 +2089,9 @@ msgid ""
 "Getting Things Done methodology, it's your capture point for quick ideas and "
 "tasks that you'll organize later"
 msgstr ""
+"Sua caixa de entrada é onde as novas tarefas chegam por padrão. Baseada na "
+"metodologia Getting Things Done de David Allen, ela serve como ponto de "
+"registro para ideias rápidas e tarefas que você organizará posteriormente"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
 msgid "Connect to Nextcloud"
@@ -2109,21 +2115,23 @@ msgstr "Exemplos de URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Nextcloud Deck Detected"
-msgstr ""
+msgstr "Deck do Nextcloud detectado"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
+"O Nextcloud Deck está disponível neste servidor. Deseja ativar a integração "
+"com o Deck para gerenciar seus quadros e cartões diretamente no Planify?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
-msgstr ""
+msgstr "Agora Não"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
-msgstr ""
+msgstr "Habilitar Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181
@@ -2152,15 +2160,15 @@ msgstr "Última Sincronização"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 msgid "Nextcloud Deck"
-msgstr ""
+msgstr "Deck do Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "Sincronize quadros e cartões do Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "O Nextcloud Deck não está disponível neste servidor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
@@ -2181,6 +2189,8 @@ msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
+"Esta fonte contém o seu projeto atual da Caixa de Entrada. Por favor, altere "
+"o seu projeto da Caixa de Entrada primeiro."
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:89
 msgid "Connect to Todoist"
@@ -2216,23 +2226,23 @@ msgstr "Conectar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
-msgstr ""
+msgstr "1. Vá para Todoist → Configurações → Integraçãos → Desenvolvedor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. Copie seu token de API"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
-msgstr ""
+msgstr "3. Cole-o no campo acima"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Como obter seu token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
-msgstr ""
+msgstr "Aguardando o login…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
@@ -2249,7 +2259,7 @@ msgstr "Usar Configurações do Sistema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:68
 msgid "Use System Accent Color"
-msgstr ""
+msgstr "Use a cor de destaque do sistema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:78
 #, fuzzy
@@ -2317,11 +2327,12 @@ msgstr "Cria um backup automaticamente todos os dias, a meia noite"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Backups to Keep"
-msgstr ""
+msgstr "Backups para Manter"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 msgid "Older backups are removed automatically. Zero keeps them all"
 msgstr ""
+"Os backups mais antigos são removidos automaticamente. Zero mantém todos"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
 msgid "Create Backup"
@@ -2341,11 +2352,11 @@ msgstr "Nenhum backup encontrado, crie um clicando no botão acima."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:88
 msgid "Open backup folder"
-msgstr ""
+msgstr "Abrir pasta de backup"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Backup Location"
-msgstr ""
+msgstr "Localização de Backup"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:132
 msgid "Extra Backup Locations"
@@ -2428,11 +2439,11 @@ msgstr "Eventos no Calendário"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr ""
+msgstr "Mostrar Eventos do Calendário"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr ""
+msgstr "Exibir eventos de seus calendários no Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
@@ -2663,7 +2674,7 @@ msgstr "Novos Filtros"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:49
 msgid "Show filters in a simple list instead of a grid"
-msgstr ""
+msgstr "Mostrar filtros em uma lista simples em vez de uma grade"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:62
 msgid "Show in Sidebar"
@@ -2695,7 +2706,7 @@ msgstr "Concluir Tarefa"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
-msgstr ""
+msgstr "Escolha como as tarefas se comportam quando marcadas como completas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:52
 msgid "Priority 1"
@@ -2719,7 +2730,7 @@ msgstr "Mostrar Tarefas Concluídas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:77
 msgid "Start"
-msgstr ""
+msgstr "Começar"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:81
 msgid "New Task Position"
@@ -2731,7 +2742,7 @@ msgstr "Sempre Mostrar Subtarefas Concluídas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Mantenha todas as subtarefas concluídas visíveis sem colapsá-las"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
@@ -2750,14 +2761,18 @@ msgstr "Abrir tarefa na visualização da barra lateral"
 msgid ""
 "Always display task details in the sidebar instead of expanding in list view."
 msgstr ""
+"Sempre exibir detalhes da tarefa na barra lateral em vez de expandir na "
+"exibição de lista."
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:112
 msgid "Single Task Focus Mode"
-msgstr ""
+msgstr "Modo de foco em tarefa única"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:113
 msgid "Allow only one task to be expanded at a time in list view"
 msgstr ""
+"Permitir que apenas uma tarefa seja expandida por vez na visualização em "
+"lista"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
@@ -2783,11 +2798,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
-msgstr ""
+msgstr "Habilitar verificação ortográfica"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:139
 msgid "Check spelling in task descriptions and notes"
-msgstr ""
+msgstr "Verifique a ortografia nas descrições das tarefas e notas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
 #: src/Dialogs/Project.vala:235
@@ -2815,7 +2830,7 @@ msgstr "Sincronize seus provedores de tarefas favoritos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:65
 msgid "Set the view shown at first launch"
-msgstr ""
+msgstr "Defina a visualização exibida na primeira inicialização"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Customize to your liking"
@@ -2827,7 +2842,7 @@ msgstr "Personalize sua barra lateral"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
-msgstr ""
+msgstr "Gerencie quais calendários são exibidos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
@@ -2851,15 +2866,15 @@ msgstr "Quer me pagar uma bebida?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:187
 msgid "Report Issue or Request Feature"
-msgstr ""
+msgstr "Reportar um problema ou solicitar uma funcionalidade"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:188
 msgid "Share bugs or ideas on GitHub"
-msgstr ""
+msgstr "Compartilhe bugs ou ideias no GitHub"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid "Get Involved"
-msgstr ""
+msgstr "Envolva-se"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:224
 msgid "Reach Us"
@@ -2884,7 +2899,7 @@ msgstr "Compartilhe um pouco de amor"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:262
 msgid "Discord"
-msgstr ""
+msgstr "Discord"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Discuss and share your feedback"
@@ -2944,7 +2959,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:57
 msgid "Last 8 weeks"
-msgstr ""
+msgstr "Últimas 8 semanas"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:119
 #, c-format
@@ -2957,38 +2972,38 @@ msgstr[1] ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
 #: src/MainWindow.vala:774
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Resumo e Produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
-msgstr ""
+msgstr "Use tarefas agendadas como meta"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr ""
+msgstr "Use as tarefas agendadas para hoje como sua meta diária"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 #: src/Widgets/ProductivityMiniWidget.vala:31
 msgid "Daily Goal"
-msgstr ""
+msgstr "Meta diária"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Meta semanal"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
-msgstr ""
+msgstr "Objetivos fixos"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
-msgstr ""
+msgstr "Detalhes do resumo"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Um resumo detalhado aparecerá aqui"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
@@ -2997,16 +3012,16 @@ msgstr "Resumo"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
-msgstr ""
+msgstr "Detalhes de produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Estatísticas detalhadas de produtividade aparecerão aqui"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
-msgstr ""
+msgstr "Produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -3022,11 +3037,11 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Todos os objetivos alcançados! Você é imparável"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Meta diária alcançada! Mantenha o ritmo"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
@@ -3038,47 +3053,49 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Quase lá! Só mais algumas tarefas por hoje"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Ótimo ritmo esta semana, você está quase alcançando seu objetivo"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Você já atingiu metade da sua meta diária, ótimo progresso"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Ótima semana até agora, continue assim"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Cada tarefa concluída é um passo em frente"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
+"Defina suas metas diárias e semanais para começar a monitorar sua "
+"produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Defina metas"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "Metas"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
-msgstr ""
+msgstr "Editar Objetivos"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Total"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Pendente"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:159
@@ -3087,7 +3104,7 @@ msgstr "Atrasado"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Progresso"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
 msgid "New Project"
@@ -3116,27 +3133,27 @@ msgstr "Atualizar Projeto"
 
 #: src/Dialogs/Project.vala:234
 msgid "Global Default"
-msgstr ""
+msgstr "Padrão global"
 
 #: src/Dialogs/Project.vala:236
 msgid "Disabled"
-msgstr ""
+msgstr "Desabilitado"
 
 #: src/Dialogs/Project.vala:239
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Formatação Markdown"
 
 #: src/Dialogs/Project.vala:240
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "Substitua a configuração global de Markdown para este projeto"
 
 #: src/Dialogs/Project.vala:264
 msgid "Create as Deck Board"
-msgstr ""
+msgstr "Criar como Deck Board"
 
 #: src/Dialogs/Project.vala:265
 msgid "Create a Nextcloud Deck board instead of a task list"
-msgstr ""
+msgstr "Crie um quadro no Nextcloud Deck em vez de uma lista de tarefas"
 
 #: src/Dialogs/Project.vala:576
 msgid "Project added successfully!"
@@ -3156,8 +3173,8 @@ msgstr "Busca Rápida"
 #, c-format
 msgid "%u result"
 msgid_plural "%u results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "resultado"
+msgstr[1] "resultados"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
@@ -3252,7 +3269,7 @@ msgstr "Mostrar subtarefas"
 
 #: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
 msgid "Pick a Date"
-msgstr ""
+msgstr "Selecione uma data"
 
 #: src/Layouts/ItemRow.vala:1397 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
@@ -3265,7 +3282,7 @@ msgstr "Copiar para Área de Transferência"
 
 #: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:518
 msgid "Export as .ics"
-msgstr ""
+msgstr "Exportar como .ics"
 
 #: src/Layouts/ItemRow.vala:1411 src/Layouts/ItemSidebarView.vala:470
 #, c-format
@@ -3300,7 +3317,7 @@ msgstr "Propriedades"
 
 #: src/Layouts/ItemSidebarView.vala:195
 msgid "Expand Description"
-msgstr ""
+msgstr "Expandir descrição"
 
 #: src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
@@ -3343,7 +3360,7 @@ msgstr "Enviar por E-Mail"
 
 #: src/Layouts/ProjectRow.vala:719
 msgid "Export as PDF"
-msgstr ""
+msgstr "Exportar como PDF"
 
 #: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
@@ -3711,6 +3728,8 @@ msgstr ""
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Exibir apenas os rótulos usados por tarefas em projetos ativos (não "
+"arquivados)"
 
 #: src/Views/Project/Board.vala:76 src/Views/Project/List.vala:83
 msgid "Note"
@@ -3718,11 +3737,11 @@ msgstr "Observação"
 
 #: src/Views/Project/Board.vala:121
 msgid "No Sections Yet"
-msgstr ""
+msgstr "Ainda não há seções"
 
 #: src/Views/Project/Board.vala:122
 msgid "Create a section to start adding tasks to this board"
-msgstr ""
+msgstr "Crie uma seção para começar a adicionar tarefas a este quadro"
 
 #: src/Views/Project/Board.vala:327
 msgid "Schedule"
@@ -3734,7 +3753,7 @@ msgstr "Quando?"
 
 #: src/Views/Project/List.vala:122
 msgid "Add Some Tasks. Press 'a' to create a new task"
-msgstr ""
+msgstr "Adicionar tarefas. Pressione 'a' para criar uma nova tarefa"
 
 #: src/Views/Project/Project.vala:94
 msgid "Project Actions"
@@ -3747,11 +3766,11 @@ msgstr "Mover tarefas"
 
 #: src/Views/Project/Project.vala:357
 msgid "Add a section first to create tasks in this board"
-msgstr ""
+msgstr "Primeiro, adicione uma seção para criar tarefas neste quadro"
 
 #: src/Views/Project/Project.vala:389 src/Views/Project/Project.vala:421
 msgid "Project Deadline"
-msgstr ""
+msgstr "Prazo do projeto"
 
 #: src/Views/Project/Project.vala:394
 msgid "Select"
@@ -3783,11 +3802,11 @@ msgstr "Ordem de classificação personalizada"
 
 #: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
 msgid "Show Completed"
-msgstr ""
+msgstr "Exibir concluídas"
 
 #: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
-msgstr ""
+msgstr "Exibir tarefas concluídas na lista"
 
 #: src/Views/Project/Project.vala:620
 #, fuzzy
