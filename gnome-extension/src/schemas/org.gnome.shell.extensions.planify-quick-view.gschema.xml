@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.planify-quick-view"
+          path="/org/gnome/shell/extensions/planify-quick-view/">
+    <key name="database-path" type="s">
+      <default>""</default>
+      <summary>Planify database path override</summary>
+      <description>Path to Planify's database.db. When empty, the extension probes the standard native (~/.local/share/io.github.alainm23.planify/) and Flatpak (~/.var/app/...) locations. Useful for testing.</description>
+    </key>
+    <key name="max-rows" type="i">
+      <default>12</default>
+      <summary>Maximum rows shown</summary>
+      <description>Maximum number of task rows rendered in the popup before it scrolls.</description>
+      <range min="3" max="50"/>
+    </key>
+    <key name="animation-duration" type="i">
+      <default>0</default>
+      <summary>Popup open animation duration in ms</summary>
+      <description>0 uses the built-in duration (220 ms open / 160 ms close). Mainly useful for testing and reduced-motion environments.</description>
+      <range min="0" max="2000"/>
+    </key>
+    <key name="complete-delay-seconds" type="i">
+      <default>3</default>
+      <summary>Undo window for completions, in seconds</summary>
+      <description>After clicking a task's checkbox, wait this many seconds before actually completing it; clicking the checkbox again during the window cancels. 0 completes immediately.</description>
+      <range min="0" max="30"/>
+    </key>
+    <key name="badge-mode" type="s">
+      <default>"count"</default>
+      <summary>Panel badge style</summary>
+      <description>"count" shows the open-task number, "dot" a colored dot, "hidden" nothing.</description>
+      <choices>
+        <choice value="count"/>
+        <choice value="dot"/>
+        <choice value="hidden"/>
+      </choices>
+    </key>
+    <key name="debug-dbus" type="b">
+      <default>false</default>
+      <summary>Expose a debug D-Bus interface</summary>
+      <description>When enabled, owns io.github.alainm23.planify.QuickView on the session bus with Toggle/Open/Close/Status/Capture methods for automated testing. Keep off in daily use.</description>
+    </key>
+    <key name="toggle-quick-view" type="as">
+      <default>[]</default>
+      <summary>Global keybinding to toggle the quick view</summary>
+      <description>Keyboard shortcut that opens or closes the quick-view popup, e.g. ['&lt;Super&gt;&lt;Shift&gt;p'].</description>
+    </key>
+  </schema>
+</schemalist>

@@ -1,0 +1,5 @@
+dist/
+__pycache__/
+UPSTREAM_PR.md
+UPSTREAM_PR_BODY.md
+gschemas.compiled
