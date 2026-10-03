@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-27 18:51+0000\n"
+"PO-Revision-Date: 2026-10-03 23:43+0000\n"
 "Last-Translator: Akın Birdal <reend21@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -2892,7 +2892,7 @@ msgid ""
 "repeatedly opening and closing it"
 msgstr ""
 "Kenar çubuğunu görevler arasında daha hızlı gezinmek için hep açık tut, "
-"ikidebir açıp kapatmak yerine"
+"ikide bir açıp kapatmak yerine"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:138
 msgid "Enable Spell Checking"
@@ -3718,7 +3718,7 @@ msgstr[1] ""
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:836
 #: src/Views/Today.vala:839
 msgid "Sorting"
-msgstr "Bizi Destekleyin"
+msgstr "Sıralama"
 
 #: src/Views/Filter.vala:922
 msgid "Project"
