@@ -810,6 +810,43 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
+    /**
+     * Adds the labels named by the CATEGORIES of the stored CalDAV data that the item is
+     * missing, without removing any. Used to repair tasks whose labels were never stored.
+     *
+     * @return whether a label was added, so the caller knows to save the item.
+     */
+    public bool restore_labels_from_calendar_data () {
+        bool restored = false;
+
+        #if WITH_EVOLUTION
+        // Runs on stored data at startup, so skip anything it can't use rather than crash.
+        if (calendar_data == "" || project == null) {
+            return false;
+        }
+
+        ICal.Component ? ical = ICal.Parser.parse_string (calendar_data);
+        if (ical == null) {
+            return false;
+        }
+
+        ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+        if (ical_vtodo == null) {
+            return false;
+        }
+
+        ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
+        foreach (Objects.Label label in get_labels_maps_from_caldav (ecal.get_categories_list ()).values) {
+            if (get_label (label.id) == null) {
+                add_label_if_not_exists (label);
+                restored = true;
+            }
+        }
+        #endif
+
+        return restored;
+    }
+
     public void set_section (Objects.Section section) {
         _section = section;
     }
