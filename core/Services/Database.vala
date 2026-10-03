@@ -28,6 +28,10 @@ public class Services.Database : GLib.Object {
     private Gee.HashMap<string, Gee.ArrayList<string> > table_columns = new Gee.HashMap<string, Gee.ArrayList<string> > ();
 
     public bool is_opened { get; set; default = false; }
+
+    // Items whose labels column points at labels that were never stored; see
+    // migrate_labels_unique_per_source ().
+    private Gee.ArrayList<string> items_missing_labels = new Gee.ArrayList<string> ();
     public signal void opened ();
     public signal void reset ();
 
@@ -187,6 +191,7 @@ public class Services.Database : GLib.Object {
         create_tables ();
         create_triggers ();
         patch_database ();
+        restore_missing_item_labels ();
         opened ();
         is_opened = true;
     }
@@ -202,7 +207,7 @@ public class Services.Database : GLib.Object {
                 is_favorite     INTEGER,
                 backend_type    TEXT,
                 source_id       TEXT,
-                CONSTRAINT unique_label UNIQUE (name)
+                CONSTRAINT unique_label UNIQUE (name, source_id)
             );
         """;
 
@@ -711,6 +716,11 @@ public class Services.Database : GLib.Object {
          * - Add is_trash column to Items for pending delete support
          */
         add_int_column ("Items", "is_trash", 0);
+
+        /*
+         * - Make label names unique per source instead of across all sources
+         */
+        migrate_labels_unique_per_source ();
     }
 
     public void clear_database () {
@@ -1221,6 +1231,12 @@ public class Services.Database : GLib.Object {
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        // INSERT OR IGNORE reports DONE even when a constraint made it skip the row.
+        if (db.changes () == 0) {
+            warning ("Label '%s' was not stored: a label with this id or name already exists", label.name);
             return false;
         }
 
@@ -2718,6 +2734,106 @@ public class Services.Database : GLib.Object {
         }
 
         db.exec ("PRAGMA foreign_keys = ON;", null, null);
+    }
+
+    private bool labels_unique_by_name_only () {
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'Labels';
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0).contains ("UNIQUE (name)");
+        }
+
+        return false;
+    }
+
+    /*
+     * Labels were UNIQUE (name) across all sources, while every lookup is per source. A label
+     * whose name already existed in another source (for example one left behind by a removed
+     * account) was therefore silently not stored, and synced tasks kept the id of a label that
+     * was never saved, losing it on the next start. Rebuild the table with a per-source
+     * constraint and remember those tasks, so restore_missing_item_labels () can give their
+     * labels back.
+     */
+    private void migrate_labels_unique_per_source () {
+        if (!labels_unique_by_name_only ()) {
+            return;
+        }
+
+        bool success = db.exec ("BEGIN TRANSACTION;", null, out errormsg) == Sqlite.OK;
+
+        if (success) {
+            success = rebuild_table (
+                "Labels",
+                """
+                    CREATE TABLE Labels_new (
+                        id              TEXT PRIMARY KEY,
+                        name            TEXT,
+                        color           TEXT,
+                        item_order      INTEGER,
+                        is_deleted      INTEGER,
+                        is_favorite     INTEGER,
+                        backend_type    TEXT,
+                        source_id       TEXT,
+                        CONSTRAINT unique_label UNIQUE (name, source_id)
+                    );
+                """,
+                "id, name, color, item_order, is_deleted, is_favorite, backend_type, source_id"
+            );
+        }
+
+        if (success) {
+            success = db.exec ("COMMIT;", null, out errormsg) == Sqlite.OK;
+        }
+
+        if (!success) {
+            warning ("Labels migration failed, rolling back: %s", errormsg);
+            db.exec ("ROLLBACK;", null, null);
+            return;
+        }
+
+        items_missing_labels = get_items_with_missing_labels ();
+    }
+
+    private Gee.ArrayList<string> get_items_with_missing_labels () {
+        var label_ids = new Gee.HashSet<string> ();
+        var return_value = new Gee.ArrayList<string> ();
+        Sqlite.Statement stmt;
+
+        sql = "SELECT id FROM Labels;";
+        db.prepare_v2 (sql, sql.length, out stmt);
+        while (stmt.step () == Sqlite.ROW) {
+            label_ids.add (stmt.column_text (0));
+        }
+
+        sql = "SELECT id, labels FROM Items WHERE labels <> '';";
+        db.prepare_v2 (sql, sql.length, out stmt);
+        while (stmt.step () == Sqlite.ROW) {
+            foreach (string label_id in stmt.column_text (1).split (";")) {
+                if (label_id != "" && !label_ids.contains (label_id)) {
+                    return_value.add (stmt.column_text (0));
+                    break;
+                }
+            }
+        }
+
+        return return_value;
+    }
+
+    private void restore_missing_item_labels () {
+        foreach (string id in items_missing_labels) {
+            Objects.Item ? item = Services.Store.instance ().get_item (id);
+            if (item != null && item.restore_labels_from_calendar_data ()) {
+                update_item (item);
+            }
+        }
+
+        items_missing_labels.clear ();
     }
 
     private bool rebuild_table (string table, string create_new_sql, string columns) {
