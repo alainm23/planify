@@ -821,12 +821,20 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                         picked_widget.item.move_deck.end (res);
                     });
                 } else {
+                    var source_list = (Gtk.ListBox) picked_widget.parent;
+                    source_list.remove (picked_widget);
+                    listbox.append (picked_widget);
+
                     var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
                     caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
                         if (caldav_client.add_item.end (res).status) {
                             Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
+                            Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index ());
                         }
                     });
+                    
+                    Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
+                    return true;
                 }
             } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
                 Services.Store.instance ().move_item (picked_widget.item, old_section_id, old_parent_id);
