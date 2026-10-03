@@ -739,6 +739,12 @@ checkbutton.theme-selector radio:checked {
     background-color: @window_bg_color;
 }
 
+/* With Adwaita colors, the task list sits on the view background like other GNOME apps' content */
+.adwaita-colors .main-content,
+.adwaita-colors .task-editing {
+    background-color: @view_bg_color;
+}
+
 .version-popup {
     background: @card_bg_color;
     border: 1px solid @item_border_color;
