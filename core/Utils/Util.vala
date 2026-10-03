@@ -282,15 +282,25 @@ public class Util : GLib.Object {
         return Constants.DEFAULT_ACCENT_COLOR;
     }
 
+    private Gtk.CssProvider ? theme_provider = null;
+
+    /**
+     * Whether Planify is dark right now: the system's preference when following it, else the
+     * user's choice.
+     */
+    public bool is_dark_mode_active () {
+        if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
+            return ColorSchemeSettings.Settings.get_default ().prefers_color_scheme ==
+                   ColorSchemeSettings.Settings.ColorScheme.DARK;
+        }
+
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+    }
+
     public void update_theme () {
         Appearance appearance_mode = Appearance.parse (Services.Settings.get_default ().settings.get_enum ("appearance"));
-        bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-        bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-        var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
-
-        if (system_appearance) {
-            dark_mode = color_scheme_settings.prefers_color_scheme == ColorSchemeSettings.Settings.ColorScheme.DARK;
-        }
+        bool dark_mode = is_dark_mode_active ();
+        bool adwaita_colors = Services.Settings.get_default ().settings.get_boolean ("use-adwaita-colors");
 
         string accent_color = get_accent_color ();
 
@@ -303,7 +313,15 @@ public class Util : GLib.Object {
         string selected_color = "";
         string card_bg_color = "";
 
-        if (dark_mode) {
+        if (adwaita_colors) {
+            // Leave libadwaita's own surface colors alone and derive Planify's tokens from its
+            // foreground, as libadwaita does for borders and the selected sidebar row. Dark Blue
+            // is a palette too, so it does not apply while this is on.
+            item_border_color = "alpha(@window_fg_color, 0.15)";
+            upcoming_bg_color = "alpha(@window_fg_color, 0.08)";
+            upcoming_fg_color = "@window_fg_color";
+            selected_color = "alpha(@window_fg_color, 0.1)";
+        } else if (dark_mode) {
             if (appearance_mode == Appearance.DARK) {
                 window_bg_color = "#181818";
                 popover_bg_color = "#202020";
@@ -313,7 +331,6 @@ public class Util : GLib.Object {
                 upcoming_fg_color = "#f0f0f0";
                 selected_color = "#2e3a46";
                 card_bg_color = "#222222";
-                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             } else {
                 window_bg_color = "#0C0D12";
                 popover_bg_color = "#16171D";
@@ -323,7 +340,6 @@ public class Util : GLib.Object {
                 upcoming_fg_color = "#e6e9ef";
                 selected_color = "#2a303a";
                 card_bg_color = "#1E2026";
-                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
             window_bg_color = "#f9f9f9";
@@ -334,38 +350,51 @@ public class Util : GLib.Object {
             upcoming_fg_color = "#2d2e32";
             selected_color = "#dbeafe";
             card_bg_color = "#ffffff";
-            Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
+        Adw.StyleManager.get_default ().color_scheme = dark_mode ? Adw.ColorScheme.FORCE_DARK : Adw.ColorScheme.FORCE_LIGHT;
+
         string css = """
-            @define-color window_bg_color %s;
-            @define-color popover_bg_color %s;
-            @define-color sidebar_bg_color %s;
             @define-color item_border_color %s;
             @define-color upcoming_bg_color %s;
             @define-color upcoming_fg_color %s;
             @define-color selected_color %s;
-            @define-color card_bg_color %s;
             @define-color accent_color %s;
             @define-color accent_bg_color %s;
         """.printf (
-            window_bg_color,
-            popover_bg_color,
-            sidebar_bg_color,
             item_border_color,
             upcoming_bg_color,
             upcoming_fg_color,
             selected_color,
-            card_bg_color,
             accent_color,
             accent_color
         );
 
-        var provider = new Gtk.CssProvider ();
-        provider.load_from_string (css);
-        
+        if (!adwaita_colors) {
+            css += """
+                @define-color window_bg_color %s;
+                @define-color popover_bg_color %s;
+                @define-color sidebar_bg_color %s;
+                @define-color card_bg_color %s;
+            """.printf (
+                window_bg_color,
+                popover_bg_color,
+                sidebar_bg_color,
+                card_bg_color
+            );
+        }
+
+        // Replace the previous provider rather than stacking a new one on every call; otherwise
+        // the overrides from an earlier call would keep applying once Adwaita colors are on.
+        if (theme_provider != null) {
+            Gtk.StyleContext.remove_provider_for_display (Gdk.Display.get_default (), theme_provider);
+        }
+
+        theme_provider = new Gtk.CssProvider ();
+        theme_provider.load_from_string (css);
+
         Gtk.StyleContext.add_provider_for_display (
-            Gdk.Display.get_default (), provider,
+            Gdk.Display.get_default (), theme_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
 
