@@ -54,6 +54,7 @@ sources = files(
   'Layouts/SectionRow.vala',
   'Layouts/ItemBase.vala',
   'Layouts/ItemRow.vala',
+  'Layouts/ItemSortFilter.vala',
   'Layouts/ItemBoard.vala',
   'Layouts/LabelRow.vala',
   'Layouts/ItemSidebarView.vala',
