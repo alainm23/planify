@@ -22,7 +22,6 @@
 public class Views.Filter : Adw.Bin {
     public Objects.BaseObject filter { get; construct; }
 
-    // The sort and filter menu, for the views that offer it (see sorting_supported).
     private Layouts.ItemSortFilter ? sort_filter = null;
     private Gtk.Revealer indicator_revealer;
     private uint rebuild_idle_id = 0;
@@ -49,10 +48,7 @@ public class Views.Filter : Adw.Bin {
     private int page_index = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
-    /**
-     * Whether this filter view offers the sort menu. Only All Tasks does; the Label view
-     * offers the same menu through Layouts.ItemSortFilter with its own settings keys.
-     */
+    // Only All Tasks; the Label view has its own ItemSortFilter.
     private bool sorting_supported {
         get {
             return filter is Objects.Filters.AllItems;

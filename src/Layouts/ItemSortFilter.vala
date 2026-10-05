@@ -18,27 +18,15 @@
  */
 
 /**
- * The sort and filter menu shared by the views that list tasks from several projects (All Tasks
- * and Label): the "Sort By" / "Filter By" popover, the persistence of the chosen sort and filters
- * under "<prefix>-sort-order", "<prefix>-sort-ascending" and "<prefix>-filters", and the
- * comparison and match functions the views apply to their lists.
- *
- * The active filters live in the target object's filter bag, so Widgets.FilterFlowBox can show
- * them as removable chips.
+ * Sort and filter menu shared by All Tasks and the Label view, persisted under "<prefix>-*" keys.
  */
 public class Layouts.ItemSortFilter : GLib.Object {
-    /**
-     * Sort key used to group tasks by their parent project. It is the default ordering and has
-     * no SortedByType member, because it is only meaningful in a view that spans several projects.
-     */
+    // Default sort: group by project. Not in SortedByType, as it only applies across projects.
     public const string SORT_BY_PROJECT = "project";
 
     public Objects.BaseObject target { get; construct; }
     public string key_prefix { get; construct; }
 
-    /**
-     * Emitted after the sort or the filters change, so the view can re-sort and re-filter.
-     */
     public signal void changed ();
 
     private string sort_order_key;
@@ -71,9 +59,6 @@ public class Layouts.ItemSortFilter : GLib.Object {
         })] = Services.Settings.get_default ().settings;
     }
 
-    /**
-     * Builds the menu and restores the persisted filters into the target. Call it once per view.
-     */
     public Gtk.Popover build_popover () {
         var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_("Sorting"), "vertical-arrows-long-symbolic") {
             selected = Services.Settings.get_default ().settings.get_string (sort_order_key)
@@ -160,8 +145,7 @@ public class Layouts.ItemSortFilter : GLib.Object {
             width_request = 250
         };
 
-        // Restored before the filter signals below are connected, so restoring is not taken
-        // for a change and written straight back.
+        // Before connecting the signals below, so restoring isn't saved back as a change.
         restore_filters ();
 
         signal_map[sorted_by_item.notify["selected"].connect (() => {
@@ -210,9 +194,6 @@ public class Layouts.ItemSortFilter : GLib.Object {
         return popover;
     }
 
-    /**
-     * Whether an item survives the active filters.
-     */
     public bool matches (Objects.Item item) {
         return Utils.TaskUtils.items_filter_func (item, target.filters);
     }
@@ -234,10 +215,6 @@ public class Layouts.ItemSortFilter : GLib.Object {
         return Services.Settings.get_default ().settings.get_string (sort_order_key) == SORT_BY_PROJECT;
     }
 
-    /**
-     * Whether the view shows its default sort and no filters; the views show a dot on the menu
-     * button otherwise, mirroring the project view's affordance.
-     */
     public bool is_default () {
         return target.filters.size == 0 && sorted_by_project () &&
                Services.Settings.get_default ().settings.get_boolean (sort_ascending_key);
@@ -321,9 +298,7 @@ public class Layouts.ItemSortFilter : GLib.Object {
         dialog.add_labels_list (Services.Store.instance ().labels);
         dialog.labels = selected_labels;
 
-        // Scoped to the dialog, not signal_map: handler ids are per-instance, so tracking a
-        // transient object there collides with an existing key and leaves the view disconnecting
-        // that id against the wrong instance.
+        // Not in signal_map: handler ids are per instance and would collide with the view's.
         ulong labels_handler = dialog.labels_changed.connect ((labels) => {
             foreach (Objects.Label label in labels.values) {
                 var label_filter = new Objects.Filters.FilterItem ();
@@ -355,11 +330,7 @@ public class Layouts.ItemSortFilter : GLib.Object {
         dialog.present (Planify._instance.main_window);
     }
 
-    /**
-     * Restores the persisted filters and syncs the menu widgets to them. Each entry is stored as
-     * "filter-type:value"; the display name is re-derived rather than persisted, so a renamed
-     * label shows its current name.
-     */
+    // Entries are "filter-type:value"; names are looked up again, so renamed labels stay current.
     private void restore_filters () {
         string[] stored = Services.Settings.get_default ().settings.get_strv (filters_key);
 
@@ -413,9 +384,7 @@ public class Layouts.ItemSortFilter : GLib.Object {
     }
 
     private void save_filters () {
-        // Build a native string[] rather than going through Gee's generic to_array(): for a
-        // reference-type generic that returns unowned element pointers, which are freed before
-        // set_strv() reads them (SIGSEGV inside g_utf8_validate).
+        // Not Gee's to_array (): its unowned strings are freed before set_strv () reads them.
         string[] stored = {};
 
         foreach (Objects.Filters.FilterItem filter_item in target.filters.values) {
@@ -425,9 +394,6 @@ public class Layouts.ItemSortFilter : GLib.Object {
         Services.Settings.get_default ().settings.set_strv (filters_key, stored);
     }
 
-    /**
-     * List box header function that groups rows by the item's project.
-     */
     public static void project_header_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
         if (!(lbrow is Layouts.ItemRow)) {
             return;
@@ -436,11 +402,7 @@ public class Layouts.ItemSortFilter : GLib.Object {
         var row = (Layouts.ItemRow) lbrow;
         if (lbbefore != null && lbbefore is Layouts.ItemRow) {
             var before = (Layouts.ItemRow) lbbefore;
-            // Group on the item's own project, not Layouts.ItemRow's cached project_id: that copy
-            // is taken in construct and never refreshed, so after a task is moved to another
-            // project the row still carries the old id and is read as the start of a new group —
-            // a second header for a project that already has one. The header text below already
-            // comes from the live item, which is why the duplicate is labelled identically.
+            // The item's project, not ItemRow.project_id, which goes stale when a task is moved.
             if (row.item.project_id == before.item.project_id) {
                 row.set_header (null);
                 return;

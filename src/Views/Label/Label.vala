@@ -29,8 +29,7 @@ public class Views.Label : Adw.Bin {
     private Gtk.Revealer indicator_revealer;
     private Widgets.FilterFlowBox filters_flowbox;
 
-    // Sort and filters are shared by every label: they are kept on the Labels filter object,
-    // and this view is one instance reused for whichever label is open.
+    // Shared by every label, as one view instance is reused for each.
     private Layouts.ItemSortFilter sort_filter;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
@@ -153,7 +152,6 @@ public class Views.Label : Adw.Bin {
         listbox_placeholder.title = _("Add Some Tasks");
         listbox_placeholder.description = _("Press 'a' to create a new task");
 
-        // Removable chips for the active filters, as in All Tasks.
         filters_flowbox = new Widgets.FilterFlowBox () {
             valign = Gtk.Align.START,
             vexpand = false,
@@ -252,8 +250,7 @@ public class Views.Label : Adw.Bin {
             filters_flowbox.sensitive = !active;
         })] = Services.EventBus.get_default ();
 
-        // Every row is loaded (there is no paging here), so a new sort or filter only has to be
-        // re-applied to the rows, not rebuilt.
+        // All rows are loaded, so re-sort and re-filter rather than rebuild.
         signal_map[sort_filter.changed.connect (() => {
             update_header_func ();
             listbox.invalidate_sort ();
@@ -278,15 +275,10 @@ public class Views.Label : Adw.Bin {
         check_default_filters ();
     }
 
-    /**
-     * Reveals the dot on the view-settings button whenever the view is not showing its default
-     * sort and no filters, as in All Tasks.
-     */
     private void check_default_filters () {
         indicator_revealer.reveal_child = !sort_filter.is_default ();
     }
 
-    // Project headers only make sense while the list is grouped by project.
     private void update_header_func () {
         if (sort_filter.sorted_by_project ()) {
             listbox.set_header_func (Layouts.ItemSortFilter.project_header_func);
