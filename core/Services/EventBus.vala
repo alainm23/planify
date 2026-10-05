@@ -65,7 +65,9 @@ public class Services.EventBus : Object {
     // OAuth
     public signal void oauth_callback (string uri);
 
-    public bool _mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
+    // Read on first use rather than at construction, so code that only connects to the bus
+    // (Store, and core tests run without the app's GSettings schema) doesn't need the schema.
+    private bool? _mobile_mode = null;
     public bool mobile_mode {
         set {
             _mobile_mode = value;
@@ -73,6 +75,10 @@ public class Services.EventBus : Object {
         }
 
         get {
+            if (_mobile_mode == null) {
+                _mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
+            }
+
             return _mobile_mode;
         }
     }
