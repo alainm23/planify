@@ -213,10 +213,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
                                                                     system_accent_switch.active);
         })] = system_accent_switch;
 
-        // Write "appearance" before "dark-mode": changing "dark-mode" runs verify_theme ()
-        // synchronously (even when the value is unchanged), and it picks the radio from
-        // "appearance". Written the other way round, it read the previous style and checked
-        // that radio instead of the one just clicked.
+        // Set "appearance" first: the "dark-mode" change reads it to pick the radio.
         signal_map[light_radio.notify["active"].connect (() => {
             if (light_radio.active) {
                 Services.Settings.get_default ().settings.set_enum ("appearance", 0);
