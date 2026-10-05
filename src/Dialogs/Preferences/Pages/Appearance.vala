@@ -289,8 +289,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         theme_group.visible = is_dark_modes_visible ();
         placeholder_revealer.reveal_child = !is_dark_modes_visible ();
 
-        // Dark Blue is a palette of its own, which Adwaita colors replace. The saved choice is
-        // kept, so turning Adwaita colors off brings it back.
+        // Adwaita colors replace Dark Blue; the saved choice returns when they're turned off.
         bool adwaita_colors = Services.Settings.get_default ().settings.get_boolean ("use-adwaita-colors");
         adwaita_colors_switch.active = adwaita_colors;
         blue_row.sensitive = !adwaita_colors;

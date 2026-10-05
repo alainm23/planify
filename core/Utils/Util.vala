@@ -284,10 +284,6 @@ public class Util : GLib.Object {
 
     private Gtk.CssProvider ? theme_provider = null;
 
-    /**
-     * Whether Planify is dark right now: the system's preference when following it, else the
-     * user's choice.
-     */
     public bool is_dark_mode_active () {
         if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
             return ColorSchemeSettings.Settings.get_default ().prefers_color_scheme ==
@@ -314,9 +310,7 @@ public class Util : GLib.Object {
         string card_bg_color = "";
 
         if (adwaita_colors) {
-            // Leave libadwaita's own surface colors alone and derive Planify's tokens from its
-            // foreground, as libadwaita does for borders and the selected sidebar row. Dark Blue
-            // is a palette too, so it does not apply while this is on.
+            // Keep libadwaita's surfaces; derive Planify's tokens from its foreground.
             item_border_color = "alpha(@window_fg_color, 0.15)";
             upcoming_bg_color = "alpha(@window_fg_color, 0.08)";
             upcoming_fg_color = "@window_fg_color";
@@ -384,8 +378,7 @@ public class Util : GLib.Object {
             );
         }
 
-        // Replace the previous provider rather than stacking a new one on every call; otherwise
-        // the overrides from an earlier call would keep applying once Adwaita colors are on.
+        // Replace the previous provider so earlier overrides don't linger.
         if (theme_provider != null) {
             Gtk.StyleContext.remove_provider_for_display (Gdk.Display.get_default (), theme_provider);
         }

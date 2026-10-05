@@ -408,7 +408,7 @@ public class MainWindow : Adw.ApplicationWindow {
             remove_css_class ("theme-dark-blue");
             remove_css_class ("adwaita-colors");
 
-            // Adwaita colors replace the Dark and Dark Blue palettes, so follow the mode instead.
+            // Adwaita colors replace the Dark and Dark Blue palettes.
             if (Services.Settings.get_default ().settings.get_boolean ("use-adwaita-colors")) {
                 add_css_class ("adwaita-colors");
 
