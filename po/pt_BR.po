@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-05 15:43+0000\n"
+"PO-Revision-Date: 2026-10-05 23:23+0000\n"
 "Last-Translator: Fleuquer <fleuquer@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
@@ -3287,21 +3287,22 @@ msgstr "Exportar como .ics"
 #: src/Layouts/ItemRow.vala:1414 src/Layouts/ItemSidebarView.vala:470
 #, c-format
 msgid "Updated: %s"
-msgstr ""
+msgstr "Atualizado: %s"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:472
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "Criado: %s"
 
 #: src/Layouts/ItemRow.vala:1634
 #, c-format
 msgid "Task completed · Next: %s"
-msgstr ""
+msgstr "Tarefa concluída · Próxima: %s"
 
 #: src/Layouts/ItemRow.vala:1817
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
+"Uma tarefa só pode se tornar uma subtarefa de outra tarefa na mesma conta"
 
 #: src/Layouts/ItemRow.vala:2157
 msgid "Add Attachments"
@@ -3368,7 +3369,7 @@ msgstr "Exportar como PDF"
 
 #: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Projeto exportado como PDF"
 
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
@@ -3386,7 +3387,7 @@ msgstr "Adicionar tarefa"
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
 #: src/Views/Filter.vala:197
 msgid "Load more"
-msgstr ""
+msgstr "Carregar mais"
 
 #: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
 #: src/Widgets/SubItems.vala:422
@@ -3409,7 +3410,7 @@ msgstr "Deletar Seção"
 
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
 msgid "No more tasks"
-msgstr ""
+msgstr "Não há mais tarefas"
 
 #: src/Layouts/Sidebar.vala:40
 msgid "Favorites"
@@ -3451,7 +3452,7 @@ msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
 #: src/Layouts/SidebarSourceRow.vala:80
 msgid "Account Migration Required"
-msgstr ""
+msgstr "Migração de conta necessária"
 
 #: src/MainWindow.vala:82
 msgid "Main Menu"
@@ -3463,11 +3464,11 @@ msgstr "Abra a Busca Rápida"
 
 #: src/MainWindow.vala:340
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "A tarefa foi modificada em outro dispositivo"
 
 #: src/MainWindow.vala:342
 msgid "Sync Now"
-msgstr ""
+msgstr "Sincronizar agora"
 
 #: src/MainWindow.vala:795
 msgid "About Planify"
@@ -3517,12 +3518,12 @@ msgstr "Redefinir banco de dados"
 
 #: src/Services/BackupManager.vala:154
 msgid "Automatic backup failed"
-msgstr ""
+msgstr "Falha no backup automático"
 
 #: src/Services/BackupManager.vala:200
 #, c-format
 msgid "Failed to copy backup to %s"
-msgstr ""
+msgstr "Falha ao copiar o backup para %s"
 
 #: src/Services/BackupManager.vala:224
 msgid "Delete Backup"
@@ -3534,11 +3535,11 @@ msgstr "Backup importado com sucesso"
 
 #: src/Services/BackupManager.vala:395
 msgid "Planify will restart to apply the changes"
-msgstr ""
+msgstr "Planify será reiniciado para aplicar as alterações"
 
 #: src/Services/BackupManager.vala:398
 msgid "Restart Now"
-msgstr ""
+msgstr "Reiniciar agora"
 
 #: src/Services/BackupManager.vala:412
 msgid "Planify Backup Files"
@@ -3563,7 +3564,7 @@ msgstr "Em 1 hora"
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:864
 msgid "All Projects"
-msgstr ""
+msgstr "Todos os projetos"
 
 #: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
@@ -3585,15 +3586,15 @@ msgstr "Pressione 'a' para criar uma nova tarefa"
 
 #: src/Views/Filter.vala:580
 msgid "tasks"
-msgstr ""
+msgstr "tarefas"
 
 #: src/Views/Filter.vala:818
 msgid "No completed tasks"
-msgstr ""
+msgstr "Nenhuma tarefa concluída"
 
 #: src/Views/Filter.vala:819
 msgid "No tasks found for the selected projects"
-msgstr ""
+msgstr "Nenhuma tarefa encontrada para os projetos selecionados"
 
 #: src/Views/Filter.vala:821
 #, fuzzy
@@ -3602,22 +3603,22 @@ msgstr "Tarefa concluída"
 
 #: src/Views/Filter.vala:822
 msgid "Great job, nothing left to do 🎉"
-msgstr ""
+msgstr "Ótimo trabalho, nada mais a fazer 🎉"
 
 #: src/Views/Filter.vala:824
 msgid "No tasks found"
-msgstr ""
+msgstr "Nenhuma tarefa encontrada"
 
 #: src/Views/Filter.vala:825
 msgid "No tasks match the selected filters"
-msgstr ""
+msgstr "Nenhuma tarefa corresponde aos filtros selecionados"
 
 #: src/Views/Filter.vala:866
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Projeto"
+msgstr[1] "%d Projetos"
 
 #: src/Views/Filter.vala:895
 #, fuzzy
@@ -3641,7 +3642,7 @@ msgstr "Nos Apoiando"
 
 #: src/Views/Filter.vala:929
 msgid "Project"
-msgstr ""
+msgstr "Projeto"
 
 #: src/Views/Filter.vala:932 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
@@ -3651,7 +3652,7 @@ msgstr "Dados adicionados"
 #: src/Views/Filter.vala:933 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
 msgid "Date Modified"
-msgstr ""
+msgstr "Data de modificação"
 
 #: src/Views/Filter.vala:936 src/Views/Project/Project.vala:563
 #, fuzzy
@@ -3723,11 +3724,11 @@ msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
 #: src/Views/Label/LabelSourceRow.vala:122
 msgid "All labels are hidden by the filter"
-msgstr ""
+msgstr "Todas as etiquetas estão ocultas pelo filtro"
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Somente projetos ativos"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
@@ -3823,7 +3824,7 @@ msgstr "Reagendar"
 
 #: src/Views/Today.vala:887
 msgid "Me"
-msgstr ""
+msgstr "Meu"
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
@@ -3835,29 +3836,33 @@ msgstr "Nenhum anexo encontrado. Adicione os arquivos aqui."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
-msgstr ""
+msgstr "Ignorar resolução de localização"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:32
 msgid ""
 "Workaround for CalDAV connection issues with connections using non-default "
 "ports"
 msgstr ""
+"Solução alternativa para problemas de conexão CalDAV com conexões que "
+"utilizam portas não padrão"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:45
 #: src/Widgets/IgnoreSSLSwitchRow.vala:45
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:46
 msgid ""
 "This will disable the CalDAV resolve process.\n"
 "Proceed at your own risk"
 msgstr ""
+"Isso desativará o processo de resolução do CalDAV.\n"
+"Prossiga por sua conta e risco"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
-msgstr ""
+msgstr "Continue mesmo assim"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:94
@@ -3866,7 +3871,7 @@ msgstr "Subtarefas"
 
 #: src/Widgets/EditableTextView.vala:79 src/Widgets/EditableTextView.vala:146
 msgid "Show more"
-msgstr ""
+msgstr "Mostrar mais"
 
 #: src/Widgets/EditableTextView.vala:150
 #, fuzzy
@@ -3875,12 +3880,12 @@ msgstr "Mostrar Tarefas Concluídas"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "Copiar mensagem de erro"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Para obter mais detalhes, compartilhe seu arquivo de log: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -3888,33 +3893,33 @@ msgstr "Relatar problema"
 
 #: src/Widgets/ErrorView.vala:191
 msgid "Account migration required."
-msgstr ""
+msgstr "Migração de conta necessária."
 
 #: src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Em %d minuto"
+msgstr[1] "Em %d minutos"
 
 #: src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Em %d hora"
+msgstr[1] "Em %d horas"
 
 #: src/Widgets/EventRow.vala:252
 msgid "Happening now"
-msgstr ""
+msgstr "Acontecendo agora"
 
 #: src/Widgets/EventRow.vala:287
 msgid "Location"
-msgstr ""
+msgstr "Localização"
 
 #: src/Widgets/EventRow.vala:300
 msgid "Organizer"
-msgstr ""
+msgstr "Organizador"
 
 #: src/Widgets/EventRow.vala:314
 msgid "URL"
@@ -3926,21 +3931,23 @@ msgstr "Calendário"
 
 #: src/Widgets/EventRow.vala:419
 msgid "Join"
-msgstr ""
+msgstr "Juntar"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:31
 msgid "Disable SSL certificate validation"
-msgstr ""
+msgstr "Desativar validação de certificado SSL"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:32
 msgid "Not recommended – exposes you to security risks"
-msgstr ""
+msgstr "Não recomendado – expõe você a riscos de segurança"
 
 #: src/Widgets/IgnoreSSLSwitchRow.vala:46
 msgid ""
 "This will disable SSL validation and exposes you to attacks.\n"
 "Proceed at your own risk"
 msgstr ""
+"Isso desativará a validação SSL e o deixará vulnerável a ataques.\n"
+"Prossiga por sua conta e risco"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task uncompleted"
@@ -3954,15 +3961,15 @@ msgstr "Tarefa movida para o projeto: %s"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
-msgstr ""
+msgstr "Projeto desconhecido"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:56
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:59
 msgid "Unknown section"
-msgstr ""
+msgstr "Seção desconhecida"
 
 # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:63
@@ -3973,27 +3980,27 @@ msgstr "Tarefas adicionadas a <b>%s</b>"
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See more"
-msgstr ""
+msgstr "Ver mais"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:199
 msgid "See less"
-msgstr ""
+msgstr "Ver menos"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:276
 msgid "Empty"
-msgstr ""
+msgstr "Vazio"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:290
 msgid "No priority"
-msgstr ""
+msgstr "Sem prioridade"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:298
 msgid "No labels"
-msgstr ""
+msgstr "Sem etiquetas"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "Não fixado"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
@@ -4007,16 +4014,16 @@ msgstr "Pin: Inativo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
-msgstr ""
+msgstr "Sem prazo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:319
 msgid "No parent"
-msgstr ""
+msgstr "Sem pai"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
 msgid "Unknown task"
-msgstr ""
+msgstr "Tarefa desconhecida"
 
 #: src/Widgets/ItemDetailCompleted.vala:74
 msgid "Completed At"
@@ -4024,7 +4031,7 @@ msgstr "Concluído em"
 
 #: src/Widgets/MultiSelectToolbar.vala:67
 msgid "Move to Project"
-msgstr ""
+msgstr "Mover para projeto"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
 msgid "Mark as Completed"
@@ -4034,8 +4041,8 @@ msgstr "Marcar como Concluída"
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Tarefa copiada para a área de transferência"
+msgstr[1] "%d Tarefas copiadas para a área de transferência"
 
 #: src/Widgets/MultiSelectToolbar.vala:325
 msgid "Delete To-Do"
@@ -4090,7 +4097,7 @@ msgstr "Fechar"
 
 #: src/Widgets/ProductivityMiniWidget.vala:75
 msgid "No tasks scheduled"
-msgstr ""
+msgstr "Nenhuma tarefa agendada"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
@@ -4244,17 +4251,17 @@ msgstr "Abrir Quadro de Anúncios"
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
-msgstr ""
+msgstr "Abra o Enésimo Projeto"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
 msgid "Open Next Project"
-msgstr ""
+msgstr "Abrir Próximo Projeto"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
 msgid "Open Previous Project"
-msgstr ""
+msgstr "Abrir projeto anterior"
 
 #, c-format
 #~ msgid "Backup files are stored in: %s"
