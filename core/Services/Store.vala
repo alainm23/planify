@@ -1476,6 +1476,11 @@ public class Services.Store : GLib.Object {
     public void set_item_trash (Objects.Item item, bool trash) {
         item.is_trash = trash;
         Services.Database.get_default ().update_item_trash (item);
+
+        // Trash has no dedicated signal; notify so views and D-Bus clients
+        // refetch — the deferred delete that would announce it can never
+        // fire when the sync call fails.
+        item_updated (item, "");
     }
 
     // Reminders
