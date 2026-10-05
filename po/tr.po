@@ -35,6 +35,7 @@ msgstr "Görevler"
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1262 src/Dialogs/Preferences/Pages/Backup.vala:631
+#: src/Layouts/ItemRow.vala:1265
 msgid "Labels"
 msgstr "Etiketler"
 
@@ -111,7 +112,8 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
 #: src/Views/Today.vala:872 src/Widgets/ItemDetailCompleted.vala:82
-#: src/Views/Today.vala:846 src/Views/Today.vala:875
+#: src/Views/Today.vala:846 src/Views/Today.vala:875 src/Views/Filter.vala:934
+#: src/Views/Filter.vala:973
 msgid "Priority"
 msgstr "Öncelik"
 
@@ -121,7 +123,7 @@ msgstr "Etiketler"
 
 #: core/Enum.vala:351 src/Views/Filter.vala:924
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
-#: src/Views/Today.vala:840 src/Views/Today.vala:843
+#: src/Views/Today.vala:840 src/Views/Today.vala:843 src/Views/Filter.vala:931
 msgid "Due Date"
 msgstr "Bitiş tarihi"
 
@@ -150,7 +152,7 @@ msgstr "İçerik"
 #: src/Layouts/ItemRow.vala:2009 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:2014 src/Widgets/EventRow.vala:359
-#: src/Layouts/ItemRow.vala:2023
+#: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemRow.vala:2082
 msgid "Description"
 msgstr "Açıklama"
 
@@ -161,6 +163,7 @@ msgstr "Zamanlanmış"
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1241 src/Layouts/ItemRow.vala:1256
+#: src/Layouts/ItemRow.vala:1244 src/Layouts/ItemRow.vala:1259
 msgid "Pin"
 msgstr "İğnelenmiş"
 
@@ -300,6 +303,8 @@ msgstr "yaklaşan"
 #: src/Views/Filter.vala:1063 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
+#: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
+#: src/Views/Filter.vala:1070
 msgid "Today"
 msgstr "Bugün"
 
@@ -313,6 +318,7 @@ msgstr "bugün"
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:395
+#: src/Layouts/ItemRow.vala:1254
 msgid "Tomorrow"
 msgstr "Yarın"
 
@@ -338,25 +344,29 @@ msgstr "etiketler"
 
 #: core/Objects/Item.vala:1571 src/Services/ExportService.vala:187
 #: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1619
 msgid "Deadline:"
 msgstr "Son teslim tarihi:"
 
 #: core/Objects/Item.vala:1596 core/Objects/Item.vala:1619
+#: core/Objects/Item.vala:1644
 msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
 #: core/Objects/Item.vala:1613 core/Objects/Item.vala:1636
+#: core/Objects/Item.vala:1661
 msgid "iCalendar Files"
 msgstr "iCalendar dosyaları"
 
 #: core/Objects/Item.vala:1629 core/Objects/Item.vala:1652
+#: core/Objects/Item.vala:1677
 msgid "Task exported successfully"
 msgstr "Görev başarıyla dışa aktarıldı"
 
 # c-format
 #: core/Objects/Item.vala:1953 core/Utils/Util.vala:856
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
-#: core/Objects/Item.vala:1998
+#: core/Objects/Item.vala:1998 core/Objects/Item.vala:2037
 #, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"
@@ -396,6 +406,7 @@ msgstr "Bu geri alınamaz"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Services/BackupManager.vala:228 src/Layouts/ItemSidebarView.vala:622
+#: src/Views/Filter.vala:907
 msgid "Cancel"
 msgstr "İptal"
 
@@ -411,6 +422,7 @@ msgstr "İptal"
 #: src/Widgets/MultiSelectToolbar.vala:345
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
+#: src/Views/Filter.vala:908
 msgid "Delete"
 msgstr "Sil"
 
@@ -463,6 +475,7 @@ msgstr "Görev başarıyla  eklendi!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemRow.vala:405
 msgid "To-do name"
 msgstr "Yapılacak adı"
 
@@ -1335,6 +1348,7 @@ msgstr "Zaman"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:858
+#: src/Layouts/ItemRow.vala:1193
 msgid "until"
 msgstr "şu zamana kadar"
 
@@ -1346,6 +1360,7 @@ msgstr "şu zamana kadar"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
+#: src/Layouts/ItemRow.vala:1196
 msgid "for"
 msgstr "için"
 
@@ -1357,6 +1372,7 @@ msgstr "için"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
+#: src/Layouts/ItemRow.vala:1196
 msgid "times"
 msgstr "kere"
 
@@ -1369,6 +1385,7 @@ msgstr "kere"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: src/Layouts/ItemRow.vala:1196
 msgid "time"
 msgstr "zaman"
 
@@ -1513,7 +1530,7 @@ msgstr "Sonra"
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:880
 #: src/Layouts/ItemRow.vala:1346
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: src/Layouts/ItemBoard.vala:886
+#: src/Layouts/ItemBoard.vala:886 src/Layouts/ItemRow.vala:1349
 msgid "Apply"
 msgstr "Uygula"
 
@@ -1685,6 +1702,7 @@ msgstr "Oluşturup atamak için Enter tuşuna basın."
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2019
 #: src/Layouts/ItemRow.vala:2024 src/Layouts/ItemRow.vala:2033
+#: src/Layouts/ItemRow.vala:2092
 msgid "Task description"
 msgstr "Görev açıklaması"
 
@@ -1809,7 +1827,7 @@ msgstr "Yapılacak"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1265
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1268
 msgid "Complete"
 msgstr "Tamamlandı"
 
@@ -1925,7 +1943,7 @@ msgid "No completed tasks yet."
 msgstr "Henüz tamamlanmış görev yok."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:869
+#: src/Views/Filter.vala:869 src/Views/Filter.vala:876
 msgid "Delete All Completed Tasks"
 msgstr "Tamamlanan Görevlerin Altını Çiz"
 
@@ -1941,14 +1959,15 @@ msgstr[1] ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:985
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
-#: src/Views/Today.vala:907 src/Views/Today.vala:910
+#: src/Views/Today.vala:907 src/Views/Today.vala:910 src/Views/Filter.vala:992
 msgid "Filter By"
 msgstr "Filtrele"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
 #: src/Layouts/ItemRow.vala:1258 src/Views/Filter.vala:942
 #: src/Views/Filter.vala:1078 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Views/Project/Project.vala:749 src/Layouts/ItemRow.vala:1261
+#: src/Views/Filter.vala:949 src/Views/Filter.vala:1085
 msgid "No Date"
 msgstr "Tarih Yok"
 
@@ -1961,7 +1980,7 @@ msgid "Next Week"
 msgstr "Sonraki Hafta"
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1409
-#: src/Layouts/ItemSidebarView.vala:523
+#: src/Layouts/ItemSidebarView.vala:523 src/Layouts/ItemRow.vala:1412
 msgid "Change History"
 msgstr "Değişiklik Tarihi"
 
@@ -2628,7 +2647,7 @@ msgstr "Özel Sıralama Düzeni"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:923
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:839 src/Views/Today.vala:842
+#: src/Views/Today.vala:839 src/Views/Today.vala:842 src/Views/Filter.vala:930
 msgid "Alphabetically"
 msgstr "Alfabetik"
 
@@ -3261,6 +3280,7 @@ msgstr "Proje eklendi."
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1261
 #: src/Layouts/ItemRow.vala:1402 src/Layouts/ItemSidebarView.vala:517
+#: src/Layouts/ItemRow.vala:1264 src/Layouts/ItemRow.vala:1405
 msgid "Move"
 msgstr "Taşı"
 
@@ -3321,10 +3341,12 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Tamamlandı. Sonraki gerçekleşme: %s"
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1264
+#: src/Layouts/ItemRow.vala:1267
 msgid "Add Subtask"
 msgstr "Alt Görev Ekle"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1266
+#: src/Layouts/ItemRow.vala:1269
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -3332,34 +3354,38 @@ msgstr "Düzenle"
 #: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
-#: src/Layouts/ProjectRow.vala:710
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/ItemRow.vala:1270
+#: src/Layouts/ItemRow.vala:1404
 msgid "Duplicate"
 msgstr "Çoğalt"
 
 #: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1269
 #: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:520
+#: src/Layouts/ItemRow.vala:1272 src/Layouts/ItemRow.vala:1409
 msgid "Delete Task"
 msgstr "Görevi Sil"
 
 #: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1873
 #: src/Layouts/ItemRow.vala:1878 src/Layouts/ItemBoard.vala:1136
-#: src/Layouts/ItemRow.vala:1887
+#: src/Layouts/ItemRow.vala:1887 src/Layouts/ItemRow.vala:1932
 msgid "Order changed to 'Custom sort order'"
 msgstr "Sıralama 'Özel Sıralama Düzeni' olarak değiştirildi"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1650
 #: src/Layouts/ItemRow.vala:1655 src/Layouts/ItemBoard.vala:1252
+#: src/Layouts/ItemRow.vala:1658
 #, c-format
 msgid "%s was deleted"
 msgstr "%s silindi"
 
 #: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1651
 #: src/Layouts/ItemRow.vala:1656 src/Layouts/ItemBoard.vala:1253
+#: src/Layouts/ItemRow.vala:1659
 msgid "Undo"
 msgstr "Geri Al"
 
-#: src/Layouts/ItemRow.vala:562
+#: src/Layouts/ItemRow.vala:562 src/Layouts/ItemRow.vala:565
 msgid "Add Subtasks"
 msgstr "Alt Görev Ekle"
 
@@ -3376,30 +3402,34 @@ msgid "Pick a Date"
 msgstr "Bir Tarih Seç"
 
 #: src/Layouts/ItemRow.vala:1397 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1400
 msgid "Use as a Note"
 msgstr "Not olarak kullan"
 
 #: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:515
-#: src/Widgets/MultiSelectToolbar.vala:274
+#: src/Widgets/MultiSelectToolbar.vala:274 src/Layouts/ItemRow.vala:1403
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
 #: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1406
 msgid "Export as .ics"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1411 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1414
 #, c-format
 msgid "Updated: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1413 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1416
 #, c-format
 msgid "Created: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:2084 src/Layouts/ItemRow.vala:2089
-#: src/Layouts/ItemRow.vala:2098
+#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2157
 msgid "Add Attachments"
 msgstr "Görev Ekle"
 
@@ -3642,6 +3672,7 @@ msgid "Snooze for 1 hour"
 msgstr ""
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:857
+#: src/Views/Filter.vala:864
 msgid "All Projects"
 msgstr ""
 
@@ -3654,12 +3685,14 @@ msgstr ""
 #: src/Views/Filter.vala:218 src/Views/Filter.vala:820
 #: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:309
+#: src/Views/Filter.vala:827
 msgid "Add Some Tasks"
 msgstr "Görev Ekle"
 
 #: src/Views/Filter.vala:219 src/Views/Filter.vala:821
 #: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
 #: src/Views/Project/List.vala:118 src/Views/Today.vala:310
+#: src/Views/Filter.vala:828
 #, fuzzy
 msgid "Press 'a' to create a new task"
 msgstr "Yeni Görev Oluşturmak için Düz Metin Yapıştır"
@@ -3668,46 +3701,46 @@ msgstr "Yeni Görev Oluşturmak için Düz Metin Yapıştır"
 msgid "tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:811
+#: src/Views/Filter.vala:811 src/Views/Filter.vala:818
 msgid "No completed tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:812
+#: src/Views/Filter.vala:812 src/Views/Filter.vala:819
 msgid "No tasks found for the selected projects"
 msgstr ""
 
-#: src/Views/Filter.vala:814
+#: src/Views/Filter.vala:814 src/Views/Filter.vala:821
 #, fuzzy
 msgid "All tasks completed!"
 msgstr "tamamlandı"
 
-#: src/Views/Filter.vala:815
+#: src/Views/Filter.vala:815 src/Views/Filter.vala:822
 msgid "Great job, nothing left to do 🎉"
 msgstr ""
 
-#: src/Views/Filter.vala:817
+#: src/Views/Filter.vala:817 src/Views/Filter.vala:824
 msgid "No tasks found"
 msgstr ""
 
-#: src/Views/Filter.vala:818
+#: src/Views/Filter.vala:818 src/Views/Filter.vala:825
 msgid "No tasks match the selected filters"
 msgstr ""
 
-#: src/Views/Filter.vala:859
+#: src/Views/Filter.vala:859 src/Views/Filter.vala:866
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Views/Filter.vala:888
+#: src/Views/Filter.vala:888 src/Views/Filter.vala:895
 #, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Tamamlanan Görevlerin Altını Çiz"
 msgstr[1] "Tamamlanan Görevlerin Altını Çiz"
 
-#: src/Views/Filter.vala:893
+#: src/Views/Filter.vala:893 src/Views/Filter.vala:900
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -3716,91 +3749,99 @@ msgstr[1] ""
 
 #: src/Views/Filter.vala:918 src/Views/Project/Project.vala:553
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:836
-#: src/Views/Today.vala:839
+#: src/Views/Today.vala:839 src/Views/Filter.vala:925
 msgid "Sorting"
 msgstr "Sıralama"
 
-#: src/Views/Filter.vala:922
+#: src/Views/Filter.vala:922 src/Views/Filter.vala:929
 msgid "Project"
 msgstr ""
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:841
-#: src/Views/Today.vala:844
+#: src/Views/Today.vala:844 src/Views/Filter.vala:932
 msgid "Date Added"
 msgstr "Eklenme tarihi"
 
 #: src/Views/Filter.vala:926 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:842
-#: src/Views/Today.vala:845
+#: src/Views/Today.vala:845 src/Views/Filter.vala:933
 msgid "Date Modified"
 msgstr ""
 
 #: src/Views/Filter.vala:929 src/Views/Project/Project.vala:563
+#: src/Views/Filter.vala:936
 #, fuzzy
 msgid "Ascending Order"
 msgstr "Artan"
 
 #: src/Views/Filter.vala:933 src/Views/Project/Project.vala:569
+#: src/Views/Filter.vala:940
 msgid "Duedate"
 msgstr "Güncelle"
 
 #: src/Views/Filter.vala:936 src/Views/Filter.vala:1081
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:572 src/Views/Filter.vala:943
+#: src/Views/Filter.vala:1088
 msgid "All (default)"
 msgstr ""
 
 #: src/Views/Filter.vala:938 src/Views/Filter.vala:1066
 #: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
 msgid "This Week"
 msgstr ""
 
 #: src/Views/Filter.vala:939 src/Views/Filter.vala:1069
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
 msgid "Next 7 Days"
 msgstr ""
 
 #: src/Views/Filter.vala:940 src/Views/Filter.vala:1072
 #: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
 msgid "This Month"
 msgstr ""
 
 #: src/Views/Filter.vala:941 src/Views/Filter.vala:1075
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
 msgid "Next 30 Days"
 msgstr ""
 
 #: src/Views/Filter.vala:947 src/Views/Project/Project.vala:584
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:850
-#: src/Views/Today.vala:853
+#: src/Views/Today.vala:853 src/Views/Filter.vala:954
 msgid "P1"
 msgstr ""
 
 #: src/Views/Filter.vala:952 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:856
-#: src/Views/Today.vala:859
+#: src/Views/Today.vala:859 src/Views/Filter.vala:959
 msgid "P2"
 msgstr ""
 
 #: src/Views/Filter.vala:957 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:862
-#: src/Views/Today.vala:865
+#: src/Views/Today.vala:865 src/Views/Filter.vala:964
 msgid "P3"
 msgstr ""
 
 #: src/Views/Filter.vala:962 src/Views/Project/Project.vala:602
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:868
-#: src/Views/Today.vala:871
+#: src/Views/Today.vala:871 src/Views/Filter.vala:969
 msgid "P4"
 msgstr ""
 
 #: src/Views/Filter.vala:969 src/Views/Project/Project.vala:609
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:875
-#: src/Views/Today.vala:878
+#: src/Views/Today.vala:878 src/Views/Filter.vala:976
 msgid "Filter by Labels"
 msgstr "Etiketlere Göre Filtrele"
 
 #: src/Views/Filter.vala:975 src/Views/Project/Project.vala:647
+#: src/Views/Filter.vala:982
 msgid "Sort By"
 msgstr "Sırala"
 
@@ -3955,6 +3996,7 @@ msgstr ""
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:92
+#: src/Widgets/SubItems.vala:94
 msgid "Sub-tasks"
 msgstr "Alt Görev Ekle"
 
@@ -4193,7 +4235,7 @@ msgstr ""
 msgid "Unarchive"
 msgstr ""
 
-#: src/Widgets/SubItems.vala:525
+#: src/Widgets/SubItems.vala:525 src/Widgets/SubItems.vala:556
 msgid "No subtasks added yet. Get started!"
 msgstr ""
 
@@ -4363,7 +4405,7 @@ msgid ""
 "its due date"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1631
+#: src/Layouts/ItemRow.vala:1631 src/Layouts/ItemRow.vala:1634
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
@@ -4409,8 +4451,13 @@ msgstr ""
 
 #: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
 #: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
-#: src/Widgets/MultiSelectToolbar.vala:439
+#: src/Widgets/MultiSelectToolbar.vala:439 src/Layouts/ItemRow.vala:1681
+#: src/Layouts/ItemRow.vala:1825
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:1817
+msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
 # # c-format
