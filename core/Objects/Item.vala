@@ -810,17 +810,11 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
-    /**
-     * Adds the labels named by the CATEGORIES of the stored CalDAV data that the item is
-     * missing, without removing any. Used to repair tasks whose labels were never stored.
-     *
-     * @return whether a label was added, so the caller knows to save the item.
-     */
+    // Adds missing labels from the stored CATEGORIES; returns whether any were added.
     public bool restore_labels_from_calendar_data () {
         bool restored = false;
 
         #if WITH_EVOLUTION
-        // Runs on stored data at startup, so skip anything it can't use rather than crash.
         if (calendar_data == "" || project == null) {
             return false;
         }

@@ -29,8 +29,7 @@ public class Services.Database : GLib.Object {
 
     public bool is_opened { get; set; default = false; }
 
-    // Items whose labels column points at labels that were never stored; see
-    // migrate_labels_unique_per_source ().
+    // Items pointing at labels that were never stored; see migrate_labels_unique_per_source ().
     private Gee.ArrayList<string> items_missing_labels = new Gee.ArrayList<string> ();
     public signal void opened ();
     public signal void reset ();
@@ -2752,14 +2751,7 @@ public class Services.Database : GLib.Object {
         return false;
     }
 
-    /*
-     * Labels were UNIQUE (name) across all sources, while every lookup is per source. A label
-     * whose name already existed in another source (for example one left behind by a removed
-     * account) was therefore silently not stored, and synced tasks kept the id of a label that
-     * was never saved, losing it on the next start. Rebuild the table with a per-source
-     * constraint and remember those tasks, so restore_missing_item_labels () can give their
-     * labels back.
-     */
+    // Labels were unique by name across sources, so a name used in another source was dropped.
     private void migrate_labels_unique_per_source () {
         if (!labels_unique_by_name_only ()) {
             return;

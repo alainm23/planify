@@ -18,12 +18,7 @@
  */
 
 /**
- * Label Uniqueness Tests
- *
- * Labels belong to a source, and every lookup is per source, so two sources may each have a
- * label with the same name. The Labels table used to be UNIQUE (name) across all sources, and
- * insert_label () uses INSERT OR IGNORE, so a second "Cycling" was silently dropped while the
- * caller was told it had been saved.
+ * Label Uniqueness Tests: label names are unique per source, not across all sources.
  */
 
 namespace Planify.Tests.LabelUnique {
@@ -69,12 +64,7 @@ namespace Planify.Tests.LabelUnique {
         Test.assert_expected_messages ();
     }
 
-    /*
-     * A database written before the fix: the old UNIQUE (name) table, a "Hiking" label left
-     * behind by a removed account, and a synced task whose labels column points at a "Hiking"
-     * that was never stored. Opening it must migrate the table and give the task its label back
-     * from the CATEGORIES in its stored calendar data.
-     */
+    // Migrating an old UNIQUE (name) table restores a task's dropped label from CATEGORIES.
     private void test_opening_an_old_database_restores_dropped_labels () {
         #if WITH_EVOLUTION
         ScratchDatabase.open ();
