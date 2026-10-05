@@ -587,7 +587,14 @@ public class Views.Filter : Adw.Bin {
 
     private void add_item (Objects.Item item) {
         items[item.id] = new Layouts.ItemRow (item);
-        items[item.id].disable_drag_and_drop ();
+
+        // All Tasks lets a task be dragged onto another task or a sidebar project; the other
+        // filters keep dragging off entirely.
+        if (filter is Objects.Filters.AllItems) {
+            items[item.id].disable_reorder ();
+        } else {
+            items[item.id].disable_drag_and_drop ();
+        }
         listbox.append (items[item.id]);
     }
 
