@@ -31,7 +31,6 @@ int main (string[] args) {
     Planify.Tests.AllItemsFilter.register_tests ();
     Planify.Tests.SubitemCache.register_tests ();
     Planify.Tests.ItemReparent.register_tests ();
-    // Reuses the scratch database the subitem cache tests open, so it must run after them.
     Planify.Tests.LabelUnique.register_tests ();
 
     return Test.run ();

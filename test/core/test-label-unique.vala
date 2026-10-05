@@ -24,32 +24,9 @@
  * label with the same name. The Labels table used to be UNIQUE (name) across all sources, and
  * insert_label () uses INSERT OR IGNORE, so a second "Cycling" was silently dropped while the
  * caller was told it had been saved.
- *
- * Runs against the scratch database that test/meson.build sets up, after the subitem cache
- * tests, which open it.
  */
 
 namespace Planify.Tests.LabelUnique {
-    private void ensure_database () {
-        if (Services.Database.get_default ().is_opened) {
-            return;
-        }
-
-        string data_home = Environment.get_variable ("XDG_DATA_HOME");
-        if (data_home == null || Environment.get_user_data_dir () != data_home ||
-            !data_home.has_suffix ("/test-core-data")) {
-            error ("XDG_DATA_HOME must point at the test-core-data scratch dir");
-        }
-
-        DirUtils.create_with_parents (data_home + "/io.github.alainm23.planify", 0700);
-        FileUtils.remove (data_home + "/io.github.alainm23.planify/database.db");
-        Services.Database.get_default ().init_database ();
-    }
-
-    private string database_path () {
-        return Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-    }
-
     private Objects.Label make_label (string id, string name, string source_id) {
         var label = new Objects.Label ();
         label.id = id;
@@ -70,7 +47,7 @@ namespace Planify.Tests.LabelUnique {
     }
 
     private void test_same_name_in_another_source_is_stored () {
-        ensure_database ();
+        ScratchDatabase.open ();
 
         assert_true (Services.Database.get_default ().insert_label (
             make_label ("label-unique-a", "Cycling", "label-unique-source-a")));
@@ -82,7 +59,7 @@ namespace Planify.Tests.LabelUnique {
     }
 
     private void test_insert_label_reports_an_ignored_insert () {
-        ensure_database ();
+        ScratchDatabase.open ();
 
         assert_true (Services.Database.get_default ().insert_label (
             make_label ("label-unique-dup", "Gifts", "label-unique-source-a")));
@@ -100,7 +77,7 @@ namespace Planify.Tests.LabelUnique {
      */
     private void test_opening_an_old_database_restores_dropped_labels () {
         #if WITH_EVOLUTION
-        ensure_database ();
+        ScratchDatabase.open ();
 
         string SOURCE_ID = "label-unique-caldav";
         string PROJECT_ID = "label-unique-project";
@@ -126,7 +103,7 @@ namespace Planify.Tests.LabelUnique {
         Services.Store.instance ().insert_item (item);
 
         Sqlite.Database db;
-        assert_cmpint (Sqlite.Database.open (database_path (), out db), CompareOperator.EQ, Sqlite.OK);
+        assert_cmpint (Sqlite.Database.open (ScratchDatabase.path (), out db), CompareOperator.EQ, Sqlite.OK);
         string errmsg;
         int result = db.exec ("""
             DROP TABLE Labels;
