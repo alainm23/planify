@@ -39,6 +39,7 @@ public class Objects.Project : Objects.BaseObject {
     public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     public string calendar_url { get; set; default = ""; }
     public string calendar_source_uid { get; set; default = ""; }
+    public string extra_data { get; set; default = ""; }
     public MarkdownSetting markdown_setting { get; set; default = MarkdownSetting.GLOBAL_DEFAULT; }
 
     public bool is_markdown_enabled {
@@ -106,7 +107,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     Objects.Source ? _source;
-    public Objects.Source source {
+    public new Objects.Source source {
         get {
             _source = Services.Store.instance ().get_source (source_id);
             return _source;
@@ -124,7 +125,7 @@ public class Objects.Project : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
 
     string _view_id;
-    public string view_id {
+    public new string view_id {
         get {
             _view_id = "project-%s".printf (id_string);
             return _view_id;
@@ -251,7 +252,8 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_deck {
         get {
-            return "deck--board" in calendar_url.down ();
+            return "deck--board" in calendar_url.down () ||
+                   Utils.JsonUtils.get_int (extra_data, "deck_board_id") > 0;
         }
     }
 
@@ -321,31 +323,23 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = SourceType.CALDAV;
     }
 
-    // TODO: add extra null checks
     public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
-        if (propstat.get_first_prop_with_tagname ("displayname") != null) {
-            name = propstat.get_first_prop_with_tagname ("displayname").text_content;
+        var displayname = propstat.get_first_prop_with_tagname ("displayname");
+        if (displayname != null) {
+            name = displayname.text_content;
         }
-        if (propstat.get_first_prop_with_tagname ("calendar-color") != null) {
-            color = propstat.get_first_prop_with_tagname ("calendar-color").text_content;
+
+        var calendar_color = propstat.get_first_prop_with_tagname ("calendar-color");
+        if (calendar_color != null) {
+            color = calendar_color.text_content;
         }
+
         if (update_sync_token) {
-            sync_id = propstat.get_first_prop_with_tagname ("sync-token").text_content;
+            var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
+            if (sync_token != null) {
+                sync_id = sync_token.text_content;
+            }
         }
-    }
-
-    public string get_id_from_url (GXml.DomElement element) {
-        if (element.get_elements_by_tag_name ("d:href").length <= 0) {
-            return "";
-        }
-
-        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
-        string[] parts = href.text_content.split ("/");
-        return parts[parts.length - 2];
-    }
-
-    public string get_content (GXml.DomElement element) {
-        return element.text_content;
     }
 
     public Project.from_import_json (Json.Node node) {
@@ -376,6 +370,14 @@ public class Objects.Project : Objects.BaseObject {
 
         if (node.get_object ().has_member ("calendar_url")) {
             calendar_url = node.get_object ().get_string_member ("calendar_url");
+        }
+
+        if (node.get_object ().has_member ("markdown_setting")) {
+            markdown_setting = MarkdownSetting.parse (node.get_object ().get_string_member ("markdown_setting"));
+        }
+
+        if (node.get_object ().has_member ("extra_data")) {
+            extra_data = node.get_object ().get_string_member ("extra_data");
         }
     }
 
@@ -414,6 +416,10 @@ public class Objects.Project : Objects.BaseObject {
 
         if (node.get_object ().has_member ("inbox_project") && !node.get_object ().get_null_member ("inbox_project")) {
             inbox_project = node.get_object ().get_boolean_member ("inbox_project");
+        }
+
+        if (node.get_object ().has_member ("description") && !node.get_object ().get_null_member ("description")) {
+            description = node.get_object ().get_string_member ("description");
         }
 
         shared = node.get_object ().get_boolean_member ("shared");
@@ -459,12 +465,25 @@ public class Objects.Project : Objects.BaseObject {
                 if (show_loading) {
                     loading = true;
                 }
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
-                caldav_client.update_project.begin (this, (obj, res) => {
-                    caldav_client.update_project.end (res);
-                    Services.Store.instance ().update_project (this);
-                    loading = false;
-                });
+                
+                if (is_deck) {
+                    var deck_client = Services.Deck.Core.get_default ().get_client (source);
+                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+                    deck_client.update_board.begin (board_id, name, color_hex, false, (obj, res) => {
+                        try { deck_client.update_board.end (res); } catch (Error e) {
+                            Services.LogService.get_default ().error ("Deck", "Failed to update board: %s".printf (e.message));
+                        }
+                        Services.Store.instance ().update_project (this);
+                        loading = false;
+                    });
+                } else {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
+                    caldav_client.update_project.begin (this, (obj, res) => {
+                        caldav_client.update_project.end (res);
+                        Services.Store.instance ().update_project (this);
+                        loading = false;
+                    });
+                }
             }
 
             return GLib.Source.REMOVE;
@@ -551,12 +570,10 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         foreach (var item in items) {
-            string ? parent_id = Util.find_string_value ("RELATED-TO", item.calendar_data);
-            if (parent_id != null && parent_id != "") {
-                Objects.Item ? parent_item = Services.Store.instance ().get_item (parent_id);
-                
+            if (item.parent_id != "") {
+                Objects.Item? parent_item = Services.Store.instance ().get_item (item.parent_id);
                 if (parent_item == null) {
-                    parent_item = batch_map.has_key (parent_id) ? batch_map[parent_id] : null;
+                    parent_item = batch_map.has_key (item.parent_id) ? batch_map[item.parent_id] : null;
                 }
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);
@@ -657,10 +674,8 @@ public class Objects.Project : Objects.BaseObject {
             builder.add_null_value ();
         }
 
-        if (description != "") {
-            builder.set_member_name ("description");
-            builder.add_string_value (description);
-        }
+        builder.set_member_name ("description");
+        builder.add_string_value (description);
 
         builder.end_object ();
         builder.end_object ();
@@ -900,7 +915,11 @@ public class Objects.Project : Objects.BaseObject {
         if (source_type == SourceType.TODOIST) {
             delete_from_todoist ();
         } else if (source_type == SourceType.CALDAV) {
-            delete_from_caldav ();
+            if (is_deck) {
+                delete_from_deck ();
+            } else {
+                delete_from_caldav ();
+            }
         }
     }
 
@@ -914,6 +933,19 @@ public class Objects.Project : Objects.BaseObject {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (source);
         caldav_client.delete_project.begin (this, (obj, res) => {
             handle_remote_delete_response (caldav_client.delete_project.end (res));
+        });
+    }
+
+    private void delete_from_deck () {
+        var deck_client = Services.Deck.Core.get_default ().get_client (source);
+        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+        deck_client.delete_board.begin (board_id, (obj, res) => {
+            try {
+                deck_client.delete_board.end (res);
+                handle_remote_delete_response (new HttpResponse () { status = true });
+            } catch (Error e) {
+                handle_remote_delete_response (new HttpResponse () { error = e.message });
+            }
         });
     }
 
@@ -943,6 +975,9 @@ public class Objects.Project : Objects.BaseObject {
             if (response == "archive") {
                 is_archived = true;
                 Services.Store.instance ().archive_project (this);
+                if (is_deck) {
+                    archive_deck_board (true);
+                }
             }
         });
     }
@@ -950,6 +985,21 @@ public class Objects.Project : Objects.BaseObject {
     public void unarchive_project () {
         is_archived = false;
         Services.Store.instance ().archive_project (this);
+        if (is_deck) {
+            archive_deck_board (false);
+        }
+    }
+
+    private void archive_deck_board (bool archived) {
+        var deck_client = Services.Deck.Core.get_default ().get_client (source);
+        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+        deck_client.update_board.begin (board_id, name, color.replace ("#", ""), archived, (obj, res) => {
+            try {
+                deck_client.update_board.end (res);
+            } catch (Error e) {
+                warning ("Failed to archive/unarchive Deck board: %s", e.message);
+            }
+        });
     }
 
     public Objects.Project duplicate () {

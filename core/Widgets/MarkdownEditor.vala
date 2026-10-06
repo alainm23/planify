@@ -96,6 +96,7 @@ public class Widgets.MarkdownEditor : Adw.Bin {
             wrap_mode = Gtk.WrapMode.WORD,
             accepts_tab = false
         };
+        text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
         text_view.remove_css_class ("view");
         
         create_text_tags ();
@@ -119,6 +120,12 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         
         Services.Settings.get_default ().settings.changed["enable-markdown-formatting"].connect (() => {
             update_mode ();
+        });
+
+        Services.EventBus.get_default ().theme_changed.connect (() => {
+            link_tag.foreground = get_theme_color ("markdown_link_color", "#0969da");
+            code_tag.foreground = get_theme_color ("markdown_code_color", "#cf222e");
+            apply_markdown_formatting ();
         });
         
         buffer.changed.connect (on_buffer_changed);
@@ -149,6 +156,17 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         });
     }
     
+    private string get_theme_color (string color_name, string fallback) {
+        bool dark = Adw.StyleManager.get_default ().dark;
+        if (color_name == "markdown_link_color") {
+            return dark ? "#79c0ff" : "#0969da";
+        }
+        if (color_name == "markdown_code_color") {
+            return dark ? "#ff7b72" : "#cf222e";
+        }
+        return fallback;
+    }
+
     private void create_text_tags () {
         bold_tag = buffer.create_tag ("bold",
                                      "weight", Pango.Weight.BOLD);
@@ -169,10 +187,10 @@ public class Widgets.MarkdownEditor : Adw.Bin {
         
         code_tag = buffer.create_tag ("code",
                                          "family", "monospace",
-                                         "foreground", "#cf222e");
+                                         "foreground", get_theme_color ("markdown_code_color", "#cf222e"));
         
         link_tag = buffer.create_tag ("link",
-                                     "foreground", "#0969da",
+                                     "foreground", get_theme_color ("markdown_link_color", "#0969da"),
                                      "underline", Pango.Underline.SINGLE);
         
         invisible_tag = buffer.create_tag ("invisible",
@@ -1058,34 +1076,57 @@ public class Widgets.MarkdownEditor : Adw.Bin {
                 } while (match_info.next ());
             }
             
-            var code_regex = new GLib.Regex ("`([^`]+)`");
-            
+            // Fenced code blocks (``` ... ```) — apply code_tag only, no invisible_tag
+            var fenced_code_regex = new GLib.Regex ("```([\\s\\S]*?)```", GLib.RegexCompileFlags.MULTILINE);
+
+            if (fenced_code_regex.match (text, 0, out match_info)) {
+                do {
+                    int start_pos, end_pos;
+                    match_info.fetch_pos (0, out start_pos, out end_pos);
+
+                    var start_chars = text.substring (0, start_pos).char_count ();
+                    var end_chars = text.substring (0, end_pos).char_count ();
+
+                    Gtk.TextIter fence_start, fence_end;
+                    buffer.get_iter_at_offset (out fence_start, start_chars);
+                    buffer.get_iter_at_offset (out fence_end, end_chars);
+
+                    buffer.apply_tag (code_tag, fence_start, fence_end);
+                } while (match_info.next ());
+            }
+
+            // Inline code (`...`) — exclude triple backticks
+            var code_regex = new GLib.Regex ("(?<!`)(`{1})(?!`)([^`\\n]+?)(?<!`)\\1(?!`)");
+
             if (code_regex.match (text, 0, out match_info)) {
                 do {
                     int start_pos, end_pos;
                     match_info.fetch_pos (0, out start_pos, out end_pos);
-                    
+
                     var start_chars = text.substring (0, start_pos).char_count ();
                     var end_chars = text.substring (0, end_pos).char_count ();
-                    
+
                     Gtk.TextIter code_start, code_end;
                     buffer.get_iter_at_offset (out code_start, start_chars);
                     buffer.get_iter_at_offset (out code_end, end_chars);
-                    
+
+                    if (code_start.has_tag (code_tag)) {
+                        continue;
+                    }
+
                     Gtk.TextIter tick_end = code_start;
                     tick_end.forward_chars (1);
                     buffer.apply_tag (invisible_tag, code_start, tick_end);
-                    
+
                     Gtk.TextIter text_start = code_start;
                     text_start.forward_chars (1);
                     Gtk.TextIter text_end = code_end;
                     text_end.backward_chars (1);
                     buffer.apply_tag (code_tag, text_start, text_end);
-                    
+
                     Gtk.TextIter last_tick_start = code_end;
                     last_tick_start.backward_chars (1);
                     buffer.apply_tag (invisible_tag, last_tick_start, code_end);
-                    
                 } while (match_info.next ());
             }
             
@@ -1329,7 +1370,6 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     public string get_text () {
         var text = get_real_text ();
         text = text.replace ("• ", "- ");
-
         return text;
     }
     
@@ -1697,15 +1737,15 @@ public class Widgets.MarkdownEditor : Adw.Bin {
     
     private string normalize_url (string url) {
         var trimmed_url = url.strip ();
-        
-        if (trimmed_url.contains ("://")) {
+
+        if (GLib.Uri.parse_scheme (trimmed_url) != null) {
             return trimmed_url;
         }
-        
+
         if (trimmed_url.contains (".") && !trimmed_url.contains (" ")) {
             return "https://" + trimmed_url;
         }
-        
+
         return trimmed_url;
     }
     

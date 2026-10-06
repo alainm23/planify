@@ -582,10 +582,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signals_map[drop_row_target.accept.connect ((drop) => {
             var target_widget = this;
 
-            if (target_widget.project.is_deck) {
-                return false;
-            }
-
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -596,6 +592,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ItemRow) {
                 var picked_widget = (Layouts.ItemRow) value;
+
+                // Already here: a CalDAV MOVE onto its own URL fails with 403.
+                if (picked_widget.item.project_id == project.id) {
+                    return false;
+                }
 
                 if (picked_widget.item.project.is_inbox_project) {
                     return true;
@@ -612,6 +613,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         signals_map[drop_row_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
+
+            if (picked_widget.item.project_id == target_widget.project.id) {
+                return false;
+            }
 
             if (picked_widget.item.project.source_id != target_widget.project.source_id) {
                 Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
@@ -717,23 +722,21 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (edit_item);
         }
 
         menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
-        if (project.source_type == SourceType.CALDAV && !project.is_deck) {
-            menu_box.append (refresh_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        }
+        menu_box.append (refresh_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
         menu_box.append (export_pdf_item);
 
-        if (!project.is_deck && !project.inbox_project) {
+        if (!project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);
@@ -787,9 +790,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 try {
                     var file = file_dialog.save.end (res);
                     Services.ExportService.get_default ().export_project_pdf (project, file.get_path ());
-                    Services.EventBus.get_default ().send_toast (
-                        Util.get_default ().create_toast (_("Project exported as PDF"))
-                    );
+
+                    var toast = new Adw.Toast (_("Project exported as PDF")) {
+                        timeout = 3,
+                        button_label = _("Open")
+                    };
+                    string pdf_uri = file.get_uri ();
+                    toast.button_clicked.connect (() => {
+                        try {
+                            AppInfo.launch_default_for_uri (pdf_uri, null);
+                        } catch (Error e) {
+                            warning ("Error opening PDF: %s", e.message);
+                        }
+                    });
+                    Services.EventBus.get_default ().send_toast (toast);
                 } catch (Error e) {
                     if (!(e is IOError.CANCELLED)) {
                         warning ("Error exporting PDF: %s", e.message);
@@ -808,8 +822,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void sync_project () {
-        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        caldav_client.sync_tasklist.begin (project, new GLib.Cancellable ());
+        if (project.is_deck) {
+            Services.Deck.Core.get_default ().sync.begin (project.source);
+        } else {
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+            caldav_client.sync_tasklist.begin (project, new GLib.Cancellable ());
+        }
     }
 
     private void update_listbox_revealer () {
@@ -848,7 +866,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private void add_subprojects () {
         foreach (Objects.Project subproject in project.subprojects) {
-            add_subproject (subproject);
+            if (!subproject.is_archived) {
+                add_subproject (subproject);
+            }
         }
     }
 
@@ -861,7 +881,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     public void add_subproject (Objects.Project project) {
-        if (!subprojects_hashmap.has_key (project.id) && show_subprojects) {
+        if (!subprojects_hashmap.has_key (project.id) && show_subprojects && !project.is_archived) {
             subprojects_hashmap[project.id] = new Layouts.ProjectRow (project);
             listbox.append (subprojects_hashmap[project.id]);
         }

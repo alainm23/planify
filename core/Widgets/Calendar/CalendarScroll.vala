@@ -120,9 +120,15 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
         });
     }
 
+    private const int MAX_FUTURE_MONTHS = 24;
+
     private void load_more_months () {
+        if (loaded_months >= MAX_FUTURE_MONTHS) {
+            return;
+        }
         var today = new GLib.DateTime.now_local ();
         for (int i = 0; i < 2; i++) {
+            if (loaded_months >= MAX_FUTURE_MONTHS) break;
             add_month_section (today.add_months (loaded_months));
             loaded_months++;
         }
@@ -343,6 +349,8 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
             button = new Gtk.Button.with_label (day.to_string ()) {
                 css_classes = { "flat", "calendar-day" }
             };
+
+            button.update_property (Gtk.AccessibleProperty.LABEL, date.format (_("%A, %B %e, %Y")), -1);
 
             if (is_today) {
                 button.add_css_class ("today");

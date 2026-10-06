@@ -313,10 +313,15 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         sections_map.clear ();
 
         sections_map["no-section"] = new Widgets.SectionPicker.SectionPickerRow.for_no_section ();
-        sections_listbox.append (sections_map["no-section"]);
+        if (project.sections.size == 0) {
+            sections_listbox.append (sections_map["no-section"]);
+        }
+        
         foreach (Objects.Section section in project.sections) {
-            sections_map[section.id] = new Widgets.SectionPicker.SectionPickerRow (section);
-            sections_listbox.append (sections_map[section.id]);
+            if (!section.was_archived ()) {
+                sections_map[section.id] = new Widgets.SectionPicker.SectionPickerRow (section);
+                sections_listbox.append (sections_map[section.id]);
+            }
         }
     }
 

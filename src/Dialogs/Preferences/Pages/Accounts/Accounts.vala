@@ -22,6 +22,12 @@
 public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.BasePage {
     private Layouts.HeaderItem sources_group;
     private Gtk.Label inbox_page_name;
+#if WITH_GOA
+    private Adw.BottomSheet bottom_sheet;
+    private Gtk.Revealer import_link_revealer;
+    private Gtk.Label import_link_label;
+    private Gtk.ListBox detected_listbox;
+#endif
 
     public Accounts (Adw.PreferencesDialog preferences_dialog) {
         Object (
@@ -63,7 +69,8 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         sources_group = new Layouts.HeaderItem (_("Accounts")) {
             card = true,
             reveal = true,
-            listbox_margin_top = 6
+            listbox_margin_top = 6,
+            subheader_title = _("Task sources you sync with. Drag to reorder.")
         };
 
         sources_group.add_widget_end (add_source_button);
@@ -102,10 +109,38 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
             margin_end = 12
         };
         content_box.append (sources_group);
-        content_box.append (new Gtk.Label (_("You can sort your accounts by dragging and dropping")) {
-            css_classes = { "caption", "dimmed" },
-            halign = START
+#if WITH_GOA
+        import_link_label = new Gtk.Label (null) {
+            halign = END,
+            css_classes = { "caption" }
+        };
+
+        var import_link_box = new Gtk.Box (HORIZONTAL, 3) {
+            halign = END
+        };
+        import_link_box.append (import_link_label);
+        import_link_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
+            pixel_size = 12
         });
+
+        var import_link_button = new Gtk.Button () {
+            child = import_link_box,
+            css_classes = { "flat", "accent" },
+            halign = END,
+            margin_top = 3
+        };
+        import_link_button.clicked.connect (() => {
+            bottom_sheet.open = true;
+        });
+
+        import_link_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = import_link_button,
+            halign = END,
+            reveal_child = false
+        };
+        content_box.append (import_link_revealer);
+#endif
         content_box.append (inbox_group);
 
         var toolbar_view = new Adw.ToolbarView () {
@@ -113,7 +148,11 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         };
         toolbar_view.add_top_bar (new Adw.HeaderBar ());
 
+#if WITH_GOA
+        child = build_goa_bottom_sheet (toolbar_view);
+#else
         child = toolbar_view;
+#endif
         update_inbox_page_name ();
 
         Gee.HashMap<string, SourceRow> sources_hashmap = new Gee.HashMap<string, SourceRow> ();
@@ -160,7 +199,153 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         destroy.connect (() => {
             clean_up ();
         });
+
+#if WITH_GOA
+        load_detected_accounts.begin ();
+
+        signal_map[Services.Store.instance ().source_added.connect (() => {
+            load_detected_accounts.begin ();
+        })] = Services.Store.instance ();
+
+        signal_map[Services.Store.instance ().source_deleted.connect (() => {
+            load_detected_accounts.begin ();
+        })] = Services.Store.instance ();
+#endif
     }
+
+#if WITH_GOA
+    private Gtk.Widget build_goa_bottom_sheet (Gtk.Widget content) {
+        detected_listbox = new Gtk.ListBox () {
+            selection_mode = Gtk.SelectionMode.NONE,
+            css_classes = { "boxed-list" },
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 12,
+            margin_bottom = 12
+        };
+
+        var sheet_title = new Gtk.Label (_("Detected Accounts")) {
+            halign = START,
+            margin_start = 12,
+            margin_top = 12,
+            css_classes = { "title-4" }
+        };
+
+        var sheet_subtitle = new Gtk.Label (_("Accounts configured in GNOME Online Accounts")) {
+            halign = START,
+            margin_start = 12,
+            wrap = true,
+            xalign = 0,
+            css_classes = { "caption", "dimmed" }
+        };
+
+        var sheet_box = new Gtk.Box (VERTICAL, 6);
+        sheet_box.append (sheet_title);
+        sheet_box.append (sheet_subtitle);
+        sheet_box.append (detected_listbox);
+
+        bottom_sheet = new Adw.BottomSheet () {
+            content = content,
+            sheet = sheet_box,
+            show_drag_handle = true,
+            modal = true
+        };
+
+        return bottom_sheet;
+    }
+
+    private async void load_detected_accounts () {
+        if (detected_listbox == null) {
+            return;
+        }
+
+        Gtk.Widget? child = detected_listbox.get_first_child ();
+        while (child != null) {
+            Gtk.Widget? next = child.get_next_sibling ();
+            detected_listbox.remove (child);
+            child = next;
+        }
+
+        var accounts = yield Services.GOA.get_default ().list_caldav_accounts ();
+
+        int shown = 0;
+        foreach (var account in accounts) {
+            if (is_already_added (account.server_uri)) {
+                continue;
+            }
+
+            detected_listbox.append (build_detected_row (account));
+            shown++;
+        }
+
+        string text = ngettext (
+            "%d account available to import from GNOME Online Accounts",
+            "%d accounts available to import from GNOME Online Accounts",
+            shown
+        ).printf (shown);
+        import_link_label.label = text;
+        import_link_revealer.reveal_child = shown > 0;
+
+        if (shown == 0) {
+            bottom_sheet.open = false;
+        }
+    }
+
+    private bool is_already_added (string server_uri) {
+        string host = uri_host (server_uri);
+        if (host == "") {
+            return false;
+        }
+
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
+            if (source.source_type == SourceType.CALDAV &&
+                uri_host (source.caldav_data.server_url) == host) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static string uri_host (string url) {
+        try {
+            var uri = GLib.Uri.parse (url, GLib.UriFlags.NONE);
+            var host = uri.get_host ();
+            return host ?? "";
+        } catch (Error e) {
+            return "";
+        }
+    }
+
+    private Adw.ActionRow build_detected_row (Services.GOA.DetectedAccount account) {
+        var row = new Adw.ActionRow () {
+            title = account.display_name,
+            subtitle = account.identity
+        };
+        row.add_prefix (new Gtk.Image.from_icon_name ("cloud-outline-thick-symbolic"));
+
+        var import_button = new Gtk.Button.with_label (_("Import")) {
+            valign = CENTER,
+            css_classes = { "suggested-action" }
+        };
+        row.add_suffix (import_button);
+
+        import_button.clicked.connect (() => {
+            bottom_sheet.open = false;
+
+            if (account.is_nextcloud ()) {
+                var setup = new NextcloudSetup (preferences_dialog, this);
+                preferences_dialog.push_subpage (setup);
+                setup.prefill (account.server_uri);
+            } else {
+                var setup = new CalDAVSetup (preferences_dialog, this);
+                preferences_dialog.push_subpage (setup);
+                setup.prefill (account.server_uri, account.username);
+            }
+        });
+
+        return row;
+    }
+#endif
 
     private void add_source_row (Objects.Source source, Gee.HashMap<string, SourceRow> sources_hashmap) {
         if (!sources_hashmap.has_key (source.id)) {

@@ -129,6 +129,27 @@
                 <property name="title" translatable="yes" context="shortcut window">Open Pinboard</property>
               </object>
             </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="project-number">
+                <property name="accelerator">&lt;ctrl&gt;1...&lt;ctrl&gt;9</property>
+                <property name="title" translatable="yes" context="shortcut window">Open the Nth Project</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="next-project">
+                <property name="accelerator">&lt;ctrl&gt;Page_Down</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Next Project</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="prev-project">
+                <property name="accelerator">&lt;ctrl&gt;Page_Up</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Previous Project</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>

@@ -34,6 +34,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     public Gee.HashMap<string, Layouts.ItemBase> items_selected = new Gee.HashMap<string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap<string, Objects.Label> ();
+    private Gee.HashMap<string, Objects.Label> _initial_labels = new Gee.HashMap<string, Objects.Label> ();
     public signal void closed ();
 
     public MultiSelectToolbar (Objects.Project project) {
@@ -151,12 +152,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         move_button.clicked.connect (() => {
-            Dialogs.ProjectPicker.ProjectPicker dialog;
-            if (project.is_inbox_project) {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-            } else {
-                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (project.source);
-            }
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
             dialog.project = project;
 
@@ -167,10 +163,17 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             dialog.present (Planify._instance.main_window);
         });
 
-        label_button.labels_changed.connect ((labels) => {
-            if (labels.size > 0) {
-                set_labels (labels);
+        label_button.picker_opened.connect ((active) => {
+            if (active) {
+                _initial_labels = new Gee.HashMap<string, Objects.Label> ();
+                foreach (var entry in labels.entries) {
+                    _initial_labels[entry.key] = entry.value;
+                }
             }
+        });
+
+        label_button.labels_changed.connect ((new_labels) => {
+            apply_label_changes (new_labels);
         });
 
         priority_button.changed.connect ((priority) => {
@@ -226,12 +229,39 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         update_items (objects);
     }
 
-    private void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
+    private void apply_label_changes (Gee.HashMap<string, Objects.Label> new_labels) {
+        // Labels added by the user
+        var added = new Gee.HashMap<string, Objects.Label> ();
+        foreach (var entry in new_labels.entries) {
+            if (!_initial_labels.has_key (entry.key)) {
+                added[entry.key] = entry.value;
+            }
+        }
 
+        // Labels removed by the user
+        var removed = new Gee.ArrayList<string> ();
+        foreach (var entry in _initial_labels.entries) {
+            if (!new_labels.has_key (entry.key)) {
+                removed.add (entry.key);
+            }
+        }
+
+        if (added.size == 0 && removed.size == 0) {
+            return;
+        }
+
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
-            item.check_labels (new_labels);
+
+            foreach (var entry in added.entries) {
+                item.add_label_if_not_exists (entry.value);
+            }
+
+            foreach (var label_id in removed) {
+                item.delete_item_label (label_id);
+            }
+
             objects.add (item);
         }
 
@@ -359,16 +389,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private void check_labels (Objects.Item item, bool active) {
-        if (active) {
-            foreach (Objects.Label label in item.get_labels_list ()) {
+        labels.clear ();
+        foreach (var entry in items_selected.entries) {
+            foreach (Objects.Label label in entry.value.item.get_labels_list ()) {
                 if (!labels.has_key (label.id)) {
                     labels[label.id] = label;
-                }
-            }
-        } else {
-            foreach (Objects.Label label in item.get_labels_list ()) {
-                if (labels.has_key (label.id)) {
-                    labels.unset (label.id);
                 }
             }
         }
@@ -383,11 +408,21 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     public void move (Objects.Project project) {
         int count = items_selected.size;
-        
+        bool skipped_deck = false;
+
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
 
             string project_id = project.id;
+
+            // Moving a task between a Nextcloud Deck board and a non-Deck
+            // project isn't supported yet (Deck boards are CalDAV sources with
+            // no real calendar collection). Skip those items instead of firing
+            // a malformed request at the server.
+            if (item.project.is_deck != project.is_deck) {
+                skipped_deck = true;
+                continue;
+            }
 
             if (item.project.source_id != project.source_id) {
                 Util.get_default ().move_backend_type_item.begin (item, project, "", false);
@@ -396,6 +431,16 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                     item.move (project, "", false);
                 }
             }
+        }
+
+        if (skipped_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            unselect_all ();
+            return;
         }
 
         string message = GLib.ngettext (

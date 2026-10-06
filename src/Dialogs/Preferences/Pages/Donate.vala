@@ -42,8 +42,7 @@ public class Dialogs.Preferences.Pages.Donate : Dialogs.Preferences.Pages.BasePa
         };
 
         var hero_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
-            halign = Gtk.Align.CENTER,
-            margin_bottom = 24
+            halign = Gtk.Align.CENTER
         };
 
         var emoji_label = new Gtk.Label ("💝") {

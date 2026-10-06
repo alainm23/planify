@@ -37,8 +37,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         set {
             picked.clear ();
 
+            foreach (var entry in labels_widgets_map.entries) {
+                entry.value.active = false;
+            }
+
             foreach (Objects.Label label in value) {
-                labels_widgets_map[label.id].active = true;
+                if (labels_widgets_map.has_key (label.id)) {
+                    labels_widgets_map[label.id].active = true;
+                }
                 picked[label.id] = label;
             }
         }
@@ -121,10 +127,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             valign = Gtk.Align.START
         };
         listbox.add_css_class ("listbox-background");
-        listbox.add_css_class ("listbox-separator-6");
-
         listbox.set_placeholder (get_placeholder ());
-
         listbox.set_sort_func ((row1, row2) => {
             Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
             Objects.Label item2 = ((Widgets.LabelPicker.LabelRow) row2).label;

@@ -26,7 +26,7 @@ public class Objects.Item : Objects.BaseObject {
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
     public string calendar_event_uid { get; set; default = ""; }
-    public string deadline_date { get; set; default = ""; }  
+    public string deadline_date { get; set; default = ""; }
 
     string _section_id = "";
     public string section_id {
@@ -36,7 +36,7 @@ public class Objects.Item : Objects.BaseObject {
             _section = null;
         }
     }
-    
+
     string _project_id = "";
     public string project_id {
         get { return _project_id; }
@@ -45,7 +45,7 @@ public class Objects.Item : Objects.BaseObject {
             _project = null;
         }
     }
-    
+
     string _parent_id = "";
     public string parent_id {
         get { return _parent_id; }
@@ -57,7 +57,6 @@ public class Objects.Item : Objects.BaseObject {
     public string extra_data { get; set; default = ""; }
     public ItemType item_type { get; set; default = ItemType.TASK; }
     public string responsible_uid { get; set; default = ""; }
-
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
@@ -130,6 +129,7 @@ public class Objects.Item : Objects.BaseObject {
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
+    public bool is_trash { get; set; default = false; }
 
     private bool _collapsed = false;
     public bool collapsed {
@@ -204,15 +204,38 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    string ? _extra_data_key = null;
+    Json.Object ? _extra_data_object = null;
+
+    private Json.Object ? get_extra_data_object () {
+        if (_extra_data_key != extra_data) {
+            _extra_data_object = Utils.JsonUtils.get_object (extra_data);
+            _extra_data_key = extra_data;
+        }
+
+        return _extra_data_object;
+    }
+
+    private string get_extra_data_member (string member) {
+        var json_object = get_extra_data_object ();
+
+        if (json_object != null && json_object.has_member (member) && !json_object.get_null_member (member)) {
+            return json_object.get_string_member (member);
+        }
+
+        return "";
+    }
+
     string _ical_url = "";
     public string ical_url {
         get {
-            var json_object = Utils.JsonUtils.get_object (extra_data);
+            var json_object = get_extra_data_object ();
 
-            if (json_object.has_member ("ics")) {
+            // Nothing writes "ics" any more; kept for databases written by older versions.
+            if (json_object != null && json_object.has_member ("ics")) {
                 _ical_url = "%s/%s".printf (project.calendar_url, json_object.get_string_member ("ics"));
             } else {
-                _ical_url = Utils.JsonUtils.get_string (extra_data, "ical_url");
+                _ical_url = get_extra_data_member ("ical_url");
             }
             return _ical_url;
         }
@@ -221,7 +244,7 @@ public class Objects.Item : Objects.BaseObject {
     string _calendar_data = "";
     public string calendar_data {
         get {
-            _calendar_data = Utils.JsonUtils.get_string (extra_data, "calendar-data");
+            _calendar_data = get_extra_data_member ("calendar-data");
             return _calendar_data;
         }
     }
@@ -229,34 +252,46 @@ public class Objects.Item : Objects.BaseObject {
     string _etag = "";
     public string etag {
         get {
-            _etag = Utils.JsonUtils.get_string (extra_data, "etag");
+            _etag = get_extra_data_member ("etag");
             return _etag;
         }
     }
 
     GLib.DateTime _added_datetime;
+    string _added_at_cached = "";
     public GLib.DateTime added_datetime {
         get {
-            _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
+            if (_added_at_cached != added_at) {
+                _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
+                _added_at_cached = added_at;
+            }
             return _added_datetime;
         }
     }
 
     GLib.DateTime _updated_datetime;
+    string _updated_at_cached = "";
     public GLib.DateTime updated_datetime {
         get {
-            _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+            if (_updated_at_cached != updated_at) {
+                _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+                _updated_at_cached = updated_at;
+            }
             return _updated_datetime;
         }
     }
 
-    GLib.DateTime _deadline_datetime;
-    public GLib.DateTime deadline_datetime {
+    GLib.DateTime? _deadline_datetime;
+    string _deadline_date_cached = "";
+    public GLib.DateTime? deadline_datetime {
         get {
             if (!has_deadline) {
                 return null;
             }
-            _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
+            if (_deadline_date_cached != deadline_date) {
+                _deadline_datetime = new GLib.DateTime.from_iso8601 (deadline_date, new GLib.TimeZone.local ());
+                _deadline_date_cached = deadline_date;
+            }
             return _deadline_datetime;
         }
     }
@@ -309,27 +344,33 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     Gee.ArrayList<Objects.Item> _items;
+    bool _items_loaded = false;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Store.instance ().get_subitems (this);
-            _items.sort ((a, b) => {
-                if (a.child_order > b.child_order) {
-                    return 1;
-                }
-                if (a.child_order == b.child_order) {
-                    return 0;
-                }
-
-                return -1;
-            });
+            if (!_items_loaded) {
+                _items = Services.Store.instance ().get_subitems (this);
+                _items.sort ((a, b) => {
+                    if (a.child_order > b.child_order) return 1;
+                    if (a.child_order == b.child_order) return 0;
+                    return -1;
+                });
+                _items_loaded = true;
+            }
             return _items;
         }
+    }
+
+    public void invalidate_subitems () {
+        _items_loaded = false;
+        _items_uncomplete = null;
     }
 
     Gee.ArrayList<Objects.Item> _items_uncomplete;
     public Gee.ArrayList<Objects.Item> items_uncomplete {
         get {
-            _items_uncomplete = Services.Store.instance ().get_subitems_uncomplete (this);
+            if (_items_uncomplete == null) {
+                _items_uncomplete = Services.Store.instance ().get_subitems_uncomplete (this);
+            }
             return _items_uncomplete;
         }
     }
@@ -435,7 +476,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!node.get_object ().get_null_member ("due")) {
-            due.update_from_json (node.get_object ().get_object_member ("due"));
+            due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
         }
@@ -471,6 +512,18 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             labels = get_labels_from_labels_json (node, _labels);
         }
+
+        if (node.get_object ().has_member ("deadline_date")) {
+            deadline_date = node.get_object ().get_string_member ("deadline_date");
+        }
+
+        if (node.get_object ().has_member ("item_type")) {
+            item_type = ItemType.parse (node.get_object ().get_string_member ("item_type"));
+        }
+
+        if (node.get_object ().has_member ("extra_data")) {
+            extra_data = node.get_object ().get_string_member ("extra_data");
+        }
     }
 
     public Item.from_vtodo (string data, string _ical_url, string _project_id) {
@@ -482,7 +535,7 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ical_url, true);
     }
 
-    public void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
+    private void patch_from_vtodo (string data, string _ical_url, bool is_update = false) {
         ICal.Component ical = ICal.Parser.parse_string (data);
         ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
 
@@ -507,6 +560,8 @@ public class Objects.Item : Objects.BaseObject {
             } else {
                 priority = Constants.PRIORITY_4;
             }
+        } else {
+            priority = Constants.PRIORITY_4;
         }
 
         if (!ical.get_due ().is_null_time ()) {
@@ -523,6 +578,13 @@ public class Objects.Item : Objects.BaseObject {
         ICal.Property ? related_to_property = ical_vtodo.get_first_property (ICal.PropertyKind.RELATEDTO_PROPERTY);
         if (related_to_property != null) {
             string related_id = related_to_property.get_relatedto ();
+            ICal.ParameterReltype reltype = ICal.ParameterReltype.PARENT;
+            ICal.Parameter ? reltype_parameter = related_to_property.get_first_parameter (ICal.ParameterKind.RELTYPE_PARAMETER);
+
+            if (reltype_parameter != null) {
+                reltype = reltype_parameter.get_reltype ();
+            }
+
             if (related_id == id) {
                 warning ("Item/Task %s has a direct self-reference", id);
                 parent_id = "";
@@ -533,7 +595,7 @@ public class Objects.Item : Objects.BaseObject {
                 if (related_section != null) {
                     section_id = related_id;
                     parent_id = "";
-                } else {
+                } else if (reltype == ICal.ParameterReltype.PARENT) {
                     parent_id = related_id;
                     section_id = "";
                 }
@@ -560,7 +622,7 @@ public class Objects.Item : Objects.BaseObject {
             completed_at = "";
         }
 
-        ICal.Property ? sort_order_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-APPLE-SORT-ORDER"));
+        ICal.Property ? sort_order_property = find_x_property (ical_vtodo, "X-APPLE-SORT-ORDER");
         if (sort_order_property != null) {
             var sort_order_str = sort_order_property.get_value_as_string ();
             if (sort_order_str != null) {
@@ -578,7 +640,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        ICal.Property ? pinned_property = ical_vtodo.get_first_property (ICal.PropertyKind.from_string ("X-PINNED"));
+        ICal.Property ? pinned_property = find_x_property (ical_vtodo, "X-PINNED");
         if (pinned_property != null) {
             var pinned_str = pinned_property.get_value_as_string ();
             if (pinned_str != null) {
@@ -590,6 +652,10 @@ public class Objects.Item : Objects.BaseObject {
 
         extra_data = Util.generate_extra_data (_ical_url, "", ical.as_ical_string ());
 
+        if (is_update) {
+            sync_reminders_from_vtodo (ical_vtodo);
+        }
+
         #if WITH_EVOLUTION
         ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
 
@@ -600,6 +666,57 @@ public class Objects.Item : Objects.BaseObject {
         }
         #endif
         // TODO: Reimplement without ECAL
+    }
+
+    private static ICal.Property ? find_x_property (ICal.Component component, string x_name) {
+        ICal.Property ? prop = component.get_first_property (ICal.PropertyKind.X_PROPERTY);
+        while (prop != null) {
+            if (prop.get_x_name () == x_name) {
+                return prop;
+            }
+            prop = component.get_next_property (ICal.PropertyKind.X_PROPERTY);
+        }
+        return null;
+    }
+
+    public void sync_reminders_from_vtodo (ICal.Component vtodo) {
+        var server_datetimes = new Gee.HashSet<string> ();
+
+        ICal.Component ? valarm = vtodo.get_first_component (ICal.ComponentKind.VALARM_COMPONENT);
+        while (valarm != null) {
+            ICal.Property ? trigger_prop = valarm.get_first_property (ICal.PropertyKind.TRIGGER_PROPERTY);
+            if (trigger_prop != null) {
+                ICal.Parameter ? value_param = trigger_prop.get_first_parameter (ICal.ParameterKind.VALUE_PARAMETER);
+                bool is_datetime = value_param != null && value_param.get_value () == ICal.ParameterValue.DATETIME;
+
+                if (is_datetime) {
+                    var trigger = trigger_prop.get_trigger ();
+                    if (trigger != null) {
+                        var trigger_time = trigger.get_time ();
+                        if (!trigger_time.is_null_time ()) {
+                            var dt = Utils.Datetime.ical_to_date_time_local (trigger_time);
+                            if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
+                                server_datetimes.add (dt.to_string ());
+
+                                var reminder = new Objects.Reminder ();
+                                reminder.item_id = id;
+                                reminder.reminder_type = ReminderType.ABSOLUTE;
+                                reminder.due.date = dt.to_string ();
+                                add_reminder_if_not_exists (reminder, id != "");
+                            }
+                        }
+                    }
+                }
+            }
+            valarm = vtodo.get_next_component (ICal.ComponentKind.VALARM_COMPONENT);
+        }
+
+        foreach (var existing in reminders) {
+            if (existing.reminder_type == ReminderType.ABSOLUTE &&
+                !server_datetimes.contains (existing.datetime.to_string ())) {
+                existing.delete ();
+            }
+        }
     }
 
     private Gee.ArrayList<Objects.Label> get_caldav_categories (GLib.SList<string> categories_list) {
@@ -701,6 +818,31 @@ public class Objects.Item : Objects.BaseObject {
         _parent = item;
     }
 
+    /**
+     * Whether this item may be dropped onto @target to become its subtask. Refuses the item
+     * itself and any of this item's own descendants, which would make a cycle. A target in
+     * another project is fine: the drop moves the item there first.
+     */
+    public bool can_become_subtask_of (Objects.Item target) {
+        if (target.id == id) {
+            return false;
+        }
+
+        var visited = new Gee.HashSet<string> ();
+        for (Objects.Item ? ancestor = target.parent; ancestor != null; ancestor = ancestor.parent) {
+            if (ancestor.id == id) {
+                return false;
+            }
+
+            // A pre-existing cycle further up must not hang the walk.
+            if (!visited.add (ancestor.id)) {
+                break;
+            }
+        }
+
+        return true;
+    }
+
     public void set_project (Objects.Project project) {
         _project = project;
     }
@@ -709,10 +851,20 @@ public class Objects.Item : Objects.BaseObject {
         return get_update_json (uuid, temp_id);
     }
 
-    public string get_check_json (string uuid, string type) {
+    public string get_check_json (string uuid, string type, string? sync_token = null) {
         builder.reset ();
 
         builder.begin_object ();
+
+        if (sync_token != null) {
+            builder.set_member_name ("sync_token");
+            builder.add_string_value (sync_token);
+            builder.set_member_name ("resource_types");
+            builder.begin_array ();
+            builder.add_string_value ("items");
+            builder.end_array ();
+        }
+
         builder.set_member_name ("commands");
 
         builder.begin_array ();
@@ -754,27 +906,7 @@ public class Objects.Item : Objects.BaseObject {
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
-
-            if (project.source_type == SourceType.LOCAL) {
-                Services.Store.instance ().update_item (this, update_id);
-            } else if (project.source_type == SourceType.TODOIST) {
-                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
-                    Services.Store.instance ().update_item (this, update_id);
-                });
-            } else if (project.source_type == SourceType.CALDAV) {
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-                caldav_client.add_item.begin (this, true, (obj, res) => {
-                    HttpResponse response = caldav_client.add_item.end (res);
-
-                    if (response.status) {
-                        Services.Store.instance ().update_item (this, update_id);
-                    } else if (response.error_code == 412) {
-                        Services.EventBus.get_default ().send_conflict_toast (project.source);
-                    }
-                });
-            }
-
+            _do_update (update_id, false);
             return GLib.Source.REMOVE;
         });
     }
@@ -786,18 +918,31 @@ public class Objects.Item : Objects.BaseObject {
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
-            loading = true;
+            _do_update (update_id, true);
+            return GLib.Source.REMOVE;
+        });
+    }
 
-            if (project.source_type == SourceType.LOCAL) {
+    public void update_async (string update_id = "") {
+        _do_update (update_id, true);
+    }
+
+    private void _do_update (string update_id, bool show_loading) {
+        if (show_loading) loading = true;
+
+        if (project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().update_item (this, update_id);
+            if (show_loading) loading = false;
+        } else if (project.source_type == SourceType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
                 Services.Store.instance ().update_item (this, update_id);
-                loading = false;
-            } else if (project.source_type == SourceType.TODOIST) {
-                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
-                    Services.Store.instance ().update_item (this, update_id);
-                    loading = false;
-                });
-            } else if (project.source_type == SourceType.CALDAV) {
+                if (show_loading) loading = false;
+            });
+        } else if (project.source_type == SourceType.CALDAV) {
+            if (project.is_deck) {
+                _update_deck.begin (update_id);
+            } else {
                 var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
                 caldav_client.add_item.begin (this, true, (obj, res) => {
                     HttpResponse response = caldav_client.add_item.end (res);
@@ -808,39 +953,9 @@ public class Objects.Item : Objects.BaseObject {
                         Services.EventBus.get_default ().send_conflict_toast (project.source);
                     }
 
-                    loading = false;
+                    if (show_loading) loading = false;
                 });
             }
-
-            return GLib.Source.REMOVE;
-        });
-    }
-
-    public void update_async (string update_id = "") {
-        loading = true;
-
-        if (project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().update_item (this, update_id);
-            loading = false;
-        } else if (project.source_type == SourceType.TODOIST) {
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                Services.Todoist.get_default ().update.end (res);
-                Services.Store.instance ().update_item (this, update_id);
-                loading = false;
-            });
-        } else if (project.source_type == SourceType.CALDAV) {
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                HttpResponse response = caldav_client.add_item.end (res);
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this, update_id);
-                } else if (response.error_code == 412) {
-                    Services.EventBus.get_default ().send_conflict_toast (project.source);
-                }
-
-                loading = false;
-            });
         }
     }
 
@@ -851,17 +966,22 @@ public class Objects.Item : Objects.BaseObject {
 
     private void _update_pin () {
         if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                HttpResponse response = caldav_client.add_item.end (res);
+            if (project.is_deck) {
+                _update_deck.begin ("");
+                Services.Store.instance ().update_item_pin (this);
+            } else {
+                loading = true;
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                caldav_client.add_item.begin (this, true, (obj, res) => {
+                    HttpResponse response = caldav_client.add_item.end (res);
 
-                if (response.status) {
-                    Services.Store.instance ().update_item_pin (this);
-                }
+                    if (response.status) {
+                        Services.Store.instance ().update_item_pin (this);
+                    }
 
-                loading = false;
-            });
+                    loading = false;
+                });
+            }
         } else {
             Services.Store.instance ().update_item_pin (this);
         }
@@ -1123,6 +1243,9 @@ public class Objects.Item : Objects.BaseObject {
             builder.set_member_name ("due");
             builder.begin_object ();
 
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
+
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
 
@@ -1214,6 +1337,9 @@ public class Objects.Item : Objects.BaseObject {
 
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
+            
+            builder.set_member_name ("string");
+            builder.add_string_value (Utils.Datetime.due_to_todoist_natural_language (due));
 
             builder.end_object ();
         } else {
@@ -1241,6 +1367,16 @@ public class Objects.Item : Objects.BaseObject {
 
         ical.set_uid (id);
         ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
+
+        var added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.utc ());
+        if (added_datetime != null) {
+            #if IS_LIBICAL4
+            ical.add_property (new ICal.Property.created (new ICal.Time.from_timet_with_zone ((time_t) added_datetime.to_unix (), false, ICal.Timezone.get_utc_timezone ())));
+            #else
+            ical.add_property (new ICal.Property.created (new ICal.Time.from_timet_with_zone ((time_t) added_datetime.to_unix (), 0, ICal.Timezone.get_utc_timezone ())));
+            #endif
+        }
+
         ical.set_summary (content);
         ical.set_description (description);
 
@@ -1312,9 +1448,28 @@ public class Objects.Item : Objects.BaseObject {
                         }
                     }
 
+                    #if IS_LIBICAL4
+                    rrule.set_by_array (ICal.RecurrenceByRule.BY_DAY, values);
+                    #else
                     rrule.set_by_day_array (values);
+                    #endif
                 } else if (due.recurrency_type == RecurrencyType.EVERY_MONTH) {
                     rrule.set_freq (ICal.RecurrenceFrequency.MONTHLY_RECURRENCE);
+                    if (due.recurrency_last_day_of_month) {
+                        #if IS_LIBICAL4
+                        var values = new GLib.Array<short> ();
+                        short minus_one = -1;
+                        values.append_val (minus_one);
+                        rrule.set_by_array (ICal.RecurrenceByRule.BY_MONTH_DAY, values);
+                        #else
+                        var values = new GLib.Array<short> ();
+                        short minus_one = -1;
+                        short array_max = (short) ICal.RecurrenceArrayMaxValues.RECURRENCE_ARRAY_MAX;
+                        values.append_val (minus_one);
+                        values.append_val (array_max);
+                        rrule.set_by_month_day_array (values);
+                        #endif
+                    }
                 } else if (due.recurrency_type == RecurrencyType.EVERY_YEAR) {
                     rrule.set_freq (ICal.RecurrenceFrequency.YEARLY_RECURRENCE);
                 }
@@ -1351,7 +1506,11 @@ public class Objects.Item : Objects.BaseObject {
             ical.add_property (new ICal.Property.percentcomplete (100));
             // RFC requires Date-Time (https://datatracker.ietf.org/doc/html/rfc5545#section-3.8.2.1)
             // Nextcloud also accepted .today () which didn't include the Timezone, but Radicale and probably other CalDAV implementations want Date-Time
-            ical.add_property (new ICal.Property.completed (new ICal.Time.current_with_zone (null)));
+            #if IS_LIBICAL4
+            ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), false, ICal.Timezone.get_utc_timezone ())));
+            #else
+            ical.add_property (new ICal.Property.completed (new ICal.Time.from_timet_with_zone ((time_t) new GLib.DateTime.now_utc ().to_unix (), 0, ICal.Timezone.get_utc_timezone ())));
+            #endif
         } else {
             ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
@@ -1380,11 +1539,35 @@ public class Objects.Item : Objects.BaseObject {
         child_order_property.set_x (child_order.to_string ());
         ical.add_property (child_order_property);
 
-        return "%s%s%s".printf (
+        var vtodo_string = ical.as_ical_string ();
+        var valarms = build_valarm_strings ();
+        if (valarms != "") {
+            vtodo_string = vtodo_string.replace ("END:VTODO", valarms + "END:VTODO");
+        }
+
+        var result = "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
-            ical.as_ical_string (),
+            vtodo_string,
             "END:VCALENDAR\n"
         );
+
+        return result;
+    }
+
+    private string build_valarm_strings () {
+        var sb = new StringBuilder ();
+        foreach (var reminder in reminders) {
+            var dt = reminder.datetime;
+            if (dt == null) continue;
+            var utc = dt.to_utc ();
+            string trigger = utc.format ("%Y%m%dT%H%M%SZ");
+            sb.append ("BEGIN:VALARM\n");
+            sb.append ("TRIGGER;VALUE=DATE-TIME:%s\n".printf (trigger));
+            sb.append ("ACTION:DISPLAY\n");
+            sb.append ("DESCRIPTION:%s\n".printf (content));
+            sb.append ("END:VALARM\n");
+        }
+        return sb.str;
     }
 
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert = true) {
@@ -1415,6 +1598,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void add_item (Objects.Item item) {
+        invalidate_subitems ();
         _items.add (item);
     }
 
@@ -1538,41 +1722,45 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
-            delete_caldav.begin ();
+            if (project.is_deck) {
+                _delete_deck.begin ();
+            } else {
+                delete_caldav.begin ();
+            }
         }
     }
 
     private async void delete_caldav () {
         loading = true;
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        
+
         try {
             yield delete_subitems_caldav (this, caldav_client);
-            
+
             var response = yield caldav_client.delete_item (this);
-            
+
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
-            
+
             Services.Store.instance ().delete_item (this);
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
-        
+
         loading = false;
     }
 
     private async void delete_subitems_caldav (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             yield delete_subitems_caldav (subitem, caldav_client);
-            
+
             var response = yield caldav_client.delete_item (subitem);
 
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
-            
+
             Services.Store.instance ().delete_item (subitem);
         }
     }
@@ -1595,6 +1783,8 @@ public class Objects.Item : Objects.BaseObject {
         if (due.is_recurrency_equal (duedate)) {
             return;
         }
+
+        due.recurrence_string = "";
 
         if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
             duedate.recurrency_type == RecurrencyType.HOURLY) {
@@ -1648,11 +1838,25 @@ public class Objects.Item : Objects.BaseObject {
         update_async ("");
     }
 
-    public void update_next_recurrency (Services.Promise<GLib.DateTime> ? promise) {
-        var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
-        due.date = Utils.Datetime.get_todoist_datetime_format (
-            next_recurrency
-        );
+    public async GLib.DateTime? update_next_recurrency () {
+        GLib.DateTime base_datetime = due.datetime;
+
+        if (due.recurrency_from_completion) {
+            // Repeat from the completion date: anchor the next occurrence to today,
+            // keeping the original due time-of-day so a task due at 09:00 stays at 09:00.
+            var now = new GLib.DateTime.now_local ();
+            base_datetime = new GLib.DateTime.local (
+                now.get_year (),
+                now.get_month (),
+                now.get_day_of_month (),
+                due.datetime.get_hour (),
+                due.datetime.get_minute (),
+                due.datetime.get_second ()
+            );
+        }
+
+        var next_recurrency = Utils.Datetime.next_recurrency (base_datetime, due);
+        due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -1667,42 +1871,83 @@ public class Objects.Item : Objects.BaseObject {
                 Services.EventBus.get_default ().checked_toggled (subitem, old_checked);
             }
         }
+
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
-            promise.resolve (next_recurrency);
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                var response = Services.Todoist.get_default ().update.end (res);
-                loading = false;
-
-                if (response.status) {
-                    Services.Store.instance ().update_item (this);
-                    promise.resolve (next_recurrency);
-                }
-            });
+            var response = yield Services.Todoist.get_default ().close_item (this);
+            loading = false;
+            if (response.status) {
+                Services.Store.instance ().update_item (this);
+            } else {
+                return null;
+            }
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
-            var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-            caldav_client.add_item.begin (this, true, (obj, res) => {
-                var response = caldav_client.add_item.end (res);
-                loading = false;
-
+            if (project.is_deck) {
+                yield _update_deck ();
+                Services.Store.instance ().update_item (this);
+            } else {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                var response = yield caldav_client.add_item (this, true);
                 if (response.status) {
                     Services.Store.instance ().update_item (this);
-                    promise.resolve (next_recurrency);
+                } else {
+                    loading = false;
+                    return null;
                 }
-            });
+            }
+            loading = false;
         }
+
+        return due.datetime;
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
-        if (project.source_type == SourceType.LOCAL) {
-            _move (project.id, _section_id, notify);
-        } else if (project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.CALDAV && project.is_deck) {
             loading = true;
             sensitive = false;
-            
+
+            if (project.id == project_id) {
+                // Same board, just move between stacks
+                string old_section = section_id;
+                section_id = _section_id;
+                move_deck.begin (old_section, (obj, res) => {
+                    move_deck.end (res);
+                    loading = false;
+                    sensitive = true;
+                });
+            } else {
+                // Different board: create on new, delete from old
+                move_deck_cross_board.begin (project, _section_id, notify, (obj, res) => {
+                    move_deck_cross_board.end (res);
+                    loading = false;
+                    sensitive = true;
+                });
+            }
+
+            return;
+        }
+
+        move_to.begin (project, _section_id, notify);
+    }
+
+    /**
+     * Moves the item to @project (not a Deck board), waiting for the backend. Returns whether
+     * the move went through; on failure an error toast has already been shown.
+     */
+    public async bool move_to (Objects.Project project, string _section_id, bool notify = true) {
+        if (project.source_type == SourceType.LOCAL) {
+            _move (project.id, _section_id, notify);
+            return true;
+        }
+
+        loading = true;
+        sensitive = false;
+
+        bool moved = false;
+        if (project.source_type == SourceType.TODOIST) {
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1710,30 +1955,30 @@ public class Objects.Item : Objects.BaseObject {
                 move_id = _section_id;
             }
 
-            Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
-                var response = Services.Todoist.get_default ().move_item.end (res);
-                loading = false;
-
-                if (response.status) {
-                    _move (project.id, _section_id, notify);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
+            var response = yield Services.Todoist.get_default ().move_item (this, move_type, move_id);
+            if (response.status) {
+                _move (project.id, _section_id, notify);
+                moved = true;
+            } else {
+                Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+            }
         } else if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            sensitive = false;
-            
-            move_caldav_recursive.begin (project, _section_id, notify);
+            moved = yield move_caldav_recursive (project, _section_id, notify);
         }
+
+        loading = false;
+        // A row that stays in view (All Tasks, or after an error) would otherwise stay greyed out.
+        sensitive = true;
+        return moved;
     }
 
-    private async void move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
+    private async bool move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-        
+        bool moved = false;
+
         try {
             var response = yield caldav_client.move_item (this, project);
-            
+
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
@@ -1742,23 +1987,24 @@ public class Objects.Item : Objects.BaseObject {
             if (old_parent_id != "") {
                 parent_id = "";
                 response = yield caldav_client.add_item (this, true);
-                
+
                 if (!response.status) {
                     throw new IOError.FAILED (response.error);
                 }
 
                 Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
             }
-            
+
             yield move_all_subitems_caldav (this, project, caldav_client);
-            
+
             _move (project.id, _section_id, notify);
+            moved = true;
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
-        
-        loading = false;
+
         show_item = true;
+        return moved;
     }
 
     private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
@@ -1768,7 +2014,7 @@ public class Objects.Item : Objects.BaseObject {
             if (!response.status) {
                 throw new IOError.FAILED (response.error);
             }
-            
+
             yield move_all_subitems_caldav (subitem, project, caldav_client);
         }
     }
@@ -1785,7 +2031,7 @@ public class Objects.Item : Objects.BaseObject {
         Services.Store.instance ().move_item (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
-        
+
         if (notify) {
             Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Moved to %s".printf (project.name)))
@@ -1848,6 +2094,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_due (Objects.DueDate duedate) {
+        if (!duedate.is_recurring || duedate.recurrency_type == RecurrencyType.NONE
+            || !due.is_recurrency_equal (duedate)) {
+            due.recurrence_string = "";
+        }
+        
         due.date = duedate.date;
         due.is_recurring = duedate.is_recurring;
         due.recurrency_type = duedate.recurrency_type;
@@ -1855,6 +2106,7 @@ public class Objects.Item : Objects.BaseObject {
         due.recurrency_weeks = duedate.recurrency_weeks;
         due.recurrency_count = duedate.recurrency_count;
         due.recurrency_end = duedate.recurrency_end;
+        due.recurrency_last_day_of_month = duedate.recurrency_last_day_of_month;
 
 
         if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
@@ -1897,6 +2149,10 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             reminder.id = Util.get_default ().generate_id (reminder);
             add_reminder_if_not_exists (reminder);
+
+            if (project.source_type == SourceType.CALDAV && !project.is_deck) {
+                update_async ();
+            }
         }
     }
 
@@ -1929,6 +2185,8 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.source_type == SourceType.TODOIST) {
             response = yield Services.Todoist.get_default ().complete_item (this);
+        } else if (project.source_type == SourceType.CALDAV && project.is_deck) {
+            response = yield _complete_deck_item ();
         } else {
             var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
             response = yield caldav_client.complete_item (this);
@@ -2001,5 +2259,197 @@ public class Objects.Item : Objects.BaseObject {
             print ("  - %s\n", label.name);
         }
         print ("---------------------------------\n");
+    }
+
+    private int get_deck_card_id () {
+        return (int) Utils.JsonUtils.get_int (extra_data, "deck_card_id");
+    }
+
+    private int get_deck_stack_id () {
+        return (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
+    }
+
+    private int get_deck_board_id () {
+        return (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
+    }
+
+    private string? get_deck_duedate () {
+        if (!has_due) return null;
+        if (has_time) {
+            return due.datetime.to_utc ().format ("%FT%T");
+        }
+        return due.datetime.format ("%FT12:00:00");
+    }
+
+    private async void _update_deck (string update_id = "") {
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        string? duedate = get_deck_duedate ();
+        try {
+            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
+                content, description, duedate, checked, child_order);
+            yield _sync_deck_labels (deck_client);
+            Services.Store.instance ().update_item (this, update_id);
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("Deck", "Failed to update card: %s".printf (e.message));
+        }
+        loading = false;
+    }
+
+    private async void _sync_deck_labels (Services.Deck.DeckClient deck_client) throws Error {
+        int board_id = get_deck_board_id ();
+        int stack_id = get_deck_stack_id ();
+        int card_id = get_deck_card_id ();
+
+        // Get current labels on the card from server
+        var board_labels = yield deck_client.get_board_labels (board_id);
+
+        // Build map of board labels by title -> deck_label_id
+        var board_label_map = new Gee.HashMap<string, int> ();
+        board_labels.foreach_element ((a, i, node) => {
+            var obj = node.get_object ();
+            board_label_map[obj.get_string_member ("title")] = (int) obj.get_int_member ("id");
+        });
+
+        // Get current card labels from server
+        var stacks = yield deck_client.get_stacks (board_id, null);
+        var current_card_label_ids = new Gee.HashSet<int> ();
+        stacks.foreach_element ((a, i, stack_node) => {
+            var stack_obj = stack_node.get_object ();
+            if ((int) stack_obj.get_int_member ("id") != stack_id) return;
+            if (!stack_obj.has_member ("cards") || stack_obj.get_null_member ("cards")) return;
+            stack_obj.get_array_member ("cards").foreach_element ((b, j, card_node) => {
+                var card_obj = card_node.get_object ();
+                if ((int) card_obj.get_int_member ("id") != card_id) return;
+                if (card_obj.has_member ("labels") && !card_obj.get_null_member ("labels")) {
+                    card_obj.get_array_member ("labels").foreach_element ((c, k, lbl_node) => {
+                        current_card_label_ids.add ((int) lbl_node.get_object ().get_int_member ("id"));
+                    });
+                }
+            });
+        });
+
+        // Desired labels from Planify item
+        var desired_label_ids = new Gee.HashSet<int> ();
+        foreach (var label in labels) {
+            int deck_label_id = 0;
+            if (board_label_map.has_key (label.name)) {
+                deck_label_id = board_label_map[label.name];
+            } else {
+                // Create label on board
+                string hex_color = Util.get_default ().get_color (label.color);
+                var created = yield deck_client.create_label (board_id, label.name, hex_color);
+                deck_label_id = (int) created.get_int_member ("id");
+            }
+            desired_label_ids.add (deck_label_id);
+        }
+
+        // Assign missing labels
+        foreach (var lid in desired_label_ids) {
+            if (!current_card_label_ids.contains (lid)) {
+                yield deck_client.assign_label_to_card (board_id, stack_id, card_id, lid);
+            }
+        }
+
+        // Remove extra labels
+        foreach (var lid in current_card_label_ids) {
+            if (!desired_label_ids.contains (lid)) {
+                yield deck_client.remove_label_from_card (board_id, stack_id, card_id, lid);
+            }
+        }
+    }
+
+    private async void _delete_deck () {
+        loading = true;
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        try {
+            yield deck_client.delete_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id ());
+            Services.Store.instance ().delete_item (this);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        }
+        loading = false;
+    }
+
+    private async HttpResponse _complete_deck_item () {
+        HttpResponse response = new HttpResponse ();
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        string? duedate = get_deck_duedate ();
+        try {
+            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
+                content, description, duedate, checked, child_order);
+            response.status = true;
+        } catch (Error e) {
+            response.error = e.message;
+        }
+        return response;
+    }
+
+    public async void move_deck (string old_section_id) {
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        int board_id = get_deck_board_id ();
+        int card_id = get_deck_card_id ();
+        int old_stack_id = get_deck_stack_id ();
+
+        var target_section = Services.Store.instance ().get_section (section_id);
+        int target_stack_id = (int) Utils.JsonUtils.get_int (target_section.extra_data, "deck_stack_id");
+
+        try {
+            yield deck_client.move_card (board_id, old_stack_id, card_id, target_stack_id, child_order);
+            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", target_stack_id);
+            Services.Store.instance ().move_item (this, project_id, old_section_id, "");
+            Services.EventBus.get_default ().item_moved (this, project_id, old_section_id, "");
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("Deck", "Failed to move card: %s".printf (e.message));
+        }
+    }
+
+    private async void move_deck_cross_board (Objects.Project target_project, string _section_id, bool notify) {
+        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
+        int old_board_id = get_deck_board_id ();
+        int old_stack_id = get_deck_stack_id ();
+        int old_card_id = get_deck_card_id ();
+
+        int new_board_id = (int) Utils.JsonUtils.get_int (target_project.extra_data, "deck_board_id");
+        int new_stack_id = 0;
+        if (_section_id != "") {
+            var target_section = Services.Store.instance ().get_section (_section_id);
+            new_stack_id = (int) Utils.JsonUtils.get_int (target_section.extra_data, "deck_stack_id");
+        } else {
+            // Use first stack of target board
+            var sections = Services.Store.instance ().get_sections_by_project (target_project);
+            if (sections.size > 0) {
+                new_stack_id = (int) Utils.JsonUtils.get_int (sections[0].extra_data, "deck_stack_id");
+                _section_id = sections[0].id;
+            }
+        }
+
+        try {
+            string? duedate = get_deck_duedate ();
+
+            var card = yield deck_client.create_card (new_board_id, new_stack_id, content, description, duedate, child_order);
+            int new_card_id = (int) card.get_int_member ("id");
+
+            // Delete old card
+            yield deck_client.delete_card (old_board_id, old_stack_id, old_card_id);
+
+            // Update extra_data with new IDs
+            string old_project_id = project_id;
+            string old_section_id = section_id;
+            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_board_id", new_board_id);
+            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", new_stack_id);
+            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_card_id", new_card_id);
+
+            // Migrate labels to new board
+            if (labels.size > 0) {
+                yield _sync_deck_labels (deck_client);
+            }
+
+            project_id = target_project.id;
+            section_id = _section_id;
+            Services.Store.instance ().move_item (this, old_project_id, old_section_id, "");
+            Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, "");
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("Deck", "Failed to move card cross-board: %s".printf (e.message));
+        }
     }
 }

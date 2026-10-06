@@ -133,7 +133,7 @@ public class Views.List : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true,
-            valign = Gtk.Align.BASELINE,
+            valign = Gtk.Align.BASELINE_FILL,
             margin_bottom = 24
         };
 
@@ -218,17 +218,12 @@ public class Views.List : Adw.Bin {
 
         listbox.set_filter_func ((child) => {
             Layouts.SectionRow item = ((Layouts.SectionRow) child);
-
-            if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
-            }
-
-            return !item.section.hidded;
+            return !item.section.was_archived ();
         });
 
         signal_map[description_widget.changed.connect (() => {
             project.description = description_widget.text;
-            project.update_local ();
+            project.update ();
         })] = description_widget;
 
         signal_map[Services.Store.instance ().section_archived.connect ((section) => {
@@ -294,6 +289,7 @@ public class Views.List : Adw.Bin {
     }
 
     private void add_inbox_section () {
+        if (project.is_deck) return;
         inbox_section = new Layouts.SectionRow.for_project (project);
         listbox.append (inbox_section);
     }

@@ -11,6 +11,4 @@ planify*txt
 .flatpak
 .buildconfig
 .DS_Store
-
-# Generated GSettings schema cache
-data/gschemas.compiled
+.kiro

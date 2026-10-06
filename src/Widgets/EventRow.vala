@@ -124,12 +124,13 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private void update_timelabel () {
         string time_format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
-        
+        string date_format = Utils.Datetime.get_default_date_format (false, true, false);
+
         if (show_date) {
             if (is_allday) {
-                time_label.label = start_time.format ("%d %b");
+                time_label.label = start_time.format (date_format);
             } else {
-                time_label.label = start_time.format ("%d %b · ") + get_time_range_for_day (display_date ?? start_time, time_format);
+                time_label.label = start_time.format (date_format + " · ") + get_time_range_for_day (display_date ?? start_time, time_format);
             }
         } else {
             if (is_allday) {
@@ -162,8 +163,9 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         } else if (is_last_day) {
             result = start_of_day + " - " + end_time.format (time_format);
         } else {
-            result = start_time.format ("%d %b ") + start_time.format (time_format) + " - " + 
-                     end_time.format ("%d %b ") + end_time.format (time_format);
+            string date_format = Utils.Datetime.get_default_date_format (false, true, false);
+            result = start_time.format (date_format + " ") + start_time.format (time_format) + " - " +
+                     end_time.format (date_format + " ") + end_time.format (time_format);
         }
         
         return result;
@@ -209,14 +211,15 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
         string date_text;
         if (is_allday) {
-            date_text = start_time.format ("%A, %e de %B");
+            date_text = start_time.format ("%A, " + Utils.Datetime.get_default_date_format (false, true, false));
         } else {
             string time_format = Utils.Datetime.is_clock_format_12h () ? "%I:%M %p" : "%H:%M";
             
             if (start_time.get_day_of_year () == end_time.get_day_of_year () && start_time.get_year () == end_time.get_year ()) {
-                date_text = start_time.format ("%A, %e de %B · ") + start_time.format (time_format) + " - " + end_time.format (time_format);
+                date_text = start_time.format ("%A, " + Utils.Datetime.get_default_date_format (false, true, false) + " · ") + start_time.format (time_format) + " - " + end_time.format (time_format);
             } else {
-                date_text = start_time.format ("%e %b ") + start_time.format (time_format) + " - " + end_time.format ("%e %b ") + end_time.format (time_format);
+                string dm = Utils.Datetime.get_default_date_format (false, true, false);
+                date_text = start_time.format (dm + " ") + start_time.format (time_format) + " - " + end_time.format (dm + " ") + end_time.format (time_format);
             }
         }
 

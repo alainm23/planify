@@ -79,19 +79,19 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
         Services.Store.instance ().insert_item (item);
 
-        if (reminders.size > 0) {
-            quick_add_widget.is_loading = true;
-
-            foreach (Objects.Reminder reminder in reminders) {
-                item.add_reminder (reminder);
+        foreach (Objects.Reminder reminder in reminders) {
+            if (Services.Database.get_default ().insert_reminder (reminder)) {
+                Services.Store.instance ().reminders.add (reminder);
             }
         }
 
         if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && item.has_time) {
-            var reminder = new Objects.Reminder ();
-            reminder.mm_offset = Util.get_reminders_mm_offset ();
-            reminder.reminder_type = ReminderType.RELATIVE;
-            item.add_reminder (reminder);
+            var auto_reminder = new Objects.Reminder ();
+            auto_reminder.item_id = item.id;
+            auto_reminder.id = Util.get_default ().generate_id (auto_reminder);
+            auto_reminder.mm_offset = Util.get_reminders_mm_offset ();
+            auto_reminder.reminder_type = ReminderType.RELATIVE;
+            item.add_reminder (auto_reminder);
         }
 
         Services.EventBus.get_default ().update_section_sort_func (item.project_id, item.section_id, false);

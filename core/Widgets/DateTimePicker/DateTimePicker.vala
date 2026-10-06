@@ -23,7 +23,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Widgets.Calendar.CalendarMonth calendar_view;
     private Widgets.Calendar.CalendarScroll calendar_scroll_view;
-    private Widgets.ContextMenu.MenuItem repeat_item;
     private NoDateButton no_date_button;
     private OptionButton time_option_button;
     private OptionButton repeat_option_button;
@@ -67,6 +66,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             if (_duedate != null && _duedate.datetime != null) {
                 calendar_view.date = _duedate.datetime;
                 calendar_scroll_view.date = _duedate.datetime;
+                visible_no_date = true;
             }
 
             if (_duedate != null && time_picker != null && _duedate.datetime != null && Utils.Datetime.has_time (_duedate.datetime)) {
@@ -98,7 +98,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                     _duedate.recurrency_type,
                     _duedate.recurrency_interval,
                     _duedate.recurrency_weeks,
-                    end_label
+                    end_label,
+                    _duedate.recurrency_last_day_of_month
                 ).down ();
                 has_recurrency = true;
             } else {
@@ -136,7 +137,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    private Chrono.Chrono chrono;
+    private Chrono.Core chrono;
     private uint search_timeout_id = 0;
 
     public DateTimePicker () {
@@ -152,7 +153,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
-        chrono = new Chrono.Chrono ();
+        chrono = new Chrono.Core ();
         active_revealers = new Gee.ArrayList<Gtk.Revealer> ();
 
         Objects.DueDate ? last_parsed_duedate = null;
@@ -161,7 +162,19 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             placeholder_text = _("Type a date…")
         };
 
+        var suggested_date_box = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            margin_bottom = 6,
+            margin_top = 1
+        };
+
         show.connect (() => {
+            while (suggested_date_box.get_first_child () != null) {
+                suggested_date_box.remove (suggested_date_box.get_first_child ());
+            }
+            add_default_suggestions (suggested_date_box);
+
             Timeout.add (100, () => {
                 search_entry.grab_focus ();
                 return GLib.Source.REMOVE;
@@ -178,12 +191,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
             return false;
         });
-
-        var suggested_date_box = new Adw.WrapBox () {
-            child_spacing = 6,
-            line_spacing = 6,
-            margin_bottom = 6
-        };
 
         calendar_view = new Widgets.Calendar.CalendarMonth ();
 
@@ -248,7 +255,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         child = main_stack;
         add_css_class ("popover-contents");
-        add_default_suggestions (suggested_date_box);
 
         time_option_button.clicked.connect (() => {
             show_revealer (time_option_revealer);
@@ -267,10 +273,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         repeat_option_button.clear_clicked.connect (() => {
             apply_recurrency (RecurrencyType.NONE, 0, null, false);
-        });
-
-        repeat_item.clicked.connect (() => {
-            show_revealer (repeat_option_revealer);
         });
 
         closed.connect (() => {
@@ -402,7 +404,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         connect_suggested_date (next_week_item);
 
         no_date_button = new NoDateButton () {
-            visible = false
+            visible = _duedate != null && _duedate.datetime != null
         };
         box.append (no_date_button);
         no_date_button.clicked.connect (() => {
@@ -515,6 +517,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         _duedate.recurrency_weeks = value.recurrency_weeks;
         _duedate.recurrency_count = value.recurrency_count;
         _duedate.recurrency_end = value.recurrency_end;
+        _duedate.recurrency_last_day_of_month = value.recurrency_last_day_of_month;
+        _duedate.recurrency_from_completion = value.recurrency_from_completion;
 
         visible_no_date = true;
     }
@@ -720,7 +724,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         calendar_scroll_view = new Widgets.Calendar.CalendarScroll () {
@@ -754,7 +759,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             margin_start = 6,
             margin_top = 6,
             margin_bottom = 6,
-            halign = START
+            halign = START,
+            tooltip_text = _("Back")
         };
 
         var toolbar_view = new Adw.ToolbarView () {
@@ -813,12 +819,18 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 ellipsize = END
             };
 
-            var date_box = new Gtk.Box (HORIZONTAL, 6);
+            var date_box = new Gtk.Box (HORIZONTAL, 6) {
+                margin_start = 9,
+                margin_end = 9,
+                margin_top = 6,
+                margin_bottom = 6
+            };
             date_box.append (date_icon);
             date_box.append (date_label);
 
             button = new Gtk.Button () {
-                child = date_box
+                child = date_box,
+                css_classes = { "suggestion-chip" },
             };
 
             button.clicked.connect (() => clicked ());
@@ -874,12 +886,16 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 ellipsize = END
             };
 
-            var date_box = new Gtk.Box (HORIZONTAL, 6);
+            var date_box = new Gtk.Box (HORIZONTAL, 6) {
+                margin_start = 6,
+                margin_end = 6
+            };
             date_box.append (date_icon);
             date_box.append (date_label);
 
             var button = new Gtk.Button () {
-                child = date_box
+                child = date_box,
+                css_classes = { "suggestion-chip" }
             };
 
             button.clicked.connect (() => clicked ());

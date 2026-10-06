@@ -23,6 +23,9 @@ public class Dialogs.DatePicker : Adw.Dialog {
     private Gtk.Revealer clear_revealer;
     private Widgets.Calendar.Calendar calendar_view;
     private Widgets.ContextMenu.MenuItem no_date_item;
+    private Chrono.Core chrono;
+    private uint search_timeout_id = 0;
+    private GLib.DateTime _last_parsed = null;
 
     private GLib.DateTime _datetime = null;
     public GLib.DateTime datetime {
@@ -59,36 +62,33 @@ public class Dialogs.DatePicker : Adw.Dialog {
     }
 
     construct {
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
-        today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
-        today_item.margin_top = 6;
+        chrono = new Chrono.Core ();
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
-        tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
+        var search_entry = new Gtk.SearchEntry () {
+            placeholder_text = _("Type a date\u2026"),
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 6,
+            margin_bottom = 6
+        };
 
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "work-week-symbolic");
-        next_week_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
-            Utils.Datetime.get_date_only (new GLib.DateTime.now_local ().add_days (7))
-        );
+        var suggested_date_box = new Adw.WrapBox () {
+            child_spacing = 6,
+            line_spacing = 6,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 6
+        };
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.margin_bottom = 6;
 
         clear_revealer = new Gtk.Revealer () {
-            child = no_date_item
-        };
-
-        var items_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            child = no_date_item,
             margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12,
-            css_classes = { "card" }
+            margin_end = 12
         };
-
-        items_card.append (today_item);
-        items_card.append (tomorrow_item);
-        items_card.append (next_week_item);
-        items_card.append (clear_revealer);
 
         calendar_view = new Widgets.Calendar.Calendar () {
             margin_top = 6,
@@ -117,7 +117,8 @@ public class Dialogs.DatePicker : Adw.Dialog {
             width_request = 225
         };
 
-        content_box.append (items_card);
+        content_box.append (suggested_date_box);
+        content_box.append (clear_revealer);
         content_box.append (calendar_card);
         content_box.append (done_button);
 
@@ -130,24 +131,18 @@ public class Dialogs.DatePicker : Adw.Dialog {
             content = content_clamp
         };
 
+        var search_bar = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        search_bar.append (search_entry);
+
         toolbar_view.add_top_bar (new Adw.HeaderBar () {
             css_classes = { "flat" }
         });
+        toolbar_view.add_top_bar (search_bar);
 
         child = toolbar_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        signal_map[today_item.activate_item.connect (() => {
-            set_date (new DateTime.now_local ());
-        })] = today_item;
-
-        signal_map[tomorrow_item.activate_item.connect (() => {
-            set_date (new DateTime.now_local ().add_days (1));
-        })] = tomorrow_item;
-
-        signal_map[next_week_item.activate_item.connect (() => {
-            set_date (new DateTime.now_local ().add_days (7));
-        })] = next_week_item;
+        add_default_suggestions (suggested_date_box);
 
         signal_map[no_date_item.activate_item.connect (() => {
             _datetime = null;
@@ -165,10 +160,88 @@ public class Dialogs.DatePicker : Adw.Dialog {
             close ();
         })] = done_button;
 
+        search_entry.activate.connect (() => {
+            if (_last_parsed != null) {
+                set_date (_last_parsed);
+            }
+        });
+
+        search_entry.search_changed.connect (() => {
+            if (search_timeout_id != 0) {
+                GLib.Source.remove (search_timeout_id);
+            }
+
+            search_timeout_id = Timeout.add (300, () => {
+                search_timeout_id = 0;
+
+                while (suggested_date_box.get_first_child () != null) {
+                    suggested_date_box.remove (suggested_date_box.get_first_child ());
+                }
+
+                var text = search_entry.text.strip ();
+                if (text.length == 0) {
+                    _last_parsed = null;
+                    add_default_suggestions (suggested_date_box);
+                    return GLib.Source.REMOVE;
+                }
+
+                var result = chrono.parse (text);
+                if (result != null && result.date != null) {
+                    _last_parsed = Utils.Datetime.get_date_only (result.date);
+                    calendar_view.date = _last_parsed;
+                    var chip = build_suggestion_chip (_last_parsed);
+                    suggested_date_box.append (chip);
+                } else {
+                    _last_parsed = null;
+                }
+
+                return GLib.Source.REMOVE;
+            });
+        });
+
         closed.connect (() => {
             clean_up ();
             Services.EventBus.get_default ().connect_typing_accel ();
         });
+    }
+
+    private void add_default_suggestions (Adw.WrapBox box) {
+        add_suggestion (box, _("Today"), "star-outline-thick-symbolic", new GLib.DateTime.now_local ());
+        add_suggestion (box, _("Tomorrow"), "today-calendar-symbolic", new GLib.DateTime.now_local ().add_days (1));
+        add_suggestion (box, _("Next Week"), "work-week-symbolic", new GLib.DateTime.now_local ().add_days (7));
+    }
+
+    private void add_suggestion (Adw.WrapBox box, string label, string icon, GLib.DateTime date) {
+        var chip = build_suggestion_chip (date, label, icon);
+        box.append (chip);
+    }
+
+    private Gtk.Button build_suggestion_chip (GLib.DateTime date, string? label = null, string? icon = null) {
+        var icon_widget = new Gtk.Image.from_icon_name (icon ?? "month-symbolic");
+
+        var label_widget = new Gtk.Label (label ?? Utils.Datetime.get_relative_date_from_date (date)) {
+            ellipsize = END
+        };
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 9,
+            margin_end = 9,
+            margin_top = 6,
+            margin_bottom = 6
+        };
+        box.append (icon_widget);
+        box.append (label_widget);
+
+        var chip = new Gtk.Button () {
+            child = box,
+            css_classes = { "suggestion-chip" }
+        };
+
+        chip.clicked.connect (() => {
+            set_date (date);
+        });
+
+        return chip;
     }
 
     private void set_date (DateTime ? date) {

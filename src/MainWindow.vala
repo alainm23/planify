@@ -22,6 +22,8 @@
 public class MainWindow : Adw.ApplicationWindow {
     public weak Planify app { get; construct; }
 
+    private bool _did_startup_sync = false;
+
     private Layouts.Sidebar sidebar;
     private Adw.ViewStack views_stack;
     private Adw.OverlaySplitView overlay_split_view;
@@ -37,7 +39,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public Services.ActionManager action_manager;
 
-    private const int64 VIEW_TIMEOUT = 300000000;
+    private const int64 VIEW_TIMEOUT = 60000000;  // 1 min
+    private const int MAX_PROJECT_VIEWS = 2;
     private Gee.ArrayList<ViewCacheItem> view_cache = new Gee.ArrayList<ViewCacheItem> ();
 
     public MainWindow (Planify application) {
@@ -123,7 +126,7 @@ public class MainWindow : Adw.ApplicationWindow {
             min_sidebar_width = 360,
             content = views_stack,
             sidebar = item_sidebar_view,
-            show_sidebar = false
+            show_sidebar = Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")
         };
 
         toast_overlay = new Adw.ToastOverlay () {
@@ -183,6 +186,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
             Services.Notification.get_default ();
             Services.TimeMonitor.get_default ().init_timeout ();
+            Services.BackupManager.get_default ().init_auto_backup ();
 
             go_homepage ();
 
@@ -209,33 +213,24 @@ public class MainWindow : Adw.ApplicationWindow {
                 foreach (Objects.Source source in Services.Store.instance ().sources) {
                     source.run_server ();
                 }
-                did_startup_sync = true;
+                _did_startup_sync = true;
 
                 return GLib.Source.REMOVE;
             });
 
             Services.Store.instance ().source_added.connect ((source) => {
                 if (source.sync_server) {
-                    source.run_server ();
+                    source.run_server (true);
                 }
             });
 
-            // TODO: network_changed is sometimes called very rapidly, so we should debounce it ...
-            var network_monitor = GLib.NetworkMonitor.get_default ();
-            network_monitor.network_changed.connect (() => {
-                if (did_startup_sync == false) {
-                    debug ("Ignoring early network change due to bug 1690\n");
-                    return;
-                }
-                debug ("Network has changed, starting sync\n");
-                foreach (Objects.Source source in Services.Store.instance ().sources) {
-                    source.run_server ();
-                }
-            });
+            setup_network_monitor ();
             
 #if WITH_EVOLUTION
             Services.Store.instance ().setup_calendar_events ();
 #endif
+
+            Services.Store.instance ().cleanup_trash_on_startup ();
         });
 
         var color_scheme_settings = ColorSchemeSettings.Settings.get_default ();
@@ -247,6 +242,10 @@ public class MainWindow : Adw.ApplicationWindow {
                 );
                 Util.get_default ().update_theme ();
             }
+        });
+
+        Adw.StyleManager.get_default ().notify["accent-color"].connect (() => {
+            Util.get_default ().update_theme ();
         });
 
         Services.Settings.get_default ().settings.changed["system-appearance"].connect (() => {
@@ -413,8 +412,8 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        // Cleanup every 2 minutes
-        Timeout.add_seconds (120, () => {
+        // Cleanup every minute
+        Timeout.add_seconds (60, () => {
             cleanup_unused_views ();
             return Source.CONTINUE;
         });
@@ -477,6 +476,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 hide ();
                 return true;
             }
+            Planify.instance.release ();
             return false;
         });
     }
@@ -559,6 +559,7 @@ public class MainWindow : Adw.ApplicationWindow {
     public Views.Project add_project_view (Objects.Project project) {
         Views.Project ? project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
         if (project_view == null) {
+            evict_oldest_project_view ();
             project_view = new Views.Project (project);
             views_stack.add_named (project_view, project.view_id);
             add_view_to_cache (project.view_id, project_view);
@@ -746,11 +747,47 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
+    /**
+     * The project currently on screen, or null when the visible view is not a project.
+     */
+    public Objects.Project ? get_current_project () {
+        if (views_stack.visible_child is Views.Project) {
+            Views.Project ? project_view = (Views.Project) views_stack.visible_child;
+            if (project_view != null) {
+                return project_view.project;
+            }
+        }
+
+        return null;
+    }
+
+    private void update_productivity_visibility (Widgets.ContextMenu.MenuItem item, Widgets.ProductivityMiniWidget mini) {
+        bool show_mini = Services.ProductivityService.instance ().has_goals ();
+        item.visible = !show_mini;
+        mini.visible = show_mini;
+    }
+
     private Gtk.Popover build_menu_app () {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         preferences_item.secondary_text = "Ctrl+,";
 
         var productivity_item = new Widgets.ContextMenu.MenuItem (Markup.escape_text (_("Summary & Productivity")));
+
+        var productivity_mini = new Widgets.ProductivityMiniWidget ();
+
+        var settings = Services.Settings.get_default ().settings;
+
+        update_productivity_visibility (productivity_item, productivity_mini);
+
+        settings.changed["daily-task-goal"].connect (() => {
+            update_productivity_visibility (productivity_item, productivity_mini);
+            productivity_mini.refresh ();
+        });
+
+        settings.changed["use-dynamic-goal"].connect (() => {
+            update_productivity_visibility (productivity_item, productivity_mini);
+            productivity_mini.refresh ();
+        });
 
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
         keyboard_shortcuts_item.secondary_text = "F1";
@@ -765,6 +802,7 @@ public class MainWindow : Adw.ApplicationWindow {
         menu_box.append (preferences_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (productivity_item);
+        menu_box.append (productivity_mini);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (archive_item);
         menu_box.append (archive_separator);
@@ -779,6 +817,12 @@ public class MainWindow : Adw.ApplicationWindow {
         };
 
         productivity_item.clicked.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
+            dialog.present (Planify._instance.main_window);
+        });
+
+        productivity_mini.clicked.connect (() => {
             popover.popdown ();
             var dialog = new Dialogs.ProductivityReport.ProductivityReportDialog ();
             dialog.present (Planify._instance.main_window);
@@ -809,7 +853,7 @@ public class MainWindow : Adw.ApplicationWindow {
             var shortcuts_builder = new Gtk.Builder ();
             shortcuts_builder.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
             
-            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify");
+            var shortcuts_window = (Gtk.ShortcutsWindow) shortcuts_builder.get_object ("shortcuts-planify"); // vala-lint=deprecated
             shortcuts_window.set_transient_for (this);
             shortcuts_window.show ();
         } catch (Error e) {
@@ -915,6 +959,43 @@ public class MainWindow : Adw.ApplicationWindow {
         return toolbar_view;
     }
 
+    private void setup_network_monitor () {
+        uint network_timeout_id = 0;
+        var network_monitor = GLib.NetworkMonitor.get_default ();
+        network_monitor.network_changed.connect (() => {
+            bool available = network_monitor.get_network_available ();
+            Services.LogService.get_default ().info ("NetworkMonitor", "Network changed — available: %s".printf (available.to_string ()));
+
+            if (_did_startup_sync == false) {
+                Services.LogService.get_default ().debug ("NetworkMonitor", "Ignoring early network change (startup sync not done yet)");
+                return;
+            }
+
+            if (!available) {
+                Services.LogService.get_default ().info ("NetworkMonitor", "Network unavailable, skipping sync");
+                if (network_timeout_id != 0) {
+                    GLib.Source.remove (network_timeout_id);
+                    network_timeout_id = 0;
+                }
+                return;
+            }
+
+            if (network_timeout_id != 0) {
+                GLib.Source.remove (network_timeout_id);
+            }
+
+            network_timeout_id = Timeout.add_seconds (3, () => {
+                network_timeout_id = 0;
+                Services.LogService.get_default ().info ("NetworkMonitor", "Network stable, triggering sync for all sources");
+                foreach (Objects.Source source in Services.Store.instance ().sources) {
+                    Services.LogService.get_default ().debug ("NetworkMonitor", "Triggering sync for source: %s".printf (source.display_name));
+                    source.run_server ();
+                }
+                return GLib.Source.REMOVE;
+            });
+        });
+    }
+
     private void cleanup_unused_views () {
         var current_time = GLib.get_monotonic_time ();
         var current_view = views_stack.visible_child_name;
@@ -937,14 +1018,32 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private int64 get_timeout_for_view (string view_id) {
         if (view_id.has_prefix ("project-")) {
-            return 600000000; // 10 min
+            return 120000000; // 2 min
         }
 
-        if (view_id == "today-view") {
-            return 180000000; // 3 min
+        return VIEW_TIMEOUT; // 1 min
+    }
+
+    private void evict_oldest_project_view () {
+        var project_views = new Gee.ArrayList<ViewCacheItem> ();
+        foreach (var item in view_cache) {
+            if (item.view_id.has_prefix ("project-") && item.view_id != views_stack.visible_child_name) {
+                project_views.add (item);
+            }
         }
 
-        return VIEW_TIMEOUT; // 5 min
+        if (project_views.size < MAX_PROJECT_VIEWS) {
+            return;
+        }
+
+        project_views.sort ((a, b) => {
+            return (int) (a.last_access - b.last_access);
+        });
+
+        var oldest = project_views[0];
+        cleanup_view (oldest.view);
+        views_stack.remove (oldest.view);
+        view_cache.remove (oldest);
     }
 
     private void cleanup_view (Gtk.Widget view) {

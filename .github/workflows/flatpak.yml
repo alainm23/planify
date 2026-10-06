@@ -8,10 +8,10 @@ jobs:
     name: flatpak
     runs-on: ubuntu-latest
     container:
-      image: 'ghcr.io/flathub-infra/flatpak-github-actions:gnome-49'
+      image: 'ghcr.io/flathub-infra/flatpak-github-actions:gnome-50'
       options: '--privileged'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: planify.Devel.flatpak

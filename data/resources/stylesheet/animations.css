@@ -146,3 +146,34 @@
 .fancy-bounce-turn-animation {
     animation: subtle-pulse 0.8s ease-in-out;
 }
+
+@keyframes rotate-down {
+    from { -gtk-icon-transform: rotate(180deg); }
+    to   { -gtk-icon-transform: rotate(0deg); }
+}
+
+@keyframes rotate-up {
+    from { -gtk-icon-transform: rotate(0deg); }
+    to   { -gtk-icon-transform: rotate(180deg); }
+}
+
+.see-more-icon-collapsed {
+    -gtk-icon-transform: rotate(0deg);
+    animation: rotate-down 200ms ease-out;
+}
+
+.see-more-icon-expanded {
+    -gtk-icon-transform: rotate(180deg);
+    animation: rotate-up 200ms ease-out;
+}
+
+@keyframes date-updated-flash {
+    0%   { color: inherit; }
+    15%  { color: @accent_color; font-weight: 700; }
+    40%  { color: @accent_color; font-weight: 700; }
+    100% { color: inherit; }
+}
+
+.date-updated {
+    animation: date-updated-flash 1200ms ease-out;
+}

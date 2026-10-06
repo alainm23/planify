@@ -22,6 +22,8 @@
 public class Dialogs.QuickFind.QuickFindItem : GLib.Object {
     public Objects.BaseObject base_object { get; construct; }
     public string pattern { get; set; }
+    public bool matched_description { get; set; default = false; }
+    public string description_snippet { get; set; default = ""; }
 
     public QuickFindItem (Objects.BaseObject base_object, string pattern) {
         Object (base_object: base_object, pattern: pattern);

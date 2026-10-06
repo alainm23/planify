@@ -128,8 +128,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = true;
-                show_subtasks_revealer.reveal_child = subitems.has_children && edit;
-                add_subtasks_button_revealer.reveal_child = edit;
+                show_subtasks_revealer.reveal_child = subitems.has_children && edit && !item.project.is_deck;
+                add_subtasks_button_revealer.reveal_child = edit && !item.project.is_deck;
 
                 // Due labels
                 due_box_revealer.reveal_child = false;
@@ -165,7 +165,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
                 project_name_label_revealer.reveal_child = !is_project_view;
-                hide_subtask_revealer.reveal_child = subitems.has_children;
+                hide_subtask_revealer.reveal_child = subitems.has_children && !item.project.is_deck;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 show_subtasks_revealer.reveal_child = false;
@@ -217,7 +217,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
+    private bool _recurrency_reset = false;
     public bool drag_enabled { get; set; default = true; }
+    // Off in views that span projects: they can reparent by dropping onto a row, but a manual
+    // order across projects means nothing.
+    private bool reorder_enabled = true;
 
     public signal void item_added ();
 
@@ -253,8 +257,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         checked_button = new Gtk.CheckButton () {
-            valign = Gtk.Align.CENTER,
-            sensitive = !item.project.is_deck
+            valign = Gtk.Align.CENTER
         };
         checked_button.add_css_class ("priority-color");
 
@@ -421,7 +424,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         pin_button = new Widgets.PinButton () {
             sensitive = !item.completed,
-            no_padding = true
+            no_padding = true,
+            icon_size = 13
         };
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
@@ -495,8 +499,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 16,
             margin_top = 6,
-            hexpand = true,
-            sensitive = !item.project.is_deck
+            hexpand = true
         };
 
         if (Services.EventBus.get_default ().mobile_mode) {
@@ -644,7 +647,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         child = main_revealer;
         update_request ();
 
-        if (!item.checked && !item.project.is_deck) {
+        if (!item.checked) {
             build_drag_and_drop ();
         }
 
@@ -765,6 +768,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
 
+        signals_map[checked_button.toggled.connect (() => {
+            // Only handle keyboard activation (Enter) — click is handled by GestureClick
+            if (!checked_button_gesture.is_active () && !_recurrency_reset) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
+
         signals_map[hide_loading_button.clicked.connect (() => {
             Timeout.add (100, () => {
                 edit = false;
@@ -794,10 +804,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
         signals_map[menu_handle_gesture.pressed.connect ((n_press, x, y) => {
-            if (!item.project.is_deck) {
-                menu_handle_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-                build_handle_context_menu (x, y);
-            }
+            menu_handle_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            build_handle_context_menu (x, y);
         })] = menu_handle_gesture;
 
         var multiselect_gesture = new Gtk.GestureClick ();
@@ -834,6 +842,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();
         })] = add_subitem_gesture;
+
+        signals_map[add_subtasks_button.clicked.connect (() => {
+            subitems.prepare_new_item ();
+        })] = add_subtasks_button;
 
         signals_map[item.loading_change.connect (() => {
             is_loading = item.loading;
@@ -994,6 +1006,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void update_request () {
+        if (_recurrency_reset) {
+            return;
+        }
+
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
@@ -1063,11 +1079,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (edit) {
             add_css_class ("task-editing");
-            content_textview.editable = !item.completed && !item.project.is_deck;
+            content_textview.editable = true;
             if (markdown_editor != null) {
-                markdown_editor.is_editable = !item.completed && !item.project.is_deck;
+                markdown_editor.is_editable = true;
             }
-            item_labels.sensitive = !item.completed && !item.project.is_deck;
+            item_labels.sensitive = !item.completed;
 
             if (schedule_button != null) schedule_button.sensitive = !item.completed;
             if (priority_button != null) priority_button.sensitive = !item.completed;
@@ -1184,7 +1200,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     item.due.recurrency_type,
                     item.due.recurrency_interval,
                     item.due.recurrency_weeks,
-                    end_label
+                    end_label,
+                    item.due.recurrency_last_day_of_month
                 ).down ();
             }
 
@@ -1237,6 +1254,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_ ("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
+        var pick_date_item = new Widgets.ContextMenu.MenuItem (_ ("Pick a Date"), "month-symbolic");
+
         pinboard_item = new Widgets.ContextMenu.MenuItem (item.pinned ? _ ("Unpin") : _ ("Pin"), "pin-symbolic");
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_ ("No Date"), "cross-large-circle-filled-symbolic");
@@ -1256,101 +1275,114 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (!item.completed && !item.project.is_deck) {
-            menu_box.append (complete_item);
-            menu_box.append (edit_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (today_item);
-            menu_box.append (tomorrow_item);
-            menu_box.append (no_date_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (pinboard_item);
-            menu_box.append (move_item);
-            menu_box.append (labels_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (add_item);
-            menu_box.append (duplicate_item);
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-
-            signals_map[today_item.activate_item.connect (() => {
-                update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
-            })] = today_item;
-
-            signals_map[tomorrow_item.activate_item.connect (() => {
-                update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
-            })] = tomorrow_item;
-
-            signals_map[pinboard_item.activate_item.connect (() => {
-                item.update_pin (!item.pinned);
-            })] = pinboard_item;
-
-            signals_map[no_date_item.activate_item.connect (() => {
-                update_due (new Objects.DueDate ());
-            })] = no_date_item;
-
-            signals_map[move_item.activate_item.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
-
-                dialog.project = item.project;
-
-                signals_map[dialog.changed.connect ((type, id) => {
-                    if (type == "project") {
-                        move (Services.Store.instance ().get_project (id), "");
-                    } else {
-                        move (item.project, id);
-                    }
-                })] = dialog;
-
-                dialog.present (Planify._instance.main_window);
-            })] = move_item;
-
-            signals_map[labels_item.activate_item.connect (() => {
-                var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
-                    button_text = _("Apply")
-                };
-
-                dialog.add_labels (item.source);
-                dialog.labels = item.labels;
-
-                signals_map[dialog.labels_changed.connect ((labels) => {
-                    item.update_labels (labels);
-                })] = dialog;
-
-                dialog.present (Planify._instance.main_window);
-            })] = labels_item;
-
-            signals_map[complete_item.activate_item.connect (() => {
-                checked_button.active = !checked_button.active;
-                checked_toggled (checked_button.active);
-            })] = complete_item;
-
-            signals_map[edit_item.activate_item.connect (() => {
-                Services.EventBus.get_default ().open_item (item);
-            })] = edit_item;
-
-            signals_map[add_item.activate_item.connect (() => {
-                var dialog = new Dialogs.QuickAdd ();
-                dialog.for_base_object (item);
-                dialog.present (Planify._instance.main_window);
-            })] = add_item;
-
-            signals_map[duplicate_item.clicked.connect (() => {
-                Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
-            })] = duplicate_item;
-        }
-
+        menu_box.append (complete_item);
+        menu_box.append (edit_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (today_item);
+        menu_box.append (tomorrow_item);
+        menu_box.append (pick_date_item);
+        menu_box.append (no_date_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (pinboard_item);
+        menu_box.append (move_item);
+        menu_box.append (labels_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         if (!item.project.is_deck) {
-            menu_box.append (delete_item);
-
-            signals_map[delete_item.activate_item.connect (() => {
-                delete_request ();
-            })] = delete_item;
+            menu_box.append (add_item);
         }
+        menu_box.append (duplicate_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+        signals_map[today_item.activate_item.connect (() => {
+            update_date (Utils.Datetime.get_date_only (new DateTime.now_local ()));
+        })] = today_item;
+
+        signals_map[tomorrow_item.activate_item.connect (() => {
+            update_date (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
+        })] = tomorrow_item;
+
+        signals_map[pick_date_item.activate_item.connect (() => {
+            var dialog = new Dialogs.DatePicker (_("Pick a Date"));
+            if (item.has_due) {
+                dialog.datetime = item.due.datetime;
+            }
+            dialog.present (Planify._instance.main_window);
+            signals_map[dialog.date_changed.connect (() => {
+                if (dialog.datetime != null) {
+                    update_date (Utils.Datetime.get_date_only (dialog.datetime));
+                }
+                dialog.clean_up ();
+            })] = dialog;
+        })] = pick_date_item;
+
+        signals_map[pinboard_item.activate_item.connect (() => {
+            item.update_pin (!item.pinned);
+        })] = pinboard_item;
+
+        signals_map[no_date_item.activate_item.connect (() => {
+            update_due (new Objects.DueDate ());
+        })] = no_date_item;
+
+        signals_map[move_item.activate_item.connect (() => {
+            Dialogs.ProjectPicker.ProjectPicker dialog;
+            if (item.project.is_inbox_project) {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            } else {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
+            }
+
+            dialog.project = item.project;
+
+            signals_map[dialog.changed.connect ((type, id) => {
+                if (type == "project") {
+                    move (Services.Store.instance ().get_project (id), "");
+                } else {
+                    move (item.project, id);
+                }
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
+        })] = move_item;
+
+        signals_map[labels_item.activate_item.connect (() => {
+            var dialog = new Dialogs.LabelPicker (LabelPickerType.FILTER_AND_CREATE) {
+                button_text = _("Apply")
+            };
+
+            dialog.add_labels (item.source);
+            dialog.labels = item.labels;
+
+            signals_map[dialog.labels_changed.connect ((labels) => {
+                item.update_labels (labels);
+            })] = dialog;
+
+            dialog.present (Planify._instance.main_window);
+        })] = labels_item;
+
+        signals_map[complete_item.activate_item.connect (() => {
+            checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
+        })] = complete_item;
+
+        signals_map[edit_item.activate_item.connect (() => {
+            Services.EventBus.get_default ().open_item (item);
+        })] = edit_item;
+
+        signals_map[add_item.activate_item.connect (() => {
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.for_base_object (item);
+            dialog.present (Planify._instance.main_window);
+        })] = add_item;
+
+        signals_map[duplicate_item.clicked.connect (() => {
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
+        })] = duplicate_item;
+
+        menu_box.append (delete_item);
+
+        signals_map[delete_item.activate_item.connect (() => {
+            delete_request ();
+        })] = delete_item;
 
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1378,6 +1410,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem (_ ("Change History"), "rotation-edit-symbolic");
+        if (item.updated_at != "") {
+            more_information_item.subtitle = _("Updated: %s").printf (Utils.Datetime.get_relative_date_from_date (item.updated_datetime));
+        } else {
+            more_information_item.subtitle = _("Created: %s").printf (Utils.Datetime.get_relative_date_from_date (item.added_datetime));
+        }
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -1414,13 +1451,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             })] = export_ics_item;
 
             signals_map[move_item.clicked.connect (() => {
-                Dialogs.ProjectPicker.ProjectPicker dialog;
-
-                if (item.project.is_inbox_project) {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
-                } else {
-                    dialog = new Dialogs.ProjectPicker.ProjectPicker.for_source (item.source);
-                }
+                var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
                 signals_map[dialog.changed.connect ((type, id) => {
                     if (type == "project") {
@@ -1480,7 +1511,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void complete_item (bool old_checked, uint ? time = null) {
         if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
-            Services.LogService.get_default ().info ("ItemRow", "Task completed, playing audio: %s".printf (item.content));
             Util.get_default ().play_audio ();
         }
 
@@ -1503,6 +1533,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             complete_timeout = 0;
 
             if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                _recurrency_reset = true;
                 update_next_recurrency ();
             } else {
                 var old_completed_at = item.completed_at;
@@ -1570,25 +1601,39 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        signals_map[promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
-        })] = promise;
-
-        item.update_next_recurrency (promise);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            _recurrency_reset = false;
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
+        });
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
+        _recurrency_reset = true;
         checked_button.active = false;
+        _recurrency_reset = false;
         complete_timeout = 0;
         itemrow_box.remove_css_class ("complete");
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
+        check_due ();
 
-        var title = _("Completed. Next occurrence: %s".printf (
-                           Utils.Datetime.get_default_date_format_from_date (next_recurrency)
-        ));
+        // Re-trigger the flash even if the class is still present from a rapid previous completion.
+        due_label.remove_css_class ("date-updated");
+        Timeout.add (10, () => {
+            due_label.add_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
+        Timeout.add (1200, () => {
+            due_label.remove_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
+
+        var title = _("Task completed · Next: %s").printf (
+            Utils.Datetime.get_relative_date_from_date (next_recurrency)
+        );
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_toast (toast);
     }
@@ -1608,6 +1653,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void delete_undo () {
+        Services.Store.instance ().set_item_trash (item, true);
+
         var toast = new Adw.Toast (_("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
         toast.button_label = _("Undo");
         toast.priority = HIGH;
@@ -1616,18 +1663,26 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         Services.EventBus.get_default ().send_toast (toast);
 
         signals_map[toast.dismissed.connect (() => {
-            if (!main_revealer.reveal_child) {
-                item.delete_item ();
-            }
+            item.delete_item ();
         })] = toast;
 
         signals_map[toast.button_clicked.connect (() => {
+            Services.Store.instance ().set_item_trash (item, false);
             main_revealer.reveal_child = true;
         })] = toast;
     }
 
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
+
+        if (item.project.is_deck != project.is_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            return;
+        }
 
         if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);
@@ -1647,7 +1702,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         _disable_drag_and_drop ();
         
         // Drop Motion
-        build_drop_motion ();
+        if (reorder_enabled) {
+            build_drop_motion ();
+        }
 
         // Drag Souyrce
         build_drag_source ();
@@ -1659,7 +1716,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         build_drop_magic_button_target ();
 
         // Drop Order
-        build_drop_order_target ();
+        if (reorder_enabled) {
+            build_drop_order_target ();
+        }
     }
 
     private void build_drop_motion () {
@@ -1724,6 +1783,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         itemrow_box.add_controller (drop_target);
 
+        dnd_handlerses[drop_target.accept.connect ((drop) => {
+            return !item.project.is_deck;
+        })] = drop_target;
+
         dnd_handlerses[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
@@ -1738,38 +1801,76 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 return false;
             }
 
-            string old_parent_id = picked_item.parent_id;
-            string old_project_id = picked_item.project_id;
-            string old_section_id = picked_item.section_id;
-
-            picked_item.section_id = "";
-            picked_item.parent_id = target_item.id;
-
-            if (picked_item.project.source_type == SourceType.LOCAL) {
-                target_item.collapsed = true;
-                Services.Store.instance ().update_item (picked_item);
-                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-            } else if (picked_item.project.source_type == SourceType.TODOIST) {
-                Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
-                    if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        target_item.collapsed = true;
-                        Services.Store.instance ().update_item (picked_widget.item);
-                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-                    }
-                });
-            } else if (picked_item.project.source_type == SourceType.CALDAV) {
-                var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_item.project.source);
-                caldav_client.add_item.begin (picked_item, true, (obj, res) => {
-                    if (caldav_client.add_item.end (res).status) {
-                        target_item.collapsed = true;
-                        Services.Store.instance ().update_item (picked_widget.item);
-                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-                    }
-                });
+            if (!picked_item.can_become_subtask_of (target_item)) {
+                return false;
             }
+
+            if (picked_item.project_id == target_item.project_id) {
+                make_subtask_of (picked_item, target_item);
+                return true;
+            }
+
+            // Another list: move the task there first. Across accounts that means recreating it
+            // under a new id, and into or out of a Deck board it isn't supported at all.
+            if (picked_item.project.source_id != target_item.project.source_id) {
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (_("A task can only become a subtask of a task in the same account"))
+                );
+                return false;
+            }
+
+            if (picked_item.project.is_deck != target_item.project.is_deck) {
+                Services.EventBus.get_default ().send_toast (
+                    Util.get_default ().create_toast (
+                        _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                    )
+                );
+                return false;
+            }
+
+            picked_item.move_to.begin (target_item.project, "", false, (obj, res) => {
+                if (picked_item.move_to.end (res)) {
+                    make_subtask_of (picked_item, target_item);
+                }
+            });
 
             return true;
         })] = drop_target;
+    }
+
+    /**
+     * Makes @picked_item a subtask of @target_item, which is in the same project.
+     */
+    private void make_subtask_of (Objects.Item picked_item, Objects.Item target_item) {
+        string old_parent_id = picked_item.parent_id;
+        string old_project_id = picked_item.project_id;
+        string old_section_id = picked_item.section_id;
+
+        picked_item.section_id = "";
+        picked_item.parent_id = target_item.id;
+
+        if (picked_item.project.source_type == SourceType.LOCAL) {
+            target_item.collapsed = true;
+            Services.Store.instance ().update_item (picked_item);
+            Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+        } else if (picked_item.project.source_type == SourceType.TODOIST) {
+            Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
+                if (Services.Todoist.get_default ().move_item.end (res).status) {
+                    target_item.collapsed = true;
+                    Services.Store.instance ().update_item (picked_item);
+                    Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                }
+            });
+        } else if (picked_item.project.source_type == SourceType.CALDAV) {
+            var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_item.project.source);
+            caldav_client.add_item.begin (picked_item, true, (obj, res) => {
+                if (caldav_client.add_item.end (res).status) {
+                    target_item.collapsed = true;
+                    Services.Store.instance ().update_item (picked_item);
+                    Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                }
+            });
+        }
     }
 
     private void build_drop_magic_button_target () {
@@ -1875,12 +1976,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         }
                     });
                 } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
-                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
-                    caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
-                        if (caldav_client.add_item.end (res).status) {
-                            Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
-                        }
-                    });
+                    if (picked_widget.item.project.is_deck) {
+                        picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                            picked_widget.item.move_deck.end (res);
+                        });
+                    } else {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                        caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                            if (caldav_client.add_item.end (res).status) {
+                                Services.Store.instance ().move_item (picked_widget.item, old_project_id, old_section_id, old_parent_id);
+                            }
+                        });
+                    }
                 }
             }
 
@@ -1897,6 +2004,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             return true;
         })] = drop_order_target;
+    }
+
+    /**
+     * Keeps dragging and dropping onto a row (to make a subtask) but removes the targets for
+     * reordering, here and in every subtask row, including ones added later.
+     */
+    public void disable_reorder () {
+        reorder_enabled = false;
+
+        if (drag_source != null) {
+            build_drag_and_drop ();
+        }
+
+        subitems.disable_reorder ();
     }
 
     public void disable_drag_and_drop () {
@@ -1967,10 +2088,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         markdown_editor.margin_end = 6;
         markdown_editor.margin_top = 3;
         markdown_editor.margin_bottom = 12;
-        markdown_editor.is_editable = !item.completed && !item.project.is_deck;
-
         markdown_editor.set_text (item.description);
-        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, item.description, -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.LABEL, _("Task description"), -1);
+        markdown_editor.text_view.update_property (Gtk.AccessibleProperty.VALUE_TEXT, item.description, -1);
         markdown_revealer.child = markdown_editor;
         markdown_revealer.reveal_child = true;
 
@@ -2159,11 +2279,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 
@@ -2173,11 +2289,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public override void clean_up () {
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
         signals_map.clear ();

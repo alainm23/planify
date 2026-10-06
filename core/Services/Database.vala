@@ -87,6 +87,7 @@ public class Services.Database : GLib.Object {
         table_columns["Items"].add ("calendar_event_uid");
         table_columns["Items"].add ("deadline_date");
         table_columns["Items"].add ("responsible_uid");
+        table_columns["Items"].add ("is_trash");
 
 
         table_columns["Labels"] = new Gee.ArrayList<string> ();
@@ -139,6 +140,7 @@ public class Services.Database : GLib.Object {
         table_columns["Projects"].add ("sorted_by");
         table_columns["Projects"].add ("calendar_source_uid");
         table_columns["Projects"].add ("markdown_setting");
+        table_columns["Projects"].add ("extra_data");
 
         table_columns["Queue"] = new Gee.ArrayList<string> ();
         table_columns["Queue"].add ("uuid");
@@ -146,6 +148,7 @@ public class Services.Database : GLib.Object {
         table_columns["Queue"].add ("query");
         table_columns["Queue"].add ("temp_id");
         table_columns["Queue"].add ("args");
+        table_columns["Queue"].add ("source_id");
         table_columns["Queue"].add ("date_added");
 
         table_columns["Reminders"] = new Gee.ArrayList<string> ();
@@ -268,7 +271,7 @@ public class Services.Database : GLib.Object {
                 color           TEXT,
                 description     TEXT,
                 hidded          INTEGER,
-                FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE
+                FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -300,7 +303,8 @@ public class Services.Database : GLib.Object {
                 item_type           TEXT,
                 calendar_event_uid  TEXT,
                 deadline_date       TEXT,
-                responsible_uid     TEXT
+                responsible_uid     TEXT,
+                is_trash            INTEGER DEFAULT 0
             );
         """;
 
@@ -318,7 +322,7 @@ public class Services.Database : GLib.Object {
                 due                 TEXT,
                 mm_offset           INTEGER,
                 is_deleted          INTEGER,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -333,6 +337,7 @@ public class Services.Database : GLib.Object {
                 query      TEXT,
                 temp_id    TEXT,
                 args       TEXT,
+                source_id  TEXT,
                 date_added TEXT
             );
         """;
@@ -361,7 +366,7 @@ public class Services.Database : GLib.Object {
                 file_name       TEXT,
                 file_size       TEXT,
                 file_path       TEXT,
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
 
@@ -578,9 +583,43 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_deadline_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.deadline_date != OLD.deadline_date
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ('update', NEW.id, 'item', 'deadline', OLD.deadline_date,
+                    NEW.deadline_date, NEW.project_id);
+            END;
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_parent_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.parent_id != OLD.parent_id
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ('update', NEW.id, 'item', 'parent', OLD.parent_id,
+                    NEW.parent_id, NEW.project_id);
+            END;
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
     }
 
-    public void patch_database () {
+    private void patch_database () {
         /*
          * Planner 3 - Beta 1
          * - Add pinned (0|1) to Items
@@ -670,6 +709,19 @@ public class Services.Database : GLib.Object {
          */
         add_text_column ("Projects", "markdown_setting", MarkdownSetting.GLOBAL_DEFAULT.to_string ());
         add_text_column ("Sections", "extra_data", "");
+        add_text_column ("Projects", "extra_data", "");
+        add_text_column ("Queue", "source_id", "");
+
+        /*
+         * - Rebuild Sections, Reminders and Attachments so their foreign keys
+         *   use ON UPDATE CASCADE
+         */
+        migrate_foreign_keys_on_update_cascade ();
+
+        /*
+         * - Add is_trash column to Items for pending delete support
+         */
+        add_int_column ("Items", "is_trash", 0);
     }
 
     public void clear_database () {
@@ -933,6 +985,7 @@ public class Services.Database : GLib.Object {
         return_value.sorted_by = SortedByType.parse (stmt.column_text (24));
         return_value.calendar_source_uid = stmt.column_text (25);
         return_value.markdown_setting = MarkdownSetting.parse (stmt.column_text (26));
+        return_value.extra_data = stmt.column_text (27);
         return return_value;
     }
 
@@ -943,11 +996,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by, calendar_source_uid, markdown_setting)
+                inbox_section_hidded, sync_id, source_id, calendar_url, sorted_by, calendar_source_uid, markdown_setting, extra_data)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by, $calendar_source_uid, $markdown_setting);
+                $inbox_section_hidded, $sync_id, $source_id, $calendar_url, $sorted_by, $calendar_source_uid, $markdown_setting, $extra_data);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -978,6 +1031,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$calendar_source_uid", project.calendar_source_uid);
         set_parameter_str (stmt, "$markdown_setting", project.markdown_setting.to_string ());
+        set_parameter_str (stmt, "$extra_data", project.extra_data);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1055,7 +1109,8 @@ public class Services.Database : GLib.Object {
                 calendar_url=$calendar_url,
                 sorted_by=$sorted_by,
                 calendar_source_uid=$calendar_source_uid,
-                markdown_setting=$markdown_setting
+                markdown_setting=$markdown_setting,
+                extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1088,6 +1143,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sorted_by", project.sorted_by.to_string ());
         set_parameter_str (stmt, "$calendar_source_uid", project.calendar_source_uid);
         set_parameter_str (stmt, "$markdown_setting", project.markdown_setting.to_string ());
+        set_parameter_str (stmt, "$extra_data", project.extra_data);
         set_parameter_str (stmt, "$id", project.id);
 
         int result = stmt.step ();
@@ -1423,11 +1479,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
                 updated_at, section_id, project_id, parent_id, priority, child_order,
                 checked, is_deleted, day_order, collapsed, pinned, labels, extra_data, item_type, calendar_event_uid, deadline_date,
-                responsible_uid)
+                responsible_uid, is_trash)
             VALUES ($id, $content, $description, $due, $added_at, $completed_at,
                 $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
                 $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data, $item_type, $calendar_event_uid, $deadline_date,
-                $responsible_uid);
+                $responsible_uid, $is_trash);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1454,6 +1510,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$calendar_event_uid", item.calendar_event_uid);
         set_parameter_str (stmt, "$deadline_date", item.deadline_date);
         set_parameter_str (stmt, "$responsible_uid", item.responsible_uid);
+        set_parameter_bool (stmt, "$is_trash", item.is_trash);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1478,11 +1535,11 @@ public class Services.Database : GLib.Object {
         INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
             updated_at, section_id, project_id, parent_id, priority, child_order,
             checked, is_deleted, day_order, collapsed, pinned, labels, extra_data, item_type, calendar_event_uid, deadline_date,
-            responsible_uid)
+            responsible_uid, is_trash)
         VALUES ($id, $content, $description, $due, $added_at, $completed_at,
             $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
             $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data, $item_type, $calendar_event_uid, $deadline_date,
-            $responsible_uid);
+            $responsible_uid, $is_trash);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1511,6 +1568,7 @@ public class Services.Database : GLib.Object {
             set_parameter_str (stmt, "$calendar_event_uid", item.calendar_event_uid);
             set_parameter_str (stmt, "$deadline_date", item.deadline_date);
             set_parameter_str (stmt, "$responsible_uid", item.responsible_uid);
+            set_parameter_bool (stmt, "$is_trash", item.is_trash);
 
             int result = stmt.step ();
             if (result != Sqlite.DONE) {
@@ -1542,7 +1600,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;
 
-        sql = "SELECT * FROM Items WHERE is_deleted = 0;";
+        sql = "SELECT * FROM Items WHERE is_deleted = 0 AND is_trash = 0;";
 
         db.prepare_v2 (sql, sql.length, out stmt);
 
@@ -1551,6 +1609,39 @@ public class Services.Database : GLib.Object {
         }
 
         return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_in_trash () {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        Sqlite.Statement stmt;
+
+        sql = "SELECT * FROM Items WHERE is_trash = 1;";
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_item (stmt));
+        }
+
+        return return_value;
+    }
+
+    public bool update_item_trash (Objects.Item item) {
+        Sqlite.Statement stmt;
+
+        sql = "UPDATE Items SET is_trash=$is_trash WHERE id=$id;";
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_bool (stmt, "$is_trash", item.is_trash);
+        set_parameter_str (stmt, "$id", item.id);
+
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        return true;
     }
 
     public Objects.Item get_item_by_id (string id) {
@@ -1595,6 +1686,7 @@ public class Services.Database : GLib.Object {
         return_value.calendar_event_uid = stmt.column_text (20);
         return_value.deadline_date = stmt.column_text (21);
         return_value.responsible_uid = stmt.column_text (22);
+        return_value.is_trash = get_parameter_bool (stmt, 23);
 
         return return_value;
     }
@@ -1648,7 +1740,7 @@ public class Services.Database : GLib.Object {
                 priority=$priority, child_order=$child_order, checked=$checked,
                 is_deleted=$is_deleted, day_order=$day_order, collapsed=$collapsed,
                 pinned=$pinned, labels=$labels, extra_data=$extra_data, item_type=$item_type, calendar_event_uid=$calendar_event_uid,
-                deadline_date=$deadline_date, responsible_uid=$responsible_uid
+                deadline_date=$deadline_date, responsible_uid=$responsible_uid, is_trash=$is_trash
             WHERE id=$id;
         """;
 
@@ -1675,6 +1767,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$calendar_event_uid", item.calendar_event_uid);
         set_parameter_str (stmt, "$deadline_date", item.deadline_date);
         set_parameter_str (stmt, "$responsible_uid", item.responsible_uid);
+        set_parameter_bool (stmt, "$is_trash", item.is_trash);
         set_parameter_str (stmt, "$id", item.id);
 
         int result = stmt.step ();
@@ -1871,7 +1964,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$item_id", attachment.item_id);
         set_parameter_str (stmt, "$file_type", attachment.file_type);
         set_parameter_str (stmt, "$file_name", attachment.file_name);
-        set_parameter_int64 (stmt, "$file_size", attachment.file_size);
+        set_parameter_str (stmt, "$file_size", attachment.file_size);
         set_parameter_str (stmt, "$file_path", attachment.file_path);
 
         int result = stmt.step ();
@@ -1906,7 +1999,7 @@ public class Services.Database : GLib.Object {
         return_value.item_id = stmt.column_text (1);
         return_value.file_type = stmt.column_text (2);
         return_value.file_name = stmt.column_text (3);
-        return_value.file_size = stmt.column_int64 (4);
+        return_value.file_size = stmt.column_text (4);
         return_value.file_path = stmt.column_text (5);
         return return_value;
     }
@@ -1938,8 +2031,8 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            INSERT OR IGNORE INTO Queue (uuid, object_id, query, temp_id, args, date_added)
-            VALUES ($uuid, $object_id, $query, $temp_id, $args, $date_added);
+            INSERT OR IGNORE INTO Queue (uuid, object_id, query, temp_id, args, source_id, date_added)
+            VALUES ($uuid, $object_id, $query, $temp_id, $args, $source_id, $date_added);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1948,6 +2041,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$query", queue.query);
         set_parameter_str (stmt, "$temp_id", queue.temp_id);
         set_parameter_str (stmt, "$args", queue.args);
+        set_parameter_str (stmt, "$source_id", queue.source_id);
         set_parameter_str (stmt, "$date_added", queue.date_added);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1955,15 +2049,22 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Queue> get_all_queue () {
+    public Gee.ArrayList<Objects.Queue> get_all_queue (string source_id = "") {
         Gee.ArrayList<Objects.Queue> return_value = new Gee.ArrayList<Objects.Queue> ();
         Sqlite.Statement stmt;
 
-        sql = """
-            SELECT * FROM Queue ORDER BY date_added;
-        """;
-
-        db.prepare_v2 (sql, sql.length, out stmt);
+        if (source_id != "") {
+            sql = """
+                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added;
+            """;
+            db.prepare_v2 (sql, sql.length, out stmt);
+            set_parameter_str (stmt, "$source_id", source_id);
+        } else {
+            sql = """
+                SELECT * FROM Queue ORDER BY date_added;
+            """;
+            db.prepare_v2 (sql, sql.length, out stmt);
+        }
 
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_queue (stmt));
@@ -1979,7 +2080,8 @@ public class Services.Database : GLib.Object {
         return_value.query = stmt.column_text (2);
         return_value.temp_id = stmt.column_text (3);
         return_value.args = stmt.column_text (4);
-        return_value.date_added = stmt.column_text (5);
+        return_value.source_id = stmt.column_text (5);
+        return_value.date_added = stmt.column_text (6);
         return return_value;
     }
 
@@ -2519,5 +2621,127 @@ public class Services.Database : GLib.Object {
                 warning ("Error: %d: %s", db.errcode (), db.errmsg ());
             }
         }
+    }
+
+    private bool table_has_on_update_cascade (string table) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT sql FROM sqlite_master WHERE type = 'table' AND name = $name;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$name", table);
+
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0).contains ("ON UPDATE CASCADE");
+        }
+
+        return true;
+    }
+
+    private void migrate_foreign_keys_on_update_cascade () {
+        bool migrate_sections = !table_has_on_update_cascade ("Sections");
+        bool migrate_reminders = !table_has_on_update_cascade ("Reminders");
+        bool migrate_attachments = !table_has_on_update_cascade ("Attachments");
+
+        if (!migrate_sections && !migrate_reminders && !migrate_attachments) {
+            return;
+        }
+
+        // PRAGMA foreign_keys is a no-op inside a transaction, so it must be
+        // toggled outside of it (SQLite docs, "Making Other Kinds Of Table
+        // Schema Changes").
+        db.exec ("PRAGMA foreign_keys = OFF;", null, null);
+
+        bool success = db.exec ("BEGIN TRANSACTION;", null, out errormsg) == Sqlite.OK;
+
+        if (success && migrate_sections) {
+            success = rebuild_table (
+                "Sections",
+                """
+                    CREATE TABLE Sections_new (
+                        id              TEXT PRIMARY KEY,
+                        name            TEXT,
+                        archived_at     TEXT,
+                        added_at        TEXT,
+                        project_id      TEXT,
+                        section_order   INTEGER,
+                        collapsed       INTEGER,
+                        is_deleted      INTEGER,
+                        is_archived     INTEGER,
+                        color           TEXT,
+                        description     TEXT,
+                        hidded          INTEGER,
+                        extra_data      TEXT,
+                        FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE ON UPDATE CASCADE
+                    );
+                """,
+                "id, name, archived_at, added_at, project_id, section_order, collapsed, is_deleted, is_archived, color, description, hidded, extra_data"
+            );
+        }
+
+        if (success && migrate_reminders) {
+            success = rebuild_table (
+                "Reminders",
+                """
+                    CREATE TABLE Reminders_new (
+                        id                  TEXT PRIMARY KEY,
+                        notify_uid          INTEGER,
+                        item_id             TEXT,
+                        service             TEXT,
+                        type                TEXT,
+                        due                 TEXT,
+                        mm_offset           INTEGER,
+                        is_deleted          INTEGER,
+                        FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
+                    );
+                """,
+                "id, notify_uid, item_id, service, type, due, mm_offset, is_deleted"
+            );
+        }
+
+        if (success && migrate_attachments) {
+            success = rebuild_table (
+                "Attachments",
+                """
+                    CREATE TABLE Attachments_new (
+                        id              TEXT PRIMARY KEY,
+                        item_id         TEXT,
+                        file_type       TEXT,
+                        file_name       TEXT,
+                        file_size       TEXT,
+                        file_path       TEXT,
+                        FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
+                    );
+                """,
+                "id, item_id, file_type, file_name, file_size, file_path"
+            );
+        }
+
+        if (success) {
+            success = db.exec ("COMMIT;", null, out errormsg) == Sqlite.OK;
+        }
+
+        if (!success) {
+            warning ("Foreign key migration failed, rolling back: %s", errormsg);
+            db.exec ("ROLLBACK;", null, null);
+        }
+
+        db.exec ("PRAGMA foreign_keys = ON;", null, null);
+    }
+
+    private bool rebuild_table (string table, string create_new_sql, string columns) {
+        sql = create_new_sql + """
+            INSERT INTO %s_new (%s) SELECT %s FROM %s;
+            DROP TABLE %s;
+            ALTER TABLE %s_new RENAME TO %s;
+        """.printf (table, columns, columns, table, table, table, table);
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            return false;
+        }
+
+        return true;
     }
 }

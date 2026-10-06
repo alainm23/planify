@@ -45,7 +45,7 @@
 ### 🏪 Official Distribution
 
 <a href="https://flathub.org/apps/details/io.github.alainm23.planify" rel="noreferrer noopener" target="_blank">
-  <img loading="lazy" draggable="false" width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png' />
+  <img loading="lazy" draggable="false" width='240' alt='Download on Flathub' src='https://flathub.org/api/badge?locale=en' />
 </a>
 
 ### 🛠 Build from Source

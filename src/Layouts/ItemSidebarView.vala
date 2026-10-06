@@ -39,11 +39,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.SubItems subitems;
     private Widgets.Attachments attachments;
 
+    private uint destroy_editor_timeout_id = 0;
     private Widgets.ContextMenu.MenuSwitch use_note_item;
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
     private Widgets.ContextMenu.MenuItem duplicate_item;
     private Widgets.ContextMenu.MenuItem move_item;
     private Widgets.ContextMenu.MenuItem export_ics_item;
+    private Widgets.ContextMenu.MenuItem more_information_item;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     private Gee.HashMap<ulong, weak GLib.Object> markdown_handlerses = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -321,9 +323,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         });
 
-        if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            init_markdown_editor ();
-        }
     }
 
     private void update_content_description () {
@@ -347,15 +346,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        if (!always_show) {
-            build_markdown_editor ();
-        }
+        build_markdown_editor ();
 
         label_button.source = item.project.source;
         update_request ();
 
         subitems.present_item (item);
-        subitems.reveal_child = true;
+        subitems.reveal_child = !item.project.is_deck;
 
         attachments.present_item (item);
         spinner_revealer.reveal_child = false;
@@ -417,19 +414,21 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems.clean_up ();
         attachments.clean_up ();
         destroy_markdown_signals ();
-
-        if (!Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
-            destroy_markdown_editor ();
-        }
+        destroy_markdown_editor ();
     }
 
     public void update_request () {
-        content_textview.set_text (item.content);
+        if (!content_textview.has_focus || content_textview.get_text () == item.content) {
+            content_textview.set_text (item.content);
+        }
 
         if (markdown_editor != null) {
-            destroy_markdown_signals ();
-            markdown_editor.set_text (item.description);
-            build_markdown_signals ();   
+            var current_text = markdown_editor.get_text ().chomp ();
+            if (!markdown_editor.text_view.has_focus || current_text == item.description) {
+                destroy_markdown_signals ();
+                markdown_editor.set_text (item.description);
+                build_markdown_signals ();
+            }
         }     
 
         schedule_button.update_from_item (item);
@@ -448,8 +447,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         deadline_button.datetime = item.deadline_datetime;
         
-        content_textview.editable = !item.completed;
-        markdown_editor.is_editable = !item.completed;
+        content_textview.editable = true;
+        markdown_editor.is_editable = true;
         schedule_button.sensitive = !item.completed;
         priority_button.sensitive = !item.completed;
         label_button.sensitive = !item.completed;
@@ -466,6 +465,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         parent_back_button.visible = item.has_parent;
         deadline_button.sensitive = !item.completed;
         export_ics_item.visible = item.project.source_type == SourceType.CALDAV;
+
+        if (item.updated_at != "") {
+            more_information_item.subtitle = _("Updated: %s").printf (Utils.Datetime.get_relative_date_from_date (item.updated_datetime));
+        } else {
+            more_information_item.subtitle = _("Created: %s").printf (Utils.Datetime.get_relative_date_from_date (item.added_datetime));
+        }
 
         if (item.completed) {
             deadline_button.remove_error_style ();
@@ -515,7 +520,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
-        var more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
+        more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -589,6 +594,15 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     public void move (Objects.Project project, string section_id, string parent_id = "") {
         string project_id = project.id;
+
+        if (item.project.is_deck != project.is_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            return;
+        }
 
         if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);
@@ -671,13 +685,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
@@ -712,6 +725,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private void build_markdown_editor () {
         if (markdown_editor != null) {
             return;
+        }
+
+        // Cancel pending destroy timeout to prevent it from wiping the new editor
+        if (destroy_editor_timeout_id != 0) {
+            GLib.Source.remove (destroy_editor_timeout_id);
+            destroy_editor_timeout_id = 0;
+            markdown_editor_revealer.child = null;
         }
 
         markdown_editor = new Widgets.MarkdownEditor () {
@@ -751,11 +771,17 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         }
 
         destroy_markdown_signals ();
-        
+        markdown_editor = null;
+
+        if (destroy_editor_timeout_id != 0) {
+            GLib.Source.remove (destroy_editor_timeout_id);
+            destroy_editor_timeout_id = 0;
+        }
+
         markdown_editor_revealer.reveal_child = false;
-        Timeout.add (markdown_editor_revealer.transition_duration, () => {
+        destroy_editor_timeout_id = Timeout.add (markdown_editor_revealer.transition_duration, () => {
             markdown_editor_revealer.child = null;
-            markdown_editor = null;
+            destroy_editor_timeout_id = 0;
             return GLib.Source.REMOVE;
         });
     }
@@ -763,11 +789,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private void destroy_markdown_signals () {
         foreach (var entry in markdown_handlerses.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
-                try {
-                    entry.value.disconnect (entry.key);
-                } catch (Error e) {
-                    warning ("Error disconnecting markdown signal: %s", e.message);
-                }
+                entry.value.disconnect (entry.key);
             }
         }
 

@@ -157,6 +157,14 @@ public class Views.Label : Adw.Bin {
             valid_add_item (item);
         })] = Services.Store.instance ();
 
+        signal_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
+            if (!old_checked) {
+                valid_delete_item (item);
+            } else {
+                valid_add_item (item);
+            }
+        })] = Services.EventBus.get_default ();
+
         signal_map[headerbar.back_activated.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.FILTER, Objects.Filters.Labels.get_default ().view_id);
         })] = headerbar;
@@ -197,10 +205,15 @@ public class Views.Label : Adw.Bin {
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id) && !item.has_label (label.id)) {
+        if (items.has_key (item.id) && (!item.has_label (label.id) || item.checked)) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
             Services.EventBus.get_default ().unfocus_item ();
+            return;
+        }
+
+        if (items.has_key (item.id)) {
+            items[item.id].update_request ();
         }
 
         valid_add_item (item);

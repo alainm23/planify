@@ -27,7 +27,7 @@ public class Objects.Source : Objects.BaseObject {
     public int child_order { get; set; default = 0; }
     public bool sync_server { get; set; default = false; }
     public string last_sync { get; set; default = ""; }
-    public Objects.SourceData data { get; set; }
+    public Objects.SourceData? data { get; set; }
     public string display_name { get; set; default = ""; }
     public SyncStatus? sync_status { get; set; default = null; }
 
@@ -115,10 +115,16 @@ public class Objects.Source : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
         updated_at = node.get_object ().get_string_member ("updated_at");
         is_visible = node.get_object ().get_boolean_member ("is_visible");
-        child_order = (int32) node.get_object ().get_int_member ("is_visible");
-        sync_server = node.get_object ().get_boolean_member ("sync_server");
-        last_sync = node.get_object ().get_string_member ("last_sync");
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
         display_name = node.get_object ().get_string_member ("display_name");
+
+        if (node.get_object ().has_member ("sync_server")) {
+            sync_server = node.get_object ().get_boolean_member ("sync_server");
+        }
+
+        if (node.get_object ().has_member ("last_sync")) {
+            last_sync = node.get_object ().get_string_member ("last_sync");
+        }
 
         if (source_type == SourceType.TODOIST) {
             data = new Objects.SourceTodoistData.from_json (node.get_object ().get_string_member ("data"));
@@ -127,13 +133,22 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
-    public void run_server () {
+    public void run_server (bool skip_first_sync = false) {
         if (source_type == SourceType.LOCAL) {
             return;
         }
 
         Services.LogService.get_default ().info ("Source", "Starting sync server for source: %s".printf (display_name));
-        _run_server ();
+
+        if (!skip_first_sync) {
+            _run_server ();
+        }
+
+        // run_server () is called again on every network change and from the
+        // preferences; keep the periodic timer that is already armed.
+        if (server_timeout != 0) {
+            return;
+        }
 
         server_timeout = Timeout.add_seconds (15 * 60, () => {
             if (sync_server) {
@@ -143,6 +158,7 @@ public class Objects.Source : Objects.BaseObject {
             }
 
             Services.LogService.get_default ().info ("Source", "Sync server stopped for source: %s".printf (display_name));
+            server_timeout = 0;
             return false;
         });
     }
@@ -162,8 +178,10 @@ public class Objects.Source : Objects.BaseObject {
 
     public void remove_sync_server () {
         // Remove server_timeout
-        GLib.Source.remove (server_timeout);
-        server_timeout = 0;
+        if (server_timeout != 0) {
+            GLib.Source.remove (server_timeout);
+            server_timeout = 0;
+        }
     }
 
     public void save () {
@@ -372,6 +390,19 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
     
     public CalDAVType caldav_type { get; set; default = CalDAVType.GENERIC; }
     public bool ignore_ssl { get; set; default = false; }
+    public bool use_deck { get; set; default = false; }
+    public string deck_last_sync { get; set; default = ""; }
+
+    public string deck_base_url {
+        owned get {
+            try {
+                var uri = GLib.Uri.parse (server_url, GLib.UriFlags.NONE);
+                return "%s://%s/index.php/apps/deck/api/v1.0".printf (uri.get_scheme (), uri.get_host () + (uri.get_port () > 0 ? ":%d".printf (uri.get_port ()) : ""));
+            } catch (Error e) {
+                return "";
+            }
+        }
+    }
 
     public SourceCalDAVData.from_json (string json) {
         Json.Parser parser = new Json.Parser ();
@@ -410,6 +441,14 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
             if (object.has_member ("ignore_ssl")) {
                 ignore_ssl = object.get_boolean_member ("ignore_ssl");
+            }
+
+            if (object.has_member ("use_deck")) {
+                use_deck = object.get_boolean_member ("use_deck");
+            }
+
+            if (object.has_member ("deck_last_sync")) {
+                deck_last_sync = object.get_string_member ("deck_last_sync");
             }
 
             if (object.has_member ("credentials")) {
@@ -453,6 +492,12 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("ignore_ssl");
         builder.add_boolean_value (ignore_ssl);
+
+        builder.set_member_name ("use_deck");
+        builder.add_boolean_value (use_deck);
+
+        builder.set_member_name ("deck_last_sync");
+        builder.add_string_value (deck_last_sync);
 
         builder.end_object ();
 

@@ -52,6 +52,10 @@ public class Objects.ObjectEvent : GLib.Object {
                     return "check-round-outline-symbolic";
                 } else if (object_key == ObjectEventKeyType.SECTION || object_key == ObjectEventKeyType.PROJECT) {
                     return "arrow3-right-symbolic";
+                } else if (object_key == ObjectEventKeyType.DEADLINE) {
+                    return "delay-long-small-symbolic";
+                } else if (object_key == ObjectEventKeyType.PARENT) {
+                    return "arrow3-right-symbolic";
                 }
             }
 

@@ -180,6 +180,7 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         subheader_label = new Gtk.Label (null) {
             halign = Gtk.Align.START,
+            ellipsize = Pango.EllipsizeMode.END,
             css_classes = { "caption", "dimmed" }
         };
 
@@ -207,7 +208,7 @@ public class Layouts.HeaderItem : Adw.Bin {
             halign = END
         };
 
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             margin_start = 6,
             margin_end = 6

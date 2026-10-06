@@ -21,20 +21,23 @@
 
 public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
+    public bool show_checkbox { get; construct; default = false; }
     public bool is_selected { get; set; default = false; }
 
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer selected_revealer;
     private Widgets.IconColorProject icon_project;
+    private Gtk.CheckButton checkbox;
 
     public signal void selected ();
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public ProjectPickerRow (Objects.Project project) {
+    public ProjectPickerRow (Objects.Project project, bool show_checkbox = false) {
         Object (
-            project: project
+            project: project,
+            show_checkbox: show_checkbox
         );
     }
 
@@ -43,7 +46,8 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "row", "no-padding" };
+        add_css_class ("border-radius-6");
+        add_css_class ("no-padding");
 
         icon_project = new Widgets.IconColorProject (20);
         icon_project.project = project;
@@ -52,14 +56,20 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
+        checkbox = new Gtk.CheckButton () {
+            valign = CENTER,
+            active = is_selected,
+            can_target = false
+        };
+
         var selected_icon = new Gtk.Image.from_icon_name ("checkmark-small-symbolic") {
             pixel_size = 16,
             hexpand = true,
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.END,
-            margin_end = 3
+            margin_end = 3,
+            css_classes = { "color-primary" }
         };
-        selected_icon.add_css_class ("color-primary");
 
         selected_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -73,9 +83,15 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
             margin_top = 6,
             margin_bottom = 6
         };
+
+        if (show_checkbox) {
+            content_box.append (checkbox);
+        }
         content_box.append (icon_project);
         content_box.append (name_label);
-        content_box.append (selected_revealer);
+        if (!show_checkbox) {
+            content_box.append (selected_revealer);
+        }
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -101,7 +117,11 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         })] = this;
 
         notify["is-selected"].connect (() => {
-            selected_revealer.reveal_child = is_selected;
+            if (show_checkbox) {
+                checkbox.active = is_selected;
+            } else {
+                selected_revealer.reveal_child = is_selected;
+            }
         });
     }
 

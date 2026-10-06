@@ -32,6 +32,12 @@ public class Widgets.PinButton : Gtk.Button {
         }
     }
 
+    public int icon_size {
+        set {
+            pinned_image.pixel_size = value;
+        }
+    }
+
     public signal void changed ();
 
     public PinButton () {

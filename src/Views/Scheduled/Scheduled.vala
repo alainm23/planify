@@ -23,7 +23,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gtk.Revealer indicator_revealer;
     Widgets.ContextMenu.MenuCheckPicker priority_filter;
     private Gtk.ListBox listbox;
-    private Gtk.ScrolledWindow scrolled_window;
+    private Widgets.ScrolledWindow scrolled_window;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -135,13 +135,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             child = content
         };
 
-        scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-
-        scrolled_window.child = content_clamp;
+        scrolled_window = new Widgets.ScrolledWindow (content_clamp);
 
         var magic_button = new Widgets.MagicButton ();
 
@@ -164,6 +158,16 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         signal_map[magic_button.clicked.connect (() => {
             prepare_new_item ();
         })] = magic_button;
+
+        signal_map[Services.EventBus.get_default ().day_changed.connect (() => {
+            foreach (var row in Util.get_default ().get_children (listbox)) {
+                if (row is Views.Scheduled.ScheduledSection) {
+                    ((Views.Scheduled.ScheduledSection) row).clean_up ();
+                }
+                listbox.remove (row);
+            }
+            add_days ();
+        })] = Services.EventBus.get_default ();
 
         signal_map[scrolled_window.vadjustment.value_changed.connect (() => {
             headerbar.revealer_title_box (scrolled_window.vadjustment.value >= Constants.HEADERBAR_TITLE_SCROLL_THRESHOLD);
@@ -228,6 +232,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
         sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
         sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
+        sorted_by_item.add_item (_("Date Modified"), SortedByType.UPDATED_DATE.to_string ());
         sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
 
         // Filters

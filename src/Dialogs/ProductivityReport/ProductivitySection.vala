@@ -26,9 +26,7 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
     private Gtk.Stack content_stack;
     private Gtk.Revealer see_more_revealer;
 
-    private Dialogs.ProductivityReport.StatCard today_card;
-    private Dialogs.ProductivityReport.StatCard week_card;
-    private Dialogs.ProductivityReport.StatCard month_card;
+    private Dialogs.ProductivityReport.HeatMap heatmap;
     private Gtk.Label goal_value_label;
     private Gtk.LevelBar goal_bar;
     private Gtk.Label weekly_value_label;
@@ -67,7 +65,9 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
         header_box.append (see_more_revealer);
 
         content_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            vhomogeneous = false,
+            hhomogeneous = false
         };
 
         content_stack.add_named (build_setup_view (), "setup");
@@ -99,10 +99,7 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
     }
 
     private void update_view () {
-        int daily = Services.Settings.get_default ().settings.get_int ("daily-task-goal");
-        int weekly = Services.Settings.get_default ().settings.get_int ("weekly-task-goal");
-
-        if (daily <= 0 && weekly <= 0) {
+        if (!Services.ProductivityService.instance ().has_goals ()) {
             content_stack.visible_child_name = "setup";
             see_more_revealer.reveal_child = false;
         } else {
@@ -112,82 +109,46 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
     }
 
     private void load_stats () {
-        var now = new GLib.DateTime.now_local ();
-        var today = Utils.Datetime.get_date_only (now);
+        var svc = Services.ProductivityService.instance ();
 
-        int start_of_week_day = Services.Settings.get_default ().settings.get_enum ("start-week");
-        var week_start = get_week_start (today, start_of_week_day);
-        var month_start = new GLib.DateTime.local (now.get_year (), now.get_month (), 1, 0, 0, 0);
+        heatmap.refresh ();
 
-        int completed_today = 0;
-        int completed_week = 0;
-        int completed_month = 0;
+        goal_value_label.label = svc.use_dynamic
+            ? "%d / %d %s".printf (svc.completed_today, svc.daily_goal, _("(scheduled)"))
+            : "%d / %d".printf (svc.completed_today, svc.daily_goal);
 
-        foreach (Objects.Item item in Services.Store.instance ().items) {
-            if (!item.checked || item.completed_at == "" || item.was_archived ()) {
-                continue;
-            }
+        weekly_value_label.label = svc.use_dynamic
+            ? "%d / %d %s".printf (svc.completed_week, svc.weekly_goal, _("(scheduled)"))
+            : "%d / %d".printf (svc.completed_week, svc.weekly_goal);
 
-            var completed_date = Utils.Datetime.get_date_from_string (item.completed_at);
-            if (completed_date == null) {
-                continue;
-            }
+        double daily_progress = svc.use_dynamic
+            ? svc.daily_progress
+            : double.min (1.0, svc.daily_progress);
 
-            var completed_date_only = Utils.Datetime.get_date_only (completed_date);
-
-            if (completed_date_only.compare (today) == 0) {
-                completed_today++;
-            }
-
-            if (completed_date_only.compare (week_start) >= 0 && completed_date_only.compare (today) <= 0) {
-                completed_week++;
-            }
-
-            if (completed_date_only.compare (month_start) >= 0 && completed_date_only.compare (today) <= 0) {
-                completed_month++;
-            }
-        }
-
-        today_card.animate_to (completed_today);
-        week_card.animate_to (completed_week);
-        month_card.animate_to (completed_month);
-
-        // Goals
-        int daily_goal = Services.Settings.get_default ().settings.get_int ("daily-task-goal");
-        int weekly_goal = Services.Settings.get_default ().settings.get_int ("weekly-task-goal");
-
-        double daily_progress = daily_goal > 0 ? double.min (1.0, (double) completed_today / daily_goal) : 0.0;
-        double weekly_progress = weekly_goal > 0 ? double.min (1.0, (double) completed_week / weekly_goal) : 0.0;
-
-        goal_value_label.label = "%d / %d".printf (completed_today, daily_goal);
-        weekly_value_label.label = "%d / %d".printf (completed_week, weekly_goal);
+        double weekly_progress = svc.use_dynamic
+            ? svc.weekly_progress
+            : double.min (1.0, svc.weekly_progress);
 
         var daily_target = new Adw.CallbackAnimationTarget ((val) => {
             goal_bar.value = val;
         });
-
         var daily_animation = new Adw.TimedAnimation (
-            goal_bar, 0, daily_progress, 800,
-            daily_target
-        ) {
-            easing = Adw.Easing.EASE_OUT_CUBIC
-        };
+            goal_bar, 0, double.min (1.0, daily_progress), 800, daily_target
+        ) { easing = Adw.Easing.EASE_OUT_CUBIC };
         daily_animation.play ();
 
         var weekly_target = new Adw.CallbackAnimationTarget ((val) => {
             weekly_bar.value = val;
         });
-
         var weekly_animation = new Adw.TimedAnimation (
-            weekly_bar, 0, weekly_progress, 800,
-            weekly_target
-        ) {
-            easing = Adw.Easing.EASE_OUT_CUBIC
-        };
+            weekly_bar, 0, double.min (1.0, weekly_progress), 800, weekly_target
+        ) { easing = Adw.Easing.EASE_OUT_CUBIC };
         weekly_animation.play ();
 
-        // Motivational message
-        motivation_label.label = get_motivation_message (completed_today, daily_goal, completed_week, weekly_goal);
+        motivation_label.label = get_motivation_message (
+            svc.completed_today, svc.daily_goal,
+            svc.completed_week, svc.weekly_goal
+        );
         motivation_revealer.reveal_child = false;
 
         Timeout.add (900, () => {
@@ -235,20 +196,6 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
         return "📝 " + _("Every task completed is a step forward");
     }
 
-    private GLib.DateTime get_week_start (GLib.DateTime date, int start_day) {
-        // start_day: 0=Sunday, 1=Monday, ..., 6=Saturday
-        // GLib day_of_week: 1=Monday, ..., 7=Sunday
-        int current_dow = date.get_day_of_week (); // 1-7
-        int target_dow = start_day == 0 ? 7 : start_day; // convert to 1-7
-
-        int diff = current_dow - target_dow;
-        if (diff < 0) {
-            diff += 7;
-        }
-
-        return Utils.Datetime.get_date_only (date.add_days (-diff));
-    }
-
     private Gtk.Widget build_setup_view () {
         var description_label = new Gtk.Label (_("Set your daily and weekly goals to start tracking your productivity")) {
             wrap = true,
@@ -282,19 +229,7 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
     }
 
     private Gtk.Widget build_stats_view () {
-        today_card = new Dialogs.ProductivityReport.StatCard ("0", _("Today"));
-        week_card = new Dialogs.ProductivityReport.StatCard ("0", _("This Week"));
-        month_card = new Dialogs.ProductivityReport.StatCard ("0", _("This Month"));
-
-        var cards_grid = new Gtk.Grid () {
-            column_spacing = 12,
-            column_homogeneous = true,
-            hexpand = true
-        };
-
-        cards_grid.attach (today_card, 0, 0);
-        cards_grid.attach (week_card, 1, 0);
-        cards_grid.attach (month_card, 2, 0);
+        heatmap = new Dialogs.ProductivityReport.HeatMap ();
 
         // Daily goal progress
         var goal_label = new Gtk.Label (_("Daily Goal")) {
@@ -373,7 +308,13 @@ public class Dialogs.ProductivityReport.ProductivitySection : Adw.Bin {
             margin_start = 1,
             margin_end = 1,
         };
-        stats_box.append (cards_grid);
+        stats_box.append (heatmap);
+
+        var goals_title = new Gtk.Label (_("Goals")) {
+            halign = START,
+            css_classes = { "font-bold" }
+        };
+        stats_box.append (goals_title);
         stats_box.append (goals_card);
         stats_box.append (build_motivation_card ());
 

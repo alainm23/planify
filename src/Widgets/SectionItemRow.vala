@@ -73,13 +73,6 @@ public class Widgets.SectionItemRow : Gtk.ListBoxRow {
             child = selected_icon
         };
 
-        var hidded_switch = new Gtk.Switch () {
-            css_classes = { "active-switch" },
-            active = is_inbox_section ? !section.project.inbox_section_hidded : !section.hidded,
-            halign = Gtk.Align.END,
-            hexpand = true
-        };
-
         var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {
             css_classes = { "dimmed" },
             pixel_size = 12
@@ -104,9 +97,7 @@ public class Widgets.SectionItemRow : Gtk.ListBoxRow {
             if (!is_inbox_section) {
                 content_box.append (order_icon);
             }
-
             content_box.append (name_label);
-            content_box.append (hidded_switch);
         }
 
         if (widget_type == "picker") {
@@ -157,18 +148,6 @@ public class Widgets.SectionItemRow : Gtk.ListBoxRow {
             if (!is_inbox_section) {
                 reorder_child.build_drag_and_drop ();
             }
-
-            signal_map[hidded_switch.notify["active"].connect (() => {
-                if (section.id == "") {
-                    section.project.inbox_section_hidded = !hidded_switch.active;
-                    section.project.update_local ();
-                } else {
-                    section.hidded = !hidded_switch.active;
-                    Services.Database.get_default ().update_section (section);
-                }
-
-                update_section ();
-            })] = hidded_switch;
 
             signal_map[reorder_child.on_drop_end.connect (() => {
                 update_section ();

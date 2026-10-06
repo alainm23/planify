@@ -362,7 +362,7 @@ namespace PlanifyCLI {
     private static int backup (BackupArguments args) {
         Services.Database.get_default ().init_database ();
 
-        string json = Services.Backup.get_default ().export_to_json ();
+        string json = Services.BackupExporter.get_default ().export_to_json ();
 
         if (args.output != null && args.output.strip () != "") {
             var file = File.new_for_path (args.output);

@@ -23,9 +23,10 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
     public Objects.Item item { get; construct; }
 
     private Gtk.ListBox listbox;
-    private Gtk.Button load_button;
+    private Gtk.ScrolledWindow listbox_scrolled;
     private int start_week = 0;
     private int end_week = 7;
+    private bool _loading = false;
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
@@ -50,6 +51,7 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             margin_start = 6,
             margin_end = 6,
             valign = START,
+            homogeneous = true
         };
         create_update_box.append (build_card ("plus-large-symbolic", _("Added at"), Utils.Datetime.get_relative_date_from_date (item.added_datetime)));
 
@@ -75,12 +77,6 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
             justify = Gtk.Justification.CENTER
         });
 
-        load_button = new Gtk.Button () {
-            css_classes = { "flat" },
-            vexpand = true,
-            valign = Gtk.Align.END
-        };
-
         var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             hexpand = true,
             valign = Gtk.Align.START
@@ -99,9 +95,8 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         };
 
         v2_box.append (v_box);
-        v2_box.append (load_button);
 
-        var listbox_scrolled = new Gtk.ScrolledWindow () {
+        listbox_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
@@ -115,11 +110,16 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
         child = toolbar_view;
         fetch_data ();
 
-        signal_map[load_button.clicked.connect (() => {
-            start_week = end_week;
-            end_week = end_week + 7;
-            fetch_data ();
-        })] = load_button;
+        listbox_scrolled.vadjustment.value_changed.connect (() => {
+            var adj = listbox_scrolled.vadjustment;
+            if (!_loading && adj.value >= adj.upper - adj.page_size - 50) {
+                _loading = true;
+                start_week = end_week;
+                end_week = end_week + 7;
+                fetch_data ();
+                _loading = false;
+            }
+        });
 
         closed.connect (() => {
             clean_up ();
@@ -127,18 +127,13 @@ public class Dialogs.ItemChangeHistory : Adw.Dialog {
     }
 
     private void fetch_data () {
-        foreach (Objects.ObjectEvent object_event in Services.Database.get_default ().get_events_by_item (item.id, start_week, end_week)) {
+        var events = Services.Database.get_default ().get_events_by_item (item.id, start_week, end_week);
+
+        foreach (Objects.ObjectEvent object_event in events) {
             listbox.append (new Widgets.ItemChangeHistoryRow (object_event));
         }
 
         listbox.invalidate_headers ();
-
-        int weeks = (end_week / 7) + 1;
-        load_button.label = GLib.ngettext (
-            "Load more history from %d week ago…",
-            "Load more history from %d weeks ago…",
-            weeks
-        ).printf (weeks);
     }
 
     private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {

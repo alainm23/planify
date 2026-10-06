@@ -83,82 +83,47 @@ public class Dialogs.ProductivityReport.ProductivityReportDialog : Adw.Dialog {
     }
 
     private Gtk.Widget build_goals_setup () {
-        var title_label = new Gtk.Label (_("Set Up Goals")) {
-            css_classes = { "font-bold" },
-            halign = START
+        var dynamic_goal_switch = new Adw.SwitchRow () {
+            title = _("Use Scheduled Tasks as Goal"),
+            subtitle = _("Use today's scheduled tasks as your daily goal")
+        };
+        dynamic_goal_switch.active = Services.Settings.get_default ().settings.get_boolean ("use-dynamic-goal");
+
+        var daily_spin = new Adw.SpinRow.with_range (0, 100, 1) {
+            title = _("Daily Goal"),
+            value = Services.Settings.get_default ().settings.get_int ("daily-task-goal")
         };
 
-        var description_label = new Gtk.Label (_("Define how many tasks you want to complete per day and week")) {
-            css_classes = { "caption", "dimmed" },
-            halign = START,
-            wrap = true
+        var weekly_spin = new Adw.SpinRow.with_range (0, 500, 1) {
+            title = _("Weekly Goal"),
+            value = Services.Settings.get_default ().settings.get_int ("weekly-task-goal")
         };
 
-        var title_box = new Gtk.Box (VERTICAL, 3);
-        title_box.append (title_label);
-        title_box.append (description_label);
-
-        // Daily goal
-        var daily_label = new Gtk.Label (_("Daily")) {
-            halign = START,
-            hexpand = true
+        var goals_group = new Adw.PreferencesGroup () {
+            title = _("Fixed Goals"),
+            sensitive = !dynamic_goal_switch.active
         };
+        goals_group.add (daily_spin);
+        goals_group.add (weekly_spin);
 
-        var daily_spin = new Gtk.SpinButton.with_range (0, 100, 1) {
-            value = 5
-        };
+        var dynamic_group = new Adw.PreferencesGroup ();
+        dynamic_group.add (dynamic_goal_switch);
 
-        var daily_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 8) {
-            hexpand = true
-        };
-        daily_box.append (daily_label);
-        daily_box.append (daily_spin);
+        dynamic_goal_switch.notify["active"].connect (() => {
+            goals_group.sensitive = !dynamic_goal_switch.active;
+        });
 
-        // Weekly goal
-        var weekly_label = new Gtk.Label (_("Weekly")) {
-            halign = START,
-            hexpand = true
-        };
-
-        var weekly_spin = new Gtk.SpinButton.with_range (0, 500, 1) {
-            value = 25
-        };
-
-        var weekly_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 8) {
-            hexpand = true
-        };
-        weekly_box.append (weekly_label);
-        weekly_box.append (weekly_spin);
-
-        var goals_row = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 16) {
-            homogeneous = true,
-            hexpand = true
-        };
-        goals_row.append (daily_box);
-        goals_row.append (weekly_box);
-
-        // Load saved values
-        int saved_daily = Services.Settings.get_default ().settings.get_int ("daily-task-goal");
-        int saved_weekly = Services.Settings.get_default ().settings.get_int ("weekly-task-goal");
-        if (saved_daily > 0) {
-            daily_spin.value = saved_daily;
-        }
-        if (saved_weekly > 0) {
-            weekly_spin.value = saved_weekly;
-        }
-
-        // Save button
         var save_button = new Gtk.Button.with_label (_("Save")) {
-            css_classes = { "suggested-action" },
-            hexpand = true,
-            margin_top = 6
+            css_classes = { "suggested-action", "pill" },
+            halign = CENTER,
+            margin_top = 8
         };
 
         save_button.clicked.connect (() => {
             int daily_val = (int) daily_spin.value;
             int weekly_val = (int) weekly_spin.value;
 
-            if (daily_val <= 0 || weekly_val <= 0) {
+            if (!dynamic_goal_switch.active && (daily_val <= 0 || weekly_val <= 0)) {
                 daily_spin.add_css_class (daily_val <= 0 ? "error" : "");
                 weekly_spin.add_css_class (weekly_val <= 0 ? "error" : "");
                 return;
@@ -167,19 +132,12 @@ public class Dialogs.ProductivityReport.ProductivityReportDialog : Adw.Dialog {
             daily_spin.remove_css_class ("error");
             weekly_spin.remove_css_class ("error");
 
+            Services.Settings.get_default ().settings.set_boolean ("use-dynamic-goal", dynamic_goal_switch.active);
             Services.Settings.get_default ().settings.set_int ("daily-task-goal", daily_val);
             Services.Settings.get_default ().settings.set_int ("weekly-task-goal", weekly_val);
 
             hide_goals_setup ();
             productivity_section.refresh ();
-        });
-
-        daily_spin.value_changed.connect (() => {
-            daily_spin.remove_css_class ("error");
-        });
-
-        weekly_spin.value_changed.connect (() => {
-            weekly_spin.remove_css_class ("error");
         });
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
@@ -188,9 +146,8 @@ public class Dialogs.ProductivityReport.ProductivityReportDialog : Adw.Dialog {
             margin_top = 16,
             margin_bottom = 16
         };
-
-        content_box.append (title_box);
-        content_box.append (goals_row);
+        content_box.append (dynamic_group);
+        content_box.append (goals_group);
         content_box.append (save_button);
 
         return new Adw.Bin () {

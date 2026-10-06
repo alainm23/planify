@@ -37,7 +37,7 @@ public class Widgets.NewVersionPopup : Adw.Bin {
             pixel_size = 32
         };
         star_icon.add_css_class ("view-icon");
-        Util.get_default ().set_widget_color ("#3584e4", star_icon);
+        Util.get_default ().set_widget_color (Util.get_default ().get_accent_color (), star_icon);
 
         var title_label = new Gtk.Label (_("New version available!")) {
             halign = START,

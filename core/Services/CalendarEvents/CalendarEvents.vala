@@ -84,9 +84,11 @@ public class Services.CalendarEvents : Object {
             registry.source_removed.connect (remove_source);
             registry.source_added.connect ((source) => add_source_async.begin (source));
 
+            var disabled_sources = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+
             registry.list_sources (E.SOURCE_EXTENSION_CALENDAR).foreach ((source) => {
                 E.SourceCalendar cal = (E.SourceCalendar) source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
-                if (cal.selected == true && source.enabled == true) {
+                if (cal.selected == true && source.enabled == true && !(source.dup_uid () in disabled_sources)) {
                     add_source_async.begin (source);
                 }
             });
@@ -186,8 +188,16 @@ public class Services.CalendarEvents : Object {
         );
         source_components.set (source, components);
         /* query client view */
-        var iso_first = ECal.isodate_from_time_t ((time_t) data_range.first_dt.to_unix ());
-        var iso_last = ECal.isodate_from_time_t ((time_t) data_range.last_dt.add_days (1).to_unix ());
+        var iso_first = ECal.isodate_from_time_t ((time_t) new GLib.DateTime.local (
+            data_range.first_dt.get_year (),
+            data_range.first_dt.get_month (),
+            data_range.first_dt.get_day_of_month (),
+            0, 0, 0).to_unix ());
+        var iso_last = ECal.isodate_from_time_t ((time_t) new GLib.DateTime.local (
+            data_range.last_dt.get_year (),
+            data_range.last_dt.get_month (),
+            data_range.last_dt.get_day_of_month (),
+            23, 59, 59).to_unix ());
 
         var query = @"(occur-in-time-range? (make-time \"$iso_first\") (make-time \"$iso_last\"))";
 
@@ -322,6 +332,11 @@ public class Services.CalendarEvents : Object {
         });
 
         return sources;
+    }
+
+    public bool is_source_enabled (E.Source source) {
+        var disabled = Services.Settings.get_default ().settings.get_strv ("calendar-sources-disabled");
+        return !(source.dup_uid () in disabled);
     }
 
     private async ECal.Client? get_client (string source_uid) {

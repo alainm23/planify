@@ -47,7 +47,11 @@ public class Widgets.MagicButton : Adw.Bin {
             height_request = 48,
             width_request = 48,
             css_classes = { "suggested-action", "magic-button" },
-            tooltip_text = _("Add Task")
+            tooltip_text = _("Add Task"),
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
 
         main_revealer = new Gtk.Revealer () {

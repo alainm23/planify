@@ -52,6 +52,15 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
             new Gtk.Label (_("Sa"))
         };
 
+        string[] full_day_names = {
+            _("Sunday"), _("Monday"), _("Tuesday"), _("Wednesday"),
+            _("Thursday"), _("Friday"), _("Saturday")
+        };
+
+        for (int i = 0; i < day_labels.length; i++) {
+            day_labels[i].update_property (Gtk.AccessibleProperty.LABEL, full_day_names[i], -1);
+        }
+
         foreach (var label in day_labels) {
             label.add_css_class ("dimmed");
             append (label);

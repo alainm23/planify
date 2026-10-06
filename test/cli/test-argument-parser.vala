@@ -111,6 +111,40 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         print ("  ✓ Parses all add options correctly\n---\n");
     }
 
+    void test_add_full_with_time () {
+        print ("Testing: 'add' command with full options including precision time\n");
+        int exit_code;
+        string[] args = {
+            "planify-cli", "add",
+            "-c", "Complete task with time",
+            "-d", "Task description",
+            "-p", "Work",
+            "-s", "In Progress",
+            "-P", "1",
+            "-D", "2026-07-24T14:30:45",  // Pass full timestamp through the argument array
+            "-l", "urgent,important",
+            "--pin", "true"
+        };
+        
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+        
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.command_type == PlanifyCLI.CommandType.ADD);
+        assert (parsed.task_args != null);
+        assert (parsed.task_args.content == "Complete task with time");
+        assert (parsed.task_args.description == "Task description");
+        assert (parsed.task_args.project_name == "Work");
+        assert (parsed.task_args.section_name == "In Progress");
+        assert (parsed.task_args.priority == 1);
+        
+        // CRITICAL CHECK: Verify the argument parser passes the string completely intact
+        assert (parsed.task_args.due_date == "2026-07-24T14:30:45");
+        assert (parsed.task_args.labels == "urgent,important");
+        assert (parsed.task_args.pinned == 1);
+        print ("  ✓ Parses all add options including timestamp correctly\n---\n");
+    }
+
     void test_list_with_project () {
         print ("Testing: 'list' command with project\n");
         int exit_code;
@@ -234,6 +268,7 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         Test.add_func ("/cli/argument_parser/list_projects", test_list_projects);
         Test.add_func ("/cli/argument_parser/add_minimal", test_add_minimal);
         Test.add_func ("/cli/argument_parser/add_full", test_add_full);
+        Test.add_func ("/cli/argument_parser/add_full_with_time", test_add_full_with_time);
         Test.add_func ("/cli/argument_parser/list_with_project", test_list_with_project);
         Test.add_func ("/cli/argument_parser/list_with_project_id", test_list_with_project_id);
         Test.add_func ("/cli/argument_parser/update_minimal", test_update_minimal);

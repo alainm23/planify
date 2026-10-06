@@ -38,7 +38,9 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     }
 
     construct {
-        project_picker_core = new Widgets.ProjectPickerCore ();
+        project_picker_core = new Widgets.ProjectPickerCore () {
+            margin_top = 12
+        };
 
         child = project_picker_core;
         add_css_class ("popover-contents");

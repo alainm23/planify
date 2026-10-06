@@ -61,6 +61,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer select_revealer;
 
     public uint complete_timeout { get; set; default = 0; }
+    private bool _recurrency_reset = false;
 
     private bool _is_loading;
     public bool is_loading {
@@ -85,12 +86,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             _pin_mode = value;
 
             if (_pin_mode) {
-                hide_loading_revealer.reveal_child = true;
                 card_widget.margin_end = 6;
                 card_widget.margin_top = 6;
                 handle_grid.width_request = 200;
-                hide_loading_button.margin_end = 0;
-                hide_loading_button.margin_top = 0;
+                hide_loading_button.margin_end = 1;
+                hide_loading_button.margin_top = 1;
             } else {
                 card_widget.margin_end = 0;
                 card_widget.margin_top = 0;
@@ -149,17 +149,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             use_markup = true
         };
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("window-close", 16) {
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("pin-symbolic", 16) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             tooltip_text = _ ("Unpin"),
-            css_classes = { "min-height-0", "view-button" },
+            css_classes = { "min-height-0", "view-button", "card" },
             margin_end = 6,
             margin_top = 6
         };
 
         hide_loading_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
             valign = Gtk.Align.START,
             halign = Gtk.Align.END,
             vexpand = true,
@@ -333,6 +333,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         overlay.child = card_widget;
         overlay.add_overlay (hide_loading_revealer);
 
+        var hover_ctrl = new Gtk.EventControllerMotion ();
+        overlay.add_controller (hover_ctrl);
+
         var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 3
         };
@@ -371,6 +374,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             checked_button.active = !checked_button.active;
             checked_toggled (checked_button.active);
         })] = checked_button_gesture;
+
+        signals_map[checked_button.toggled.connect (() => {
+            if (!checked_button_gesture.is_active () && !_recurrency_reset) {
+                checked_toggled (checked_button.active);
+            }
+        })] = checked_button;
 
         var select_button_gesture = new Gtk.GestureClick ();
         select_checkbutton.add_controller (select_button_gesture);
@@ -495,6 +504,17 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             item.update_pin (false);
         })] = hide_loading_button;
 
+        signals_map[hover_ctrl.enter.connect ((x, y) => {
+            if (_pin_mode) {
+                hide_loading_revealer.reveal_child = true;
+            }
+        })] = hover_ctrl;
+        signals_map[hover_ctrl.leave.connect (() => {
+            if (_pin_mode) {
+                hide_loading_revealer.reveal_child = false;
+            }
+        })] = hover_ctrl;
+
         signals_map[Services.EventBus.get_default ().day_changed.connect (() => {
             update_request ();
         })] = Services.EventBus.get_default ();
@@ -505,13 +525,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void update_next_recurrency () {
-        var promise = new Services.Promise<GLib.DateTime> ();
-
-        promise.resolved.connect ((result) => {
-            recurrency_update_complete (result);
+        item.update_next_recurrency.begin ((obj, res) => {
+            var next_recurrency = item.update_next_recurrency.end (res);
+            _recurrency_reset = false;
+            if (next_recurrency != null) {
+                recurrency_update_complete (next_recurrency);
+            }
         });
-
-        item.update_next_recurrency (promise);
     }
 
     private void open_detail () {
@@ -542,7 +562,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void complete_item (bool old_checked, uint ? time = null) {
         if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
-            Services.LogService.get_default ().info ("ItemBoard", "Task completed, playing audio: %s".printf (item.content));
             Util.get_default ().play_audio ();
         }
 
@@ -565,6 +584,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             complete_timeout = 0;
 
             if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                _recurrency_reset = true;
                 update_next_recurrency ();
             } else {
                 var old_completed_at = item.completed_at;
@@ -608,11 +628,20 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
     
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
+        _recurrency_reset = true;
         checked_button.active = false;
+        _recurrency_reset = false;
         complete_timeout = 0;
         card_widget.remove_css_class ("complete");
         content_label.remove_css_class ("line-through");
         content_label.remove_css_class ("dimmed");
+        update_due_label ();
+
+        due_label.add_css_class ("date-updated");
+        Timeout.add (1200, () => {
+            due_label.remove_css_class ("date-updated");
+            return GLib.Source.REMOVE;
+        });
 
         var title = _ ("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
@@ -621,6 +650,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     public override void update_request () {
+        if (_recurrency_reset) {
+            return;
+        }
+
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
@@ -702,7 +735,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     item.due.recurrency_type,
                     item.due.recurrency_interval,
                     item.due.recurrency_weeks,
-                    end_label
+                    end_label,
+                    item.due.recurrency_last_day_of_month
                 ).down ();
             }
 
@@ -983,6 +1017,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         card_widget.add_controller (drop_target);
 
         signals_map[drop_target.accept.connect ((drop) => {
+            if (item.project.is_deck) {
+                return false;
+            }
+
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -1138,6 +1176,19 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                             Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
+                } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
+                    if (picked_widget.item.project.is_deck) {
+                        picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                            picked_widget.item.move_deck.end (res);
+                        });
+                    } else {
+                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                        caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                            if (caldav_client.add_item.end (res).status) {
+                                Services.Store.instance ().update_item (picked_widget.item);
+                            }
+                        });
+                    }
                 } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
                     Services.Store.instance ().update_item (picked_widget.item);
                 }
@@ -1153,6 +1204,21 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 
             Utils.TaskUtils.update_single_item_order (target_list, picked_widget, new_index);
+
+            // Update counters for source and target sections
+            if (old_section_id != picked_widget.item.section_id) {
+                var source_section = Services.Store.instance ().get_section (old_section_id);
+                if (source_section != null) {
+                    source_section.update_count ();
+                }
+                
+                var target_section = Services.Store.instance ().get_section (picked_widget.item.section_id);
+                if (target_section != null) {
+                    target_section.update_count ();
+                }
+            }
+
+            picked_widget.item.project.count_update ();
 
             return true;
         })] = drop_order_target;
@@ -1181,6 +1247,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void delete_undo () {
+        Services.Store.instance ().set_item_trash (item, true);
+
         var toast = new Adw.Toast (_ ("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
         toast.button_label = _ ("Undo");
         toast.priority = Adw.ToastPriority.HIGH;
@@ -1189,18 +1257,26 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         Services.EventBus.get_default ().send_toast (toast);
 
         toast.dismissed.connect (() => {
-            if (!main_revealer.reveal_child) {
-                item.delete_item ();
-            }
+            item.delete_item ();
         });
 
         toast.button_clicked.connect (() => {
+            Services.Store.instance ().set_item_trash (item, false);
             main_revealer.reveal_child = true;
         });
     }
 
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
+
+        if (item.project.is_deck != project.is_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            return;
+        }
 
         if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);

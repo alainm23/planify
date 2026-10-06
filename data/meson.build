@@ -48,3 +48,8 @@ if compile_schemas.found()
 endif
 
 subdir('icons')
+
+
+if get_option('manpage')
+  subdir('man')
+endif

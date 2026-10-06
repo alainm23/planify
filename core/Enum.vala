@@ -486,7 +486,9 @@ public enum ObjectEventKeyType {
     PINNED,
     CHECKED,
     PROJECT,
-    SECTION;
+    SECTION,
+    DEADLINE,
+    PARENT;
 
     public static ObjectEventKeyType parse (string value) {
         switch (value) {
@@ -517,6 +519,12 @@ public enum ObjectEventKeyType {
             case "section":
                 return ObjectEventKeyType.SECTION;
 
+            case "deadline":
+                return ObjectEventKeyType.DEADLINE;
+
+            case "parent":
+                return ObjectEventKeyType.PARENT;
+
             default:
                 assert_not_reached ();
         }
@@ -541,6 +549,12 @@ public enum ObjectEventKeyType {
 
             case ObjectEventKeyType.PINNED:
                 return _("Pin");
+
+            case ObjectEventKeyType.DEADLINE:
+                return _("Deadline");
+
+            case ObjectEventKeyType.PARENT:
+                return _("Parent task");
 
             default:
                 assert_not_reached ();
@@ -634,6 +648,7 @@ public enum SortedByType {
     NAME,
     DUE_DATE,
     ADDED_DATE,
+    UPDATED_DATE,
     PRIORITY;
 
     public string to_string () {
@@ -649,6 +664,9 @@ public enum SortedByType {
 
             case ADDED_DATE:
                 return "added-date";
+
+            case UPDATED_DATE:
+                return "updated-date";
 
             case PRIORITY:
                 return "priority";
@@ -671,6 +689,9 @@ public enum SortedByType {
 
             case "added-date":
                 return SortedByType.ADDED_DATE;
+
+            case "updated-date":
+                return SortedByType.UPDATED_DATE;
 
             case "priority":
                 return SortedByType.PRIORITY;

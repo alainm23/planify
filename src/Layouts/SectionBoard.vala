@@ -218,7 +218,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         add_items ();
         show_completed_changed ();
         build_drag_and_drop ();
-        update_count_label (section_count);
+        refresh_count_label ();
 
         listbox.set_filter_func ((row) => {
             var item = ((Layouts.ItemBoard) row).item;
@@ -236,6 +236,10 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         if (is_inbox_section) {
             signals_map[section.project.item_added.connect ((item) => {
                 add_item (item);
+            })] = section.project;
+            
+            signals_map[section.project.count_updated.connect (() => {
+                refresh_count_label ();
             })] = section.project;
         } else {
             signals_map[section.item_added.connect ((item) => {
@@ -337,7 +341,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         })] = Services.EventBus.get_default ();
 
         signals_map[section.section_count_updated.connect (() => {
-            update_count_label (section.section_count);
+            refresh_count_label ();
         })] = section;
 
         signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
@@ -356,6 +360,20 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                         items_map.unset (row.item.id);
                     }
                 }
+                
+                if (old_section_id != row.item.section_id) {
+                    var source_section = Services.Store.instance ().get_section (old_section_id);
+                    if (source_section != null) {
+                        source_section.update_count ();
+                    }
+                    
+                    var target_section = Services.Store.instance ().get_section (row.item.section_id);
+                    if (target_section != null) {
+                        target_section.update_count ();
+                    }
+                }
+
+                section.project.count_update ();
             }
         })] = Services.EventBus.get_default ();
 
@@ -420,6 +438,33 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
     private void update_count_label (int count) {
         count_label.label = count <= 0 ? "" : count.to_string ();
+    }
+
+    private void refresh_count_label () {
+        int count;
+        if (is_inbox_section) {
+            count = 0;
+            foreach (var item in section.project.items) {
+                if (!item.checked) {
+                    count++;
+                    count += get_subitem_count (item);
+                }
+            }
+        } else {
+            count = section.section_count;
+        }
+        update_count_label (count);
+    }
+
+    private int get_subitem_count (Objects.Item item) {
+        int count = 0;
+        foreach (var subitem in Services.Store.instance ().get_subitems (item)) {
+            if (!subitem.checked) {
+                count++;
+                count += get_subitem_count (subitem);
+            }
+        }
+        return count;
     }
 
     public void add_items () {
@@ -630,30 +675,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         });
 
         delete_item.clicked.connect (() => {
-            var dialog = new Adw.AlertDialog (
-                _ ("Delete Section %s".printf (section.name)),
-                _ ("This can not be undone")
-            );
-
-            dialog.add_response ("cancel", _ ("Cancel"));
-            dialog.add_response ("delete", _ ("Delete"));
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.present (Planify._instance.main_window);
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    is_loading = true;
-
-                    if (section.project.source_type == SourceType.TODOIST) {
-                        Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
-                            Services.Todoist.get_default ().delete.end (res);
-                            Services.Store.instance ().delete_section (section);
-                        });
-                    } else {
-                        Services.Store.instance ().delete_section (section);
-                    }
-                }
-            });
+            section.delete_section ((Gtk.Window) Planify.instance.main_window);
         });
 
         show_completed_item.clicked.connect (() => {
@@ -729,6 +751,19 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                         Services.Store.instance ().move_item (picked_widget.item); 
                     }
                 });
+            } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
+                if (picked_widget.item.project.is_deck) {
+                    picked_widget.item.move_deck.begin (old_section_id, (obj, res) => {
+                        picked_widget.item.move_deck.end (res);
+                    });
+                } else {
+                    var caldav_client = Services.CalDAV.Core.get_default ().get_client (picked_widget.item.project.source);
+                    caldav_client.add_item.begin (picked_widget.item, true, (obj, res) => {
+                        if (caldav_client.add_item.end (res).status) {
+                            Services.Store.instance ().move_item (picked_widget.item);
+                        }
+                    });
+                }
             } else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
                 Services.Store.instance ().move_item (picked_widget.item);
             }
@@ -740,7 +775,9 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             Utils.TaskUtils.update_single_item_order (listbox, picked_widget, picked_widget.get_index ());
 
             Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            
+
+            section.project.count_update ();
+
             return true;
         })] = drop_target;
     }
