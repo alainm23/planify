@@ -296,7 +296,6 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         blue_row.sensitive = !adwaita_colors;
         blue_row.subtitle = adwaita_colors ? _("Not available with Adwaita colors") : _("Professional blue theme");
 
-
         if (!Services.Settings.get_default ().settings.get_boolean ("dark-mode")) {
             light_radio.active = true;
             return;
