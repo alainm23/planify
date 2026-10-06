@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-20 07:51+0000\n"
+"PO-Revision-Date: 2026-10-07 09:51+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -561,36 +561,44 @@ msgstr "Načítání úkolů pro %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:408
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Úkoly pro %s načteny…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:401
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synchronizace úkolu %d z %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Tento server nepovoluje tvorbu projektů přes CalDAV. Prosím, vytvořte ho "
+"přímo z webu poskytovatele kalendáře."
 
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Tento server nepovoluje odstraňování projektů přes CalDAV. Prosím, odstraňte "
+"ho přímo z webu poskytovatele kalendáře."
 
 #: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Tento server nepodporuje odstraňování projektů přes CalDAV. Prosím, "
+"odstraňte ho přímo ze serveru."
 
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Úkol byl upraven na jiném zařízení. Prosím, proveďte synchronizaci pro "
+"získání aktuální verze."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -918,6 +926,9 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"Tento projekt obsahuje vše, co potřebujete znát pro snadné použití "
+"základních funkcí. Neváhejte si s ním pohrát – vždy ho můžete znovu vytvořit "
+"z obrazovky nastavení."
 
 #: core/Utils/Util.vala:619
 msgid "Tap this task"
@@ -1766,9 +1777,9 @@ msgstr ""
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Toto odstraní %d dokončený úkol a jeho dílčí úkoly z projektu %s"
+msgstr[1] "Toto odstraní %d dokončené úkoly a jejich dílčí úkoly z projektu %s"
+msgstr[2] "Toto odstraní %d dokončených úkolů a jejich dílčí úkoly z projektu %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:992
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
@@ -2618,7 +2629,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Ponechat všechny dokončené dílčí úkoly viditelné a rozbalené"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
@@ -3084,7 +3095,7 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1267
 msgid "Add Subtask"
-msgstr ""
+msgstr "Přidat dílčí úkol"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1269
 msgid "Edit"
@@ -3117,7 +3128,7 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:565
 msgid "Add Subtasks"
-msgstr ""
+msgstr "Přidat dílčí úkoly"
 
 #: src/Layouts/ItemRow.vala:1073
 msgid "Hide Sub-tasks"
@@ -3161,19 +3172,19 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:1817
 msgid "A task can only become a subtask of a task in the same account"
-msgstr ""
+msgstr "Úkol se může stát dílčím úkolem pouze úkolu pod stejným účtem"
 
 #: src/Layouts/ItemRow.vala:2157
 msgid "Add Attachments"
-msgstr ""
+msgstr "Přidat přílohy"
 
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
-msgstr ""
+msgstr "Zavřít detail"
 
 #: src/Layouts/ItemSidebarView.vala:147 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "Název"
 
 #: src/Layouts/ItemSidebarView.vala:179 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
@@ -3470,9 +3481,9 @@ msgstr[2] ""
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Toto odstraní %d dokončený úkol a jeho dílčí úkoly"
+msgstr[1] "Toto odstraní %d dokončené úkoly a jejich dílčí úkoly"
+msgstr[2] "Toto odstraní %d dokončených úkolů a jejich dílčí úkoly"
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:553
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
@@ -3930,7 +3941,7 @@ msgstr ""
 
 #: src/Widgets/SubItems.vala:556
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Zatím nebyly přidány dílčí úkoly. Pojďme na to!"
 
 #: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
