@@ -236,24 +236,25 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
                                                                     adwaita_colors_switch.active);
         })] = adwaita_colors_switch;
 
+        // Set "appearance" first: the "dark-mode" change reads it to pick the radio.
         signal_map[light_radio.notify["active"].connect (() => {
             if (light_radio.active) {
-                Services.Settings.get_default ().settings.set_boolean ("dark-mode", false);
                 Services.Settings.get_default ().settings.set_enum ("appearance", 0);
+                Services.Settings.get_default ().settings.set_boolean ("dark-mode", false);
             }
         })] = light_radio;
 
         signal_map[dark_radio.notify["active"].connect (() => {
             if (dark_radio.active) {
-                Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
                 Services.Settings.get_default ().settings.set_enum ("appearance", 1);
+                Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
             }
         })] = dark_radio;
 
         signal_map[blue_radio.notify["active"].connect (() => {
             if (blue_radio.active) {
-                Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
                 Services.Settings.get_default ().settings.set_enum ("appearance", 2);
+                Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
             }
         })] = blue_radio;
         
