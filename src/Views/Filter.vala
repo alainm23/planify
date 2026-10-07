@@ -22,19 +22,7 @@
 public class Views.Filter : Adw.Bin {
     public Objects.BaseObject filter { get; construct; }
 
-    /**
-     * Sort key used to group tasks by their parent project. This is the historical
-     * (and default) ordering of the All Tasks view, and has no SortedByType member
-     * because it is only meaningful in a view that spans several projects.
-     */
-    private const string SORT_BY_PROJECT = "project";
-
-    private const string SORT_ORDER_KEY = "all-items-sort-order";
-    private const string SORT_ASCENDING_KEY = "all-items-sort-ascending";
-    private const string FILTERS_KEY = "all-items-filters";
-
-    private Widgets.ContextMenu.MenuPicker due_date_item;
-    private Widgets.ContextMenu.MenuCheckPicker priority_filter;
+    private Layouts.ItemSortFilter ? sort_filter = null;
     private Gtk.Revealer indicator_revealer;
     private uint rebuild_idle_id = 0;
 
@@ -60,11 +48,7 @@ public class Views.Filter : Adw.Bin {
     private int page_index = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
-    /**
-     * Whether this filter view offers the sort menu. Only All Tasks does for now;
-     * when the Label view gains the same menu the settings keys above should become
-     * a per-view prefix rather than constants.
-     */
+    // Only All Tasks; the Label view has its own ItemSortFilter.
     private bool sorting_supported {
         get {
             return filter is Objects.Filters.AllItems;
@@ -95,6 +79,10 @@ public class Views.Filter : Adw.Bin {
     }
 
     construct {
+        if (sorting_supported) {
+            sort_filter = new Layouts.ItemSortFilter (filter, "all-items");
+        }
+
         title_icon = new Gtk.Image () {
             pixel_size = 16,
             valign = CENTER,
@@ -338,42 +326,13 @@ public class Views.Filter : Adw.Bin {
         })] = Services.EventBus.get_default ();
 
         if (sorting_supported) {
-            signal_map[Services.Settings.get_default ().settings.changed[SORT_ORDER_KEY].connect (() => {
+            signal_map[sort_filter.changed.connect (() => {
                 rebuild_list ();
                 check_default_filters ();
-            })] = Services.Settings.get_default ().settings;
-
-            signal_map[Services.Settings.get_default ().settings.changed[SORT_ASCENDING_KEY].connect (() => {
-                rebuild_list ();
-                check_default_filters ();
-            })] = Services.Settings.get_default ().settings;
-
-            signal_map[filter.filter_added.connect (() => {
-                apply_filters_changed ();
-            })] = filter;
-
-            signal_map[filter.filter_removed.connect ((filter_item) => {
-                if (filter_item.filter_type == FilterItemType.PRIORITY) {
-                    priority_filter.unchecked (filter_item);
-                } else if (filter_item.filter_type == FilterItemType.DUE_DATE) {
-                    due_date_item.update_selected ("0");
-                }
-
-                apply_filters_changed ();
-            })] = filter;
-
-            signal_map[filter.filter_updated.connect (() => {
-                apply_filters_changed ();
-            })] = filter;
+            })] = sort_filter;
 
             check_default_filters ();
         }
-    }
-
-    private void apply_filters_changed () {
-        save_filters ();
-        rebuild_list ();
-        check_default_filters ();
     }
 
     /**
@@ -447,7 +406,7 @@ public class Views.Filter : Adw.Bin {
                 });
             } else if (sorting_supported) {
                 listbox.set_sort_func ((row1, row2) => {
-                    return sort_items_function (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
+                    return sort_filter.compare (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
                 });
             }
 
@@ -468,7 +427,7 @@ public class Views.Filter : Adw.Bin {
             return false;
         }
 
-        if (sorting_supported && !Utils.TaskUtils.items_filter_func (item, filter.filters)) {
+        if (sorting_supported && !sort_filter.matches (item)) {
             return false;
         }
 
@@ -546,7 +505,7 @@ public class Views.Filter : Adw.Bin {
             // otherwise the first page would be chosen by the old order and only
             // re-sorted among itself.
             items_list.sort ((a, b) => {
-                return sort_items_function (a, b);
+                return sort_filter.compare (a, b);
             });
         } else {
             items_list.sort ((a, b) => {
@@ -782,35 +741,12 @@ public class Views.Filter : Adw.Bin {
         }
 
         row.set_header (
-            get_header_box (
+            Layouts.ItemSortFilter.header_box (
                 Utils.Datetime.get_relative_date_from_date (
                     Utils.Datetime.get_date_only (Utils.Datetime.get_date_from_string (row.item.completed_at))
                 )
             )
         );
-    }
-
-    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow ? lbbefore) {
-        if (!(lbrow is Layouts.ItemRow)) {
-            return;
-        }
-
-        var row = (Layouts.ItemRow) lbrow;
-        if (lbbefore != null && lbbefore is Layouts.ItemRow) {
-            var before = (Layouts.ItemRow) lbbefore;
-            // Group on the item's own project, not Layouts.ItemRow's cached project_id: that copy
-            // is taken in construct and never refreshed, so after a task is moved to another
-            // project the row still carries the old id and is read as the start of a new group —
-            // a second header for a project that already has one. The header text below already
-            // comes from the live item, which is why the duplicate is labelled identically.
-            if (row.item.project_id == before.item.project_id) {
-                row.set_header (null);
-                return;
-            }
-        }
-
-        Objects.Project ? project = row.item.project;
-        row.set_header (get_header_box (project == null ? "" : project.name));
     }
 
     private void validate_placeholder () {
@@ -831,34 +767,6 @@ public class Views.Filter : Adw.Bin {
         invalidate_listbox ();
     }
 
-    private Gtk.Widget get_header_box (string title) {
-        var header_label = new Gtk.Label (title) {
-            css_classes = { "font-bold" },
-            halign = START
-        };
-
-        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12,
-            margin_start = 34,
-            margin_bottom = 6
-        };
-
-        header_box.append (header_label);
-        header_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-
-        if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-            ulong handler_id = Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
-                header_box.sensitive = !active;
-            });
-            
-            header_box.destroy.connect (() => {
-                Services.EventBus.get_default ().disconnect (handler_id);
-            });
-        }
-
-        return header_box;
-    }
-
     private void update_project_filter_label () {
         if (selected_project_ids.size == 0) {
             project_filter_button.label = _("All Projects");
@@ -870,7 +778,7 @@ public class Views.Filter : Adw.Bin {
 
     private Gtk.Popover build_view_setting_popover () {
         if (sorting_supported) {
-            return build_sort_setting_popover ();
+            return sort_filter.build_popover ();
         }
 
         var delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks"), "user-trash-symbolic");
@@ -921,325 +829,12 @@ public class Views.Filter : Adw.Bin {
         return popover;
     }
 
-    private Gtk.Popover build_sort_setting_popover () {
-        var sorted_by_item = new Widgets.ContextMenu.MenuPicker (_("Sorting"), "vertical-arrows-long-symbolic") {
-            selected = Services.Settings.get_default ().settings.get_string (SORT_ORDER_KEY)
-        };
-
-        sorted_by_item.add_item (_("Project"), SORT_BY_PROJECT);
-        sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
-        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
-        sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
-        sorted_by_item.add_item (_("Date Modified"), SortedByType.UPDATED_DATE.to_string ());
-        sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
-
-        var sort_order_item = new Widgets.ContextMenu.MenuSwitch (_("Ascending Order"), "vertical-arrows-long-symbolic") {
-            active = Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY)
-        };
-
-        due_date_item = new Widgets.ContextMenu.MenuPicker (_("Duedate"), "month-symbolic") {
-            selected = "0"
-        };
-        due_date_item.add_item (_("All (default)"), "0");
-        due_date_item.add_item (_("Today"), "1");
-        due_date_item.add_item (_("This Week"), "2");
-        due_date_item.add_item (_("Next 7 Days"), "3");
-        due_date_item.add_item (_("This Month"), "4");
-        due_date_item.add_item (_("Next 30 Days"), "5");
-        due_date_item.add_item (_("No Date"), "6");
-
-        var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
-        priority_items.add (new Objects.Filters.FilterItem () {
-            filter_type = FilterItemType.PRIORITY,
-            name = _("P1"),
-            value = Constants.PRIORITY_1.to_string ()
-        });
-        priority_items.add (new Objects.Filters.FilterItem () {
-            filter_type = FilterItemType.PRIORITY,
-            name = _("P2"),
-            value = Constants.PRIORITY_2.to_string ()
-        });
-        priority_items.add (new Objects.Filters.FilterItem () {
-            filter_type = FilterItemType.PRIORITY,
-            name = _("P3"),
-            value = Constants.PRIORITY_3.to_string ()
-        });
-        priority_items.add (new Objects.Filters.FilterItem () {
-            filter_type = FilterItemType.PRIORITY,
-            name = _("P4"),
-            value = Constants.PRIORITY_4.to_string ()
-        });
-
-        priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Priority"), "flag-outline-thick-symbolic");
-        priority_filter.set_items (priority_items);
-
-        var labels_filter = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "tag-outline-symbolic") {
-            arrow = true
-        };
-
-        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (new Gtk.Label (_("Sort By")) {
-            css_classes = { "heading", "h4" },
-            margin_start = 6,
-            margin_top = 6,
-            margin_bottom = 6,
-            halign = Gtk.Align.START
-        });
-        menu_box.append (sorted_by_item);
-        menu_box.append (sort_order_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (new Gtk.Label (_("Filter By")) {
-            css_classes = { "heading", "h4" },
-            margin_start = 6,
-            margin_top = 6,
-            margin_bottom = 6,
-            halign = Gtk.Align.START
-        });
-        menu_box.append (due_date_item);
-        menu_box.append (priority_filter);
-        menu_box.append (labels_filter);
-
-        var popover = new Gtk.Popover () {
-            has_arrow = false,
-            position = Gtk.PositionType.BOTTOM,
-            child = menu_box,
-            width_request = 250
-        };
-
-        restore_filters ();
-
-        signal_map[sorted_by_item.notify["selected"].connect (() => {
-            Services.Settings.get_default ().settings.set_string (SORT_ORDER_KEY, sorted_by_item.selected);
-        })] = sorted_by_item;
-
-        signal_map[sort_order_item.activate_item.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean (SORT_ASCENDING_KEY, sort_order_item.active);
-        })] = sort_order_item;
-
-        signal_map[due_date_item.notify["selected"].connect (() => {
-            update_due_date_filter (int.parse (due_date_item.selected));
-        })] = due_date_item;
-
-        signal_map[priority_filter.filter_change.connect ((filter_item, active) => {
-            if (active) {
-                filter.add_filter (filter_item);
-            } else {
-                filter.remove_filter (filter_item);
-            }
-        })] = priority_filter;
-
-        signal_map[labels_filter.activate_item.connect (() => {
-            show_labels_filter_dialog ();
-        })] = labels_filter;
-
-        return popover;
-    }
-
-    private void update_due_date_filter (int selected) {
-        Objects.Filters.FilterItem ? due_filter = filter.get_filter (FilterItemType.DUE_DATE.to_string ());
-
-        if (selected <= 0) {
-            if (due_filter != null) {
-                filter.remove_filter (due_filter);
-            }
-
-            return;
-        }
-
-        bool insert = false;
-        if (due_filter == null) {
-            due_filter = new Objects.Filters.FilterItem ();
-            due_filter.filter_type = FilterItemType.DUE_DATE;
-            insert = true;
-        }
-
-        due_filter.name = due_date_name (selected);
-        due_filter.value = selected.to_string ();
-
-        if (insert) {
-            filter.add_filter (due_filter);
-        } else {
-            filter.update_filter (due_filter);
-        }
-    }
-
-    private string due_date_name (int selected) {
-        switch (selected) {
-            case 1:
-                return _("Today");
-
-            case 2:
-                return _("This Week");
-
-            case 3:
-                return _("Next 7 Days");
-
-            case 4:
-                return _("This Month");
-
-            case 5:
-                return _("Next 30 Days");
-
-            case 6:
-                return _("No Date");
-
-            default:
-                return _("All (default)");
-        }
-    }
-
-    private void show_labels_filter_dialog () {
-        Gee.ArrayList<Objects.Label> selected_labels = new Gee.ArrayList<Objects.Label> ();
-        foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
-            if (filter_item.filter_type == FilterItemType.LABEL) {
-                Objects.Label ? label = Services.Store.instance ().get_label (filter_item.value);
-                if (label != null) {
-                    selected_labels.add (label);
-                }
-            }
-        }
-
-        var dialog = new Dialogs.LabelPicker ();
-        dialog.add_labels_list (Services.Store.instance ().labels);
-        dialog.labels = selected_labels;
-
-        // Scoped to the dialog, not the view's signal_map: handler ids are per-instance,
-        // so tracking a transient object there collides with an existing key and leaves the
-        // view disconnecting that id against the wrong instance.
-        ulong labels_handler = dialog.labels_changed.connect ((labels) => {
-            foreach (Objects.Label label in labels.values) {
-                var label_filter = new Objects.Filters.FilterItem ();
-                label_filter.filter_type = FilterItemType.LABEL;
-                label_filter.name = label.name;
-                label_filter.value = label.id;
-
-                filter.add_filter (label_filter);
-            }
-
-            var to_remove = new Gee.ArrayList<Objects.Filters.FilterItem> ();
-            foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
-                if (filter_item.filter_type == FilterItemType.LABEL && !labels.has_key (filter_item.value)) {
-                    to_remove.add (filter_item);
-                }
-            }
-
-            foreach (Objects.Filters.FilterItem filter_item in to_remove) {
-                filter.remove_filter (filter_item);
-            }
-        });
-
-        dialog.closed.connect (() => {
-            if (GLib.SignalHandler.is_connected (dialog, labels_handler)) {
-                dialog.disconnect (labels_handler);
-            }
-        });
-
-        dialog.present (Planify._instance.main_window);
-    }
-
-    /**
-     * Restores the filters persisted for this view and syncs the menu widgets to them.
-     * Each entry is stored as "filter-type:value"; the display name is re-derived rather
-     * than persisted, so a renamed label shows its current name.
-     */
-    private void restore_filters () {
-        string[] stored = Services.Settings.get_default ().settings.get_strv (FILTERS_KEY);
-
-        foreach (string entry in stored) {
-            string[] parts = entry.split (":", 2);
-            if (parts.length != 2) {
-                continue;
-            }
-
-            string type = parts[0];
-            string value = parts[1];
-
-            var filter_item = new Objects.Filters.FilterItem ();
-            filter_item.value = value;
-
-            if (type == FilterItemType.PRIORITY.to_string ()) {
-                filter_item.filter_type = FilterItemType.PRIORITY;
-                filter_item.name = "P%d".printf (Constants.PRIORITY_1 - int.parse (value) + 1);
-            } else if (type == FilterItemType.LABEL.to_string ()) {
-                Objects.Label ? label = Services.Store.instance ().get_label (value);
-                if (label == null) {
-                    // The label was deleted since the filter was stored.
-                    continue;
-                }
-
-                filter_item.filter_type = FilterItemType.LABEL;
-                filter_item.name = label.name;
-            } else if (type == FilterItemType.DUE_DATE.to_string ()) {
-                filter_item.filter_type = FilterItemType.DUE_DATE;
-                filter_item.name = due_date_name (int.parse (value));
-            } else {
-                continue;
-            }
-
-            filter.add_filter (filter_item);
-        }
-
-        sync_menu_to_filters ();
-    }
-
-    private void sync_menu_to_filters () {
-        foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
-            if (filter_item.filter_type == FilterItemType.PRIORITY) {
-                if (priority_filter.filters_map.has_key (filter_item.id)) {
-                    priority_filter.filters_map[filter_item.id].active = true;
-                }
-            } else if (filter_item.filter_type == FilterItemType.DUE_DATE) {
-                due_date_item.update_selected (filter_item.value);
-            }
-        }
-    }
-
-    private void save_filters () {
-        // Build a native string[] rather than going through Gee's generic to_array():
-        // for a reference-type generic that returns unowned element pointers, which are
-        // freed before set_strv() reads them (SIGSEGV inside g_utf8_validate).
-        string[] stored = {};
-
-        foreach (Objects.Filters.FilterItem filter_item in filter.filters.values) {
-            stored += "%s:%s".printf (filter_item.filter_type.to_string (), filter_item.value);
-        }
-
-        Services.Settings.get_default ().settings.set_strv (FILTERS_KEY, stored);
-    }
-
     /**
      * Reveals the dot on the view-settings button whenever the view is not showing
      * its default sort and no filters, mirroring the project view's affordance.
      */
     private void check_default_filters () {
-        bool has_filters = filter.filters.size > 0;
-        bool default_sort = sorted_by_project () &&
-            Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY);
-
-        indicator_revealer.reveal_child = has_filters || !default_sort;
-    }
-
-    private SortOrderType get_sort_order () {
-        return Services.Settings.get_default ().settings.get_boolean (SORT_ASCENDING_KEY)
-            ? SortOrderType.ASC : SortOrderType.DESC;
-    }
-
-    private bool sorted_by_project () {
-        return Services.Settings.get_default ().settings.get_string (SORT_ORDER_KEY) == SORT_BY_PROJECT;
-    }
-
-    private int sort_items_function (Objects.Item item1, Objects.Item item2) {
-        if (sorted_by_project ()) {
-            return Util.get_default ().set_item_project_sort_func (item1, item2, get_sort_order ());
-        }
-
-        return Util.get_default ().set_item_sort_func (
-            item1,
-            item2,
-            SortedByType.parse (Services.Settings.get_default ().settings.get_string (SORT_ORDER_KEY)),
-            get_sort_order ()
-        );
+        indicator_revealer.reveal_child = !sort_filter.is_default ();
     }
 
     private void update_header_func () {
@@ -1250,12 +845,12 @@ public class Views.Filter : Adw.Bin {
 
         // Grouping headers only make sense while the list is grouped by project;
         // under any other sort they would fragment the order into noise.
-        if (sorting_supported && !sorted_by_project ()) {
+        if (sorting_supported && !sort_filter.sorted_by_project ()) {
             listbox.set_header_func (null);
             return;
         }
 
-        listbox.set_header_func (header_project_function);
+        listbox.set_header_func (Layouts.ItemSortFilter.project_header_func);
     }
 
     private void invalidate_listbox () {
@@ -1276,6 +871,10 @@ public class Views.Filter : Adw.Bin {
     }
 
     public void clean_up () {
+        if (sort_filter != null) {
+            sort_filter.clean_up ();
+        }
+
         if (rebuild_idle_id != 0) {
             GLib.Source.remove (rebuild_idle_id);
             rebuild_idle_id = 0;

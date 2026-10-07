@@ -25,13 +25,25 @@ public class Views.Label : Adw.Bin {
     private Gtk.Label title_label;
     private Gtk.ListBox listbox;
     private Gtk.Stack listbox_stack;
+    private Adw.StatusPage listbox_placeholder;
+    private Gtk.Revealer indicator_revealer;
+    private Widgets.FilterFlowBox filters_flowbox;
+
+    // Shared by every label, as one view instance is reused for each.
+    private Layouts.ItemSortFilter sort_filter;
 
     public Gee.HashMap<string, Layouts.ItemRow> items;
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    private bool has_items {
+    private bool has_visible_items {
         get {
-            return items.size > 0;
+            foreach (Layouts.ItemRow row in items.values) {
+                if (sort_filter.matches (row.item)) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 
@@ -54,9 +66,42 @@ public class Views.Label : Adw.Bin {
 
     construct {
         items = new Gee.HashMap<string, Layouts.ItemRow> ();
+        sort_filter = new Layouts.ItemSortFilter (Objects.Filters.Labels.get_default (), "label");
+
+        var view_setting_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            margin_end = 12,
+            popover = sort_filter.build_popover (),
+            icon_name = "view-sort-descending-rtl-symbolic",
+            css_classes = { "flat" },
+            tooltip_text = _("View Option Menu")
+        };
+
+        var indicator_grid = new Gtk.Grid () {
+            width_request = 9,
+            height_request = 9,
+            margin_top = 6,
+            margin_end = 6,
+            css_classes = { "indicator" }
+        };
+
+        indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+            halign = END,
+            valign = START,
+            sensitive = false,
+        };
+
+        var view_setting_overlay = new Gtk.Overlay () {
+            child = view_setting_button
+        };
+        view_setting_overlay.add_overlay (indicator_revealer);
 
         headerbar = new Layouts.HeaderBar ();
         headerbar.back_revealer = true;
+        headerbar.pack_end (view_setting_overlay);
     
         title_icon = new Gtk.Image.from_icon_name (Objects.Filters.Labels.get_default ().icon_name) {
             pixel_size = 16,
@@ -86,16 +131,38 @@ public class Views.Label : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
+        listbox.set_sort_func ((row1, row2) => {
+            return sort_filter.compare (((Layouts.ItemRow) row1).item, ((Layouts.ItemRow) row2).item);
+        });
+
+        listbox.set_filter_func ((row) => {
+            return sort_filter.matches (((Layouts.ItemRow) row).item);
+        });
+
+        update_header_func ();
+
         var listbox_content = new Adw.Bin () {
             margin_top = 20,
             margin_end = 24,
             child = listbox
         };
 
-        var listbox_placeholder = new Adw.StatusPage ();
+        listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
         listbox_placeholder.title = _("Add Some Tasks");
         listbox_placeholder.description = _("Press 'a' to create a new task");
+
+        filters_flowbox = new Widgets.FilterFlowBox () {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true,
+            base_object = Objects.Filters.Labels.get_default ()
+        };
+
+        filters_flowbox.flowbox.margin_start = 30;
+        filters_flowbox.flowbox.margin_top = 12;
+        filters_flowbox.flowbox.margin_end = 12;
+        filters_flowbox.flowbox.margin_bottom = 3;
 
         listbox_stack = new Gtk.Stack () {
             vexpand = true,
@@ -112,6 +179,7 @@ public class Views.Label : Adw.Bin {
         };
 
         content_box.append (title_box);
+        content_box.append (filters_flowbox);
         content_box.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -179,11 +247,44 @@ public class Views.Label : Adw.Bin {
 
         signal_map[Services.EventBus.get_default ().dim_content.connect ((active, focused_item_id) => {
             title_box.sensitive = !active;
+            filters_flowbox.sensitive = !active;
         })] = Services.EventBus.get_default ();
+
+        // All rows are loaded, so re-sort and re-filter rather than rebuild.
+        signal_map[sort_filter.changed.connect (() => {
+            update_header_func ();
+            listbox.invalidate_sort ();
+            listbox.invalidate_filter ();
+            listbox.invalidate_headers ();
+            validate_placeholder ();
+        })] = sort_filter;
+
+        check_default_filters ();
     }
 
     private void validate_placeholder () {
-        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+        if (items.size > 0 && !has_visible_items) {
+            listbox_placeholder.title = _("No tasks found");
+            listbox_placeholder.description = _("No tasks match the selected filters");
+        } else {
+            listbox_placeholder.title = _("Add Some Tasks");
+            listbox_placeholder.description = _("Press 'a' to create a new task");
+        }
+
+        listbox_stack.visible_child_name = has_visible_items ? "listbox" : "placeholder";
+        check_default_filters ();
+    }
+
+    private void check_default_filters () {
+        indicator_revealer.reveal_child = !sort_filter.is_default ();
+    }
+
+    private void update_header_func () {
+        if (sort_filter.sorted_by_project ()) {
+            listbox.set_header_func (Layouts.ItemSortFilter.project_header_func);
+        } else {
+            listbox.set_header_func (null);
+        }
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
@@ -214,6 +315,8 @@ public class Views.Label : Adw.Bin {
 
         if (items.has_key (item.id)) {
             items[item.id].update_request ();
+            // The edit may move the task under the current sort, or out of the filters.
+            items[item.id].changed ();
         }
 
         valid_add_item (item);
@@ -257,6 +360,11 @@ public class Views.Label : Adw.Bin {
     }
 
     public void clean_up () {
+        sort_filter.clean_up ();
+        listbox.set_sort_func (null);
+        listbox.set_filter_func (null);
+        listbox.set_header_func (null);
+
         foreach (var row in Util.get_default ().get_children (listbox)) {
             ((Layouts.ItemRow) row).clean_up ();
         }
