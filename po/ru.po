@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-08-14 00:01+0000\n"
-"Last-Translator: Vladislav Dub <vlad.milosta@outlook.com>\n"
+"PO-Revision-Date: 2026-10-08 13:16+0000\n"
+"Last-Translator: danzig <just4n0ther@ya.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/ru/>\n"
 "Language: ru\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
 #: src/Dialogs/Preferences/Pages/General.vala:55
@@ -1864,11 +1864,11 @@ msgstr "Через 6 часов"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Выбрать время на будущее"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "У вас уже есть напоминание в это время"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
