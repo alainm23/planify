@@ -22,6 +22,7 @@
 public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.BasePage {
     private Gtk.Switch system_appearance_switch;
     private Gtk.Switch system_accent_switch;
+    private Gtk.Switch adwaita_colors_switch;
     private Adw.ActionRow light_row;
     private Adw.ActionRow dark_row;
     private Adw.ActionRow blue_row;
@@ -78,6 +79,23 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
             title = _("Select theme")
         };
         system_appearance_group.add (system_appearance_row);
+
+        adwaita_colors_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().settings.get_boolean ("use-adwaita-colors")
+        };
+
+        var adwaita_colors_row = new Adw.ActionRow () {
+            title = _("Use Adwaita Colors"),
+            subtitle = _("Use the standard GNOME colors in light and dark mode")
+        };
+
+        adwaita_colors_row.add_prefix (new Gtk.Image.from_icon_name ("color-symbolic") {
+            pixel_size = 16
+        });
+        adwaita_colors_row.set_activatable_widget (adwaita_colors_switch);
+        adwaita_colors_row.add_suffix (adwaita_colors_switch);
+        system_appearance_group.add (adwaita_colors_row);
 
 
         light_radio = new Gtk.CheckButton () {
@@ -213,6 +231,11 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
                                                                     system_accent_switch.active);
         })] = system_accent_switch;
 
+        signal_map[adwaita_colors_switch.notify["active"].connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("use-adwaita-colors",
+                                                                    adwaita_colors_switch.active);
+        })] = adwaita_colors_switch;
+
         // Set "appearance" first: the "dark-mode" change reads it to pick the radio.
         signal_map[light_radio.notify["active"].connect (() => {
             if (light_radio.active) {
@@ -250,6 +273,7 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
 
         signal_map[Services.Settings.get_default ().settings.changed["system-appearance"].connect (verify_theme)] = Services.Settings.get_default ();
         signal_map[Services.Settings.get_default ().settings.changed["dark-mode"].connect (verify_theme)] = Services.Settings.get_default ();
+        signal_map[Services.Settings.get_default ().settings.changed["use-adwaita-colors"].connect (verify_theme)] = Services.Settings.get_default ();
         signal_map[Services.Settings.get_default ().settings.changed["use-system-accent"].connect (() => {
             Util.get_default ().update_theme ();
         })] = Services.Settings.get_default ();
@@ -266,6 +290,11 @@ public class Dialogs.Preferences.Pages.Appearance : Dialogs.Preferences.Pages.Ba
         theme_group.visible = is_dark_modes_visible ();
         placeholder_revealer.reveal_child = !is_dark_modes_visible ();
 
+        // Adwaita colors replace Dark Blue; the saved choice returns when they're turned off.
+        bool adwaita_colors = Services.Settings.get_default ().settings.get_boolean ("use-adwaita-colors");
+        adwaita_colors_switch.active = adwaita_colors;
+        blue_row.sensitive = !adwaita_colors;
+        blue_row.subtitle = adwaita_colors ? _("Not available with Adwaita colors") : _("Professional blue theme");
 
         if (!Services.Settings.get_default ().settings.get_boolean ("dark-mode")) {
             light_radio.active = true;

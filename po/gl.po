@@ -214,7 +214,7 @@ msgid "logbook"
 msgstr "rexistro de eventos"
 
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
-#: core/Utils/Util.vala:593
+#: core/Utils/Util.vala:615
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:129
 #: src/Views/Project/Board.vala:250 src/Views/Project/List.vala:325
@@ -343,7 +343,7 @@ msgstr "Ficheiros iCalendar"
 msgid "Task exported successfully"
 msgstr "Tarefa exportada correctamente"
 
-#: core/Objects/Item.vala:2037 core/Utils/Util.vala:869
+#: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Movida para %s"
@@ -363,7 +363,7 @@ msgstr "Isto non pode ser revertido"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:894
 #: core/Objects/Project.vala:968 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:476 core/Utils/Util.vala:457
+#: core/Objects/Section.vala:476 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
@@ -494,7 +494,7 @@ msgstr ""
 "Lamentámolo, mais «Engadir rápido» non dá atopado ningún proxecto "
 "dispoñíbel; tente crear un proxecto no Planify."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:792
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
 msgid "Keyboard Shortcuts"
 msgstr "Atallos do teclado"
 
@@ -896,27 +896,27 @@ msgstr "Ningún"
 msgid "Today + Inbox"
 msgstr "Hoxe + Inicio"
 
-#: core/Utils/Util.vala:458
+#: core/Utils/Util.vala:480
 msgid "Delete All"
 msgstr "Eliminar todo"
 
-#: core/Utils/Util.vala:472
+#: core/Utils/Util.vala:494
 msgid "Process completed, you need to start Planify again."
 msgstr "Proceso concluído; hai que reiniciar o Planify."
 
-#: core/Utils/Util.vala:474
+#: core/Utils/Util.vala:496
 msgid "Ok"
 msgstr "Aceptar"
 
-#: core/Utils/Util.vala:584
+#: core/Utils/Util.vala:606
 msgid "On This Computer"
 msgstr "Neste computador"
 
-#: core/Utils/Util.vala:609
+#: core/Utils/Util.vala:631
 msgid "Meet Planify"
 msgstr "Coñeza o Planify"
 
-#: core/Utils/Util.vala:612
+#: core/Utils/Util.vala:634
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
@@ -925,20 +925,20 @@ msgstr ""
 "Este proxecto móstralle todo o que precisa de saber para comezar con bo pé. "
 "Non dubide en brincar con el - é posíbel recrealo sempre nas Preferencias."
 
-#: core/Utils/Util.vala:619
+#: core/Utils/Util.vala:641
 msgid "Tap this task"
 msgstr "Toque esta tarefa"
 
-#: core/Utils/Util.vala:620
+#: core/Utils/Util.vala:642
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr "Este é unha tarefa por facer! Complétea tocando a caixiña da esquerda. "
 
-#: core/Utils/Util.vala:625
+#: core/Utils/Util.vala:647
 msgid "Create a new task"
 msgstr "Crear unha tarefa nova"
 
-#: core/Utils/Util.vala:626
+#: core/Utils/Util.vala:648
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
@@ -946,22 +946,22 @@ msgstr ""
 "Agora é a súa vez! Toque o botón «+» da parte inferior do proxecto, "
 "introduza unha descrición da tarefa e toque o botón «Engadir tarefa»."
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:653
 msgid "Plan this to-do for today or later"
 msgstr "Planifique este Porfacer para hoxe ou máis tarde"
 
-#: core/Utils/Util.vala:632
+#: core/Utils/Util.vala:654
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 "Toque o botón do calendario da parte inferior para decidir cando completar "
 "esta tarefa."
 
-#: core/Utils/Util.vala:637
+#: core/Utils/Util.vala:659
 msgid "Reorder your to-dos"
 msgstr "Reordenar as súas tarefas"
 
-#: core/Utils/Util.vala:638
+#: core/Utils/Util.vala:660
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -969,11 +969,11 @@ msgstr ""
 "Para reordenar a súa lista toque e manteña premida unha tarefa e arrástrea "
 "para onde debería ir."
 
-#: core/Utils/Util.vala:643
+#: core/Utils/Util.vala:665
 msgid "Create a project"
 msgstr "Crear un proxecto"
 
-#: core/Utils/Util.vala:644
+#: core/Utils/Util.vala:666
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
@@ -981,11 +981,11 @@ msgstr ""
 "Organice mellor as súas tarefas! Vaia ao panel esquerdo e prema o botón «+» "
 "da sección «Neste computador» e engada un proxecto seu."
 
-#: core/Utils/Util.vala:649
+#: core/Utils/Util.vala:671
 msgid "You’re done!"
 msgstr "Xa está feito!"
 
-#: core/Utils/Util.vala:650
+#: core/Utils/Util.vala:672
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -999,15 +999,15 @@ msgstr ""
 "avanzadas de aquí abaixo.\n"
 "Agardamos que goce de usar o Planify!"
 
-#: core/Utils/Util.vala:664
+#: core/Utils/Util.vala:686
 msgid "Tune your setup"
 msgstr "Axuste a configuración"
 
-#: core/Utils/Util.vala:672
+#: core/Utils/Util.vala:694
 msgid "Show your calendar events"
 msgstr "Mostrar enventos do calendario"
 
-#: core/Utils/Util.vala:673
+#: core/Utils/Util.vala:695
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
@@ -1015,11 +1015,11 @@ msgstr ""
 "Mode mostrar os eventos do calendario do sistema no Planify. Vaia a «"
 "Preferencias» 🡒 Xeral 🡒 Eventos do calendario par aactivalo."
 
-#: core/Utils/Util.vala:679
+#: core/Utils/Util.vala:701
 msgid "Enable synchronization with third-party services"
 msgstr "Activar sincronización con servizos de terceiros"
 
-#: core/Utils/Util.vala:680
+#: core/Utils/Util.vala:702
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
@@ -1027,15 +1027,15 @@ msgstr ""
 "Planify non só crea tarefas localmente; tamén pode sincronizar coa súa conta "
 "de Todoist. Vaia a «Preferencias» 🡒 «Contas»."
 
-#: core/Utils/Util.vala:688
+#: core/Utils/Util.vala:710
 msgid "Boost your productivity"
 msgstr "Aumente a súa produtividade"
 
-#: core/Utils/Util.vala:696
+#: core/Utils/Util.vala:718
 msgid "Drag the plus button!"
 msgstr "Arrastre o botón de sumar!"
 
-#: core/Utils/Util.vala:697
+#: core/Utils/Util.vala:719
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
@@ -1044,11 +1044,11 @@ msgstr ""
 "do que parece: foi feito para se mover! Arrástreo para crear unha tarefa "
 "onde queira."
 
-#: core/Utils/Util.vala:703
+#: core/Utils/Util.vala:725
 msgid "Add labels to your tasks!"
 msgstr "Engada etiquetas ás súas tarefas!"
 
-#: core/Utils/Util.vala:704
+#: core/Utils/Util.vala:726
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
@@ -1056,11 +1056,11 @@ msgstr ""
 "As etiquetas axudan a organizar e categorizar as tarefas. Para engadir unha "
 "etiqueta prema o botón de etiquetas da parte inferior."
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:732
 msgid "Set timely reminders!"
 msgstr "Estabeleza recordatorios oportunos!"
 
-#: core/Utils/Util.vala:711
+#: core/Utils/Util.vala:733
 msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
@@ -1068,69 +1068,69 @@ msgstr ""
 "Reciba notificacións sobre tarefas ou eventos importantes. Toque o botón do "
 "reloxo de abaixo para engadir un recordatorio."
 
-#: core/Utils/Util.vala:722
+#: core/Utils/Util.vala:744
 msgid "💼️Work"
 msgstr "💼Traballo"
 
-#: core/Utils/Util.vala:728
+#: core/Utils/Util.vala:750
 msgid "🎒️School"
 msgstr "🎒️Estudos"
 
-#: core/Utils/Util.vala:734
+#: core/Utils/Util.vala:756
 msgid "👉️Delegated"
 msgstr "👉️Delegado"
 
-#: core/Utils/Util.vala:740
+#: core/Utils/Util.vala:762
 msgid "🏡️Home"
 msgstr "🏡️Casa"
 
-#: core/Utils/Util.vala:746
+#: core/Utils/Util.vala:768
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃Para seguimento"
 
-#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1275
 #: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr "Aínda non é posíbel mover tarefas para ou desde os paneis de Nextcloud"
 
-#: core/Utils/Util.vala:949
+#: core/Utils/Util.vala:971
 msgid "Task duplicated"
 msgstr "A tarefa foi duplicada"
 
-#: core/Utils/Util.vala:985
+#: core/Utils/Util.vala:1007
 msgid "Section duplicated"
 msgstr "A sección foi duplicada"
 
-#: core/Utils/Util.vala:1011 core/Utils/Util.vala:1037
+#: core/Utils/Util.vala:1033 core/Utils/Util.vala:1059
 msgid "Project duplicated"
 msgstr "O proxecto foi duplicado"
 
-#: core/Utils/Util.vala:1079 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
 msgstr ""
 
-#: core/Utils/Util.vala:1082 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
 msgstr "10 minutos antes"
 
-#: core/Utils/Util.vala:1085 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
 msgstr "30 minutos antes"
 
-#: core/Utils/Util.vala:1088 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
 msgstr "45 minutos antes"
 
-#: core/Utils/Util.vala:1091 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
 msgstr "1 hora antes"
 
-#: core/Utils/Util.vala:1094 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1116 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
 msgstr "2 horas antes"
 
-#: core/Utils/Util.vala:1097 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1119 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
 msgstr "3 horas antes"
 
@@ -1883,7 +1883,7 @@ msgstr "Actualizar etiqueta"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:797
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
 msgid "Archived Projects"
 msgstr "Proxectos arquivados"
 
@@ -2206,60 +2206,73 @@ msgstr "A agardar polo inicio da sesión…"
 msgid "Synchronizing…"
 msgstr "A sincronizar…"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:38
+#: src/Dialogs/Preferences/Pages/Appearance.vala:39
 #: src/Dialogs/Preferences/PreferencesWindow.vala:111
 msgid "Appearance"
 msgstr "Aparencia"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:53
+#: src/Dialogs/Preferences/Pages/Appearance.vala:54
 msgid "Use System Settings"
 msgstr "Empregar configuración do sistema"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:68
+#: src/Dialogs/Preferences/Pages/Appearance.vala:69
 msgid "Use System Accent Color"
 msgstr "Empregar cor de acento do sistema"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:78
+#: src/Dialogs/Preferences/Pages/Appearance.vala:79
 msgid "Select theme"
 msgstr "Seleccionar tema"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:88
+#: src/Dialogs/Preferences/Pages/Appearance.vala:89
+msgid "Use Adwaita Colors"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Appearance.vala:90
+msgid "Use the standard GNOME colors in light and dark mode"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
 msgstr "Estilo claro"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:89
+#: src/Dialogs/Preferences/Pages/Appearance.vala:107
 msgid "Clean light theme"
 msgstr "Tema claro limpo"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:105
+#: src/Dialogs/Preferences/Pages/Appearance.vala:123
 msgid "Dark Style"
 msgstr "Estilo escuro"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:106
+#: src/Dialogs/Preferences/Pages/Appearance.vala:124
 msgid "Elegant dark theme"
 msgstr "Tema escuro elegante"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:122
+#: src/Dialogs/Preferences/Pages/Appearance.vala:140
 msgid "Dark Blue Style"
 msgstr "Estilo azul escuro"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:123
+#: src/Dialogs/Preferences/Pages/Appearance.vala:141
+#: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Professional blue theme"
 msgstr "Tema azul profesional"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:139
+#: src/Dialogs/Preferences/Pages/Appearance.vala:157
 msgid "Accent Color"
 msgstr "Cor do acento"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:145
+#: src/Dialogs/Preferences/Pages/Appearance.vala:163
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
 "Os temas personalizados non están dispoñíbeis ao empregaro tema claro do "
 "sistema"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:183
+#: src/Dialogs/Preferences/Pages/Appearance.vala:201
 msgid "Font Size"
 msgstr "Tamaño da letra"
+
+#: src/Dialogs/Preferences/Pages/Appearance.vala:297
+msgid "Not available with Adwaita colors"
+msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:34
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
@@ -2767,7 +2780,7 @@ msgstr ""
 "De estar activado, engádeselle un recordatorio de maneira predeterminada "
 "antes de rematar o prazo da tarefa."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:771
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
 msgid "Preferences"
 msgstr "Preferencias"
 
@@ -2918,7 +2931,7 @@ msgstr[1] "%d tarefas"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:774
+#: src/MainWindow.vala:784
 msgid "Summary & Productivity"
 msgstr "Resumo e produtividade"
 
@@ -2973,7 +2986,7 @@ msgstr "Produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:873
+#: src/MainWindow.vala:883
 msgid "See More"
 msgstr "Ver máis"
 
@@ -3400,35 +3413,35 @@ msgstr "Menú principal"
 msgid "Open Quick Find"
 msgstr "Abrir Busca rápida"
 
-#: src/MainWindow.vala:340
+#: src/MainWindow.vala:342
 msgid "Task was modified on another device"
 msgstr "A tarefa foi modificada noutro dispositivo"
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:344
 msgid "Sync Now"
 msgstr "Sincronizar agora"
 
-#: src/MainWindow.vala:795
+#: src/MainWindow.vala:805
 msgid "About Planify"
 msgstr "Sobre o Planify"
 
-#: src/MainWindow.vala:870
+#: src/MainWindow.vala:880
 msgid "Oops! Something happened"
 msgstr "Vaites! Pasou algo"
 
-#: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarefa concluída"
 
-#: src/MainWindow.vala:890
+#: src/MainWindow.vala:900
 msgid "View"
 msgstr "Vista"
 
-#: src/MainWindow.vala:928
+#: src/MainWindow.vala:938
 msgid "Database Integrity Check Failed"
 msgstr "Fallou a comprobación da integridade da base de datos"
 
-#: src/MainWindow.vala:929
+#: src/MainWindow.vala:939
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3451,7 +3464,7 @@ msgstr ""
 "Rematada esta reconstrución, poderá restaurar calquera copia de seguranza "
 "creada anteriormente. Grazas pola súa paciencia"
 
-#: src/MainWindow.vala:931
+#: src/MainWindow.vala:941
 msgid "Reset Database"
 msgstr "Restaurar base de datos"
 
