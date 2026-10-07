@@ -353,6 +353,12 @@
             <description>Use the system-wide accent color instead of the default blue accent color</description>
         </key>
 
+        <key name="use-adwaita-colors" type="b">
+            <default>false</default>
+            <summary>Use Adwaita colors</summary>
+            <description>Use libadwaita's own window, sidebar, popover and card colors instead of Planify's palette, in both light and dark mode</description>
+        </key>
+
         <key name="font-scale" type="d">
             <default>1</default>
             <summary>Font scale</summary>

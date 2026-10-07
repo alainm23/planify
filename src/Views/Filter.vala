@@ -587,7 +587,14 @@ public class Views.Filter : Adw.Bin {
 
     private void add_item (Objects.Item item) {
         items[item.id] = new Layouts.ItemRow (item);
-        items[item.id].disable_drag_and_drop ();
+
+        // All Tasks lets a task be dragged onto another task or a sidebar project; the other
+        // filters keep dragging off entirely.
+        if (filter is Objects.Filters.AllItems) {
+            items[item.id].disable_reorder ();
+        } else {
+            items[item.id].disable_drag_and_drop ();
+        }
         listbox.append (items[item.id]);
     }
 
@@ -615,10 +622,9 @@ public class Views.Filter : Adw.Bin {
         } else if (filter is Objects.Filters.Unlabeled) {
             should_add = item.labels.size <= 0;
         } else if (filter is Objects.Filters.AllItems) {
-            // Unchecked only, matching what add_items () loads. A newly added item is never
-            // checked, but this path is also reached from valid_update_item (), where the item may
-            // be a completed one whose content changed.
-            should_add = !item.checked;
+            // Matches what add_items () loads. This path is also reached from
+            // valid_update_item (), where the item may be completed, or a subtask.
+            should_add = Objects.Filters.AllItems.includes (item);
         }
 
         if (should_add && item_matches_filters (item)) {
@@ -715,7 +721,8 @@ public class Views.Filter : Adw.Bin {
             // move an item into or out of the list: an item added before it matched arrives here
             // still absent, and one that no longer matches has to go. The view is kept alive in
             // MainWindow's stack between visits, so this signal is the only thing that reaches it.
-            if (items.has_key (item.id) && !item_matches_filters (item)) {
+            // A top-level task that gained a parent is now shown inside that parent's row.
+            if (items.has_key (item.id) && (item.has_parent || !item_matches_filters (item))) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
                 items_list.remove (item);
