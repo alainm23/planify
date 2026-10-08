@@ -1,0 +1,126 @@
+diff --git a/src/libical-glib/i-cal-object.h.in b/src/libical-glib/i-cal-object.h.in
+index 8bf70a0..1352338 100644
+--- a/src/libical-glib/i-cal-object.h.in
++++ b/src/libical-glib/i-cal-object.h.in
+@@ -13,16 +13,16 @@
+ #include <stdio.h>
+ #include <glib.h>
+ #include <glib-object.h>
+-#include <libical/ical.h>
+-#include <libical/libical_ical_export.h>
++#include "ical.h"
++#include "libical_ical_export.h"
+ #if defined(LIBICAL_GLIB_COMPILATION)
+-#include "libicalvcard/vcard.h"
+-#include "libicalvcard/libical_vcard_export.h"
++#include "vcard.h"
++#include "libical_vcard_export.h"
+ #else
+-#include <libical/vcard.h>
+-#include <libical/libical_vcard_export.h>
++#include "vcard.h"
++#include "libical_vcard_export.h"
+ #endif
+-#include <libical/icaltime_p.h>
++#include "icaltime_p.h"
+ 
+ #define I_CAL_TYPE_OBJECT \
+     (i_cal_object_get_type ())
+diff --git a/src/libical-glib/tools/generator.c b/src/libical-glib/tools/generator.c
+index dddb52e..ee9e4b4 100644
+--- a/src/libical-glib/tools/generator.c
++++ b/src/libical-glib/tools/generator.c
+@@ -947,14 +947,20 @@ void generate_header_includes(FILE *out, Structure *structure)
+ 
+     for (iter = g_list_first(structure->includes); iter != NULL; iter = g_list_next(iter)) {
+         includeName = (gchar *)iter->data;
+-        write_str(out, "#include <");
+-        write_str(out, includeName);
+-        write_str(out, ">\n");
++        if (g_str_has_prefix(includeName, "libical-glib/")) {
++            write_str(out, "#include \"");
++            write_str(out, includeName + strlen("libical-glib/"));
++            write_str(out, "\"\n");
++        } else {
++            write_str(out, "#include <");
++            write_str(out, includeName);
++            write_str(out, ">\n");
++        }
+     }
+ 
+-    write_str(out, "#include <");
++    write_str(out, "#include \"");
+     write_str(out, COMMON_HEADER);
+-    write_str(out, ".h>\n");
++    write_str(out, ".h\"\n");
+ 
+     includeNames = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+ 
+@@ -992,9 +998,9 @@ void generate_header_includes(FILE *out, Structure *structure)
+     for (g_hash_table_iter_init(&iter_table, includeNames);
+          g_hash_table_iter_next(&iter_table, &key, &value);) {
+         includeName = (gchar *)key;
+-        write_str(out, "#include <libical-glib/");
++        write_str(out, "#include \"");
+         write_str(out, includeName);
+-        write_str(out, ".h>\n");
++        write_str(out, ".h\"\n");
+     }
+     g_hash_table_destroy(includeNames);
+ }
+@@ -2159,7 +2165,7 @@ static void generate_checks_file(const gchar *filename, GList *structures /* Str
+ 
+     calls = g_string_new("");
+ 
+-    fprintf(file, "#include \"libical-glib/libical-glib.h\"\n");
++    fprintf(file, "#include \"libical-glib.h\"\n");
+ 
+     for (link = structures; link; link = g_list_next(link)) {
+         Structure *str = link->data;
+@@ -2535,7 +2541,7 @@ void generate_header_header_file(GList *structures)
+                     Structure *structure = (Structure *)iter->data;
+                     upperCamel = g_strconcat(structure->nameSpace, structure->name, NULL);
+                     gchar *lowerTrain = get_lower_train_from_upper_camel(upperCamel);
+-                    gchar *header = g_strconcat("#include <libical-glib/", lowerTrain, ".h>\n", NULL);
++                    gchar *header = g_strconcat("#include \"", lowerTrain, ".h\"\n", NULL);
+                     write_str(out, header);
+                     g_free(header);
+                     g_free(upperCamel);
+diff --git a/src/libical-glib/tools/generator.h b/src/libical-glib/tools/generator.h
+index 342000c..86e6951 100644
+--- a/src/libical-glib/tools/generator.h
++++ b/src/libical-glib/tools/generator.h
+@@ -18,7 +18,7 @@
+ #define HEADER_FORWARD_DECLARATIONS_TEMPLATE "header-forward-declarations-template"
+ #define INLINE_TRANSLATION "${translator} (${name})"
+ #define SOURCE_TEMPLATE "source-template"
+-#define COMMON_HEADER "libical-glib/i-cal-object"
++#define COMMON_HEADER "i-cal-object"
+ #define HEADER_STRUCTURE_BOILERPLATE_TEMPLATE "header-structure-boilerplate-template"
+ #define SOURCE_STRUCTURE_BOILERPLATE_TEMPLATE "source-structure-boilerplate-template"
+ #define ENUM_HEADER_ICAL "ICAL"
+diff --git a/src/libical-glib/tools/header-header-template b/src/libical-glib/tools/header-header-template
+index b19012c..074227f 100644
+--- a/src/libical-glib/tools/header-header-template
++++ b/src/libical-glib/tools/header-header-template
+@@ -13,7 +13,7 @@
+ 
+ #define __LIBICAL_GLIB_H_INSIDE__
+ 
+-#include <libical-glib/i-cal-forward-declarations.h>
++#include "i-cal-forward-declarations.h"
+ ${allHeaders}
+ #undef __LIBICAL_GLIB_H_INSIDE__
+ 
+diff --git a/src/libical-glib/tools/header-template b/src/libical-glib/tools/header-template
+index a51c733..5d2c3e6 100644
+--- a/src/libical-glib/tools/header-template
++++ b/src/libical-glib/tools/header-template
+@@ -13,7 +13,7 @@
+ #ifndef ${upperSnake}_H
+ #define ${upperSnake}_H
+ 
+-#include <libical-glib/i-cal-forward-declarations.h>
++#include "i-cal-forward-declarations.h"
+ ${headerIncludes}
+ G_BEGIN_DECLS

@@ -1,0 +1,34 @@
+**/
+!*.wrap
+!packagefiles/
+!packagefiles/**
+
+# wrap-redirect files
+cairo.wrap
+libffi.wrap
+gvdb.wrap
+pango.wrap
+harfbuzz.wrap
+ministream.wrap
+gdk-pixbuf.wrap
+libjpeg-turbo.wrap
+fribidi.wrap
+libpng.wrap
+libxml2.wrap
+freetype2.wrap
+sysprof.wrap
+fontconfig.wrap
+pixman.wrap
+libtiff.wrap
+proxy-libintl.wrap
+libepoxy.wrap
+graphene.wrap
+pcre2.wrap
+gperf.wrap
+libsass.wrap
+sassc.wrap
+gi-docgen.wrap
+
+# pixiewood
+glib.wrap
+packagefiles/glib/

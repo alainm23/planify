@@ -1,0 +1,10 @@
+[wrap-file]
+directory = json-glib-1.10.8
+source_url = https://download.gnome.org/sources/json-glib/1.10/json-glib-1.10.8.tar.xz
+source_fallback_url = https://github.com/mesonbuild/wrapdb/releases/download/json-glib_1.10.8-1/json-glib-1.10.8.tar.xz
+source_filename = json-glib-1.10.8.tar.xz
+source_hash = 55c5c141a564245b8f8fbe7698663c87a45a7333c2a2c56f06f811ab73b212dd
+wrapdb_version = 1.10.8-1
+
+[provide]
+json-glib-1.0 = json_glib_dep
