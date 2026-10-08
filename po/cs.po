@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-07 09:51+0000\n"
+"PO-Revision-Date: 2026-10-08 13:16+0000\n"
 "Last-Translator: Filip <filip.rund@email.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -2179,71 +2179,73 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
-msgstr ""
+msgstr "Používat barvy Adwaita"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:90
 msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
+msgstr "Používat standardní barvy GNOME ve světlém a tmavém stylu"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
-msgstr ""
+msgstr "Světlý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:107
 msgid "Clean light theme"
-msgstr ""
+msgstr "Svěží světlý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:123
 msgid "Dark Style"
-msgstr ""
+msgstr "Tmavý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:124
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Elegantní tmavý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:140
 msgid "Dark Blue Style"
-msgstr ""
+msgstr "Tmavomodrý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:141
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Profesionální tmavě modrý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:157
 msgid "Accent Color"
-msgstr ""
+msgstr "Barevný nádech"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:163
 msgid "Custom themes are not available when using the system light theme"
-msgstr ""
+msgstr "Vlastní styly nejsou dostupné při použití systémového světlého stylu"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:201
 msgid "Font Size"
-msgstr ""
+msgstr "Velikost písma"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
-msgstr ""
+msgstr "Není k dispozici s barvami Adwaita"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:34
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
-msgstr ""
+msgstr "Zálohy"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:44
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"Nestrachujte se o svá data. Můžete tvořit zálohy svých aktivních projektů, "
+"úkolů a komentářů, a později je importovat."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:55
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Automatická denní záloha"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:56
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Tvoří zálohu každý den o půlnoci"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Backups to Keep"
