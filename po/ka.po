@@ -14,14 +14,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2026.9.dev0\n"
 
-#: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
+#: core/Enum.vala:168 src/Dialogs/Preferences/Pages/Backup.vala:511
+#: src/Dialogs/Preferences/Pages/General.vala:55
+#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
-#: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "პროექტები"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:515
+#: src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
 msgstr "სექციები"
 
@@ -31,7 +33,8 @@ msgstr "ამოცანები"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
+#: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:825
+#: src/Layouts/ItemRow.vala:1262 src/Dialogs/Preferences/Pages/Backup.vala:631
 #: src/Layouts/ItemRow.vala:1265
 msgid "Labels"
 msgstr "ჭდეები"
@@ -90,23 +93,28 @@ msgid_plural "Every %d years"
 msgstr[0] "ყოველ წელს"
 msgstr[1] "ყოველ %d წელიწადში"
 
-#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
+#: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:39
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
-#: src/Views/Filter.vala:934 src/Views/Filter.vala:973
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
 #: src/Views/Scheduled/Scheduled.vala:236
-#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
-#: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:843
+#: src/Views/Today.vala:872 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Filter.vala:905 src/Views/Filter.vala:944
+#: src/Views/Filter.vala:922 src/Views/Filter.vala:961
+#: src/Views/Filter.vala:927 src/Views/Filter.vala:966 src/Views/Today.vala:846
+#: src/Views/Today.vala:875 src/Views/Filter.vala:934 src/Views/Filter.vala:973
 msgid "Priority"
 msgstr "პრიორიტეტი"
 
@@ -114,9 +122,10 @@ msgstr "პრიორიტეტი"
 msgid "Label"
 msgstr "ჭდე"
 
-#: core/Enum.vala:351 src/Views/Filter.vala:931
-#: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
-#: src/Views/Today.vala:843
+#: core/Enum.vala:351 src/Views/Project/Project.vala:558
+#: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:840
+#: src/Views/Filter.vala:902 src/Views/Filter.vala:919
+#: src/Views/Filter.vala:924 src/Views/Today.vala:843 src/Views/Filter.vala:931
 msgid "Due Date"
 msgstr "თარიღამდე"
 
@@ -125,7 +134,7 @@ msgstr "თარიღამდე"
 msgid "Section"
 msgstr "განყოფილება"
 
-#: core/Enum.vala:357 src/Views/Today.vala:899
+#: core/Enum.vala:357 src/Views/Today.vala:896 src/Views/Today.vala:899
 msgid "Assignment"
 msgstr "მინიჭება"
 
@@ -142,8 +151,10 @@ msgid "Content"
 msgstr "შემცველობა"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2082 src/Layouts/ItemSidebarView.vala:184
-#: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Layouts/ItemRow.vala:2009 src/Layouts/ItemSidebarView.vala:184
+#: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Layouts/ItemRow.vala:2014 src/Widgets/EventRow.vala:359
+#: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemRow.vala:2082
 msgid "Description"
 msgstr "აღწერა"
 
@@ -153,12 +164,13 @@ msgstr "დაგეგმილია"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
+#: src/Layouts/ItemRow.vala:1241 src/Layouts/ItemRow.vala:1256
 #: src/Layouts/ItemRow.vala:1244 src/Layouts/ItemRow.vala:1259
 msgid "Pin"
 msgstr "მიმაგრება"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:57
+#: src/Services/ExportService.vala:73 src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr "ვადა"
 
@@ -214,12 +226,14 @@ msgid "logbook"
 msgstr "ჟურნალი"
 
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
-#: core/Utils/Util.vala:615
+#: core/Utils/Util.vala:593
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:157
-#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:129
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:109
 #: src/Views/Project/Board.vala:250 src/Views/Project/List.vala:325
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:129
+#: core/Utils/Util.vala:615
 msgid "Inbox"
 msgstr "საფოსტო ყუთი"
 
@@ -287,11 +301,16 @@ msgstr "დაგეგმილია"
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:56
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:388
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
-#: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
-#: src/Views/Filter.vala:1070 src/Views/Project/Project.vala:573
+#: src/Layouts/ItemRow.vala:1248 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Views/Filter.vala:915 src/Views/Filter.vala:1041
+#: src/Views/Filter.vala:932 src/Views/Filter.vala:1058
+#: src/Views/Filter.vala:937 src/Views/Filter.vala:1063
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
+#: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
+#: src/Views/Filter.vala:1070
 msgid "Today"
 msgstr "დღეს"
 
@@ -301,9 +320,11 @@ msgstr "დღეს"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:394
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
-#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1254
+#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
+#: src/Layouts/ItemRow.vala:1254
 msgid "Tomorrow"
 msgstr "ხვალ"
 
@@ -327,22 +348,35 @@ msgstr "ჭდის გარეშე"
 msgid "unlabeled"
 msgstr "ჭდემოხსნილი"
 
-#: core/Objects/Item.vala:1619 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1503 src/Services/ExportService.vala:187
+#: core/Objects/Item.vala:1569 core/Objects/Item.vala:1571
+#: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1619
 msgid "Deadline:"
 msgstr "ვადა:"
 
+#: core/Objects/Item.vala:1528 core/Objects/Item.vala:1594
+#: core/Objects/Item.vala:1596 core/Objects/Item.vala:1619
 #: core/Objects/Item.vala:1644
 msgid "Task copied to clipboard"
 msgstr "ამოცანა დაკოპირდა ბუფერში"
 
+#: core/Objects/Item.vala:1545 core/Objects/Item.vala:1611
+#: core/Objects/Item.vala:1613 core/Objects/Item.vala:1636
 #: core/Objects/Item.vala:1661
 msgid "iCalendar Files"
 msgstr ""
 
+#: core/Objects/Item.vala:1561 core/Objects/Item.vala:1627
+#: core/Objects/Item.vala:1629 core/Objects/Item.vala:1652
 #: core/Objects/Item.vala:1677
 msgid "Task exported successfully"
 msgstr ""
 
+#: core/Objects/Item.vala:1885 core/Utils/Util.vala:856
+#: core/Objects/Item.vala:1951 core/Objects/Item.vala:1953
+#: core/Objects/Item.vala:1976 core/Objects/Item.vala:1992
+#: core/Utils/Util.vala:869 core/Objects/Item.vala:1998
 #: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
@@ -357,27 +391,34 @@ msgstr "%s ჭდის წაშლა"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:225 src/Layouts/ItemSidebarView.vala:619
 msgid "This can not be undone"
 msgstr "ეს ქმედება შეუქცევადია"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:894
 #: core/Objects/Project.vala:968 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:476 core/Utils/Util.vala:479
+#: core/Objects/Section.vala:476 core/Utils/Util.vala:457
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:453
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:200
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:274
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
-#: src/Dialogs/Preferences/Pages/Backup.vala:702
-#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
-#: src/Services/BackupManager.vala:228 src/Views/Filter.vala:907
+#: src/Dialogs/Preferences/Pages/Backup.vala:594
+#: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:607
+#: src/Services/BackupManager.vala:227 src/Views/Filter.vala:629
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:695
+#: src/Views/Filter.vala:878 src/Views/Filter.vala:895
+#: src/Views/Filter.vala:900
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
+#: src/Dialogs/Preferences/Pages/Backup.vala:702
+#: src/Services/BackupManager.vala:228 src/Layouts/ItemSidebarView.vala:622
+#: src/Views/Filter.vala:907 core/Utils/Util.vala:479
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -386,11 +427,15 @@ msgstr "გაუქმება"
 #: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
-#: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
-#: src/Views/Filter.vala:908 src/Widgets/AttachmentRow.vala:52
+#: src/Dialogs/Preferences/Pages/Backup.vala:360
+#: src/Layouts/ItemSidebarView.vala:608 src/Services/BackupManager.vala:228
+#: src/Views/Filter.vala:630 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
-#: src/Widgets/MultiSelectToolbar.vala:345
+#: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:696
+#: src/Views/Filter.vala:879 src/Views/Filter.vala:896
+#: src/Views/Filter.vala:901 src/Dialogs/Preferences/Pages/Backup.vala:468
+#: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
+#: src/Views/Filter.vala:908
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -413,8 +458,9 @@ msgid "This will archive %s and all its tasks."
 msgstr "ეს დააარქივებს %s-ს და მის ყველა ამოცანას."
 
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:477
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
+#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:399
+#: src/Layouts/SectionRow.vala:706 src/Layouts/ProjectRow.vala:713
 msgid "Archive"
 msgstr "არქივი"
 
@@ -424,11 +470,12 @@ msgid "Delete Section %s"
 msgstr "%s სექციის წაშლა"
 
 #: core/Objects/Source.vala:60
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -436,8 +483,9 @@ msgstr "Todoist"
 msgid "Task added successfully!"
 msgstr "ამოცანის დამატება წარმატებულია!"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemRow.vala:405
 msgid "To-do name"
 msgstr "გეგმის სახელი"
 
@@ -472,13 +520,15 @@ msgid "Add Reminders"
 msgstr "შემხსნებლების დამატება"
 
 #: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
+#: src/Layouts/SectionRow.vala:695 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
+#: src/Layouts/SectionRow.vala:699
 msgid "Add Task"
 msgstr "ამოცანის დამატება"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
+#: core/QuickAddCore.vala:1493
 msgid "Keep adding"
 msgstr ""
 
@@ -494,55 +544,56 @@ msgstr ""
 "უკაცრავად, მაგრამ სწრაფმა დამატებამ ხელმისაწვდომი პროექტი ვერ იპოვა. სცადეთ, "
 "ჯერ შექმნათ პროექტი Planify-დან."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1455 core/QuickAddCore.vala:1461
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "Set priority"
 msgstr "პრიორიტეტის დაყენება"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Add labels"
 msgstr "ჭდეების დამატება"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
 msgid "Opens label selector"
 msgstr "გახსნის ჭდის ამრჩევს"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Assign project"
 msgstr "პროექტის მინიჭება"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Set reminder"
 msgstr "შეხსენების დაყენება"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1487 core/QuickAddCore.vala:1493
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Tip"
 msgstr "მინიშნება"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -562,24 +613,38 @@ msgstr ""
 msgid "Syncing task %d of %d"
 msgstr ""
 
+#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:777
 #: core/Services/CalDAV/CalDAVClient.vala:779
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
 
+#: core/Services/CalDAV/CalDAVClient.vala:828
+#: core/Services/CalDAV/CalDAVClient.vala:829
+#: core/Services/CalDAV/CalDAVClient.vala:831
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
 
+#: core/Services/CalDAV/CalDAVClient.vala:832
+#: core/Services/CalDAV/CalDAVClient.vala:833
+#: core/Services/CalDAV/CalDAVClient.vala:835
 #: core/Services/CalDAV/CalDAVClient.vala:838
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
 
+#: core/Services/CalDAV/CalDAVClient.vala:866
+#: core/Services/CalDAV/CalDAVClient.vala:913
+#: core/Services/CalDAV/CalDAVClient.vala:867
+#: core/Services/CalDAV/CalDAVClient.vala:914
+#: core/Services/CalDAV/CalDAVClient.vala:869
+#: core/Services/CalDAV/CalDAVClient.vala:916
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
 msgid ""
@@ -767,21 +832,37 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
-#: core/Widgets/Calendar/CalendarHeader.vala:57
+#: core/Utils/Datetime.vala:803
+msgid "%a, %b %-e, %Y"
+msgstr ""
+
+#: core/Utils/Datetime.vala:806
+msgid "%b %-e %Y"
+msgstr ""
+
+#: core/Utils/Datetime.vala:809 core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Widgets/Calendar/CalendarHeader.vala:57 core/Utils/Datetime.vala:853
 msgid "%Y"
 msgstr "%Y"
 
-#: core/Utils/Datetime.vala:858
+#: core/Utils/Datetime.vala:812
+msgid "%b %-e"
+msgstr ""
+
+#: core/Utils/Datetime.vala:815 core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr ""
 
-#: core/Utils/Datetime.vala:861
+#: core/Utils/Datetime.vala:818 core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#: core/Utils/Datetime.vala:866
+#: core/Utils/Datetime.vala:821
+msgid "%a, %b %-e"
+msgstr ""
+
+#: core/Utils/Datetime.vala:824 core/Utils/Datetime.vala:866
 msgid "%b"
 msgstr "%b"
 
@@ -878,7 +959,8 @@ msgid "Dark Blue"
 msgstr "მუქი ლურჯი"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
-#: src/Views/Today.vala:894 src/Widgets/ItemChangeHistoryRow.vala:268
+#: src/Views/Today.vala:891 src/Widgets/ItemChangeHistoryRow.vala:268
+#: src/Views/Today.vala:894
 msgid "None"
 msgstr "არცერთი"
 
@@ -886,68 +968,68 @@ msgstr "არცერთი"
 msgid "Today + Inbox"
 msgstr "დღეს + საფოსტო ყუთი"
 
-#: core/Utils/Util.vala:480
+#: core/Utils/Util.vala:458 core/Utils/Util.vala:480
 msgid "Delete All"
 msgstr "ყველას წაშლა"
 
-#: core/Utils/Util.vala:494
+#: core/Utils/Util.vala:472 core/Utils/Util.vala:494
 msgid "Process completed, you need to start Planify again."
 msgstr "პროცესი დასრულდა. საჭიროა, Planify თავიდან გაუშვათ."
 
-#: core/Utils/Util.vala:496
+#: core/Utils/Util.vala:474 core/Utils/Util.vala:496
 msgid "Ok"
 msgstr "დიახ"
 
-#: core/Utils/Util.vala:606
+#: core/Utils/Util.vala:584 core/Utils/Util.vala:606
 msgid "On This Computer"
 msgstr "ამ კომპიუტერზე"
 
-#: core/Utils/Util.vala:631
+#: core/Utils/Util.vala:609 core/Utils/Util.vala:631
 msgid "Meet Planify"
 msgstr "გაიცანით Planify"
 
-#: core/Utils/Util.vala:634
+#: core/Utils/Util.vala:612 core/Utils/Util.vala:634
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
 
-#: core/Utils/Util.vala:641
+#: core/Utils/Util.vala:619 core/Utils/Util.vala:641
 msgid "Tap this task"
 msgstr "დაატყაპუნეთ ამ ამოცანაზე"
 
-#: core/Utils/Util.vala:642
+#: core/Utils/Util.vala:620 core/Utils/Util.vala:642
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 msgstr ""
 
-#: core/Utils/Util.vala:647
+#: core/Utils/Util.vala:625 core/Utils/Util.vala:647
 msgid "Create a new task"
 msgstr "ახალი ამოცანის შექმნა"
 
-#: core/Utils/Util.vala:648
+#: core/Utils/Util.vala:626 core/Utils/Util.vala:648
 msgid ""
 "Now it's your turn! Tap the '+' button at the bottom of your project, enter "
 "a task description, and tap the 'Add Task' button."
 msgstr ""
 
-#: core/Utils/Util.vala:653
+#: core/Utils/Util.vala:631 core/Utils/Util.vala:653
 msgid "Plan this to-do for today or later"
 msgstr "დაგეგმეთ ეს დღეისთვის, ან მოგვიანებით"
 
-#: core/Utils/Util.vala:654
+#: core/Utils/Util.vala:632 core/Utils/Util.vala:654
 msgid ""
 "Tap the calendar button at the bottom to decide when to complete this to-do."
 msgstr ""
 "დაატყაპუნეთ კალენდრის ღილაკზე ქვედა მხარეს, რომ გადაწყვიტოთ, რას აკეთებს ეს "
 "გეგმა."
 
-#: core/Utils/Util.vala:659
+#: core/Utils/Util.vala:637 core/Utils/Util.vala:659
 msgid "Reorder your to-dos"
 msgstr "გადაალაგეთ თქვენი გეგმები"
 
-#: core/Utils/Util.vala:660
+#: core/Utils/Util.vala:638 core/Utils/Util.vala:660
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
@@ -955,21 +1037,21 @@ msgstr ""
 "სიის გადასალაგებლად დაატყაპუნეთ და გეჭიროთ გეგმაზე და შემდეგ გადაათრიეთ, "
 "სადაც გნებავთ, ის იყოს."
 
-#: core/Utils/Util.vala:665
+#: core/Utils/Util.vala:643 core/Utils/Util.vala:665
 msgid "Create a project"
 msgstr "პროექტის შექმნა"
 
-#: core/Utils/Util.vala:666
+#: core/Utils/Util.vala:644 core/Utils/Util.vala:666
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
 
-#: core/Utils/Util.vala:671
+#: core/Utils/Util.vala:649 core/Utils/Util.vala:671
 msgid "You’re done!"
 msgstr "მზადაა!"
 
-#: core/Utils/Util.vala:672
+#: core/Utils/Util.vala:650 core/Utils/Util.vala:672
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -978,127 +1060,130 @@ msgid ""
 "We hope you’ll enjoy using Planify!"
 msgstr ""
 
-#: core/Utils/Util.vala:686
+#: core/Utils/Util.vala:664 core/Utils/Util.vala:686
 msgid "Tune your setup"
 msgstr "მოირგეთ აპლიკაცია"
 
-#: core/Utils/Util.vala:694
+#: core/Utils/Util.vala:672 core/Utils/Util.vala:694
 msgid "Show your calendar events"
 msgstr "გამოიტანეთ თქვენი კალენდრის მოვლენები"
 
-#: core/Utils/Util.vala:695
+#: core/Utils/Util.vala:673 core/Utils/Util.vala:695
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
 
-#: core/Utils/Util.vala:701
+#: core/Utils/Util.vala:679 core/Utils/Util.vala:701
 msgid "Enable synchronization with third-party services"
 msgstr "სინქრონიზაციის ჩართვა მესამე პირების სერვისებთან"
 
-#: core/Utils/Util.vala:702
+#: core/Utils/Util.vala:680 core/Utils/Util.vala:702
 msgid ""
 "Planify not only creates tasks locally, but can also synchronize with your "
 "Todoist account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 
-#: core/Utils/Util.vala:710
+#: core/Utils/Util.vala:688 core/Utils/Util.vala:710
 msgid "Boost your productivity"
 msgstr "აამაღლეთ თქვენი წარმადობა"
 
-#: core/Utils/Util.vala:718
+#: core/Utils/Util.vala:696 core/Utils/Util.vala:718
 msgid "Drag the plus button!"
 msgstr "გადაათრიეთ დამატების ღილაკი!"
 
-#: core/Utils/Util.vala:719
+#: core/Utils/Util.vala:697 core/Utils/Util.vala:719
 msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
 
-#: core/Utils/Util.vala:725
+#: core/Utils/Util.vala:703 core/Utils/Util.vala:725
 msgid "Add labels to your tasks!"
 msgstr ""
 
-#: core/Utils/Util.vala:726
+#: core/Utils/Util.vala:704 core/Utils/Util.vala:726
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
 
-#: core/Utils/Util.vala:732
+#: core/Utils/Util.vala:710 core/Utils/Util.vala:732
 msgid "Set timely reminders!"
 msgstr "დააყენეთ შეხსენებები!"
 
-#: core/Utils/Util.vala:733
+#: core/Utils/Util.vala:711 core/Utils/Util.vala:733
 msgid ""
 "Get notified about important tasks or events. Tap the clock button below to "
 "add a reminder."
 msgstr ""
 
-#: core/Utils/Util.vala:744
+#: core/Utils/Util.vala:722 core/Utils/Util.vala:744
 msgid "💼️Work"
 msgstr "💼️სამუშაო"
 
-#: core/Utils/Util.vala:750
+#: core/Utils/Util.vala:728 core/Utils/Util.vala:750
 msgid "🎒️School"
 msgstr "🎒️სკოლა"
 
-#: core/Utils/Util.vala:756
+#: core/Utils/Util.vala:734 core/Utils/Util.vala:756
 msgid "👉️Delegated"
 msgstr "👉️დელეგირებულია"
 
-#: core/Utils/Util.vala:762
+#: core/Utils/Util.vala:740 core/Utils/Util.vala:762
 msgid "🏡️Home"
 msgstr "🏡️სახლი"
 
-#: core/Utils/Util.vala:768
+#: core/Utils/Util.vala:746 core/Utils/Util.vala:768
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍️️გაგრძელების მოლოდინში"
 
-#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1275
-#: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
-#: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
-msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
-msgstr ""
-
-#: core/Utils/Util.vala:971
+#: core/Utils/Util.vala:936 core/Utils/Util.vala:949 core/Utils/Util.vala:971
 msgid "Task duplicated"
 msgstr "ამოცანა დუბლირებულია"
 
-#: core/Utils/Util.vala:1007
+#: core/Utils/Util.vala:972 core/Utils/Util.vala:985 core/Utils/Util.vala:1007
 msgid "Section duplicated"
 msgstr "სექცია დუბლირებულია"
 
-#: core/Utils/Util.vala:1033 core/Utils/Util.vala:1059
+#: core/Utils/Util.vala:998 core/Utils/Util.vala:1024 core/Utils/Util.vala:1011
+#: core/Utils/Util.vala:1037 core/Utils/Util.vala:1033
+#: core/Utils/Util.vala:1059
 msgid "Project duplicated"
 msgstr "პროექტი დუბლირებულია"
 
-#: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1066 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
+#: core/Utils/Util.vala:1079 core/Utils/Util.vala:1101
 msgid "At due time"
 msgstr "ზუსტ დროს"
 
-#: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1069 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
+#: core/Utils/Util.vala:1082 core/Utils/Util.vala:1104
 msgid "10 minutes before"
 msgstr "10 წუთით ადრე"
 
-#: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1072 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
+#: core/Utils/Util.vala:1085 core/Utils/Util.vala:1107
 msgid "30 minutes before"
 msgstr "30 წუთით ადრე"
 
-#: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1075 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
+#: core/Utils/Util.vala:1088 core/Utils/Util.vala:1110
 msgid "45 minutes before"
 msgstr "45 წუთით ადრე"
 
-#: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1078 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
+#: core/Utils/Util.vala:1091 core/Utils/Util.vala:1113
 msgid "1 hour before"
 msgstr "1 საათით ადრე"
 
-#: core/Utils/Util.vala:1116 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1081 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
+#: core/Utils/Util.vala:1094 core/Utils/Util.vala:1116
 msgid "2 hours before"
 msgstr "2 საათით ადრე"
 
-#: core/Utils/Util.vala:1119 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1084 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
+#: core/Utils/Util.vala:1097 core/Utils/Util.vala:1119
 msgid "3 hours before"
 msgstr "3 საათით ადრე"
 
@@ -1113,9 +1198,13 @@ msgid "%OB"
 msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:726
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:761
+#: src/Layouts/HeaderBar.vala:88
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:727
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:762
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:728
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:763
-#: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "უკან"
 
@@ -1153,36 +1242,43 @@ msgid "Choose a date"
 msgstr "აირჩიეთ თარიღი"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:46
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:261
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:264
 msgid "Su"
 msgstr "კვი"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:47
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:225
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:228
 msgid "Mo"
 msgstr "თვ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:48
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:231
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:234
 msgid "Tu"
 msgstr "სამშ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:49
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:237
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:240
 msgid "We"
 msgstr "ოთხშ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:50
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:243
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:246
 msgid "Th"
 msgstr "ხუთშ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:51
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:249
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:252
 msgid "Fr"
 msgstr "პარ"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:52
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:255
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:258
 msgid "Sa"
 msgstr "შაბ"
@@ -1222,182 +1318,243 @@ msgstr "პარასკევი"
 msgid "Saturday"
 msgstr "შაბათი"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:79
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:525
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:144
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:526
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:144
 msgid "Time"
 msgstr "დრო"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:90
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:856
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:599
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:250
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1190
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:857
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:858
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:610
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:250
-#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1193
+#: src/Layouts/ItemRow.vala:1193
 msgid "until"
 msgstr "დასასრულის დრო"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:93
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:603
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:253
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: src/Layouts/ItemRow.vala:1196
 msgid "for"
 msgstr "ვისთვის"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:93
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:603
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:253
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: src/Layouts/ItemRow.vala:1196
 msgid "times"
 msgstr "რამდენჯერ"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:93
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:859
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:603
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:253
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:860
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:614
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: src/Layouts/ItemRow.vala:1196
 msgid "time"
 msgstr "დრო"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:105
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:198
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:109
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:106
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:199
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 msgid "Repeat"
 msgstr "გამეორება"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 msgid "Type a date…"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 msgid "Next week"
 msgstr "შემდეგი კვირა"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:543
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:544
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 msgid "Save"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:579
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:580
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
 msgid "Daily"
 msgstr "დღიურად"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:584
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
 msgid "Weekdays"
 msgstr "სამუშაო დღეები"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:588
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
 msgid "Weekends"
 msgstr "შაბათკვირები"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:592
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
 msgid "Weekly"
 msgstr "კვირაში ერთხელ"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:596
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
 msgid "Monthly"
 msgstr "თვეში ერთხელ"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:600
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
 msgid "Yearly"
 msgstr "წლიურად"
 
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:604
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:605
 msgid "Custom"
 msgstr "ხელით"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:884
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 msgid "No date"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Minute(s)"
 msgstr "წუთი"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Hour(s)"
 msgstr "საათი"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Day(s)"
 msgstr "დღე"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Week(s)"
 msgstr "კვირა"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Month(s)"
 msgstr "თვე"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:65
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:140
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:66
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:143
 msgid "Year(s)"
 msgstr "წელი"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:281
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:284
 msgid "Last day of month"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:288
-msgid "Repeat from completion date"
-msgstr ""
-
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:290
-msgid ""
-"Calculate the next occurrence from the day you complete the task instead of "
-"its due date"
-msgstr ""
-
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:297
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
 msgstr "არასდროს"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:301
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:309
 msgid "On Date"
 msgstr "თარიღზე"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:313
 msgid "After"
 msgstr "შემდეგ"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:378
+#: core/Widgets/MarkdownEditor.vala:1405 src/Layouts/ItemBoard.vala:880
+#: src/Layouts/ItemRow.vala:1346 core/Widgets/MarkdownEditor.vala:1422
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
-#: src/Layouts/ItemRow.vala:1349
+#: src/Layouts/ItemBoard.vala:886 src/Layouts/ItemRow.vala:1349
 msgid "Apply"
 msgstr ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:391
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 msgid "Repeat every"
 msgstr "გამეორება ყოველ"
 
-#: core/Widgets/DateTimePicker/RepeatConfig.vala:408
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:408
 msgid "End"
 msgstr "დასასრული"
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:530
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
 msgid_plural "Minutes"
 msgstr[0] ""
 msgstr[1] ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:531
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:542
 msgid "Hour"
 msgid_plural "Hours"
 msgstr[0] ""
 msgstr[1] ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:532
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:536
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:543
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:547
 msgid "Day"
@@ -1405,18 +1562,21 @@ msgid_plural "Days"
 msgstr[0] ""
 msgstr[1] ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:533
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:544
 msgid "Week"
 msgid_plural "Weeks"
 msgstr[0] ""
 msgstr[1] ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:534
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:545
 msgid "Month"
 msgid_plural "Months"
 msgstr[0] ""
 msgstr[1] ""
 
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:535
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:546
 msgid "Year"
 msgid_plural "Years"
@@ -1527,11 +1687,13 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2092
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2019
+#: src/Layouts/ItemRow.vala:2024 src/Layouts/ItemRow.vala:2033
+#: src/Layouts/ItemRow.vala:2092
 msgid "Task description"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:1427
+#: core/Widgets/MarkdownEditor.vala:1410 core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
 msgstr "ბმულის წაშლა"
 
@@ -1573,6 +1735,7 @@ msgstr "თქვენი სექციების სია აქ გა�
 msgid "No Section"
 msgstr "სექციის გარეშე"
 
+#: core/Widgets/ProjectPicker/ProjectPickerCore.vala:46
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:57
 msgid "Type a search"
 msgstr "აკრიფეთ მოსაძებნად"
@@ -1648,8 +1811,8 @@ msgid "To Do"
 msgstr "გასაკეთებელი"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1268
-#: src/Services/Notification.vala:98
+#: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1265
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1268
 msgid "Complete"
 msgstr "დასრულებულია"
 
@@ -1750,7 +1913,9 @@ msgid "No completed tasks yet."
 msgstr "დასრულებული ამოცანების გარეშე."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:876
+#: src/Views/Filter.vala:598 src/Views/Filter.vala:664
+#: src/Views/Filter.vala:847 src/Views/Filter.vala:864
+#: src/Views/Filter.vala:869 src/Views/Filter.vala:876
 msgid "Delete All Completed Tasks"
 msgstr "ყველა დასრულებული ამოცანის წაშლა"
 
@@ -1762,16 +1927,20 @@ msgid_plural ""
 msgstr[0] "ეს წაშლის %d დასრულებულ ამოცანას და მათ ქვეამოცანებს პროექტიდან %s"
 msgstr[1] "ეს წაშლის %d დასრულებულ ამოცანას და მათ ქვეამოცანებს პროექტიდან %s"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:992
-#: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
-#: src/Views/Today.vala:910
+#: src/Dialogs/CompletedTasks.vala:322 src/Views/Project/Project.vala:656
+#: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:907
+#: src/Views/Filter.vala:963 src/Views/Filter.vala:980
+#: src/Views/Filter.vala:985 src/Views/Today.vala:910 src/Views/Filter.vala:992
 msgid "Filter By"
 msgstr "ფილტრი"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
-#: src/Layouts/ItemRow.vala:1261 src/Views/Filter.vala:949
-#: src/Views/Filter.vala:1085 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Layouts/ItemRow.vala:1258 src/Views/Project/Project.vala:578
+#: src/Views/Project/Project.vala:749 src/Views/Filter.vala:920
+#: src/Views/Filter.vala:1056 src/Views/Filter.vala:937
+#: src/Views/Filter.vala:1073 src/Views/Filter.vala:942
+#: src/Views/Filter.vala:1078 src/Layouts/ItemRow.vala:1261
+#: src/Views/Filter.vala:949 src/Views/Filter.vala:1085
 msgid "No Date"
 msgstr "თარიღის გარეშე"
 
@@ -1783,8 +1952,8 @@ msgstr "დასრულებული"
 msgid "Next Week"
 msgstr "შემდეგი კვირა"
 
-#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1412
-#: src/Layouts/ItemSidebarView.vala:523
+#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1409
+#: src/Layouts/ItemSidebarView.vala:523 src/Layouts/ItemRow.vala:1412
 msgid "Change History"
 msgstr "ცვლილებების ისტორია"
 
@@ -1831,12 +2000,14 @@ msgstr "ჭდის განახლება"
 msgid "Filter"
 msgstr "ფილტრი"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
+#: src/MainWindow.vala:797 src/MainWindow.vala:807
 msgid "Archived Projects"
 msgstr "დაარქივებული პროექტები"
 
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:698 src/Views/Project/Project.vala:392
+#: src/Layouts/SectionRow.vala:702
 msgid "Manage Sections"
 msgstr "სექციების მართვა"
 
@@ -1862,79 +2033,74 @@ msgstr ""
 msgid "Archived"
 msgstr "დაარქივებული"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:29
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:63
+#: src/Dialogs/Preferences/PreferencesWindow.vala:49
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
-#: src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Accounts"
 msgstr "ანგარიშები"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:59
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 msgid "Add Source"
 msgstr "წყაროს დამატება"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
-msgid "Task sources you sync with. Drag to reorder."
-msgstr ""
-
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:90
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
 msgstr "საფოსტო ყუთის გვერდი"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
-msgid "Detected Accounts"
-msgstr ""
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:105
+msgid "You can sort your accounts by dragging and dropping"
+msgstr "თქვენი ანგარიშების დალაგება გადათრევით და დაყრით შეგიძლიათ"
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
-msgid "Accounts configured in GNOME Online Accounts"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
-#, c-format
-msgid "%d account available to import from GNOME Online Accounts"
-msgid_plural "%d accounts available to import from GNOME Online Accounts"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
-msgid "Import"
-msgstr ""
-
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:226
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:593
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:299
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:309
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:327
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Account migration required"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:331
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 msgid "Reconnect"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:449
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 msgid "Cannot Hide This Account"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:450
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:454
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 msgid "Change Inbox"
 msgstr "საფოსტო ყუთის შეცვლა"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:563
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 msgid "Syncing…"
 msgstr "სინქრონიზაცია…"
@@ -2013,20 +2179,24 @@ msgstr ""
 msgid "URL examples"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 msgid "Nextcloud Deck Detected"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
 msgid "Not Now"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
 msgid "Enable Deck"
 msgstr ""
@@ -2142,187 +2312,209 @@ msgstr ""
 msgid "Synchronizing…"
 msgstr "სინქრონიზაცია…"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:39
+#: src/Dialogs/Preferences/Pages/Appearance.vala:38
 #: src/Dialogs/Preferences/PreferencesWindow.vala:111
+#: src/Dialogs/Preferences/Pages/Appearance.vala:39
 msgid "Appearance"
 msgstr "გარეგნობა"
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:53
 #: src/Dialogs/Preferences/Pages/Appearance.vala:54
 msgid "Use System Settings"
 msgstr "სისტემური პარამეტრების გამოყენება"
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:68
 #: src/Dialogs/Preferences/Pages/Appearance.vala:69
 msgid "Use System Accent Color"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:78
 #: src/Dialogs/Preferences/Pages/Appearance.vala:79
 msgid "Select theme"
 msgstr "თემის არჩევა"
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:89
-msgid "Use Adwaita Colors"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Appearance.vala:90
-msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
-
+#: src/Dialogs/Preferences/Pages/Appearance.vala:88
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
 msgstr "ღია სტილი"
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:89
 #: src/Dialogs/Preferences/Pages/Appearance.vala:107
 msgid "Clean light theme"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:105
 #: src/Dialogs/Preferences/Pages/Appearance.vala:123
 msgid "Dark Style"
 msgstr "მუქი სტილი"
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:106
 #: src/Dialogs/Preferences/Pages/Appearance.vala:124
 msgid "Elegant dark theme"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:122
 #: src/Dialogs/Preferences/Pages/Appearance.vala:140
 msgid "Dark Blue Style"
 msgstr "მუქი ლურჯი სტილი"
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:123
 #: src/Dialogs/Preferences/Pages/Appearance.vala:141
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Professional blue theme"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:139
 #: src/Dialogs/Preferences/Pages/Appearance.vala:157
 msgid "Accent Color"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:145
 #: src/Dialogs/Preferences/Pages/Appearance.vala:163
 msgid "Custom themes are not available when using the system light theme"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Appearance.vala:183
 #: src/Dialogs/Preferences/Pages/Appearance.vala:201
 msgid "Font Size"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Appearance.vala:297
-msgid "Not available with Adwaita colors"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Backup.vala:34
+#: src/Dialogs/Preferences/Pages/Backup.vala:29
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
+#: src/Dialogs/Preferences/Pages/Backup.vala:34
 msgid "Backups"
 msgstr "მარქაფები"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:39
 #: src/Dialogs/Preferences/Pages/Backup.vala:44
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:50
 #: src/Dialogs/Preferences/Pages/Backup.vala:55
 msgid "Automatic Daily Backup"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:51
 #: src/Dialogs/Preferences/Pages/Backup.vala:56
 msgid "Creates a backup every day at midnight"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:61
-msgid "Backups to Keep"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Backup.vala:62
-msgid "Older backups are removed automatically. Zero keeps them all"
-msgstr ""
-
+#: src/Dialogs/Preferences/Pages/Backup.vala:58
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
 msgid "Create Backup"
 msgstr "მარქაფის შექმნა"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
 #: src/Dialogs/Preferences/Pages/Backup.vala:74
 msgid "Import Backup"
 msgstr "მარქაფის შემოტანა"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:64
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
 msgid "Backup Files"
 msgstr "მარქაფის ფაილები"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
 #: src/Dialogs/Preferences/Pages/Backup.vala:79
 msgid "No backups found, create one clicking the button above."
 msgstr "მარქაფები აღმოჩენილი არაა. შექმენით ახალი ზემოთ ღილაკზე დაწკაპუნებით."
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:88
-msgid "Open backup folder"
+#: src/Dialogs/Preferences/Pages/Backup.vala:72
+#, c-format
+msgid "Backup files are stored in: %s"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:93
-msgid "Backup Location"
+#: src/Dialogs/Preferences/Pages/Backup.vala:81
+msgid ""
+"Only the last 30 backups are shown here. To access older backups, open the "
+"backup folder directly."
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:97
 #: src/Dialogs/Preferences/Pages/Backup.vala:132
 msgid "Extra Backup Locations"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:100
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
 msgid "No extra locations added yet."
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:112
 #: src/Dialogs/Preferences/Pages/Backup.vala:147
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:121
 #: src/Dialogs/Preferences/Pages/Backup.vala:156
 msgid "Migrate"
 msgstr "მიგრაცია"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:123
 #: src/Dialogs/Preferences/Pages/Backup.vala:158
 msgid "Migrate From Planner"
 msgstr "მიგრაცია დამგეგმავიდან"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:163
 #: src/Dialogs/Preferences/Pages/Backup.vala:212
 msgid "The Backup was created successfully."
 msgstr "მარქაფი წარმატებით შეიქმნა."
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:180
 #: src/Dialogs/Preferences/Pages/Backup.vala:229
 msgid "Tasks Migrate Successfully"
 msgstr "ამოცანების მიგრაცია წარმატებით დასრულდა"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:233
 msgid "The database file does not exist."
 msgstr "მონაცემთა ბაზის ფაილი არ არსებობს."
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:261
 #: src/Dialogs/Preferences/Pages/Backup.vala:369
 msgid "Selected file is invalid"
 msgstr "არჩეული ფაილი არასწორია"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:359
 #: src/Dialogs/Preferences/Pages/Backup.vala:467
 msgid "Download"
 msgstr "გადმოწერა"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:495
+#: src/Dialogs/Preferences/Pages/Backup.vala:536
+#: src/Dialogs/Preferences/Pages/Backup.vala:595
 #: src/Dialogs/Preferences/Pages/Backup.vala:603
 #: src/Dialogs/Preferences/Pages/Backup.vala:644
 #: src/Dialogs/Preferences/Pages/Backup.vala:703
 msgid "Restore Backup"
 msgstr "მარქაფის აღდგენა"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:615 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:615
 msgid "Sources"
 msgstr "წყაროები"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:519
 #: src/Dialogs/Preferences/Pages/Backup.vala:627
 msgid "To-Dos"
 msgstr "გეგმები"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:580
 #: src/Dialogs/Preferences/Pages/Backup.vala:688
 msgid "This will replace all your current data"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:589
 #: src/Dialogs/Preferences/Pages/Backup.vala:697
 msgid "Restore backup"
 msgstr "მარქაფის აღდგენა"
 
+#: src/Dialogs/Preferences/Pages/Backup.vala:590
 #: src/Dialogs/Preferences/Pages/Backup.vala:698
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
@@ -2412,9 +2604,10 @@ msgstr "ზოგადი"
 msgid "Custom Sort Order"
 msgstr "მორგებული დალაგების მიმდევრობა"
 
-#: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:930
+#: src/Dialogs/Preferences/Pages/General.vala:37
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:842
+#: src/Views/Today.vala:839 src/Views/Filter.vala:901 src/Views/Filter.vala:918
+#: src/Views/Filter.vala:923 src/Views/Today.vala:842 src/Views/Filter.vala:930
 msgid "Alphabetically"
 msgstr "ანბანის მიხედვით"
 
@@ -2690,7 +2883,8 @@ msgid ""
 msgstr ""
 "როცა ჩართულია, ამოცანის შესრულებამდე შემხსებელი ნაგულისხმევად დაემატება."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
+#: src/MainWindow.vala:771 src/MainWindow.vala:781
 msgid "Preferences"
 msgstr "მორგება"
 
@@ -2840,7 +3034,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:760 src/MainWindow.vala:774 src/MainWindow.vala:784
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2895,7 +3089,7 @@ msgstr "პროდუქტიულობა"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:859 src/MainWindow.vala:873 src/MainWindow.vala:883
 msgid "See More"
 msgstr "იხილეთ მეტი"
 
@@ -2978,8 +3172,8 @@ msgstr "მიმდინარეობა"
 msgid "New Project"
 msgstr "ახალი პროექტი"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
-#: src/Views/Project/Project.vala:387
+#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
+#: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
 msgid "Edit Project"
 msgstr "პროექტის რედაქტირება"
 
@@ -3028,8 +3222,9 @@ msgid "Project added successfully!"
 msgstr "პროექტი წარმატებით დაემატა!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1264
-#: src/Layouts/ItemRow.vala:1405 src/Layouts/ItemSidebarView.vala:517
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1261
+#: src/Layouts/ItemRow.vala:1402 src/Layouts/ItemSidebarView.vala:517
+#: src/Layouts/ItemRow.vala:1264 src/Layouts/ItemRow.vala:1405
 msgid "Move"
 msgstr "გადატანა"
 
@@ -3050,7 +3245,7 @@ msgstr ""
 "სწრაფად გადართეთ პროექტები და ხედები, იპოვეთ ამოცანები, მოძებნეთ ჭდეებით"
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:700
+#: src/Layouts/SectionRow.vala:696 src/Layouts/SectionRow.vala:700
 msgid "Edit Section"
 msgstr "სექციის ჩასწორება"
 
@@ -3076,98 +3271,108 @@ msgid "Open/Close Sidebar"
 msgstr "გვერდითი პანელის გახსნა/დახურვა"
 
 #: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:806
-#: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1244
+#: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1241
+#: src/Layouts/ItemRow.vala:1256 src/Layouts/ItemRow.vala:1244
 #: src/Layouts/ItemRow.vala:1259
 msgid "Unpin"
 msgstr "ჩამოხსნა"
 
-#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
+#: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1626
+#: src/Layouts/ItemSidebarView.vala:682 src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "დასრულდა. შემდეგი დრო: %s"
 
-#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1267
+#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1264
+#: src/Layouts/ItemRow.vala:1267
 msgid "Add Subtask"
 msgstr "ქვეამოცანის დამატება"
 
-#: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1269
+#: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1266
+#: src/Layouts/ItemRow.vala:1269
 msgid "Edit"
 msgstr "ჩასწორება"
 
-#: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1270
-#: src/Layouts/ItemRow.vala:1404 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
+#: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1267
+#: src/Layouts/ItemRow.vala:1401 src/Layouts/ItemSidebarView.vala:516
+#: src/Layouts/ProjectRow.vala:701 src/Layouts/SectionBoard.vala:611
+#: src/Layouts/SectionRow.vala:699 src/Views/Project/Project.vala:388
+#: src/Layouts/SectionRow.vala:703 src/Layouts/ProjectRow.vala:710
+#: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemRow.vala:1404
 msgid "Duplicate"
 msgstr "დუბლირება"
 
-#: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1272
-#: src/Layouts/ItemRow.vala:1409 src/Layouts/ItemSidebarView.vala:520
+#: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1269
+#: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:520
+#: src/Layouts/ItemRow.vala:1272 src/Layouts/ItemRow.vala:1409
 msgid "Delete Task"
 msgstr "ამოცანის წაშლა"
 
-#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1932
+#: src/Layouts/ItemBoard.vala:1130 src/Layouts/ItemRow.vala:1873
+#: src/Layouts/ItemRow.vala:1878 src/Layouts/ItemBoard.vala:1136
+#: src/Layouts/ItemRow.vala:1887 src/Layouts/ItemRow.vala:1932
 msgid "Order changed to 'Custom sort order'"
 msgstr "მიმდევრობა შეიცვალა 'მორგებულ დალაგების მიმდევრობაზე'"
 
-#: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1658
+#: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1650
+#: src/Layouts/ItemRow.vala:1655 src/Layouts/ItemBoard.vala:1252
+#: src/Layouts/ItemRow.vala:1658
 #, c-format
 msgid "%s was deleted"
 msgstr "%s წაშლილია"
 
-#: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1659
+#: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1651
+#: src/Layouts/ItemRow.vala:1656 src/Layouts/ItemBoard.vala:1253
+#: src/Layouts/ItemRow.vala:1659
 msgid "Undo"
 msgstr "დაბრუნება"
 
-#: src/Layouts/ItemRow.vala:565
+#: src/Layouts/ItemRow.vala:562 src/Layouts/ItemRow.vala:565
 msgid "Add Subtasks"
 msgstr "ქვეამოცანების დამატება"
 
-#: src/Layouts/ItemRow.vala:1073
+#: src/Layouts/ItemRow.vala:1070 src/Layouts/ItemRow.vala:1073
 msgid "Hide Sub-tasks"
 msgstr "ქვეამოცანების დამალვა"
 
-#: src/Layouts/ItemRow.vala:1073
+#: src/Layouts/ItemRow.vala:1070 src/Layouts/ItemRow.vala:1073
 msgid "Show Sub-tasks"
 msgstr "ქვეამოცანების ჩვენება"
 
+#: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
 #: src/Layouts/ItemRow.vala:1257 src/Layouts/ItemRow.vala:1305
 msgid "Pick a Date"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1397 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1400
 msgid "Use as a Note"
 msgstr "შენიშვნის სახით გამოყენება"
 
-#: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:515
-#: src/Widgets/MultiSelectToolbar.vala:274
+#: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:515
+#: src/Widgets/MultiSelectToolbar.vala:274 src/Layouts/ItemRow.vala:1403
 msgid "Copy to Clipboard"
 msgstr "ბუფერში კოპირება"
 
-#: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1406
 msgid "Export as .ics"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1414 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1411 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1414
 #, c-format
 msgid "Updated: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1413 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1416
 #, c-format
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1634
-#, c-format
-msgid "Task completed · Next: %s"
-msgstr ""
-
-#: src/Layouts/ItemRow.vala:1817
-msgid "A task can only become a subtask of a task in the same account"
-msgstr ""
-
-#: src/Layouts/ItemRow.vala:2157
+#: src/Layouts/ItemRow.vala:2084 src/Layouts/ItemRow.vala:2089
+#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2157
 msgid "Add Attachments"
 msgstr "მიმაგრებული ფაილების დამატება"
 
@@ -3187,7 +3392,7 @@ msgstr "თვისებები"
 msgid "Expand Description"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:618
+#: src/Layouts/ItemSidebarView.vala:603 src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
 msgstr "მართლა გნებავთ წაშლა?"
 
@@ -3199,42 +3404,40 @@ msgstr "ჭდის წაშლა"
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "პროექტის დალაგების წესი შეიცვალა 'მორგებული დალაგების მიმდევრობაზე'"
 
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Remove From Favorites"
 msgstr "რჩეულებიდან წაშლა"
 
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
 msgid "Add to Favorites"
 msgstr "რჩეულებში დამატება"
 
-#: src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:711
 msgid "Refresh"
 msgstr "განახლება"
 
-#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:400
-#: src/Widgets/ProjectItemRow.vala:154
+#: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
+#: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
 msgid "Delete Project"
 msgstr "პროექტის წაშლა"
 
-#: src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
 msgid "Share"
 msgstr "გაზიარება"
 
-#: src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
 msgid "Send by E-Mail"
 msgstr "ელფოსტით გაგზავნა"
 
-#: src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
 msgid "Export as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
 msgstr ""
-
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "გახსნა"
 
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
@@ -3245,29 +3448,35 @@ msgid "Add tasks"
 msgstr "ამოცანების დამატება"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
+#: src/Views/Filter.vala:104 src/Views/Filter.vala:147
 #: src/Views/Filter.vala:197
 msgid "Load more"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
+#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:652
+#: src/Widgets/SubItems.vala:420 src/Layouts/SectionRow.vala:656
 #: src/Widgets/SubItems.vala:422
 msgid "completed tasks"
 msgstr "დასრულებული ამოცანები"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
+#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:697
+#: src/Layouts/SectionRow.vala:701
 msgid "Move Section"
 msgstr "სექციის გადატანა"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:704
+#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:700
+#: src/Layouts/SectionRow.vala:704
 msgid "Show Completed Tasks"
 msgstr "დასრულებული ამოცანების ჩვენება"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:707
-#: src/Widgets/SectionItemRow.vala:186
+#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:703
+#: src/Widgets/SectionItemRow.vala:186 src/Layouts/SectionRow.vala:707
 msgid "Delete Section"
 msgstr "განყოფილების წაშლა"
 
-#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:362
+#: src/Views/Filter.vala:408 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:659
 msgid "No more tasks"
 msgstr ""
 
@@ -3319,35 +3528,36 @@ msgstr "მთავარი მენიუ"
 msgid "Open Quick Find"
 msgstr "სწრაფი ძებნის გახსნა"
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:340 src/MainWindow.vala:342
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:344
+#: src/MainWindow.vala:342 src/MainWindow.vala:344
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:781 src/MainWindow.vala:795 src/MainWindow.vala:805
 msgid "About Planify"
 msgstr "Planify-ის შესახებ"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:856 src/MainWindow.vala:870 src/MainWindow.vala:880
 msgid "Oops! Something happened"
 msgstr "ვაი! რაღაც მოხდა"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:889 src/MainWindow.vala:899
 msgid "Task completed"
 msgstr "ამოცანა დასრულდა"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:876 src/MainWindow.vala:890 src/MainWindow.vala:900
 msgid "View"
 msgstr "ხედი"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:914 src/MainWindow.vala:928 src/MainWindow.vala:938
 msgid "Database Integrity Check Failed"
 msgstr "მონაცემთა ბაზის მთლიანობის შემოწმება ჩავარდა"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:915 src/MainWindow.vala:929 src/MainWindow.vala:939
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3360,36 +3570,36 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:917 src/MainWindow.vala:931 src/MainWindow.vala:941
 msgid "Reset Database"
 msgstr "მონაცემთა ბაზის ჩამოყრა"
 
-#: src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:153 src/Services/BackupManager.vala:154
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:199 src/Services/BackupManager.vala:200
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:223 src/Services/BackupManager.vala:224
 msgid "Delete Backup"
 msgstr "მარქაფის წაშლა"
 
-#: src/Services/BackupManager.vala:394
+#: src/Services/BackupManager.vala:355 src/Services/BackupManager.vala:394
 msgid "Backup Successfully Imported"
 msgstr "მარქაფის შემოტანა წარმატებულია"
 
-#: src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:356 src/Services/BackupManager.vala:395
 msgid "Planify will restart to apply the changes"
 msgstr ""
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:359 src/Services/BackupManager.vala:398
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/BackupManager.vala:412
+#: src/Services/BackupManager.vala:373 src/Services/BackupManager.vala:412
 msgid "Planify Backup Files"
 msgstr "Planify-ის მარქაფის ფაილები"
 
@@ -3405,156 +3615,63 @@ msgstr "დადუმება 30 წუთით"
 msgid "Snooze for 1 hour"
 msgstr "დადუმება 1 საათით"
 
-#: src/Views/Filter.vala:132 src/Views/Filter.vala:864
-msgid "All Projects"
-msgstr ""
-
-#: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
+#: src/Views/Filter.vala:86 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92
+#: src/Views/Today.vala:92 src/Views/Filter.vala:129 src/Views/Filter.vala:158
 msgid "View Option Menu"
 msgstr "მორგების მენიუს ნახვა"
 
-#: src/Views/Filter.vala:218 src/Views/Filter.vala:827
-#: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:309
+#: src/Views/Filter.vala:125 src/Views/Label/Label.vala:97
+#: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
+#: src/Views/Today.vala:309 src/Views/Filter.vala:168 src/Views/Filter.vala:619
+#: src/Views/Filter.vala:218 src/Views/Filter.vala:798
+#: src/Views/Filter.vala:815 src/Views/Filter.vala:820
+#: src/Views/Filter.vala:827
 msgid "Add Some Tasks"
 msgstr "რამდენიმე ამოცანის დამატება"
 
-#: src/Views/Filter.vala:219 src/Views/Filter.vala:828
-#: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
-#: src/Views/Project/List.vala:118 src/Views/Today.vala:310
+#: src/Views/Filter.vala:126 src/Views/Label/Label.vala:98
+#: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
+#: src/Views/Today.vala:310 src/Views/Filter.vala:169 src/Views/Filter.vala:620
+#: src/Views/Filter.vala:219 src/Views/Filter.vala:799
+#: src/Views/Filter.vala:816 src/Views/Filter.vala:821
+#: src/Views/Filter.vala:828
 msgid "Press 'a' to create a new task"
 msgstr "ახალი ამოცანის შესაქმნელად დააჭირეთ ღილაკს 'a'"
 
+#: src/Views/Filter.vala:129 src/Views/Filter.vala:616
+#: src/Views/Filter.vala:792 src/Views/Filter.vala:809
+#: src/Views/Filter.vala:814 src/Views/Filter.vala:821
+msgid "All tasks completed!"
+msgstr "ყველა ამოცანა დასრულდა!"
+
+#: src/Views/Filter.vala:130 src/Views/Filter.vala:617
+#: src/Views/Filter.vala:793 src/Views/Filter.vala:810
+#: src/Views/Filter.vala:815 src/Views/Filter.vala:822
+msgid "Great job, nothing left to do 🎉"
+msgstr ""
+
+#: src/Views/Filter.vala:359 src/Views/Filter.vala:405
 #: src/Views/Filter.vala:580
 msgid "tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:818
-msgid "No completed tasks"
-msgstr ""
-
-#: src/Views/Filter.vala:819
-msgid "No tasks found for the selected projects"
-msgstr ""
-
-#: src/Views/Filter.vala:821
-msgid "All tasks completed!"
-msgstr "ყველა ამოცანა დასრულდა!"
-
-#: src/Views/Filter.vala:822
-msgid "Great job, nothing left to do 🎉"
-msgstr ""
-
-#: src/Views/Filter.vala:824
-msgid "No tasks found"
-msgstr ""
-
-#: src/Views/Filter.vala:825
-msgid "No tasks match the selected filters"
-msgstr ""
-
-#: src/Views/Filter.vala:866
-#, c-format
-msgid "%d Project"
-msgid_plural "%d Projects"
-msgstr[0] ""
-msgstr[1] ""
-
-#: src/Views/Filter.vala:895
+#: src/Views/Filter.vala:617 src/Views/Filter.vala:683
+#: src/Views/Filter.vala:866 src/Views/Filter.vala:883
+#: src/Views/Filter.vala:888 src/Views/Filter.vala:895
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "ყველა დასრულებული ამოცანის წაშლა"
 msgstr[1] "ყველა დასრულებული ამოცანის წაშლა"
 
-#: src/Views/Filter.vala:900
+#: src/Views/Filter.vala:622 src/Views/Filter.vala:688
+#: src/Views/Filter.vala:871 src/Views/Filter.vala:888
+#: src/Views/Filter.vala:893 src/Views/Filter.vala:900
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "ეს წაშლის %d დასრულებულ ამოცანას და მათ ქვეამოცანებს"
 msgstr[1] "ეს წაშლის %d დასრულებულ ამოცანას და მათ ქვეამოცანებს"
-
-#: src/Views/Filter.vala:925 src/Views/Project/Project.vala:553
-#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
-msgid "Sorting"
-msgstr "დალაგება"
-
-#: src/Views/Filter.vala:929
-msgid "Project"
-msgstr ""
-
-#: src/Views/Filter.vala:932 src/Views/Project/Project.vala:559
-#: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
-msgid "Date Added"
-msgstr "დამატებულია"
-
-#: src/Views/Filter.vala:933 src/Views/Project/Project.vala:560
-#: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
-msgid "Date Modified"
-msgstr ""
-
-#: src/Views/Filter.vala:936 src/Views/Project/Project.vala:563
-msgid "Ascending Order"
-msgstr "აღმავალი მიმდევრობით"
-
-#: src/Views/Filter.vala:940 src/Views/Project/Project.vala:569
-msgid "Duedate"
-msgstr "შესრულების დრო"
-
-#: src/Views/Filter.vala:943 src/Views/Filter.vala:1088
-#: src/Views/Project/Project.vala:572
-msgid "All (default)"
-msgstr "ყველა (ნაგულისხმევი)"
-
-#: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
-msgid "This Week"
-msgstr "ამ კვირაში"
-
-#: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
-#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
-msgid "Next 7 Days"
-msgstr "შემდეგი 7 დღე"
-
-#: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
-msgid "This Month"
-msgstr "ამ თვეში"
-
-#: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
-#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
-msgid "Next 30 Days"
-msgstr "შემდეგი 30 დღე"
-
-#: src/Views/Filter.vala:954 src/Views/Project/Project.vala:584
-#: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
-msgid "P1"
-msgstr "P1"
-
-#: src/Views/Filter.vala:959 src/Views/Project/Project.vala:590
-#: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
-msgid "P2"
-msgstr "P2"
-
-#: src/Views/Filter.vala:964 src/Views/Project/Project.vala:596
-#: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
-msgid "P3"
-msgstr "P3"
-
-#: src/Views/Filter.vala:969 src/Views/Project/Project.vala:602
-#: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
-msgid "P4"
-msgstr "P4"
-
-#: src/Views/Filter.vala:976 src/Views/Project/Project.vala:609
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
-msgid "Filter by Labels"
-msgstr "ჭდეებით გაფილტვრა"
-
-#: src/Views/Filter.vala:982 src/Views/Project/Project.vala:647
-msgid "Sort By"
-msgstr "დახარისხება"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 #: src/Views/Label/LabelSourceRow.vala:125
@@ -3585,11 +3702,12 @@ msgstr ""
 msgid "Create a section to start adding tasks to this board"
 msgstr ""
 
-#: src/Views/Project/Board.vala:327
+#: src/Views/Project/Board.vala:326 src/Views/Project/Board.vala:327
 msgid "Schedule"
 msgstr "განრიგი"
 
-#: src/Views/Project/Board.vala:365 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:364 src/Views/Project/List.vala:397
+#: src/Views/Project/Board.vala:365
 msgid "When?"
 msgstr "როდის?"
 
@@ -3637,15 +3755,117 @@ msgstr "ჩამონათვალი"
 msgid "Board"
 msgstr "ბორდი"
 
+#: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:229
+#: src/Views/Today.vala:836 src/Views/Filter.vala:896 src/Views/Filter.vala:913
+#: src/Views/Filter.vala:918 src/Views/Today.vala:839 src/Views/Filter.vala:925
+msgid "Sorting"
+msgstr "დალაგება"
+
 #: src/Views/Project/Project.vala:556
 msgid "Custom sort order"
 msgstr "დალაგების მომხმარებლის მიმდევრობა"
 
-#: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
+#: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:234
+#: src/Views/Today.vala:841 src/Views/Filter.vala:903 src/Views/Filter.vala:920
+#: src/Views/Filter.vala:925 src/Views/Today.vala:844 src/Views/Filter.vala:932
+msgid "Date Added"
+msgstr "დამატებულია"
+
+#: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
+#: src/Views/Today.vala:842 src/Views/Filter.vala:904 src/Views/Filter.vala:921
+#: src/Views/Filter.vala:926 src/Views/Today.vala:845 src/Views/Filter.vala:933
+msgid "Date Modified"
+msgstr ""
+
+#: src/Views/Project/Project.vala:563 src/Views/Filter.vala:907
+#: src/Views/Filter.vala:924 src/Views/Filter.vala:929
+#: src/Views/Filter.vala:936
+msgid "Ascending Order"
+msgstr "აღმავალი მიმდევრობით"
+
+#: src/Views/Project/Project.vala:569 src/Views/Filter.vala:911
+#: src/Views/Filter.vala:928 src/Views/Filter.vala:933
+#: src/Views/Filter.vala:940
+msgid "Duedate"
+msgstr "შესრულების დრო"
+
+#: src/Views/Project/Project.vala:572 src/Views/Filter.vala:914
+#: src/Views/Filter.vala:1059 src/Views/Filter.vala:931
+#: src/Views/Filter.vala:1076 src/Views/Filter.vala:936
+#: src/Views/Filter.vala:1081 src/Views/Filter.vala:943
+#: src/Views/Filter.vala:1088
+msgid "All (default)"
+msgstr "ყველა (ნაგულისხმევი)"
+
+#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Views/Filter.vala:916 src/Views/Filter.vala:1044
+#: src/Views/Filter.vala:933 src/Views/Filter.vala:1061
+#: src/Views/Filter.vala:938 src/Views/Filter.vala:1066
+#: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
+msgid "This Week"
+msgstr "ამ კვირაში"
+
+#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Views/Filter.vala:917 src/Views/Filter.vala:1047
+#: src/Views/Filter.vala:934 src/Views/Filter.vala:1064
+#: src/Views/Filter.vala:939 src/Views/Filter.vala:1069
+#: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
+msgid "Next 7 Days"
+msgstr "შემდეგი 7 დღე"
+
+#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Views/Filter.vala:918 src/Views/Filter.vala:1050
+#: src/Views/Filter.vala:935 src/Views/Filter.vala:1067
+#: src/Views/Filter.vala:940 src/Views/Filter.vala:1072
+#: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
+msgid "This Month"
+msgstr "ამ თვეში"
+
+#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Views/Filter.vala:919 src/Views/Filter.vala:1053
+#: src/Views/Filter.vala:936 src/Views/Filter.vala:1070
+#: src/Views/Filter.vala:941 src/Views/Filter.vala:1075
+#: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
+msgid "Next 30 Days"
+msgstr "შემდეგი 30 დღე"
+
+#: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:243
+#: src/Views/Today.vala:850 src/Views/Filter.vala:925 src/Views/Filter.vala:942
+#: src/Views/Filter.vala:947 src/Views/Today.vala:853 src/Views/Filter.vala:954
+msgid "P1"
+msgstr "P1"
+
+#: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:249
+#: src/Views/Today.vala:856 src/Views/Filter.vala:930 src/Views/Filter.vala:947
+#: src/Views/Filter.vala:952 src/Views/Today.vala:859 src/Views/Filter.vala:959
+msgid "P2"
+msgstr "P2"
+
+#: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:255
+#: src/Views/Today.vala:862 src/Views/Filter.vala:935 src/Views/Filter.vala:952
+#: src/Views/Filter.vala:957 src/Views/Today.vala:865 src/Views/Filter.vala:964
+msgid "P3"
+msgstr "P3"
+
+#: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:261
+#: src/Views/Today.vala:868 src/Views/Filter.vala:940 src/Views/Filter.vala:957
+#: src/Views/Filter.vala:962 src/Views/Today.vala:871 src/Views/Filter.vala:969
+msgid "P4"
+msgstr "P4"
+
+#: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:268
+#: src/Views/Today.vala:875 src/Views/Filter.vala:947 src/Views/Filter.vala:964
+#: src/Views/Filter.vala:969 src/Views/Today.vala:878 src/Views/Filter.vala:976
+msgid "Filter by Labels"
+msgstr "ჭდეებით გაფილტვრა"
+
+#: src/Views/Project/Project.vala:613 src/Views/Today.vala:899
+#: src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr ""
 
-#: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
+#: src/Views/Project/Project.vala:614 src/Views/Today.vala:900
+#: src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr ""
 
@@ -3653,17 +3873,28 @@ msgstr ""
 msgid "Search completed tasks"
 msgstr "დასრულებული ამოცანების ძებნა"
 
+#: src/Views/Project/Project.vala:647 src/Views/Filter.vala:953
+#: src/Views/Filter.vala:970 src/Views/Filter.vala:975
+#: src/Views/Filter.vala:982
+msgid "Sort By"
+msgstr "დახარისხება"
+
 #: src/Views/Scheduled/ScheduledOverdue.vala:43 src/Views/Today.vala:167
 msgid "Reschedule"
 msgstr "განრიგში თავიდან ჩამატება"
 
-#: src/Views/Today.vala:887
+#: src/Views/Today.vala:884 src/Views/Today.vala:887
 msgid "Me"
 msgstr ""
 
 #: src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "დანართი"
+
+#: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
+#: src/Layouts/ProjectRow.vala:796
+msgid "Open"
+msgstr "გახსნა"
 
 #: src/Widgets/Attachments.vala:248
 msgid "No attachments found. Add files here."
@@ -3696,7 +3927,8 @@ msgid "Continue Anyway"
 msgstr ""
 
 #: src/Widgets/CompletedTaskRow.vala:95
-#: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:94
+#: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:92
+#: src/Widgets/SubItems.vala:94
 msgid "Sub-tasks"
 msgstr "ქვედავალება"
 
@@ -3725,41 +3957,41 @@ msgstr "პრობლემის შეტყობინება"
 msgid "Account migration required."
 msgstr ""
 
-#: src/Widgets/EventRow.vala:245
+#: src/Widgets/EventRow.vala:242 src/Widgets/EventRow.vala:245
 #, c-format
 msgid "In %d minute"
 msgid_plural "In %d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/EventRow.vala:247
+#: src/Widgets/EventRow.vala:244 src/Widgets/EventRow.vala:247
 #, c-format
 msgid "In %d hour"
 msgid_plural "In %d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/EventRow.vala:252
+#: src/Widgets/EventRow.vala:249 src/Widgets/EventRow.vala:252
 msgid "Happening now"
 msgstr ""
 
-#: src/Widgets/EventRow.vala:287
+#: src/Widgets/EventRow.vala:284 src/Widgets/EventRow.vala:287
 msgid "Location"
 msgstr "მდებარეობა"
 
-#: src/Widgets/EventRow.vala:300
+#: src/Widgets/EventRow.vala:297 src/Widgets/EventRow.vala:300
 msgid "Organizer"
 msgstr "ორგანიზატორი"
 
-#: src/Widgets/EventRow.vala:314
+#: src/Widgets/EventRow.vala:311 src/Widgets/EventRow.vala:314
 msgid "URL"
 msgstr "URL"
 
-#: src/Widgets/EventRow.vala:324
+#: src/Widgets/EventRow.vala:321 src/Widgets/EventRow.vala:324
 msgid "Calendar"
 msgstr "კალენდარი"
 
-#: src/Widgets/EventRow.vala:419
+#: src/Widgets/EventRow.vala:416 src/Widgets/EventRow.vala:419
 msgid "Join"
 msgstr "შესვლა"
 
@@ -3890,6 +4122,7 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "მართლა გნებავთ ამ %d გეგმის წაშლა?"
 msgstr[1] "მართლა გნებავთ ამ %d გეგმის წაშლა?"
 
+#: src/Widgets/MultiSelectToolbar.vala:427
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
@@ -3923,7 +4156,7 @@ msgstr ""
 msgid "Unarchive"
 msgstr "დეარქივირება"
 
-#: src/Widgets/SubItems.vala:556
+#: src/Widgets/SubItems.vala:525 src/Widgets/SubItems.vala:556
 msgid "No subtasks added yet. Get started!"
 msgstr "ჯერ ქვეამოცანები არ დაგიმატებიათ. დავიწყოთ!"
 
@@ -4064,6 +4297,49 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "დაფის გახსნა"
 
+#: src/Views/Filter.vala:102 src/Views/Filter.vala:656
+#: src/Views/Filter.vala:132 src/Views/Filter.vala:835
+#: src/Views/Filter.vala:852 src/Views/Filter.vala:857
+#: src/Views/Filter.vala:864
+msgid "All Projects"
+msgstr ""
+
+#: src/Views/Filter.vala:613 src/Views/Filter.vala:789
+#: src/Views/Filter.vala:806 src/Views/Filter.vala:811
+#: src/Views/Filter.vala:818
+msgid "No completed tasks"
+msgstr ""
+
+#: src/Views/Filter.vala:614 src/Views/Filter.vala:790
+#: src/Views/Filter.vala:807 src/Views/Filter.vala:812
+#: src/Views/Filter.vala:819
+msgid "No tasks found for the selected projects"
+msgstr ""
+
+#: src/Views/Filter.vala:658 src/Views/Filter.vala:837
+#: src/Views/Filter.vala:854 src/Views/Filter.vala:859
+#: src/Views/Filter.vala:866
+#, c-format
+msgid "%d Project"
+msgid_plural "%d Projects"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Views/Filter.vala:795 src/Views/Filter.vala:812
+#: src/Views/Filter.vala:817 src/Views/Filter.vala:824
+msgid "No tasks found"
+msgstr ""
+
+#: src/Views/Filter.vala:796 src/Views/Filter.vala:813
+#: src/Views/Filter.vala:818 src/Views/Filter.vala:825
+msgid "No tasks match the selected filters"
+msgstr ""
+
+#: src/Views/Filter.vala:900 src/Views/Filter.vala:917
+#: src/Views/Filter.vala:922 src/Views/Filter.vala:929
+msgid "Project"
+msgstr ""
+
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
@@ -4079,8 +4355,82 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
 
-#~ msgid "You can sort your accounts by dragging and dropping"
-#~ msgstr "თქვენი ანგარიშების დალაგება გადათრევით და დაყრით შეგიძლიათ"
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:288
+msgid "Repeat from completion date"
+msgstr ""
+
+#: core/Widgets/DateTimePicker/RepeatConfig.vala:290
+msgid ""
+"Calculate the next occurrence from the day you complete the task instead of "
+"its due date"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:1631 src/Layouts/ItemRow.vala:1634
+#, c-format
+msgid "Task completed · Next: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+msgid "Task sources you sync with. Drag to reorder."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+msgid "Detected Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+msgid "Accounts configured in GNOME Online Accounts"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#, c-format
+msgid "%d account available to import from GNOME Online Accounts"
+msgid_plural "%d accounts available to import from GNOME Online Accounts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+msgid "Import"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
+msgid "Backups to Keep"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:62
+msgid "Older backups are removed automatically. Zero keeps them all"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:88
+msgid "Open backup folder"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:93
+msgid "Backup Location"
+msgstr ""
+
+#: core/Utils/Util.vala:804 src/Layouts/ItemBoard.vala:1275
+#: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
+#: src/Widgets/MultiSelectToolbar.vala:439 src/Layouts/ItemRow.vala:1681
+#: src/Layouts/ItemRow.vala:1825 core/Utils/Util.vala:826
+msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:1817
+msgid "A task can only become a subtask of a task in the same account"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Appearance.vala:89
+msgid "Use Adwaita Colors"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Appearance.vala:90
+msgid "Use the standard GNOME colors in light and dark mode"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Appearance.vala:297
+msgid "Not available with Adwaita colors"
+msgstr ""
 
 #, fuzzy, c-format
 #~ msgid "Load more history from %d week ago…"
