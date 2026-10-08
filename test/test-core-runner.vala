@@ -30,6 +30,7 @@ int main (string[] args) {
     Planify.Tests.ItemSorting.register_tests ();
     Planify.Tests.AllItemsFilter.register_tests ();
     Planify.Tests.SubitemCache.register_tests ();
+    Planify.Tests.ItemReparent.register_tests ();
     Planify.Tests.DBusTasks.register_tests ();
 
     return Test.run ();

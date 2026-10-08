@@ -31,7 +31,7 @@ test_core_sources = [
     'core/test-all-items-filter.vala',
     'core/test-subitem-cache.vala',
     'core/test-dbus-tasks.vala',
-    # Compiled in so the GetTasks JSON contract can be tested without the app.
+    'core/test-item-reparent.vala',
     join_paths(meson.project_source_root(), 'src', 'Services', 'DBusServer.vala')
 ]
 
