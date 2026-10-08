@@ -37,10 +37,18 @@ public class Services.Deck.Core : GLib.Object {
 
     public Services.Deck.DeckClient get_client (Objects.Source source) {
         if (!clients.has_key (source.id)) {
+            GLib.TlsCertificate? client_cert = null;
+            try {
+                client_cert = source.caldav_data.load_client_certificate ();
+            } catch (Error e) {
+                Services.LogService.get_default ().error ("Deck.Core", "Failed to load client certificate: %s".printf (e.message));
+            }
+
             var client = new Services.Deck.DeckClient (
                 source.caldav_data.deck_base_url,
                 source.caldav_data.username,
-                source.caldav_data.password
+                source.caldav_data.password,
+                client_cert
             );
             clients[source.id] = client;
         }
