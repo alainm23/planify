@@ -27,10 +27,12 @@ test('cli', test_cli, timeout: 30, suite: ['cli'])
 
 test_core_sources = [
     'test-core-runner.vala',
+    'core/scratch-database.vala',
     'core/test-item-sorting.vala',
     'core/test-all-items-filter.vala',
     'core/test-subitem-cache.vala',
-    'core/test-item-reparent.vala'
+    'core/test-item-reparent.vala',
+    'core/test-label-unique.vala'
 ]
 
 test_core = executable(
