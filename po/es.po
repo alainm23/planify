@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-09-30 13:51+0000\n"
-"Last-Translator: Giuliano Lescano <giulescano75@gmail.com>\n"
+"PO-Revision-Date: 2026-10-11 16:51+0000\n"
+"Last-Translator: Cocopyright <krlosgarciar@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/es/>\n"
 "Language: es\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.10.1.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -1426,10 +1426,13 @@ msgid "Repeat from completion date"
 msgstr "Repetir desde el día completado"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
+#, fuzzy
 msgid ""
 "Calculate the next occurrence from the day you complete the task instead of "
 "its due date"
 msgstr ""
+"Calcula la siguiente ocurrencia a partir del día en que completes la tarea "
+"en lugar de su fecha de vencimiento."
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
@@ -1461,39 +1464,42 @@ msgstr "Fin"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minuto"
+msgstr[1] "Minutos"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:542
+#, fuzzy
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hora"
+msgstr[1] "Horas"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:543
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:547
+#, fuzzy
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Día"
+msgstr[1] "Días"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:544
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Semana"
+msgstr[1] "Semanas"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:545
+#, fuzzy
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mes"
+msgstr[1] "Meses"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:546
 msgid "Year"
 msgid_plural "Years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Año"
+msgstr[1] "Años"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
@@ -1504,8 +1510,9 @@ msgstr "Fecha"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:81
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:210
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:214
+#, fuzzy
 msgid "The date you plan to work on this task"
-msgstr ""
+msgstr "La fecha en la que planeas trabajar en esta tarea"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:130
 msgid "Remove date"
@@ -1513,8 +1520,9 @@ msgstr "Eliminar fecha"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:171
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:209
+#, fuzzy
 msgid "When do you plan to work on this?"
-msgstr ""
+msgstr "¿Cuándo planeas trabajar en esto?"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:135
 msgid "Set Deadline"
@@ -1523,24 +1531,29 @@ msgstr "Establecer fecha límite"
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:90
 #: core/Widgets/DeadlineButton.vala:97 core/Widgets/DeadlineButton.vala:104
 #: core/Widgets/DeadlineButton.vala:139
+#, fuzzy
 msgid "The latest date to complete this task"
-msgstr ""
+msgstr "Fecha límite para completar esta tarea"
 
 #: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:157
+#, fuzzy
 msgid "What is the latest date to complete this?"
-msgstr ""
+msgstr "¿Cuál es la fecha límite para completar esto?"
 
 #: core/Widgets/DeadlineButton.vala:218
+#, fuzzy
 msgid "In 3 days"
-msgstr ""
+msgstr "En 3 días"
 
 #: core/Widgets/DeadlineButton.vala:220
+#, fuzzy
 msgid "In 2 weeks"
-msgstr ""
+msgstr "En 2 semanas"
 
 #: core/Widgets/DeadlineButton.vala:221
+#, fuzzy
 msgid "In a month"
-msgstr ""
+msgstr "En un mes"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1582,30 +1595,38 @@ msgid "Search or Create"
 msgstr "Buscar o crear"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#, fuzzy
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Ocultar etiquetas no utilizadas"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#, fuzzy
 msgid "No Labels"
-msgstr ""
+msgstr "Sin etiquetas"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#, fuzzy
 msgid "All Hidden"
-msgstr ""
+msgstr "Todo oculto"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#, fuzzy
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Todas las etiquetas están ocultas por el filtro. Desactive el filtro para "
+"verlas."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#, fuzzy
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Presione Enter para crearlo y asignarlo."
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2033
 #: src/Layouts/ItemRow.vala:2092
+#, fuzzy
 msgid "Task description"
-msgstr ""
+msgstr "Descripción de la tarea"
 
 #: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
