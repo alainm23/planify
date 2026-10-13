@@ -103,6 +103,7 @@ msgstr "Облако Nextcloud"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:40
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
+#: core/Services/CalDAV/CalDAVClient.vala:111
 msgid "CalDAV"
 msgstr "протокол CalDAV"
 
@@ -622,17 +623,21 @@ msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Комбинируйте ярлыки в поле заголовка для более быстрого создания"
 
 #: core/Services/CalDAV/CalDAVClient.vala:330
+#: core/Services/CalDAV/CalDAVClient.vala:290
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Загрузка задач для %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:341
 #: core/Services/CalDAV/CalDAVClient.vala:408
+#: core/Services/CalDAV/CalDAVClient.vala:301
+#: core/Services/CalDAV/CalDAVClient.vala:327
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Загружено задач для %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:401
+#: core/Services/CalDAV/CalDAVClient.vala:320
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Синхронизировано %d задач из %d"
@@ -640,6 +645,7 @@ msgstr "Синхронизировано %d задач из %d"
 #: core/Services/CalDAV/CalDAVClient.vala:776
 #: core/Services/CalDAV/CalDAVClient.vala:777
 #: core/Services/CalDAV/CalDAVClient.vala:779
+#: core/Services/CalDAV/CalDAVClient.vala:683
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -651,6 +657,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:829
 #: core/Services/CalDAV/CalDAVClient.vala:831
 #: core/Services/CalDAV/CalDAVClient.vala:834
+#: core/Services/CalDAV/CalDAVClient.vala:738
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -662,6 +669,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:833
 #: core/Services/CalDAV/CalDAVClient.vala:835
 #: core/Services/CalDAV/CalDAVClient.vala:838
+#: core/Services/CalDAV/CalDAVClient.vala:742
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -677,6 +685,8 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:916
 #: core/Services/CalDAV/CalDAVClient.vala:872
 #: core/Services/CalDAV/CalDAVClient.vala:919
+#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:822
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

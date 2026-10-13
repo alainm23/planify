@@ -34,7 +34,7 @@ public class Services.TodoistAuth : GLib.Object {
         this.session = session;
     }
 
-    public async HttpResponse login (string _url, Objects.Source? migrate_source = null) {
+    public async TodoistResponse login (string _url, Objects.Source? migrate_source = null) {
         string code = _url.split ("=")[1];
         code = code.split ("&")[0];
 
@@ -42,7 +42,7 @@ public class Services.TodoistAuth : GLib.Object {
             Constants.TODOIST_CLIENT_ID, Constants.TODOIST_CLIENT_SECRET, code);
 
         var message = new Soup.Message ("POST", url);
-        HttpResponse response = new HttpResponse ();
+        TodoistResponse response = new TodoistResponse ();
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -62,9 +62,9 @@ public class Services.TodoistAuth : GLib.Object {
         return response;
     }
 
-    public async HttpResponse login_token (string token, Objects.Source? migrate_source = null) {
+    public async TodoistResponse login_token (string token, Objects.Source? migrate_source = null) {
         Services.LogService.get_default ().info ("Todoist", "Starting login with API token");
-        var response = new HttpResponse ();
+        var response = new TodoistResponse ();
 
         try {
             yield add_todoist_account (token, response, migrate_source);
@@ -77,7 +77,7 @@ public class Services.TodoistAuth : GLib.Object {
         return response;
     }
 
-    public async void add_todoist_account (string token, HttpResponse response, Objects.Source? migrate_source = null) {
+    public async void add_todoist_account (string token, TodoistResponse response, Objects.Source? migrate_source = null) {
         Services.LogService.get_default ().info ("Todoist", "Adding Todoist account");
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
