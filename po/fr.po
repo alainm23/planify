@@ -142,7 +142,7 @@ msgid "Content"
 msgstr "Contenu"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2082 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Description"
@@ -1093,7 +1093,7 @@ msgstr "🏡️ Maison"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️ À suivre"
 
-#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1275
+#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
 #: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
@@ -1569,7 +1569,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2092
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 msgid "Task description"
 msgstr ""
 
@@ -3217,12 +3217,12 @@ msgid "Order changed to 'Custom sort order'"
 msgstr "L’ordre a été modifié pour 'Ordre de tri personnalisé'"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1658
+#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1658
 #, c-format
 msgid "%s was deleted"
 msgstr "%s a été supprimé"
 
-#: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1659
+#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1659
 msgid "Undo"
 msgstr "Annuler"
 
@@ -3274,7 +3274,7 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2157
+#: src/Layouts/ItemRow.vala:2161
 msgid "Add Attachments"
 msgstr "Ajouter des pièces-jointes"
 

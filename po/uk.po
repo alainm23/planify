@@ -153,7 +153,7 @@ msgstr "Зміст"
 #: src/Layouts/ItemRow.vala:2014 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:356 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Widgets/EventRow.vala:359 src/Layouts/ItemRow.vala:2023
-#: src/Layouts/ItemRow.vala:2082
+#: src/Layouts/ItemRow.vala:2082 src/Layouts/ItemRow.vala:2086
 msgid "Description"
 msgstr "Опис"
 
@@ -1680,6 +1680,7 @@ msgstr "Натисніть Enter, щоб створити та призначи�
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2024
 #: src/Layouts/ItemRow.vala:2033 src/Layouts/ItemRow.vala:2092
+#: src/Layouts/ItemRow.vala:2096
 msgid "Task description"
 msgstr "Опис завдання"
 
@@ -3373,12 +3374,14 @@ msgstr "Порядок змінено на «Власний порядок со�
 # # c-format
 #: src/Layouts/ItemBoard.vala:1246 src/Layouts/ItemRow.vala:1655
 #: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1658
+#: src/Layouts/ItemBoard.vala:1263
 #, c-format
 msgid "%s was deleted"
 msgstr "%s було видалено"
 
 #: src/Layouts/ItemBoard.vala:1247 src/Layouts/ItemRow.vala:1656
 #: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1659
+#: src/Layouts/ItemBoard.vala:1264
 msgid "Undo"
 msgstr "Скасувати"
 
@@ -3429,7 +3432,7 @@ msgid "Task completed · Next: %s"
 msgstr "Завершено · Наступне: %s"
 
 #: src/Layouts/ItemRow.vala:2089 src/Layouts/ItemRow.vala:2098
-#: src/Layouts/ItemRow.vala:2157
+#: src/Layouts/ItemRow.vala:2157 src/Layouts/ItemRow.vala:2161
 msgid "Add Attachments"
 msgstr "Додати вкладення"
 
@@ -4454,6 +4457,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemSidebarView.vala:601
 #: src/Widgets/MultiSelectToolbar.vala:439 src/Layouts/ItemRow.vala:1681
 #: src/Layouts/ItemRow.vala:1825 core/Utils/Util.vala:826
+#: src/Layouts/ItemBoard.vala:1286
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
