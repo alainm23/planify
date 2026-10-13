@@ -52,15 +52,15 @@ public class Services.Todoist : GLib.Object {
      * Auth
      */
 
-    public async HttpResponse login (string _url, Objects.Source? migrate_source = null) {
+    public async TodoistResponse login (string _url, Objects.Source? migrate_source = null) {
         return yield _auth.login (_url, migrate_source);
     }
 
-    public async HttpResponse login_token (string token, Objects.Source? migrate_source = null) {
+    public async TodoistResponse login_token (string token, Objects.Source? migrate_source = null) {
         return yield _auth.login_token (token, migrate_source);
     }
 
-    public async void add_todoist_account (string token, HttpResponse response, Objects.Source? migrate_source = null) {
+    public async void add_todoist_account (string token, TodoistResponse response, Objects.Source? migrate_source = null) {
         yield _auth.add_todoist_account (token, response, migrate_source);
     }
 
@@ -508,27 +508,27 @@ public class Services.Todoist : GLib.Object {
      * Items — delegated to TodoistItems
      */
 
-    public async HttpResponse add (Objects.BaseObject object) {
+    public async TodoistResponse add (Objects.BaseObject object) {
         return yield _items.add (object);
     }
 
-    public async HttpResponse update (Objects.BaseObject object) {
+    public async TodoistResponse update (Objects.BaseObject object) {
         return yield _items.update (object);
     }
 
-    public async HttpResponse delete (Objects.BaseObject object) {
+    public async TodoistResponse delete (Objects.BaseObject object) {
         return yield _items.delete (object);
     }
 
-    public async HttpResponse complete_item (Objects.Item item) {
+    public async TodoistResponse complete_item (Objects.Item item) {
         return yield _items.complete_item (item);
     }
     
-    public async HttpResponse close_item (Objects.Item item) {
+    public async TodoistResponse close_item (Objects.Item item) {
         return yield _items.close_item (item);
     }
 
-    public async HttpResponse move_item (Objects.Item item, string type, string id) {
+    public async TodoistResponse move_item (Objects.Item item, string type, string id) {
         return yield _items.move_item (item, type, id);
     }
 
@@ -540,11 +540,11 @@ public class Services.Todoist : GLib.Object {
      * Projects — delegated to TodoistProjects
      */
 
-    public async HttpResponse move_project_section (Objects.BaseObject base_object, string project_id) {
+    public async TodoistResponse move_project_section (Objects.BaseObject base_object, string project_id) {
         return yield _projects.move_project_section (base_object, project_id);
     }
 
-    public async HttpResponse duplicate_project (Objects.Project project) {
+    public async TodoistResponse duplicate_project (Objects.Project project) {
         return yield _projects.duplicate_project (project);
     }
 
@@ -603,25 +603,11 @@ public class Services.Todoist : GLib.Object {
     }
 }
 
-public class HttpResponse {
-    public bool status { get; set; }
-    public string error { get; set; default = ""; }
-    public int error_code { get; set; default = 0; }
-    public int http_code { get; set; default = 0; }
-    public string data { get; set; }
-    public GLib.Value data_object { get; set; }
-
+public class TodoistResponse : HttpResponse {
     public void from_error_json (Json.Node node) {
         status = false;
         error_code = (int) node.get_object ().get_int_member ("error_code");
         error = node.get_object ().get_string_member ("error");
         http_code = (int) node.get_object ().get_int_member ("http_code");
-    }
-
-    public void from_error_xml (GXml.DomDocument doc, int error_code) {
-        status = false;
-        this.error_code = error_code;
-        http_code = error_code;
-        error = doc.get_elements_by_tag_name ("o:hint").get_element (0).text_content;
     }
 }
