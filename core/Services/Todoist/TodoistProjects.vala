@@ -29,8 +29,8 @@ public class Services.TodoistProjects : GLib.Object {
         this.session = session;
     }
 
-    public async HttpResponse move_project_section (Objects.BaseObject base_object, string project_id) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse move_project_section (Objects.BaseObject base_object, string project_id) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (base_object.source.needs_migration ()) {
             response.status = false;
@@ -89,8 +89,8 @@ public class Services.TodoistProjects : GLib.Object {
         return response;
     }
 
-    public async HttpResponse duplicate_project (Objects.Project project) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse duplicate_project (Objects.Project project) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (project.source.needs_migration ()) {
             response.status = false;

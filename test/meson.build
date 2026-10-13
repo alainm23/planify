@@ -29,7 +29,8 @@ test_core_sources = [
     'test-core-runner.vala',
     'core/test-item-sorting.vala',
     'core/test-all-items-filter.vala',
-    'core/test-subitem-cache.vala'
+    'core/test-subitem-cache.vala',
+    'core/test-item-reparent.vala'
 ]
 
 test_core = executable(
