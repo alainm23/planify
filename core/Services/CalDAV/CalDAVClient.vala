@@ -677,7 +677,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 403" in e.message) {
+            if (http_status (e) == Soup.Status.FORBIDDEN) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow creating calendars via CalDAV");
                 response.error_code = 403;
                 response.error = _("This server does not allow creating projects via CalDAV. Please create it directly from your calendar provider's website.");
@@ -732,11 +732,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                   Soup.Status.NOT_FOUND });
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 403" in e.message) {
+            var status = http_status (e);
+            if (status == Soup.Status.FORBIDDEN) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow deleting calendars via CalDAV");
                 response.error_code = 403;
                 response.error = _("This server does not allow deleting projects via CalDAV. Please delete it directly from your calendar provider's website.");
-            } else if ("HTTP 405" in e.message) {
+            } else if (status == Soup.Status.METHOD_NOT_ALLOWED) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not support project deletion via CalDAV");
                 response.error_code = 405;
                 response.error = _("This server does not support deleting projects via CalDAV. Please delete it from the server directly.");
@@ -770,7 +771,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 412" in e.message) {
+            if (http_status (e) == Soup.Status.PRECONDITION_FAILED) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict detected (412), re-fetching item");
                 response.error_code = 412;
                 response.error = _("Task was modified on another device. Please sync to get the latest version.");
@@ -800,7 +801,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (item.ical_url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 412" in e.message) {
+            if (http_status (e) == Soup.Status.PRECONDITION_FAILED) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict on complete (412), re-fetching ETag and retrying");
                 try {
                     var retry_cancellable = new GLib.Cancellable ();
@@ -846,7 +847,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 502" in e.message || "HTTP 405" in e.message || "HTTP 501" in e.message) {
+            var status = http_status (e);
+            if (status == Soup.Status.BAD_GATEWAY || status == Soup.Status.METHOD_NOT_ALLOWED || status == Soup.Status.NOT_IMPLEMENTED) {
                 Services.LogService.get_default ().warn ("CalDAV", "MOVE not supported, falling back to PUT+DELETE");
                 response = yield move_item_fallback (item, destination_project, destination);
             } else {
