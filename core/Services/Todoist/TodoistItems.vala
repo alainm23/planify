@@ -29,8 +29,8 @@ public class Services.TodoistItems : GLib.Object {
         this.session = session;
     }
 
-    public async HttpResponse add (Objects.BaseObject object) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse add (Objects.BaseObject object) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (object.source.needs_migration ()) {
             response.status = false;
@@ -102,8 +102,8 @@ public class Services.TodoistItems : GLib.Object {
         return response;
     }
 
-    public async HttpResponse update (Objects.BaseObject object) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse update (Objects.BaseObject object) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (object.source.needs_migration ()) {
             response.status = false;
@@ -165,8 +165,8 @@ public class Services.TodoistItems : GLib.Object {
         return response;
     }
 
-    public async HttpResponse delete (Objects.BaseObject object) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse delete (Objects.BaseObject object) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (object.source.needs_migration ()) {
             response.status = false;
@@ -227,8 +227,8 @@ public class Services.TodoistItems : GLib.Object {
         return response;
     }
     
-    public async HttpResponse close_item (Objects.Item item) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse close_item (Objects.Item item) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (item.source.needs_migration ()) {
             response.status = false;
@@ -305,8 +305,8 @@ public class Services.TodoistItems : GLib.Object {
         return response;
     }
 
-    public async HttpResponse complete_item (Objects.Item item) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse complete_item (Objects.Item item) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (item.source.needs_migration ()) {
             response.status = false;
@@ -368,8 +368,8 @@ public class Services.TodoistItems : GLib.Object {
         return response;
     }
 
-    public async HttpResponse move_item (Objects.Item item, string type, string id) {
-        HttpResponse response = new HttpResponse ();
+    public async TodoistResponse move_item (Objects.Item item, string type, string id) {
+        TodoistResponse response = new TodoistResponse ();
 
         if (item.source.needs_migration ()) {
             response.status = false;
