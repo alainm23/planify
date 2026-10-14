@@ -316,26 +316,26 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = SourceType.GOOGLE_TASKS;
     }
 
-    public Project.from_propstat (Services.CalDAV.WebDAVPropStat propstat, string url) {
+    public Project.from_response (Services.CalDAV.WebDAVResponse response, string url) {
         id = Util.get_default ().generate_id (this); // THIS ID is INTERNAL and no longer used for requests
         calendar_url = url;
-        update_from_propstat (propstat);
+        update_from_response (response);
         backend_type = SourceType.CALDAV;
     }
 
-    public void update_from_propstat (Services.CalDAV.WebDAVPropStat propstat, bool update_sync_token = true) {
-        var displayname = propstat.get_first_prop_with_tagname ("displayname");
+    public void update_from_response (Services.CalDAV.WebDAVResponse response, bool update_sync_token = true) {
+        var displayname = response.get_prop ("displayname");
         if (displayname != null) {
             name = displayname.text_content;
         }
 
-        var calendar_color = propstat.get_first_prop_with_tagname ("calendar-color");
+        var calendar_color = response.get_prop ("calendar-color");
         if (calendar_color != null) {
             color = calendar_color.text_content;
         }
 
         if (update_sync_token) {
-            var sync_token = propstat.get_first_prop_with_tagname ("sync-token");
+            var sync_token = response.get_prop ("sync-token");
             if (sync_token != null) {
                 sync_id = sync_token.text_content;
             }

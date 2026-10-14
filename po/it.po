@@ -95,7 +95,7 @@ msgstr[1] "Ogni %d anni"
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:124
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 msgid "CalDAV"
@@ -142,7 +142,7 @@ msgid "Content"
 msgstr "Contenuto"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2082 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Descrizione"
@@ -546,23 +546,23 @@ msgstr "Suggerimento"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combina scorciatoie nel campo del titolo per una creazione più veloce"
 
-#: core/Services/CalDAV/CalDAVClient.vala:330
+#: core/Services/CalDAV/CalDAVClient.vala:290
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Caricamento task per %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:341
-#: core/Services/CalDAV/CalDAVClient.vala:408
+#: core/Services/CalDAV/CalDAVClient.vala:301
+#: core/Services/CalDAV/CalDAVClient.vala:327
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Attività caricate per %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:401
+#: core/Services/CalDAV/CalDAVClient.vala:320
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Attività di sincronizzazione %d di %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:779
+#: core/Services/CalDAV/CalDAVClient.vala:683
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -571,7 +571,7 @@ msgstr ""
 "preghiamo di crearlo direttamente dal sito web del tuo provider di "
 "calendario."
 
-#: core/Services/CalDAV/CalDAVClient.vala:834
+#: core/Services/CalDAV/CalDAVClient.vala:738
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -580,7 +580,7 @@ msgstr ""
 "preghiamo di crearlo direttamente dal sito web del tuo provider di "
 "calendario."
 
-#: core/Services/CalDAV/CalDAVClient.vala:838
+#: core/Services/CalDAV/CalDAVClient.vala:742
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -588,8 +588,8 @@ msgstr ""
 "Questo server non supporta la cancellazione dei progetti tramite CalDAV. Ti "
 "preghiamo di eliminarlo direttamente dal server."
 
-#: core/Services/CalDAV/CalDAVClient.vala:872
-#: core/Services/CalDAV/CalDAVClient.vala:919
+#: core/Services/CalDAV/CalDAVClient.vala:776
+#: core/Services/CalDAV/CalDAVClient.vala:822
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
@@ -1096,7 +1096,7 @@ msgstr "🏡Casa"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Prossimi"
 
-#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1275
+#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
 #: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
@@ -1571,7 +1571,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr "Premi Invio per creare e assegnare"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2092
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 msgid "Task description"
 msgstr ""
 
@@ -3185,12 +3185,12 @@ msgstr "Elimina Attività"
 msgid "Order changed to 'Custom sort order'"
 msgstr "Ordine cambiato in 'Ordine personalizzato'"
 
-#: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1658
+#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1658
 #, c-format
 msgid "%s was deleted"
 msgstr ""
 
-#: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1659
+#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1659
 msgid "Undo"
 msgstr "Annulla"
 
@@ -3242,7 +3242,7 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2157
+#: src/Layouts/ItemRow.vala:2161
 msgid "Add Attachments"
 msgstr "Aggiungi Allegato"
 
