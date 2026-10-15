@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-13 16:37+0000\n"
+"POT-Creation-Date: 2026-10-15 17:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -331,23 +331,23 @@ msgstr ""
 msgid "unlabeled"
 msgstr ""
 
-#: core/Objects/Item.vala:1619 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1644
+#: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
 msgstr ""
 
-#: core/Objects/Item.vala:1661
+#: core/Objects/Item.vala:1692
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1677
+#: core/Objects/Item.vala:1708
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr ""

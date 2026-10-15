@@ -327,24 +327,24 @@ msgstr "без метки"
 msgid "unlabeled"
 msgstr "непомеченн"
 
-#: core/Objects/Item.vala:1619 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Срок:"
 
-#: core/Objects/Item.vala:1644
+#: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
-#: core/Objects/Item.vala:1661
+#: core/Objects/Item.vala:1692
 msgid "iCalendar Files"
 msgstr "Файлы iCalendar"
 
-#: core/Objects/Item.vala:1677
+#: core/Objects/Item.vala:1708
 msgid "Task exported successfully"
 msgstr "Задача успешно экспортирована"
 
 # c-format
-#: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Перемещено в %s"

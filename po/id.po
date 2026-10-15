@@ -321,23 +321,23 @@ msgstr "tanpa label"
 msgid "unlabeled"
 msgstr "tanpa label"
 
-#: core/Objects/Item.vala:1619 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tenggat:"
 
-#: core/Objects/Item.vala:1644
+#: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
 msgstr "Tugas disalin ke papan klip"
 
-#: core/Objects/Item.vala:1661
+#: core/Objects/Item.vala:1692
 msgid "iCalendar Files"
 msgstr "File iCalendar"
 
-#: core/Objects/Item.vala:1677
+#: core/Objects/Item.vala:1708
 msgid "Task exported successfully"
 msgstr "Tugas berhasil diekspor"
 
-#: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Dipindahkan ke %s"
