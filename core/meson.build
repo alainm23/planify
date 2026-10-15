@@ -23,6 +23,7 @@ core_files = files(
 
     'Services/CalDAV/Core.vala',
     'Services/CalDAV/CalDAVClient.vala',
+    'Services/CalDAV/CalDAVCapabilities.vala',
     'Services/CalDAV/WebDAVClient.vala',
     'Services/Deck/DeckClient.vala',
     'Services/Deck/Core.vala',
