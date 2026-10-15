@@ -810,12 +810,68 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
+    // Adds missing labels from the stored CATEGORIES; returns whether any were added.
+    public bool restore_labels_from_calendar_data () {
+        bool restored = false;
+
+        #if WITH_EVOLUTION
+        if (calendar_data == "" || project == null) {
+            return false;
+        }
+
+        ICal.Component ? ical = ICal.Parser.parse_string (calendar_data);
+        if (ical == null) {
+            return false;
+        }
+
+        ICal.Component ? ical_vtodo = ical.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+        if (ical_vtodo == null) {
+            return false;
+        }
+
+        ECal.Component ecal = new ECal.Component.from_icalcomponent (ical_vtodo);
+        foreach (Objects.Label label in get_labels_maps_from_caldav (ecal.get_categories_list ()).values) {
+            if (get_label (label.id) == null) {
+                add_label_if_not_exists (label);
+                restored = true;
+            }
+        }
+        #endif
+
+        return restored;
+    }
+
     public void set_section (Objects.Section section) {
         _section = section;
     }
 
     public void set_parent (Objects.Item item) {
         _parent = item;
+    }
+
+    /**
+     * Whether this item may be dropped onto @target to become its subtask. Refuses the item
+     * itself and any of this item's own descendants, which would make a cycle. A target in
+     * another project is fine: the drop moves the item there first.
+     */
+    public bool can_become_subtask_of (Objects.Item target) {
+        if (target.id == id) {
+            return false;
+        }
+
+        var visited = new Gee.HashSet<string> ();
+        for (Objects.Item ? ancestor = target.parent; ancestor != null; ancestor = ancestor.parent) {
+            if (ancestor.id == id) {
+                return false;
+            }
+
+            // A pre-existing cycle further up must not hang the walk.
+            if (!visited.add (ancestor.id)) {
+                break;
+            }
+        }
+
+        return true;
     }
 
     public void set_project (Objects.Project project) {
@@ -1880,12 +1936,49 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
-        if (project.source_type == SourceType.LOCAL) {
-            _move (project.id, _section_id, notify);
-        } else if (project.source_type == SourceType.TODOIST) {
+        if (project.source_type == SourceType.CALDAV && project.is_deck) {
             loading = true;
             sensitive = false;
 
+            if (project.id == project_id) {
+                // Same board, just move between stacks
+                string old_section = section_id;
+                section_id = _section_id;
+                move_deck.begin (old_section, (obj, res) => {
+                    move_deck.end (res);
+                    loading = false;
+                    sensitive = true;
+                });
+            } else {
+                // Different board: create on new, delete from old
+                move_deck_cross_board.begin (project, _section_id, notify, (obj, res) => {
+                    move_deck_cross_board.end (res);
+                    loading = false;
+                    sensitive = true;
+                });
+            }
+
+            return;
+        }
+
+        move_to.begin (project, _section_id, notify);
+    }
+
+    /**
+     * Moves the item to @project (not a Deck board), waiting for the backend. Returns whether
+     * the move went through; on failure an error toast has already been shown.
+     */
+    public async bool move_to (Objects.Project project, string _section_id, bool notify = true) {
+        if (project.source_type == SourceType.LOCAL) {
+            _move (project.id, _section_id, notify);
+            return true;
+        }
+
+        loading = true;
+        sensitive = false;
+
+        bool moved = false;
+        if (project.source_type == SourceType.TODOIST) {
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1893,47 +1986,26 @@ public class Objects.Item : Objects.BaseObject {
                 move_id = _section_id;
             }
 
-            Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
-                var response = Services.Todoist.get_default ().move_item.end (res);
-                loading = false;
-                sensitive = true;
-
-                if (response.status) {
-                    _move (project.id, _section_id, notify);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
-        } else if (project.source_type == SourceType.CALDAV) {
-            loading = true;
-            sensitive = false;
-
-            if (project.is_deck) {
-                if (project.id == project_id) {
-                    // Same board, just move between stacks
-                    string old_section = section_id;
-                    section_id = _section_id;
-                    move_deck.begin (old_section, (obj, res) => {
-                        move_deck.end (res);
-                        loading = false;
-                        sensitive = true;
-                    });
-                } else {
-                    // Different board: create on new, delete from old
-                    move_deck_cross_board.begin (project, _section_id, notify, (obj, res) => {
-                        move_deck_cross_board.end (res);
-                        loading = false;
-                        sensitive = true;
-                    });
-                }
+            var response = yield Services.Todoist.get_default ().move_item (this, move_type, move_id);
+            if (response.status) {
+                _move (project.id, _section_id, notify);
+                moved = true;
             } else {
-                move_caldav_recursive.begin (project, _section_id, notify);
+                Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
             }
+        } else if (project.source_type == SourceType.CALDAV) {
+            moved = yield move_caldav_recursive (project, _section_id, notify);
         }
+
+        loading = false;
+        // A row that stays in view (All Tasks, or after an error) would otherwise stay greyed out.
+        sensitive = true;
+        return moved;
     }
 
-    private async void move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
+    private async bool move_caldav_recursive (Objects.Project project, string _section_id, bool notify = true) {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+        bool moved = false;
 
         try {
             var response = yield caldav_client.move_item (this, project);
@@ -1957,15 +2029,13 @@ public class Objects.Item : Objects.BaseObject {
             yield move_all_subitems_caldav (this, project, caldav_client);
 
             _move (project.id, _section_id, notify);
+            moved = true;
         } catch (Error e) {
             Services.EventBus.get_default ().send_error_toast (0, e.message);
         }
 
-        loading = false;
-        // move () disabled the item; a row that stays in view (All Tasks, or after an error)
-        // would otherwise stay greyed out.
-        sensitive = true;
         show_item = true;
+        return moved;
     }
 
     private async void move_all_subitems_caldav (Objects.Item item, Objects.Project project, Services.CalDAV.CalDAVClient caldav_client) throws Error {
