@@ -52,12 +52,12 @@
         </icon>
     </style>
     <dependencies>
-        <glib>
-        <patch>hack</patch>
-        <patch>pthread-restrictions</patch>
-        </glib>
+	<glib revision="1c861a2384441e814d97a173f58f5220dc5b47b2">
+	    <patch>hack</patch>
+	    <patch>pthread-restrictions</patch>
+	</glib>
         <harfbuzz />
-        <fontconfig />
+        <fontconfig revision="8c54938128f5d5050f5922f697c54556fc6789d1" />
         <gtk revision="4.23.3" />
         <libadwaita revision="1.10.beta.1" />
     </dependencies>
