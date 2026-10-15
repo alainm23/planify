@@ -96,9 +96,9 @@ public class Services.Notification : GLib.Object {
         notification.set_priority (GLib.NotificationPriority.URGENT);
         notification.set_default_action_and_target_value ("show-item", new Variant.string (reminder.item_id));
         notification.add_button_with_target_value (_("Complete"), "app.complete", new Variant.string (reminder.item_id));
-        notification.add_button_with_target_value (_("Snooze for 10 minutes"), "app.snooze-10", new Variant.string (reminder.item_id));
-        notification.add_button_with_target_value (_("Snooze for 30 minutes"), "app.snooze-30", new Variant.string (reminder.item_id));
-        notification.add_button_with_target_value (_("Snooze for 1 hour"), "app.snooze-60", new Variant.string (reminder.item_id));
+        notification.add_button_with_target_value (_("10m Snooze"), "app.snooze-10", new Variant.string (reminder.item_id));
+        notification.add_button_with_target_value (_("30m Snooze"), "app.snooze-30", new Variant.string (reminder.item_id));
+        notification.add_button_with_target_value (_("1h Snooze"), "app.snooze-60", new Variant.string (reminder.item_id));
 
         return notification;
     }
