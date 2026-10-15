@@ -332,6 +332,7 @@ msgid "Deadline:"
 msgstr "Thời gian tới hạn:"
 
 #: core/Objects/Item.vala:1619 core/Objects/Item.vala:1644
+#: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
