@@ -80,8 +80,11 @@ public class Dialogs.QuickAdd : Adw.Dialog {
         Services.Store.instance ().insert_item (item);
 
         foreach (Objects.Reminder reminder in reminders) {
-            if (Services.Database.get_default ().insert_reminder (reminder)) {
-                Services.Store.instance ().reminders.add (reminder);
+            if (item.project.source_type == SourceType.CALDAV && !item.project.is_deck) {
+                // Already attached to the item and uploaded with it by QuickAddCore
+                Services.Database.get_default ().insert_reminder (reminder);
+            } else {
+                item.add_reminder (reminder);
             }
         }
 
