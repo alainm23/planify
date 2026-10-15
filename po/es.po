@@ -108,6 +108,7 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
 #: src/Views/Filter.vala:934 src/Views/Filter.vala:973
+#: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
 msgid "Priority"
 msgstr "Prioridad"
 
@@ -118,6 +119,7 @@ msgstr "Etiqueta"
 #: core/Enum.vala:351 src/Views/Filter.vala:924
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843 src/Views/Filter.vala:931
+#: src/Layouts/ItemSortFilter.vala:69
 msgid "Due Date"
 msgstr "Fecha de vencimiento"
 
@@ -296,7 +298,8 @@ msgstr "próximo"
 #: src/Views/Filter.vala:1063 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 #: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
-#: src/Views/Filter.vala:1070
+#: src/Views/Filter.vala:1070 src/Layouts/ItemSortFilter.vala:82
+#: src/Layouts/ItemSortFilter.vala:264
 msgid "Today"
 msgstr "Hoy"
 
@@ -392,7 +395,7 @@ msgstr "Esto no se puede deshacer"
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:907
-#: core/Utils/Util.vala:479
+#: core/Utils/Util.vala:479 src/Views/Filter.vala:815
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -406,6 +409,7 @@ msgstr "Cancelar"
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:908
+#: src/Views/Filter.vala:816
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -1871,6 +1875,7 @@ msgstr "Aún no hay tareas completadas."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:869 src/Views/Filter.vala:876
+#: src/Views/Filter.vala:784
 msgid "Delete All Completed Tasks"
 msgstr "Eliminar todas las tareas completadas"
 
@@ -1887,6 +1892,7 @@ msgstr[1] ""
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:985
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:910 src/Views/Filter.vala:992
+#: src/Layouts/ItemSortFilter.vala:130
 msgid "Filter By"
 msgstr "Filtrar por"
 
@@ -1895,6 +1901,7 @@ msgstr "Filtrar por"
 #: src/Views/Filter.vala:1078 src/Views/Project/Project.vala:578
 #: src/Views/Project/Project.vala:749 src/Layouts/ItemRow.vala:1261
 #: src/Views/Filter.vala:949 src/Views/Filter.vala:1085
+#: src/Layouts/ItemSortFilter.vala:87 src/Layouts/ItemSortFilter.vala:279
 msgid "No Date"
 msgstr "Sin fecha"
 
@@ -2564,6 +2571,7 @@ msgstr "Orden personalizado"
 #: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:923
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:842 src/Views/Filter.vala:930
+#: src/Layouts/ItemSortFilter.vala:68
 msgid "Alphabetically"
 msgstr "Alfabéticamente"
 
@@ -3426,7 +3434,7 @@ msgid "Add tasks"
 msgstr "Añadir tareas"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:197
+#: src/Views/Filter.vala:197 src/Views/Filter.vala:185
 msgid "Load more"
 msgstr "Cargar más"
 
@@ -3450,6 +3458,7 @@ msgid "Delete Section"
 msgstr "Eliminar sección"
 
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
+#: src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr ""
 
@@ -3599,59 +3608,72 @@ msgid "Snooze for 1 hour"
 msgstr "Posponer la alarma durante 1 hora"
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:857
-#: src/Views/Filter.vala:864
+#: src/Views/Filter.vala:864 src/Views/Filter.vala:120
+#: src/Views/Filter.vala:772
 msgid "All Projects"
 msgstr ""
 
 #: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92
+#: src/Views/Today.vala:92 src/Views/Filter.vala:146
+#: src/Views/Label/Label.vala:78
 msgid "View Option Menu"
 msgstr "Ver menú de opciones"
 
 #: src/Views/Filter.vala:218 src/Views/Filter.vala:820
 #: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:309
-#: src/Views/Filter.vala:827
+#: src/Views/Filter.vala:827 src/Views/Filter.vala:206
+#: src/Views/Filter.vala:763 src/Views/Label/Label.vala:152
+#: src/Views/Label/Label.vala:270
 msgid "Add Some Tasks"
 msgstr "Añadir algunas tareas"
 
 #: src/Views/Filter.vala:219 src/Views/Filter.vala:821
 #: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
 #: src/Views/Project/List.vala:118 src/Views/Today.vala:310
-#: src/Views/Filter.vala:828
+#: src/Views/Filter.vala:828 src/Views/Filter.vala:207
+#: src/Views/Filter.vala:764 src/Views/Label/Label.vala:153
+#: src/Views/Label/Label.vala:271
 msgid "Press 'a' to create a new task"
 msgstr "Presiona 'a' para crear una nueva tarea"
 
-#: src/Views/Filter.vala:580
+#: src/Views/Filter.vala:580 src/Views/Filter.vala:539
 msgid "tasks"
 msgstr "tareas"
 
 #: src/Views/Filter.vala:811 src/Views/Filter.vala:818
+#: src/Views/Filter.vala:754
 msgid "No completed tasks"
 msgstr ""
 
 #: src/Views/Filter.vala:812 src/Views/Filter.vala:819
+#: src/Views/Filter.vala:755
 msgid "No tasks found for the selected projects"
 msgstr ""
 
 #: src/Views/Filter.vala:814 src/Views/Filter.vala:821
+#: src/Views/Filter.vala:757
 msgid "All tasks completed!"
 msgstr "¡Todas las tareas completadas!"
 
 #: src/Views/Filter.vala:815 src/Views/Filter.vala:822
+#: src/Views/Filter.vala:758
 msgid "Great job, nothing left to do 🎉"
 msgstr "¡Buen trabajo, no queda nada por hacer! 🎉"
 
 #: src/Views/Filter.vala:817 src/Views/Filter.vala:824
+#: src/Views/Filter.vala:760 src/Views/Label/Label.vala:267
 msgid "No tasks found"
 msgstr "No se han encontrado tareas"
 
 #: src/Views/Filter.vala:818 src/Views/Filter.vala:825
+#: src/Views/Filter.vala:761 src/Views/Label/Label.vala:268
 msgid "No tasks match the selected filters"
 msgstr ""
 
 #: src/Views/Filter.vala:859 src/Views/Filter.vala:866
+#: src/Views/Filter.vala:774
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
@@ -3659,6 +3681,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Views/Filter.vala:888 src/Views/Filter.vala:895
+#: src/Views/Filter.vala:803
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Eliminar la tarea completada"
@@ -3666,6 +3689,7 @@ msgstr[1] "Eliminar las tareas completadas"
 
 # # c-format
 #: src/Views/Filter.vala:893 src/Views/Filter.vala:900
+#: src/Views/Filter.vala:808
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -3674,98 +3698,104 @@ msgstr[1] "Esto eliminará %d tareas completadas y sus subtareas"
 
 #: src/Views/Filter.vala:918 src/Views/Project/Project.vala:553
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
-#: src/Views/Filter.vala:925
+#: src/Views/Filter.vala:925 src/Layouts/ItemSortFilter.vala:63
 msgid "Sorting"
 msgstr "Ordenando"
 
 #: src/Views/Filter.vala:922 src/Views/Filter.vala:929
+#: src/Layouts/ItemSortFilter.vala:67
 msgid "Project"
 msgstr ""
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
-#: src/Views/Filter.vala:932
+#: src/Views/Filter.vala:932 src/Layouts/ItemSortFilter.vala:70
 msgid "Date Added"
 msgstr "Fecha añadida"
 
 #: src/Views/Filter.vala:926 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
-#: src/Views/Filter.vala:933
+#: src/Views/Filter.vala:933 src/Layouts/ItemSortFilter.vala:71
 msgid "Date Modified"
 msgstr ""
 
 #: src/Views/Filter.vala:929 src/Views/Project/Project.vala:563
-#: src/Views/Filter.vala:936
+#: src/Views/Filter.vala:936 src/Layouts/ItemSortFilter.vala:74
 msgid "Ascending Order"
 msgstr "Orden Ascendente"
 
 #: src/Views/Filter.vala:933 src/Views/Project/Project.vala:569
-#: src/Views/Filter.vala:940
+#: src/Views/Filter.vala:940 src/Layouts/ItemSortFilter.vala:78
 msgid "Duedate"
 msgstr "Fecha de vencimiento"
 
 #: src/Views/Filter.vala:936 src/Views/Filter.vala:1081
 #: src/Views/Project/Project.vala:572 src/Views/Filter.vala:943
-#: src/Views/Filter.vala:1088
+#: src/Views/Filter.vala:1088 src/Layouts/ItemSortFilter.vala:81
+#: src/Layouts/ItemSortFilter.vala:282
 msgid "All (default)"
 msgstr "Todos (predeterminado)"
 
 #: src/Views/Filter.vala:938 src/Views/Filter.vala:1066
 #: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
 #: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
+#: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
 msgid "This Week"
 msgstr "Esta semana"
 
 #: src/Views/Filter.vala:939 src/Views/Filter.vala:1069
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
 #: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
+#: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
 msgid "Next 7 Days"
 msgstr "Próximos 7 días"
 
 #: src/Views/Filter.vala:940 src/Views/Filter.vala:1072
 #: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
 #: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
+#: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
 msgid "This Month"
 msgstr "Este mes"
 
 #: src/Views/Filter.vala:941 src/Views/Filter.vala:1075
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
 #: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
+#: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
 msgid "Next 30 Days"
 msgstr "Próximos 30 días"
 
 #: src/Views/Filter.vala:947 src/Views/Project/Project.vala:584
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
-#: src/Views/Filter.vala:954
+#: src/Views/Filter.vala:954 src/Layouts/ItemSortFilter.vala:92
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Filter.vala:952 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
-#: src/Views/Filter.vala:959
+#: src/Views/Filter.vala:959 src/Layouts/ItemSortFilter.vala:97
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Filter.vala:957 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
-#: src/Views/Filter.vala:964
+#: src/Views/Filter.vala:964 src/Layouts/ItemSortFilter.vala:102
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Filter.vala:962 src/Views/Project/Project.vala:602
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
-#: src/Views/Filter.vala:969
+#: src/Views/Filter.vala:969 src/Layouts/ItemSortFilter.vala:107
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Filter.vala:969 src/Views/Project/Project.vala:609
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
-#: src/Views/Filter.vala:976
+#: src/Views/Filter.vala:976 src/Layouts/ItemSortFilter.vala:114
 msgid "Filter by Labels"
 msgstr "Filtrar por etiquetas"
 
 #: src/Views/Filter.vala:975 src/Views/Project/Project.vala:647
-#: src/Views/Filter.vala:982
+#: src/Views/Filter.vala:982 src/Layouts/ItemSortFilter.vala:120
 msgid "Sort By"
 msgstr "Ordenar por"
 

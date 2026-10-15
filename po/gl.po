@@ -623,7 +623,8 @@ msgstr "Autenticación caducada"
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr "A sesión caducou. Retire e engada de novo a súa conta nas Preferencias."
+msgstr ""
+"A sesión caducou. Retire e engada de novo a súa conta nas Preferencias."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
@@ -932,7 +933,8 @@ msgstr "Toque esta tarefa"
 #: core/Utils/Util.vala:642
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-msgstr "Este é unha tarefa por facer! Complétea tocando a caixiña da esquerda. "
+msgstr ""
+"Este é unha tarefa por facer! Complétea tocando a caixiña da esquerda. "
 
 #: core/Utils/Util.vala:647
 msgid "Create a new task"
@@ -1012,8 +1014,8 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Mode mostrar os eventos do calendario do sistema no Planify. Vaia a «"
-"Preferencias» 🡒 Xeral 🡒 Eventos do calendario par aactivalo."
+"Mode mostrar os eventos do calendario do sistema no Planify. Vaia a "
+"«Preferencias» 🡒 Xeral 🡒 Eventos do calendario par aactivalo."
 
 #: core/Utils/Util.vala:701
 msgid "Enable synchronization with third-party services"
@@ -1812,8 +1814,10 @@ msgstr "Eliminar todas as tarefas concluídas"
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
-msgstr[0] "Isto elimina %d tarefa concluída e as súas subtarefas do proxecto %s"
-msgstr[1] "Isto elimina %d tarefas concluídas e as súas subtarefas do proxecto %s"
+msgstr[0] ""
+"Isto elimina %d tarefa concluída e as súas subtarefas do proxecto %s"
+msgstr[1] ""
+"Isto elimina %d tarefas concluídas e as súas subtarefas do proxecto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:992
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
@@ -1945,7 +1949,8 @@ msgstr "Contas configuradas nas Contas en liña de GNOME"
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
 msgstr[0] "%d conta dispoñíbel para ser importada das Contas na liña de GNOME"
-msgstr[1] "%d contas dispoñíbeis para seren importadas das Contas na liña de GNOME"
+msgstr[1] ""
+"%d contas dispoñíbeis para seren importadas das Contas na liña de GNOME"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
@@ -2048,8 +2053,8 @@ msgid ""
 "tasks that you'll organize later"
 msgstr ""
 "O seu inicio (ou caixa de entrada) é o lugar predeterminado no que se "
-"colocan as tarefas novas. Seguindo a metodoloxía «Getting Things Done» («"
-"Lograr rematar as cousas») de David Allen, é o punto de captura de ideas "
+"colocan as tarefas novas. Seguindo a metodoloxía «Getting Things Done» "
+"(«Lograr rematar as cousas») de David Allen, é o punto de captura de ideas "
 "rápidas e tarefas que se poderán organizar máis tarde"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
@@ -2301,7 +2306,8 @@ msgstr "Copias de seguranza que manter"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 msgid "Older backups are removed automatically. Zero keeps them all"
-msgstr "As copias máis antigas retíranse automaticamente. Cero consérvaas todas"
+msgstr ""
+"As copias máis antigas retíranse automaticamente. Cero consérvaas todas"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
 msgid "Create Backup"

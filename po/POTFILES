@@ -149,6 +149,7 @@ src/Layouts/ItemBase.vala
 src/Layouts/ItemBoard.vala
 src/Layouts/ItemRow.vala
 src/Layouts/ItemSidebarView.vala
+src/Layouts/ItemSortFilter.vala
 src/Layouts/LabelRow.vala
 src/Layouts/ProjectContainerRow.vala
 src/Layouts/ProjectRow.vala

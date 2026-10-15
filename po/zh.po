@@ -101,6 +101,7 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
 msgid "Priority"
 msgstr "优先级"
 
@@ -110,7 +111,7 @@ msgstr "标签"
 
 #: core/Enum.vala:351 src/Views/Filter.vala:931
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
-#: src/Views/Today.vala:843
+#: src/Views/Today.vala:843 src/Layouts/ItemSortFilter.vala:69
 msgid "Due Date"
 msgstr "截止日期"
 
@@ -286,6 +287,7 @@ msgstr "近期"
 #: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
 #: src/Views/Filter.vala:1070 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Layouts/ItemSortFilter.vala:82 src/Layouts/ItemSortFilter.vala:264
 msgid "Today"
 msgstr "今天"
 
@@ -371,7 +373,7 @@ msgstr "无法撤销"
 #: src/Services/BackupManager.vala:228 src/Views/Filter.vala:907
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:815
 msgid "Cancel"
 msgstr "取消"
 
@@ -384,7 +386,7 @@ msgstr "取消"
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
 #: src/Views/Filter.vala:908 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
-#: src/Widgets/MultiSelectToolbar.vala:345
+#: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:816
 msgid "Delete"
 msgstr "删除"
 
@@ -1745,7 +1747,7 @@ msgid "No completed tasks yet."
 msgstr "暂无已完成的任务。"
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:876
+#: src/Views/Filter.vala:876 src/Views/Filter.vala:784
 msgid "Delete All Completed Tasks"
 msgstr "删除所有已完成的任务"
 
@@ -1758,14 +1760,15 @@ msgstr[0] "此操作将从项目 %s 中删除 %d 个已完成的任务及其子�
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:992
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
-#: src/Views/Today.vala:910
+#: src/Views/Today.vala:910 src/Layouts/ItemSortFilter.vala:130
 msgid "Filter By"
 msgstr "筛选方式"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
 #: src/Layouts/ItemRow.vala:1261 src/Views/Filter.vala:949
 #: src/Views/Filter.vala:1085 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Views/Project/Project.vala:749 src/Layouts/ItemSortFilter.vala:87
+#: src/Layouts/ItemSortFilter.vala:279
 msgid "No Date"
 msgstr "无日期"
 
@@ -2412,7 +2415,7 @@ msgstr "自定义排序"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:930
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:842
+#: src/Views/Today.vala:842 src/Layouts/ItemSortFilter.vala:68
 msgid "Alphabetically"
 msgstr "按字母顺序"
 
@@ -3242,7 +3245,7 @@ msgid "Add tasks"
 msgstr "添加任务"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:197
+#: src/Views/Filter.vala:197 src/Views/Filter.vala:185
 msgid "Load more"
 msgstr "加载更多"
 
@@ -3265,6 +3268,7 @@ msgid "Delete Section"
 msgstr "删除分区"
 
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
+#: src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr "没有更多任务"
 
@@ -3414,23 +3418,28 @@ msgstr "所有项目"
 
 #: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92
+#: src/Views/Today.vala:92 src/Views/Filter.vala:146
+#: src/Views/Label/Label.vala:78
 msgid "View Option Menu"
 msgstr "查看选项菜单"
 
 #: src/Views/Filter.vala:218 src/Views/Filter.vala:827
 #: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:309
+#: src/Views/Filter.vala:206 src/Views/Filter.vala:763
+#: src/Views/Label/Label.vala:152 src/Views/Label/Label.vala:270
 msgid "Add Some Tasks"
 msgstr "添加一些任务"
 
 #: src/Views/Filter.vala:219 src/Views/Filter.vala:828
 #: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
 #: src/Views/Project/List.vala:118 src/Views/Today.vala:310
+#: src/Views/Filter.vala:207 src/Views/Filter.vala:764
+#: src/Views/Label/Label.vala:153 src/Views/Label/Label.vala:271
 msgid "Press 'a' to create a new task"
 msgstr "按 'a' 创建新任务"
 
-#: src/Views/Filter.vala:580
+#: src/Views/Filter.vala:580 src/Views/Filter.vala:539
 msgid "tasks"
 msgstr "任务"
 
@@ -3442,11 +3451,11 @@ msgstr "未完成的任务"
 msgid "No tasks found for the selected projects"
 msgstr "在选中的项目中没有找到任务"
 
-#: src/Views/Filter.vala:821
+#: src/Views/Filter.vala:821 src/Views/Filter.vala:757
 msgid "All tasks completed!"
 msgstr "所有任务已完成！"
 
-#: src/Views/Filter.vala:822
+#: src/Views/Filter.vala:822 src/Views/Filter.vala:758
 msgid "Great job, nothing left to do 🎉"
 msgstr "太棒了，没有待办事项了 🎉"
 
@@ -3464,12 +3473,12 @@ msgid "%d Project"
 msgid_plural "%d Projects"
 msgstr[0] "%d个项目"
 
-#: src/Views/Filter.vala:895
+#: src/Views/Filter.vala:895 src/Views/Filter.vala:803
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "删除已完成的任务"
 
-#: src/Views/Filter.vala:900
+#: src/Views/Filter.vala:900 src/Views/Filter.vala:808
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -3477,6 +3486,7 @@ msgstr[0] "这将删除 %d 个已完成的任务及其子任务"
 
 #: src/Views/Filter.vala:925 src/Views/Project/Project.vala:553
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
+#: src/Layouts/ItemSortFilter.vala:63
 msgid "Sorting"
 msgstr "排序"
 
@@ -3486,73 +3496,88 @@ msgstr "项目"
 
 #: src/Views/Filter.vala:932 src/Views/Project/Project.vala:559
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
+#: src/Layouts/ItemSortFilter.vala:70
 msgid "Date Added"
 msgstr "添加日期"
 
 #: src/Views/Filter.vala:933 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
+#: src/Layouts/ItemSortFilter.vala:71
 msgid "Date Modified"
 msgstr "修改日期"
 
 #: src/Views/Filter.vala:936 src/Views/Project/Project.vala:563
+#: src/Layouts/ItemSortFilter.vala:74
 msgid "Ascending Order"
 msgstr "升序"
 
 #: src/Views/Filter.vala:940 src/Views/Project/Project.vala:569
+#: src/Layouts/ItemSortFilter.vala:78
 msgid "Duedate"
 msgstr "截止日期"
 
 #: src/Views/Filter.vala:943 src/Views/Filter.vala:1088
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:572 src/Layouts/ItemSortFilter.vala:81
+#: src/Layouts/ItemSortFilter.vala:282
 msgid "All (default)"
 msgstr "全部（默认）"
 
 #: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
 #: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
 msgid "This Week"
 msgstr "本周"
 
 #: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
 #: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
 msgid "Next 7 Days"
 msgstr "未来 7 天"
 
 #: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
 #: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
 msgid "This Month"
 msgstr "本月"
 
 #: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
 #: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
 msgid "Next 30 Days"
 msgstr "未来 30 天"
 
 #: src/Views/Filter.vala:954 src/Views/Project/Project.vala:584
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
+#: src/Layouts/ItemSortFilter.vala:92
 msgid "P1"
 msgstr "P1"
 
 #: src/Views/Filter.vala:959 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
+#: src/Layouts/ItemSortFilter.vala:97
 msgid "P2"
 msgstr "P2"
 
 #: src/Views/Filter.vala:964 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
+#: src/Layouts/ItemSortFilter.vala:102
 msgid "P3"
 msgstr "P3"
 
 #: src/Views/Filter.vala:969 src/Views/Project/Project.vala:602
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
+#: src/Layouts/ItemSortFilter.vala:107
 msgid "P4"
 msgstr "P4"
 
 #: src/Views/Filter.vala:976 src/Views/Project/Project.vala:609
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
+#: src/Layouts/ItemSortFilter.vala:114
 msgid "Filter by Labels"
 msgstr "按标签筛选"
 
 #: src/Views/Filter.vala:982 src/Views/Project/Project.vala:647
+#: src/Layouts/ItemSortFilter.vala:120
 msgid "Sort By"
 msgstr "排序方式"
 

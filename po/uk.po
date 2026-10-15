@@ -114,6 +114,7 @@ msgstr "CalDAV"
 #: src/Views/Filter.vala:922 src/Views/Filter.vala:961
 #: src/Views/Filter.vala:927 src/Views/Filter.vala:966 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Views/Filter.vala:934 src/Views/Filter.vala:973
+#: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
 msgid "Priority"
 msgstr "Пріоритет"
 
@@ -125,6 +126,7 @@ msgstr "Мітки"
 #: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:840
 #: src/Views/Filter.vala:902 src/Views/Filter.vala:919
 #: src/Views/Filter.vala:924 src/Views/Today.vala:843 src/Views/Filter.vala:931
+#: src/Layouts/ItemSortFilter.vala:69
 msgid "Due Date"
 msgstr "Дата виконання"
 
@@ -307,7 +309,8 @@ msgstr "майбутні"
 #: src/Views/Filter.vala:937 src/Views/Filter.vala:1063
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
-#: src/Views/Filter.vala:1070
+#: src/Views/Filter.vala:1070 src/Layouts/ItemSortFilter.vala:82
+#: src/Layouts/ItemSortFilter.vala:264
 msgid "Today"
 msgstr "Сьогодні"
 
@@ -409,7 +412,7 @@ msgstr "Це не можна скасувати"
 #: src/Views/Filter.vala:895 src/Views/Filter.vala:900
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Services/BackupManager.vala:228 src/Layouts/ItemSidebarView.vala:622
-#: src/Views/Filter.vala:907 core/Utils/Util.vala:479
+#: src/Views/Filter.vala:907 core/Utils/Util.vala:479 src/Views/Filter.vala:815
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -426,7 +429,7 @@ msgstr "Скасувати"
 #: src/Views/Filter.vala:896 src/Views/Filter.vala:901
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
-#: src/Views/Filter.vala:908
+#: src/Views/Filter.vala:908 src/Views/Filter.vala:816
 msgid "Delete"
 msgstr "Видалити"
 
@@ -1926,7 +1929,7 @@ msgstr "Поки що немає виконаних завдань."
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
 #: src/Views/Filter.vala:664 src/Views/Filter.vala:847
 #: src/Views/Filter.vala:864 src/Views/Filter.vala:869
-#: src/Views/Filter.vala:876
+#: src/Views/Filter.vala:876 src/Views/Filter.vala:784
 msgid "Delete All Completed Tasks"
 msgstr "Видалити всі виконані завдання"
 
@@ -1945,6 +1948,7 @@ msgstr[1] ""
 #: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:907
 #: src/Views/Filter.vala:963 src/Views/Filter.vala:980
 #: src/Views/Filter.vala:985 src/Views/Today.vala:910 src/Views/Filter.vala:992
+#: src/Layouts/ItemSortFilter.vala:130
 msgid "Filter By"
 msgstr "Фільтр"
 
@@ -1955,6 +1959,7 @@ msgstr "Фільтр"
 #: src/Views/Filter.vala:1073 src/Views/Filter.vala:942
 #: src/Views/Filter.vala:1078 src/Layouts/ItemRow.vala:1261
 #: src/Views/Filter.vala:949 src/Views/Filter.vala:1085
+#: src/Layouts/ItemSortFilter.vala:87 src/Layouts/ItemSortFilter.vala:279
 msgid "No Date"
 msgstr "Без дати"
 
@@ -2649,6 +2654,7 @@ msgstr "Вручну"
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:839 src/Views/Filter.vala:901 src/Views/Filter.vala:918
 #: src/Views/Filter.vala:923 src/Views/Today.vala:842 src/Views/Filter.vala:930
+#: src/Layouts/ItemSortFilter.vala:68
 msgid "Alphabetically"
 msgstr "Алфавітом"
 
@@ -3518,6 +3524,7 @@ msgstr "Додати завдання"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
 #: src/Views/Filter.vala:147 src/Views/Filter.vala:197
+#: src/Views/Filter.vala:185
 msgid "Load more"
 msgstr "Завантажити більше"
 
@@ -3699,7 +3706,8 @@ msgstr "Усі проєкти"
 
 #: src/Views/Filter.vala:129 src/Views/Label/Labels.vala:45
 #: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92 src/Views/Filter.vala:158
+#: src/Views/Today.vala:92 src/Views/Filter.vala:158 src/Views/Filter.vala:146
+#: src/Views/Label/Label.vala:78
 msgid "View Option Menu"
 msgstr "Показати меню параметрів"
 
@@ -3708,7 +3716,9 @@ msgstr "Показати меню параметрів"
 #: src/Views/Project/List.vala:117 src/Views/Today.vala:309
 #: src/Views/Filter.vala:218 src/Views/Filter.vala:798
 #: src/Views/Filter.vala:815 src/Views/Filter.vala:820
-#: src/Views/Filter.vala:827
+#: src/Views/Filter.vala:827 src/Views/Filter.vala:206
+#: src/Views/Filter.vala:763 src/Views/Label/Label.vala:152
+#: src/Views/Label/Label.vala:270
 msgid "Add Some Tasks"
 msgstr "Додати завдання"
 
@@ -3717,11 +3727,14 @@ msgstr "Додати завдання"
 #: src/Views/Project/List.vala:118 src/Views/Today.vala:310
 #: src/Views/Filter.vala:219 src/Views/Filter.vala:799
 #: src/Views/Filter.vala:816 src/Views/Filter.vala:821
-#: src/Views/Filter.vala:828
+#: src/Views/Filter.vala:828 src/Views/Filter.vala:207
+#: src/Views/Filter.vala:764 src/Views/Label/Label.vala:153
+#: src/Views/Label/Label.vala:271
 msgid "Press 'a' to create a new task"
 msgstr "Натисніть «a», щоб створити нове завдання"
 
 #: src/Views/Filter.vala:405 src/Views/Filter.vala:580
+#: src/Views/Filter.vala:539
 msgid "tasks"
 msgstr "завдання"
 
@@ -3737,19 +3750,19 @@ msgstr "Не знайдено завдань для вибраних проєк�
 
 #: src/Views/Filter.vala:616 src/Views/Filter.vala:792
 #: src/Views/Filter.vala:809 src/Views/Filter.vala:814
-#: src/Views/Filter.vala:821
+#: src/Views/Filter.vala:821 src/Views/Filter.vala:757
 msgid "All tasks completed!"
 msgstr "Всі завдання виконано!"
 
 #: src/Views/Filter.vala:617 src/Views/Filter.vala:793
 #: src/Views/Filter.vala:810 src/Views/Filter.vala:815
-#: src/Views/Filter.vala:822
+#: src/Views/Filter.vala:822 src/Views/Filter.vala:758
 msgid "Great job, nothing left to do 🎉"
 msgstr "Чудова робота, більше нічого не залишилося робити 🎉"
 
 #: src/Views/Filter.vala:658 src/Views/Filter.vala:837
 #: src/Views/Filter.vala:854 src/Views/Filter.vala:859
-#: src/Views/Filter.vala:866
+#: src/Views/Filter.vala:866 src/Views/Filter.vala:774
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
@@ -3758,7 +3771,7 @@ msgstr[1] ""
 
 #: src/Views/Filter.vala:683 src/Views/Filter.vala:866
 #: src/Views/Filter.vala:883 src/Views/Filter.vala:888
-#: src/Views/Filter.vala:895
+#: src/Views/Filter.vala:895 src/Views/Filter.vala:803
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Видалити виконане завдання"
@@ -3767,7 +3780,7 @@ msgstr[1] "Видалити виконані завдання"
 # # c-format
 #: src/Views/Filter.vala:688 src/Views/Filter.vala:871
 #: src/Views/Filter.vala:888 src/Views/Filter.vala:893
-#: src/Views/Filter.vala:900
+#: src/Views/Filter.vala:900 src/Views/Filter.vala:808
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
@@ -3860,6 +3873,7 @@ msgstr "Дошка"
 #: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:836 src/Views/Filter.vala:896 src/Views/Filter.vala:913
 #: src/Views/Filter.vala:918 src/Views/Today.vala:839 src/Views/Filter.vala:925
+#: src/Layouts/ItemSortFilter.vala:63
 msgid "Sorting"
 msgstr "Сортування"
 
@@ -3870,24 +3884,25 @@ msgstr "Вручну"
 #: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:234
 #: src/Views/Today.vala:841 src/Views/Filter.vala:903 src/Views/Filter.vala:920
 #: src/Views/Filter.vala:925 src/Views/Today.vala:844 src/Views/Filter.vala:932
+#: src/Layouts/ItemSortFilter.vala:70
 msgid "Date Added"
 msgstr "Датою додавання"
 
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:842 src/Views/Filter.vala:926 src/Views/Today.vala:845
-#: src/Views/Filter.vala:933
+#: src/Views/Filter.vala:933 src/Layouts/ItemSortFilter.vala:71
 msgid "Date Modified"
 msgstr "За датою зміни"
 
 #: src/Views/Project/Project.vala:563 src/Views/Filter.vala:907
 #: src/Views/Filter.vala:924 src/Views/Filter.vala:929
-#: src/Views/Filter.vala:936
+#: src/Views/Filter.vala:936 src/Layouts/ItemSortFilter.vala:74
 msgid "Ascending Order"
 msgstr "За зростанням"
 
 #: src/Views/Project/Project.vala:569 src/Views/Filter.vala:911
 #: src/Views/Filter.vala:928 src/Views/Filter.vala:933
-#: src/Views/Filter.vala:940
+#: src/Views/Filter.vala:940 src/Layouts/ItemSortFilter.vala:78
 msgid "Duedate"
 msgstr "Дата виконання"
 
@@ -3895,7 +3910,8 @@ msgstr "Дата виконання"
 #: src/Views/Filter.vala:1059 src/Views/Filter.vala:931
 #: src/Views/Filter.vala:1076 src/Views/Filter.vala:936
 #: src/Views/Filter.vala:1081 src/Views/Filter.vala:943
-#: src/Views/Filter.vala:1088
+#: src/Views/Filter.vala:1088 src/Layouts/ItemSortFilter.vala:81
+#: src/Layouts/ItemSortFilter.vala:282
 msgid "All (default)"
 msgstr "Всі (типово)"
 
@@ -3904,6 +3920,7 @@ msgstr "Всі (типово)"
 #: src/Views/Filter.vala:933 src/Views/Filter.vala:1061
 #: src/Views/Filter.vala:938 src/Views/Filter.vala:1066
 #: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
+#: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
 msgid "This Week"
 msgstr "Цього тижня"
 
@@ -3912,6 +3929,7 @@ msgstr "Цього тижня"
 #: src/Views/Filter.vala:934 src/Views/Filter.vala:1064
 #: src/Views/Filter.vala:939 src/Views/Filter.vala:1069
 #: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
+#: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
 msgid "Next 7 Days"
 msgstr "Наступні 7 днів"
 
@@ -3920,6 +3938,7 @@ msgstr "Наступні 7 днів"
 #: src/Views/Filter.vala:935 src/Views/Filter.vala:1067
 #: src/Views/Filter.vala:940 src/Views/Filter.vala:1072
 #: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
+#: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
 msgid "This Month"
 msgstr "Цього місяця"
 
@@ -3928,36 +3947,42 @@ msgstr "Цього місяця"
 #: src/Views/Filter.vala:936 src/Views/Filter.vala:1070
 #: src/Views/Filter.vala:941 src/Views/Filter.vala:1075
 #: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
+#: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
 msgid "Next 30 Days"
 msgstr "Наступні 30 днів"
 
 #: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:850 src/Views/Filter.vala:925 src/Views/Filter.vala:942
 #: src/Views/Filter.vala:947 src/Views/Today.vala:853 src/Views/Filter.vala:954
+#: src/Layouts/ItemSortFilter.vala:92
 msgid "P1"
 msgstr "П1"
 
 #: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:856 src/Views/Filter.vala:930 src/Views/Filter.vala:947
 #: src/Views/Filter.vala:952 src/Views/Today.vala:859 src/Views/Filter.vala:959
+#: src/Layouts/ItemSortFilter.vala:97
 msgid "P2"
 msgstr "П2"
 
 #: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:862 src/Views/Filter.vala:935 src/Views/Filter.vala:952
 #: src/Views/Filter.vala:957 src/Views/Today.vala:865 src/Views/Filter.vala:964
+#: src/Layouts/ItemSortFilter.vala:102
 msgid "P3"
 msgstr "П3"
 
 #: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:261
 #: src/Views/Today.vala:868 src/Views/Filter.vala:940 src/Views/Filter.vala:957
 #: src/Views/Filter.vala:962 src/Views/Today.vala:871 src/Views/Filter.vala:969
+#: src/Layouts/ItemSortFilter.vala:107
 msgid "P4"
 msgstr "П4"
 
 #: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:268
 #: src/Views/Today.vala:875 src/Views/Filter.vala:947 src/Views/Filter.vala:964
 #: src/Views/Filter.vala:969 src/Views/Today.vala:878 src/Views/Filter.vala:976
+#: src/Layouts/ItemSortFilter.vala:114
 msgid "Filter by Labels"
 msgstr "Фільтрувати за мітками"
 
@@ -3977,7 +4002,7 @@ msgstr "Пошук виконаних завдань"
 
 #: src/Views/Project/Project.vala:647 src/Views/Filter.vala:953
 #: src/Views/Filter.vala:970 src/Views/Filter.vala:975
-#: src/Views/Filter.vala:982
+#: src/Views/Filter.vala:982 src/Layouts/ItemSortFilter.vala:120
 msgid "Sort By"
 msgstr "Сортувати за"
 
@@ -4413,16 +4438,19 @@ msgstr "Відкрити «Закріплені»"
 
 #: src/Views/Filter.vala:795 src/Views/Filter.vala:812
 #: src/Views/Filter.vala:817 src/Views/Filter.vala:824
+#: src/Views/Filter.vala:760 src/Views/Label/Label.vala:267
 msgid "No tasks found"
 msgstr ""
 
 #: src/Views/Filter.vala:796 src/Views/Filter.vala:813
 #: src/Views/Filter.vala:818 src/Views/Filter.vala:825
+#: src/Views/Filter.vala:761 src/Views/Label/Label.vala:268
 msgid "No tasks match the selected filters"
 msgstr ""
 
 #: src/Views/Filter.vala:900 src/Views/Filter.vala:917
 #: src/Views/Filter.vala:922 src/Views/Filter.vala:929
+#: src/Layouts/ItemSortFilter.vala:67
 msgid "Project"
 msgstr ""
 
