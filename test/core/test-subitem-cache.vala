@@ -25,9 +25,9 @@
  * example a project view opened for the first time after adding a subtask from All Tasks)
  * renders the stale list.
  *
- * Services.Store reads its collections from Services.Database, so the tests open a throwaway
- * database under the XDG_DATA_HOME that test/meson.build sets. The Store is a singleton shared
- * by every test, so each test uses its own ids.
+ * Services.Store reads its collections from Services.Database, so the tests use the shared
+ * scratch database (scratch-database.vala). The Store is a singleton shared by every test, so
+ * each test uses its own ids.
  */
 
 namespace Planify.Tests.SubitemCache {
@@ -39,27 +39,7 @@ namespace Planify.Tests.SubitemCache {
             return;
         }
 
-        // test/meson.build points XDG_DATA_HOME at a scratch dir. GLib caches the user data
-        // dir on first use, so it cannot be redirected from here; refuse to run rather than
-        // open the real database.
-        string data_home = Environment.get_variable ("XDG_DATA_HOME");
-        if (data_home == null || Environment.get_user_data_dir () != data_home ||
-            !data_home.has_suffix ("/test-core-data")) {
-            error ("XDG_DATA_HOME must point at the test-core-data scratch dir");
-        }
-
-        string app_dir = data_home + "/io.github.alainm23.planify";
-        DirUtils.create_with_parents (app_dir, 0700);
-        // Start from an empty database on every run.
-        FileUtils.remove (app_dir + "/database.db");
-
-        Services.Database.get_default ().init_database ();
-
-        // Load the Store's collections now, as app startup does. Loaded lazily after the first
-        // insert, they would read that row back from the database as a second instance, and
-        // Store.get_item () would return the copy instead of the test's object.
-        assert_cmpint (Services.Store.instance ().projects.size, CompareOperator.EQ, 0);
-        assert_cmpint (Services.Store.instance ().items.size, CompareOperator.EQ, 0);
+        ScratchDatabase.open ();
 
         // Store.insert_item () notifies a top-level task's project, so it has to exist.
         var project = new Objects.Project ();
