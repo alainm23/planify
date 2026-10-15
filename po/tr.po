@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-03 23:43+0000\n"
-"Last-Translator: Akın Birdal <reend21@protonmail.com>\n"
+"PO-Revision-Date: 2026-10-15 17:53+0000\n"
+"Last-Translator: Akın Birdal <reend21@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
 "Language: tr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.1.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -3124,34 +3124,34 @@ msgstr "Özet & Verimlilik"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
-msgstr ""
+msgstr "Planlanmış Görevleri Hedef Olarak Kullan"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr ""
+msgstr "Bugünün planlanmış görevini günlük hedefiniz olarak kullanın"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 #: src/Widgets/ProductivityMiniWidget.vala:31
 msgid "Daily Goal"
-msgstr ""
+msgstr "Günlük Hedef"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Haftalık Hedef"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
-msgstr ""
+msgstr "Kararlaştırılmış Hedefler"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
-msgstr ""
+msgstr "Özet Detayları"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Detaylı özetler burada belirecek"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
@@ -3160,16 +3160,16 @@ msgstr "Özet"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
-msgstr ""
+msgstr "Üretkenlik Detayları"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Üretkenlik Detayları istatistikleriniz burada belirecek"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
-msgstr ""
+msgstr "Üretkenlik"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -3181,39 +3181,39 @@ msgstr "Proje oluştur"
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
 #: src/Widgets/ProductivityMiniWidget.vala:76
 msgid "(scheduled)"
-msgstr ""
+msgstr "(planlanmış)"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Tüm hedeflerine ulaştın! Yürü be, kim tutar seni?"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Günlük hedefini hallettin! Böyle devam şampiyon"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Haftalık hedefine ulaştın! Haftanın geri kalanında rahatına bak"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "Güne başlama zamanı, ilk görevin bekliyor"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Bitti bitecek! Bugün sadece bir kaç görevin kaldı"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Bu hafta harika bir çaba gösterdin, neredeyse hedefine ulaştın"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Günlük hedefini yarıladın, iyi gidiyorsun"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Sağlam bir hafta geçiriyorsun, böyle devam"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
