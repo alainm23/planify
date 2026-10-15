@@ -362,6 +362,7 @@ msgstr "Xóa Nhãn %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
+#: src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "Không thể hoàn tác"
 
@@ -383,6 +384,7 @@ msgstr "Không thể hoàn tác"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:907
 #: core/Utils/Util.vala:479 src/Views/Filter.vala:815
+#: src/Services/BackupManager.vala:232
 msgid "Cancel"
 msgstr "Hủy"
 
@@ -396,7 +398,7 @@ msgstr "Hủy"
 #: src/Views/Filter.vala:901 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:908
-#: src/Views/Filter.vala:816
+#: src/Views/Filter.vala:816 src/Services/BackupManager.vala:233
 msgid "Delete"
 msgstr "Xóa"
 
@@ -3483,32 +3485,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Đặt Lại Cơ Sở Dữ Liệu"
 
-#: src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:154 src/Services/BackupManager.vala:158
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:200 src/Services/BackupManager.vala:204
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:224 src/Services/BackupManager.vala:228
 msgid "Delete Backup"
 msgstr "Xóa Sao Lưu"
 
-#: src/Services/BackupManager.vala:394
+#: src/Services/BackupManager.vala:394 src/Services/BackupManager.vala:398
 msgid "Backup Successfully Imported"
 msgstr "Nhập Sao Lưu Thành Công"
 
-#: src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:395 src/Services/BackupManager.vala:399
 msgid "Planify will restart to apply the changes"
 msgstr "Planify sẽ khởi động lại để áp dụng các thay đổi"
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:402
 msgid "Restart Now"
 msgstr "Khởi Động Lại Ngay"
 
-#: src/Services/BackupManager.vala:412
+#: src/Services/BackupManager.vala:412 src/Services/BackupManager.vala:416
 msgid "Planify Backup Files"
 msgstr "Tệp Sao Lưu Planify"
 

@@ -389,6 +389,7 @@ msgstr "Видалити мітку %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:604 src/Services/BackupManager.vala:224
 #: src/Services/BackupManager.vala:225 src/Layouts/ItemSidebarView.vala:619
+#: src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "Це не можна скасувати"
 
@@ -413,6 +414,7 @@ msgstr "Це не можна скасувати"
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Services/BackupManager.vala:228 src/Layouts/ItemSidebarView.vala:622
 #: src/Views/Filter.vala:907 core/Utils/Util.vala:479 src/Views/Filter.vala:815
+#: src/Services/BackupManager.vala:232
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -430,6 +432,7 @@ msgstr "Скасувати"
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
 #: src/Views/Filter.vala:908 src/Views/Filter.vala:816
+#: src/Services/BackupManager.vala:233
 msgid "Delete"
 msgstr "Видалити"
 
@@ -3658,6 +3661,7 @@ msgid "Reset Database"
 msgstr "Скинути базу даних"
 
 #: src/Services/BackupManager.vala:153 src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:158
 msgid "Automatic backup failed"
 msgstr ""
 
@@ -3667,22 +3671,27 @@ msgid "Failed to copy backup to %s"
 msgstr "Не вдалося скопіювати резервну копію до %s"
 
 #: src/Services/BackupManager.vala:223 src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:228
 msgid "Delete Backup"
 msgstr "Видалити резервну копію"
 
 #: src/Services/BackupManager.vala:355 src/Services/BackupManager.vala:394
+#: src/Services/BackupManager.vala:398
 msgid "Backup Successfully Imported"
 msgstr "Резервну копію успішно імпортовано"
 
 #: src/Services/BackupManager.vala:356 src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:399
 msgid "Planify will restart to apply the changes"
 msgstr "Planify перезавантажиться, щоб застосувати зміни"
 
 #: src/Services/BackupManager.vala:359 src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:402
 msgid "Restart Now"
 msgstr "Перезавантажити зараз"
 
 #: src/Services/BackupManager.vala:373 src/Services/BackupManager.vala:412
+#: src/Services/BackupManager.vala:416
 msgid "Planify Backup Files"
 msgstr "Планування резервних копій файлів"
 
