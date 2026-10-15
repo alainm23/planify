@@ -109,7 +109,7 @@ msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
-#: src/Views/Filter.vala:934 src/Views/Filter.vala:973
+#: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
 #: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
@@ -121,7 +121,7 @@ msgstr "Prioritet"
 msgid "Label"
 msgstr "Etiketa"
 
-#: core/Enum.vala:351 src/Views/Filter.vala:931
+#: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
@@ -296,8 +296,8 @@ msgstr "predstojeći"
 #: core/Widgets/Calendar/CalendarScroll.vala:56
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
-#: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
-#: src/Views/Filter.vala:1070 src/Views/Project/Project.vala:573
+#: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
+#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 msgid "Today"
 msgstr "Danas"
@@ -334,23 +334,23 @@ msgstr "nema etikete"
 msgid "unlabeled"
 msgstr "bez etikete"
 
-#: core/Objects/Item.vala:1619 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Rok:"
 
-#: core/Objects/Item.vala:1644
+#: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
 msgstr "Zadatak je kopiran u međuspremnik"
 
-#: core/Objects/Item.vala:1661
+#: core/Objects/Item.vala:1692
 msgid "iCalendar Files"
 msgstr "iCalendar datoteke"
 
-#: core/Objects/Item.vala:1677
+#: core/Objects/Item.vala:1708
 msgid "Task exported successfully"
 msgstr "Zadatak je uspješno izvezen"
 
-#: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Premješteno u %s"
@@ -364,7 +364,7 @@ msgstr "Izbriši etiketu %s"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "Ovo se ne može poništiti"
 
@@ -381,7 +381,7 @@ msgstr "Ovo se ne može poništiti"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
-#: src/Services/BackupManager.vala:228 src/Views/Filter.vala:907
+#: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
@@ -394,8 +394,8 @@ msgstr "Odustani"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
-#: src/Views/Filter.vala:908 src/Widgets/AttachmentRow.vala:52
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
+#: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
@@ -1812,7 +1812,7 @@ msgid "No completed tasks yet."
 msgstr "Još nema završenih zadataka."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:876
+#: src/Views/Filter.vala:784
 msgid "Delete All Completed Tasks"
 msgstr "Izbriši sve završene zadatke"
 
@@ -1828,15 +1828,15 @@ msgstr[1] ""
 msgstr[2] ""
 "Ovo će izbrisati %d završenih zadataka i njihove podzadatke iz projekta %s"
 
-#: src/Dialogs/CompletedTasks.vala:322 src/Views/Filter.vala:992
+#: src/Dialogs/CompletedTasks.vala:322 src/Layouts/ItemSortFilter.vala:130
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:910
 msgid "Filter By"
 msgstr "Filtriraj po"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
-#: src/Layouts/ItemRow.vala:1261 src/Views/Filter.vala:949
-#: src/Views/Filter.vala:1085 src/Views/Project/Project.vala:578
+#: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSortFilter.vala:87
+#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:578
 #: src/Views/Project/Project.vala:749
 msgid "No Date"
 msgstr "Bez datuma"
@@ -2498,9 +2498,9 @@ msgstr "Opće"
 msgid "Custom Sort Order"
 msgstr "Prilagođeni redoslijed razvrstavanja"
 
-#: src/Dialogs/Preferences/Pages/General.vala:37 src/Views/Filter.vala:930
-#: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
-#: src/Views/Today.vala:842
+#: src/Dialogs/Preferences/Pages/General.vala:37
+#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:557
+#: src/Views/Scheduled/Scheduled.vala:232 src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr "Abecednim redom"
 
@@ -3292,6 +3292,87 @@ msgstr "Proširi opis"
 msgid "Are you sure you want to delete?"
 msgstr "Stvarno želiš izbrisati?"
 
+#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:553
+#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
+msgid "Sorting"
+msgstr "Razvrstavanje"
+
+#: src/Layouts/ItemSortFilter.vala:67
+msgid "Project"
+msgstr ""
+
+#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:559
+#: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
+msgid "Date Added"
+msgstr "Datum dodavanja"
+
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:560
+#: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
+msgid "Date Modified"
+msgstr ""
+
+#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:563
+msgid "Ascending Order"
+msgstr "Uzlazni redoslijed"
+
+#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:569
+msgid "Duedate"
+msgstr "Datum roka"
+
+#: src/Layouts/ItemSortFilter.vala:81 src/Layouts/ItemSortFilter.vala:282
+#: src/Views/Project/Project.vala:572
+msgid "All (default)"
+msgstr "Sve (standardno)"
+
+#: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
+#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+msgid "This Week"
+msgstr "Ovaj tjedan"
+
+#: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
+#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+msgid "Next 7 Days"
+msgstr "Sljedećih 7 dana"
+
+#: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
+#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+msgid "This Month"
+msgstr "Ovaj mjesec"
+
+#: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
+#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+msgid "Next 30 Days"
+msgstr "Sljedećih 30 dana"
+
+#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:584
+#: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
+msgid "P1"
+msgstr "P1"
+
+#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:590
+#: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
+msgid "P2"
+msgstr "P2"
+
+#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:596
+#: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
+msgid "P3"
+msgstr "P3"
+
+#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:602
+#: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
+msgid "P4"
+msgstr "P4"
+
+#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:609
+#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
+msgid "Filter by Labels"
+msgstr "Filtriraj po etiketama"
+
+#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:647
+msgid "Sort By"
+msgstr "Razvrstaj po"
+
 #: src/Layouts/LabelRow.vala:162
 msgid "Delete Label"
 msgstr "Izbriši etiketu"
@@ -3347,7 +3428,7 @@ msgid "Add tasks"
 msgstr "Dodaj zadatke"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:197
+#: src/Views/Filter.vala:185
 msgid "Load more"
 msgstr "Učitaj više"
 
@@ -3369,7 +3450,7 @@ msgstr "Prikaži završene zadatke"
 msgid "Delete Section"
 msgstr "Izbriši odjeljak"
 
-#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr ""
 
@@ -3476,32 +3557,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Resetiraj bazu podataka"
 
-#: src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:158
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:204
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:228
 msgid "Delete Backup"
 msgstr "Izbriši sigurnosnu kopiju"
 
-#: src/Services/BackupManager.vala:394
+#: src/Services/BackupManager.vala:398
 msgid "Backup Successfully Imported"
 msgstr "Sigurnosna kopija je uspješno uvezena"
 
-#: src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:399
 msgid "Planify will restart to apply the changes"
 msgstr "Planify će se ponovo pokrenuti kako bi se primijenile promjene"
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:402
 msgid "Restart Now"
 msgstr "Ponovo pokreni sada"
 
-#: src/Services/BackupManager.vala:412
+#: src/Services/BackupManager.vala:416
 msgid "Planify Backup Files"
 msgstr "Datoteke sigurnosnih kopija aplikacije Planify"
 
@@ -3517,57 +3598,59 @@ msgstr "Ponovi alarm za 30 minuta"
 msgid "Snooze for 1 hour"
 msgstr "Ponovi alarm za 1 sat"
 
-#: src/Views/Filter.vala:132 src/Views/Filter.vala:864
+#: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
 msgstr ""
 
-#: src/Views/Filter.vala:158 src/Views/Label/Labels.vala:45
-#: src/Views/Project/Project.vala:119 src/Views/Scheduled/Scheduled.vala:61
-#: src/Views/Today.vala:92
+#: src/Views/Filter.vala:146 src/Views/Label/Label.vala:78
+#: src/Views/Label/Labels.vala:45 src/Views/Project/Project.vala:119
+#: src/Views/Scheduled/Scheduled.vala:61 src/Views/Today.vala:92
 msgid "View Option Menu"
 msgstr "Prikaz izbornika opcija"
 
-#: src/Views/Filter.vala:218 src/Views/Filter.vala:827
-#: src/Views/Label/Label.vala:97 src/Views/Project/Board.vala:121
-#: src/Views/Project/List.vala:117 src/Views/Today.vala:309
+#: src/Views/Filter.vala:206 src/Views/Filter.vala:763
+#: src/Views/Label/Label.vala:152 src/Views/Label/Label.vala:270
+#: src/Views/Project/Board.vala:121 src/Views/Project/List.vala:117
+#: src/Views/Today.vala:309
 msgid "Add Some Tasks"
 msgstr "Dodaj neke zadatke"
 
-#: src/Views/Filter.vala:219 src/Views/Filter.vala:828
-#: src/Views/Label/Label.vala:98 src/Views/Project/Board.vala:122
-#: src/Views/Project/List.vala:118 src/Views/Today.vala:310
+#: src/Views/Filter.vala:207 src/Views/Filter.vala:764
+#: src/Views/Label/Label.vala:153 src/Views/Label/Label.vala:271
+#: src/Views/Project/Board.vala:122 src/Views/Project/List.vala:118
+#: src/Views/Today.vala:310
 msgid "Press 'a' to create a new task"
 msgstr "Pritisni 'a' za stvaranje novog zadatka"
 
-#: src/Views/Filter.vala:580
+#: src/Views/Filter.vala:539
 msgid "tasks"
 msgstr "zadaci"
 
-#: src/Views/Filter.vala:818
+#: src/Views/Filter.vala:754
 msgid "No completed tasks"
 msgstr ""
 
-#: src/Views/Filter.vala:819
+#: src/Views/Filter.vala:755
 msgid "No tasks found for the selected projects"
 msgstr ""
 
-#: src/Views/Filter.vala:821
+#: src/Views/Filter.vala:757
 msgid "All tasks completed!"
 msgstr "Svi zadaci su završeni!"
 
-#: src/Views/Filter.vala:822
+#: src/Views/Filter.vala:758
 msgid "Great job, nothing left to do 🎉"
 msgstr "Odličan posao, nema ničega za obaviti 🎉"
 
-#: src/Views/Filter.vala:824
+#: src/Views/Filter.vala:760 src/Views/Label/Label.vala:267
 msgid "No tasks found"
 msgstr ""
 
-#: src/Views/Filter.vala:825
+#: src/Views/Filter.vala:761 src/Views/Label/Label.vala:268
 msgid "No tasks match the selected filters"
 msgstr ""
 
-#: src/Views/Filter.vala:866
+#: src/Views/Filter.vala:774
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
@@ -3575,101 +3658,20 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/Views/Filter.vala:895
+#: src/Views/Filter.vala:803
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
 msgstr[0] "Izbriši završeni zadatak"
 msgstr[1] "Izbriši završene zadatke"
 msgstr[2] "Izbriši završene zadatke"
 
-#: src/Views/Filter.vala:900
+#: src/Views/Filter.vala:808
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
 msgstr[0] "Ovo će izbrisati %d završeni zadatak i njegove podzadatke"
 msgstr[1] "Ovo će izbrisati %d završena zadatka i njihove podzadatke"
 msgstr[2] "Ovo će izbrisati %d završenih zadataka i njihove podzadatke"
-
-#: src/Views/Filter.vala:925 src/Views/Project/Project.vala:553
-#: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
-msgid "Sorting"
-msgstr "Razvrstavanje"
-
-#: src/Views/Filter.vala:929
-msgid "Project"
-msgstr ""
-
-#: src/Views/Filter.vala:932 src/Views/Project/Project.vala:559
-#: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
-msgid "Date Added"
-msgstr "Datum dodavanja"
-
-#: src/Views/Filter.vala:933 src/Views/Project/Project.vala:560
-#: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
-msgid "Date Modified"
-msgstr ""
-
-#: src/Views/Filter.vala:936 src/Views/Project/Project.vala:563
-msgid "Ascending Order"
-msgstr "Uzlazni redoslijed"
-
-#: src/Views/Filter.vala:940 src/Views/Project/Project.vala:569
-msgid "Duedate"
-msgstr "Datum roka"
-
-#: src/Views/Filter.vala:943 src/Views/Filter.vala:1088
-#: src/Views/Project/Project.vala:572
-msgid "All (default)"
-msgstr "Sve (standardno)"
-
-#: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
-msgid "This Week"
-msgstr "Ovaj tjedan"
-
-#: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
-#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
-msgid "Next 7 Days"
-msgstr "Sljedećih 7 dana"
-
-#: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
-msgid "This Month"
-msgstr "Ovaj mjesec"
-
-#: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
-#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
-msgid "Next 30 Days"
-msgstr "Sljedećih 30 dana"
-
-#: src/Views/Filter.vala:954 src/Views/Project/Project.vala:584
-#: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
-msgid "P1"
-msgstr "P1"
-
-#: src/Views/Filter.vala:959 src/Views/Project/Project.vala:590
-#: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
-msgid "P2"
-msgstr "P2"
-
-#: src/Views/Filter.vala:964 src/Views/Project/Project.vala:596
-#: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
-msgid "P3"
-msgstr "P3"
-
-#: src/Views/Filter.vala:969 src/Views/Project/Project.vala:602
-#: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
-msgid "P4"
-msgstr "P4"
-
-#: src/Views/Filter.vala:976 src/Views/Project/Project.vala:609
-#: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
-msgid "Filter by Labels"
-msgstr "Filtriraj po etiketama"
-
-#: src/Views/Filter.vala:982 src/Views/Project/Project.vala:647
-msgid "Sort By"
-msgstr "Razvrstaj po"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 #: src/Views/Label/LabelSourceRow.vala:125
