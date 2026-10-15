@@ -360,7 +360,7 @@ msgstr "Excluir rótulo %s"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
@@ -377,7 +377,7 @@ msgstr "Isso não pode ser desfeito"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
-#: src/Services/BackupManager.vala:228 src/Views/Filter.vala:815
+#: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
@@ -390,7 +390,7 @@ msgstr "Cancelar"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
 #: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -3593,32 +3593,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Redefinir banco de dados"
 
-#: src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:158
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:204
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:228
 msgid "Delete Backup"
 msgstr "Criar Backup"
 
-#: src/Services/BackupManager.vala:394
+#: src/Services/BackupManager.vala:398
 msgid "Backup Successfully Imported"
 msgstr "Backup importado com sucesso"
 
-#: src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:399
 msgid "Planify will restart to apply the changes"
 msgstr ""
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:402
 msgid "Restart Now"
 msgstr ""
 
-#: src/Services/BackupManager.vala:412
+#: src/Services/BackupManager.vala:416
 msgid "Planify Backup Files"
 msgstr "Planeje Arquivos de Backup"
 

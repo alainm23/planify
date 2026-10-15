@@ -358,7 +358,7 @@ msgstr "Label %s löschen"
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "Dies kann nicht rückgängig gemacht werden"
 
@@ -375,7 +375,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
-#: src/Services/BackupManager.vala:228 src/Views/Filter.vala:815
+#: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
@@ -388,7 +388,7 @@ msgstr "Abbrechen"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:229
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
 #: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -3591,32 +3591,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Datenbank zurücksetzen"
 
-#: src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:158
 msgid "Automatic backup failed"
 msgstr "Automatische Sicherung fehlgeschlagen"
 
-#: src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:204
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr "Konnte Sicherung nicht nach %s kopieren"
 
-#: src/Services/BackupManager.vala:224
+#: src/Services/BackupManager.vala:228
 msgid "Delete Backup"
 msgstr "Sicherung löschen"
 
-#: src/Services/BackupManager.vala:394
+#: src/Services/BackupManager.vala:398
 msgid "Backup Successfully Imported"
 msgstr "Sicherung erfolgreich importiert"
 
-#: src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:399
 msgid "Planify will restart to apply the changes"
 msgstr "Planify wird neu gestartet um die Änderungen anzuwenden"
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:402
 msgid "Restart Now"
 msgstr "Jetzt neustarten"
 
-#: src/Services/BackupManager.vala:412
+#: src/Services/BackupManager.vala:416
 msgid "Planify Backup Files"
 msgstr "Planify Sicherungsdateien"
 
