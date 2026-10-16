@@ -2658,7 +2658,7 @@ msgstr "Prikaži filtre u jednostavnom popisu umjesto u rešetki"
 msgid "Show in Sidebar"
 msgstr "Prikaži u bočnoj traci"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Prikaze možeš razvrstati povlačenjem i ispuštanjem"
 

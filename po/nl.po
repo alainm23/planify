@@ -2665,7 +2665,7 @@ msgstr "Filters in een eenvoudige lijst tonen i.p.v. een tabel"
 msgid "Show in Sidebar"
 msgstr "In zijbalk tonen"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Je kan je weergaves sorteren door drag-'n-drop"
 

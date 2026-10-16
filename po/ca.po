@@ -2580,7 +2580,7 @@ msgstr "Mostra els filtres en una llista en lloc d'una graella"
 msgid "Show in Sidebar"
 msgstr "Mostra a la barra lateral"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr ""
 

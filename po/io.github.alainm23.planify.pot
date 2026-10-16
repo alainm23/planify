@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-16 14:19+0000\n"
+"POT-Creation-Date: 2026-10-16 20:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2555,7 +2555,7 @@ msgstr ""
 msgid "Show in Sidebar"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr ""
 

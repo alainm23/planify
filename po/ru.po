@@ -2911,7 +2911,7 @@ msgstr "Отображение фильтров в виде простого с�
 msgid "Show in Sidebar"
 msgstr "Отображать на боковой панели"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Вы можете менять порядок своих списков, перетаскивая их"
 

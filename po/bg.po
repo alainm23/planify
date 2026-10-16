@@ -2660,7 +2660,7 @@ msgstr ""
 msgid "Show in Sidebar"
 msgstr "Показване в страничната лента"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Може да сортирате изгледите си чрез изтегляне и пускане"
 

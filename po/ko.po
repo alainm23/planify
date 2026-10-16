@@ -2624,7 +2624,7 @@ msgstr ""
 msgid "Show in Sidebar"
 msgstr "사이드바에 표시"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "끌어다 놓기로 보기를 정렬할 수 있습니다"
 

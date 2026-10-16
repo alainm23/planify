@@ -2683,7 +2683,7 @@ msgstr "Filter in einer einfachen Liste anzeigen, anstatt in einem Raster"
 msgid "Show in Sidebar"
 msgstr "In der Seitenleiste anzeigen"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Du kannst deine Ansichten per Drag & Drop sortieren"
 

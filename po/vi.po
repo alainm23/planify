@@ -2652,7 +2652,7 @@ msgstr "Hiển thị bộ lọc dưới dạng danh sách đơn giản thay vì 
 msgid "Show in Sidebar"
 msgstr "Hiển Thị Trên Thanh Bên"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Bạn có thể sắp xếp các chế độ xem bằng cách kéo và thả"
 

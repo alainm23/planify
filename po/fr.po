@@ -2661,7 +2661,7 @@ msgstr "Afficher les filtres dans une liste plutôt qu'un tableau"
 msgid "Show in Sidebar"
 msgstr "Afficher dans la barre latérale"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Vous pouvez trier vos aperçus par glisser-déposer"
 
