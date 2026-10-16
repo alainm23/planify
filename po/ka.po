@@ -700,22 +700,18 @@ msgstr "%s %s-ის წინ"
 msgid "%s %s left"
 msgstr "დარჩენილია %s %s"
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr ""
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr ""
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr ""
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -771,26 +767,21 @@ msgid_plural "%d days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#. TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr ""
 
-#. TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:866
-#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -3322,7 +3313,6 @@ msgstr ""
 msgid "Project exported as PDF"
 msgstr ""
 
-#. TRANSLATORS: Open file
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "გახსნა"
@@ -3484,19 +3474,16 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify-ის მარქაფის ფაილები"
 
-#. TRANSLATORS: Short label for reminder notification button to snooze for 10 minutes. Please keep the number/duration at the beginning (e.g. "10m Snooze") to prevent button text truncation in compact notification dialogs.
 #: src/Services/Notification.vala:100
 #, fuzzy
 msgid "10m Snooze"
 msgstr "დადუმება 10 წუთით"
 
-#. TRANSLATORS: Short label for reminder notification button to snooze for 30 minutes. Please keep the number/duration at the beginning (e.g. "30m Snooze") to prevent button text truncation in compact notification dialogs.
 #: src/Services/Notification.vala:102
 #, fuzzy
 msgid "30m Snooze"
 msgstr "დადუმება 30 წუთით"
 
-#. TRANSLATORS: Short label for reminder notification button to snooze for 1 hour. Please keep the number/duration at the beginning (e.g. "1h Snooze") to prevent button text truncation in compact notification dialogs.
 #: src/Services/Notification.vala:104
 #, fuzzy
 msgid "1h Snooze"
@@ -3909,11 +3896,11 @@ msgstr[0] "მართლა გნებავთ ამ %d გეგმის
 msgstr[1] "მართლა გნებავთ ამ %d გეგმის წაშლა?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
-msgid "%d task moved to %s"
+#, c-format
+msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "ამოცანა გადატანილია %s-ში"
-msgstr[1] "%d ამოცანა გადატანილია %s-ში"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4096,6 +4083,12 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "ამოცანა გადატანილია %s-ში"
+#~ msgstr[1] "%d ამოცანა გადატანილია %s-ში"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "დადუმება 10 წუთით"

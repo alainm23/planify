@@ -708,22 +708,18 @@ msgstr "%s %s yang lalu"
 msgid "%s %s left"
 msgstr "%s %s lagi"
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
-#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -777,26 +773,21 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d hari yang lalu"
 
-#. TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
-#. TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
-#. TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
-#. TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:866
-#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -3406,7 +3397,6 @@ msgstr "Ekspor sebagai PDF"
 msgid "Project exported as PDF"
 msgstr "Proyek berhasil diekspor sebagai PDF"
 
-#. TRANSLATORS: Open file
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Buka"
@@ -3578,19 +3568,16 @@ msgstr "Mulai Ulang Sekarang"
 msgid "Planify Backup Files"
 msgstr "Berkas Cadangan Planify"
 
-#. TRANSLATORS: Short label for reminder notification button to snooze for 10 minutes. Please keep the number/duration at the beginning (e.g. "10m Snooze") to prevent button text truncation in compact notification dialogs.
 #: src/Services/Notification.vala:100
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Tunda selama 10 menit"
 
-#. TRANSLATORS: Short label for reminder notification button to snooze for 30 minutes. Please keep the number/duration at the beginning (e.g. "30m Snooze") to prevent button text truncation in compact notification dialogs.
 #: src/Services/Notification.vala:102
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Tunda selama 30 menit"
 
-#. TRANSLATORS: Short label for reminder notification button to snooze for 1 hour. Please keep the number/duration at the beginning (e.g. "1h Snooze") to prevent button text truncation in compact notification dialogs.
 #: src/Services/Notification.vala:104
 #, fuzzy
 msgid "1h Snooze"
@@ -4003,10 +3990,10 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Apakah Anda yakin ingin menghapus %d tugas ini?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
-msgid "%d task moved to %s"
+#, c-format
+msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "%d tugas dipindahkan ke %s"
+msgstr[0] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4195,6 +4182,11 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "%d tugas dipindahkan ke %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Tunda selama 10 menit"
