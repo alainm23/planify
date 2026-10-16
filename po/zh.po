@@ -1,8 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
+"PO-Revision-Date: 2026-07-27 08:01+0000\n"
 "Last-Translator: Jeff Wang <jeff@wangjunfeng.com.cn>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
@@ -11,7 +12,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"PO-Revision-Date: 2026-07-27 08:01+0000\n"
 "X-Generator: Weblate 2026.8.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
@@ -691,18 +691,22 @@ msgstr "%s%s前"
 msgid "%s %s left"
 msgstr "剩余%s%s"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -756,21 +760,26 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 天前"
 
+#. TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -3310,6 +3319,7 @@ msgstr "导出为 PDF"
 msgid "Project exported as PDF"
 msgstr "项目已导出为 PDF"
 
+#. TRANSLATORS: Open file
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "打开"
@@ -3477,16 +3487,22 @@ msgstr "立即重启"
 msgid "Planify Backup Files"
 msgstr "Planify 备份文件"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 10 minutes. Please keep the number/duration at the beginning (e.g. "10m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "暂停 10 分钟"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 30 minutes. Please keep the number/duration at the beginning (e.g. "30m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "暂停 30 分钟"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 1 hour. Please keep the number/duration at the beginning (e.g. "1h Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "暂停 1 小时"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3892,8 +3908,8 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "确定要删除这 %d 个待办事项吗？"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "任务已移动到%s"
 
@@ -4082,6 +4098,15 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "暂停 10 分钟"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "暂停 30 分钟"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "暂停 1 小时"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"

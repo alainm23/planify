@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-08-27 19:38+0000\n"
 "Last-Translator: 麋麓 BigELK176 <BigELK176@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
@@ -691,18 +691,22 @@ msgstr "%s %s 之前"
 msgid "%s %s left"
 msgstr "%s %s 剩下"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -756,21 +760,26 @@ msgid "%d day ago"
 msgid_plural "%d days ago"
 msgstr[0] "%d 日之前"
 
+#. TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -3318,6 +3327,7 @@ msgstr "匯出如同 PDF"
 msgid "Project exported as PDF"
 msgstr "專案項目已經匯出如同 PDF"
 
+#. TRANSLATORS: Open file
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "開啟"
@@ -3485,16 +3495,22 @@ msgstr "立即重新啟動"
 msgid "Planify Backup Files"
 msgstr "Planify 備份檔案"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 10 minutes. Please keep the number/duration at the beginning (e.g. "10m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "小憩 10 分鐘"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 30 minutes. Please keep the number/duration at the beginning (e.g. "30m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "小憩 30 分鐘"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 1 hour. Please keep the number/duration at the beginning (e.g. "1h Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "小憩 1 小時"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3900,10 +3916,10 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "您確定要刪除此 %d 個待辦事項嗎？"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "%d 個任務已經移至 %s"
+msgstr[0] "%d 任務移至 %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4090,6 +4106,20 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "小憩 10 分鐘"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "小憩 30 分鐘"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "小憩 1 小時"
+
+#, c-format
+#~ msgid "Task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "%d 個任務已經移至 %s"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
@@ -4302,10 +4332,6 @@ msgstr ""
 #, c-format
 #~ msgid "Are you sure you want to delete these %d to-dos?"
 #~ msgstr "您確定要刪除此 %d 個待辦事項嗎？"
-
-#, c-format
-#~ msgid "%d tasks moved to %s"
-#~ msgstr "%d 任務移至 %s"
 
 #~ msgid "Backup"
 #~ msgstr "備份"

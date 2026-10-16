@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-05-12 14:11+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/io-"
@@ -716,18 +716,22 @@ msgstr "%s %s prije"
 msgid "%s %s left"
 msgstr "%s %s preostalo"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr "%-H:%M:%S"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr "%-H:%M"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -785,21 +789,26 @@ msgstr[0] "prije %d dan"
 msgstr[1] "prije %d dana"
 msgstr[2] "prije %d dana"
 
+#. TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y."
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a, %Y."
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -3415,6 +3424,7 @@ msgstr "Izvezi kao PDF"
 msgid "Project exported as PDF"
 msgstr "Projekt je izvezen kao PDF"
 
+#. TRANSLATORS: Open file
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Otvori"
@@ -3586,16 +3596,22 @@ msgstr "Ponovo pokreni sada"
 msgid "Planify Backup Files"
 msgstr "Datoteke sigurnosnih kopija aplikacije Planify"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 10 minutes. Please keep the number/duration at the beginning (e.g. "10m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Ponovi alarm za 10 minuta"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 30 minutes. Please keep the number/duration at the beginning (e.g. "30m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Ponovi alarm za 30 minuta"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 1 hour. Please keep the number/duration at the beginning (e.g. "1h Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Ponovi alarm za 1 sat"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4021,12 +4037,12 @@ msgstr[1] "Stvarno želiš izbrisati ova %d zadatka?"
 msgstr[2] "Stvarno želiš izbrisati ovih %d zadataka?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Zadatak je premješten u %s"
-msgstr[1] "%d zadatka su premještena u %s"
-msgstr[2] "%d zadataka su premješteni u %s"
+msgstr[0] "%d zadatka premješteno u %s"
+msgstr[1] "%d zadatka premješteno u %s"
+msgstr[2] "%d zadatka premješteno u %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4215,6 +4231,22 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Ponovi alarm za 10 minuta"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Ponovi alarm za 30 minuta"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Ponovi alarm za 1 sat"
+
+#, c-format
+#~ msgid "Task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Zadatak je premješten u %s"
+#~ msgstr[1] "%d zadatka su premještena u %s"
+#~ msgstr[2] "%d zadataka su premješteni u %s"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %d. %m. %Y."
@@ -4424,10 +4456,6 @@ msgstr ""
 #, c-format
 #~ msgid "Are you sure you want to delete these %d to-dos?"
 #~ msgstr "Stvarno želiš izbrisati ovih %d zadatka?"
-
-#, c-format
-#~ msgid "%d tasks moved to %s"
-#~ msgstr "%d zadatka premješteno u %s"
 
 #~ msgid "Backup"
 #~ msgstr "Sigurnosna kopija"
