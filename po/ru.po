@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-08-14 00:01+0000\n"
 "Last-Translator: Vladislav Dub <vlad.milosta@outlook.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
@@ -722,18 +722,22 @@ msgstr "%s %s назад"
 msgid "%s %s left"
 msgstr "%s %s осталось"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format) with seconds
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
 msgstr "%-l:%M:%S %p"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (12h format)
 #: core/Utils/Datetime.vala:98
 msgid "%-l:%M %p"
 msgstr "%-l:%M %p"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format) with seconds
 #: core/Utils/Datetime.vala:103
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
+#. TRANSLATORS: a GLib.DateTime format showing the hour (24h format)
 #: core/Utils/Datetime.vala:106
 msgid "%H:%M"
 msgstr "%H:%M"
@@ -789,21 +793,26 @@ msgid_plural "%d days ago"
 msgstr[0] "%d день назад"
 msgstr[1] "%d дней назад"
 
+#. TRANSLATORS: a GLib.DateTime format showing the year
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
 msgid "%Y"
 msgstr "%Y"
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday and year.
 #: core/Utils/Datetime.vala:858
 msgid "%a %Y"
 msgstr "%a %Y"
 
+#. TRANSLATORS: a GLib.DateTime format showing the weekday
 #: core/Utils/Datetime.vala:861
 #, c-format
 msgid "%a"
 msgstr "%a"
 
+#. TRANSLATORS: a GLib.DateTime format showing the month.
 #: core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -3425,6 +3434,7 @@ msgstr "Экспортировать как PDF"
 msgid "Project exported as PDF"
 msgstr ""
 
+#. TRANSLATORS: Open file
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 msgid "Open"
 msgstr "Открыть"
@@ -3596,16 +3606,22 @@ msgstr "Перезапустить сейчас"
 msgid "Planify Backup Files"
 msgstr "Резервные копии Planify"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 10 minutes. Please keep the number/duration at the beginning (e.g. "10m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Отложить на 10 минут"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 30 minutes. Please keep the number/duration at the beginning (e.g. "30m Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Отложить на 30 минут"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#. TRANSLATORS: Short label for reminder notification button to snooze for 1 hour. Please keep the number/duration at the beginning (e.g. "1h Snooze") to prevent button text truncation in compact notification dialogs.
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Отложить на 1 час"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4027,7 +4043,7 @@ msgstr[1] "Вы уверены, что хотите удалить эти зад
 # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, fuzzy, c-format
-msgid "Task moved to %s"
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Задача перемещена в %s"
 msgstr[1] "%d задач перемещены в %s"
@@ -4220,6 +4236,15 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Отложить на 10 минут"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Отложить на 30 минут"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Отложить на 1 час"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
