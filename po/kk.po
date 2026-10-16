@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2025-12-14 10:08+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Kazakh <https://hosted.weblate.org/projects/planner/io-github-"
@@ -3576,19 +3576,19 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify сақтық көшірме файлдары"
 
-#: src/Services/Notification.vala:99
-#, fuzzy
-msgid "Snooze for 10 minutes"
-msgstr "30 минуттан кейін"
-
 #: src/Services/Notification.vala:100
 #, fuzzy
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr "30 минуттан кейін"
 
-#: src/Services/Notification.vala:101
+#: src/Services/Notification.vala:102
 #, fuzzy
-msgid "Snooze for 1 hour"
+msgid "30m Snooze"
+msgstr "30 минуттан кейін"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "1 сағаттан кейін"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4007,11 +4007,11 @@ msgstr[0] "Бұл тапсырманы жоюды шынымен қалайсы�
 msgstr[1] "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Тапсырма %s дегенге жылжытылды"
-msgstr[1] "Тапсырма %s дегенге жылжытылды"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4200,6 +4200,24 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Тапсырма %s дегенге жылжытылды"
+#~ msgstr[1] "Тапсырма %s дегенге жылжытылды"
+
+#, fuzzy
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "30 минуттан кейін"
+
+#, fuzzy
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "30 минуттан кейін"
+
+#, fuzzy
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "1 сағаттан кейін"
 
 #, fuzzy
 #~ msgid "You can sort your accounts by dragging and dropping"

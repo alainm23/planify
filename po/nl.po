@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-08-10 23:58+0000\n"
 "Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
@@ -3595,16 +3595,19 @@ msgstr "Nu herstarten"
 msgid "Planify Backup Files"
 msgstr "Back-up-bestanden van Planify"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "10 minuten uitstellen"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "30 minuten uitstellen"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "1 uur uitstellen"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4024,13 +4027,12 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Ben je zeker dat je deze %d taak wil verwijderen?"
 msgstr[1] "Ben je zeker dat je deze %d taken wil verwijderen?"
 
-# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Taak verplaatst naar %s"
-msgstr[1] "%d taken verplaatst naar %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4219,6 +4221,22 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# # c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Taak verplaatst naar %s"
+#~ msgstr[1] "%d taken verplaatst naar %s"
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "10 minuten uitstellen"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "30 minuten uitstellen"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "1 uur uitstellen"
 
 #, fuzzy
 #~ msgid "%a, %b %-e, %Y"

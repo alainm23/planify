@@ -4202,3 +4202,15 @@ msgstr "Abrir proxecto seguinte"
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Abrir proxecto anterior"
+
+#: src/Services/Notification.vala:100
+msgid "10m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:102
+msgid "30m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
+msgstr ""

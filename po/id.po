@@ -4722,6 +4722,21 @@ msgstr ""
 msgid "Not available with Adwaita colors"
 msgstr ""
 
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Tunda selama 10 menit"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Tunda selama 30 menit"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "Tunda selama 1 jam"
+
 #, c-format
 #~ msgid "Load more history from %d week ago…"
 #~ msgid_plural "Load more history from %d weeks ago…"
@@ -4827,3 +4842,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Todoist telah memperbarui API mereka. Silakan hubungkan ulang akun Anda "
 #~ "di Pengaturan untuk melanjutkan sinkronisasi."
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "%d tugas dipindahkan ke %s"

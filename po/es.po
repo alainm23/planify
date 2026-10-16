@@ -4357,6 +4357,21 @@ msgstr ""
 msgid "Not available with Adwaita colors"
 msgstr ""
 
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Posponer la alarma durante 10 minutos"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Posponer la alarma durante 30 minutos"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "Posponer la alarma durante 1 hora"
+
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
 
@@ -5110,3 +5125,10 @@ msgstr ""
 #~ msgid "Have an overview of your tasks without losing sight of the details."
 #~ msgstr ""
 #~ "Tenga una visión general de sus tareas sin perder de vista los detalles."
+
+# # c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Tarea movida a %s"
+#~ msgstr[1] "%d areas movidas a %s"

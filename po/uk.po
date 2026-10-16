@@ -4518,6 +4518,21 @@ msgstr ""
 msgid "Not available with Adwaita colors"
 msgstr ""
 
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Відкласти на 10 хвилин"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Відкласти на 30 хвилин"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "Відкласти на 1 годину"
+
 #~ msgid "You can sort your accounts by dragging and dropping"
 #~ msgstr "Ви можете сортувати свої облікові записи, перетягуючи їх"
 
@@ -4932,3 +4947,10 @@ msgstr ""
 
 #~ msgid "Provider"
 #~ msgstr "Постачальник"
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Завдання перемещіно в %s"
+#~ msgstr[1] "%d завдань перемещіно в %s"

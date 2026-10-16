@@ -1779,7 +1779,8 @@ msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
 msgstr[0] "Toto odstraní %d dokončený úkol a jeho dílčí úkoly z projektu %s"
 msgstr[1] "Toto odstraní %d dokončené úkoly a jejich dílčí úkoly z projektu %s"
-msgstr[2] "Toto odstraní %d dokončených úkolů a jejich dílčí úkoly z projektu %s"
+msgstr[2] ""
+"Toto odstraní %d dokončených úkolů a jejich dílčí úkoly z projektu %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Layouts/ItemSortFilter.vala:130
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
@@ -4112,6 +4113,18 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
 
+#: src/Services/Notification.vala:100
+msgid "10m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:102
+msgid "30m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
+msgstr ""
+
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
 
@@ -4124,3 +4137,10 @@ msgstr ""
 #, c-format
 #~ msgid "Every %d minutes"
 #~ msgstr "Každých %d minut"
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Úkol přesunut do %s"
+#~ msgstr[1] "%d úkoly přesunuty do %s"
+#~ msgstr[2] "%d úkolů přesunuto do %s"

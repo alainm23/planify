@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2025-12-14 09:55+0000\n"
 "Last-Translator: 권나연 <gno3333@naver.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/planner/io-github-"
@@ -3548,20 +3548,18 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify 백업 파일"
 
-# # c-format
-#: src/Services/Notification.vala:99
-#, fuzzy
-msgid "Snooze for 10 minutes"
-msgstr "%d분마다"
-
-# # c-format
 #: src/Services/Notification.vala:100
 #, fuzzy
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr "%d분마다"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "%d분마다"
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
 msgstr ""
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3977,12 +3975,11 @@ msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "이 할 일을 삭제하시겠습니까?"
 
-# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "작업이 %s(으)로 이동되었습니다"
+msgstr[0] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4171,6 +4168,22 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# # c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "작업이 %s(으)로 이동되었습니다"
+
+# # c-format
+#, fuzzy
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "%d분마다"
+
+# # c-format
+#, fuzzy
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "%d분마다"
 
 #, fuzzy
 #~ msgid "You can sort your accounts by dragging and dropping"

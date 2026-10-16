@@ -4274,14 +4274,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 msgstr[1] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 
-# c-format
 #: src/Widgets/MultiSelectToolbar.vala:427
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Görev %s projesine taşındı"
-msgstr[1] "Görev %s projesine taşındı"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4547,6 +4546,20 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
+msgstr ""
+
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Her %d ayda bir"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Her %d ayda bir"
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
 msgstr ""
 
 # # c-format
@@ -4977,3 +4990,10 @@ msgstr ""
 #~ msgstr ""
 #~ "Google Görevler eşzamanlamasını kaldırmak istediğinizden emin misiniz? Bu "
 #~ "eylem, tüm görevlerinizi ve ayarlarınızı silecek."
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Görev %s projesine taşındı"
+#~ msgstr[1] "Görev %s projesine taşındı"

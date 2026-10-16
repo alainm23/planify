@@ -4302,6 +4302,21 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Abrir projeto anterior"
 
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Em 30 minutos"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Em 30 minutos"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "Em 1 hora"
+
 #, c-format
 #~ msgid "Backup files are stored in: %s"
 #~ msgstr "Arquivos de backup salvos em: %s"
@@ -4917,3 +4932,10 @@ msgstr "Abrir projeto anterior"
 #~ "Você está executando uma versão de desenvolvimento em estágio inicial. "
 #~ "Esteja ciente de que é um trabalho em andamento e ainda está longe de ser "
 #~ "concluído."
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Tarefa movida para <b>%s</b>"
+#~ msgstr[1] "Tarefas movidas para <b>%s</b>"

@@ -4261,6 +4261,21 @@ msgstr ""
 msgid "Not available with Adwaita colors"
 msgstr ""
 
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Tạm dừng 10 phút"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Tạm dừng 30 phút"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "Tạm dừng 1 giờ"
+
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
 
@@ -4508,3 +4523,8 @@ msgstr ""
 
 #~ msgid "Support Planify"
 #~ msgstr "Ủng Hộ Planify"
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "%d nhiệm vụ đã di chuyển đến %s"

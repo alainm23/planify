@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2025-12-14 10:12+0000\n"
 "Last-Translator: Fraxinus Acer <yasson2008@ya.ru>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
@@ -3533,19 +3533,19 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify Backup Files"
 
-#: src/Services/Notification.vala:99
-#, fuzzy
-msgid "Snooze for 10 minutes"
-msgstr "In 30 minutes"
-
 #: src/Services/Notification.vala:100
 #, fuzzy
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr "In 30 minutes"
 
-#: src/Services/Notification.vala:101
+#: src/Services/Notification.vala:102
 #, fuzzy
-msgid "Snooze for 1 hour"
+msgid "30m Snooze"
+msgstr "In 30 minutes"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "In 1 hour"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3963,11 +3963,11 @@ msgstr[0] "Are you sure you want to delete this %d to-do?"
 msgstr[1] "Are you sure you want to delete this %d to-do?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Task moved to %s"
-msgstr[1] "Task moved to %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4156,6 +4156,24 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Task moved to %s"
+#~ msgstr[1] "Task moved to %s"
+
+#, fuzzy
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "In 30 minutes"
+
+#, fuzzy
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "In 30 minutes"
+
+#, fuzzy
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "In 1 hour"
 
 #, fuzzy
 #~ msgid "%a, %b %-e, %Y"

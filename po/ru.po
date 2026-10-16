@@ -4372,14 +4372,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Вы уверены, что хотите удалить это задание %d?"
 msgstr[1] "Вы уверены, что хотите удалить эти задания %d?"
 
-# c-format
 #: src/Widgets/MultiSelectToolbar.vala:427
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Задача перемещена в %s"
-msgstr[1] "%d задач перемещены в %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4760,6 +4759,21 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
 msgstr ""
+
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "Отложить на 10 минут"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Отложить на 30 минут"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "Отложить на 1 час"
 
 # # c-format
 #, c-format
@@ -5361,3 +5375,10 @@ msgstr ""
 #~ msgstr ""
 #~ "Вы уверены, что хотите удалить синхронизацию с Google Tasks? Это действие "
 #~ "приведет к удалению всех ваших задач и настроек."
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Задача перемещена в %s"
+#~ msgstr[1] "%d задач перемещены в %s"

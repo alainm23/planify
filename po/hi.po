@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2025-12-14 09:56+0000\n"
 "Last-Translator: oo nth <oonth@mail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/planner/io-github-"
@@ -3567,18 +3567,18 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "प्लॅानिफाई की बैकअप फाइलें"
 
-#: src/Services/Notification.vala:99
-#, fuzzy
-msgid "Snooze for 10 minutes"
-msgstr "30 मिनट पहले"
-
 #: src/Services/Notification.vala:100
 #, fuzzy
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr "30 मिनट पहले"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "30 मिनट पहले"
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
 msgstr ""
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4002,13 +4002,12 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "क्या आप वाकई इस कार्य को मिटाना चाहते हैं?"
 msgstr[1] "क्या आप वाकई इस कार्य को मिटाना चाहते हैं?"
 
-# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "कार्य को %s पर भेजा गया"
-msgstr[1] "कार्य को %s पर भेजा गया"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4197,6 +4196,21 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# # c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "कार्य को %s पर भेजा गया"
+#~ msgstr[1] "कार्य को %s पर भेजा गया"
+
+#, fuzzy
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "30 मिनट पहले"
+
+#, fuzzy
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "30 मिनट पहले"
 
 #, fuzzy
 #~ msgid "You can sort your accounts by dragging and dropping"

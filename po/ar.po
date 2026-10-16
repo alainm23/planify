@@ -3987,15 +3987,15 @@ msgstr[4] ""
 msgstr[5] ""
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "تم نسخ المهمة الى%s"
-msgstr[1] "تم نسخ المهمة الى%s"
-msgstr[2] "تم نسخ المهمة الى%s"
-msgstr[3] "تم نسخ المهمة الى%s"
-msgstr[4] "تم نسخ المهمة الى%s"
-msgstr[5] "تم نسخ المهمة الى%s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4179,6 +4179,18 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
 
+#: src/Services/Notification.vala:100
+msgid "10m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:102
+msgid "30m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
+msgstr ""
+
 #, c-format
 #~ msgid "Processing task %d of %d"
 #~ msgstr "جاري معالجة المهمة %d ل %d"
@@ -4209,3 +4221,13 @@ msgstr ""
 
 #~ msgid "Stay open after creating task"
 #~ msgstr "ابق مفتوح بعد إنشاء المهمة"
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "تم نسخ المهمة الى%s"
+#~ msgstr[1] "تم نسخ المهمة الى%s"
+#~ msgstr[2] "تم نسخ المهمة الى%s"
+#~ msgstr[3] "تم نسخ المهمة الى%s"
+#~ msgstr[4] "تم نسخ المهمة الى%s"
+#~ msgstr[5] "تم نسخ المهمة الى%s"

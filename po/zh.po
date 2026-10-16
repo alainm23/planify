@@ -4109,6 +4109,21 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "打开上一个项目"
 
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
+msgstr "暂停 10 分钟"
+
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "暂停 30 分钟"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
+msgstr "暂停 1 小时"
+
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"
 
@@ -4165,3 +4180,8 @@ msgstr "打开上一个项目"
 #, c-format
 #~ msgid "Every %d years"
 #~ msgstr "每 %d 年"
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "任务已移动到%s"
