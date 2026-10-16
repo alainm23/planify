@@ -1,0 +1,31 @@
+diff --git a/subprojects/glib.wrap b/subprojects/glib.wrap
+deleted file mode 100644
+index 2ea0dbf..0000000
+--- a/subprojects/glib.wrap
++++ /dev/null
+@@ -1,11 +0,0 @@
+-[wrap-file]
+-directory = glib-2.74.4
+-source_url = https://download.gnome.org/sources/glib/2.74/glib-2.74.4.tar.xz
+-source_fallback_url = https://ftp.acc.umu.se/pub/gnome/sources/glib/2.74/glib-2.74.4.tar.xz
+-source_filename = glib-2.74.4.tar.xz
+-source_hash = 0e82da5ea129b4444227c7e4a9e598f7288d1994bf63f129c44b90cfd2432172
+-wrapdb_version = 2.74.4-1
+-
+-[provide]
+-dependency_names = gthread-2.0, gobject-2.0, gmodule-no-export-2.0, gmodule-export-2.0, gmodule-2.0, glib-2.0, gio-2.0, gio-windows-2.0, gio-unix-2.0
+-program_names = glib-genmarshal, glib-mkenums, glib-compile-schemas, glib-compile-resources, gio-querymodules, gdbus-codegen
+
+diff --git a/meson.build b/meson.build
+index 0cb8296..c0d709a 100644
+--- a/meson.build
++++ b/meson.build
+@@ -147,7 +147,7 @@ subdir('proxy')
+ subdir('tls')
+ 
+ # Will automatically pick it up from the cross file if defined
+-gnome.post_install(gio_querymodules: gio_module_dir)
++# gnome.post_install(gio_querymodules: gio_module_dir)
+ 
+ summary({
+   'GnuTLS support': giomodules.contains('giognutls'),
