@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-08-30 11:42+0000\n"
 "Last-Translator: Rodrigo Cofre <rampagestate@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/io-"
@@ -3599,16 +3599,19 @@ msgstr "Reiniciar ahora"
 msgid "Planify Backup Files"
 msgstr "Archivos de copia de seguridad de Planify"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Posponer la alarma durante 10 minutos"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Posponer la alarma durante 30 minutos"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Posponer la alarma durante 1 hora"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4027,13 +4030,12 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "¿Estás seguro de que deseas eliminar esta tarea pendiente?"
 msgstr[1] "¿Estás seguro de que deseas eliminar estas tareas pendientes?"
 
-# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Tarea movida a %s"
-msgstr[1] "%d areas movidas a %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4222,6 +4224,22 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# # c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Tarea movida a %s"
+#~ msgstr[1] "%d areas movidas a %s"
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Posponer la alarma durante 10 minutos"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Posponer la alarma durante 30 minutos"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Posponer la alarma durante 1 hora"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"

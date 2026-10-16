@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-08-14 00:01+0000\n"
 "Last-Translator: Vladislav Dub <vlad.milosta@outlook.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/io-"
@@ -3596,16 +3596,19 @@ msgstr "Перезапустить сейчас"
 msgid "Planify Backup Files"
 msgstr "Резервные копии Planify"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Отложить на 10 минут"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Отложить на 30 минут"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Отложить на 1 час"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4024,13 +4027,12 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Вы уверены, что хотите удалить это задание %d?"
 msgstr[1] "Вы уверены, что хотите удалить эти задания %d?"
 
-# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Задача перемещена в %s"
-msgstr[1] "%d задач перемещены в %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4220,6 +4222,22 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Задача перемещена в %s"
+#~ msgstr[1] "%d задач перемещены в %s"
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Отложить на 10 минут"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Отложить на 30 минут"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Отложить на 1 час"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"

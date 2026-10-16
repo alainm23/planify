@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-03-10 22:54+0000\n"
 "Last-Translator: Theodor Onarheim <tonar@runbox.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
@@ -3553,16 +3553,19 @@ msgstr "Omstart nå"
 msgid "Planify Backup Files"
 msgstr "Planify sikkerhetskopi-filer"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Slumre i 10 minutter"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Slumre i 30 minutter"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Slumre i 1 time"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3979,8 +3982,8 @@ msgstr[1] "Er du sikker på at du vil slette disse %d gjøremålene?"
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Oppgave flyttet til %s"
-msgstr[1] "%d oppgaver flyttet til %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4170,6 +4173,21 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Oppgave flyttet til %s"
+#~ msgstr[1] "%d oppgaver flyttet til %s"
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Slumre i 10 minutter"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Slumre i 30 minutter"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Slumre i 1 time"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"

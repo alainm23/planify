@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-08-10 23:59+0000\n"
 "Last-Translator: user21172121683 <lukas@messing.ee>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
@@ -3497,16 +3497,16 @@ msgstr "Taaskäivita kohe"
 msgid "Planify Backup Files"
 msgstr "Planify varukoopiad"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
-msgstr ""
-
 #: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr ""
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:102
+msgid "30m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
 msgstr ""
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3919,8 +3919,8 @@ msgstr[1] "Kas oled kindel, et tahad need %d ülesannet kustutada?"
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Ülesanne asub nüüd uues kohas: %s"
-msgstr[1] "%d ülesannet asuvad nüüd uues kohas: %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4103,6 +4103,12 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Ülesanne asub nüüd uues kohas: %s"
+#~ msgstr[1] "%d ülesannet asuvad nüüd uues kohas: %s"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"

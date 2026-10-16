@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-03-28 15:09+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
@@ -3478,16 +3478,16 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr ""
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
-msgstr ""
-
 #: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr ""
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:102
+msgid "30m Snooze"
+msgstr ""
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
 msgstr ""
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3908,9 +3908,9 @@ msgstr[2] ""
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Úkol přesunut do %s"
-msgstr[1] "%d úkoly přesunuty do %s"
-msgstr[2] "%d úkolů přesunuto do %s"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4093,6 +4093,13 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Úkol přesunut do %s"
+#~ msgstr[1] "%d úkoly přesunuty do %s"
+#~ msgstr[2] "%d úkolů přesunuto do %s"
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"

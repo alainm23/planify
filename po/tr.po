@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-09-09 08:51+0000\n"
 "Last-Translator: Akın Birdal <reend21@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
@@ -3602,20 +3602,18 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify Yedek Dosyaları"
 
-# c-format
-#: src/Services/Notification.vala:99
-#, fuzzy
-msgid "Snooze for 10 minutes"
-msgstr "Her %d ayda bir"
-
-# c-format
 #: src/Services/Notification.vala:100
 #, fuzzy
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr "Her %d ayda bir"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
+msgstr "Her %d ayda bir"
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
 msgstr ""
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4038,13 +4036,12 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 msgstr[1] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 
-# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Görev %s projesine taşındı"
-msgstr[1] "Görev %s projesine taşındı"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4233,6 +4230,23 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Görev %s projesine taşındı"
+#~ msgstr[1] "Görev %s projesine taşındı"
+
+# c-format
+#, fuzzy
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Her %d ayda bir"
+
+# c-format
+#, fuzzy
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Her %d ayda bir"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"

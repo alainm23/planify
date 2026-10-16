@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-05-20 16:11+0000\n"
 "Last-Translator: Sabrina Ferreira <81946935+sabrina-"
 "fs@users.noreply.github.com>\n"
@@ -3622,21 +3622,19 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planeje Arquivos de Backup"
 
-# # c-format
-#: src/Services/Notification.vala:99
-#, fuzzy
-msgid "Snooze for 10 minutes"
-msgstr "Em 30 minutos"
-
-# # c-format
 #: src/Services/Notification.vala:100
 #, fuzzy
-msgid "Snooze for 30 minutes"
+msgid "10m Snooze"
 msgstr "Em 30 minutos"
 
-#: src/Services/Notification.vala:101
+#: src/Services/Notification.vala:102
 #, fuzzy
-msgid "Snooze for 1 hour"
+msgid "30m Snooze"
+msgstr "Em 30 minutos"
+
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Em 1 hora"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4056,13 +4054,12 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Você tem certeza que quer deletar esta lista?"
 msgstr[1] "Você tem certeza que quer deletar estas listas?"
 
-# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Tarefa movida para <b>%s</b>"
-msgstr[1] "Tarefas movidas para <b>%s</b>"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4251,6 +4248,27 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+# c-format
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Tarefa movida para <b>%s</b>"
+#~ msgstr[1] "Tarefas movidas para <b>%s</b>"
+
+# # c-format
+#, fuzzy
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Em 30 minutos"
+
+# # c-format
+#, fuzzy
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Em 30 minutos"
+
+#, fuzzy
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Em 1 hora"
 
 #, c-format
 #~ msgid "Backup files are stored in: %s"

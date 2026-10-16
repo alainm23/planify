@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-09-09 08:51+0000\n"
 "Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
@@ -3620,16 +3620,19 @@ msgstr "Jetzt neustarten"
 msgid "Planify Backup Files"
 msgstr "Planify Sicherungsdateien"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Für 10 Minuten schlummern"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Für 30 Minuten schlummern"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Für 1 Stunde schlummern"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4057,8 +4060,8 @@ msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Aufgabe hierhin verschoben: %s"
-msgstr[1] "%d Aufgaben hierhin verschoben: %s"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4248,6 +4251,21 @@ msgstr "Öffne das nächste Projekt"
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Öffne das vorherige Projekt"
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Aufgabe hierhin verschoben: %s"
+#~ msgstr[1] "%d Aufgaben hierhin verschoben: %s"
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Für 10 Minuten schlummern"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Für 30 Minuten schlummern"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Für 1 Stunde schlummern"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %d. %b %Y"

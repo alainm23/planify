@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-02-14 12:09+0000\n"
 "Last-Translator: Loc Huynh <huynhloc.contact@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/planner/io-"
@@ -3533,16 +3533,19 @@ msgstr "Khởi Động Lại Ngay"
 msgid "Planify Backup Files"
 msgstr "Tệp Sao Lưu Planify"
 
-#: src/Services/Notification.vala:99
-msgid "Snooze for 10 minutes"
+#: src/Services/Notification.vala:100
+#, fuzzy
+msgid "10m Snooze"
 msgstr "Tạm dừng 10 phút"
 
-#: src/Services/Notification.vala:100
-msgid "Snooze for 30 minutes"
+#: src/Services/Notification.vala:102
+#, fuzzy
+msgid "30m Snooze"
 msgstr "Tạm dừng 30 phút"
 
-#: src/Services/Notification.vala:101
-msgid "Snooze for 1 hour"
+#: src/Services/Notification.vala:104
+#, fuzzy
+msgid "1h Snooze"
 msgstr "Tạm dừng 1 giờ"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -3954,7 +3957,7 @@ msgstr[0] "Bạn có chắc chắn muốn xóa %d việc cần làm này không?
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "%d nhiệm vụ đã di chuyển đến %s"
+msgstr[0] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4143,6 +4146,20 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "%d nhiệm vụ đã di chuyển đến %s"
+
+#~ msgid "Snooze for 10 minutes"
+#~ msgstr "Tạm dừng 10 phút"
+
+#~ msgid "Snooze for 30 minutes"
+#~ msgstr "Tạm dừng 30 phút"
+
+#~ msgid "Snooze for 1 hour"
+#~ msgstr "Tạm dừng 1 giờ"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
