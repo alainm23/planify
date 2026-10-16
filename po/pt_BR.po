@@ -2682,7 +2682,7 @@ msgstr ""
 msgid "Show in Sidebar"
 msgstr "Mostrar na Barra Lateral"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Você pode classificar suas visualizações arrastando e soltando"
 

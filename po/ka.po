@@ -2563,7 +2563,7 @@ msgstr ""
 msgid "Show in Sidebar"
 msgstr "ჩვენება გვერდით პანელში"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "თქვენი ხედის დალაგება გადათრევით და დაყრით შეგიძლიათ"
 

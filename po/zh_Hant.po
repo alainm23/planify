@@ -2572,7 +2572,7 @@ msgstr "顯示篩選，以簡單清單替代網格"
 msgid "Show in Sidebar"
 msgstr "顯示於側邊列"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "您可以排序檢視，利用拖放操作"
 

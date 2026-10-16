@@ -2609,7 +2609,7 @@ msgstr "Show filters in a simple list instead of a grid"
 msgid "Show in Sidebar"
 msgstr "Show in Sidebar"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "You can sort your views by dragging and dropping"
 

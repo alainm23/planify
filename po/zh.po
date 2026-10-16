@@ -2564,7 +2564,7 @@ msgstr "以简单列表而非网格形式显示筛选器"
 msgid "Show in Sidebar"
 msgstr "在侧边栏中显示"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "您可以通过拖放来排序视图"
 

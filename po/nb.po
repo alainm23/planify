@@ -2628,7 +2628,7 @@ msgstr "Vis filtre i en enkel liste i stedet for et rutenett"
 msgid "Show in Sidebar"
 msgstr "Vis i sidefelt"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Du kan dra og slippe for å sortere visningene dine"
 

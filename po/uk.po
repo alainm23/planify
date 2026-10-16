@@ -2668,7 +2668,7 @@ msgstr "Відображати фільтри у вигляді простого
 msgid "Show in Sidebar"
 msgstr "Показати на бічній панелі"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Ви можете сортувати подання перетягуванням"
 

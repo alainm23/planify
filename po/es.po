@@ -2665,7 +2665,7 @@ msgstr "Mostrar los filtros en una lista simple en lugar de una cuadrícula"
 msgid "Show in Sidebar"
 msgstr "Mostrar en la barra lateral"
 
-#: src/Dialogs/Preferences/Pages/Sidebar.vala:88
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:110
 msgid "You can sort your views by dragging and dropping"
 msgstr "Puedes ordenar tus vistas arrastrando y soltando"
 
