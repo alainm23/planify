@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-01-31 10:01+0000\n"
-"Last-Translator: marjan <marjan.euroming@gmail.com>\n"
+"PO-Revision-Date: 2026-10-18 16:51+0000\n"
+"Last-Translator: Kristijan Tkalec <lapor@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Slovenian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/sl/>\n"
 "Language: sl\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -54,36 +54,36 @@ msgstr "Ne ponovi"
 msgid "Every minute"
 msgid_plural "Every %d minutes"
 msgstr[0] "Vsako minuto"
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[1] "Vsaki %d minuti"
+msgstr[2] "Vsake %d minute"
+msgstr[3] "Vsakih %d minut"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] "Vsako uro"
-msgstr[1] "Vsaki%d uri"
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Vsako %d uro"
+msgstr[1] "Vsaki %d uri"
+msgstr[2] "Vsake %d ure"
+msgstr[3] "Vsakih %d ur"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Vsak %d dan"
+msgstr[1] "Vsak %d dan"
+msgstr[2] "Vsak %d dan"
+msgstr[3] "Vsak %d dan"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Vsak%d  teden"
+msgstr[1] "Vsak %d teden"
+msgstr[2] "Vsak %d teden"
+msgstr[3] "Vsak %d teden"
 
 #: core/Enum.vala:224
 #, c-format
