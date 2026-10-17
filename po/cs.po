@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-08 13:16+0000\n"
-"Last-Translator: Filip <filip.rund@email.cz>\n"
+"PO-Revision-Date: 2026-10-17 15:30+0000\n"
+"Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
 "Language: cs\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.10.1.dev0\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -350,9 +350,9 @@ msgid "Task exported successfully"
 msgstr "Úkol byl úspěšně exportován"
 
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Úkol přesunut do %s"
+msgstr "Přesunuto do %s"
 
 #: core/Objects/Label.vala:220
 #, c-format
@@ -623,23 +623,25 @@ msgstr "Synchronizace dokončena"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Platnost autentizace vypršela"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "Vaše relace vypršela. Odeberte a znovu přidejte svůj účet v nastavení."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Příliš mnoho požadavků"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Server omezuje počet požadavků. Počkejte prosím několik minut a zkuste to "
+"znovu."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -647,32 +649,32 @@ msgstr "Na tomto počítači"
 
 #: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Požadavek byl nesprávný."
 
 #: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Je vyžadována autentizace, která selhala nebo dosud nebyla poskytnuta."
 
 #: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Požadavek byl platný, ale žádal o něco, co je zakázané."
 
 #: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Požadovaný zdroj nebyl nalezen."
 
 #: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Uživatel odeslal v daném časovém úseku příliš mnoho požadavků."
 
 #: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Požadavek selhal kvůli chybě serveru."
 
 #: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Server momentálně není schopen požadavek zpracovat."
 
 #: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
@@ -3499,19 +3501,19 @@ msgstr ""
 
 #: src/Services/Notification.vala:99
 msgid "Snooze for 10 minutes"
-msgstr ""
+msgstr "Odložit na 10 minut"
 
 #: src/Services/Notification.vala:100
 msgid "Snooze for 30 minutes"
-msgstr ""
+msgstr "Odložit na 30 minut"
 
 #: src/Services/Notification.vala:101
 msgid "Snooze for 1 hour"
-msgstr ""
+msgstr "Odložit na 1 hodinu"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
-msgstr ""
+msgstr "Všechny projekty"
 
 #: src/Views/Filter.vala:146 src/Views/Label/Label.vala:78
 #: src/Views/Label/Labels.vala:45 src/Views/Project/Project.vala:119
@@ -4115,15 +4117,15 @@ msgstr ""
 
 #: src/Services/Notification.vala:100
 msgid "10m Snooze"
-msgstr ""
+msgstr "10min odložení"
 
 #: src/Services/Notification.vala:102
 msgid "30m Snooze"
-msgstr ""
+msgstr "30min odložení"
 
 #: src/Services/Notification.vala:104
 msgid "1h Snooze"
-msgstr ""
+msgstr "1h odložení"
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
