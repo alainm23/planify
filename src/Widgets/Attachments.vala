@@ -138,7 +138,7 @@ public class Widgets.Attachments : Adw.Bin {
 
     void show_file_selector () {
         var chooser = new Gtk.FileDialog () {
-            // translators: Open file
+            // TRANSLATORS: Open file
             title = _("Open"),
             modal = true
         };
