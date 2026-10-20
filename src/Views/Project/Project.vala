@@ -476,7 +476,8 @@ public class Views.Project : Adw.Bin {
         menu_box.append (paste_item);
         menu_box.append (expand_all_item);
 
-        var delete_completed_tasks_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Completed Tasks"), "user-trash-symbolic");
+        // TRANSLATORS: Context menu item in project actions to delete all completed tasks
+        var delete_completed_tasks_item = new Widgets.ContextMenu.MenuItem (_ ("Delete All Completed Tasks"), "user-trash-symbolic");
         delete_completed_tasks_item.add_css_class ("menu-item-danger");
 
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -551,8 +552,10 @@ public class Views.Project : Adw.Bin {
             return;
         }
 
+        // TRANSLATORS: Dialog title confirming deletion of completed tasks
         var dialog = new Adw.AlertDialog (
             _ ("Delete All Completed Tasks"),
+            // TRANSLATORS: %d is the number of completed tasks, %s is the project name
             GLib.ngettext (
                 "This will delete %d completed task and its subtasks from project %s",
                 "This will delete %d completed tasks and their subtasks from project %s",
