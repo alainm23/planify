@@ -476,8 +476,13 @@ public class Views.Project : Adw.Bin {
         menu_box.append (paste_item);
         menu_box.append (expand_all_item);
 
+        var delete_completed_tasks_item = new Widgets.ContextMenu.MenuItem (_ ("Delete Completed Tasks"), "user-trash-symbolic");
+        delete_completed_tasks_item.add_css_class ("menu-item-danger");
+
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (delete_completed_tasks_item);
+
         if (!project.inbox_project) {
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);
 
@@ -496,6 +501,17 @@ public class Views.Project : Adw.Bin {
             child = menu_box,
             width_request = 250
         };
+
+        signal_map[popover.notify["visible"].connect (() => {
+            if (popover.visible) {
+                delete_completed_tasks_item.sensitive = project.items_checked.size > 0;
+            }
+        })] = popover;
+
+        signal_map[delete_completed_tasks_item.clicked.connect (() => {
+            popover.popdown ();
+            delete_completed_tasks_action ();
+        })] = delete_completed_tasks_item;
 
         signal_map[paste_item.clicked.connect (() => {
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
@@ -527,6 +543,34 @@ public class Views.Project : Adw.Bin {
         })] = select_item;
 
         return popover;
+    }
+
+    private void delete_completed_tasks_action () {
+        var items = Services.Store.instance ().get_items_checked_by_project (project);
+        if (items.size == 0) {
+            return;
+        }
+
+        var dialog = new Adw.AlertDialog (
+            _ ("Delete All Completed Tasks"),
+            GLib.ngettext (
+                "This will delete %d completed task and its subtasks from project %s",
+                "This will delete %d completed tasks and their subtasks from project %s",
+                items.size
+            ).printf (items.size, project.name)
+        );
+
+        dialog.body_use_markup = true;
+        dialog.add_response ("cancel", _ ("Cancel"));
+        dialog.add_response ("delete", _ ("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (Planify._instance.main_window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                Services.Store.instance ().delete_completed_items_by_project (project);
+            }
+        });
     }
 
     private Gtk.Popover build_view_setting_popover () {
