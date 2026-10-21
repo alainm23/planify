@@ -394,6 +394,16 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 checked_items_map[item.id].hide_destroy ();
                 checked_items_map.unset (item.id);
             }
+
+            if (checked_items_map.has_key (item.id_string)) {
+                checked_items_map[item.id_string].hide_destroy ();
+                checked_items_map.unset (item.id_string);
+            }
+
+            if (completed_items_list != null) {
+                completed_items_list.remove (item);
+                update_load_more_button_label ();
+            }
         })] = Services.Store.instance ();
 
         signal_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
