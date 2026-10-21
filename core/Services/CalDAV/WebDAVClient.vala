@@ -37,6 +37,14 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         this.ignore_ssl = ignore_ssl;
     }
 
+    private static GLib.Quark http_error_quark () {
+        return GLib.Quark.from_string ("planify-webdav-http-error");
+    }
+
+    public static uint http_status (GLib.Error e) {
+        return e.domain == http_error_quark () ? (uint) e.code : 0;
+    }
+
     private static GLib.Regex ? between_tags_regex;
 
     private string minify_xml (string xml) {
@@ -149,7 +157,8 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
         if (!ok) {
             var response_text = (string) response.get_data ();
             Services.LogService.get_default ().error ("WebDAV", "%s %s failed: HTTP %u %s".printf (method, abs_url, msg.status_code, msg.reason_phrase ?? ""));
-            throw new GLib.IOError.FAILED (
+            throw new GLib.Error (
+                http_error_quark (), (int) msg.status_code, "%s",
                 "%s %s failed: HTTP %u %s\n%s".printf (
                     method, abs_url, msg.status_code, msg.reason_phrase ?? "", response_text ?? "")
             );
