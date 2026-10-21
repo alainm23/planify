@@ -31,8 +31,10 @@ test_core_sources = [
     'core/test-item-sorting.vala',
     'core/test-all-items-filter.vala',
     'core/test-subitem-cache.vala',
+    'core/test-dbus-tasks.vala',
     'core/test-item-reparent.vala',
-    'core/test-label-unique.vala'
+    'core/test-label-unique.vala',
+    join_paths(meson.project_source_root(), 'src', 'Services', 'DBusServer.vala')
 ]
 
 test_core = executable(
