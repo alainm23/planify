@@ -692,6 +692,7 @@ public class Services.Store : GLib.Object {
 
             if (insert) {
                 if (item.parent_id != "") {
+                    item.parent.invalidate_subitems ();
                     item.parent.item_added (item);
                 } else {
                     if (item.section_id == "") {
