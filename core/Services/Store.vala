@@ -781,6 +781,12 @@ public class Services.Store : GLib.Object {
             }
             #endif
 
+            // The database cascade removes the rows; drop them from memory too and clean up their stored copies
+            foreach (Objects.Attachment attachment in get_attachments_by_item (item)) {
+                attachments.remove (attachment);
+                attachment.delete_stored_copy ();
+            }
+
             foreach (Objects.Item subitem in get_subitems (item)) {
                 delete_item (subitem);
             }
@@ -1526,8 +1532,11 @@ public class Services.Store : GLib.Object {
 
     // Attachments
     public void insert_attachment (Objects.Attachment attachment) {
+        // Load the collection before inserting, otherwise the lazy load already includes the new row and it's added twice
+        var collection = attachments;
+
         if (Services.Database.get_default ().insert_attachment (attachment)) {
-            attachments.add (attachment);
+            collection.add (attachment);
             attachment.item.attachment_added (attachment);
         }
     }
