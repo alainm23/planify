@@ -102,7 +102,8 @@ public class Objects.Project : Objects.BaseObject {
 
     public SourceType source_type {
         get {
-            return source.source_type;
+            Objects.Source? project_source = source;
+            return project_source != null ? project_source.source_type : backend_type;
         }
     }
 
@@ -905,9 +906,15 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private void handle_project_deletion () {
+        Objects.Source? project_source = source;
+        if (project_source == null) {
+            Services.Store.instance ().delete_project.begin (this);
+            return;
+        }
+
         loading = true;
 
-        if (source_type == SourceType.LOCAL) {
+        if (project_source.source_type == SourceType.LOCAL) {
             Services.Store.instance ().delete_project.begin (this);
             return;
         }
