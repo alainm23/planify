@@ -1,5 +1,5 @@
 {
-    "app-id" : "io.github.alainm23.planify.Devel",
+    "id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "50",
     "sdk" : "org.gnome.Sdk",
@@ -74,13 +74,12 @@
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DENABLE_FILE_LOCKING=fcntl",
                 "-DENABLE_DOT_LOCKING=OFF",
-                "-DENABLE_OAUTH2=ON",
                 "-DENABLE_CANBERRA=OFF",
-                "-DENABLE_GTK=ON",
-                "-DENABLE_UOA=OFF",
+                "-DENABLE_GTK=OFF",
+                "-DENABLE_GTK4=OFF",
                 "-DENABLE_GOA=OFF",
-                "-DENABLE_GOOGLE=OFF",
                 "-DENABLE_EXAMPLES=OFF",
+                "-DENABLE_TESTS=OFF",
                 "-DENABLE_INTROSPECTION=ON",
                 "-DENABLE_VALA_BINDINGS=ON",
                 "-DENABLE_INSTALLED_TESTS=OFF",
@@ -90,8 +89,8 @@
                 "-DWITH_SYSTEMDUSERUNITDIR=OFF",
                 "-DWITH_LIBDB=OFF",
                 "-DWITH_OPENLDAP=OFF",
-                "-DENABLE_WEATHER=OFF",
-                "-DENABLE_OAUTH2_WEBKITGTK4=OFF"
+                "-DWITH_KRB5=OFF",
+                "-DENABLE_WEATHER=OFF"
             ],
             "sources" : [
                 {
@@ -118,7 +117,7 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/flatpak/libportal.git",
-                    "tag" : "0.9.1"
+                    "tag" : "0.11.0"
                 }
             ]
         },
@@ -152,39 +151,10 @@
             ]
         },
         {
-            "name" : "librest",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dexamples=false",
-                "-Dtests=false",
-                "-Dgtk_doc=false",
-                "-Dintrospection=false",
-                "-Dvapi=false"
-            ],
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/librest/0.10/librest-0.10.2.tar.xz",
-                    "sha256" : "7b6cb912bb3a22cfa7dcf005925dcb62883024db0c09099486e7d6851185c9b8",
-                    "x-checker-data" : {
-                        "type" : "gnome",
-                        "name" : "librest"
-                    }
-                }
-            ]
-        },
-        {
             "name" : "gnome-online-accounts",
             "buildsystem" : "meson",
             "config-opts" : [
-                "-Dgoabackend=true",
-                "-Downcloud=true",
-                "-Dwebdav=true",
-                "-Dexchange=false",
-                "-Dgoogle=false",
-                "-Dimap_smtp=false",
-                "-Dkerberos=false",
-                "-Dms_graph=false",
+                "-Dgoabackend=false",
                 "-Ddocumentation=false",
                 "-Dman=false",
                 "-Dvapi=true",
