@@ -21,6 +21,7 @@
 
 public class Views.Today : Adw.Bin {
     private Layouts.HeaderBar headerbar;
+    private Widgets.ScheduleButton reschedule_button;
     private Gtk.Label title_label;
     private Gtk.Label date_label;
     #if WITH_EVOLUTION
@@ -164,7 +165,7 @@ public class Views.Today : Adw.Bin {
 
         overdue_label.add_css_class ("font-bold");
 
-        var reschedule_button = new Widgets.ScheduleButton (_("Reschedule")) {
+        reschedule_button = new Widgets.ScheduleButton (_("Reschedule")) {
             visible_clear_button = false,
             visible_no_date = true
         };
@@ -1009,6 +1010,7 @@ public class Views.Today : Adw.Bin {
     }
 
     public void clean_up () {
+        reschedule_button.clean_up ();
         listbox.set_filter_func (null);
         listbox.set_sort_func (null);
 

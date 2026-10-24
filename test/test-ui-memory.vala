@@ -57,7 +57,12 @@ namespace PlanifyUITests {
             settle_frames ();
             window.add_today_view ();
             page = null;
-            settle_frames ();
+            // Eviction is queued after the page transition; allow frame scheduling to settle
+            // even when other tests or profiling consume CPU.
+            var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
+            while (released.get () != null && get_monotonic_time () < deadline) {
+                settle_frames ();
+            }
             assert_null (released.get ());
         }
 
@@ -126,10 +131,40 @@ namespace PlanifyUITests {
         editor = null;
         assert_null (editor_ref.get ());
 
+        var menu = new Widgets.ContextMenu.MenuPicker ("Sort");
+        menu.add_item ("Name", "name");
+        var menu_ref = GLib.WeakRef (menu);
+        menu = null;
+        assert_null (menu_ref.get ());
+
         var progress = new Widgets.CircularProgressBar ();
         var progress_ref = GLib.WeakRef (progress);
         progress = null;
         assert_null (progress_ref.get ());
+    }
+
+    private void collect_all_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked) {
+        tracked.add (new TrackedWidget (widget));
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
+            collect_all_widgets (child, tracked);
+        }
+    }
+
+    private void test_date_picker_releases_descendants () {
+        var picker = new Widgets.DateTimePicker.DateTimePicker ();
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        collect_all_widgets (picker, tracked);
+        picker.clean_up ();
+        // Cleanup can be reached more than once during parent disposal.
+        picker.clean_up ();
+        picker = null;
+        settle_frames ();
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
     }
 
     public int main (string[] args) {
@@ -163,6 +198,7 @@ namespace PlanifyUITests {
             item.project_id = project.id;
             Services.Store.instance ().insert_item (item);
         }
+        Test.add_func ("/ui/memory/date_picker_releases_descendants", test_date_picker_releases_descendants);
         Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
         Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);
         Test.add_func ("/ui/memory/cancel_section_loading", test_cancel_section_loading);
