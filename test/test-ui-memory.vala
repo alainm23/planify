@@ -71,6 +71,67 @@ namespace PlanifyUITests {
         window.destroy ();
     }
 
+    private class TrackedWidget : Object {
+        public GLib.WeakRef reference;
+        public string type_name;
+
+        public TrackedWidget (Gtk.Widget widget) {
+            reference = GLib.WeakRef (widget);
+            type_name = widget.get_type ().name ();
+        }
+    }
+
+    private void collect_task_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked) {
+        if (widget is Views.Scheduled.ScheduledSection || widget is Layouts.ItemRow) {
+            tracked.add (new TrackedWidget (widget));
+        }
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
+            collect_task_widgets (child, tracked);
+        }
+    }
+
+    private void test_scheduled_releases_sections_and_rows () {
+        var date = new DateTime.now_local ();
+        foreach (var item in Services.Store.instance ().items) {
+            item.due.datetime = date;
+        }
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        Views.Scheduled.ScheduledSection? section = new Views.Scheduled.ScheduledDay (date);
+        collect_task_widgets (section, tracked);
+        section.clean_up ();
+        section = null;
+        section = new Views.Scheduled.ScheduledMonth (date);
+        collect_task_widgets (section, tracked);
+        section.clean_up ();
+        section = null;
+        settle_frames ();
+        // Both section types must exercise populated task lists.
+        assert_cmpint (tracked.size, CompareOperator.GT, 2);
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
+    }
+
+    private void test_editor_and_progress_widgets_release () {
+        var textview = new Widgets.TextView ();
+        var textview_ref = GLib.WeakRef (textview);
+        textview = null;
+        assert_null (textview_ref.get ());
+
+        var editor = new Widgets.EditableTextView ();
+        var editor_ref = GLib.WeakRef (editor);
+        editor = null;
+        assert_null (editor_ref.get ());
+
+        var progress = new Widgets.CircularProgressBar ();
+        var progress_ref = GLib.WeakRef (progress);
+        progress = null;
+        assert_null (progress_ref.get ());
+    }
+
     public int main (string[] args) {
         Test.init (ref args);
         if (!Gtk.init_check ()) {
@@ -102,6 +163,8 @@ namespace PlanifyUITests {
             item.project_id = project.id;
             Services.Store.instance ().insert_item (item);
         }
+        Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
+        Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);
         Test.add_func ("/ui/memory/cancel_section_loading", test_cancel_section_loading);
         Test.add_func ("/ui/memory/cancel_project_loading", test_cancel_project_loading);
         Test.add_func ("/ui/memory/navigation_releases_previous_page", test_navigation_releases_previous_page);

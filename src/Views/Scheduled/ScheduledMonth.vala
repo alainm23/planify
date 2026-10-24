@@ -147,10 +147,10 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
             width_request = 250
         };
 
-        add_item.clicked.connect (() => {
+        signal_map[add_item.clicked.connect (() => {
             popover.popdown ();
             open_quick_add (date);
-        });
+        })] = add_item;
 
         return popover;
     }
