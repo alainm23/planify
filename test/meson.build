@@ -47,9 +47,10 @@ test('core', test_core, timeout: 30, suite: ['core'],
     env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data',
           'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(), 'GSETTINGS_BACKEND=memory'])
 
-configure_file(input: '../data/io.github.alainm23.planify.gschema.xml',
+test_schema = configure_file(input: '../data/io.github.alainm23.planify.gschema.xml',
     output: 'io.github.alainm23.planify.gschema.xml', copy: true)
 test_schemas = custom_target('test-schemas',
+    input: test_schema,
     output: 'gschemas.compiled',
     command: [find_program('glib-compile-schemas'), meson.current_build_dir()],
     build_by_default: true)
@@ -66,3 +67,7 @@ test('calendar-memory', test_calendar_memory, timeout: 30, suite: ['widgets'],
     env: ['GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
           'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
 
+test('ui-memory', test_ui_memory, timeout: 30, suite: ['widgets'],
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'ui-memory/test-core-data',
+          'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
+          'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])

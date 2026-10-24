@@ -69,6 +69,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private Gee.ArrayList<Objects.Item> completed_items_list;
     private int completed_page_index = 0;
     private uint add_items_idle_id = 0;
+    private uint reveal_timeout_id = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -294,7 +295,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         child = content_revealer;
 
-        Timeout.add (content_revealer.transition_duration, () => {
+        reveal_timeout_id = Timeout.add (content_revealer.transition_duration, () => {
+            reveal_timeout_id = 0;
             content_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
@@ -886,6 +888,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     public void clean_up () {
+        if (reveal_timeout_id != 0) {
+            GLib.Source.remove (reveal_timeout_id);
+            reveal_timeout_id = 0;
+        }
         if (add_items_idle_id != 0) {
             GLib.Source.remove (add_items_idle_id);
             add_items_idle_id = 0;
