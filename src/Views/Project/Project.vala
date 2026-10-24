@@ -837,6 +837,7 @@ public class Views.Project : Adw.Bin {
 
         signal_map.clear ();
 
+        multiselect_toolbar.clean_up ();
         destroy_current_view ();
     }
 

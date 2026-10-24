@@ -167,6 +167,28 @@ namespace PlanifyUITests {
         }
     }
 
+    private void check_project_children_release (ProjectViewStyle style) {
+        project.view_style = style;
+        var view = new Views.Project (project);
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        settle_frames ();
+        collect_all_widgets (view, tracked);
+        view.clean_up ();
+        view = null;
+        settle_frames ();
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
+    }
+
+    private void test_project_releases_populated_children () {
+        check_project_children_release (ProjectViewStyle.LIST);
+        check_project_children_release (ProjectViewStyle.BOARD);
+    }
+
     public int main (string[] args) {
         Test.init (ref args);
         if (!Gtk.init_check ()) {
@@ -192,12 +214,20 @@ namespace PlanifyUITests {
         project.name = project.id;
         project.source_id = Services.Store.instance ().sources[0].id;
         Services.Store.instance ().insert_project (project);
+        var label = new Objects.Label ();
+        label.id = "ui-memory-label";
+        label.name = "Test label";
+        label.source_id = project.source_id;
+        Services.Store.instance ().insert_label (label);
         for (int i = 0; i < 60; i++) {
             var item = new Objects.Item ();
             item.id = "ui-memory-task-%d".printf (i);
             item.project_id = project.id;
+            item.pinned = i == 0;
             Services.Store.instance ().insert_item (item);
+            item.add_label_if_not_exists (label);
         }
+        Test.add_func ("/ui/memory/project_releases_populated_children", test_project_releases_populated_children);
         Test.add_func ("/ui/memory/date_picker_releases_descendants", test_date_picker_releases_descendants);
         Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
         Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);

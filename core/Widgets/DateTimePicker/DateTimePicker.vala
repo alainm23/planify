@@ -156,6 +156,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
+        destroy.connect (() => clean_up ());
         chrono = new Chrono.Core ();
         active_revealers = new Gee.ArrayList<Gtk.Revealer> ();
 

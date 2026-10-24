@@ -27,6 +27,8 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.ListBox listbox;
+    private Gtk.Image arrow_icon;
+    private Gtk.Revealer listbox_revealer;
 
     public Gee.HashMap<string, Widgets.ContextMenu.MenuItemCheckPicker> filters_map;
 
@@ -65,7 +67,7 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
         menu_title = new Gtk.Label (title);
         menu_title.use_markup = true;
 
-        var arrow_icon = new Gtk.Image () {
+        arrow_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("go-next-symbolic"),
             pixel_size = 16,
             hexpand = true,
@@ -92,7 +94,7 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        var listbox_revealer = new Gtk.Revealer () {
+        listbox_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = listbox
         };
@@ -145,6 +147,7 @@ public class Widgets.ContextMenu.MenuItemCheckPicker : Gtk.ListBoxRow {
     public Objects.Filters.FilterItem filter { get; construct; }
 
     private Gtk.CheckButton check_button;
+    private Gtk.GestureClick gesture;
 
     public bool active {
         set {
@@ -182,7 +185,7 @@ public class Widgets.ContextMenu.MenuItemCheckPicker : Gtk.ListBoxRow {
         content_box.append (check_button);
         child = content_box;
 
-        var gesture = new Gtk.GestureClick ();
+        gesture = new Gtk.GestureClick ();
         add_controller (gesture);
         gesture.pressed.connect (() => {
             gesture.set_state (Gtk.EventSequenceState.CLAIMED);

@@ -300,7 +300,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             } else {
                 Objects.Filters.Scheduled.get_default ().remove_filter (filter);
             }
-        })] = signal_map;
+        })] = priority_filter;
 
         signal_map[labels_filter.activate_item.connect (() => {
             Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();

@@ -181,6 +181,15 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
     }
 
+    public void clean_up () {
+        schedule_button.clean_up ();
+        label_button.clean_up ();
+        priority_button.clean_up ();
+        items_selected.clear ();
+        labels.clear ();
+        _initial_labels.clear ();
+    }
+
     private void update_items (Gee.ArrayList<Objects.Item> objects) {
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.CALDAV) {
             foreach (Objects.Item item in objects) {
@@ -318,7 +327,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 )
             );
 
-            popover.popdown ();
+            menu_button.popover.popdown ();
         });
 
         delete_item.clicked.connect (() => {

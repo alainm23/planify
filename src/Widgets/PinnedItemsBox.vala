@@ -23,6 +23,7 @@ public class Widgets.PinnedItemsBox : Adw.Bin {
     public Objects.Project project { get; construct; }
 
     private Adw.WrapBox box_layout;
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
     private Gtk.Revealer main_revealer;
     public Gee.HashMap<string, Layouts.ItemBoard> items_map = new Gee.HashMap<string, Layouts.ItemBoard> ();
 
@@ -54,25 +55,26 @@ public class Widgets.PinnedItemsBox : Adw.Bin {
         child = main_revealer;
         add_items ();
 
-        project.item_added.connect ((item) => {
+        signal_map[project.item_added.connect ((item) => {
             add_item (item);
-        });
+        })] = project;
 
-        project.item_deleted.connect ((item) => {
+        signal_map[project.item_deleted.connect ((item) => {
             update_pinboard (item);
-        });
+        })] = project;
 
-        Services.EventBus.get_default ().item_moved.connect ((item) => {
+        signal_map[Services.EventBus.get_default ().item_moved.connect ((item) => {
             update_pinboard (item);
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Store.instance ().item_pin_change.connect ((item) => {
+        signal_map[Services.Store.instance ().item_pin_change.connect ((item) => {
             if (item.project_id != project.id) {
                 return;
             }
 
             if (items_map.has_key (item.id) && !item.pinned) {
                 items_map[item.id].hide_widget ();
+                items_map[item.id].clean_up ();
                 box_layout.remove (items_map[item.id]);
                 items_map.unset (item.id);
             }
@@ -82,7 +84,19 @@ public class Widgets.PinnedItemsBox : Adw.Bin {
             }
 
             check_reveal_child ();
-        });
+        })] = Services.Store.instance ();
+    }
+
+    public void clean_up () {
+        foreach (var entry in signal_map.entries) {
+            if (SignalHandler.is_connected (entry.value, entry.key)) entry.value.disconnect (entry.key);
+        }
+        signal_map.clear ();
+        foreach (var row in items_map.values) {
+            row.clean_up ();
+            box_layout.remove (row);
+        }
+        items_map.clear ();
     }
 
     private void add_items () {
@@ -115,6 +129,7 @@ public class Widgets.PinnedItemsBox : Adw.Bin {
         }
 
         items_map[item.id].hide_widget ();
+        items_map[item.id].clean_up ();
         box_layout.remove (items_map[item.id]);
         items_map.unset (item.id);
 

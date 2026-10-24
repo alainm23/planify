@@ -313,7 +313,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         handle_grid.append (content_box);
         handle_grid.append (description_revealer);
-        handle_grid.append (deadline_revealer);
         handle_grid.append (footer_revealer);
 
         card_widget = new Adw.Bin () {
