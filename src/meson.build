@@ -170,6 +170,7 @@ executable(
 test_ui_memory = executable(
   'test-ui-memory',
   join_paths(meson.project_source_root(), 'test/test-ui-memory.vala'),
+  join_paths(meson.project_source_root(), 'test/ui-memory-scenarios.vala'),
   sources,
   asresources,
   config_file,

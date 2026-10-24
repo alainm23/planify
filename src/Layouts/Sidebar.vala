@@ -410,6 +410,7 @@ public class Layouts.Sidebar : Adw.Bin {
         return listbox;
     }
     public void clean_up () {
+        sources_listbox.set_sort_func (null);
         if (filter_view_timeout_id != 0) {
             GLib.Source.remove (filter_view_timeout_id);
             filter_view_timeout_id = 0;

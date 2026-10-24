@@ -67,7 +67,8 @@ test('calendar-memory', test_calendar_memory, timeout: 30, suite: ['widgets'], d
     env: ['GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
           'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
 
-test('ui-memory', test_ui_memory, timeout: 30, suite: ['widgets'], depends: test_schemas,
+# Repeated mapped layout transitions need more time under software rendering/profilers.
+test('ui-memory', test_ui_memory, timeout: 90, suite: ['widgets'], depends: test_schemas,
     env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'ui-memory/test-core-data',
           'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
           'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
