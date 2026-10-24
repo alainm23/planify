@@ -281,7 +281,7 @@ private class Services.CalDAV.WebDAVXmlParser {
     private static void on_text (GLib.MarkupParseContext context, string text, size_t text_len) throws GLib.MarkupError {
         unowned WebDAVXmlParser self = (WebDAVXmlParser) context.get_user_data ();
         if (!self.stack.is_empty) {
-            self.stack.last ().text_content += text;
+            self.stack.last ().text_content += text.substring (0, (long) text_len);
         }
     }
 }
