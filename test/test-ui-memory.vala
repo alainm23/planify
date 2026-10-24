@@ -27,6 +27,50 @@ namespace PlanifyUITests {
         assert_null (released.get ());
     }
 
+    private void settle_frames () {
+        var loop = new MainLoop ();
+        Timeout.add (400, () => {
+            loop.quit ();
+            return Source.REMOVE;
+        });
+        loop.run ();
+    }
+
+    private void test_navigation_releases_previous_page () {
+        var app = Planify.instance;
+        try {
+            assert_true (app.register ());
+        } catch (Error e) {
+            error ("Cannot register test application: %s", e.message);
+        }
+        Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", project.id);
+        Services.Settings.get_default ().settings.set_boolean ("backup-automatic", false);
+        var window = new MainWindow (app);
+        app.main_window = window;
+        window.present ();
+        settle_frames ();
+
+        project.view_style = ProjectViewStyle.LIST;
+        for (int cycle = 0; cycle < 3; cycle++) {
+            var page = window.add_project_view (project);
+            var released = GLib.WeakRef (page);
+            settle_frames ();
+            window.add_today_view ();
+            page = null;
+            settle_frames ();
+            assert_null (released.get ());
+        }
+
+        // Exercise another navigation before the pending page change finishes.
+        window.add_project_view (project);
+        window.add_today_view ();
+        window.add_project_view (project);
+        settle_frames ();
+        window.add_today_view ();
+        settle_frames ();
+        window.destroy ();
+    }
+
     public int main (string[] args) {
         Test.init (ref args);
         if (!Gtk.init_check ()) {
@@ -60,6 +104,7 @@ namespace PlanifyUITests {
         }
         Test.add_func ("/ui/memory/cancel_section_loading", test_cancel_section_loading);
         Test.add_func ("/ui/memory/cancel_project_loading", test_cancel_project_loading);
+        Test.add_func ("/ui/memory/navigation_releases_previous_page", test_navigation_releases_previous_page);
         return Test.run ();
     }
 }

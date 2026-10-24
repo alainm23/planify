@@ -39,6 +39,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
     public Services.ActionManager action_manager;
 
+    private uint view_cleanup_idle_id = 0;
+    private bool cleaning_up_window = false;
     private Gee.ArrayList<ViewCacheItem> view_cache = new Gee.ArrayList<ViewCacheItem> ();
 
     public MainWindow (Planify application) {
@@ -112,6 +114,12 @@ public class MainWindow : Adw.ApplicationWindow {
             hhomogeneous = false,
             css_classes = { "main-content" }
         };
+
+        views_stack.notify["transition-running"].connect (() => {
+            if (!views_stack.transition_running) {
+                cleanup_unused_views ();
+            }
+        });
 
         item_sidebar_view = new Layouts.ItemSidebarView ();
         if (Services.Settings.get_default ().settings.get_boolean ("always-show-details-sidebar")) {
@@ -474,6 +482,11 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         ((Gtk.Widget) this).destroy.connect (() => {
+            cleaning_up_window = true;
+            if (view_cleanup_idle_id != 0) {
+                GLib.Source.remove (view_cleanup_idle_id);
+                view_cleanup_idle_id = 0;
+            }
             sidebar.clean_up ();
             foreach (var item in view_cache) {
                 cleanup_view (item.view);
@@ -549,19 +562,6 @@ public class MainWindow : Adw.ApplicationWindow {
         string current_visible = views_stack.visible_child_name;
 
         if (current_visible == old_view_id) {
-            var old_view = views_stack.get_child_by_name (old_view_id);
-            if (old_view != null) {
-                foreach (var item in view_cache) {
-                    if (item.view_id == old_view_id) {
-                        view_cache.remove (item);
-                        break;
-                    }
-                }
-
-                cleanup_view (old_view);
-                views_stack.remove (old_view);
-            }
-            
             add_inbox_view ();
         }
     }
@@ -680,17 +680,7 @@ public class MainWindow : Adw.ApplicationWindow {
             go_homepage ();
         }
 
-        // Navigation may already have removed the page.
-        if (project_view.get_parent () == views_stack) {
-            foreach (var item in view_cache) {
-                if (item.view == project_view) {
-                    view_cache.remove (item);
-                    break;
-                }
-            }
-            cleanup_view (project_view);
-            views_stack.remove (project_view);
-        }
+        cleanup_unused_views ();
     }
 
     public void add_task_action (string content = "") {
@@ -993,20 +983,34 @@ public class MainWindow : Adw.ApplicationWindow {
         });
     }
 
-    // Only the visible page owns a live widget tree and singleton subscriptions.
+    // A page remains referenced by Adw.ViewStack until its page-change animation
+    // finishes, even when transitions are disabled. Queue cleanup outside that
+    // notification: rapid navigation can emit it while the next page is being set.
     private void cleanup_unused_views () {
-        var to_remove = new Gee.ArrayList<ViewCacheItem> ();
-        foreach (var item in view_cache) {
-            if (item.view != views_stack.visible_child) {
-                to_remove.add (item);
-            }
+        if (cleaning_up_window || view_cleanup_idle_id != 0) {
+            return;
         }
 
-        foreach (var item in to_remove) {
-            view_cache.remove (item);
-            cleanup_view (item.view);
-            views_stack.remove (item.view);
-        }
+        view_cleanup_idle_id = Idle.add (() => {
+            view_cleanup_idle_id = 0;
+            if (views_stack.transition_running) {
+                return Source.REMOVE;
+            }
+
+            var to_remove = new Gee.ArrayList<ViewCacheItem> ();
+            foreach (var item in view_cache) {
+                if (item.view != views_stack.visible_child) {
+                    to_remove.add (item);
+                }
+            }
+
+            foreach (var item in to_remove) {
+                view_cache.remove (item);
+                cleanup_view (item.view);
+                views_stack.remove (item.view);
+            }
+            return Source.REMOVE;
+        });
     }
 
     private void cleanup_view (Gtk.Widget view) {
