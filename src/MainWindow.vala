@@ -473,6 +473,14 @@ public class MainWindow : Adw.ApplicationWindow {
             handle_inbox_project_change ();
         });
 
+        ((Gtk.Widget) this).destroy.connect (() => {
+            sidebar.clean_up ();
+            foreach (var item in view_cache) {
+                cleanup_view (item.view);
+            }
+            view_cache.clear ();
+        });
+
         close_request.connect (() => {
             if (Services.Settings.get_default ().settings.get_boolean ("run-in-background")) {
                 hide ();

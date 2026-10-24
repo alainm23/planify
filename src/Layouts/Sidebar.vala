@@ -30,6 +30,8 @@ public class Layouts.Sidebar : Adw.Bin {
     public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
     public Gee.HashMap<string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap<string, Layouts.SidebarSourceRow> ();
     
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     construct {
         filters_revealer = new Gtk.Revealer () {
             hexpand = true,
@@ -100,7 +102,7 @@ public class Layouts.Sidebar : Adw.Bin {
             return item1 - item2;
         });
 
-        Services.Settings.get_default ().settings.changed["views-order-visible"].connect (() => {
+        signal_map[Services.Settings.get_default ().settings.changed["views-order-visible"].connect (() => {
             if (filters_revealer.child is Gtk.FlowBox) {
                 ((Gtk.FlowBox) filters_revealer.child).invalidate_sort ();
                 ((Gtk.FlowBox) filters_revealer.child).invalidate_filter ();
@@ -108,13 +110,13 @@ public class Layouts.Sidebar : Adw.Bin {
                 ((Gtk.ListBox) filters_revealer.child).invalidate_sort ();
                 ((Gtk.ListBox) filters_revealer.child).invalidate_filter ();
             }
-        });
+        })] = Services.Settings.get_default ().settings;
 
-        Services.EventBus.get_default ().update_sources_position.connect (() => {
+        signal_map[Services.EventBus.get_default ().update_sources_position.connect (() => {
             sources_listbox.invalidate_sort ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Settings.get_default ().settings.changed["filters-list-view"].connect (update_filter_view);
+        signal_map[Services.Settings.get_default ().settings.changed["filters-list-view"].connect (update_filter_view)] = Services.Settings.get_default ().settings;
     }
     
     private void create_context_menu () {
@@ -199,15 +201,15 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     public void init () {
-        Services.Store.instance ().source_added.connect (add_source_row);
+        signal_map[Services.Store.instance ().source_added.connect (add_source_row)] = Services.Store.instance ();
 
-        Services.Store.instance ().source_deleted.connect ((source) => {
+        signal_map[Services.Store.instance ().source_deleted.connect ((source) => {
             if (sources_hashmap.has_key (source.id)) {
                 sources_hashmap.get (source.id).hide_destroy ();
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.EventBus.get_default ().favorite_toggled.connect ((project) => {
+        signal_map[Services.EventBus.get_default ().favorite_toggled.connect ((project) => {
             if (favorites_hashmap.has_key (project.id)) {
                 favorites_hashmap[project.id].hide_destroy ();
                 favorites_hashmap.unset (project.id);
@@ -216,11 +218,11 @@ public class Layouts.Sidebar : Adw.Bin {
             }
 
             favorites_header.reveal = favorites_hashmap.size > 0;
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Store.instance ().project_added.connect ((project) => {
+        signal_map[Services.Store.instance ().project_added.connect ((project) => {
             add_row_favorite (project);
-        });
+        })] = Services.Store.instance ();
 
         add_all_favorites ();
 
@@ -259,10 +261,16 @@ public class Layouts.Sidebar : Adw.Bin {
         favorites_header.add_child (favorites_hashmap[project.id]);
     }
 
+    private uint filter_view_timeout_id = 0;
+
     private void update_filter_view () {
+        if (filter_view_timeout_id != 0) {
+            GLib.Source.remove (filter_view_timeout_id);
+        }
         filters_revealer.reveal_child = false;
 
-        Timeout.add (filters_revealer.transition_duration, () => {
+        filter_view_timeout_id = Timeout.add (filters_revealer.transition_duration, () => {
+            filter_view_timeout_id = 0;
             destroy_current_filter_view ();
 
             if (Services.Settings.get_default ().settings.get_boolean ("filters-list-view")) {
@@ -278,9 +286,8 @@ public class Layouts.Sidebar : Adw.Bin {
 
     private void destroy_current_filter_view () {
         if (filters_revealer.child is Gtk.FlowBox) {
-            Gtk.FlowBox ? filters_flowbox = (Gtk.FlowBox) filters_revealer.child;
-            if (filters_flowbox != null) {
-                // filters_flowbox.clean_up ();
+            for (var row = filters_revealer.child.get_first_child (); row != null; row = row.get_next_sibling ()) {
+                ((Layouts.FilterPaneChild) row).clean_up ();
             }
         } else if (filters_revealer.child is Gtk.ListBox) {
             Gtk.ListBox ? filters_listbox = (Gtk.ListBox) filters_revealer.child;
@@ -402,4 +409,26 @@ public class Layouts.Sidebar : Adw.Bin {
 
         return listbox;
     }
+    public void clean_up () {
+        if (filter_view_timeout_id != 0) {
+            GLib.Source.remove (filter_view_timeout_id);
+            filter_view_timeout_id = 0;
+        }
+        destroy_current_filter_view ();
+        foreach (var row in favorites_hashmap.values) {
+            row.clean_up ();
+        }
+        favorites_hashmap.clear ();
+        foreach (var row in sources_hashmap.values) {
+            row.clean_up ();
+        }
+        sources_hashmap.clear ();
+        foreach (var entry in signal_map.entries) {
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
+        }
+        signal_map.clear ();
+    }
+
 }
