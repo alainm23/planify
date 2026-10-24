@@ -1600,7 +1600,25 @@ public class Services.Database : GLib.Object {
         return success;
     }
 
-    public Gee.ArrayList<Objects.Item> get_items_collection () {
+    public delegate void ItemVisitor (Objects.Item item) throws GLib.Error;
+
+    // Keep only the current row alive during exports of large databases.
+    public void foreach_item (ItemVisitor visitor) throws GLib.Error {
+        Sqlite.Statement stmt;
+        const string query = "SELECT * FROM Items WHERE is_deleted = 0 AND is_trash = 0;";
+        if (db.prepare_v2 (query, query.length, out stmt) != Sqlite.OK) {
+            throw new IOError.FAILED ("Unable to read tasks: %s", db.errmsg ());
+        }
+        int result;
+        while ((result = stmt.step ()) == Sqlite.ROW) {
+            visitor (_fill_item (stmt));
+        }
+        if (result != Sqlite.DONE) {
+            throw new IOError.FAILED ("Unable to read tasks: %s", db.errmsg ());
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_collection (bool load_extra_data = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;
 
@@ -1609,7 +1627,7 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
 
         while (stmt.step () == Sqlite.ROW) {
-            return_value.add (_fill_item (stmt));
+            return_value.add (_fill_item (stmt, load_extra_data));
         }
 
         return return_value;
@@ -1665,7 +1683,21 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public Objects.Item _fill_item (Sqlite.Statement stmt) {
+    public string get_item_extra_data (string id) {
+        Sqlite.Statement stmt;
+        const string query = "SELECT extra_data FROM Items WHERE id = $id LIMIT 1;";
+        if (db.prepare_v2 (query, query.length, out stmt) != Sqlite.OK) {
+            warning ("Unable to load task details: %s", db.errmsg ());
+            return "";
+        }
+        set_parameter_str (stmt, "$id", id);
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0) ?? "";
+        }
+        return "";
+    }
+
+    public Objects.Item _fill_item (Sqlite.Statement stmt, bool load_extra_data = true) {
         Objects.Item return_value = new Objects.Item ();
         return_value.id = stmt.column_text (0);
         return_value.content = stmt.column_text (1);
@@ -1685,7 +1717,11 @@ public class Services.Database : GLib.Object {
         return_value.collapsed = get_parameter_bool (stmt, 15);
         return_value.pinned = get_parameter_bool (stmt, 16);
         return_value.labels = Services.Store.instance ().get_labels_by_item_labels (stmt.column_text (17));
-        return_value.extra_data = stmt.column_text (18);
+        if (load_extra_data) {
+            return_value.extra_data = stmt.column_text (18);
+        } else {
+            return_value.defer_extra_data ();
+        }
         return_value.item_type = ItemType.parse (stmt.column_text (19));
         return_value.calendar_event_uid = stmt.column_text (20);
         return_value.deadline_date = stmt.column_text (21);

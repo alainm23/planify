@@ -145,7 +145,44 @@ namespace Planify.Tests.SubitemCache {
         assert_false (contains_id (parent.items_uncomplete, child.id));
     }
 
+    private void test_delete_releases_cached_child () {
+        ensure_database ();
+        var parent = make_item ("release-parent");
+        var child = make_item ("release-child", parent.id);
+        Services.Store.instance ().insert_item (parent);
+        Services.Store.instance ().insert_item (child);
+        assert_true (child.parent == parent);
+        assert_cmpint (parent.items.size, CompareOperator.EQ, 1);
+        assert_cmpint (parent.items_uncomplete.size, CompareOperator.EQ, 1);
+
+        var released = GLib.WeakRef (child);
+        Services.Store.instance ().delete_item (child);
+        child = null;
+        // No second getter access should be needed to release the invalidated list.
+        assert_null (released.get ());
+    }
+
+    private void test_delete_releases_parent_and_child () {
+        ensure_database ();
+        var parent = make_item ("release-tree-parent");
+        var child = make_item ("release-tree-child", parent.id);
+        Services.Store.instance ().insert_item (parent);
+        Services.Store.instance ().insert_item (child);
+        assert_true (child.parent == parent);
+        assert_cmpint (parent.items.size, CompareOperator.EQ, 1);
+
+        var released_parent = GLib.WeakRef (parent);
+        var released_child = GLib.WeakRef (child);
+        Services.Store.instance ().delete_item (parent);
+        parent = null;
+        child = null;
+        assert_null (released_parent.get ());
+        assert_null (released_child.get ());
+    }
+
     public void register_tests () {
+        Test.add_func ("/core/subitem_cache/delete_releases_cached_child", test_delete_releases_cached_child);
+        Test.add_func ("/core/subitem_cache/delete_releases_parent_and_child", test_delete_releases_parent_and_child);
         Test.add_func ("/core/subitem_cache/insert_updates_parent_items", test_insert_updates_parent_items);
         Test.add_func ("/core/subitem_cache/move_updates_old_and_new_parent_items", test_move_updates_old_and_new_parent_items);
         Test.add_func ("/core/subitem_cache/item_moved_event_updates_old_and_new_parent_items", test_item_moved_event_updates_old_and_new_parent_items);

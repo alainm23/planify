@@ -33,7 +33,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _section_id; }
         set {
             _section_id = value;
-            _section = null;
+            _section.set (null);
         }
     }
 
@@ -42,7 +42,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _project_id; }
         set {
             _project_id = value;
-            _project = null;
+            _project.set (null);
         }
     }
 
@@ -51,10 +51,36 @@ public class Objects.Item : Objects.BaseObject {
         get { return _parent_id; }
         set {
             _parent_id = value;
-            _parent = null;
+            _parent.set (null);
         }
     }
-    public string extra_data { get; set; default = ""; }
+    private string _extra_data = "";
+    private bool extra_data_deferred = false;
+    public string extra_data {
+        get {
+            if (extra_data_deferred) {
+                _extra_data = Services.Database.get_default ().get_item_extra_data (id);
+                extra_data_deferred = false;
+            }
+            return _extra_data;
+        }
+        set {
+            _extra_data = value;
+            extra_data_deferred = false;
+            _extra_data_object = null;
+            extra_data_parsed = false;
+        }
+    }
+
+    // Store loads the searchable task fields up front, but CalDAV payloads are only
+    // needed when a task is opened, edited or synced.
+    public void defer_extra_data () {
+        _extra_data = "";
+        extra_data_deferred = true;
+        extra_data_parsed = false;
+        _extra_data_object = null;
+    }
+
     public ItemType item_type { get; set; default = ItemType.TASK; }
     public string responsible_uid { get; set; default = ""; }
 
@@ -204,13 +230,13 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    string ? _extra_data_key = null;
+    bool extra_data_parsed = false;
     Json.Object ? _extra_data_object = null;
 
     private Json.Object ? get_extra_data_object () {
-        if (_extra_data_key != extra_data) {
+        if (!extra_data_parsed) {
             _extra_data_object = Utils.JsonUtils.get_object (extra_data);
-            _extra_data_key = extra_data;
+            extra_data_parsed = true;
         }
 
         return _extra_data_object;
@@ -313,33 +339,40 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    Objects.Item ? _parent;
+    // The Store owns related models; a back-reference must not retain their child caches.
+    GLib.WeakRef _parent = GLib.WeakRef (null);
     public Objects.Item parent {
-        get {
-            if (_parent == null && _parent_id != null && _parent_id != "") {
-                _parent = Services.Store.instance ().get_item (_parent_id);
+        owned get {
+            var related = (Objects.Item) _parent.get ();
+            if (related == null && _parent_id != null && _parent_id != "") {
+                related = Services.Store.instance ().get_item (_parent_id);
+                _parent.set (related);
             }
-            return _parent;
+            return related;
         }
     }
 
-    Objects.Project ? _project;
+    GLib.WeakRef _project = GLib.WeakRef (null);
     public Objects.Project project {
-        get {
-            if (_project == null && _project_id != null && _project_id != "") {
-                _project = Services.Store.instance ().get_project (_project_id);
+        owned get {
+            var related = (Objects.Project) _project.get ();
+            if (related == null && _project_id != null && _project_id != "") {
+                related = Services.Store.instance ().get_project (_project_id);
+                _project.set (related);
             }
-            return _project;
+            return related;
         }
     }
 
-    Objects.Section ? _section;
+    GLib.WeakRef _section = GLib.WeakRef (null);
     public Objects.Section section {
-        get {
-            if (_section == null && _section_id != null && _section_id != "") {
-                _section = Services.Store.instance ().get_section (_section_id);
+        owned get {
+            var related = (Objects.Section) _section.get ();
+            if (related == null && _section_id != null && _section_id != "") {
+                related = Services.Store.instance ().get_section (_section_id);
+                _section.set (related);
             }
-            return _section;
+            return related;
         }
     }
 
@@ -362,6 +395,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public void invalidate_subitems () {
         _items_loaded = false;
+        _items = null;
         _items_uncomplete = null;
     }
 
@@ -842,11 +876,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_section (Objects.Section section) {
-        _section = section;
+        _section.set (section);
     }
 
     public void set_parent (Objects.Item item) {
-        _parent = item;
+        _parent.set (item);
     }
 
     /**
@@ -875,7 +909,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_project (Objects.Project project) {
-        _project = project;
+        _project.set (project);
     }
 
     public override string get_add_json (string temp_id, string uuid) {
