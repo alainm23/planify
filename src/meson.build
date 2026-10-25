@@ -178,3 +178,14 @@ test_ui_memory = executable(
   vala_args: ['--main=PlanifyUITests.main'],
   install: false
 )
+
+# Opt-in review workloads, controlled through isolated fixture-local IPC files.
+executable(
+  'test-ui-review',
+  join_paths(meson.project_source_root(), 'test/ui-review-scenarios.vala'),
+  sources, asresources, config_file,
+  dependencies: deps,
+  vala_args: ['--main=PlanifyUIReview.main'],
+  install: false,
+  build_by_default: false
+)
