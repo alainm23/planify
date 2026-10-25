@@ -260,10 +260,13 @@ namespace PlanifyUITests {
         assert_null (progress_ref.get ());
     }
 
-    private void collect_all_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked) {
+    private void collect_all_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked, bool include_tooltips = true) {
+        if (!include_tooltips && widget.get_type ().name () == "GtkTooltipWindow") {
+            return;
+        }
         tracked.add (new TrackedWidget (widget));
         for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
-            collect_all_widgets (child, tracked);
+            collect_all_widgets (child, tracked, include_tooltips);
         }
     }
 
@@ -304,6 +307,52 @@ namespace PlanifyUITests {
     private void test_project_releases_populated_children () {
         check_project_children_release (ProjectViewStyle.LIST);
         check_project_children_release (ProjectViewStyle.BOARD);
+    }
+
+    private void test_task_action_menu_is_lazy_and_reused () {
+        var item = Services.Store.instance ().get_item ("ui-memory-task-0");
+        var row = new Layouts.ItemRow (item);
+        var menu = (Gtk.MenuButton) find_type (row, typeof (Gtk.MenuButton));
+        assert_nonnull (menu);
+        assert_null (menu.popover);
+        assert_true (find_type (row, typeof (Widgets.ContextMenu.MenuSwitch)) == null);
+
+        var listbox = new Gtk.ListBox ();
+        listbox.append (row);
+        var window = new Gtk.Window () { child = listbox, default_width = 700, default_height = 600 };
+        window.present ();
+        row.edit = true;
+        settle_frames ();
+        menu.popup ();
+        run_for (100);
+        Gtk.Popover? popup = menu.popover;
+        assert_nonnull (popup);
+        var note = (Widgets.ContextMenu.MenuSwitch) find_type (popup, typeof (Widgets.ContextMenu.MenuSwitch));
+        assert_nonnull (note);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.NOTE);
+        menu.popdown ();
+        settle_frames ();
+        menu.popup ();
+        assert_true (menu.popover == popup);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.TASK);
+        menu.popdown ();
+        settle_frames ();
+
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        // GTK's shared tooltip window can be attached after hovering over editor controls.
+        collect_all_widgets (row, tracked, false);
+        row.clean_up ();
+        popup = null;
+        note = null;
+        menu = null;
+        window.child = null;
+        listbox = null;
+        row = null;
+        window.destroy ();
+        window = null;
+        assert_widgets_released (tracked);
     }
 
     public int main (string[] args) {
@@ -361,6 +410,7 @@ namespace PlanifyUITests {
             Services.Store.instance ().insert_item (item);
             item.add_label_if_not_exists (label);
         }
+        Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
         Test.add_func ("/ui/memory/rapid_list_board_switching", test_rapid_list_board_switching);
         Test.add_func ("/ui/memory/sidebar_list_grid_switching", test_sidebar_list_grid_switching);
         Test.add_func ("/ui/memory/project_releases_populated_children", test_project_releases_populated_children);
