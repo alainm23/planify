@@ -306,7 +306,12 @@ public class Views.Project : Adw.Bin {
         indicator_revealer.reveal_child = !defaults;
     }
 
+    private uint update_view_timeout_id = 0;
+
     private void update_project_view () {
+        if (update_view_timeout_id != 0) {
+            GLib.Source.remove (update_view_timeout_id);
+        }
         project_stack.visible_child = loading_spinner;
         project_view_revealer.reveal_child = false;
 
@@ -314,7 +319,8 @@ public class Views.Project : Adw.Bin {
             clear_multi_select ();
         }
 
-        Timeout.add (project_view_revealer.transition_duration, () => {
+        update_view_timeout_id = Timeout.add (project_view_revealer.transition_duration, () => {
+            update_view_timeout_id = 0;
             destroy_current_view ();
 
             if (view_style == ProjectViewStyle.LIST) {
@@ -820,12 +826,18 @@ public class Views.Project : Adw.Bin {
     }
 
     public void clean_up () {
+        if (update_view_timeout_id != 0) {
+            GLib.Source.remove (update_view_timeout_id);
+            update_view_timeout_id = 0;
+        }
+
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
         signal_map.clear ();
 
+        multiselect_toolbar.clean_up ();
         destroy_current_view ();
     }
 
