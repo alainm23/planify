@@ -107,7 +107,7 @@ public class Services.Store : GLib.Object {
     public Gee.ArrayList<Objects.Item> items {
         get {
             if (_items == null) {
-                _items = Services.Database.get_default ().get_items_collection ();
+                _items = Services.Database.get_default ().get_items_collection (false);
             }
             return _items;
         }
