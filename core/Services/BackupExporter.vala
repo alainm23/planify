@@ -34,6 +34,20 @@ public class Services.BackupExporter : Object {
     }
 
     public string export_to_json () {
+        var stream = new MemoryOutputStream.resizable ();
+        try {
+            export_to_stream (stream);
+            stream.write_all ({ 0 }, null);
+            stream.close ();
+            var data = stream.steal_data ();
+            return (string) data;
+        } catch (Error e) {
+            warning ("Unable to export backup: %s", e.message);
+            return "{}";
+        }
+    }
+
+    public void export_to_stream (OutputStream stream) throws Error {
         var builder = new Json.Builder ();
 
         builder.begin_object ();
@@ -140,10 +154,21 @@ public class Services.BackupExporter : Object {
         }
         builder.end_array ();
 
-        // Items
-        builder.set_member_name ("items");
-        builder.begin_array ();
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_collection ()) {
+        // Write the small metadata object first, then stream one task at a time.
+        builder.end_object ();
+        var generator = new Json.Generator () { pretty = true };
+        generator.set_root (builder.get_root ());
+        string metadata = generator.to_data (null);
+        string prefix = metadata.substring (0, metadata.last_index_of ("}"));
+        stream.write_all (prefix.data, null);
+        stream.write_all (",\n\"items\": [".data, null);
+        bool first = true;
+        Services.Database.get_default ().foreach_item ((item) => {
+            if (!first) {
+                stream.write_all (",".data, null);
+            }
+            first = false;
+            builder.reset ();
             builder.begin_object ();
             builder.set_member_name ("id"); builder.add_string_value (safe (item.id));
             builder.set_member_name ("content"); builder.add_string_value (safe (item.content));
@@ -172,13 +197,9 @@ public class Services.BackupExporter : Object {
             builder.set_member_name ("deadline_date"); builder.add_string_value (safe (item.deadline_date));
             builder.set_member_name ("item_type"); builder.add_string_value (item.item_type.to_string ());
             builder.end_object ();
-        }
-        builder.end_array ();
-
-        builder.end_object ();
-
-        var generator = new Json.Generator () { pretty = true };
-        generator.set_root (builder.get_root ());
-        return generator.to_data (null);
+            generator.set_root (builder.get_root ());
+            generator.to_stream (stream, null);
+        });
+        stream.write_all ("]}".data, null);
     }
 }
