@@ -189,3 +189,14 @@ executable(
   install: false,
   build_by_default: false
 )
+
+# Run explicitly under a profiler against disposable generated fixtures.
+executable(
+  'test-ui-transitions',
+  join_paths(meson.project_source_root(), 'test/ui-transition-profile.vala'),
+  sources, asresources, config_file,
+  dependencies: deps,
+  vala_args: ['--main=PlanifyTransitionProfile.main'],
+  install: false,
+  build_by_default: false
+)
