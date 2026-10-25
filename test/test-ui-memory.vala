@@ -355,6 +355,23 @@ namespace PlanifyUITests {
         assert_widgets_released (tracked);
     }
 
+    private void test_scheduled_range_releases_children () {
+        var today = Utils.Datetime.get_date_only (new DateTime.now_local ());
+        var original_dates = new Gee.HashMap<string, string> ();
+        foreach (var item in Services.Store.instance ().items) {
+            original_dates[item.id] = item.due.date;
+            item.due.datetime = today.add_days (1);
+        }
+        var range = new Views.Scheduled.ScheduledRange (today, today.add_days (3));
+        assert_true (find_type (range, typeof (Layouts.ItemRow)) != null);
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        collect_all_widgets (range, tracked);
+        range.clean_up ();
+        range = null;
+        assert_widgets_released (tracked);
+        foreach (var item in Services.Store.instance ().items) item.due.date = original_dates[item.id];
+    }
+
     public int main (string[] args) {
         if (Environment.get_variable ("PLANIFY_UI_SCENARIO") == "extended") {
             if (!Gtk.init_check ()) return 77;
@@ -410,6 +427,7 @@ namespace PlanifyUITests {
             Services.Store.instance ().insert_item (item);
             item.add_label_if_not_exists (label);
         }
+        Test.add_func ("/ui/memory/scheduled_range_releases_children", test_scheduled_range_releases_children);
         Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
         Test.add_func ("/ui/memory/rapid_list_board_switching", test_rapid_list_board_switching);
         Test.add_func ("/ui/memory/sidebar_list_grid_switching", test_sidebar_list_grid_switching);
