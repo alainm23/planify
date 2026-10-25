@@ -42,9 +42,6 @@ test_core = executable(
     install: false
 )
 
-test('core', test_core, timeout: 30, suite: ['core'],
-    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data'])
-
 test_schema = configure_file(input: '../data/io.github.alainm23.planify.gschema.xml',
     output: 'io.github.alainm23.planify.gschema.xml', copy: true)
 test_schemas = custom_target('test-schemas',
@@ -52,3 +49,7 @@ test_schemas = custom_target('test-schemas',
     output: 'gschemas.compiled',
     command: [find_program('glib-compile-schemas'), meson.current_build_dir()],
     build_by_default: true)
+
+test('core', test_core, timeout: 30, suite: ['core'], depends: test_schemas,
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data',
+          'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(), 'GSETTINGS_BACKEND=memory'])
