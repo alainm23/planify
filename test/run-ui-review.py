@@ -200,6 +200,8 @@ class Recording:
                 self.record('global_begin', view=view, cycle=cycle)
                 state = self.rpc('navigate', 'filter', view)
                 state = self.rpc('pause', 1000)
+                expected = 'project:synthetic-inbox' if view == 'inbox' else 'filter:' + view
+                assert state['active_page'] == expected, (view, state['active_page'])
                 self.screenshot(f'global-{cycle}-{view}')
                 self.record('global_end', view=view, cycle=cycle, task_widgets=state['task_widgets'])
             self.rpc('navigate', 'filter', 'inbox')

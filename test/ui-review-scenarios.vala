@@ -73,6 +73,24 @@ namespace PlanifyUIReview {
         }
     }
 
+    private Gtk.Widget? active_page (Gtk.Widget widget) {
+        if (widget is Adw.ViewStack) {
+            var page = ((Adw.ViewStack) widget).visible_child;
+            if (page is Views.Project || page is Views.Today || page is Views.Filter ||
+                page is Views.Label || page is Views.Labels || page is Views.Scheduled.Scheduled) return page;
+        }
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
+            var page = active_page (child);
+            if (page != null) return page;
+        }
+        return null;
+    }
+
+    private void task_ids (Gtk.Widget widget, Gee.HashSet<string> ids) {
+        if (widget is Layouts.ItemBase) ids.add (((Layouts.ItemBase) widget).item.id);
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) task_ids (child, ids);
+    }
+
     private void respond (int id, string command, string result, int64 began) throws Error {
         var b = new Json.Builder ();
         b.begin_object ();
@@ -82,6 +100,20 @@ namespace PlanifyUIReview {
         integer_member (b, "monotonic_us", get_monotonic_time ());
         integer_member (b, "action_us", get_monotonic_time () - began);
         integer_member (b, "store_items", Services.Store.instance ().items.size);
+        var page = active_page (Planify.instance.main_window);
+        string page_id = "";
+        if (page is Views.Project) page_id = "project:" + ((Views.Project) page).project.id;
+        else if (page is Views.Today) page_id = "filter:today";
+        else if (page is Views.Scheduled.Scheduled) page_id = "filter:scheduled";
+        else if (page is Views.Labels) page_id = "filter:labels";
+        else if (page is Views.Filter) page_id = "filter:" + ((Views.Filter) page).filter.view_id;
+        else if (page is Views.Label) page_id = "label:" + ((Views.Label) page).label.id;
+        string_member (b, "active_page", page_id);
+        var ids = new Gee.HashSet<string> ();
+        if (page != null) task_ids (page, ids);
+        b.set_member_name ("active_task_ids"); b.begin_array ();
+        foreach (var task_id in ids) b.add_string_value (task_id);
+        b.end_array ();
         var counts = new Gee.HashMap<string, int> ();
         int rows = 0;
         b.set_member_name ("widgets"); b.begin_array ();
@@ -222,12 +254,6 @@ namespace PlanifyUIReview {
                 preferences.push_subpage (new Dialogs.Preferences.Pages.Backup (preferences));
                 preferences.present (window);
                 pause (750);
-            } else if (command == "backup-create") {
-                var manager = Services.BackupManager.get_default ();
-                int before = manager.backups.size;
-                var file = manager.create_backup ();
-                result = file == null ? "failed" : file.get_path ();
-                pause (250);
             } else if (command == "save-as") {
                 var backup = new Objects.Backup.from_file (File.new_for_path (args.get_string_element (0)));
                 Services.BackupManager.get_default ().save_file_as (backup);
