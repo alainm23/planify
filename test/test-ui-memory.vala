@@ -8,6 +8,20 @@ namespace PlanifyUITests {
         }
     }
 
+    private void test_headerbar_disconnects_settings () {
+        var settings = Services.Settings.get_default ().settings;
+        bool slim_mode = settings.get_boolean ("slim-mode");
+        Layouts.HeaderBar? headerbar = new Layouts.HeaderBar ();
+        var released = GLib.WeakRef (headerbar);
+        headerbar.clean_up ();
+        // Cleanup is also safe when the owner is cleaned up a second time.
+        headerbar.clean_up ();
+        headerbar = null;
+        assert_null (released.get ());
+        settings.set_boolean ("slim-mode", !slim_mode);
+        settings.set_boolean ("slim-mode", slim_mode);
+    }
+
     private void test_cancel_section_loading () {
         var row = new Layouts.SectionRow.for_project (project);
         var released = GLib.WeakRef (row);
@@ -111,6 +125,37 @@ namespace PlanifyUITests {
         // A pending timer must not rebuild a layout after cleanup.
         settle_frames ();
         assert_widgets_released (tracked);
+    }
+
+    private void test_pinned_card_keyboard_focus () {
+        var pins = new Widgets.PinnedItemsBox (project);
+        var window = new Gtk.Window () { child = pins, default_width = 500, default_height = 500 };
+        window.present ();
+        settle_frames ();
+        window.set_focus (null);
+        var card = pins.items_map["ui-memory-task-0"];
+        assert_true (card.pin_mode);
+        assert_true (card.parent is Adw.WrapBox);
+        assert_true (card.child_focus (Gtk.DirectionType.TAB_FORWARD));
+        assert_true (window.focus_widget != null && window.focus_widget.is_ancestor (card));
+        window.set_focus (null);
+        assert_true (card.grab_focus ());
+        assert_true (window.focus_widget != null && window.focus_widget.is_ancestor (card));
+        pins.clean_up ();
+        window.child = null;
+        window.destroy ();
+
+        // Ordinary board cards still focus their row inside a Gtk.ListBox.
+        var row = new Layouts.ItemBoard (Services.Store.instance ().get_item ("ui-memory-task-1"));
+        var listbox = new Gtk.ListBox ();
+        listbox.append (row);
+        window = new Gtk.Window () { child = listbox };
+        window.present ();
+        settle_frames ();
+        assert_true (row.grab_focus ());
+        assert_true (window.focus_widget == row);
+        row.clean_up ();
+        window.destroy ();
     }
 
     private void test_sidebar_list_grid_switching () {
@@ -427,6 +472,8 @@ namespace PlanifyUITests {
             Services.Store.instance ().insert_item (item);
             item.add_label_if_not_exists (label);
         }
+        Test.add_func ("/ui/memory/pinned_card_keyboard_focus", test_pinned_card_keyboard_focus);
+        Test.add_func ("/ui/memory/headerbar_disconnects_settings", test_headerbar_disconnects_settings);
         Test.add_func ("/ui/memory/scheduled_range_releases_children", test_scheduled_range_releases_children);
         Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
         Test.add_func ("/ui/memory/rapid_list_board_switching", test_rapid_list_board_switching);
