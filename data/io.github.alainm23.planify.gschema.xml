@@ -197,6 +197,24 @@
             <description>Active filters in the All Tasks view, each stored as "type:value"</description>
         </key>
 
+        <key name="label-sort-order" type="s">
+            <default>"project"</default>
+            <summary>Label view sort order</summary>
+            <description>Controls how tasks are sorted in the Label view, for every label</description>
+        </key>
+
+        <key name="label-sort-ascending" type="b">
+            <default>true</default>
+            <summary>Label view sort direction</summary>
+            <description>Sort the Label view in ascending order</description>
+        </key>
+
+        <key name="label-filters" type="as">
+            <default>[]</default>
+            <summary>Label view active filters</summary>
+            <description>Active filters in the Label view, shared by every label, each stored as "type:value"</description>
+        </key>
+
         <key name="scheduled-sort-order" type="s">
             <default>"name"</default>
             <summary>Scheduled view sort order</summary>
@@ -351,6 +369,12 @@
             <default>true</default>
             <summary>Use system accent color</summary>
             <description>Use the system-wide accent color instead of the default blue accent color</description>
+        </key>
+
+        <key name="use-adwaita-colors" type="b">
+            <default>false</default>
+            <summary>Use Adwaita colors</summary>
+            <description>Use libadwaita's own window, sidebar, popover and card colors instead of Planify's palette, in both light and dark mode</description>
         </key>
 
         <key name="font-scale" type="d">

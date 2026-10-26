@@ -74,6 +74,15 @@ public class Objects.Filters.AllItems : Objects.BaseObject {
         });
     }
 
+    /**
+     * Whether a live-added or edited item belongs in the All Tasks view: the same rule as the
+     * Store.get_items_no_parent (false) list the view is loaded from. Archived items are left
+     * out there too, but reach the view through the item_archived signal instead.
+     */
+    public static bool includes (Objects.Item item) {
+        return !item.checked && !item.has_parent;
+    }
+
     public override int update_count () {
         return Services.Store.instance ().get_items_no_parent (false).size;
     }

@@ -408,11 +408,21 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     public void move (Objects.Project project) {
         int count = items_selected.size;
-        
+        bool skipped_deck = false;
+
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
 
             string project_id = project.id;
+
+            // Moving a task between a Nextcloud Deck board and a non-Deck
+            // project isn't supported yet (Deck boards are CalDAV sources with
+            // no real calendar collection). Skip those items instead of firing
+            // a malformed request at the server.
+            if (item.project.is_deck != project.is_deck) {
+                skipped_deck = true;
+                continue;
+            }
 
             if (item.project.source_id != project.source_id) {
                 Util.get_default ().move_backend_type_item.begin (item, project, "", false);
@@ -421,6 +431,16 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                     item.move (project, "", false);
                 }
             }
+        }
+
+        if (skipped_deck) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast (
+                    _("Moving tasks to or from a Nextcloud Deck board isn't supported yet"), 3
+                )
+            );
+            unselect_all ();
+            return;
         }
 
         string message = GLib.ngettext (

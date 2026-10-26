@@ -65,17 +65,39 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             margin_top = 12
         };
 
-        views_group.add_child (new SidebarRow (Objects.Filters.Inbox.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Today.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Scheduled.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Pinboard.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Labels.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Completed.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Tomorrow.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Anytime.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Repeating.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.Unlabeled.get_default ()));
-        views_group.add_child (new SidebarRow (Objects.Filters.AllItems.get_default ()));
+        Objects.BaseObject[] all_views = {
+            Objects.Filters.Inbox.get_default (),
+            Objects.Filters.Today.get_default (),
+            Objects.Filters.Scheduled.get_default (),
+            Objects.Filters.Pinboard.get_default (),
+            Objects.Filters.Labels.get_default (),
+            Objects.Filters.Completed.get_default (),
+            Objects.Filters.Tomorrow.get_default (),
+            Objects.Filters.Anytime.get_default (),
+            Objects.Filters.Repeating.get_default (),
+            Objects.Filters.Unlabeled.get_default (),
+            Objects.Filters.AllItems.get_default ()
+        };
+
+        string[] saved_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
+        var remaining_views = new Gee.ArrayList<Objects.BaseObject> ();
+        foreach (var view in all_views) {
+            remaining_views.add (view);
+        }
+
+        foreach (string view_id in saved_order) {
+            foreach (var view in remaining_views) {
+                if (view.view_id == view_id) {
+                    views_group.add_child (new SidebarRow (view));
+                    remaining_views.remove (view);
+                    break;
+                }
+            }
+        }
+
+        foreach (var view in remaining_views) {
+            views_group.add_child (new SidebarRow (view));
+        }
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
@@ -102,18 +124,6 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
         child = toolbar_view;
         Services.Settings.get_default ().settings.bind ("show-tasks-count", show_count_row, "active", GLib.SettingsBindFlags.DEFAULT);
         Services.Settings.get_default ().settings.bind ("filters-list-view", list_view_filters_row, "active", GLib.SettingsBindFlags.DEFAULT);
-
-        views_group.set_sort_func ((child1, child2) => {
-            SidebarRow item1 = ((SidebarRow) child1);
-            SidebarRow item2 = ((SidebarRow) child2);
-
-            if (item1.visible) {
-                return -1;
-            }
-
-            return item1.item_order () - item2.item_order ();
-        });
-        views_group.set_sort_func (null);
 
         signal_map[sidebar_width_row.output.connect (() => {
             Services.Settings.get_default ().settings.set_int ("pane-position", (int) sidebar_width_row.value);
@@ -245,7 +255,9 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             }
 
             Services.Settings.get_default ().settings.set_strv ("views-order-visible", views.data);
-            update_views_order ((Gtk.ListBox) parent);
+            if (parent != null && parent is Gtk.ListBox) {
+                update_views_order ((Gtk.ListBox) parent);
+            }
         }
 
         private Array<string> get_views_array () {
