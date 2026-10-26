@@ -3,8 +3,9 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-15 17:53+0000\n"
-"Last-Translator: Akın Birdal <reend21@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-10-27 21:51+0000\n"
+"Last-Translator: Melda Aktepe <hatice.ak.95@users.noreply.hosted.weblate.org>"
+"\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
 "Language: tr\n"
@@ -211,7 +212,7 @@ msgstr "Filtrele"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr "Bitiş tarihi"
+msgstr "tarih yok"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
@@ -756,7 +757,7 @@ msgstr "günler"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "day"
-msgstr "Bugün"
+msgstr "gün"
 
 # # c-format
 #: core/Utils/Datetime.vala:83
@@ -1421,7 +1422,7 @@ msgstr "Yinele"
 #: src/Dialogs/DatePicker.vala:68
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 msgid "Type a date…"
-msgstr "Bir tarih yazın…"
+msgstr "Bir tarih girin…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
@@ -1658,7 +1659,7 @@ msgstr "Bir ay içerisinde"
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
 msgid "Select Labels"
-msgstr "Etiketi sil"
+msgstr "Etiketleri seç"
 
 #: core/Widgets/LabelPicker/LabelQuickPicker.vala:191
 #, c-format
@@ -2831,7 +2832,7 @@ msgstr "Kenar Çubuğu Genişliği"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:48
 msgid "List View for Filters"
-msgstr ""
+msgstr "Filitreler için liste görünümü"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:49
 msgid "Show filters in a simple list instead of a grid"
@@ -3590,7 +3591,7 @@ msgstr "Kenar Çubuğunu Özelleştir"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
 msgid "Go to Today"
-msgstr "Bugün"
+msgstr "Bugün'e git"
 
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
 msgid "Go to Scheduled"
@@ -3766,9 +3767,8 @@ msgstr ""
 
 #: src/Views/Filter.vala:814 src/Views/Filter.vala:821
 #: src/Views/Filter.vala:757
-#, fuzzy
 msgid "All tasks completed!"
-msgstr "tamamlandı"
+msgstr "Tüm görevler tamamlandı!"
 
 #: src/Views/Filter.vala:815 src/Views/Filter.vala:822
 #: src/Views/Filter.vala:758
@@ -3795,11 +3795,10 @@ msgstr[1] ""
 
 #: src/Views/Filter.vala:888 src/Views/Filter.vala:895
 #: src/Views/Filter.vala:803
-#, fuzzy
 msgid "Delete Completed Task"
 msgid_plural "Delete Completed Tasks"
-msgstr[0] "Tamamlanan Görevlerin Altını Çiz"
-msgstr[1] "Tamamlanan Görevlerin Altını Çiz"
+msgstr[0] "Tamamlanan Görevi Sil"
+msgstr[1] "Tamamlanan Görevleri Sil"
 
 #: src/Views/Filter.vala:893 src/Views/Filter.vala:900
 #: src/Views/Filter.vala:808
@@ -4283,9 +4282,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Widgets/NewVersionPopup.vala:42
-#, fuzzy
 msgid "New version available!"
-msgstr "Kullanılamıyor"
+msgstr "Yeni sürüm mevcut."
 
 #: src/Widgets/NewVersionPopup.vala:66
 msgid ""
@@ -4319,16 +4317,16 @@ msgid "Failed to connect to server"
 msgstr ""
 
 #: src/Widgets/SyncButton.vala:94
-#, fuzzy
 msgid ""
 "It looks like the server is unreachable,\n"
 "are you connected to the internet?\n"
 "Any changes you make while disconnected\n"
 "will be synchronized when you reconnect."
 msgstr ""
-"Görünüşe göre internete bağlı değilsiniz.\n"
-"Çevrim dışı kipte yaptığınız değişiklikler,\n"
-"yeniden bağlandığınızda eşzamanlanacak"
+"Görünüşe göre sunucuya erişilemiyor.\n"
+"İnternete bağlı mısınız?\n"
+"Çevrim dışı  yaptığınız değişiklikler\n"
+"yeniden bağlandığınızda eşzamanlanacaktır."
 
 #: src/Widgets/TranslationRow.vala:95
 #, c-format
