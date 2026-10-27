@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-10-27 21:51+0000\n"
-"Last-Translator: bepolymathe <bepolymathe@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Babrou <barnabrou@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -582,18 +582,24 @@ msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ce serveur n'autorise pas la suppression de projets avec CalDAV. Essayez de "
+"le supprimer directement depuis le site web de votre service de calendrier."
 
 #: core/Services/CalDAV/CalDAVClient.vala:742
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Ce serveur n'autorise pas la suppression de projets avec CalDAV. Essayez de "
+"le supprimer directement depuis le serveur."
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
 #: core/Services/CalDAV/CalDAVClient.vala:822
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Cette tâche a été modifiée depuis un autre appareil. Synchronisez pour "
+"actualiser les tâches."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -1432,33 +1438,33 @@ msgstr "Fin"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
 msgid_plural "Minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minute"
+msgstr[1] "Minutes"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:542
 msgid "Hour"
 msgid_plural "Hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Heure"
+msgstr[1] "Heures"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:543
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:547
 msgid "Day"
 msgid_plural "Days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Jour"
+msgstr[1] "Jours"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:544
 msgid "Week"
 msgid_plural "Weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Semaine"
+msgstr[1] "Semaines"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:545
 msgid "Month"
 msgid_plural "Months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Mois"
+msgstr[1] "Mois"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:546
 msgid "Year"
