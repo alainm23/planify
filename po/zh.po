@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"Last-Translator: jeff wang <jeff@wangjunfeng.com.cn>\n"
+"Last-Translator: zhchmmx <zhchmmx@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"PO-Revision-Date: 2026-09-15 01:51+0000\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"PO-Revision-Date: 2026-10-27 21:51+0000\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -1064,7 +1064,7 @@ msgstr "🏃‍♀️️跟进"
 #: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
-msgstr ""
+msgstr "暂不支持从 Nextcloud Deck board 移入或移出任务"
 
 #: core/Utils/Util.vala:971
 msgid "Task duplicated"
@@ -2162,11 +2162,11 @@ msgstr "选择主题"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
-msgstr ""
+msgstr "使用 Adwaita 主题颜色"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:90
 msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
+msgstr "在亮色与暗色模式中使用标准 GNOME 颜色"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
@@ -2207,7 +2207,7 @@ msgstr "字体大小"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
-msgstr ""
+msgstr "在使用 Adwaita 主题颜色时，此项目不可用"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:34
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
@@ -3168,7 +3168,7 @@ msgstr "任务已完成 · 下一个：%s"
 
 #: src/Layouts/ItemRow.vala:1817
 msgid "A task can only become a subtask of a task in the same account"
-msgstr ""
+msgstr "在同一账户中，一个任务只能有一个父任务"
 
 #: src/Layouts/ItemRow.vala:2161
 msgid "Add Attachments"
@@ -4110,19 +4110,16 @@ msgid "Open Previous Project"
 msgstr "打开上一个项目"
 
 #: src/Services/Notification.vala:100
-#, fuzzy
 msgid "10m Snooze"
-msgstr "暂停 10 分钟"
+msgstr "推迟 10 分钟"
 
 #: src/Services/Notification.vala:102
-#, fuzzy
 msgid "30m Snooze"
-msgstr "暂停 30 分钟"
+msgstr "推迟 30 分钟"
 
 #: src/Services/Notification.vala:104
-#, fuzzy
 msgid "1h Snooze"
-msgstr "暂停 1 小时"
+msgstr "推迟 1 小时"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"
