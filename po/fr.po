@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
 "PO-Revision-Date: 2026-10-27 21:51+0000\n"
-"Last-Translator: Babrou <barnabrou@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: bakrav <bakrav@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -1569,7 +1569,7 @@ msgstr "Pas d'étiquette"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
 msgid "All Hidden"
-msgstr ""
+msgstr "Tous cachés"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
 msgid "All labels are hidden by the filter. Disable the filter to see them."
@@ -1579,7 +1579,7 @@ msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Appuyez sur Entrée pour la créer et l'assigner"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 msgid "Task description"
