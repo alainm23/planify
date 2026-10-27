@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-06-03 14:01+0000\n"
-"Last-Translator: Babrou <deysox@laposte.net>\n"
+"PO-Revision-Date: 2026-10-27 21:51+0000\n"
+"Last-Translator: bepolymathe <bepolymathe@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -329,7 +329,7 @@ msgstr "sans étiquette"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 msgid "Deadline:"
-msgstr ""
+msgstr "Échéance :"
 
 #: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
@@ -337,7 +337,7 @@ msgstr "Tâche copiée dans le presse-papiers"
 
 #: core/Objects/Item.vala:1692
 msgid "iCalendar Files"
-msgstr ""
+msgstr "Fichiers iCalendar"
 
 #: core/Objects/Item.vala:1708
 msgid "Task exported successfully"
@@ -574,6 +574,8 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ce server ne permet pas de créer de projet via CalDAV. Créer le projet  "
+"directement depuis le site web de votre fournisseur de calendrier (calendar)."
 
 #: core/Services/CalDAV/CalDAVClient.vala:738
 msgid ""
@@ -623,16 +625,20 @@ msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"Votre session a expirée. Veuillez supprimer votre compte et vous "
+"authentifier à nouveau dans les paramètres."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Trop de requêtes"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Le serveur limite le nombre de requêtes. Merci de patienter quelques minutes "
+"et réessayez."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -674,7 +680,7 @@ msgstr "Erreur inconnue"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Jeton API invalide"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -733,7 +739,7 @@ msgstr ""
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Tous les %d mois (dernier jour)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
@@ -1384,7 +1390,7 @@ msgstr "Année(s)"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:284
 msgid "Last day of month"
-msgstr ""
+msgstr "Dernier jour du mois"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
@@ -1497,15 +1503,15 @@ msgstr "Quelle est la dernière date pour terminer ceci ?"
 
 #: core/Widgets/DeadlineButton.vala:218
 msgid "In 3 days"
-msgstr ""
+msgstr "Dans 3 jours"
 
 #: core/Widgets/DeadlineButton.vala:220
 msgid "In 2 weeks"
-msgstr ""
+msgstr "Dans 2 semaines"
 
 #: core/Widgets/DeadlineButton.vala:221
 msgid "In a month"
-msgstr ""
+msgstr "Dans un mois"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -1571,7 +1577,7 @@ msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 msgid "Task description"
-msgstr ""
+msgstr "Description de la tâche"
 
 #: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
@@ -1665,11 +1671,11 @@ msgstr "Dans 6 heures"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Choisissez une heure dans le futur"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "Vous avez déjà un rappel à ce moment-là"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1918,11 +1924,11 @@ msgstr "Nouvelle section"
 
 #: src/Dialogs/ManageSectionOrder.vala:88
 msgid "No Sections"
-msgstr ""
+msgstr "Pas de sections"
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
-msgstr ""
+msgstr "Ajouter une section pour organiser vos tâches"
 
 #: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
@@ -1952,7 +1958,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 msgid "Accounts configured in GNOME Online Accounts"
-msgstr ""
+msgstr "Comptes configurés dans GNOME Online Accounts"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #, c-format
