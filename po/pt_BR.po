@@ -4,8 +4,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
 "PO-Revision-Date: 2026-10-28 06:15+0000\n"
-"Last-Translator: Davi B C Silva "
-"<davibarbosa91@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
+"fs@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1350,9 +1350,8 @@ msgid "Weekdays"
 msgstr "Dias de semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
-#, fuzzy
 msgid "Weekends"
-msgstr "Semana(s)"
+msgstr "Fins de semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
 msgid "Weekly"
