@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-28 04:15+0000\n"
+"PO-Revision-Date: 2026-10-28 06:15+0000\n"
 "Last-Translator: Davi B C Silva "
 "<davibarbosa91@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
@@ -1029,19 +1029,19 @@ msgstr "Ajuste sua configuração"
 
 #: core/Utils/Util.vala:694
 msgid "Show your calendar events"
-msgstr "Mostre os eventos do seu calendário"
+msgstr "Mostre os eventos da sua agenda"
 
 #: core/Utils/Util.vala:695
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Você pode exibir os eventos do calendário do seu sistema no Planify. Vá para "
-"'Preferências' 🡒 Eventos do calendário para ativá-lo."
+"Você pode exibir os eventos da agenda do seu sistema no Planify. Vá para "
+"'Preferências' 🡒 Eventos da agenda para ativá-lo."
 
 #: core/Utils/Util.vala:701
 msgid "Enable synchronization with third-party services"
-msgstr "Habilite a sincronização com serviço de terceiros."
+msgstr "Habilite a sincronização com serviço de terceiros"
 
 #: core/Utils/Util.vala:702
 msgid ""
@@ -1127,7 +1127,7 @@ msgstr "Duplicar"
 
 #: core/Utils/Util.vala:1007
 msgid "Section duplicated"
-msgstr "Nome da Seção"
+msgstr "Seção duplicada"
 
 #: core/Utils/Util.vala:1033 core/Utils/Util.vala:1059
 msgid "Project duplicated"
@@ -1346,9 +1346,8 @@ msgid "Daily"
 msgstr "Diariamente"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
-#, fuzzy
 msgid "Weekdays"
-msgstr "Semanalmente"
+msgstr "Dias de semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
 #, fuzzy
@@ -1443,7 +1442,7 @@ msgstr "Aplicar"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 msgid "Repeat every"
-msgstr "Repita todos"
+msgstr "Repetir a cada"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:408
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
@@ -1736,7 +1735,7 @@ msgstr ""
 #: src/Dialogs/CalendarSync.vala:33 src/Dialogs/CalendarSync.vala:39
 #: src/Views/Project/Project.vala:460
 msgid "Calendar Sync"
-msgstr "Sincronizar calendário"
+msgstr "Sincronizar agenda"
 
 #: src/Dialogs/CalendarSync.vala:45
 msgid ""
@@ -1751,7 +1750,7 @@ msgid ""
 "Requirement: You need a calendar account configured in GNOME Calendar "
 "(Google, Nextcloud, etc.)"
 msgstr ""
-"Requisito: é necessário uma conta de calendário configurada no \"GNOME "
+"Requisito: é necessária uma conta de agenda configurada no \"GNOME "
 "Calendar\" (Google, Nextcloud, etc.)"
 
 #: src/Dialogs/CalendarSync.vala:62
@@ -1760,7 +1759,7 @@ msgid ""
 "any calendar app"
 msgstr ""
 "Receba notificações para as suas tarefas através do Google Calendar, "
-"Outlook, ou qualquer aplicativo de calendário"
+"Outlook, ou qualquer aplicativo de agenda"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
@@ -1768,15 +1767,15 @@ msgid ""
 "your calendar"
 msgstr ""
 "Suas tarefas são sincronizadas em todos os lugares: celular, tablet, "
-"navegador da web e qualquer dispositivo com seu calendário conectado"
+"navegador da web e qualquer dispositivo com sua agenda conectada"
 
 #: src/Dialogs/CalendarSync.vala:83
 msgid "Choose Calendar"
-msgstr "Escolha o calendário"
+msgstr "Escolha a agenda"
 
 #: src/Dialogs/CalendarSync.vala:88
 msgid "Select a calendar from the list"
-msgstr "Selecione um calendário da lista"
+msgstr "Selecione uma agenda da lista"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
@@ -1784,19 +1783,19 @@ msgstr "Ativar a sincronização"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr "Sincronização do calendário desativada com sucesso"
+msgstr "Sincronização da agenda desativada com sucesso"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
-msgstr "Sincronização do calendário ativa"
+msgstr "Sincronização da agenda ativada"
 
 #: src/Dialogs/CalendarSync.vala:228
 msgid ""
 "Your tasks are currently synced with your calendar. Any task with a date "
 "automatically appears as a calendar event."
 msgstr ""
-"Suas tarefas estão sincronizadas com o calendário. Qualquer tarefa com uma "
-"data agora aparecerá como um evento no calendário."
+"Suas tarefas estão sincronizadas com a agenda. Qualquer tarefa com uma data "
+"agora aparecerá como um evento na agenda."
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
@@ -1816,8 +1815,8 @@ msgid ""
 "Your tasks are now synced with your calendar. Any task with a date will "
 "automatically appear as a calendar event."
 msgstr ""
-"Suas tarefas foram sincronizadas com o calendário. Qualquer tarefa com uma "
-"data agora aparecerá como um evento no calendário."
+"Suas tarefas foram sincronizadas com a agenda. Qualquer tarefa com uma data "
+"agora aparecerá como um evento na agenda."
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
@@ -2057,9 +2056,8 @@ msgid "Password"
 msgstr "Senha"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
-#, fuzzy
 msgid "Calendar Home URL"
-msgstr "Calendário"
+msgstr "URL da agenda"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 msgid "Advanced"
@@ -2448,15 +2446,15 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Calendar Events"
-msgstr "Eventos no Calendário"
+msgstr "Eventos na Agenda"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr "Mostrar Eventos do Calendário"
+msgstr "Mostrar Eventos da Agenda"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr "Exibir eventos de seus calendários no Planify"
+msgstr "Exibir eventos de suas agendas no Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
@@ -2854,7 +2852,7 @@ msgstr "Personalize sua barra lateral"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
-msgstr "Gerencie quais calendários são exibidos"
+msgstr "Gerencie quais agendas são exibidas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
@@ -3213,9 +3211,8 @@ msgstr "Atualizar Seção"
 
 #: src/Dialogs/Section.vala:244 src/Dialogs/Section.vala:258
 #: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
-#, fuzzy
 msgid "Section added"
-msgstr "Nome da Seção"
+msgstr "Seção adicionada"
 
 #: src/Layouts/HeaderBar.vala:79
 msgid "Open/Close Sidebar"
@@ -3794,9 +3791,8 @@ msgid "Project Actions"
 msgstr "Descrição do Projeto"
 
 #: src/Views/Project/Project.vala:257
-#, fuzzy
 msgid "New Task"
-msgstr "Mover tarefas"
+msgstr "Nova Tarefa"
 
 #: src/Views/Project/Project.vala:357
 msgid "Add a section first to create tasks in this board"
