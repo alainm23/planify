@@ -463,7 +463,7 @@ msgstr "Отмена"
 #: src/Views/Filter.vala:901 src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Services/BackupManager.vala:229 src/Layouts/ItemSidebarView.vala:623
 #: src/Views/Filter.vala:908 src/Views/Filter.vala:816
-#: src/Services/BackupManager.vala:233
+#: src/Services/BackupManager.vala:233 core/QuickAddCore.vala:1033
 msgid "Delete"
 msgstr "Удалить"
 
@@ -511,35 +511,36 @@ msgstr "Удалить раздел %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:149 core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Задача успешно добавлена!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
-#: src/Layouts/ItemRow.vala:405
+#: src/Layouts/ItemRow.vala:405 core/QuickAddCore.vala:170
 msgid "To-do name"
 msgstr "Название задания"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:195 core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Это поле обязательно для заполнения"
 
 #: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224
 msgid "Add a description…"
 msgstr "Добавить описание…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:260 core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Установить дату"
 
 #: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64
+#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:277
 msgid "Add Labels"
 msgstr "Добавить Метки"
 
 #: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47
+#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:282
 msgid "Set The Priority"
 msgstr "Установить приоритет"
 
@@ -548,6 +549,7 @@ msgstr "Установить приоритет"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:168
+#: core/QuickAddCore.vala:287
 msgid "Add Reminders"
 msgstr "Добавить напоминания"
 
@@ -557,19 +559,21 @@ msgstr "Добавить напоминания"
 #: src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Layouts/SectionRow.vala:699
+#: core/QuickAddCore.vala:357
 msgid "Add Task"
 msgstr "Добавить задачу"
 
 #: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1487
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:363
+#: core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Добавить заметку"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:349 core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Выберите проект"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:376 core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -580,54 +584,67 @@ msgstr ""
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:751 src/MainWindow.vala:753
 #: src/MainWindow.vala:754 src/MainWindow.vala:756 src/MainWindow.vala:778
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687
 msgid "Keyboard Shortcuts"
 msgstr "Комбинации клавиш"
 
 #: core/QuickAddCore.vala:1455 core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Ускорьте создание задач с помощью этих комбинаций клавиш"
 
 #: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Задать важность"
 
 #: core/QuickAddCore.vala:1469 core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = высший, p4 = низший"
 
 #: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Добавить метки"
 
 #: core/QuickAddCore.vala:1470 core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Открыть селектор меток"
 
 #: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Начать проект"
 
 #: core/QuickAddCore.vala:1471 core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Открыть селектор проекта"
 
 #: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Установить напоминания"
 
 #: core/QuickAddCore.vala:1472 core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Открыть настройки напоминания"
 
 #: core/QuickAddCore.vala:1487 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "Переключатель остаётся открытым после создания задачи"
 
 #: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Подсказка"
 
 #: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Комбинируйте ярлыки в поле заголовка для более быстрого создания"
 
@@ -3570,7 +3587,8 @@ msgstr "Создано: %s"
 #: src/Layouts/ItemRow.vala:2061 src/Layouts/ItemRow.vala:2062
 #: src/Layouts/ItemRow.vala:2084 src/Layouts/ItemRow.vala:2089
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2157
-#: src/Layouts/ItemRow.vala:2161
+#: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
+#: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 msgid "Add Attachments"
 msgstr "Добавить вложения"
 
@@ -4141,16 +4159,18 @@ msgstr "Перепланировать"
 msgid "Me"
 msgstr "Я"
 
-#: src/Widgets/Attachments.vala:58
+#: src/Widgets/Attachments.vala:58 core/QuickAddCore.vala:944
 msgid "Attachments"
 msgstr "Вложения"
 
 #: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
-#: src/Layouts/ProjectRow.vala:796
+#: src/Layouts/ProjectRow.vala:796 core/QuickAddCore.vala:1077
+#: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Открыть"
 
-#: src/Widgets/Attachments.vala:248
+#: src/Widgets/Attachments.vala:248 core/QuickAddCore.vala:976
+#: src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "Вложения не найдены. Добавьте файлы здесь."
 

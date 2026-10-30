@@ -396,7 +396,7 @@ msgstr "Zrušit"
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
 #: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
-#: src/Widgets/MultiSelectToolbar.vala:345
+#: src/Widgets/MultiSelectToolbar.vala:345 core/QuickAddCore.vala:1033
 msgid "Delete"
 msgstr "Smazat"
 
@@ -438,34 +438,36 @@ msgstr "Smazat sekci %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:149 core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Úkol úspěšně přidán!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
+#: core/QuickAddCore.vala:170
 msgid "To-do name"
 msgstr "Název úkolu"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:195 core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Toto pole je povinné"
 
 #: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224
 msgid "Add a description…"
 msgstr "Přidejte popis…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:260 core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Nastavit datum"
 
 #: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64
+#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:277
 msgid "Add Labels"
 msgstr "Přidat štítky"
 
 #: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47
+#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:282
 msgid "Set The Priority"
 msgstr "Nastavit prioritu"
 
@@ -474,6 +476,7 @@ msgstr "Nastavit prioritu"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:168
+#: core/QuickAddCore.vala:287
 msgid "Add Reminders"
 msgstr "Přidat připomenutí"
 
@@ -481,14 +484,16 @@ msgstr "Přidat připomenutí"
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
+#: core/QuickAddCore.vala:357
 msgid "Add Task"
 msgstr "Přidat úkol"
 
 #: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Přidat další"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:349 core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Vyberte Projekt"
 
@@ -501,54 +506,55 @@ msgstr ""
 "vytvořit projekt v Planify."
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové Zkratky"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1461 core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Zrychlete vytváření úkolů s těmito klávesovými zkratkami"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Nastavit prioritu"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = nejvyšší, p4 = nejnižší"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Přidat štítky"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Otevřít výběr štítků"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Přiřadit projekt"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Otevřít výběr projektů"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Nastavit připomenutí"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Otevřít možnosti připomenutí"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Tip"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -3346,6 +3352,7 @@ msgid "Project exported as PDF"
 msgstr ""
 
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
+#: core/QuickAddCore.vala:1077 src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr ""
 
@@ -3698,11 +3705,12 @@ msgstr ""
 msgid "Me"
 msgstr ""
 
-#: src/Widgets/Attachments.vala:58
+#: src/Widgets/Attachments.vala:58 core/QuickAddCore.vala:944
 msgid "Attachments"
 msgstr ""
 
-#: src/Widgets/Attachments.vala:248
+#: src/Widgets/Attachments.vala:248 core/QuickAddCore.vala:976
+#: src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr ""
 

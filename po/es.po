@@ -412,6 +412,7 @@ msgstr "Cancelar"
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:908
 #: src/Views/Filter.vala:816 src/Services/BackupManager.vala:233
+#: core/QuickAddCore.vala:1033
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -456,35 +457,36 @@ msgstr "Eliminar sección %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:149 core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "¡Tarea agregada con éxito!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:402
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
-#: src/Layouts/ItemRow.vala:405
+#: src/Layouts/ItemRow.vala:405 core/QuickAddCore.vala:170
 msgid "To-do name"
 msgstr "Nombre de la tarea"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:195 core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Este campo es obligatorio"
 
 #: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224
 msgid "Add a description…"
 msgstr "Añadir una descripción…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:260 core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Fijar fecha"
 
 #: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64
+#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:277
 msgid "Add Labels"
 msgstr "Añadir etiquetas"
 
 #: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47
+#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:282
 msgid "Set The Priority"
 msgstr "Establecer prioridad"
 
@@ -493,6 +495,7 @@ msgstr "Establecer prioridad"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:168
+#: core/QuickAddCore.vala:287
 msgid "Add Reminders"
 msgstr "Añadir recordatorios"
 
@@ -500,18 +503,20 @@ msgstr "Añadir recordatorios"
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
+#: core/QuickAddCore.vala:357
 msgid "Add Task"
 msgstr "Añadir Tarea"
 
 #: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Seguir agregando"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:349 core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Seleccionar un proyecto"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:376 core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -520,54 +525,55 @@ msgstr ""
 "crear un proyecto desde Planify."
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687
 msgid "Keyboard Shortcuts"
 msgstr "Atajos de teclado"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1461 core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Acelera la creación de tareas con estos atajos"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Establecer prioridad"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = más alta, p4 = más baja"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Agregar etiquetas"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Abrir selector de etiquetas"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Asignar proyecto"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Abrir selector de proyectos"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Establecer recordatorio"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Abrir opciones de recordatorio"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "Alternar mantener abierto después de crear tarea"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Sugerencia"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combina atajos en el campo de título para una creación más rápida"
 
@@ -3365,7 +3371,8 @@ msgid "Task completed · Next: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2157
-#: src/Layouts/ItemRow.vala:2161
+#: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
+#: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 msgid "Add Attachments"
 msgstr "Agregar archivos adjuntos"
 
@@ -3431,6 +3438,7 @@ msgid "Project exported as PDF"
 msgstr ""
 
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
+#: core/QuickAddCore.vala:1077 src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Abrir"
 
@@ -3913,11 +3921,12 @@ msgstr "Reprogramar"
 msgid "Me"
 msgstr "Yo"
 
-#: src/Widgets/Attachments.vala:58
+#: src/Widgets/Attachments.vala:58 core/QuickAddCore.vala:944
 msgid "Attachments"
 msgstr "Archivos adjuntos"
 
-#: src/Widgets/Attachments.vala:248
+#: src/Widgets/Attachments.vala:248 core/QuickAddCore.vala:976
+#: src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "No se encontraron archivos adjuntos. Agrega archivos aquí."
 
