@@ -490,11 +490,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         menu_button = new Gtk.MenuButton () {
             icon_name = "view-more-symbolic",
-            popover = build_button_context_menu (),
             css_classes = { "flat" },
             hexpand = Services.EventBus.get_default ().mobile_mode ? true : false,
             halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.END : Gtk.Align.FILL
         };
+
+        menu_button.set_create_popup_func (create_button_context_menu);
 
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 16,
@@ -1396,6 +1397,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_popover.popup ();
     }
 
+    private static void create_button_context_menu (Gtk.MenuButton button) {
+        if (button.popover != null) {
+            return;
+        }
+        // The button owns its factory; a static callback avoids retaining the row.
+        var row = (Layouts.ItemRow) button.get_ancestor (typeof (Layouts.ItemRow));
+        if (row != null) {
+            button.popover = row.build_button_context_menu ();
+        }
+    }
+
     private Gtk.Popover build_button_context_menu () {
         use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
@@ -2291,6 +2303,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void clean_up () {
+        menu_button.set_create_popup_func (null);
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
                 entry.value.disconnect (entry.key);
