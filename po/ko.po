@@ -379,8 +379,8 @@ msgid "Cancel"
 msgstr "취소"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
-#: src/Dialogs/CompletedTasks.vala:173
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
@@ -432,39 +432,39 @@ msgstr "섹션 %s 삭제"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:154
 #, fuzzy
 msgid "Task added successfully!"
 msgstr "프로젝트가 성공적으로 추가되었습니다!"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "할 일 이름"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr ""
 
-#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
 msgstr "설명"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr ""
 
-#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "라벨 추가"
 
-#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "우선순위를 설정하세요"
 
-#: core/QuickAddCore.vala:282
+#: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -472,23 +472,28 @@ msgstr "우선순위를 설정하세요"
 msgid "Add Reminders"
 msgstr "리마인더 추가"
 
-#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: src/Layouts/ItemRow.vala:2163
+msgid "Add Attachments"
+msgstr "첨부 팡리 추가"
+
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "작업 추가"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr ""
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:380
 #, fuzzy
 msgid "Select a Project"
 msgstr "프로젝트 삭제"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -496,61 +501,74 @@ msgstr ""
 "죄송합니다, 빠른 추가 기능으로 가능한 프로젝트를 찾을 수 없습니다. Planify의 "
 "기본 프로젝트를 생성해 보세요."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+msgid "Attachments"
+msgstr "첨부 팡리 추가"
+
+#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
+msgstr ""
+
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
+#: src/Widgets/Attachments.vala:144
+msgid "Open"
+msgstr ""
+
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
 msgid "Keyboard Shortcuts"
 msgstr "키보드 단축키"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 #, fuzzy
 msgid "Set priority"
 msgstr "우선순위를 설정하세요"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 #, fuzzy
 msgid "Add labels"
 msgstr "라벨 추가"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 #, fuzzy
 msgid "Opens label selector"
 msgstr "라벨 열기"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 #, fuzzy
 msgid "Assign project"
 msgstr "프로젝트 추가"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 #, fuzzy
 msgid "Set reminder"
 msgstr "시기적절한 리마인더를 설정하세요!"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 #, fuzzy
 msgid "Tip"
 msgstr "상단"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -3241,10 +3259,6 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2161
-msgid "Add Attachments"
-msgstr "첨부 팡리 추가"
-
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "세부 사항 닫기"
@@ -3386,10 +3400,6 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
-msgstr ""
-
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
 msgstr ""
 
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
@@ -3747,14 +3757,6 @@ msgstr "일정 변경"
 
 #: src/Views/Today.vala:887
 msgid "Me"
-msgstr ""
-
-#: src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr "첨부 팡리 추가"
-
-#: src/Widgets/Attachments.vala:248
-msgid "No attachments found. Add files here."
 msgstr ""
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
