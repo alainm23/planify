@@ -68,6 +68,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
     private Gee.ArrayList<Objects.Item> completed_items_list;
     private int completed_page_index = 0;
+    private uint add_items_idle_id = 0;
+    private uint reveal_timeout_id = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
 
     private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -293,7 +295,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         child = content_revealer;
 
-        Timeout.add (content_revealer.transition_duration, () => {
+        reveal_timeout_id = Timeout.add (content_revealer.transition_duration, () => {
+            reveal_timeout_id = 0;
             content_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
@@ -512,7 +515,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         signal_map[section.project.sync_finished.connect (() => {
             update_sort ();
-        })] = section.project.source;
+        })] = section.project;
     }
 
     private void update_count_label (int count) {
@@ -554,7 +557,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         });
 
         int index = 0;
-        Idle.add (() => {
+        add_items_idle_id = Idle.add (() => {
             int count = 0;
 
             while (index < items.size && count < 50) {
@@ -563,7 +566,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
                 count++;
             }
 
-            return index < items.size;
+            if (index < items.size) {
+                return Source.CONTINUE;
+            }
+            add_items_idle_id = 0;
+            return Source.REMOVE;
         });
 
         update_sort ();
@@ -881,6 +888,15 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     public void clean_up () {
+        if (reveal_timeout_id != 0) {
+            GLib.Source.remove (reveal_timeout_id);
+            reveal_timeout_id = 0;
+        }
+        if (add_items_idle_id != 0) {
+            GLib.Source.remove (add_items_idle_id);
+            add_items_idle_id = 0;
+        }
+
         listbox.set_sort_func (null);
         listbox.set_filter_func (null);
 
@@ -891,6 +907,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         foreach (var row in Util.get_default ().get_children (checked_listbox)) {
             ((Layouts.ItemRow) row).clean_up ();
         }
+
+        items_map.clear ();
+        checked_items_map.clear ();
+        completed_items_list = null;
 
         // Clear Signals
         foreach (var entry in signal_map.entries) {
