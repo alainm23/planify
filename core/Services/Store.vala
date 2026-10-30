@@ -63,6 +63,7 @@ public class Services.Store : GLib.Object {
     public signal void attachment_deleted (Objects.Attachment attachment);
 
     private Gee.HashMap<string, Gee.ArrayList<Objects.Item> > _items_by_project_cache = new Gee.HashMap<string, Gee.ArrayList<Objects.Item> > ();
+    private Gee.ArrayList<string> _deleting_source_ids = new Gee.ArrayList<string> ();
 
     construct {
         // Dropping a task onto another task's row, and CalDAV/Todoist sync, reparent through
@@ -199,6 +200,11 @@ public class Services.Store : GLib.Object {
     }
 
     public async void delete_source (Objects.Source source) {
+        if (_deleting_source_ids.contains (source.id)) {
+            return;
+        }
+        _deleting_source_ids.add (source.id);
+
         var projects = get_projects_by_source (source.id);
         const int BATCH_SIZE = 5;
         
@@ -221,6 +227,8 @@ public class Services.Store : GLib.Object {
             source_deleted (source);
             _sources.remove (source);
         }
+
+        _deleting_source_ids.remove (source.id);
     }
     
     public void update_source (Objects.Source source) {
@@ -297,6 +305,10 @@ public class Services.Store : GLib.Object {
      */
 
     public void insert_project (Objects.Project project) {
+        if (_deleting_source_ids.contains (project.source_id)) {
+            return;
+        }
+
         if (Services.Database.get_default ().insert_project (project)) {
             projects.add (project);
 
