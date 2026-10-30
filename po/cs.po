@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-03-28 15:09+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"PO-Revision-Date: 2026-10-17 15:30+0000\n"
+"Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
 "Language: cs\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -133,7 +133,7 @@ msgstr "Sekce"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
-msgstr ""
+msgstr "Přiřazení"
 
 #: core/Enum.vala:469
 msgid "Task Created"
@@ -166,11 +166,11 @@ msgstr "Připnout"
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57
 msgid "Deadline"
-msgstr ""
+msgstr "Lhůta"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Nadřazený úkol"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
@@ -335,7 +335,7 @@ msgstr "neoštítkované"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 msgid "Deadline:"
-msgstr ""
+msgstr "Lhůta:"
 
 #: core/Objects/Item.vala:1675
 msgid "Task copied to clipboard"
@@ -343,16 +343,16 @@ msgstr "Úkol zkopírován do schránky"
 
 #: core/Objects/Item.vala:1692
 msgid "iCalendar Files"
-msgstr ""
+msgstr "Soubory iCalendar"
 
 #: core/Objects/Item.vala:1708
 msgid "Task exported successfully"
-msgstr ""
+msgstr "Úkol byl úspěšně exportován"
 
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Úkol přesunut do %s"
+msgstr "Přesunuto do %s"
 
 #: core/Objects/Label.vala:220
 #, c-format
@@ -388,15 +388,15 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
-#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
+#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
+#: src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
 #: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
-#: src/Widgets/MultiSelectToolbar.vala:345
+#: src/Widgets/MultiSelectToolbar.vala:345 core/QuickAddCore.vala:1033
 msgid "Delete"
 msgstr "Smazat"
 
@@ -438,133 +438,123 @@ msgstr "Smazat sekci %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:154
+#: core/QuickAddCore.vala:149 core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Úkol úspěšně přidán!"
 
-#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
+#: core/QuickAddCore.vala:170
 msgid "To-do name"
 msgstr "Název úkolu"
 
-#: core/QuickAddCore.vala:200
+#: core/QuickAddCore.vala:195 core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Toto pole je povinné"
 
-#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224
 msgid "Add a description…"
 msgstr "Přidejte popis…"
 
-#: core/QuickAddCore.vala:265
+#: core/QuickAddCore.vala:260 core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Nastavit datum"
 
-#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
-#: core/Widgets/LabelPicker/LabelButton.vala:64
+#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/Widgets/LabelPicker/LabelButton.vala:64 core/QuickAddCore.vala:277
 msgid "Add Labels"
 msgstr "Přidat štítky"
 
-#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
-#: core/Widgets/PriorityButton.vala:47
+#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/Widgets/PriorityButton.vala:47 core/QuickAddCore.vala:282
 msgid "Set The Priority"
 msgstr "Nastavit prioritu"
 
-#: core/QuickAddCore.vala:287
+#: core/QuickAddCore.vala:282
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:168
+#: core/QuickAddCore.vala:287
 msgid "Add Reminders"
 msgstr "Přidat připomenutí"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
-#: src/Layouts/ItemRow.vala:2163
-msgid "Add Attachments"
-msgstr ""
-
-#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
+#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
+#: core/QuickAddCore.vala:357
 msgid "Add Task"
 msgstr "Přidat úkol"
 
+#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 #: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Přidat další"
 
-#: core/QuickAddCore.vala:380
+#: core/QuickAddCore.vala:349 core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Vyberte Projekt"
 
-#: core/QuickAddCore.vala:407
+#: core/QuickAddCore.vala:376
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Je mi líto, ale Rychlé přidání nenašlo žádný dostupný projekt, zkuste "
+"vytvořit projekt v Planify."
 
-#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr ""
-
-#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
-msgid "No attachments found. Add files here."
-msgstr ""
-
-#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
-#: src/Widgets/Attachments.vala:144
-msgid "Open"
-msgstr ""
-
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové Zkratky"
 
-#: core/QuickAddCore.vala:1693
+#: core/QuickAddCore.vala:1461 core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Zrychlete vytváření úkolů s těmito klávesovými zkratkami"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Nastavit prioritu"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = nejvyšší, p4 = nejnižší"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Přidat štítky"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Otevřít výběr štítků"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Přiřadit projekt"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Otevřít výběr projektů"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Nastavit připomenutí"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Otevřít možnosti připomenutí"
 
-#: core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Tip"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
@@ -577,36 +567,44 @@ msgstr "Načítání úkolů pro %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:327
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Úkoly pro %s načteny…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:320
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Synchronizace úkolu %d z %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:683
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Tento server nepovoluje tvorbu projektů přes CalDAV. Prosím, vytvořte ho "
+"přímo z webu poskytovatele kalendáře."
 
 #: core/Services/CalDAV/CalDAVClient.vala:738
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Tento server nepovoluje odstraňování projektů přes CalDAV. Prosím, odstraňte "
+"ho přímo z webu poskytovatele kalendáře."
 
 #: core/Services/CalDAV/CalDAVClient.vala:742
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Tento server nepodporuje odstraňování projektů přes CalDAV. Prosím, "
+"odstraňte ho přímo ze serveru."
 
 #: core/Services/CalDAV/CalDAVClient.vala:776
 #: core/Services/CalDAV/CalDAVClient.vala:822
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"Úkol byl upraven na jiném zařízení. Prosím, proveďte synchronizaci pro "
+"získání aktuální verze."
 
 #: core/Services/CalDAV/Core.vala:170
 msgid "Source already exists"
@@ -631,23 +629,25 @@ msgstr "Synchronizace dokončena"
 
 #: core/Services/CalDAV/Core.vala:324
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Platnost autentizace vypršela"
 
 #: core/Services/CalDAV/Core.vala:325
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
-msgstr ""
+msgstr "Vaše relace vypršela. Odeberte a znovu přidejte svůj účet v nastavení."
 
 #: core/Services/CalDAV/Core.vala:332
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Příliš mnoho požadavků"
 
 #: core/Services/CalDAV/Core.vala:333
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
 msgstr ""
+"Server omezuje počet požadavků. Počkejte prosím několik minut a zkuste to "
+"znovu."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
@@ -655,32 +655,32 @@ msgstr "Na tomto počítači"
 
 #: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Požadavek byl nesprávný."
 
 #: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Je vyžadována autentizace, která selhala nebo dosud nebyla poskytnuta."
 
 #: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Požadavek byl platný, ale žádal o něco, co je zakázané."
 
 #: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Požadovaný zdroj nebyl nalezen."
 
 #: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Uživatel odeslal v daném časovém úseku příliš mnoho požadavků."
 
 #: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Požadavek selhal kvůli chybě serveru."
 
 #: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Server momentálně není schopen požadavek zpracovat."
 
 #: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
@@ -935,6 +935,9 @@ msgid ""
 "running. Don’t hesitate to play around with it – you can always recreate it "
 "from Preferences."
 msgstr ""
+"Tento projekt obsahuje vše, co potřebujete znát pro snadné použití "
+"základních funkcí. Neváhejte si s ním pohrát – vždy ho můžete znovu vytvořit "
+"z obrazovky nastavení."
 
 #: core/Utils/Util.vala:641
 msgid "Tap this task"
@@ -1080,6 +1083,7 @@ msgstr ""
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
+"Přesouvání úkolů na nástěnku Nextcloud Deck nebo z ní zatím není podporováno"
 
 #: core/Utils/Util.vala:971
 msgid "Task duplicated"
@@ -1788,9 +1792,10 @@ msgstr ""
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
 "This will delete %d completed tasks and their subtasks from project %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Toto odstraní %d dokončený úkol a jeho dílčí úkoly z projektu %s"
+msgstr[1] "Toto odstraní %d dokončené úkoly a jejich dílčí úkoly z projektu %s"
 msgstr[2] ""
+"Toto odstraní %d dokončených úkolů a jejich dílčí úkoly z projektu %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Layouts/ItemSortFilter.vala:130
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
@@ -2190,71 +2195,73 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
-msgstr ""
+msgstr "Používat barvy Adwaita"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:90
 msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
+msgstr "Používat standardní barvy GNOME ve světlém a tmavém stylu"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
-msgstr ""
+msgstr "Světlý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:107
 msgid "Clean light theme"
-msgstr ""
+msgstr "Svěží světlý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:123
 msgid "Dark Style"
-msgstr ""
+msgstr "Tmavý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:124
 msgid "Elegant dark theme"
-msgstr ""
+msgstr "Elegantní tmavý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:140
 msgid "Dark Blue Style"
-msgstr ""
+msgstr "Tmavomodrý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:141
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Professional blue theme"
-msgstr ""
+msgstr "Profesionální tmavě modrý styl"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:157
 msgid "Accent Color"
-msgstr ""
+msgstr "Barevný nádech"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:163
 msgid "Custom themes are not available when using the system light theme"
-msgstr ""
+msgstr "Vlastní styly nejsou dostupné při použití systémového světlého stylu"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:201
 msgid "Font Size"
-msgstr ""
+msgstr "Velikost písma"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
-msgstr ""
+msgstr "Není k dispozici s barvami Adwaita"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:34
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
-msgstr ""
+msgstr "Zálohy"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:44
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"Nestrachujte se o svá data. Můžete tvořit zálohy svých aktivních projektů, "
+"úkolů a komentářů, a později je importovat."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:55
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Automatická denní záloha"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:56
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Tvoří zálohu každý den o půlnoci"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Backups to Keep"
@@ -2529,13 +2536,15 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Quick Add"
-msgstr ""
+msgstr "Rychlé přidání"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:44
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
+"Pomocí funkce Rychlé přidání můžete vytvářet úkoly odkudkoli pomocí několika "
+"stisknutí kláves. Nemusíte ani opustit aplikaci, ve které se právě nacházíte."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:56
 msgid ""
@@ -2651,7 +2660,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:89
 msgid "Keep all completed subtasks visible without collapsing them"
-msgstr ""
+msgstr "Ponechat všechny dokončené dílčí úkoly viditelné a rozbalené"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:96
 msgid "Task Complete Tone"
@@ -3117,7 +3126,7 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1267
 msgid "Add Subtask"
-msgstr ""
+msgstr "Přidat dílčí úkol"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1269
 msgid "Edit"
@@ -3150,7 +3159,7 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:565
 msgid "Add Subtasks"
-msgstr ""
+msgstr "Přidat dílčí úkoly"
 
 #: src/Layouts/ItemRow.vala:1073
 msgid "Hide Sub-tasks"
@@ -3194,15 +3203,19 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:1817
 msgid "A task can only become a subtask of a task in the same account"
-msgstr ""
+msgstr "Úkol se může stát dílčím úkolem pouze úkolu pod stejným účtem"
+
+#: src/Layouts/ItemRow.vala:2161
+msgid "Add Attachments"
+msgstr "Přidat přílohy"
 
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
-msgstr ""
+msgstr "Zavřít detail"
 
 #: src/Layouts/ItemSidebarView.vala:147 src/Widgets/ItemDetailCompleted.vala:64
 msgid "Title"
-msgstr ""
+msgstr "Název"
 
 #: src/Layouts/ItemSidebarView.vala:179 src/Widgets/ItemDetailCompleted.vala:90
 msgid "Properties"
@@ -3336,6 +3349,11 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
+msgstr ""
+
+#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
+#: core/QuickAddCore.vala:1077 src/Widgets/Attachments.vala:144
+msgid "Open"
 msgstr ""
 
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
@@ -3495,21 +3513,21 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr ""
 
+#: src/Services/Notification.vala:99
+msgid "Snooze for 10 minutes"
+msgstr "Odložit na 10 minut"
+
 #: src/Services/Notification.vala:100
-msgid "10m Snooze"
-msgstr ""
+msgid "Snooze for 30 minutes"
+msgstr "Odložit na 30 minut"
 
-#: src/Services/Notification.vala:102
-msgid "30m Snooze"
-msgstr ""
-
-#: src/Services/Notification.vala:104
-msgid "1h Snooze"
-msgstr ""
+#: src/Services/Notification.vala:101
+msgid "Snooze for 1 hour"
+msgstr "Odložit na 1 hodinu"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
-msgstr ""
+msgstr "Všechny projekty"
 
 #: src/Views/Filter.vala:146 src/Views/Label/Label.vala:78
 #: src/Views/Label/Labels.vala:45 src/Views/Project/Project.vala:119
@@ -3578,9 +3596,9 @@ msgstr[2] ""
 #, c-format
 msgid "This will delete %d completed task and its subtasks"
 msgid_plural "This will delete %d completed tasks and their subtasks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Toto odstraní %d dokončený úkol a jeho dílčí úkoly"
+msgstr[1] "Toto odstraní %d dokončené úkoly a jejich dílčí úkoly"
+msgstr[2] "Toto odstraní %d dokončených úkolů a jejich dílčí úkoly"
 
 #: src/Views/Label/LabelSourceRow.vala:49
 #: src/Views/Label/LabelSourceRow.vala:125
@@ -3685,6 +3703,15 @@ msgstr ""
 
 #: src/Views/Today.vala:887
 msgid "Me"
+msgstr ""
+
+#: src/Widgets/Attachments.vala:58 core/QuickAddCore.vala:944
+msgid "Attachments"
+msgstr ""
+
+#: src/Widgets/Attachments.vala:248 core/QuickAddCore.vala:976
+#: src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
 msgstr ""
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
@@ -3917,9 +3944,9 @@ msgstr[2] ""
 #, c-format
 msgid "Task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Úkol přesunut do %s"
+msgstr[1] "%d úkoly přesunuty do %s"
+msgstr[2] "%d úkolů přesunuto do %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -3949,7 +3976,7 @@ msgstr ""
 
 #: src/Widgets/SubItems.vala:556
 msgid "No subtasks added yet. Get started!"
-msgstr ""
+msgstr "Zatím nebyly přidány dílčí úkoly. Pojďme na to!"
 
 #: src/Widgets/SyncButton.vala:94
 msgid "Failed to connect to server"
@@ -3991,7 +4018,7 @@ msgstr ""
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
-msgstr ""
+msgstr "Planify - Rychlé přidání"
 
 #: data/resources/ui/shortcuts.ui:12
 msgctxt "shortcut window"
@@ -4103,12 +4130,17 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
 
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Úkol přesunut do %s"
-#~ msgstr[1] "%d úkoly přesunuty do %s"
-#~ msgstr[2] "%d úkolů přesunuto do %s"
+#: src/Services/Notification.vala:100
+msgid "10m Snooze"
+msgstr "10min odložení"
+
+#: src/Services/Notification.vala:102
+msgid "30m Snooze"
+msgstr "30min odložení"
+
+#: src/Services/Notification.vala:104
+msgid "1h Snooze"
+msgstr "1h odložení"
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
@@ -4122,3 +4154,10 @@ msgstr ""
 #, c-format
 #~ msgid "Every %d minutes"
 #~ msgstr "Každých %d minut"
+
+#, fuzzy, c-format
+#~ msgid "%d task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "Úkol přesunut do %s"
+#~ msgstr[1] "%d úkoly přesunuty do %s"
+#~ msgstr[2] "%d úkolů přesunuto do %s"
