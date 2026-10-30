@@ -875,6 +875,7 @@ msgid "%a, %b %-e"
 msgstr "%a, %b %-e"
 
 #: core/Utils/Datetime.vala:824 core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1351,6 +1352,7 @@ msgstr "Субота"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:131
 msgid "Time"
 msgstr "Час"
 
@@ -1743,10 +1745,13 @@ msgstr "Введіть пошуковий запит"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:110
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:97
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:125
 msgid "Reminders"
 msgstr "Нагадування"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:112
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:99
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
@@ -1754,32 +1759,40 @@ msgstr ""
 "«+»."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:158
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:145
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "Add Reminder"
 msgstr "Додати нагадування"
 
 # c-format
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:208
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 5 minutes"
 msgstr "Через 5 хвилин"
 
 # c-format
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:209
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 15 minutes"
 msgstr "Через 15 хвилин"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:210
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 30 minutes"
 msgstr "Через 30 хвилин"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:211
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:198
 msgid "In 1 hour"
 msgstr "Через 1 годину"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:212
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:199
 msgid "In 3 hours"
 msgstr "Через 3 години"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:213
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:200
 msgid "In 6 hours"
 msgstr "Через 6 годин"
 
@@ -4532,6 +4545,10 @@ msgstr "Відкласти на 30 хвилин"
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Відкласти на 1 годину"
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:241
+msgid "Suggestions"
+msgstr ""
 
 #~ msgid "You can sort your accounts by dragging and dropping"
 #~ msgstr "Ви можете сортувати свої облікові записи, перетягуючи їх"
