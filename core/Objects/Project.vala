@@ -218,11 +218,16 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    Objects.Project ? _parent;
+    // The Store owns related models; a back-reference must not retain their child caches.
+    GLib.WeakRef _parent = GLib.WeakRef (null);
     public Objects.Project parent {
-        get {
-            _parent = Services.Store.instance ().get_project (parent_id);
-            return _parent;
+        owned get {
+            var related = (Objects.Project) _parent.get ();
+            if (related == null || related.id != parent_id) {
+                related = Services.Store.instance ().get_project (parent_id);
+                _parent.set (related);
+            }
+            return related;
         }
     }
 
@@ -517,7 +522,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void set_parent (Objects.Project project) {
-        this._parent = project;
+        _parent.set (project);
     }
 
     public Objects.Section add_section_if_not_exists (Objects.Section new_section) {

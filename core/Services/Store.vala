@@ -404,6 +404,7 @@ public class Services.Store : GLib.Object {
             _items_by_project_cache.unset (item.project_id);
             item.deleted ();
             _items.remove (item);
+            clear_project_cache (item.project_id);
             item_deleted (item);
         }
         
@@ -787,6 +788,7 @@ public class Services.Store : GLib.Object {
 
             item.deleted ();
             _items.remove (item);
+            clear_project_cache (item.project_id);
             item_deleted (item);
 
             if (item.project != null) {
