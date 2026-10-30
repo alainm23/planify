@@ -276,39 +276,39 @@ public class Widgets.DeadlineButton : Adw.Bin {
 
         tomorrow_item.clicked.connect (() => {
             date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (1)));
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         in_3_days_item.clicked.connect (() => {
             date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (3)));
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         next_week_item.clicked.connect (() => {
             date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (7)));
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         in_2_weeks_item.clicked.connect (() => {
             date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_days (14)));
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         in_a_month_item.clicked.connect (() => {
             date_selected (Utils.Datetime.get_date_only (new DateTime.now_local ().add_months (1)));
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         calendar_view.day_selected.connect (() => {
             date_selected (calendar_view.date);
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         delete_button.clicked.connect (() => {
             date_selected (null);
             calendar_view.reset ();
             delete_revealer.reveal_child = false;
-            popover.hide ();
+            calendar_popover.hide ();
         });
 
         return popover;

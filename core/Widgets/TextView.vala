@@ -20,7 +20,7 @@
  */
 
 public class Widgets.TextView : Gtk.TextView {
-    private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     private bool showing_placeholder = false;
 

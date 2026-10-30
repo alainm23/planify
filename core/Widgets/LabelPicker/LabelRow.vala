@@ -49,6 +49,9 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     }
 
     private Gtk.CheckButton checked_button;
+    private Gtk.GestureClick checked_button_gesture;
+    private Gtk.Grid color_grid;
+    private Gtk.Label name_label;
     private Gtk.Revealer loading_revealer;
     public signal void checked_toggled (Objects.Label label, bool active);
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
@@ -72,7 +75,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             css_classes = { "checkbutton-label" }
         };
 
-        var color_grid = new Gtk.Grid () {
+        color_grid = new Gtk.Grid () {
             width_request = 3,
             height_request = 16,
             valign = Gtk.Align.CENTER,
@@ -80,7 +83,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         };
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
 
-        var name_label = new Gtk.Label (label.name) {
+        name_label = new Gtk.Label (label.name) {
             valign = Gtk.Align.CENTER,
         };
 
@@ -103,7 +106,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
         child = content_box;
 
-        var checked_button_gesture = new Gtk.GestureClick ();
+        checked_button_gesture = new Gtk.GestureClick ();
         content_box.add_controller (checked_button_gesture);
         signals_map[checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);

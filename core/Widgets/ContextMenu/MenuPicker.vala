@@ -28,6 +28,8 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     private Gtk.Label menu_title;
     private Gtk.Label value_label;
     private Gtk.ListBox listbox;
+    private Gtk.Image arrow_icon;
+    private Gtk.Revealer listbox_revealer;
     private Gtk.CheckButton group_radio = new Gtk.CheckButton ();
 
     public string _selected;
@@ -81,7 +83,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         value_label.add_css_class ("dimmed");
         value_label.add_css_class ("caption");
 
-        var arrow_icon = new Gtk.Image () {
+        arrow_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("go-next-symbolic"),
             pixel_size = 16,
             hexpand = true,
@@ -115,7 +117,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
             css_classes = { "listbox-background" }
         };
 
-        var listbox_revealer = new Gtk.Revealer () {
+        listbox_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = listbox
         };
