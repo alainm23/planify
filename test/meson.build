@@ -32,7 +32,8 @@ test_core_sources = [
     'core/test-all-items-filter.vala',
     'core/test-subitem-cache.vala',
     'core/test-item-reparent.vala',
-    'core/test-label-unique.vala'
+    'core/test-label-unique.vala',
+    'core/test-item-memory.vala'
 ]
 
 test_core = executable(
