@@ -54,7 +54,33 @@ public class Objects.Item : Objects.BaseObject {
             _parent = null;
         }
     }
-    public string extra_data { get; set; default = ""; }
+    private string _extra_data = "";
+    private bool extra_data_deferred = false;
+    public string extra_data {
+        get {
+            if (extra_data_deferred) {
+                _extra_data = Services.Database.get_default ().get_item_extra_data (id);
+                extra_data_deferred = false;
+            }
+            return _extra_data;
+        }
+        set {
+            _extra_data = value;
+            extra_data_deferred = false;
+            _extra_data_object = null;
+            extra_data_parsed = false;
+        }
+    }
+
+    // Store loads the searchable task fields up front, but CalDAV payloads are only
+    // needed when a task is opened, edited or synced.
+    public void defer_extra_data () {
+        _extra_data = "";
+        extra_data_deferred = true;
+        extra_data_parsed = false;
+        _extra_data_object = null;
+    }
+
     public ItemType item_type { get; set; default = ItemType.TASK; }
     public string responsible_uid { get; set; default = ""; }
 
@@ -204,13 +230,13 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    string ? _extra_data_key = null;
+    bool extra_data_parsed = false;
     Json.Object ? _extra_data_object = null;
 
     private Json.Object ? get_extra_data_object () {
-        if (_extra_data_key != extra_data) {
+        if (!extra_data_parsed) {
             _extra_data_object = Utils.JsonUtils.get_object (extra_data);
-            _extra_data_key = extra_data;
+            extra_data_parsed = true;
         }
 
         return _extra_data_object;
