@@ -384,8 +384,8 @@ msgid "Cancel"
 msgstr "İptal"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
-#: src/Dialogs/CompletedTasks.vala:173
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
@@ -437,38 +437,38 @@ msgstr "%s Bölümünü Sil"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Görev başarıyla  eklendi!"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Yapılacak adı"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Bu alan gerekli"
 
-#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
 msgstr "Açıklama ekle…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Tarih ayarla"
 
-#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Etiket Ekle"
 
-#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Önceliğe göre sırala"
 
-#: core/QuickAddCore.vala:282
+#: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -476,22 +476,27 @@ msgstr "Önceliğe göre sırala"
 msgid "Add Reminders"
 msgstr "Hatırlatıcı Ekle"
 
-#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: src/Layouts/ItemRow.vala:2163
+msgid "Add Attachments"
+msgstr "Görev Ekle"
+
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Görev Ekle"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Eklemeye devam edin"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Bir Proje Seç"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -499,55 +504,68 @@ msgstr ""
 "Üzgünüm, Hızlı Ekleme kullanılabilir bir proje bulamadı. Planify'dan proje "
 "oluşturmayı deneyin."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+msgid "Attachments"
+msgstr "Görev Ekle"
+
+#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
+msgstr ""
+
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
+#: src/Widgets/Attachments.vala:144
+msgid "Open"
+msgstr ""
+
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Bu kısayollarla görev oluşturmayı hızlandır"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Önceliği ayarla"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = en yüksek, p4 = en düşük"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Etiket ekle"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Etiket seçiciyi açar"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Proje ata"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Proje seçiciyi açar"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Hatırlatıcı ayarla"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Hatırlatıcı ayarlarını açar"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "Görev oluşturulduktan sonra açık kalmayı değiştir"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "İpucu"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Daha hızlı oluşturma için başlık alanındaki kısayolları birleştirin"
 
@@ -801,6 +819,7 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1268,7 +1287,7 @@ msgstr "Cumartesi"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:144
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:131
 msgid "Time"
 msgstr "Zaman"
 
@@ -1628,54 +1647,60 @@ msgid "Type a search"
 msgstr "Aramak için yazınız"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:110
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:97
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:125
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
 msgstr "Hatırlatıcılar"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:112
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:99
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
 "Hatırlatıcılar listeniz burada görünecek. '+' düğmesine tıklayarak bir tane "
 "ekleyin"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:158
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:145
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "Add Reminder"
 msgstr "Hatırlatıcı Ekle"
 
 # c-format
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:208
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 5 minutes"
 msgstr "5 dakika içinde"
 
 # c-format
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:209
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 15 minutes"
 msgstr "15 dakika içinde"
 
 # c-format
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:210
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 30 minutes"
 msgstr "30 dakika içinde"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:211
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:198
 msgid "In 1 hour"
 msgstr "1 saat içinde"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:212
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:199
 msgid "In 3 hours"
 msgstr "3 saat içinde"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:213
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:200
 msgid "In 6 hours"
 msgstr "6 saat içinde"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:270
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:241
+msgid "Suggestions"
+msgstr ""
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
 msgstr "Gelecekte bir tarih seçin"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:279
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
 msgstr "Şu anda zaten aktif bir hatırlatıcınız var"
 
@@ -3287,10 +3312,6 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2161
-msgid "Add Attachments"
-msgstr "Görev Ekle"
-
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "Ayrıntıları Göster"
@@ -3432,10 +3453,6 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:794
 msgid "Project exported as PDF"
-msgstr ""
-
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
 msgstr ""
 
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
@@ -3797,14 +3814,6 @@ msgstr "Yeniden zamanla"
 
 #: src/Views/Today.vala:887
 msgid "Me"
-msgstr ""
-
-#: src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr "Görev Ekle"
-
-#: src/Widgets/Attachments.vala:248
-msgid "No attachments found. Add files here."
 msgstr ""
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
