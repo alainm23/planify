@@ -1012,6 +1012,13 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public void delete_completed_items_by_project (Objects.Project project) {
+        var completed_items = get_items_checked_by_project (project);
+        foreach (Objects.Item item in completed_items) {
+            item.delete_item ();
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_subitems (Objects.Item i) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
