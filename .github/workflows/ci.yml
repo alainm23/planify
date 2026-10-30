@@ -47,7 +47,7 @@ jobs:
             drop-modules: '["evolution-data-server"]'
           - name: no-goa
             config-opt: "-Dgoa=false"
-            drop-modules: '["gnome-online-accounts", "librest"]'
+            drop-modules: '["gnome-online-accounts"]'
     steps:
       - uses: actions/checkout@v7
       - name: Patch manifest for ${{ matrix.name }}
