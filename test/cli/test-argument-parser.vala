@@ -262,6 +262,51 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         print ("  ✓ Returns error for unknown option\n---\n");
     }
 
+    void test_delete_task () {
+        print ("Testing: 'delete' command with task-id\n");
+        int exit_code;
+        string[] args = {"planify-cli", "delete", "-t", "task-123"};
+
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.command_type == PlanifyCLI.CommandType.DELETE);
+        assert (parsed.delete_args != null);
+        assert (parsed.delete_args.task_id == "task-123");
+        print ("  ✓ Parses delete command with task-id\n---\n");
+    }
+
+    void test_delete_project () {
+        print ("Testing: 'delete' command with project-id\n");
+        int exit_code;
+        string[] args = {"planify-cli", "delete", "-i", "project-456"};
+
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.command_type == PlanifyCLI.CommandType.DELETE);
+        assert (parsed.delete_args != null);
+        assert (parsed.delete_args.project_id == "project-456");
+        print ("  ✓ Parses delete command with project-id\n---\n");
+    }
+
+    void test_delete_section () {
+        print ("Testing: 'delete' command with section-id\n");
+        int exit_code;
+        string[] args = {"planify-cli", "delete", "-s", "section-789"};
+
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.command_type == PlanifyCLI.CommandType.DELETE);
+        assert (parsed.delete_args != null);
+        assert (parsed.delete_args.section_id == "section-789");
+        print ("  ✓ Parses delete command with section-id\n---\n");
+    }
+
     public void register_tests () {
         Test.add_func ("/cli/argument_parser/no_command", test_no_command);
         Test.add_func ("/cli/argument_parser/unknown_command", test_unknown_command);
@@ -277,5 +322,8 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         Test.add_func ("/cli/argument_parser/invalid_pin_value", test_invalid_pin_value);
         Test.add_func ("/cli/argument_parser/invalid_complete_value", test_invalid_complete_value);
         Test.add_func ("/cli/argument_parser/unknown_option", test_unknown_option);
+        Test.add_func ("/cli/argument_parser/delete_task", test_delete_task);
+        Test.add_func ("/cli/argument_parser/delete_project", test_delete_project);
+        Test.add_func ("/cli/argument_parser/delete_section", test_delete_section);
     }
 }
