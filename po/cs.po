@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-17 15:30+0000\n"
+"PO-Revision-Date: 2026-11-01 07:51+0000\n"
 "Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -1649,15 +1649,15 @@ msgstr "V 6 hodinách"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:241
 msgid "Suggestions"
-msgstr ""
+msgstr "Návrhy"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Zvolte čas v budoucnosti"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "V tuto dobu již máte připomenutí"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
