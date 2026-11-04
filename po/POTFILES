@@ -46,6 +46,7 @@ core/Services/Deck/Core.vala
 core/Services/Deck/DeckClient.vala
 core/Services/EventBus.vala
 core/Services/GOA.vala
+core/Services/HttpResponse.vala
 core/Services/LogService.vala
 core/Services/Settings.vala
 core/Services/Store.vala
@@ -148,6 +149,7 @@ src/Layouts/ItemBase.vala
 src/Layouts/ItemBoard.vala
 src/Layouts/ItemRow.vala
 src/Layouts/ItemSidebarView.vala
+src/Layouts/ItemSortFilter.vala
 src/Layouts/LabelRow.vala
 src/Layouts/ProjectContainerRow.vala
 src/Layouts/ProjectRow.vala

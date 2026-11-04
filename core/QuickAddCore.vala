@@ -36,6 +36,11 @@ public class Layouts.QuickAddCore : Adw.Bin {
     private Widgets.DeadlineButton deadline_button_detail;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
+    private Gtk.MenuButton attachments_button;
+    private Gtk.Label attachments_count;
+    private Gtk.Label attachments_header_count;
+    private Gtk.ListBox attachments_listbox;
+    private Gee.ArrayList<File> pending_attachments = new Gee.ArrayList<File> ();
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
     private Gtk.ToggleButton create_more_button;
@@ -286,6 +291,31 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         pin_button = new Widgets.PinButton ();
 
+        // Files picked here are attached once the task is saved. Hidden in the standalone Quick Add
+        // window, which runs as its own process: the main app wouldn't see the attachments until restart.
+        attachments_button = new Gtk.MenuButton () {
+            icon_name = "mail-attachment-symbolic",
+            tooltip_text = _("Add Attachments"),
+            popover = build_attachments_popover (),
+            css_classes = { "flat" }
+        };
+
+        attachments_count = new Gtk.Label (null) {
+            css_classes = { "badge", "caption" },
+            width_request = 12,
+            margin_end = 3,
+            halign = END,
+            valign = START,
+            visible = false,
+            can_target = false
+        };
+
+        var attachments_overlay = new Gtk.Overlay () {
+            child = attachments_button,
+            visible = !is_window_quick_add
+        };
+        attachments_overlay.add_overlay (attachments_count);
+
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 6,
             margin_end = 6,
@@ -298,6 +328,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
             halign = Gtk.Align.END
         };
 
+        action_box_right.append (attachments_overlay);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
@@ -565,6 +596,10 @@ public class Layouts.QuickAddCore : Adw.Bin {
                 });
             }
         })] = reminder_button;
+
+        signal_map[attachments_button.popover.notify["visible"].connect (() => {
+            parent_can_close (!attachments_button.popover.visible);
+        })] = attachments_button.popover;
 
         signal_map[deadline_button.date_selected.connect ((date) => {
             update_deadline (date);
@@ -888,10 +923,207 @@ public class Layouts.QuickAddCore : Adw.Bin {
     }
 
     private void _add_item (Objects.Item item) {
+        // Taken before add_item_db, which may reset the form for the next task
+        var files = pending_attachments;
+        pending_attachments = new Gee.ArrayList<File> ();
+        update_attachments_button ();
+
         add_item_db (item, reminder_button.reminders ());
+
+        if (files.size > 0) {
+            attach_files.begin (item, files);
+        }
 
         if (item.has_parent) {
             item.parent.collapsed = true;
+        }
+    }
+
+    // Same layout as the attachments popover of an existing task; files are only copied once the task is saved
+    private Gtk.Popover build_attachments_popover () {
+        var title = new Gtk.Label (_("Attachments")) {
+            css_classes = { "heading", "h4" }
+        };
+
+        attachments_header_count = new Gtk.Label (null) {
+            margin_start = 9,
+            css_classes = { "dimmed", "caption" }
+        };
+
+        var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
+            css_classes = { "flat" },
+            hexpand = true,
+            halign = END,
+            tooltip_text = _("Add Attachments")
+        };
+
+        var headerbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 6,
+            margin_end = 6
+        };
+        headerbox.append (title);
+        headerbox.append (attachments_header_count);
+        headerbox.append (add_button);
+
+        attachments_listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            activate_on_single_click = true,
+            selection_mode = Gtk.SelectionMode.NONE,
+            hexpand = true,
+            css_classes = { "listbox-background" }
+        };
+
+        attachments_listbox.set_placeholder (new Gtk.Label (_("No attachments found. Add files here.")) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            margin_top = 24,
+            margin_bottom = 24,
+            margin_start = 24,
+            margin_end = 24
+        });
+
+        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content.append (headerbox);
+        content.append (attachments_listbox);
+
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            child = content,
+            width_request = 350
+        };
+
+        add_button.clicked.connect (() => {
+            popover.popdown ();
+            pick_attachments ();
+        });
+
+        attachments_listbox.row_activated.connect ((row) => {
+            open_pending_attachment (pending_attachments[row.get_index ()]);
+        });
+
+        return popover;
+    }
+
+    private Gtk.ListBoxRow build_attachment_row (File file) {
+        string content_type = "";
+        int64 size = 0;
+        try {
+            var info = file.query_info ("standard::size,standard::content-type", 0);
+            content_type = info.get_content_type () ?? "";
+            size = info.get_size ();
+        } catch (Error e) {
+            warning (e.message);
+        }
+
+        var name_label = new Gtk.Label (file.get_basename ()) {
+            valign = Gtk.Align.CENTER,
+            ellipsize = Pango.EllipsizeMode.END
+        };
+
+        var size_label = new Gtk.Label (size > 0 ? GLib.format_size ((uint64) size) : "") {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "dimmed", "caption" }
+        };
+
+        var remove_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {
+            valign = CENTER,
+            halign = END,
+            hexpand = true,
+            css_classes = { "flat" },
+            tooltip_text = _("Delete")
+        };
+
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_top = 3,
+            margin_start = 6,
+            margin_bottom = 3,
+            margin_end = 6
+        };
+        content_box.append (new Gtk.Image.from_gicon (ContentType.get_symbolic_icon (content_type)));
+        content_box.append (name_label);
+        content_box.append (size_label);
+        content_box.append (remove_button);
+
+        var row = new Gtk.ListBoxRow () {
+            child = content_box,
+            css_classes = { "row", "no-padding" }
+        };
+
+        remove_button.clicked.connect (() => {
+            pending_attachments.remove (file);
+            update_attachments_button ();
+        });
+
+        return row;
+    }
+
+    private void open_pending_attachment (File file) {
+        try {
+            if (!file.query_exists ()) {
+                throw new GLib.IOError.NOT_FOUND ("File no longer exists");
+            }
+
+            GLib.AppInfo.launch_default_for_uri (file.get_uri (), null);
+        } catch (Error e) {
+            Services.EventBus.get_default ().send_toast (
+                Util.get_default ().create_toast ("Error opening file: " + e.message)
+            );
+        }
+    }
+
+    private void pick_attachments () {
+        var chooser = new Gtk.FileDialog () {
+            // translators: Open file
+            title = _("Open"),
+            modal = true
+        };
+
+        parent_can_close (false);
+        chooser.open_multiple.begin ((Gtk.Window) get_root (), null, (obj, res) => {
+            try {
+                var files = chooser.open_multiple.end (res);
+                for (var i = 0; i < files.get_n_items (); i++) {
+                    var file = files.get_item (i) as File;
+                    if (file != null) {
+                        pending_attachments.add (file);
+                    }
+                }
+
+                update_attachments_button ();
+            } catch (Error e) {
+                // Also reached when the user dismisses the dialog
+                debug ("FileDialog: %s", e.message);
+            }
+
+            parent_can_close (true);
+            attachments_button.popup ();
+        });
+    }
+
+    private void update_attachments_button () {
+        var count = pending_attachments.size;
+        attachments_count.label = count.to_string ();
+        attachments_count.visible = count > 0;
+        attachments_header_count.label = count > 0 ? count.to_string () : "";
+
+        // Remove rows only; clearing all children would also drop the placeholder
+        Gtk.ListBoxRow? row;
+        while ((row = attachments_listbox.get_row_at_index (0)) != null) {
+            attachments_listbox.remove (row);
+        }
+
+        foreach (File file in pending_attachments) {
+            attachments_listbox.append (build_attachment_row (file));
+        }
+    }
+
+    private async void attach_files (Objects.Item item, Gee.ArrayList<File> files) {
+        foreach (File file in files) {
+            var attachment = yield Objects.Attachment.from_file (file);
+            if (attachment != null) {
+                attachment.item_id = item.id;
+                item.add_attachment_if_not_exists (attachment);
+            }
         }
     }
 

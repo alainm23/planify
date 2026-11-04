@@ -138,6 +138,10 @@ public class Services.BackupManager : Object {
         return mime_type == "application/json";
     }
 
+    public static string get_backup_filename (GLib.DateTime datetime) {
+        return "Planify backup %s.json".printf (datetime.format ("%Y-%m-%d_%H-%M-%S"));
+    }
+
     public string export_to_json () {
         return Services.BackupExporter.get_default ().export_to_json ();
     }
@@ -160,7 +164,7 @@ public class Services.BackupManager : Object {
 
     public GLib.File? create_backup () {
         var datetime = new GLib.DateTime.now_local ();
-        var file_name = "Planify backup %s.json".printf (datetime.format ("%c"));
+        var file_name = get_backup_filename (datetime);
         var file_path = path + "/" + file_name;
 
         var file = File.new_for_path (file_path);
@@ -287,7 +291,7 @@ public class Services.BackupManager : Object {
 
     public void save_file_as (Objects.Backup backup) {
         var dialog = new Gtk.FileDialog ();
-        dialog.initial_name = "Planify backup %s.json".printf (backup.title);
+        dialog.initial_name = get_backup_filename (backup.datetime ?? new GLib.DateTime.now_local ());
         add_filters (dialog);
 
         dialog.save.begin (Planify._instance.main_window, null, (obj, res) => {

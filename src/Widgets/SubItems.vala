@@ -38,6 +38,8 @@ public class Widgets.SubItems : Adw.Bin {
     public Gee.HashMap<string, Layouts.ItemBase> items_map = new Gee.HashMap<string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Layouts.ItemBase> items_checked = new Gee.HashMap<string, Layouts.ItemBase> ();
 
+    private bool reorder_disabled = false;
+
     private Gee.ArrayList<Objects.Item> completed_items_list;
     private int completed_page_index = 0;
     private const int PAGE_SIZE = Constants.COMPLETED_PAGE_SIZE;
@@ -255,7 +257,7 @@ public class Widgets.SubItems : Adw.Bin {
                         if (is_board) {
                             items_checked[item.id] = new Layouts.ItemBoard (item);
                         } else {
-                            items_checked[item.id] = new Layouts.ItemRow (item, is_project_view);
+                            items_checked[item.id] = new_row (item);
                         }
 
                         checked_listbox.insert (items_checked[item.id], 0);
@@ -270,7 +272,7 @@ public class Widgets.SubItems : Adw.Bin {
                         if (is_board) {
                             items_map[item.id] = new Layouts.ItemBoard (item);
                         } else {
-                            items_map[item.id] = new Layouts.ItemRow (item, is_project_view);
+                            items_map[item.id] = new_row (item);
                         }
 
                         listbox.append (items_map[item.id]);
@@ -431,7 +433,7 @@ public class Widgets.SubItems : Adw.Bin {
                 if (is_board) {
                     items_checked[item.id] = new Layouts.ItemBoard (item);
                 } else {
-                    items_checked[item.id] = new Layouts.ItemRow (item, is_project_view);
+                    items_checked[item.id] = new_row (item);
                 }
 
                 checked_listbox.append (items_checked[item.id]);
@@ -455,7 +457,7 @@ public class Widgets.SubItems : Adw.Bin {
         if (is_board) {
             items_map[item.id] = new Layouts.ItemBoard (item);
         } else {
-            items_map[item.id] = new Layouts.ItemRow (item, is_project_view);
+            items_map[item.id] = new_row (item);
         }
 
         listbox.append (items_map[item.id]);
@@ -513,6 +515,35 @@ public class Widgets.SubItems : Adw.Bin {
         }
 
         signal_map.clear ();
+    }
+
+    private Layouts.ItemRow new_row (Objects.Item item) {
+        var row = new Layouts.ItemRow (item, is_project_view);
+        if (reorder_disabled) {
+            row.disable_reorder ();
+        }
+
+        return row;
+    }
+
+    /**
+     * Applies Layouts.ItemRow.disable_reorder () to every subtask row, and remembers it for the
+     * rows added later.
+     */
+    public void disable_reorder () {
+        reorder_disabled = true;
+
+        foreach (Layouts.ItemBase row in items_map.values) {
+            if (row is Layouts.ItemRow) {
+                ((Layouts.ItemRow) row).disable_reorder ();
+            }
+        }
+
+        foreach (Layouts.ItemBase row in items_checked.values) {
+            if (row is Layouts.ItemRow) {
+                ((Layouts.ItemRow) row).disable_reorder ();
+            }
+        }
     }
 
     public void disable_drag_and_drop () {
