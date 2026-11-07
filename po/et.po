@@ -3925,11 +3925,11 @@ msgstr[0] "Kas oled kindel, et tahad selle %d ülesande kustutada?"
 msgstr[1] "Kas oled kindel, et tahad need %d ülesannet kustutada?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ülesanne asub nüüd uues kohas: %s"
+msgstr[1] "%d ülesannet asuvad nüüd uues kohas: %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4112,12 +4112,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Ülesanne asub nüüd uues kohas: %s"
-#~ msgstr[1] "%d ülesannet asuvad nüüd uues kohas: %s"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"

@@ -4033,11 +4033,11 @@ msgstr[0] "Tem a certeza de que pretende eliminar esta %d tarefa?"
 msgstr[1] "Tem a certeza de que pretende eliminar estas %d tarefas?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A tarefa foi movida para %s"
+msgstr[1] "%d tarefas foram movidas para %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4227,12 +4227,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "A tarefa foi movida para %s"
-#~ msgstr[1] "%d tarefas foram movidas para %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Silenciar durante 10 minutos"

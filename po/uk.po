@@ -4043,12 +4043,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Ви впевнені, що хочете видалити це %d завдання?"
 msgstr[1] "Ви впевнені, що хочете видалити ці %d завданнь?"
 
+# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Завдання перемещіно в %s"
+msgstr[1] "%d завдань перемещіно в %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4237,13 +4238,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Завдання перемещіно в %s"
-#~ msgstr[1] "%d завдань перемещіно в %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Відкласти на 10 хвилин"
