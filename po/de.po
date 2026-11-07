@@ -4066,11 +4066,11 @@ msgstr[0] "Bist du sicher, dass du %d Aufgabe löschen möchtest?"
 msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Aufgabe hierhin verschoben: %s"
+msgstr[1] "%d Aufgaben hierhin verschoben: %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4260,12 +4260,6 @@ msgstr "Öffne das nächste Projekt"
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Öffne das vorherige Projekt"
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Aufgabe hierhin verschoben: %s"
-#~ msgstr[1] "%d Aufgaben hierhin verschoben: %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Für 10 Minuten schlummern"

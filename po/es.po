@@ -4388,6 +4388,14 @@ msgstr "Posponer la alarma durante 30 minutos"
 msgid "1h Snooze"
 msgstr "Posponer la alarma durante 1 hora"
 
+# # c-format
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Tarea movida a %s"
+msgstr[1] "%d areas movidas a %s"
+
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
 
@@ -5141,10 +5149,3 @@ msgstr "Posponer la alarma durante 1 hora"
 #~ msgid "Have an overview of your tasks without losing sight of the details."
 #~ msgstr ""
 #~ "Tenga una visión general de sus tareas sin perder de vista los detalles."
-
-# # c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Tarea movida a %s"
-#~ msgstr[1] "%d areas movidas a %s"

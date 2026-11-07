@@ -4776,6 +4776,12 @@ msgstr "Tunda selama 1 jam"
 msgid "Suggestions"
 msgstr ""
 
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "%d tugas dipindahkan ke %s"
+
 #, c-format
 #~ msgid "Load more history from %d week ago…"
 #~ msgid_plural "Load more history from %d weeks ago…"
@@ -4881,8 +4887,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Todoist telah memperbarui API mereka. Silakan hubungkan ulang akun Anda "
 #~ "di Pengaturan untuk melanjutkan sinkronisasi."
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "%d tugas dipindahkan ke %s"

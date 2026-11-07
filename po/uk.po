@@ -4557,6 +4557,14 @@ msgstr "Відкласти на 1 годину"
 msgid "Suggestions"
 msgstr ""
 
+# c-format
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Завдання перемещіно в %s"
+msgstr[1] "%d завдань перемещіно в %s"
+
 #~ msgid "You can sort your accounts by dragging and dropping"
 #~ msgstr "Ви можете сортувати свої облікові записи, перетягуючи їх"
 
@@ -4971,10 +4979,3 @@ msgstr ""
 
 #~ msgid "Provider"
 #~ msgstr "Постачальник"
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Завдання перемещіно в %s"
-#~ msgstr[1] "%d завдань перемещіно в %s"

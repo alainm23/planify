@@ -4142,6 +4142,14 @@ msgstr "30min odložení"
 msgid "1h Snooze"
 msgstr "1h odložení"
 
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Úkol přesunut do %s"
+msgstr[1] "%d úkoly přesunuty do %s"
+msgstr[2] "%d úkolů přesunuto do %s"
+
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
 
@@ -4154,10 +4162,3 @@ msgstr "1h odložení"
 #, c-format
 #~ msgid "Every %d minutes"
 #~ msgstr "Každých %d minut"
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Úkol přesunut do %s"
-#~ msgstr[1] "%d úkoly přesunuty do %s"
-#~ msgstr[2] "%d úkolů přesunuto do %s"

@@ -4035,12 +4035,12 @@ msgstr[1] "Ste si istí, že chcete odstrániť túto úlohu?"
 msgstr[2] "Ste si istí, že chcete odstrániť túto úlohu?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Úloha presunutá do %s"
+msgstr[1] "Úloha presunutá do %s"
+msgstr[2] "Úloha presunutá do %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4229,13 +4229,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Úloha presunutá do %s"
-#~ msgstr[1] "Úloha presunutá do %s"
-#~ msgstr[2] "Úloha presunutá do %s"
 
 #, fuzzy
 #~ msgid "Snooze for 10 minutes"

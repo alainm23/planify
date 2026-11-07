@@ -4017,7 +4017,7 @@ msgstr[1] "Confirma que desexa eliminar estas %d tarefas?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
-msgid "Task moved to %s"
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Tarefa movida para %s"
 msgstr[1] "%d tarefas movidas para %s"

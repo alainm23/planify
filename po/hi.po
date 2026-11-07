@@ -4011,12 +4011,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "क्या आप वाकई इस कार्य को मिटाना चाहते हैं?"
 msgstr[1] "क्या आप वाकई इस कार्य को मिटाना चाहते हैं?"
 
+# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "कार्य को %s पर भेजा गया"
+msgstr[1] "कार्य को %s पर भेजा गया"
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4205,13 +4206,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# # c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "कार्य को %s पर भेजा गया"
-#~ msgstr[1] "कार्य को %s पर भेजा गया"
 
 #, fuzzy
 #~ msgid "Snooze for 10 minutes"

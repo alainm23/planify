@@ -4542,6 +4542,13 @@ msgstr "დადუმება 1 საათით"
 msgid "Suggestions"
 msgstr ""
 
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "ამოცანა გადატანილია %s-ში"
+msgstr[1] "%d ამოცანა გადატანილია %s-ში"
+
 #, fuzzy, c-format
 #~ msgid "Load more history from %d week ago…"
 #~ msgid_plural "Load more history from %d weeks ago…"
@@ -4810,9 +4817,3 @@ msgstr ""
 
 #~ msgid "Provider"
 #~ msgstr "მომწოდებელი"
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "ამოცანა გადატანილია %s-ში"
-#~ msgstr[1] "%d ამოცანა გადატანილია %s-ში"

@@ -4016,11 +4016,11 @@ msgstr[0] "Бұл тапсырманы жоюды шынымен қалайсы�
 msgstr[1] "Бұл тапсырманы жоюды шынымен қалайсыз ба?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Тапсырма %s дегенге жылжытылды"
+msgstr[1] "Тапсырма %s дегенге жылжытылды"
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4209,12 +4209,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Тапсырма %s дегенге жылжытылды"
-#~ msgstr[1] "Тапсырма %s дегенге жылжытылды"
 
 #, fuzzy
 #~ msgid "Snooze for 10 minutes"

@@ -4587,6 +4587,14 @@ msgstr ""
 msgid "Suggestions"
 msgstr ""
 
+# c-format
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Görev %s projesine taşındı"
+msgstr[1] "Görev %s projesine taşındı"
+
 # # c-format
 #, fuzzy, c-format
 #~ msgid "Load more history from %d week ago…"
@@ -5015,10 +5023,3 @@ msgstr ""
 #~ msgstr ""
 #~ "Google Görevler eşzamanlamasını kaldırmak istediğinizden emin misiniz? Bu "
 #~ "eylem, tüm görevlerinizi ve ayarlarınızı silecek."
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Görev %s projesine taşındı"
-#~ msgstr[1] "Görev %s projesine taşındı"

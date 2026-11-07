@@ -4292,6 +4292,12 @@ msgstr "Tạm dừng 30 phút"
 msgid "1h Snooze"
 msgstr "Tạm dừng 1 giờ"
 
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "%d nhiệm vụ đã di chuyển đến %s"
+
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%a, %b %-e, %Y"
 
@@ -4539,8 +4545,3 @@ msgstr "Tạm dừng 1 giờ"
 
 #~ msgid "Support Planify"
 #~ msgstr "Ủng Hộ Planify"
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "%d nhiệm vụ đã di chuyển đến %s"

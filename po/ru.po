@@ -4818,6 +4818,14 @@ msgstr "Отложить на 1 час"
 msgid "Suggestions"
 msgstr "Предложения"
 
+# c-format
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "Задача перемещена в %s"
+msgstr[1] "%d задач перемещены в %s"
+
 # # c-format
 #, c-format
 #~ msgid "Load more history from %d week ago…"
@@ -5418,10 +5426,3 @@ msgstr "Предложения"
 #~ msgstr ""
 #~ "Вы уверены, что хотите удалить синхронизацию с Google Tasks? Это действие "
 #~ "приведет к удалению всех ваших задач и настроек."
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Задача перемещена в %s"
-#~ msgstr[1] "%d задач перемещены в %s"

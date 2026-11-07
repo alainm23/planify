@@ -4075,7 +4075,7 @@ msgstr[3] "Ali ste prepričani, da želite izbrisati teh %d opravil?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
-msgid "Task moved to %s"
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "Naloga je premaknjena v %s"
 msgstr[1] "%d nalogi sta premaknjeni v %s"

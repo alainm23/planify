@@ -4130,6 +4130,12 @@ msgstr "推迟 30 分钟"
 msgid "1h Snooze"
 msgstr "推迟 1 小时"
 
+#: src/Widgets/MultiSelectToolbar.vala:447
+#, fuzzy, c-format
+msgid "%d task moved to %s"
+msgid_plural "%d tasks moved to %s"
+msgstr[0] "任务已移动到%s"
+
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"
 
@@ -4186,8 +4192,3 @@ msgstr "推迟 1 小时"
 #, c-format
 #~ msgid "Every %d years"
 #~ msgstr "每 %d 年"
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "任务已移动到%s"

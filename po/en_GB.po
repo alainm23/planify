@@ -3972,11 +3972,11 @@ msgstr[0] "Are you sure you want to delete this %d to-do?"
 msgstr[1] "Are you sure you want to delete this %d to-do?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Task moved to %s"
+msgstr[1] "Task moved to %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4165,12 +4165,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Task moved to %s"
-#~ msgstr[1] "Task moved to %s"
 
 #, fuzzy
 #~ msgid "Snooze for 10 minutes"
