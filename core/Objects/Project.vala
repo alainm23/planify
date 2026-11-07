@@ -549,6 +549,11 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void add_section (Objects.Section section) {
+        // A null cache gets built from the Store the next time it's read.
+        if (_sections == null || _sections.contains (section)) {
+            return;
+        }
+
         this._sections.add (section);
         section.deleted.connect (() => {
             _sections.remove (section);
