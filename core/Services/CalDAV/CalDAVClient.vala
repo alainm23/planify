@@ -340,6 +340,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        try {
+            yield sync_project_changes (project, cancellable);
+        } catch (Error e) {
+            // Don't leave the project looking like it's still syncing
+            project.loading = false;
+            project.freeze_update = false;
+            project.sync_finished ();
+            throw e;
+        }
+    }
+
+    private async void sync_project_changes (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         if (project.is_deck || project.is_archived) {
             Services.LogService.get_default ().debug ("CalDAV", "Skipping sync for %s project".printf (project.is_archived ? "archived" : "deck"));
             return;
