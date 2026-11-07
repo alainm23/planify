@@ -4063,12 +4063,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Você tem certeza que quer deletar esta lista?"
 msgstr[1] "Você tem certeza que quer deletar estas listas?"
 
+# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tarefa movida para <b>%s</b>"
+msgstr[1] "Tarefas movidas para <b>%s</b>"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4257,13 +4258,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Tarefa movida para <b>%s</b>"
-#~ msgstr[1] "Tarefas movidas para <b>%s</b>"
 
 # # c-format
 #, fuzzy

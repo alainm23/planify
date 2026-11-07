@@ -3904,10 +3904,10 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "确定要删除这 %d 个待办事项吗？"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
+msgstr[0] "任务已移动到%s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4094,11 +4094,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "任务已移动到%s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "暂停 10 分钟"

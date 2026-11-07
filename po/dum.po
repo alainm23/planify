@@ -3887,7 +3887,7 @@ msgstr[1] ""
 
 #: src/Widgets/MultiSelectToolbar.vala:447
 #, c-format
-msgid "Task moved to %s"
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] ""
 msgstr[1] ""

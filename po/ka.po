@@ -3905,11 +3905,11 @@ msgstr[0] "მართლა გნებავთ ამ %d გეგმის
 msgstr[1] "მართლა გნებავთ ამ %d გეგმის წაშლა?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ამოცანა გადატანილია %s-ში"
+msgstr[1] "%d ამოცანა გადატანილია %s-ში"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4092,12 +4092,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "ამოცანა გადატანილია %s-ში"
-#~ msgstr[1] "%d ამოცანა გადატანილია %s-ში"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "დადუმება 10 წუთით"
