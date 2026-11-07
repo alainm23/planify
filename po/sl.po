@@ -371,6 +371,7 @@ msgstr "Izbriši oznako %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
+#: core/Objects/Project.vala:896
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
@@ -390,7 +391,8 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Widgets/MultiSelectToolbar.vala:344 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:973
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -404,10 +406,11 @@ msgstr "Prekliči"
 #: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 core/QuickAddCore.vala:1033
+#: core/Objects/Project.vala:900
 msgid "Delete"
 msgstr "Izbriši"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:854 core/Objects/Project.vala:859
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt je bil kopiran v odložišče."
 

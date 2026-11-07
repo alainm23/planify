@@ -375,7 +375,7 @@ msgstr "Eliminar Etiqueta %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
-#: src/Services/BackupManager.vala:229
+#: src/Services/BackupManager.vala:229 core/Objects/Project.vala:896
 msgid "This can not be undone"
 msgstr "Esto no se puede deshacer"
 
@@ -397,7 +397,8 @@ msgstr "Esto no se puede deshacer"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:907
 #: core/Utils/Util.vala:479 src/Views/Filter.vala:815
-#: src/Services/BackupManager.vala:232
+#: src/Services/BackupManager.vala:232 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:973
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -412,26 +413,28 @@ msgstr "Cancelar"
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:908
 #: src/Views/Filter.vala:816 src/Services/BackupManager.vala:233
-#: core/QuickAddCore.vala:1033
+#: core/QuickAddCore.vala:1033 core/Objects/Project.vala:900
 msgid "Delete"
 msgstr "Eliminar"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:854 core/Objects/Project.vala:859
 msgid "The project was copied to the Clipboard."
 msgstr "El proyecto fue copiado al Portapapeles."
 
 # # c-format
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:890 core/Objects/Project.vala:895
 #, c-format
 msgid "Delete Project %s?"
 msgstr "¿Eliminar proyecto %s?"
 
 #: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:969
 msgid "Archive?"
 msgstr "¿Archivar?"
 
 # # c-format
 #: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:970
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Esto archivará %s y todas sus tareas."
@@ -439,6 +442,7 @@ msgstr "Esto archivará %s y todas sus tareas."
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
+#: core/Objects/Project.vala:974
 msgid "Archive"
 msgstr "Archivar"
 
