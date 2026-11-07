@@ -317,7 +317,9 @@ public class Services.CalDAV.Core : GLib.Object {
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV.Core", "Failed to sync source '%s': %s".printf (source.display_name, e.message));
 
-            if ("HTTP 401" in e.message || "Authentication failed" in e.message) {
+            var status = Services.CalDAV.WebDAVClient.http_status (e);
+
+            if (status == Soup.Status.UNAUTHORIZED) {
                 Services.LogService.get_default ().warn ("CalDAV.Core", "Authentication expired, re-login required");
                 source.sync_status = new SyncStatus (
                     SyncErrorType.AUTH_EXPIRED,
@@ -325,7 +327,7 @@ public class Services.CalDAV.Core : GLib.Object {
                     _("Your session has expired. Please remove and re-add your account in Preferences.")
                 );
                 source.sync_failed (source.sync_status);
-            } else if ("HTTP 429" in e.message || "Too Many Requests" in e.message) {
+            } else if (status == 429) {
                 Services.LogService.get_default ().warn ("CalDAV.Core", "Rate limited by server, try again later");
                 source.sync_status = new SyncStatus (
                     SyncErrorType.SERVER_ERROR,

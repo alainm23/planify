@@ -22,9 +22,20 @@
 
 
 public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
+    private const int MULTIGET_BATCH_SIZE = 100;
+
+    private Gee.HashMap<string, CalDAVCapabilities> capabilities = new Gee.HashMap<string, CalDAVCapabilities> ();
 
     public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
         base (session, base_url, username, password, ignore_ssl);
+    }
+
+    private CalDAVCapabilities get_capabilities (Objects.Project project) {
+        return capabilities[project.calendar_url] ?? new CalDAVCapabilities ();
+    }
+
+    private void update_capabilities (string calendar_url, WebDAVResponse response) {
+        capabilities[calendar_url] = new CalDAVCapabilities.from_prop (response.get_prop ("supported-report-set"));
     }
 
 
@@ -121,6 +132,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                             <d:sync-token />
                             <ical:calendar-color />
                             <cal:supported-calendar-component-set />
+                            <d:supported-report-set />
                         </d:prop>
                     </d:propfind>
         """;
@@ -136,6 +148,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             if (is_vtodo_calendar (response)) {
                 var project = new Objects.Project.from_response (response, get_absolute_url (href));
                 project.source_id = source.id;
+                update_capabilities (project.calendar_url, response);
 
                 // Deck boards are handled by DeckClient, never via CalDAV
                 if (project.is_deck) {
@@ -160,6 +173,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                             <d:sync-token />
                             <ical:calendar-color />
                             <cal:supported-calendar-component-set />
+                            <d:supported-report-set />
                             <nc:deleted-at/>
                         </d:prop>
                     </d:propfind>
@@ -205,6 +219,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             if (is_vtodo_calendar (response) && href != null && response.get_prop ("displayname") != null) {
                 var project_url = get_absolute_url (href);
+                update_capabilities (project_url, response);
 
                 // Deck boards are always handled by DeckClient, skip in CalDAV
                 if ("deck--board" in project_url.down ()) {
@@ -242,6 +257,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                             <d:sync-token />
                             <ical:calendar-color />
                             <cal:supported-calendar-component-set />
+                            <d:supported-report-set />
                         </d:prop>
                     </d:propfind>
         """;
@@ -250,6 +266,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         foreach (var response in multi_status.responses ()) {
             if (is_vtodo_calendar (response)) {
+                update_capabilities (project.calendar_url, response);
                 project.update_from_response (response, false);
                 Services.Store.instance ().update_project (project);
                 return;
@@ -261,82 +278,26 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
     public async void fetch_items_for_project (Objects.Project project, GLib.Cancellable cancellable, owned ProgressCallback? progress_callback = null) throws GLib.Error {
         Services.LogService.get_default ().info ("CalDAV", "Fetching items for project");
-        SourceFunc callback = fetch_items_for_project.callback;
 
-        var xml = """<?xml version="1.0" encoding="utf-8"?>
-        <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
-            <d:prop>
-                <d:getetag/>
-                <d:displayname/>
-                <d:owner/>
-                <d:sync-token/>
-                <d:current-user-privilege-set/>
-                <d:resourcetype/>
-                <cal:calendar-data/>
-            </d:prop>
-            <cal:filter>
-                <cal:comp-filter name="VCALENDAR">
-                    <cal:comp-filter name="VTODO">
-                    </cal:comp-filter>
-                </cal:comp-filter>
-            </cal:filter>
-        </cal:calendar-query>
-        """;
-        
-        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
-        var responses = multi_status.responses ();
+        var etags_by_href = yield list_vtodo_etags (project, cancellable);
+        int total = etags_by_href.size;
         
         if (progress_callback != null) {
-            progress_callback (0, responses.size, _ ("Loading tasks for %s…").printf (project.name));
+            progress_callback (0, total, _ ("Loading tasks for %s…").printf (project.name));
         }
 
         project.freeze_update = true;
 
-        int index = 0;
         var items_list = new Gee.ArrayList<Objects.Item> ();
 
-        Idle.add (() => {
-            if (index >= responses.size) {
-                if (progress_callback != null) {
-                    progress_callback (responses.size, responses.size, _ ("Loaded tasks for %s…").printf (project.name));
-                }
-                project.add_items_batched (items_list);
-                Idle.add ((owned) callback);
-                return false;
-            }
-            
-            var response = responses[index];
-            string? href = response.href;
-
-            var calendar_data = response.get_prop ("calendar-data");
-            if (calendar_data != null) {
-                string etag = response.get_prop ("getetag")?.get_text () ?? "";
-                upsert_vtodo_content (project, get_absolute_url (href), etag, calendar_data.text_content, items_list);
-            } else {
-                Services.LogService.get_default ().warn ("CalDAV", "calendar_data is null");
-            }
-
-            if (progress_callback != null && index % 10 == 0) {
-                progress_callback (index, responses.size, _ ("Syncing task %d of %d").printf (index, responses.size));
-            }
-
-            index++;
-
-            if (index >= responses.size) {
-                if (progress_callback != null) {
-                    progress_callback (responses.size, responses.size, _ ("Loaded tasks for %s…").printf (project.name));
-                }
-                project.add_items_batched (items_list);
-                Idle.add ((owned) callback);
-                return false;
-            }
-            return true;
-        });
-        yield;
-
-        project.freeze_update = false;
-        project.count_update ();
-        Services.Store.instance ().update_project (project);
+        try {
+            yield fetch_vtodos (project, etags_by_href, cancellable, items_list, (owned) progress_callback);
+            project.add_items_batched (items_list);
+        } finally {
+            project.freeze_update = false;
+            project.count_update ();
+            Services.Store.instance ().update_project (project);
+        }
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
@@ -365,6 +326,15 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         Services.LogService.get_default ().debug ("CalDAV", "sync_id after fetch_project_details: '%s'".printf (project.sync_id ?? "(null)"));
 
+        if (!get_capabilities (project).sync_collection) {
+            Services.LogService.get_default ().info ("CalDAV", "Server does not support sync-collection, using etag-based sync for '%s'".printf (project.name));
+            project.loading = false;
+            project.freeze_update = false;
+            yield etag_sync_project (project, cancellable);
+            project.sync_finished ();
+            return;
+        }
+
         if (project.sync_id == null || project.sync_id == "") {
             Services.LogService.get_default ().warn ("CalDAV", "No sync-token from server, falling back to etag-based sync for '%s'".printf (project.name));
             project.loading = false;
@@ -391,6 +361,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             return;
         }
         project.freeze_update = true;
+
+        var to_fetch = new Gee.HashMap<string, string> ();
 
         foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;
@@ -425,12 +397,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             }
 
             if (!has_component_parameter || is_vtodo) {
-                string etag = response.get_prop ("getetag")?.get_text () ?? "";
-
-                var fetched = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, etag, fetched.data);
+                to_fetch[href] = response.get_prop ("getetag")?.get_text () ?? "";
             }
         }
+
+        yield fetch_vtodos (project, to_fetch, cancellable);
 
         var sync_token = multi_status.root.get_child ("sync-token")?.get_text ();
         if (sync_token != null && sync_token != project.sync_id) {
@@ -547,29 +518,16 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     private async void etag_sync_project (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         Services.LogService.get_default ().info ("CalDAV", "ETag sync for '%s'".printf (project.name));
 
-        // Step 1: fetch {url → etag} from server (lightweight, no calendar-data)
-        var xml = """<?xml version="1.0" encoding="utf-8"?>
-        <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
-            <d:prop>
-                <d:getetag/>
-            </d:prop>
-            <cal:filter>
-                <cal:comp-filter name="VCALENDAR">
-                    <cal:comp-filter name="VTODO"/>
-                </cal:comp-filter>
-            </cal:filter>
-        </cal:calendar-query>
-        """;
-
-        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+        var etags_by_href = yield list_vtodo_etags (project, cancellable);
 
         // Build server map: url → etag
         var server_map = new Gee.HashMap<string, string> ();
-        foreach (var response in multi_status.responses ()) {
-            if (response.href == null || response.status != Soup.Status.NONE) continue;
-            server_map[get_absolute_url (response.href)] = response.get_prop ("getetag")?.get_text () ?? "";
+        var server_hrefs = new Gee.HashMap<string, string> ();
+        foreach (var entry in etags_by_href.entries) {
+            var url = get_absolute_url (entry.key);
+            server_map[url] = entry.value;
+            server_hrefs[url] = entry.key;
         }
-
         Services.LogService.get_default ().debug ("CalDAV", "Project has %d items".printf (server_map.size));
         project.freeze_update = true;
 
@@ -598,6 +556,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 Services.Store.instance ().delete_section (stale_section);
             }
             // Step 3: fetch and update only changed/new items
+            var to_fetch = new Gee.HashMap<string, string> ();
             foreach (var entry in server_map.entries) {
                 string url = entry.key;
                 string server_etag = entry.value;
@@ -608,13 +567,121 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                     continue;
                 }
 
-                var fetched = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, server_etag, fetched.data);
+                to_fetch[server_hrefs[url]] = server_etag;
             }
+
+            yield fetch_vtodos (project, to_fetch, cancellable);
         } finally {
             project.freeze_update = false;
             project.count_update ();
             Services.Store.instance ().update_project (project);
+        }
+    }
+
+    private async Gee.HashMap<string, string> list_vtodo_etags (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+        <cal:calendar-query xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+            <d:prop>
+                <d:getetag/>
+            </d:prop>
+            <cal:filter>
+                <cal:comp-filter name="VCALENDAR">
+                    <cal:comp-filter name="VTODO"/>
+                </cal:comp-filter>
+            </cal:filter>
+        </cal:calendar-query>
+        """;
+
+        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+
+        var etags_by_href = new Gee.HashMap<string, string> ();
+        foreach (var response in multi_status.responses ()) {
+            if (response.href == null || response.status != Soup.Status.NONE) continue;
+            etags_by_href[response.href] = response.get_prop ("getetag")?.get_text () ?? "";
+        }
+
+        return etags_by_href;
+    }
+
+    private async void fetch_vtodos (Objects.Project project, Gee.Map<string, string> etags_by_href, GLib.Cancellable cancellable, Gee.ArrayList<Objects.Item>? batched_items = null, owned ProgressCallback? progress_callback = null) throws GLib.Error {
+        if (etags_by_href.is_empty) {
+            return;
+        }
+
+        var hrefs = new Gee.ArrayList<string> ();
+        hrefs.add_all (etags_by_href.keys);
+
+        if (!get_capabilities (project).calendar_multiget) {
+            yield fetch_vtodos_individually (project, hrefs, etags_by_href, cancellable, batched_items);
+            if (progress_callback != null) {
+                progress_callback (hrefs.size, hrefs.size, _ ("Loaded tasks for %s…").printf (project.name));
+            }
+            return;
+        }
+
+        for (int i = 0; i < hrefs.size; i += MULTIGET_BATCH_SIZE) {
+            var batch = hrefs.slice (i, int.min (i + MULTIGET_BATCH_SIZE, hrefs.size));
+
+            try {
+                int fetched = yield fetch_vtodos_multiget (project, batch, etags_by_href, cancellable, batched_items);
+                if (fetched == 0) {
+                    Services.LogService.get_default ().warn ("CalDAV", "calendar-multiget returned no tasks, fetching tasks individually");
+                    yield fetch_vtodos_individually (project, batch, etags_by_href, cancellable, batched_items);
+                }
+            } catch (Error e) {
+                if (e is GLib.IOError.CANCELLED) {
+                    throw e;
+                }
+
+                Services.LogService.get_default ().warn ("CalDAV", "calendar-multiget failed, fetching tasks individually: %s".printf (e.message));
+                yield fetch_vtodos_individually (project, batch, etags_by_href, cancellable, batched_items);
+            }
+
+            if (progress_callback != null) {
+                int done = i + batch.size;
+                progress_callback (done, hrefs.size, _ ("Syncing task %d of %d").printf (done, hrefs.size));
+            }
+        }
+    }
+
+    private async int fetch_vtodos_multiget (Objects.Project project, Gee.List<string> hrefs, Gee.Map<string, string> etags_by_href, GLib.Cancellable cancellable, Gee.ArrayList<Objects.Item>? batched_items = null) throws GLib.Error {
+        var hrefs_xml = new StringBuilder ();
+        foreach (var href in hrefs) {
+            hrefs_xml.append ("<d:href>%s</d:href>".printf (GLib.Markup.escape_text (href)));
+        }
+
+        var xml = """<?xml version="1.0" encoding="utf-8"?>
+        <cal:calendar-multiget xmlns:d="DAV:" xmlns:cal="urn:ietf:params:xml:ns:caldav">
+            <d:prop>
+                <d:getetag/>
+                <cal:calendar-data/>
+            </d:prop>
+            %s
+        </cal:calendar-multiget>
+        """.printf (hrefs_xml.str);
+
+        var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
+
+        int fetched = 0;
+        foreach (var response in multi_status.responses ()) {
+            var calendar_data = response.get_prop ("calendar-data");
+            if (response.href == null || calendar_data == null) {
+                continue;
+            }
+
+            string etag = response.get_prop ("getetag")?.get_text () ?? etags_by_href[response.href] ?? "";
+            upsert_vtodo_content (project, get_absolute_url (response.href), etag, calendar_data.text_content, batched_items);
+            fetched++;
+        }
+
+        return fetched;
+    }
+
+    private async void fetch_vtodos_individually (Objects.Project project, Gee.List<string> hrefs, Gee.Map<string, string> etags_by_href, GLib.Cancellable cancellable, Gee.ArrayList<Objects.Item>? batched_items = null) throws GLib.Error {
+        foreach (var href in hrefs) {
+            var url = get_absolute_url (href);
+            var fetched = yield get_vtodo_by_url (url, cancellable);
+            upsert_vtodo_content (project, url, etags_by_href[href], fetched.data, batched_items);
         }
     }
 
@@ -677,7 +744,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             project.calendar_url = calendar_url;
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 403" in e.message) {
+            if (http_status (e) == Soup.Status.FORBIDDEN) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow creating calendars via CalDAV");
                 response.error_code = 403;
                 response.error = _("This server does not allow creating projects via CalDAV. Please create it directly from your calendar provider's website.");
@@ -732,11 +799,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                   Soup.Status.NOT_FOUND });
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 403" in e.message) {
+            var status = http_status (e);
+            if (status == Soup.Status.FORBIDDEN) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow deleting calendars via CalDAV");
                 response.error_code = 403;
                 response.error = _("This server does not allow deleting projects via CalDAV. Please delete it directly from your calendar provider's website.");
-            } else if ("HTTP 405" in e.message) {
+            } else if (status == Soup.Status.METHOD_NOT_ALLOWED) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not support project deletion via CalDAV");
                 response.error_code = 405;
                 response.error = _("This server does not support deleting projects via CalDAV. Please delete it from the server directly.");
@@ -770,7 +838,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 412" in e.message) {
+            if (http_status (e) == Soup.Status.PRECONDITION_FAILED) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict detected (412), re-fetching item");
                 response.error_code = 412;
                 response.error = _("Task was modified on another device. Please sync to get the latest version.");
@@ -800,7 +868,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (item.ical_url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 412" in e.message) {
+            if (http_status (e) == Soup.Status.PRECONDITION_FAILED) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict on complete (412), re-fetching ETag and retrying");
                 try {
                     var retry_cancellable = new GLib.Cancellable ();
@@ -846,7 +914,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 502" in e.message || "HTTP 405" in e.message || "HTTP 501" in e.message) {
+            var status = http_status (e);
+            if (status == Soup.Status.BAD_GATEWAY || status == Soup.Status.METHOD_NOT_ALLOWED || status == Soup.Status.NOT_IMPLEMENTED) {
                 Services.LogService.get_default ().warn ("CalDAV", "MOVE not supported, falling back to PUT+DELETE");
                 response = yield move_item_fallback (item, destination_project, destination);
             } else {
