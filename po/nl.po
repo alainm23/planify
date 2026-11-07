@@ -517,7 +517,7 @@ msgstr "Nog geen bijlagen. Voeg deze hier toe."
 msgid "Open"
 msgstr "Openen"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
@@ -1934,7 +1934,7 @@ msgstr "Label bewerken"
 msgid "Filter"
 msgstr "Filteren"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Gearchiveerde projecten"
 
@@ -2822,7 +2822,7 @@ msgstr ""
 "Wanneer ingeschakeld zal er standaard een herinnering ingesteld worden "
 "vooraleer de deadline van de taak afloopt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -2972,7 +2972,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3027,7 +3027,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Meer tonen"
 
@@ -3537,27 +3537,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Over Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Oeps! Er is iets gebeurd"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Taak afgewerkt"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Weergave"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Integriteitscheck database mislukt"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3579,7 +3579,7 @@ msgstr ""
 "\n"
 "Hierna kan je één van je vorige back-ups terugzetten. Bedankt voor je geduld."
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Database opnieuw instellen"
 

@@ -521,7 +521,7 @@ msgstr "Няма намерени прикрепени файлове. Доба�
 msgid "Open"
 msgstr "Отваряне"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Клавишни комбинации"
 
@@ -1928,7 +1928,7 @@ msgstr "Обновяване на етикет"
 msgid "Filter"
 msgstr "Филтър"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Архивирани проекти"
 
@@ -2820,7 +2820,7 @@ msgstr ""
 "Когато е включено, по подразбиране ще бъде добавено напомняне преди крайния "
 "срок на задачата."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Настройки"
 
@@ -2970,7 +2970,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3025,7 +3025,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Създаване на повече"
 
@@ -3538,27 +3538,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Относно „Planify“"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Опа! Нещо се случи"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Задачата е завършена"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Целостта на базата от данни не може да бъде проверена"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3578,7 +3578,7 @@ msgstr ""
 "След нулирането ще може да възстановите всички резервни копия, които сте "
 "създали по-рано. Благодарим Ви за търпението"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Връщане на базата от данни"
 

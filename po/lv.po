@@ -518,7 +518,7 @@ msgstr "Nav neviena pielikuma. Pievienojiet datnes šeit."
 msgid "Open"
 msgstr "Atvērts"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Tastatūras īsceļi"
 
@@ -1896,7 +1896,7 @@ msgstr "Mainīt birku"
 msgid "Filter"
 msgstr "Atlasīt"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Arhivētie projekti"
 
@@ -2780,7 +2780,7 @@ msgstr ""
 "Kad iespējots, tiks pievienots atgādinājums pirms uzdevuma termiņa pēc "
 "noklusējuma."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Iestatījumi"
 
@@ -2931,7 +2931,7 @@ msgstr[2] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2986,7 +2986,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Skatīt vairāk"
 
@@ -3493,27 +3493,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Par Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Ak vai! Kaut kas negaidīts noticis"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Uzdevums paveikts"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Skatīt"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Datubāzes veseluma pārbaude neizturēta"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3535,7 +3535,7 @@ msgstr ""
 "Pēc atiestatīšanas, Jūs varēsiet atjaunot jebkuru dublējumkopiju, ko "
 "iepriekš esat veidojuši. Paldies par Jūsu pacietību"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Atiestatīt datubāzi"
 
