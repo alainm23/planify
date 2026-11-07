@@ -1536,7 +1536,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
         var cursor_pos = content_entry.get_position ();
 
         var pango_layout = content_entry.create_pango_layout ("");
-        pango_layout.set_text (text.substring (0, cursor_pos), -1);
+        pango_layout.set_text (text.substring (0, text.index_of_nth_char (cursor_pos)), -1);
         pango_layout.set_font_description (content_entry.get_pango_context ().get_font_description ());
 
         int text_width, text_height;
@@ -1557,7 +1557,7 @@ public class Layouts.QuickAddCore : Adw.Bin {
 
         var layout = new Pango.Layout (pango_context);
         layout.set_font_description (font_desc);
-        layout.set_text (text.substring (0, cursor_pos), -1);
+        layout.set_text (text.substring (0, text.index_of_nth_char (cursor_pos)), -1);
 
         int width, height;
         layout.get_pixel_size (out width, out height);
@@ -1663,8 +1663,8 @@ public class Layouts.QuickAddCore : Adw.Bin {
         
         if (at_position != -1) {
             Timeout.add (10, () => {
-                string before_at = current_text.substring (0, at_position);
-                string after_cursor = current_text.substring (cursor_pos);
+                string before_at = current_text.substring (0, current_text.index_of_nth_char (at_position));
+                string after_cursor = current_text.substring (current_text.index_of_nth_char (cursor_pos));
                 string new_text = before_at + after_cursor;
                 
                 content_entry.set_text (new_text);
