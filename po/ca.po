@@ -3917,11 +3917,11 @@ msgstr[0] "Segur que vols eliminar aquesta %d tasca?"
 msgstr[1] "Segur que vols eliminar aquestes %d tasques?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tasca moguda a %s"
+msgstr[1] "%d tasques mogudes a %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4105,12 +4105,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Tasca moguda a %s"
-#~ msgstr[1] "%d tasques mogudes a %s"
 
 #, c-format
 #~ msgid "Load more history from %d week ago…"

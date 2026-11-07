@@ -4045,12 +4045,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 msgstr[1] "Bu yapılacakʼı silmek istediğinize emin misiniz?"
 
+# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Görev %s projesine taşındı"
+msgstr[1] "Görev %s projesine taşındı"
 
 #: src/Widgets/NewVersionPopup.vala:42
 #, fuzzy
@@ -4239,13 +4240,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Görev %s projesine taşındı"
-#~ msgstr[1] "Görev %s projesine taşındı"
 
 # c-format
 #, fuzzy

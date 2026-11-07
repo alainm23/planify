@@ -4039,12 +4039,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "¿Estás seguro de que deseas eliminar esta tarea pendiente?"
 msgstr[1] "¿Estás seguro de que deseas eliminar estas tareas pendientes?"
 
+# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tarea movida a %s"
+msgstr[1] "%d areas movidas a %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4233,13 +4234,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# # c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Tarea movida a %s"
-#~ msgstr[1] "%d areas movidas a %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Posponer la alarma durante 10 minutos"

@@ -4009,11 +4009,11 @@ msgstr[0] "Er du sikker på, at du vil slette %d opgave?"
 msgstr[1] "Er du sikker på, at du vil slette %d opgaver?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Opgave flyttet til %s"
+msgstr[1] "%d opgaver flyttet til %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4203,12 +4203,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Opgave flyttet til %s"
-#~ msgstr[1] "%d opgaver flyttet til %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Snooze i 10 minutter"
