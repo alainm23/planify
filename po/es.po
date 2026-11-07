@@ -525,7 +525,7 @@ msgstr ""
 "crear un proyecto desde Planify."
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
-#: core/QuickAddCore.vala:1687
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Atajos de teclado"
 
@@ -1977,7 +1977,7 @@ msgid "Filter"
 msgstr "Filtro"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:797
-#: src/MainWindow.vala:807
+#: src/MainWindow.vala:807 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Proyectos archivados"
 
@@ -2879,7 +2879,7 @@ msgstr ""
 "vencimiento de la tarea."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:771
-#: src/MainWindow.vala:781
+#: src/MainWindow.vala:781 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Preferencias"
 
@@ -3030,7 +3030,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:774 src/MainWindow.vala:784
+#: src/MainWindow.vala:774 src/MainWindow.vala:784 src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3085,7 +3085,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:873 src/MainWindow.vala:883
+#: src/MainWindow.vala:873 src/MainWindow.vala:883 src/MainWindow.vala:889
 msgid "See More"
 msgstr "Ver más"
 
@@ -3535,28 +3535,28 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:795 src/MainWindow.vala:805
+#: src/MainWindow.vala:795 src/MainWindow.vala:805 src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Acerca de Planify"
 
-#: src/MainWindow.vala:870 src/MainWindow.vala:880
+#: src/MainWindow.vala:870 src/MainWindow.vala:880 src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "¡Ups! Algo ha ocurrido"
 
 #: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
-#: src/MainWindow.vala:899
+#: src/MainWindow.vala:899 src/MainWindow.vala:905
 msgid "Task completed"
 msgstr "Tarea completada"
 
-#: src/MainWindow.vala:890 src/MainWindow.vala:900
+#: src/MainWindow.vala:890 src/MainWindow.vala:900 src/MainWindow.vala:906
 msgid "View"
 msgstr "Vista"
 
-#: src/MainWindow.vala:928 src/MainWindow.vala:938
+#: src/MainWindow.vala:928 src/MainWindow.vala:938 src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Falló la verificación de integridad de la base de datos"
 
-#: src/MainWindow.vala:929 src/MainWindow.vala:939
+#: src/MainWindow.vala:929 src/MainWindow.vala:939 src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3579,7 +3579,7 @@ msgstr ""
 "Después del reinicio, podrá restaurar cualquier copia de seguridad que haya "
 "creado previamente. Gracias por su paciencia"
 
-#: src/MainWindow.vala:931 src/MainWindow.vala:941
+#: src/MainWindow.vala:931 src/MainWindow.vala:941 src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Reiniciar base de datos"
 

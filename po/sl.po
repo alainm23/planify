@@ -513,7 +513,7 @@ msgstr ""
 "ustvariti projekt v programu Planify."
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
-#: core/QuickAddCore.vala:1687
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice"
 

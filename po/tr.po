@@ -547,7 +547,7 @@ msgstr ""
 "oluşturmayı deneyin."
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
-#: core/QuickAddCore.vala:1687
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
@@ -2071,7 +2071,7 @@ msgid "Filter"
 msgstr "Filtrele"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:797
-#: src/MainWindow.vala:807
+#: src/MainWindow.vala:807 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Proje Ekle"
 
@@ -2997,7 +2997,7 @@ msgstr ""
 "hatırlatıcı eklenecektir."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:771
-#: src/MainWindow.vala:781
+#: src/MainWindow.vala:781 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Tercihler"
 
@@ -3149,7 +3149,7 @@ msgstr[1] "%d görevleri"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:774 src/MainWindow.vala:784
+#: src/MainWindow.vala:774 src/MainWindow.vala:784 src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr "Özet & Verimlilik"
 
@@ -3204,7 +3204,7 @@ msgstr "Üretkenlik"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:873 src/MainWindow.vala:883
+#: src/MainWindow.vala:873 src/MainWindow.vala:883 src/MainWindow.vala:889
 msgid "See More"
 msgstr "Proje oluştur"
 
@@ -3650,7 +3650,7 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:795 src/MainWindow.vala:805
+#: src/MainWindow.vala:795 src/MainWindow.vala:805 src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Planify Hakkında"
 
@@ -3670,7 +3670,7 @@ msgstr "Göz at"
 msgid "Database Integrity Check Failed"
 msgstr "Veritabanı Uyumluluğu Geçersiz"
 
-#: src/MainWindow.vala:929 src/MainWindow.vala:939
+#: src/MainWindow.vala:929 src/MainWindow.vala:939 src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3683,7 +3683,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:931 src/MainWindow.vala:941
+#: src/MainWindow.vala:931 src/MainWindow.vala:941 src/MainWindow.vala:947
 #, fuzzy
 msgid "Reset Database"
 msgstr "Tümünü sıfırla"
