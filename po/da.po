@@ -511,7 +511,7 @@ msgstr "Der findes ingen tilføjelser. Tilføj filer her."
 msgid "Open"
 msgstr "Åbn"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Tastaturgenveje"
 
@@ -1907,7 +1907,7 @@ msgstr "Opdater label"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Arkiverede projekter"
 
@@ -2799,7 +2799,7 @@ msgstr ""
 "Når funktionen er slået til, tilføjes en påmindelse inden opgavens tidsfrist "
 "som default."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Indstillinger"
 
@@ -2951,7 +2951,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr "Overblik & Produktivitet"
 
@@ -3006,7 +3006,7 @@ msgstr "Produktivitet"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Se mere"
 
@@ -3512,27 +3512,27 @@ msgstr "Opgaven blev ændret på en anden enhed"
 msgid "Sync Now"
 msgstr "Synkroniser nu"
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Om Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Ups! Der skete en fejl"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Opgave færdiggjort"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Vis"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Databasefejl pga. integritetscheck"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3554,7 +3554,7 @@ msgstr ""
 "Efter nulstillingen vil du kunne gendanne databasen vha. en hvilken som "
 "helst backup, som du har lavet før. Tak for din tålmodighed"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Nulstil database"
 
@@ -4009,11 +4009,11 @@ msgstr[0] "Er du sikker på, at du vil slette %d opgave?"
 msgstr[1] "Er du sikker på, at du vil slette %d opgaver?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Opgave flyttet til %s"
+msgstr[1] "%d opgaver flyttet til %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4203,12 +4203,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Opgave flyttet til %s"
-#~ msgstr[1] "%d opgaver flyttet til %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Snooze i 10 minutter"
