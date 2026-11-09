@@ -352,23 +352,23 @@ msgstr "لا اسم"
 msgid "unlabeled"
 msgstr "غير مسمى"
 
-#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1658 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1683
 msgid "Task copied to clipboard"
 msgstr "تم نسخ المهمة الى الحافظة"
 
-#: core/Objects/Item.vala:1692
+#: core/Objects/Item.vala:1700
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1708
+#: core/Objects/Item.vala:1716
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "تم نسخ المهمة الى%s"
@@ -378,17 +378,17 @@ msgstr "تم نسخ المهمة الى%s"
 msgid "Delete Label %s"
 msgstr "حذف الاسم %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:900
-#: core/Objects/Section.vala:427
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:905
+#: core/Objects/Section.vala:432
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "هذا لا يمكن الرجوع عنه"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:903
-#: core/Objects/Project.vala:977 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:476 core/Utils/Util.vala:479
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:908
+#: core/Objects/Project.vala:982 core/Objects/Section.vala:435
+#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
@@ -407,8 +407,8 @@ msgstr "هذا لا يمكن الرجوع عنه"
 msgid "Cancel"
 msgstr "الغاء"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:904
-#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:909
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -420,31 +420,31 @@ msgstr "الغاء"
 msgid "Delete"
 msgstr "حذف"
 
-#: core/Objects/Project.vala:863
+#: core/Objects/Project.vala:868
 msgid "The project was copied to the Clipboard."
 msgstr "تم نسخ المشروع للحافظة."
 
-#: core/Objects/Project.vala:899
+#: core/Objects/Project.vala:904
 #, c-format
 msgid "Delete Project %s?"
 msgstr "حذف المشروع %s؟"
 
-#: core/Objects/Project.vala:973 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "أرشفة؟"
 
-#: core/Objects/Project.vala:974 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "هذا سيأرشف %s وكل مهامه."
 
-#: core/Objects/Project.vala:978 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:983 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "أرشيف"
 
-#: core/Objects/Section.vala:426
+#: core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
 msgstr "حذف القسم %s"
