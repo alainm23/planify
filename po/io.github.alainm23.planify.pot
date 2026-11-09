@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 21:47+0000\n"
+"POT-Creation-Date: 2026-11-09 22:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -290,7 +290,7 @@ msgstr ""
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/Calendar/CalendarScroll.vala:56
+#: core/Widgets/Calendar/CalendarScroll.vala:58
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
@@ -1125,7 +1125,7 @@ msgid "3 hours before"
 msgstr ""
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:353
+#: core/Widgets/Calendar/CalendarScroll.vala:383
 msgid "%A, %B %e, %Y"
 msgstr ""
 
