@@ -334,6 +334,7 @@ msgstr "запланировано"
 #: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:620
 #: src/Views/Project/Project.vala:786 src/Views/Project/Project.vala:603
 #: src/Views/Project/Project.vala:796
+#: core/Widgets/Calendar/CalendarScroll.vala:58
 msgid "Today"
 msgstr "Сегодня"
 
@@ -1322,6 +1323,7 @@ msgstr "За 3 часа"
 #: core/Widgets/Calendar/CalendarDay.vala:103
 #: core/Widgets/Calendar/CalendarScroll.vala:347
 #: core/Widgets/Calendar/CalendarScroll.vala:353
+#: core/Widgets/Calendar/CalendarScroll.vala:383
 msgid "%A, %B %e, %Y"
 msgstr "%A, %B %e, %Y"
 
