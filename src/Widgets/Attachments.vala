@@ -118,6 +118,8 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     private bool on_drag_drop (Value val, double x, double y) {
+        if (!add_button.sensitive)return false;
+
         var file_list = val as Gdk.FileList;
         if (file_list == null)return false;
 
@@ -170,38 +172,19 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     private async void upload_files (File[] files) {
-        var selected_files_amount = files.length;
-        if (selected_files_amount == 0)return;
+        if (files.length == 0)return;
 
-        Objects.Attachment[] attachments_for_upload = {};
-        for (var i = 0; i < selected_files_amount; i++) {
-            var file = files[i];
-            var attachment = new Objects.Attachment ();
+        add_button.is_loading = true;
 
-            try {
-                var file_info = file.query_info ("standard::size,standard::content-type", 0);
-                var file_content_type = file_info.get_content_type ();
-
-                if (file_content_type != null) {
-                    file_content_type = file_content_type.down ();
-
-                    attachment.file_size = file_info.get_size ().to_string ();
-                    attachment.file_type = file_content_type;
-                    attachment.file_name = file.get_basename ();
-                    attachment.file_path = file.get_uri ();
-
-                    attachments_for_upload += attachment;
-                }
-            } catch (Error e) {
-                warning (e.message);
+        foreach (File file in files) {
+            var attachment = yield Objects.Attachment.from_file (file);
+            if (attachment != null) {
+                attachment.item_id = item.id;
+                item.add_attachment_if_not_exists (attachment);
             }
         }
 
-        foreach (Objects.Attachment attachment in attachments_for_upload) {
-            attachment.id = Util.get_default ().generate_id ();
-            attachment.item_id = item.id;
-            item.add_attachment_if_not_exists (attachment);
-        }
+        add_button.is_loading = false;
     }
 
     public void present_item (Objects.Item _item) {
@@ -236,7 +219,7 @@ public class Widgets.Attachments : Adw.Bin {
     }
 
     public void add_attachment (Objects.Attachment attachment) {
-        if (!attachments_map.has_key (item.id)) {
+        if (!attachments_map.has_key (attachment.id)) {
             attachments_map[attachment.id] = new Widgets.AttachmentRow (attachment);
             listbox.append (attachments_map[attachment.id]);
         }

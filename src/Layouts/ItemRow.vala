@@ -1091,7 +1091,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             pin_button.sensitive = !item.completed;
             if (reminder_button != null) reminder_button.sensitive = !item.completed;
             add_subtasks_button.sensitive = !item.completed;
-            if (attachments_button != null) attachments_button.sensitive = !item.completed;
+            if (attachments != null) attachments.add_button.sensitive = !item.completed;
             if (deadline_button != null) deadline_button.sensitive = !item.completed;
             if (deadline_button_detail != null) deadline_button_detail.sensitive = !item.completed;
         } else {
@@ -2155,7 +2155,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         attachments = new Widgets.Attachments ();
         attachments.present_item (item);
+        attachments.add_button.sensitive = !item.completed;
 
+        // Kept sensitive on completed tasks so their attachments can still be opened
         attachments_button = new Gtk.MenuButton () {
             icon_name = "mail-attachment-symbolic",
             tooltip_text = _ ("Add Attachments"),
@@ -2164,8 +2166,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 child = attachments,
                 width_request = 350
             },
-            css_classes = { "flat" },
-            sensitive = !item.completed
+            css_classes = { "flat" }
         };
 
         attachments_count = new Gtk.Label (item.attachments.size.to_string ()) {
