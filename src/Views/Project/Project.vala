@@ -476,14 +476,8 @@ public class Views.Project : Adw.Bin {
         menu_box.append (paste_item);
         menu_box.append (expand_all_item);
 
-        // TRANSLATORS: Context menu item in project actions to delete all completed tasks
-        var delete_completed_tasks_item = new Widgets.ContextMenu.MenuItem (_ ("Delete All Completed Tasks"), "user-trash-symbolic");
-        delete_completed_tasks_item.add_css_class ("menu-item-danger");
-
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (delete_completed_tasks_item);
-
         if (!project.inbox_project) {
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);
 
@@ -502,17 +496,6 @@ public class Views.Project : Adw.Bin {
             child = menu_box,
             width_request = 250
         };
-
-        signal_map[popover.notify["visible"].connect (() => {
-            if (popover.visible) {
-                delete_completed_tasks_item.sensitive = project.items_checked.size > 0;
-            }
-        })] = popover;
-
-        signal_map[delete_completed_tasks_item.clicked.connect (() => {
-            popover.popdown ();
-            delete_completed_tasks_action ();
-        })] = delete_completed_tasks_item;
 
         signal_map[paste_item.clicked.connect (() => {
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
@@ -674,6 +657,17 @@ public class Views.Project : Adw.Bin {
         show_completed_box.append (show_completed_item);
         show_completed_box.append (show_completed_item_button);
 
+        // TRANSLATORS: View option menu item to delete all completed tasks of the project
+        var delete_completed_tasks_item = new Widgets.ContextMenu.MenuItem (_ ("Delete All Completed Tasks"), "user-trash-symbolic") {
+            visible = project.show_completed
+        };
+        delete_completed_tasks_item.add_css_class ("menu-item-danger");
+
+        // Separa la acción destructiva del toggle para evitar clics accidentales.
+        var delete_completed_separator = new Widgets.ContextMenu.MenuSeparator () {
+            visible = project.show_completed
+        };
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
@@ -712,6 +706,8 @@ public class Views.Project : Adw.Bin {
         menu_box.append (labels_filter);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (show_completed_box);
+        menu_box.append (delete_completed_separator);
+        menu_box.append (delete_completed_tasks_item);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -744,7 +740,21 @@ public class Views.Project : Adw.Bin {
 
         signal_map[project.show_completed_changed.connect (() => {
             show_completed_item.active = project.show_completed;
+            // Solo se ofrece borrar completadas mientras se están mostrando.
+            delete_completed_tasks_item.visible = project.show_completed;
+            delete_completed_separator.visible = project.show_completed;
         })] = project;
+
+        signal_map[popover.notify["visible"].connect (() => {
+            if (popover.visible) {
+                delete_completed_tasks_item.sensitive = project.items_checked.size > 0;
+            }
+        })] = popover;
+
+        signal_map[delete_completed_tasks_item.clicked.connect (() => {
+            popover.popdown ();
+            delete_completed_tasks_action ();
+        })] = delete_completed_tasks_item;
 
         signal_map[show_completed_item_button.clicked.connect (() => {
             popover.popdown ();

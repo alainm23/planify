@@ -123,6 +123,7 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
 #: src/Views/Project/Project.vala:608 src/Views/Project/Project.vala:653
+#: src/Views/Project/Project.vala:591 src/Views/Project/Project.vala:636
 msgid "Priority"
 msgstr "Prednost"
 
@@ -133,6 +134,7 @@ msgstr "Oznaka"
 #: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843 src/Views/Project/Project.vala:605
+#: src/Views/Project/Project.vala:588
 msgid "Due Date"
 msgstr "Datum zapadlosti"
 
@@ -309,6 +311,7 @@ msgstr "prihajajoči"
 #: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
 #: src/Views/Project/Project.vala:620 src/Views/Project/Project.vala:786
+#: src/Views/Project/Project.vala:603 src/Views/Project/Project.vala:796
 msgid "Today"
 msgstr "Danes"
 
@@ -406,7 +409,7 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: core/Objects/Project.vala:903 core/Objects/Project.vala:977
-#: src/Views/Project/Project.vala:567
+#: src/Views/Project/Project.vala:567 src/Views/Project/Project.vala:550
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -424,6 +427,7 @@ msgstr "Prekliči"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
+#: src/Views/Project/Project.vala:551
 msgid "Delete"
 msgstr "Izbriši"
 
