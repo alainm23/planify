@@ -116,6 +116,18 @@ public class Services.TimeMonitor : Object {
         }
     }
 
+    public void check_on_window_activated () {
+        // The midnight timeout doesn't count time spent suspended and the resume
+        // signals aren't available on every desktop, so also check when the user returns.
+        if (last_registered_date == null ||
+            Utils.Datetime.is_same_day (last_registered_date, new DateTime.now_local ())) {
+            return;
+        }
+
+        check_day_change ();
+        schedule_midnight_check ();
+    }
+
     private void check_day_change () {
         DateTime now = new DateTime.now_local ();
         Services.LogService.get_default ().debug ("TimeMonitor", "Checking day change: last=%s now=%s".printf (last_registered_date.format ("%Y-%m-%d"), now.format ("%Y-%m-%d")));
