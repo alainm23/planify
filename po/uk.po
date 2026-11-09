@@ -117,6 +117,7 @@ msgstr "CalDAV"
 #: src/Views/Filter.vala:927 src/Views/Filter.vala:966 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Views/Filter.vala:934 src/Views/Filter.vala:973
 #: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
+#: src/Views/Project/Project.vala:608 src/Views/Project/Project.vala:653
 msgid "Priority"
 msgstr "Пріоритет"
 
@@ -128,7 +129,7 @@ msgstr "Мітки"
 #: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:840
 #: src/Views/Filter.vala:902 src/Views/Filter.vala:919
 #: src/Views/Filter.vala:924 src/Views/Today.vala:843 src/Views/Filter.vala:931
-#: src/Layouts/ItemSortFilter.vala:69
+#: src/Layouts/ItemSortFilter.vala:69 src/Views/Project/Project.vala:605
 msgid "Due Date"
 msgstr "Дата виконання"
 
@@ -312,7 +313,8 @@ msgstr "майбутні"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Layouts/ItemRow.vala:1251 src/Views/Filter.vala:944
 #: src/Views/Filter.vala:1070 src/Layouts/ItemSortFilter.vala:82
-#: src/Layouts/ItemSortFilter.vala:264
+#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:620
+#: src/Views/Project/Project.vala:786
 msgid "Today"
 msgstr "Сьогодні"
 
@@ -394,6 +396,7 @@ msgstr "Видалити мітку %s"
 #: src/Services/BackupManager.vala:229 core/Objects/Project.vala:896
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
+#: core/Objects/Project.vala:900
 msgid "This can not be undone"
 msgstr "Це не можна скасувати"
 
@@ -425,6 +428,8 @@ msgstr "Це не можна скасувати"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
+#: core/Objects/Project.vala:903 core/Objects/Project.vala:977
+#: src/Views/Project/Project.vala:567
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -446,27 +451,30 @@ msgstr "Скасувати"
 #: core/Objects/Project.vala:900
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
+#: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
 msgid "Delete"
 msgstr "Видалити"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
+#: core/Objects/Project.vala:863
 msgid "The project was copied to the Clipboard."
 msgstr "Проєкт скопійовано до буфера обміну."
 
 # c-format
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:895
+#: core/Objects/Project.vala:899
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Видалити проєкт %s?"
 
 #: core/Objects/Project.vala:964 core/Objects/Section.vala:472
-#: core/Objects/Project.vala:969
+#: core/Objects/Project.vala:969 core/Objects/Project.vala:973
 msgid "Archive?"
 msgstr "Архівувати?"
 
 # # c-format
 #: core/Objects/Project.vala:965 core/Objects/Section.vala:473
-#: core/Objects/Project.vala:970
+#: core/Objects/Project.vala:970 core/Objects/Project.vala:974
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "%s і всі його завдання буде переміщено в архів."
@@ -475,7 +483,8 @@ msgstr "%s і всі його завдання буде переміщено в 
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:399
 #: src/Layouts/SectionRow.vala:706 src/Layouts/ProjectRow.vala:713
-#: core/Objects/Project.vala:974
+#: core/Objects/Project.vala:974 core/Objects/Project.vala:978
+#: src/Layouts/SectionBoard.vala:629 src/Layouts/SectionRow.vala:716
 msgid "Archive"
 msgstr "Архівувати"
 
@@ -541,6 +550,7 @@ msgstr "Додати нагадування"
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 #: src/Layouts/SectionRow.vala:699 core/QuickAddCore.vala:357
+#: src/Layouts/SectionBoard.vala:622 src/Layouts/SectionRow.vala:709
 msgid "Add Task"
 msgstr "Додати завдання"
 
@@ -1966,11 +1976,12 @@ msgstr "Поки що немає виконаних завдань."
 #: src/Views/Filter.vala:664 src/Views/Filter.vala:847
 #: src/Views/Filter.vala:864 src/Views/Filter.vala:869
 #: src/Views/Filter.vala:876 src/Views/Filter.vala:784
+#: src/Views/Project/Project.vala:480 src/Views/Project/Project.vala:557
 msgid "Delete All Completed Tasks"
 msgstr "Видалити всі виконані завдання"
 
 # # c-format
-#: src/Dialogs/CompletedTasks.vala:165
+#: src/Dialogs/CompletedTasks.vala:165 src/Views/Project/Project.vala:560
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
@@ -1984,7 +1995,7 @@ msgstr[1] ""
 #: src/Views/Scheduled/Scheduled.vala:276 src/Views/Today.vala:907
 #: src/Views/Filter.vala:963 src/Views/Filter.vala:980
 #: src/Views/Filter.vala:985 src/Views/Today.vala:910 src/Views/Filter.vala:992
-#: src/Layouts/ItemSortFilter.vala:130
+#: src/Layouts/ItemSortFilter.vala:130 src/Views/Project/Project.vala:703
 msgid "Filter By"
 msgstr "Фільтр"
 
@@ -1996,6 +2007,7 @@ msgstr "Фільтр"
 #: src/Views/Filter.vala:1078 src/Layouts/ItemRow.vala:1261
 #: src/Views/Filter.vala:949 src/Views/Filter.vala:1085
 #: src/Layouts/ItemSortFilter.vala:87 src/Layouts/ItemSortFilter.vala:279
+#: src/Views/Project/Project.vala:625 src/Views/Project/Project.vala:796
 msgid "No Date"
 msgstr "Без дати"
 
@@ -2061,7 +2073,8 @@ msgstr "Архівні проєкти"
 
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
 #: src/Layouts/SectionRow.vala:698 src/Views/Project/Project.vala:392
-#: src/Layouts/SectionRow.vala:702
+#: src/Layouts/SectionRow.vala:702 src/Layouts/SectionBoard.vala:625
+#: src/Layouts/SectionRow.vala:712
 msgid "Manage Sections"
 msgstr "Керування розділами"
 
@@ -2722,7 +2735,7 @@ msgstr "Вручну"
 #: src/Views/Project/Project.vala:557 src/Views/Scheduled/Scheduled.vala:232
 #: src/Views/Today.vala:839 src/Views/Filter.vala:901 src/Views/Filter.vala:918
 #: src/Views/Filter.vala:923 src/Views/Today.vala:842 src/Views/Filter.vala:930
-#: src/Layouts/ItemSortFilter.vala:68
+#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:604
 msgid "Alphabetically"
 msgstr "Алфавітом"
 
@@ -3382,6 +3395,7 @@ msgstr ""
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
 #: src/Layouts/SectionRow.vala:696 src/Layouts/SectionRow.vala:700
+#: src/Layouts/SectionBoard.vala:623 src/Layouts/SectionRow.vala:710
 msgid "Edit Section"
 msgstr "Редагувати розділ"
 
@@ -3436,6 +3450,7 @@ msgstr "Редагувати"
 #: src/Layouts/SectionRow.vala:699 src/Views/Project/Project.vala:388
 #: src/Layouts/SectionRow.vala:703 src/Layouts/ProjectRow.vala:710
 #: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemRow.vala:1404
+#: src/Layouts/SectionBoard.vala:626 src/Layouts/SectionRow.vala:713
 msgid "Duplicate"
 msgstr "Дублювати"
 
@@ -3603,22 +3618,26 @@ msgstr "Завантажити більше"
 
 #: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:652
 #: src/Widgets/SubItems.vala:420 src/Layouts/SectionRow.vala:656
-#: src/Widgets/SubItems.vala:422
+#: src/Widgets/SubItems.vala:422 src/Layouts/SectionBoard.vala:604
+#: src/Layouts/SectionRow.vala:666
 msgid "completed tasks"
 msgstr "Виконані завдання"
 
 #: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:697
-#: src/Layouts/SectionRow.vala:701
+#: src/Layouts/SectionRow.vala:701 src/Layouts/SectionBoard.vala:624
+#: src/Layouts/SectionRow.vala:711
 msgid "Move Section"
 msgstr "Перемістити розділ"
 
 #: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:700
-#: src/Layouts/SectionRow.vala:704
+#: src/Layouts/SectionRow.vala:704 src/Layouts/SectionBoard.vala:627
+#: src/Layouts/SectionRow.vala:714
 msgid "Show Completed Tasks"
 msgstr "Показати виконані завдання"
 
 #: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:703
 #: src/Widgets/SectionItemRow.vala:186 src/Layouts/SectionRow.vala:707
+#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:717
 msgid "Delete Section"
 msgstr "Видалити розділ"
 
@@ -3940,54 +3959,58 @@ msgid "Paste"
 msgstr "Вставити"
 
 #: src/Views/Project/Project.vala:396 src/Views/Project/Project.vala:515
+#: src/Views/Project/Project.vala:532
 msgid "Expand All"
 msgstr "Розгорнуте все"
 
-#: src/Views/Project/Project.vala:519
+#: src/Views/Project/Project.vala:519 src/Views/Project/Project.vala:536
 msgid "Collapse All"
 msgstr "Згорнути все"
 
-#: src/Views/Project/Project.vala:535
+#: src/Views/Project/Project.vala:535 src/Views/Project/Project.vala:582
 msgid "List"
 msgstr "Список"
 
-#: src/Views/Project/Project.vala:541
+#: src/Views/Project/Project.vala:541 src/Views/Project/Project.vala:588
 msgid "Board"
 msgstr "Дошка"
 
 #: src/Views/Project/Project.vala:553 src/Views/Scheduled/Scheduled.vala:229
 #: src/Views/Today.vala:836 src/Views/Filter.vala:896 src/Views/Filter.vala:913
 #: src/Views/Filter.vala:918 src/Views/Today.vala:839 src/Views/Filter.vala:925
-#: src/Layouts/ItemSortFilter.vala:63
+#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:600
 msgid "Sorting"
 msgstr "Сортування"
 
-#: src/Views/Project/Project.vala:556
+#: src/Views/Project/Project.vala:556 src/Views/Project/Project.vala:603
 msgid "Custom sort order"
 msgstr "Вручну"
 
 #: src/Views/Project/Project.vala:559 src/Views/Scheduled/Scheduled.vala:234
 #: src/Views/Today.vala:841 src/Views/Filter.vala:903 src/Views/Filter.vala:920
 #: src/Views/Filter.vala:925 src/Views/Today.vala:844 src/Views/Filter.vala:932
-#: src/Layouts/ItemSortFilter.vala:70
+#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:606
 msgid "Date Added"
 msgstr "Датою додавання"
 
 #: src/Views/Project/Project.vala:560 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:842 src/Views/Filter.vala:926 src/Views/Today.vala:845
 #: src/Views/Filter.vala:933 src/Layouts/ItemSortFilter.vala:71
+#: src/Views/Project/Project.vala:607
 msgid "Date Modified"
 msgstr "За датою зміни"
 
 #: src/Views/Project/Project.vala:563 src/Views/Filter.vala:907
 #: src/Views/Filter.vala:924 src/Views/Filter.vala:929
 #: src/Views/Filter.vala:936 src/Layouts/ItemSortFilter.vala:74
+#: src/Views/Project/Project.vala:610
 msgid "Ascending Order"
 msgstr "За зростанням"
 
 #: src/Views/Project/Project.vala:569 src/Views/Filter.vala:911
 #: src/Views/Filter.vala:928 src/Views/Filter.vala:933
 #: src/Views/Filter.vala:940 src/Layouts/ItemSortFilter.vala:78
+#: src/Views/Project/Project.vala:616
 msgid "Duedate"
 msgstr "Дата виконання"
 
@@ -3996,7 +4019,7 @@ msgstr "Дата виконання"
 #: src/Views/Filter.vala:1076 src/Views/Filter.vala:936
 #: src/Views/Filter.vala:1081 src/Views/Filter.vala:943
 #: src/Views/Filter.vala:1088 src/Layouts/ItemSortFilter.vala:81
-#: src/Layouts/ItemSortFilter.vala:282
+#: src/Layouts/ItemSortFilter.vala:282 src/Views/Project/Project.vala:619
 msgid "All (default)"
 msgstr "Всі (типово)"
 
@@ -4006,6 +4029,7 @@ msgstr "Всі (типово)"
 #: src/Views/Filter.vala:938 src/Views/Filter.vala:1066
 #: src/Views/Filter.vala:945 src/Views/Filter.vala:1073
 #: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
+#: src/Views/Project/Project.vala:621 src/Views/Project/Project.vala:788
 msgid "This Week"
 msgstr "Цього тижня"
 
@@ -4015,6 +4039,7 @@ msgstr "Цього тижня"
 #: src/Views/Filter.vala:939 src/Views/Filter.vala:1069
 #: src/Views/Filter.vala:946 src/Views/Filter.vala:1076
 #: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
+#: src/Views/Project/Project.vala:622 src/Views/Project/Project.vala:790
 msgid "Next 7 Days"
 msgstr "Наступні 7 днів"
 
@@ -4024,6 +4049,7 @@ msgstr "Наступні 7 днів"
 #: src/Views/Filter.vala:940 src/Views/Filter.vala:1072
 #: src/Views/Filter.vala:947 src/Views/Filter.vala:1079
 #: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
+#: src/Views/Project/Project.vala:623 src/Views/Project/Project.vala:792
 msgid "This Month"
 msgstr "Цього місяця"
 
@@ -4033,61 +4059,63 @@ msgstr "Цього місяця"
 #: src/Views/Filter.vala:941 src/Views/Filter.vala:1075
 #: src/Views/Filter.vala:948 src/Views/Filter.vala:1082
 #: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
+#: src/Views/Project/Project.vala:624 src/Views/Project/Project.vala:794
 msgid "Next 30 Days"
 msgstr "Наступні 30 днів"
 
 #: src/Views/Project/Project.vala:584 src/Views/Scheduled/Scheduled.vala:243
 #: src/Views/Today.vala:850 src/Views/Filter.vala:925 src/Views/Filter.vala:942
 #: src/Views/Filter.vala:947 src/Views/Today.vala:853 src/Views/Filter.vala:954
-#: src/Layouts/ItemSortFilter.vala:92
+#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:631
 msgid "P1"
 msgstr "П1"
 
 #: src/Views/Project/Project.vala:590 src/Views/Scheduled/Scheduled.vala:249
 #: src/Views/Today.vala:856 src/Views/Filter.vala:930 src/Views/Filter.vala:947
 #: src/Views/Filter.vala:952 src/Views/Today.vala:859 src/Views/Filter.vala:959
-#: src/Layouts/ItemSortFilter.vala:97
+#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:637
 msgid "P2"
 msgstr "П2"
 
 #: src/Views/Project/Project.vala:596 src/Views/Scheduled/Scheduled.vala:255
 #: src/Views/Today.vala:862 src/Views/Filter.vala:935 src/Views/Filter.vala:952
 #: src/Views/Filter.vala:957 src/Views/Today.vala:865 src/Views/Filter.vala:964
-#: src/Layouts/ItemSortFilter.vala:102
+#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:643
 msgid "P3"
 msgstr "П3"
 
 #: src/Views/Project/Project.vala:602 src/Views/Scheduled/Scheduled.vala:261
 #: src/Views/Today.vala:868 src/Views/Filter.vala:940 src/Views/Filter.vala:957
 #: src/Views/Filter.vala:962 src/Views/Today.vala:871 src/Views/Filter.vala:969
-#: src/Layouts/ItemSortFilter.vala:107
+#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:649
 msgid "P4"
 msgstr "П4"
 
 #: src/Views/Project/Project.vala:609 src/Views/Scheduled/Scheduled.vala:268
 #: src/Views/Today.vala:875 src/Views/Filter.vala:947 src/Views/Filter.vala:964
 #: src/Views/Filter.vala:969 src/Views/Today.vala:878 src/Views/Filter.vala:976
-#: src/Layouts/ItemSortFilter.vala:114
+#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:656
 msgid "Filter by Labels"
 msgstr "Фільтрувати за мітками"
 
 #: src/Views/Project/Project.vala:613 src/Views/Today.vala:899
-#: src/Views/Today.vala:902
+#: src/Views/Today.vala:902 src/Views/Project/Project.vala:660
 msgid "Show Completed"
 msgstr "Показати виконані"
 
 #: src/Views/Project/Project.vala:614 src/Views/Today.vala:900
-#: src/Views/Today.vala:903
+#: src/Views/Today.vala:903 src/Views/Project/Project.vala:661
 msgid "Display completed tasks in the list"
 msgstr "Відображати виконані завдання у списку"
 
-#: src/Views/Project/Project.vala:620
+#: src/Views/Project/Project.vala:620 src/Views/Project/Project.vala:667
 msgid "Search completed tasks"
 msgstr "Пошук виконаних завдань"
 
 #: src/Views/Project/Project.vala:647 src/Views/Filter.vala:953
 #: src/Views/Filter.vala:970 src/Views/Filter.vala:975
 #: src/Views/Filter.vala:982 src/Layouts/ItemSortFilter.vala:120
+#: src/Views/Project/Project.vala:694
 msgid "Sort By"
 msgstr "Сортувати за"
 

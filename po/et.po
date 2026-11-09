@@ -103,7 +103,7 @@ msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
-#: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
+#: src/Views/Project/Project.vala:608 src/Views/Project/Project.vala:653
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
@@ -115,7 +115,7 @@ msgid "Label"
 msgstr "Silt"
 
 #: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
-#: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
+#: src/Views/Project/Project.vala:605 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
 msgstr "Tähtaeg"
@@ -290,8 +290,8 @@ msgstr "tegemiseks järgmisena"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
-#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:573
-#: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:620
+#: src/Views/Project/Project.vala:786 src/Views/Today.vala:212
 msgid "Today"
 msgstr "Täna"
 
@@ -353,7 +353,7 @@ msgstr "Ümbertõstetud: %s"
 msgid "Delete Label %s"
 msgstr "Kustuta silt: %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:896
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:900
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
@@ -361,8 +361,8 @@ msgstr "Kustuta silt: %s"
 msgid "This can not be undone"
 msgstr "Seda tegevust ei saa tagasi pöörata"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:899
-#: core/Objects/Project.vala:973 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:903
+#: core/Objects/Project.vala:977 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -375,46 +375,47 @@ msgstr "Seda tegevust ei saa tagasi pöörata"
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
 #: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
+#: src/Views/Project/Project.vala:567
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
 msgid "Cancel"
 msgstr "Katkesta"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:900
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:904
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
-#: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
-#: src/Widgets/MultiSelectToolbar.vala:276
+#: src/Views/Filter.vala:816 src/Views/Project/Project.vala:568
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
 msgstr "Kustuta"
 
-#: core/Objects/Project.vala:859
+#: core/Objects/Project.vala:863
 msgid "The project was copied to the Clipboard."
 msgstr "See ettevõtmine/projekt on kopeeritud lõikelauale."
 
-#: core/Objects/Project.vala:895
+#: core/Objects/Project.vala:899
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Kas kustutad ettevõtmise: %s?"
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:973 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "Kas arhiveerime?"
 
-#: core/Objects/Project.vala:970 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:974 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
 
-#: core/Objects/Project.vala:974 core/Objects/Section.vala:477
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
+#: core/Objects/Project.vala:978 core/Objects/Section.vala:477
+#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:629
+#: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Arhiveeri"
 
@@ -476,8 +477,8 @@ msgstr "Lisa meeldetuletusi"
 msgid "Add Attachments"
 msgstr "Lisa manuseid"
 
-#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
+#: src/Layouts/SectionRow.vala:709 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
@@ -1804,11 +1805,12 @@ msgid "No completed tasks yet."
 msgstr "Pole veel ühtegi lõpetatud ülesannet."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:784
+#: src/Views/Filter.vala:784 src/Views/Project/Project.vala:480
+#: src/Views/Project/Project.vala:557
 msgid "Delete All Completed Tasks"
 msgstr "Kustuta kõik lõpetatud ülesanded"
 
-#: src/Dialogs/CompletedTasks.vala:165
+#: src/Dialogs/CompletedTasks.vala:165 src/Views/Project/Project.vala:560
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
@@ -1817,15 +1819,15 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Layouts/ItemSortFilter.vala:130
-#: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
+#: src/Views/Project/Project.vala:703 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:910
 msgid "Filter By"
 msgstr ""
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
 #: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSortFilter.vala:87
-#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:625
+#: src/Views/Project/Project.vala:796
 msgid "No Date"
 msgstr "Kuupäeva pole"
 
@@ -1887,8 +1889,8 @@ msgstr ""
 msgid "Archived Projects"
 msgstr "Arhiveeritud ettevõtmised"
 
-#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:392
+#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:625
+#: src/Layouts/SectionRow.vala:712 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Halda alajaotusi"
 
@@ -2491,7 +2493,7 @@ msgid "Custom Sort Order"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:557
+#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:604
 #: src/Views/Scheduled/Scheduled.vala:232 src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr ""
@@ -3127,8 +3129,8 @@ msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 "Vaheta kiiresti projekte/ettevõtmisi ja vaateid, otsi ülesandeid ja silte"
 
-#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:700
+#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:623
+#: src/Layouts/SectionRow.vala:710
 msgid "Edit Section"
 msgstr "Muuda alajaotust"
 
@@ -3174,8 +3176,8 @@ msgstr "Muuda"
 
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemRow.vala:1404 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:626
+#: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Tee koopia"
 
@@ -3265,7 +3267,7 @@ msgstr ""
 msgid "Are you sure you want to delete?"
 msgstr "Kas oled kindel, et soovid kustutada?"
 
-#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:553
+#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:600
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
 msgid "Sorting"
 msgstr ""
@@ -3274,75 +3276,75 @@ msgstr ""
 msgid "Project"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:559
+#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:606
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
 msgid "Date Added"
 msgstr "Lisamise kuupäev"
 
-#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:560
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:607
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:563
+#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:610
 msgid "Ascending Order"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:569
+#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:616
 msgid "Duedate"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:81 src/Layouts/ItemSortFilter.vala:282
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:619
 msgid "All (default)"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Views/Project/Project.vala:621 src/Views/Project/Project.vala:788
 msgid "This Week"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
-#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Views/Project/Project.vala:622 src/Views/Project/Project.vala:790
 msgid "Next 7 Days"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Views/Project/Project.vala:623 src/Views/Project/Project.vala:792
 msgid "This Month"
 msgstr "Sel kuul"
 
 #: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
-#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Views/Project/Project.vala:624 src/Views/Project/Project.vala:794
 msgid "Next 30 Days"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:584
+#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:631
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
 msgid "P1"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:590
+#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:637
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
 msgid "P2"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:596
+#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:643
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
 msgid "P3"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:602
+#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:649
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
 msgid "P4"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:609
+#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:656
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
 msgid "Filter by Labels"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:647
+#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:694
 msgid "Sort By"
 msgstr ""
 
@@ -3400,25 +3402,25 @@ msgstr "Lisa ülesandeid"
 msgid "Load more"
 msgstr "Laadi veel"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
+#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:666
 #: src/Widgets/SubItems.vala:422
 msgid "completed tasks"
 msgstr "täidetud ülesanded"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
+#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:711
 msgid "Move Section"
 msgstr "Teisalda alajaotus"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:704
+#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:714
 msgid "Show Completed Tasks"
 msgstr "Näita täidetud ülesandeid"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:707
+#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:717
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Kustuta alajaotus"
 
-#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:542
+#: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr ""
 
@@ -3695,35 +3697,35 @@ msgstr "Vali"
 msgid "Paste"
 msgstr "Aseta"
 
-#: src/Views/Project/Project.vala:396 src/Views/Project/Project.vala:515
+#: src/Views/Project/Project.vala:396 src/Views/Project/Project.vala:532
 msgid "Expand All"
 msgstr "Laienda kõik"
 
-#: src/Views/Project/Project.vala:519
+#: src/Views/Project/Project.vala:536
 msgid "Collapse All"
 msgstr "Ahenda kõik"
 
-#: src/Views/Project/Project.vala:535
+#: src/Views/Project/Project.vala:582
 msgid "List"
 msgstr "Loend"
 
-#: src/Views/Project/Project.vala:541
+#: src/Views/Project/Project.vala:588
 msgid "Board"
 msgstr ""
 
-#: src/Views/Project/Project.vala:556
+#: src/Views/Project/Project.vala:603
 msgid "Custom sort order"
 msgstr ""
 
-#: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
+#: src/Views/Project/Project.vala:660 src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr ""
 
-#: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
+#: src/Views/Project/Project.vala:661 src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr ""
 
-#: src/Views/Project/Project.vala:620
+#: src/Views/Project/Project.vala:667
 msgid "Search completed tasks"
 msgstr ""
 

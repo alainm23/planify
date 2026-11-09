@@ -122,6 +122,7 @@ msgstr "CalDAV"
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
+#: src/Views/Project/Project.vala:608 src/Views/Project/Project.vala:653
 msgid "Priority"
 msgstr "Prednost"
 
@@ -131,7 +132,7 @@ msgstr "Oznaka"
 
 #: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
 #: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
-#: src/Views/Today.vala:843
+#: src/Views/Today.vala:843 src/Views/Project/Project.vala:605
 msgid "Due Date"
 msgstr "Datum zapadlosti"
 
@@ -307,6 +308,7 @@ msgstr "prihajajoči"
 #: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
 #: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:573
 #: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Views/Project/Project.vala:620 src/Views/Project/Project.vala:786
 msgid "Today"
 msgstr "Danes"
 
@@ -376,6 +378,7 @@ msgstr "Izbriši oznako %s"
 #: core/Objects/Project.vala:896
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
+#: core/Objects/Project.vala:900
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
@@ -402,6 +405,8 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
+#: core/Objects/Project.vala:903 core/Objects/Project.vala:977
+#: src/Views/Project/Project.vala:567
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -418,10 +423,12 @@ msgstr "Prekliči"
 #: core/Objects/Project.vala:900
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
+#: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
 msgid "Delete"
 msgstr "Izbriši"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
+#: core/Objects/Project.vala:863
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt je bil kopiran v odložišče."
 
@@ -505,7 +512,8 @@ msgstr "Dodaj opomnike"
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
-#: core/QuickAddCore.vala:357
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
+#: src/Layouts/SectionRow.vala:709
 msgid "Add Task"
 msgstr "Dodaj nalogo"
 
