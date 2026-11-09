@@ -33,6 +33,10 @@ public class Services.Notification : GLib.Object {
 
     construct {
         regresh ();
+
+        Services.Settings.get_default ().settings.changed["automatic-reminders-enabled"].connect (() => {
+            automatic_reminders_changed ();
+        });
     }
 
     public void regresh () {
@@ -42,7 +46,10 @@ public class Services.Notification : GLib.Object {
             reminders.clear ();
         }
 
-        foreach (var reminder in Services.Store.instance ().reminders) {
+        // Iterate over a copy: reminder_added () can delete reminders from the Store's list.
+        var all_reminders = new Gee.ArrayList<Objects.Reminder> ();
+        all_reminders.add_all (Services.Store.instance ().reminders);
+        foreach (var reminder in all_reminders) {
             reminder_added (reminder);
         }
 
@@ -57,8 +64,43 @@ public class Services.Notification : GLib.Object {
         });
     }
 
-    private void reminder_added (Objects.Reminder reminder) {
-        if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
+    private bool is_muted (Objects.Reminder reminder) {
+        return reminder.reminder_type == ReminderType.RELATIVE &&
+               !Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled");
+    }
+
+    private void automatic_reminders_changed () {
+        var relative_reminders = new Gee.ArrayList<Objects.Reminder> ();
+        foreach (var reminder in Services.Store.instance ().reminders) {
+            if (reminder.reminder_type == ReminderType.RELATIVE) {
+                relative_reminders.add (reminder);
+            }
+        }
+
+        foreach (var reminder in relative_reminders) {
+            if (is_muted (reminder)) {
+                reminders.unset (reminder.id);
+            } else if (!reminders.has_key (reminder.id)) {
+                // Reminders whose time passed while muted are dropped by reminder_added ().
+                reminder_added (reminder, true);
+            }
+        }
+    }
+
+    private void reminder_added (Objects.Reminder reminder, bool drop_past = false) {
+        bool is_past = reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0;
+
+        if (is_muted (reminder) || (drop_past && is_past)) {
+            // An automatic reminder that came due while reminders were off is
+            // consumed without a notification, so it doesn't fire later.
+            if (is_past) {
+                Services.Store.instance ().delete_reminder (reminder);
+            }
+
+            return;
+        }
+
+        if (is_past) {
             GLib.Notification notification = build_notification (reminder);
             Planify.instance.send_notification (reminder.id, notification);
             Services.Store.instance ().delete_reminder (reminder);
