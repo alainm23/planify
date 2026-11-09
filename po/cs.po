@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-11-01 07:51+0000\n"
+"PO-Revision-Date: 2026-11-09 20:51+0000\n"
 "Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -3959,17 +3959,19 @@ msgstr[2] "%d úkolů přesunuto do %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
-msgstr ""
+msgstr "Je dostupná nová verze!"
 
 #: src/Widgets/NewVersionPopup.vala:66
 msgid ""
 "Update now to enjoy the latest improvements, bug fixes, and new features "
 "that make Planify even better"
 msgstr ""
+"Proveďte aktualizaci nyní a užijte si nejnovější vylepšení, opravy chyb a "
+"nové funkce, které dělají Planify ještě lepší"
 
 #: src/Widgets/NewVersionPopup.vala:73
 msgid "Update Now"
-msgstr ""
+msgstr "Aktualizovat nyní"
 
 #: src/Widgets/NewVersionPopup.vala:98
 msgid "Dismiss"
@@ -4152,10 +4154,10 @@ msgid "1h Snooze"
 msgstr "1h odložení"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Úkol přesunut do %s"
+msgstr[0] "%d úkol přesunut do %s"
 msgstr[1] "%d úkoly přesunuty do %s"
 msgstr[2] "%d úkolů přesunuto do %s"
 
