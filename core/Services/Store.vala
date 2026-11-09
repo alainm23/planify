@@ -416,6 +416,7 @@ public class Services.Store : GLib.Object {
             _items_by_project_cache.unset (item.project_id);
             item.deleted ();
             _items.remove (item);
+            clear_project_cache (item.project_id);
             item_deleted (item);
         }
         
@@ -571,6 +572,7 @@ public class Services.Store : GLib.Object {
     public void insert_section (Objects.Section section) {
         if (Services.Database.get_default ().insert_section (section)) {
             sections.add (section);
+            section.project.add_section (section);
             section.project.section_added (section);
         }
     }
@@ -805,6 +807,7 @@ public class Services.Store : GLib.Object {
 
             item.deleted ();
             _items.remove (item);
+            clear_project_cache (item.project_id);
             item_deleted (item);
 
             if (item.project != null) {
@@ -1027,6 +1030,13 @@ public class Services.Store : GLib.Object {
             }
 
             return return_value;
+        }
+    }
+
+    public void delete_completed_items_by_project (Objects.Project project) {
+        var completed_items = get_items_checked_by_project (project);
+        foreach (Objects.Item item in completed_items) {
+            item.delete_item ();
         }
     }
 

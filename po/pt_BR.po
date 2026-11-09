@@ -92,19 +92,19 @@ msgstr[0] "Todo ano"
 msgstr[1] "A cada %d anos"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:39
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
-#: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
+#: src/Views/Project/Project.vala:591 src/Views/Project/Project.vala:636
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
@@ -116,7 +116,7 @@ msgid "Label"
 msgstr "Rótulo"
 
 #: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
-#: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
+#: src/Views/Project/Project.vala:588 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
 msgstr "Data de vencimento"
@@ -287,12 +287,12 @@ msgstr "por vir"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/Calendar/CalendarScroll.vala:56
+#: core/Widgets/Calendar/CalendarScroll.vala:58
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:389
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
-#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:573
-#: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:603
+#: src/Views/Project/Project.vala:796 src/Views/Today.vala:212
 msgid "Today"
 msgstr "Hoje"
 
@@ -328,24 +328,24 @@ msgstr "sem rótulos"
 msgid "unlabeled"
 msgstr "sem rótulo"
 
-#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1658 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Prazo:"
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1683
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1692
+#: core/Objects/Item.vala:1700
 msgid "iCalendar Files"
 msgstr "Arquivos do iCalendar"
 
-#: core/Objects/Item.vala:1708
+#: core/Objects/Item.vala:1716
 msgid "Task exported successfully"
 msgstr "Suas tarefas foram exportadas"
 
 # c-format
-#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tarefas adicionadas a <b>%s</b>"
@@ -356,75 +356,76 @@ msgstr "Tarefas adicionadas a <b>%s</b>"
 msgid "Delete Label %s"
 msgstr "Excluir rótulo %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
-#: core/Objects/Section.vala:427
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:905
+#: core/Objects/Section.vala:432
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
-#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:476 core/Utils/Util.vala:479
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:908
+#: core/Objects/Project.vala:982 core/Objects/Section.vala:435
+#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:200
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:274
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:702
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
 #: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
+#: src/Views/Project/Project.vala:550
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:909
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
-#: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
-#: src/Widgets/MultiSelectToolbar.vala:276
+#: src/Views/Filter.vala:816 src/Views/Project/Project.vala:551
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
 msgstr "Deletar"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:868
 msgid "The project was copied to the Clipboard."
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
 # c-format
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:904
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Excluir Projeto %s?"
 
-#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "Arquivar?"
 
 # # c-format
-#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
+#: core/Objects/Project.vala:983 core/Objects/Section.vala:482
+#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:629
+#: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Arquivar"
 
 # c-format
-#: core/Objects/Section.vala:426
+#: core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
 msgstr "Deletar Seção %s"
@@ -482,8 +483,8 @@ msgstr "Adicionar Lembretes"
 msgid "Add Attachments"
 msgstr "Adicionar tarefa"
 
-#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
+#: src/Layouts/SectionRow.vala:709 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
@@ -518,7 +519,7 @@ msgstr "Nenhum anexo encontrado. Adicione os arquivos aqui."
 msgid "Open"
 msgstr "Abrir"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do Teclado"
 
@@ -620,32 +621,38 @@ msgstr ""
 "A tarefa foi modificada em outro dispositivo. Por favor sincronize para ver "
 "a versão mais recente."
 
-#: core/Services/CalDAV/Core.vala:170
+#: core/Services/CalDAV/Core.vala:183
 msgid "Source already exists"
 msgstr "O arquivo de origem já existe"
 
-#: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
+#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Providers/Nextcloud.vala:67
+#, c-format
+msgid "Failed to load client certificate: %s"
+msgstr ""
+
+#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
 msgid "Failed to resolve principal url"
 msgstr "Falha ao resolver URL principal"
 
-#: core/Services/CalDAV/Core.vala:238
+#: core/Services/CalDAV/Core.vala:264
 msgid "Starting sync…"
 msgstr "Inicializando a sincronização…"
 
-#: core/Services/CalDAV/Core.vala:253
+#: core/Services/CalDAV/Core.vala:279
 #, c-format
 msgid "Syncing %s…"
 msgstr "Sincronizando %s…"
 
-#: core/Services/CalDAV/Core.vala:274
+#: core/Services/CalDAV/Core.vala:300
 msgid "Sync completed"
 msgstr "Sincronização completa"
 
-#: core/Services/CalDAV/Core.vala:324
+#: core/Services/CalDAV/Core.vala:350
 msgid "Authentication Expired"
 msgstr "Autenticação expirada"
 
-#: core/Services/CalDAV/Core.vala:325
+#: core/Services/CalDAV/Core.vala:351
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
@@ -653,11 +660,11 @@ msgstr ""
 "Sua sessão expirou. Por favor, remova e adicione novamente sua conta em "
 "Preferências."
 
-#: core/Services/CalDAV/Core.vala:332
+#: core/Services/CalDAV/Core.vala:358
 msgid "Too Many Requests"
 msgstr "Erro: Muitas requisições"
 
-#: core/Services/CalDAV/Core.vala:333
+#: core/Services/CalDAV/Core.vala:359
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -1176,7 +1183,7 @@ msgid "3 hours before"
 msgstr "3 horas antes"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:353
+#: core/Widgets/Calendar/CalendarScroll.vala:383
 msgid "%A, %B %e, %Y"
 msgstr ""
 
@@ -1856,12 +1863,13 @@ msgid "No completed tasks yet."
 msgstr "Nenhuma tarefa concluída ainda."
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:784
+#: src/Views/Filter.vala:784 src/Views/Project/Project.vala:540
+#: src/Views/Project/Project.vala:661
 msgid "Delete All Completed Tasks"
 msgstr "Deletar Todas Tarefas Concluídas"
 
 # # c-format
-#: src/Dialogs/CompletedTasks.vala:165
+#: src/Dialogs/CompletedTasks.vala:165 src/Views/Project/Project.vala:543
 #, fuzzy, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
@@ -1872,15 +1880,15 @@ msgstr[1] ""
 "Isto irá deletar %d tarefas concluídas e suas subtarefas do projeto %s"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Layouts/ItemSortFilter.vala:130
-#: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
+#: src/Views/Project/Project.vala:697 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:910
 msgid "Filter By"
 msgstr "Filtrar por"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
 #: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSortFilter.vala:87
-#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:608
+#: src/Views/Project/Project.vala:806
 msgid "No Date"
 msgstr "Sem Data"
 
@@ -1940,12 +1948,12 @@ msgstr "Atualizar Rótulo"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Projetos Arquivados"
 
-#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:392
+#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:625
+#: src/Layouts/SectionRow.vala:712 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "Gerenciar Seções"
 
@@ -2044,7 +2052,7 @@ msgstr ""
 "sua caixa de entrada."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #, fuzzy
 msgid "Change Inbox"
 msgstr "Abrir Caixa de Entrada"
@@ -2054,50 +2062,50 @@ msgstr "Abrir Caixa de Entrada"
 msgid "Syncing…"
 msgstr "Sincronizando…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:57
 msgid "Connect to CalDAV"
 msgstr "Conectar ao CalDAV"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:62
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
 "Conecte em qualquer servidor compatível com CalDAV para sincronizar suas "
 "tarefas"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:74
 msgid "Server URL"
 msgstr "URL do servidor"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:81
 #, fuzzy
 msgid "Username"
 msgstr "Nome de Usuário"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:84
 msgid "Password"
 msgstr "Senha"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 #, fuzzy
 msgid "Calendar Home URL"
 msgstr "Calendário"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:106
 msgid "Advanced"
 msgstr "Avançado"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Show advanced options"
 msgstr "Mostrar opções avançadas"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Hide advanced options"
 msgstr "Esconder opções avançadas"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:144
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:111
 msgid "Log In"
 msgstr "Login"
 
@@ -2112,41 +2120,41 @@ msgid ""
 "tasks that you'll organize later"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:53
 msgid "Connect to Nextcloud"
 msgstr "Conectar ao Nextcloud"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:58
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr "Acesse sua conta Nextcloud para sincronizar suas tarefas via CalDAV"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:79
 msgid "https://cloud.example.com"
 msgstr "https://cloud.example.com"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:84
 msgid "https://example.com/nextcloud"
 msgstr "https://exemplo.com.br/nextcloud"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:101
 msgid "URL examples"
 msgstr "Exemplos de URL"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:276
 msgid "Nextcloud Deck Detected"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:280
 msgid "Not Now"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr ""
 
@@ -2175,33 +2183,59 @@ msgstr ""
 msgid "Last Sync"
 msgstr "Última Sincronização"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
 msgid "Delete Source"
 msgstr "Excluir fonte"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:197
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
 msgid "Delete Source?"
 msgstr "Excluir fonte?"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+msgid "Apply Certificate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#, c-format
+msgid "Invalid certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate updated"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate removed"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 msgid "Cannot Delete This Source"
 msgstr "Não foi possível deletar esta fonte"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2546,7 +2580,7 @@ msgid "Custom Sort Order"
 msgstr "Ordenação personalizada"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:557
+#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:587
 #: src/Views/Scheduled/Scheduled.vala:232 src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr "Alfabeticamente"
@@ -2843,7 +2877,7 @@ msgstr ""
 "Quando ativado, um lembrete antes do horário de vencimento da tarefa será "
 "adicionado por padrão."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Preferências"
 
@@ -2993,7 +3027,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3048,7 +3082,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Crie mais"
 
@@ -3203,8 +3237,8 @@ msgstr ""
 "Alterne rapidamente projetos e visualizações, encontre tarefas, pesquise por "
 "rótulos"
 
-#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:700
+#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:623
+#: src/Layouts/SectionRow.vala:710
 msgid "Edit Section"
 msgstr "Editar Seção"
 
@@ -3252,8 +3286,8 @@ msgstr "Editar"
 
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemRow.vala:1404 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
+#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:626
+#: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Duplicar"
 
@@ -3344,7 +3378,7 @@ msgstr ""
 msgid "Are you sure you want to delete?"
 msgstr "Tem certeza de que deseja excluir %s?"
 
-#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:553
+#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:583
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
 msgid "Sorting"
 msgstr "Nos Apoiando"
@@ -3353,76 +3387,76 @@ msgstr "Nos Apoiando"
 msgid "Project"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:559
+#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:589
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
 msgid "Date Added"
 msgstr "Dados adicionados"
 
-#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:560
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr ""
 
-#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:563
+#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:593
 #, fuzzy
 msgid "Ascending Order"
 msgstr "Ascendente"
 
-#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:569
+#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:599
 msgid "Duedate"
 msgstr "Data de vencimento"
 
 #: src/Layouts/ItemSortFilter.vala:81 src/Layouts/ItemSortFilter.vala:282
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:602
 msgid "All (default)"
 msgstr "Todas (padão)"
 
 #: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Views/Project/Project.vala:604 src/Views/Project/Project.vala:798
 msgid "This Week"
 msgstr "Esta semana"
 
 #: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
-#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Views/Project/Project.vala:605 src/Views/Project/Project.vala:800
 msgid "Next 7 Days"
 msgstr "Próximos 7 dias"
 
 #: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Views/Project/Project.vala:606 src/Views/Project/Project.vala:802
 msgid "This Month"
 msgstr "Este mês"
 
 #: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
-#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Views/Project/Project.vala:607 src/Views/Project/Project.vala:804
 msgid "Next 30 Days"
 msgstr "Próximos 30 dias"
 
-#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:584
+#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:614
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
 msgid "P1"
 msgstr "P1"
 
-#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:590
+#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:620
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
 msgid "P2"
 msgstr "P2"
 
-#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:596
+#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:626
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
 msgid "P3"
 msgstr "P3"
 
-#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:602
+#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:632
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
 msgid "P4"
 msgstr "P4"
 
-#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:609
+#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:639
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
 msgid "Filter by Labels"
 msgstr "Filtrar por Rótulos"
 
-#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:647
+#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:688
 msgid "Sort By"
 msgstr "Ordenar por"
 
@@ -3483,26 +3517,26 @@ msgstr "Adicionar tarefa"
 msgid "Load more"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
+#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:666
 #: src/Widgets/SubItems.vala:422
 #, fuzzy
 msgid "completed tasks"
 msgstr "Tarefas concluídas"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
+#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:711
 msgid "Move Section"
 msgstr "Mover Seção"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:704
+#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:714
 msgid "Show Completed Tasks"
 msgstr "Mostrar Tarefas Concluídas"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:707
+#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:717
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "Deletar Seção"
 
-#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:542
+#: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr ""
 
@@ -3564,28 +3598,28 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Sobre o Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Ops! Aconteceu alguma coisa"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarefa concluída"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 #, fuzzy
 msgid "View"
 msgstr "Exibição de Lista"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Falha na verificação de integridade do banco de dados"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 #, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
@@ -3606,7 +3640,7 @@ msgstr ""
 "redefinição, você poderá restaurar qualquer backup criado anteriormente. "
 "Agradecemos a sua paciência"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Redefinir banco de dados"
 
@@ -3803,27 +3837,27 @@ msgstr "Expandir todas"
 msgid "Collapse All"
 msgstr "Recolher todas"
 
-#: src/Views/Project/Project.vala:535
+#: src/Views/Project/Project.vala:565
 msgid "List"
 msgstr "Lista"
 
-#: src/Views/Project/Project.vala:541
+#: src/Views/Project/Project.vala:571
 msgid "Board"
 msgstr "Quadro"
 
-#: src/Views/Project/Project.vala:556
+#: src/Views/Project/Project.vala:586
 msgid "Custom sort order"
 msgstr "Ordem de classificação personalizada"
 
-#: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
+#: src/Views/Project/Project.vala:643 src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr ""
 
-#: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
+#: src/Views/Project/Project.vala:644 src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr ""
 
-#: src/Views/Project/Project.vala:620
+#: src/Views/Project/Project.vala:650
 #, fuzzy
 msgid "Search completed tasks"
 msgstr "Esconder tarefas concluídas"
@@ -3860,6 +3894,51 @@ msgstr ""
 #: src/Widgets/BypassResolveSwitchRow.vala:49
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:49
+msgid "Client certificate (mTLS)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:50
+msgid "Authenticate to the server with a client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:55
+msgid "Certificate file"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:56
+#: src/Widgets/ClientCertificateRow.vala:100
+msgid "No file selected"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:60
+msgid "Choose…"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:68
+msgid "Certificate password (PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:96
+msgid "PKCS#12 certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:97
+msgid "PEM certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:106
+msgid "Select client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:111
+msgid "Certificates (PEM, PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:149
+msgid "Failed to read file"
 msgstr ""
 
 #: src/Widgets/CompletedTaskRow.vala:95
@@ -4063,12 +4142,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Você tem certeza que quer deletar esta lista?"
 msgstr[1] "Você tem certeza que quer deletar estas listas?"
 
+# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Tarefa movida para <b>%s</b>"
+msgstr[1] "Tarefas movidas para <b>%s</b>"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4257,13 +4337,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Tarefa movida para <b>%s</b>"
-#~ msgstr[1] "Tarefas movidas para <b>%s</b>"
 
 # # c-format
 #, fuzzy
