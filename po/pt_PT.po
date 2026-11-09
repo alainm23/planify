@@ -353,7 +353,7 @@ msgstr "A tarefa foi movida para %s"
 msgid "Delete Label %s"
 msgstr "Eliminar a etiqueta %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:896
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -361,8 +361,8 @@ msgstr "Eliminar a etiqueta %s"
 msgid "This can not be undone"
 msgstr "Isto não pode ser revertido"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
-#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:973 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -381,9 +381,9 @@ msgstr "Isto não pode ser revertido"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
-#: src/Dialogs/CompletedTasks.vala:173
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:900
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
@@ -394,25 +394,25 @@ msgstr "Cancelar"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:859
 msgid "The project was copied to the Clipboard."
 msgstr "O projeto foi copiado para a área de transferência."
 
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:895
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Eliminar o projeto %s?"
 
-#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:969 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "Arquivar?"
 
-#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:970 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto vai arquivar o %s e todas as respetivas tarefas."
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:974 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
@@ -432,38 +432,38 @@ msgstr "Eliminar a secção %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "A tarefa foi adicionada com sucesso!"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Nome da tarefa"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "É necessário preencher este campo"
 
-#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
 msgstr "Adicione uma descrição…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Definir a data"
 
-#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Adicionar Etiquetas"
 
-#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Definir a prioridade"
 
-#: core/QuickAddCore.vala:282
+#: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -471,22 +471,27 @@ msgstr "Definir a prioridade"
 msgid "Add Reminders"
 msgstr "Adicionar lembretes"
 
-#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: src/Layouts/ItemRow.vala:2163
+msgid "Add Attachments"
+msgstr "Adicionar anexos"
+
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Nova tarefa"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Continuar a adicionar"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Selecione um projeto"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -494,55 +499,68 @@ msgstr ""
 "Lamentamos mas o 'Adicionar rápido' não encontrou nenhum projeto disponível, "
 "tente criar um a partir do Planify."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+msgid "Attachments"
+msgstr "Anexos"
+
+#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
+msgstr "Não foram encontrados anexos. Adicione os ficheiros aqui."
+
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
+#: src/Widgets/Attachments.vala:144
+msgid "Open"
+msgstr "Abrir"
+
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos do teclado"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Acelerar a criação de tarefas com este atalhos"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Definir prioridade"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = mais alta, p4 = mais baixa"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Adicionar etiquetas"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Abre o selecionador de etiquetas"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Atribuir projeto"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Abre o seletor de projetos"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Definir lembrete"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Abre as opções do lembrete"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "Ative para manter a tarefa criada aberta"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Sugestão"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combinar atalhos no campo do título para uma criação mais rápida"
 
@@ -1893,7 +1911,7 @@ msgstr "Atualizar etiqueta"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Arquivar projetos"
 
@@ -2799,7 +2817,7 @@ msgstr ""
 "Quando ativado, vai ser notificado de que tem uma tarefa a aproximar-se do "
 "tempo limite."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Definições"
 
@@ -2953,7 +2971,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr "Resumo & Produtividade"
 
@@ -3008,7 +3026,7 @@ msgstr "Produtividade"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Ver mais"
 
@@ -3284,10 +3302,6 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2161
-msgid "Add Attachments"
-msgstr "Adicionar anexos"
-
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "Fechar detalhes"
@@ -3430,10 +3444,6 @@ msgstr "Exportar como PDF"
 msgid "Project exported as PDF"
 msgstr "O projeto foi exportado como PDF"
 
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Abrir"
-
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Nenhuma secção)"
@@ -3525,27 +3535,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Acerca do Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Ups! Ocorreu algum problema"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tarefa terminada"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Vista"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "A verificação de integridade da base de dados falhou"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3568,7 +3578,7 @@ msgstr ""
 "Após o processo terminar, vai poder restaurar uma das suas cópia de "
 "segurança que criou anteriormente. Obrigado pela sua compreensão"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Restaurar base de dados"
 
@@ -3794,14 +3804,6 @@ msgstr "Reagendar"
 #: src/Views/Today.vala:887
 msgid "Me"
 msgstr "Eu"
-
-#: src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr "Anexos"
-
-#: src/Widgets/Attachments.vala:248
-msgid "No attachments found. Add files here."
-msgstr "Não foram encontrados anexos. Adicione os ficheiros aqui."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -4031,11 +4033,11 @@ msgstr[0] "Tem a certeza de que pretende eliminar esta %d tarefa?"
 msgstr[1] "Tem a certeza de que pretende eliminar estas %d tarefas?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A tarefa foi movida para %s"
+msgstr[1] "%d tarefas foram movidas para %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4225,12 +4227,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "A tarefa foi movida para %s"
-#~ msgstr[1] "%d tarefas foram movidas para %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Silenciar durante 10 minutos"

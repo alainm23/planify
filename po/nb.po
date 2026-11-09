@@ -353,7 +353,7 @@ msgstr "Oppgave flyttet til %s"
 msgid "Delete Label %s"
 msgstr "Slett etikett %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:896
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -361,8 +361,8 @@ msgstr "Slett etikett %s"
 msgid "This can not be undone"
 msgstr "Dette kan ikke angres"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
-#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:973 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -381,9 +381,9 @@ msgstr "Dette kan ikke angres"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
-#: src/Dialogs/CompletedTasks.vala:173
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:900
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
@@ -394,25 +394,25 @@ msgstr "Avbryt"
 msgid "Delete"
 msgstr "Slett"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:859
 msgid "The project was copied to the Clipboard."
 msgstr "Prosjektet ble kopiert til utklippstavlen."
 
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:895
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Slett prosjekt %s?"
 
-#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:969 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "Arkiver?"
 
-#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:970 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Dette vil arkivere %s og alle tilhørende oppgaver."
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:974 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
@@ -432,38 +432,38 @@ msgstr "Slett seksjon %s"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Oppgaven er lagt til!"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Navn på gjøremål"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Dette feltet er obligatorisk"
 
-#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
 msgstr "Legg til en beskrivelse…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Angi dato"
 
-#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Legg til etiketter"
 
-#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Angi prioriteten"
 
-#: core/QuickAddCore.vala:282
+#: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -471,22 +471,27 @@ msgstr "Angi prioriteten"
 msgid "Add Reminders"
 msgstr "Legg til påminnelser"
 
-#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: src/Layouts/ItemRow.vala:2163
+msgid "Add Attachments"
+msgstr "Legg til vedlegg"
+
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Legg til oppgave"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Fortsett å legge til"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Velg et prosjekt"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -494,55 +499,68 @@ msgstr ""
 "Beklager, men Hurtigtillegg finner ingen tilgjengelige prosjekter. Prøv å "
 "opprette et prosjekt fra Planify."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+msgid "Attachments"
+msgstr "Vedlegg"
+
+#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
+msgstr "Ingen vedlegg funnet. Legg til filer her."
+
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
+#: src/Widgets/Attachments.vala:144
+msgid "Open"
+msgstr "Åpne"
+
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Tastatursnarveier"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Få fart på oppgaveopprettingen med disse snarveiene"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Angi prioritet"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = høyest, p4 = lavest"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Legg til etiketter"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Åpner etikettvelgeren"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Tilordne prosjekt"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Åpner prosjektvelgeren"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "Angi påminnelse"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Åpner påminnelsesalternativer"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "Veksle mellom å holde åpent etter at oppgaven er opprettet"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Tips"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombiner snarveier i tittelfeltet for raskere oppretting"
 
@@ -1880,7 +1898,7 @@ msgstr "Oppdater etikett"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Arkivert prosjekter"
 
@@ -2767,7 +2785,7 @@ msgstr ""
 "Når dette er aktivert, legges det som standard til en påminnelse før "
 "oppgavens forfallstid."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -2917,7 +2935,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -2972,7 +2990,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Se mer"
 
@@ -3243,10 +3261,6 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2161
-msgid "Add Attachments"
-msgstr "Legg til vedlegg"
-
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "Lukk detalj"
@@ -3389,10 +3403,6 @@ msgstr ""
 msgid "Project exported as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Åpne"
-
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Ingen seksjon)"
@@ -3484,27 +3494,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Om Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Ups! Noe skjedde"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Oppgave fullført"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Vis"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Integritetssjekk av databasen mislyktes"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3527,7 +3537,7 @@ msgstr ""
 "Etter tilbakestillingen vil du kunne gjenopprette eventuelle "
 "sikkerhetskopier du har opprettet tidligere. Takk for tålmodigheten"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Tilbakestill database"
 
@@ -3751,14 +3761,6 @@ msgstr "Planlegge på nytt"
 #: src/Views/Today.vala:887
 msgid "Me"
 msgstr ""
-
-#: src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr "Vedlegg"
-
-#: src/Widgets/Attachments.vala:248
-msgid "No attachments found. Add files here."
-msgstr "Ingen vedlegg funnet. Legg til filer her."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -3986,11 +3988,11 @@ msgstr[0] "Er du sikker på at du vil slette dette %d gjøremålet?"
 msgstr[1] "Er du sikker på at du vil slette disse %d gjøremålene?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oppgave flyttet til %s"
+msgstr[1] "%d oppgaver flyttet til %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4180,12 +4182,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Oppgave flyttet til %s"
-#~ msgstr[1] "%d oppgaver flyttet til %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Slumre i 10 minutter"

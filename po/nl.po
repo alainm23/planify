@@ -355,7 +355,7 @@ msgstr "Verplaatst naar %s"
 msgid "Delete Label %s"
 msgstr "Label %s verwijderen"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:896
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -363,8 +363,8 @@ msgstr "Label %s verwijderen"
 msgid "This can not be undone"
 msgstr "Dit kan niet ongedaan gemaakt worden"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
-#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:973 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -383,9 +383,9 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
-#: src/Dialogs/CompletedTasks.vala:173
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:900
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
+#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
 #: src/Dialogs/Preferences/Pages/Backup.vala:468
@@ -396,27 +396,27 @@ msgstr "Annuleren"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:859
 msgid "The project was copied to the Clipboard."
 msgstr "Het project werd naar het klembord gekopieerd."
 
 # # c-format
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:895
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Project %s verwijderen?"
 
-#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:969 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "Archiveren?"
 
 # # c-format
-#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:970 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Dit zal %s en alle bijhorende taken archiveren."
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:974 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
@@ -437,38 +437,38 @@ msgstr "Onderverdeling %s verwijderen"
 msgid "Todoist"
 msgstr "Todoist"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Taak succesvol toegevoegd!"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "Naam taak"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "Dit veld is verplicht"
 
-#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
 msgstr "Voeg een beschrijving toe…"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "Stel datum in"
 
-#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "Labels toevoegen"
 
-#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "Prioriteit instellen"
 
-#: core/QuickAddCore.vala:282
+#: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -476,22 +476,27 @@ msgstr "Prioriteit instellen"
 msgid "Add Reminders"
 msgstr "Herinneringen toevoegen"
 
-#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: src/Layouts/ItemRow.vala:2163
+msgid "Add Attachments"
+msgstr "Bijlagen toevoegen"
+
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:607
 #: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "Taak toevoegen"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "Blijf toevoegen"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "Project selecteren"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -499,55 +504,68 @@ msgstr ""
 "Sorry, snel toevoegen lukt niet zonder een project, probeer eerst een "
 "project aan te maken."
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+msgid "Attachments"
+msgstr "Bijlagen"
+
+#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
+msgstr "Nog geen bijlagen. Voeg deze hier toe."
+
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
+#: src/Widgets/Attachments.vala:144
+msgid "Open"
+msgstr "Openen"
+
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "Versnel het maken van taken met deze snelkoppelingen"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "Prioriteit instellen"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = hoogste, p4 = laagste"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "Label(s) toevoegen"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "Toont de labelselectie"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "Project toewijzen"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "Opent projectselector"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "herinnering instellen"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "Opent herinneringsopties"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "Open blijven na aanmaken nieuwe taak"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "Tip"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combineer sneltoetsen in het titelveld om het aanmaken te versnellen"
 
@@ -1916,7 +1934,7 @@ msgstr "Label bewerken"
 msgid "Filter"
 msgstr "Filteren"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Gearchiveerde projecten"
 
@@ -2804,7 +2822,7 @@ msgstr ""
 "Wanneer ingeschakeld zal er standaard een herinnering ingesteld worden "
 "vooraleer de deadline van de taak afloopt."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -2954,7 +2972,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3009,7 +3027,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Meer tonen"
 
@@ -3284,10 +3302,6 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:2161
-msgid "Add Attachments"
-msgstr "Bijlagen toevoegen"
-
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
 msgstr "Details verbergen"
@@ -3430,10 +3444,6 @@ msgstr ""
 msgid "Project exported as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "Openen"
-
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
 msgstr "(Geen onderverdeling)"
@@ -3527,27 +3537,27 @@ msgstr ""
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Over Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Oeps! Er is iets gebeurd"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Taak afgewerkt"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Weergave"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Integriteitscheck database mislukt"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3569,7 +3579,7 @@ msgstr ""
 "\n"
 "Hierna kan je één van je vorige back-ups terugzetten. Bedankt voor je geduld."
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Database opnieuw instellen"
 
@@ -3794,14 +3804,6 @@ msgstr "Uitstellen"
 #: src/Views/Today.vala:887
 msgid "Me"
 msgstr "Ik"
-
-#: src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr "Bijlagen"
-
-#: src/Widgets/Attachments.vala:248
-msgid "No attachments found. Add files here."
-msgstr "Nog geen bijlagen. Voeg deze hier toe."
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -4034,12 +4036,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Ben je zeker dat je deze %d taak wil verwijderen?"
 msgstr[1] "Ben je zeker dat je deze %d taken wil verwijderen?"
 
+# # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Taak verplaatst naar %s"
+msgstr[1] "%d taken verplaatst naar %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4228,13 +4231,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# # c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Taak verplaatst naar %s"
-#~ msgstr[1] "%d taken verplaatst naar %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "10 minuten uitstellen"

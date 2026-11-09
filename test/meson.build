@@ -34,6 +34,7 @@ test_core_sources = [
     'core/test-item-reparent.vala',
     'core/test-label-unique.vala',
     'core/test-delete-completed-tasks.vala'
+    'core/test-section-cache.vala'
 ]
 
 test_core = executable(
