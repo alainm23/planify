@@ -355,7 +355,7 @@ msgstr "Завдання перемещіно в %s"
 msgid "Delete Label %s"
 msgstr "Видалити мітку %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:896
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
@@ -363,8 +363,8 @@ msgstr "Видалити мітку %s"
 msgid "This can not be undone"
 msgstr "Це не можна скасувати"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
-#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:973 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:476 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -383,7 +383,7 @@ msgstr "Це не можна скасувати"
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:900
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1033
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
@@ -396,27 +396,27 @@ msgstr "Скасувати"
 msgid "Delete"
 msgstr "Видалити"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:859
 msgid "The project was copied to the Clipboard."
 msgstr "Проєкт скопійовано до буфера обміну."
 
 # c-format
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:895
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Видалити проєкт %s?"
 
-#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:969 core/Objects/Section.vala:472
 msgid "Archive?"
 msgstr "Архівувати?"
 
 # # c-format
-#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:970 core/Objects/Section.vala:473
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Це призведе до архівування %s і всіх його завдань."
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:974 core/Objects/Section.vala:477
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 msgid "Archive"
@@ -517,7 +517,7 @@ msgstr "Вкладень не знайдено. Додайте файли сюд
 msgid "Open"
 msgstr "Відкрити"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
@@ -1927,7 +1927,7 @@ msgstr "Оновити мітку"
 msgid "Filter"
 msgstr "Фільтр"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:813
 msgid "Archived Projects"
 msgstr "Архівні проєкти"
 
@@ -2826,7 +2826,7 @@ msgstr ""
 "Якщо цю функцію ввімкнено, нагадування перед терміном виконання завдання "
 "буде додано за замовчуванням."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:787
 msgid "Preferences"
 msgstr "Налаштування"
 
@@ -2977,7 +2977,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr "Підсумок та продуктивність"
 
@@ -3032,7 +3032,7 @@ msgstr "Продуктивність"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:889
 msgid "See More"
 msgstr "Дивитися більше"
 
@@ -3542,27 +3542,27 @@ msgstr "Завдання було змінено на іншому пристр�
 msgid "Sync Now"
 msgstr "Синхронізувати зараз"
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:811
 msgid "About Planify"
 msgstr "Про Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Ой! Щось трапилося"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Завдання виконано"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:906
 msgid "View"
 msgstr "Переглянути"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Перевірка цілісності бази даних не вдалася"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:945
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3584,7 +3584,7 @@ msgstr ""
 "Після скидання ви зможете відновити будь-яку резервну копію, яку створили "
 "раніше. Дякуємо за ваше терпіння"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:947
 msgid "Reset Database"
 msgstr "Скинути базу даних"
 
@@ -4043,12 +4043,13 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "Ви впевнені, що хочете видалити це %d завдання?"
 msgstr[1] "Ви впевнені, що хочете видалити ці %d завданнь?"
 
+# c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Завдання перемещіно в %s"
+msgstr[1] "%d завдань перемещіно в %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4237,13 +4238,6 @@ msgstr ""
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
-
-# c-format
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "Завдання перемещіно в %s"
-#~ msgstr[1] "%d завдань перемещіно в %s"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Відкласти на 10 хвилин"

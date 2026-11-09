@@ -559,6 +559,7 @@ public class Services.Store : GLib.Object {
     public void insert_section (Objects.Section section) {
         if (Services.Database.get_default ().insert_section (section)) {
             sections.add (section);
+            section.project.add_section (section);
             section.project.section_added (section);
         }
     }

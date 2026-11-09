@@ -481,6 +481,12 @@ public class MainWindow : Adw.ApplicationWindow {
             handle_inbox_project_change ();
         });
 
+        notify["is-active"].connect (() => {
+            if (is_active) {
+                Services.TimeMonitor.get_default ().check_on_window_activated ();
+            }
+        });
+
         close_request.connect (() => {
             if (Services.Settings.get_default ().settings.get_boolean ("run-in-background")) {
                 hide ();
