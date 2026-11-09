@@ -331,22 +331,24 @@ msgid "unlabeled"
 msgstr "尚无标签"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1658
 msgid "Deadline:"
 msgstr "截止日期："
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 msgid "Task copied to clipboard"
 msgstr "任务已复制到剪贴板"
 
-#: core/Objects/Item.vala:1692
+#: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
 msgid "iCalendar Files"
 msgstr "iCalendar 文件"
 
-#: core/Objects/Item.vala:1708
+#: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
 msgid "Task exported successfully"
 msgstr "任务导出成功"
 
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2076
 #, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"
@@ -364,7 +366,8 @@ msgstr "已删除标签%s"
 #: src/Services/BackupManager.vala:229
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
-#: core/Objects/Project.vala:900
+#: core/Objects/Project.vala:900 core/Objects/Project.vala:905
+#: core/Objects/Section.vala:432
 msgid "This can not be undone"
 msgstr "无法撤销"
 
@@ -393,6 +396,8 @@ msgstr "无法撤销"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: core/Objects/Project.vala:903 core/Objects/Project.vala:977
 #: src/Views/Project/Project.vala:567 src/Views/Project/Project.vala:550
+#: core/Objects/Project.vala:908 core/Objects/Project.vala:982
+#: core/Objects/Section.vala:435 core/Objects/Section.vala:481
 msgid "Cancel"
 msgstr "取消"
 
@@ -410,26 +415,31 @@ msgstr "取消"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
-#: src/Views/Project/Project.vala:551
+#: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
+#: core/Objects/Section.vala:436
 msgid "Delete"
 msgstr "删除"
 
 #: core/Objects/Project.vala:859 core/Objects/Project.vala:863
+#: core/Objects/Project.vala:868
 msgid "The project was copied to the Clipboard."
 msgstr "该项目已复制到剪贴板。"
 
 #: core/Objects/Project.vala:895 core/Objects/Project.vala:899
+#: core/Objects/Project.vala:904
 #, c-format
 msgid "Delete Project %s?"
 msgstr "删除项目%s？"
 
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:472
-#: core/Objects/Project.vala:973
+#: core/Objects/Project.vala:973 core/Objects/Project.vala:978
+#: core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "归档？"
 
 #: core/Objects/Project.vala:970 core/Objects/Section.vala:473
-#: core/Objects/Project.vala:974
+#: core/Objects/Project.vala:974 core/Objects/Project.vala:979
+#: core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "将会归档%s及其所有任务。"
@@ -438,11 +448,12 @@ msgstr "将会归档%s及其所有任务。"
 #: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 #: core/Objects/Project.vala:978 src/Layouts/SectionBoard.vala:629
-#: src/Layouts/SectionRow.vala:716
+#: src/Layouts/SectionRow.vala:716 core/Objects/Project.vala:983
+#: core/Objects/Section.vala:482
 msgid "Archive"
 msgstr "归档"
 
-#: core/Objects/Section.vala:426
+#: core/Objects/Section.vala:426 core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
 msgstr "删除部分%s"

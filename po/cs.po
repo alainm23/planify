@@ -344,7 +344,7 @@ msgstr "neoštítkované"
 msgid "Deadline:"
 msgstr "Lhůta:"
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 msgid "Task copied to clipboard"
 msgstr "Úkol zkopírován do schránky"
 
@@ -374,7 +374,8 @@ msgstr "Smazat štítek %s"
 #: core/Objects/Project.vala:896
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
-#: core/Objects/Project.vala:900
+#: core/Objects/Project.vala:900 core/Objects/Project.vala:905
+#: core/Objects/Section.vala:432
 msgid "This can not be undone"
 msgstr "Tato akce nelze vzít zpět"
 
@@ -403,6 +404,8 @@ msgstr "Tato akce nelze vzít zpět"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: core/Objects/Project.vala:903 core/Objects/Project.vala:977
 #: src/Views/Project/Project.vala:567 src/Views/Project/Project.vala:550
+#: core/Objects/Project.vala:908 core/Objects/Project.vala:982
+#: core/Objects/Section.vala:435 core/Objects/Section.vala:481
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -420,28 +423,31 @@ msgstr "Zrušit"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
-#: src/Views/Project/Project.vala:551
+#: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
+#: core/Objects/Section.vala:436
 msgid "Delete"
 msgstr "Smazat"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
-#: core/Objects/Project.vala:863
+#: core/Objects/Project.vala:863 core/Objects/Project.vala:868
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt zkopírován do schránky."
 
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:895
-#: core/Objects/Project.vala:899
+#: core/Objects/Project.vala:899 core/Objects/Project.vala:904
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Smazat projekt %s?"
 
 #: core/Objects/Project.vala:964 core/Objects/Section.vala:472
 #: core/Objects/Project.vala:969 core/Objects/Project.vala:973
+#: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "Archivovat?"
 
 #: core/Objects/Project.vala:965 core/Objects/Section.vala:473
 #: core/Objects/Project.vala:970 core/Objects/Project.vala:974
+#: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Toto archivuje %s a všechny související úkoly."
@@ -451,10 +457,11 @@ msgstr "Toto archivuje %s a všechny související úkoly."
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 #: core/Objects/Project.vala:974 core/Objects/Project.vala:978
 #: src/Layouts/SectionBoard.vala:629 src/Layouts/SectionRow.vala:716
+#: core/Objects/Project.vala:983 core/Objects/Section.vala:482
 msgid "Archive"
 msgstr "Archiv"
 
-#: core/Objects/Section.vala:426
+#: core/Objects/Section.vala:426 core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
 msgstr "Smazat sekci %s"

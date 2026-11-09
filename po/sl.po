@@ -351,7 +351,7 @@ msgstr "neoznačeno"
 msgid "Deadline:"
 msgstr "Skrajni rok:"
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 msgid "Task copied to clipboard"
 msgstr "Naloga je bila kopirana v odložišče"
 
@@ -381,7 +381,8 @@ msgstr "Izbriši oznako %s"
 #: core/Objects/Project.vala:896
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
-#: core/Objects/Project.vala:900
+#: core/Objects/Project.vala:900 core/Objects/Project.vala:905
+#: core/Objects/Section.vala:432
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
@@ -410,6 +411,8 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: core/Objects/Project.vala:903 core/Objects/Project.vala:977
 #: src/Views/Project/Project.vala:567 src/Views/Project/Project.vala:550
+#: core/Objects/Project.vala:908 core/Objects/Project.vala:982
+#: core/Objects/Section.vala:435 core/Objects/Section.vala:481
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -427,12 +430,13 @@ msgstr "Prekliči"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
-#: src/Views/Project/Project.vala:551
+#: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
+#: core/Objects/Section.vala:436
 msgid "Delete"
 msgstr "Izbriši"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
-#: core/Objects/Project.vala:863
+#: core/Objects/Project.vala:863 core/Objects/Project.vala:868
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt je bil kopiran v odložišče."
 

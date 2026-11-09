@@ -338,23 +338,25 @@ msgid "unlabeled"
 msgstr "sem rótulo"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1658
 msgid "Deadline:"
 msgstr "Prazo:"
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1692
+#: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
 msgid "iCalendar Files"
 msgstr "Arquivos do iCalendar"
 
-#: core/Objects/Item.vala:1708
+#: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
 msgid "Task exported successfully"
 msgstr "Suas tarefas foram exportadas"
 
 # c-format
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2076
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tarefas adicionadas a <b>%s</b>"
@@ -373,7 +375,8 @@ msgstr "Excluir rótulo %s"
 #: src/Services/BackupManager.vala:229 core/Objects/Project.vala:896
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
-#: core/Objects/Project.vala:900
+#: core/Objects/Project.vala:900 core/Objects/Project.vala:905
+#: core/Objects/Section.vala:432
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
@@ -403,6 +406,8 @@ msgstr "Isso não pode ser desfeito"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: core/Objects/Project.vala:903 core/Objects/Project.vala:977
 #: src/Views/Project/Project.vala:567 src/Views/Project/Project.vala:550
+#: core/Objects/Project.vala:908 core/Objects/Project.vala:982
+#: core/Objects/Section.vala:435 core/Objects/Section.vala:481
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -421,30 +426,33 @@ msgstr "Cancelar"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
-#: src/Views/Project/Project.vala:551
+#: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
+#: core/Objects/Section.vala:436
 msgid "Delete"
 msgstr "Deletar"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
-#: core/Objects/Project.vala:863
+#: core/Objects/Project.vala:863 core/Objects/Project.vala:868
 msgid "The project was copied to the Clipboard."
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
 # c-format
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:895
-#: core/Objects/Project.vala:899
+#: core/Objects/Project.vala:899 core/Objects/Project.vala:904
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Excluir Projeto %s?"
 
 #: core/Objects/Project.vala:964 core/Objects/Section.vala:472
 #: core/Objects/Project.vala:969 core/Objects/Project.vala:973
+#: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "Arquivar?"
 
 # # c-format
 #: core/Objects/Project.vala:965 core/Objects/Section.vala:473
 #: core/Objects/Project.vala:970 core/Objects/Project.vala:974
+#: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
@@ -454,11 +462,12 @@ msgstr "Isto irá arquivar %s e todas suas tarefas."
 #: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
 #: core/Objects/Project.vala:974 core/Objects/Project.vala:978
 #: src/Layouts/SectionBoard.vala:629 src/Layouts/SectionRow.vala:716
+#: core/Objects/Project.vala:983 core/Objects/Section.vala:482
 msgid "Archive"
 msgstr "Arquivar"
 
 # c-format
-#: core/Objects/Section.vala:426
+#: core/Objects/Section.vala:426 core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
 msgstr "Excluir Seção %s"
