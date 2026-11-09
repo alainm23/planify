@@ -86,12 +86,14 @@ msgstr[0] "每 %d 年"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:39
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -355,6 +357,8 @@ msgstr "已删除标签%s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:225
 #: src/Services/BackupManager.vala:229
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 msgid "This can not be undone"
 msgstr "无法撤销"
 
@@ -376,6 +380,11 @@ msgstr "无法撤销"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Filter.vala:815
 #: src/Services/BackupManager.vala:232
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 msgid "Cancel"
 msgstr "取消"
 
@@ -390,6 +399,8 @@ msgstr "取消"
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 src/Views/Filter.vala:816
 #: src/Services/BackupManager.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 msgid "Delete"
 msgstr "删除"
 
@@ -602,42 +613,43 @@ msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "任务已在其他设备上修改。请同步以获取最新版本。"
 
-#: core/Services/CalDAV/Core.vala:170
+#: core/Services/CalDAV/Core.vala:170 core/Services/CalDAV/Core.vala:183
 msgid "Source already exists"
 msgstr "该来源已存在"
 
 #: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
+#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
 msgid "Failed to resolve principal url"
 msgstr "无法解析主体 URL"
 
-#: core/Services/CalDAV/Core.vala:238
+#: core/Services/CalDAV/Core.vala:238 core/Services/CalDAV/Core.vala:264
 msgid "Starting sync…"
 msgstr "开始进行同步…"
 
-#: core/Services/CalDAV/Core.vala:253
+#: core/Services/CalDAV/Core.vala:253 core/Services/CalDAV/Core.vala:279
 #, c-format
 msgid "Syncing %s…"
 msgstr "正在同步 %s…"
 
-#: core/Services/CalDAV/Core.vala:274
+#: core/Services/CalDAV/Core.vala:274 core/Services/CalDAV/Core.vala:300
 msgid "Sync completed"
 msgstr "同步已经完成"
 
-#: core/Services/CalDAV/Core.vala:324
+#: core/Services/CalDAV/Core.vala:324 core/Services/CalDAV/Core.vala:350
 msgid "Authentication Expired"
 msgstr "身份验证已过期"
 
-#: core/Services/CalDAV/Core.vala:325
+#: core/Services/CalDAV/Core.vala:325 core/Services/CalDAV/Core.vala:351
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr "您的会话已过期。请在偏好设置中移除并重新添加您的账户。"
 
-#: core/Services/CalDAV/Core.vala:332
+#: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 msgid "Too Many Requests"
 msgstr "请求过于频繁"
 
-#: core/Services/CalDAV/Core.vala:333
+#: core/Services/CalDAV/Core.vala:333 core/Services/CalDAV/Core.vala:359
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -1954,6 +1966,7 @@ msgstr "此账户包含您当前的收件箱项目。请先更改您的收件箱
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 msgid "Change Inbox"
 msgstr "更改收件箱"
 
@@ -1962,45 +1975,58 @@ msgid "Syncing…"
 msgstr "同步中…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:57
 msgid "Connect to CalDAV"
 msgstr "连接到 CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:62
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr "连接到任何兼容 CalDAV 的服务器以同步您的任务"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:74
 msgid "Server URL"
 msgstr "服务器 URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:81
 msgid "Username"
 msgstr "用户名"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:84
 msgid "Password"
 msgstr "密码"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 msgid "Calendar Home URL"
 msgstr "日历主目录 URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:106
 msgid "Advanced"
 msgstr "高级"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Show advanced options"
 msgstr "显示高级选项"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Hide advanced options"
 msgstr "隐藏高级选项"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:144
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:111
 msgid "Log In"
 msgstr "登录"
 
@@ -2018,30 +2044,37 @@ msgstr ""
 "方法，它是您快速捕捉想法和任务的地方，您可以稍后再进行整理"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:53
 msgid "Connect to Nextcloud"
 msgstr "连接到 Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:58
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr "使用您的 Nextcloud 账户登录，通过 CalDAV 同步任务"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:79
 msgid "https://cloud.example.com"
 msgstr "https://cloud.example.com"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:84
 msgid "https://example.com/nextcloud"
 msgstr "https://example.com/nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:101
 msgid "URL examples"
 msgstr "URL 示例"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:276
 msgid "Nextcloud Deck Detected"
 msgstr "检测到 Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2050,10 +2083,12 @@ msgstr ""
 "管理您的看板和卡片？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:280
 msgid "Not Now"
 msgstr "暂时不用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr "启用 Deck"
 
@@ -2081,32 +2116,41 @@ msgid "Last Sync"
 msgstr "上次同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "从 Nextcloud Deck 同步看板和卡片"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr "此服务器上 Nextcloud Deck 不可用"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
 msgid "Delete Source"
 msgstr "删除来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:197
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
 msgid "Delete Source?"
 msgstr "删除来源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 msgid "Cannot Delete This Source"
 msgstr "无法删除此来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -4135,6 +4179,83 @@ msgstr "推迟 1 小时"
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
 msgstr[0] "任务已移动到%s"
+
+#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Providers/Nextcloud.vala:67
+#, c-format
+msgid "Failed to load client certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+msgid "Apply Certificate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#, c-format
+msgid "Invalid certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate updated"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate removed"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:49
+msgid "Client certificate (mTLS)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:50
+msgid "Authenticate to the server with a client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:55
+msgid "Certificate file"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:56
+#: src/Widgets/ClientCertificateRow.vala:100
+msgid "No file selected"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:60
+msgid "Choose…"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:68
+msgid "Certificate password (PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:96
+msgid "PKCS#12 certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:97
+msgid "PEM certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:106
+msgid "Select client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:111
+msgid "Certificates (PEM, PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:149
+msgid "Failed to read file"
+msgstr ""
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"

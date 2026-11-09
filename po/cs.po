@@ -98,12 +98,14 @@ msgstr[2] "Každých %d dní"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:39
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -365,6 +367,8 @@ msgstr "Smazat štítek %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 #: core/Objects/Project.vala:896
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 msgid "This can not be undone"
 msgstr "Tato akce nelze vzít zpět"
 
@@ -386,6 +390,11 @@ msgstr "Tato akce nelze vzít zpět"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 core/Objects/Project.vala:899
 #: core/Objects/Project.vala:973
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -400,6 +409,8 @@ msgstr "Zrušit"
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 core/QuickAddCore.vala:1033
 #: core/Objects/Project.vala:900
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 msgid "Delete"
 msgstr "Smazat"
 
@@ -612,24 +623,25 @@ msgstr ""
 "Úkol byl upraven na jiném zařízení. Prosím, proveďte synchronizaci pro "
 "získání aktuální verze."
 
-#: core/Services/CalDAV/Core.vala:170
+#: core/Services/CalDAV/Core.vala:170 core/Services/CalDAV/Core.vala:183
 msgid "Source already exists"
 msgstr "Zdroj už existuje"
 
 #: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
+#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
 msgid "Failed to resolve principal url"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:238
+#: core/Services/CalDAV/Core.vala:238 core/Services/CalDAV/Core.vala:264
 msgid "Starting sync…"
 msgstr "Začínám synchronizaci…"
 
-#: core/Services/CalDAV/Core.vala:253
+#: core/Services/CalDAV/Core.vala:253 core/Services/CalDAV/Core.vala:279
 #, c-format
 msgid "Syncing %s…"
 msgstr "Synchronizuji %s…"
 
-#: core/Services/CalDAV/Core.vala:274
+#: core/Services/CalDAV/Core.vala:274 core/Services/CalDAV/Core.vala:300
 msgid "Sync completed"
 msgstr "Synchronizace dokončena"
 
@@ -1973,6 +1985,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 msgid "Change Inbox"
 msgstr ""
 
@@ -1981,45 +1994,58 @@ msgid "Syncing…"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:57
 msgid "Connect to CalDAV"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:62
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:74
 msgid "Server URL"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:81
 msgid "Username"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:84
 msgid "Password"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 msgid "Calendar Home URL"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:106
 msgid "Advanced"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Show advanced options"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Hide advanced options"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:144
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:111
 msgid "Log In"
 msgstr ""
 
@@ -2035,40 +2061,49 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:53
 msgid "Connect to Nextcloud"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:58
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:79
 msgid "https://cloud.example.com"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:84
 msgid "https://example.com/nextcloud"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:101
 msgid "URL examples"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:276
 msgid "Nextcloud Deck Detected"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:280
 msgid "Not Now"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr ""
 
@@ -2096,32 +2131,41 @@ msgid "Last Sync"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
 msgid "Delete Source"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:197
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
 msgid "Delete Source?"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 msgid "Cannot Delete This Source"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -4160,6 +4204,83 @@ msgid_plural "%d tasks moved to %s"
 msgstr[0] "%d úkol přesunut do %s"
 msgstr[1] "%d úkoly přesunuty do %s"
 msgstr[2] "%d úkolů přesunuto do %s"
+
+#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Providers/Nextcloud.vala:67
+#, c-format
+msgid "Failed to load client certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+msgid "Apply Certificate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#, c-format
+msgid "Invalid certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate updated"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate removed"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:49
+msgid "Client certificate (mTLS)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:50
+msgid "Authenticate to the server with a client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:55
+msgid "Certificate file"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:56
+#: src/Widgets/ClientCertificateRow.vala:100
+msgid "No file selected"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:60
+msgid "Choose…"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:68
+msgid "Certificate password (PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:96
+msgid "PKCS#12 certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:97
+msgid "PEM certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:106
+msgid "Select client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:111
+msgid "Certificates (PEM, PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:149
+msgid "Failed to read file"
+msgstr ""
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"

@@ -2090,6 +2090,7 @@ msgid "Nextcloud Deck Detected"
 msgstr "Detectouse un panel de Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2100,6 +2101,7 @@ msgid "Not Now"
 msgstr "Agora non"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr ""
 
@@ -2129,14 +2131,17 @@ msgid "Last Sync"
 msgstr "Última sincronización"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr ""
 
@@ -4220,4 +4225,81 @@ msgstr ""
 
 #: src/Services/Notification.vala:104
 msgid "1h Snooze"
+msgstr ""
+
+#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Providers/Nextcloud.vala:67
+#, c-format
+msgid "Failed to load client certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+msgid "Apply Certificate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#, c-format
+msgid "Invalid certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate updated"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate removed"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:49
+msgid "Client certificate (mTLS)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:50
+msgid "Authenticate to the server with a client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:55
+msgid "Certificate file"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:56
+#: src/Widgets/ClientCertificateRow.vala:100
+msgid "No file selected"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:60
+msgid "Choose…"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:68
+msgid "Certificate password (PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:96
+msgid "PKCS#12 certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:97
+msgid "PEM certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:106
+msgid "Select client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:111
+msgid "Certificates (PEM, PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:149
+msgid "Failed to read file"
 msgstr ""

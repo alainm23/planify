@@ -105,12 +105,14 @@ msgstr[3] "Vsakih %d let"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:39
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -372,6 +374,8 @@ msgstr "Izbriši oznako %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
 #: core/Objects/Project.vala:896
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
@@ -393,6 +397,11 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 core/Objects/Project.vala:899
 #: core/Objects/Project.vala:973
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -407,6 +416,8 @@ msgstr "Prekliči"
 #: src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345 core/QuickAddCore.vala:1033
 #: core/Objects/Project.vala:900
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -616,15 +627,16 @@ msgstr ""
 "Naloga je bila spremenjena v drugi napravi. Sinhronizirajte jo, da pridobite "
 "najnovejšo različico."
 
-#: core/Services/CalDAV/Core.vala:170
+#: core/Services/CalDAV/Core.vala:170 core/Services/CalDAV/Core.vala:183
 msgid "Source already exists"
 msgstr "Vir že obstaja"
 
 #: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
+#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
 msgid "Failed to resolve principal url"
 msgstr "Razrešitev naslova URL uporabniškega vira ni uspela"
 
-#: core/Services/CalDAV/Core.vala:238
+#: core/Services/CalDAV/Core.vala:238 core/Services/CalDAV/Core.vala:264
 msgid "Starting sync…"
 msgstr "Začetek sinhronizacije …"
 
@@ -633,7 +645,7 @@ msgstr "Začetek sinhronizacije …"
 msgid "Syncing %s…"
 msgstr "Sinhronizacija %s …"
 
-#: core/Services/CalDAV/Core.vala:274
+#: core/Services/CalDAV/Core.vala:274 core/Services/CalDAV/Core.vala:300
 msgid "Sync completed"
 msgstr "Sinhronizacija je končana"
 
@@ -4273,6 +4285,83 @@ msgstr "Odpri naslednji projekt"
 msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Odpri prejšnji projekt"
+
+#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Providers/Nextcloud.vala:67
+#, c-format
+msgid "Failed to load client certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+msgid "Apply Certificate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#, c-format
+msgid "Invalid certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate updated"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate removed"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:49
+msgid "Client certificate (mTLS)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:50
+msgid "Authenticate to the server with a client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:55
+msgid "Certificate file"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:56
+#: src/Widgets/ClientCertificateRow.vala:100
+msgid "No file selected"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:60
+msgid "Choose…"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:68
+msgid "Certificate password (PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:96
+msgid "PKCS#12 certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:97
+msgid "PEM certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:106
+msgid "Select client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:111
+msgid "Certificates (PEM, PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:149
+msgid "Failed to read file"
+msgstr ""
 
 #~ msgid "%a, %b %-e"
 #~ msgstr "%a, %b %-e"
