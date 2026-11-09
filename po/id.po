@@ -425,7 +425,7 @@ msgstr "Hapus label %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
-#: core/Objects/Section.vala:432
+#: core/Objects/Section.vala:432 core/Objects/Project.vala:902
 msgid "This can not be undone"
 msgstr "Ini tidak dapat dibatalkan"
 
@@ -463,6 +463,7 @@ msgstr "Ini tidak dapat dibatalkan"
 #: src/Views/Project/Project.vala:567 src/Views/Project/Project.vala:550
 #: core/Objects/Project.vala:908 core/Objects/Project.vala:982
 #: core/Objects/Section.vala:435 core/Objects/Section.vala:481
+#: core/Objects/Project.vala:905 core/Objects/Project.vala:985
 msgid "Cancel"
 msgstr "Batal"
 
@@ -486,17 +487,19 @@ msgstr "Batal"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
 #: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
-#: core/Objects/Section.vala:436
+#: core/Objects/Section.vala:436 core/Objects/Project.vala:906
 msgid "Delete"
 msgstr "Hapus"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:863 core/Objects/Project.vala:868
+#: core/Objects/Project.vala:865
 msgid "The project was copied to the Clipboard."
 msgstr "Proyek disalin ke papan klip."
 
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:895
 #: core/Objects/Project.vala:899 core/Objects/Project.vala:904
+#: core/Objects/Project.vala:901
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Hapus Proyek %s?"
@@ -504,12 +507,14 @@ msgstr "Hapus Proyek %s?"
 #: core/Objects/Project.vala:964 core/Objects/Section.vala:472
 #: core/Objects/Project.vala:969 core/Objects/Project.vala:973
 #: core/Objects/Project.vala:978 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:981
 msgid "Archive?"
 msgstr "Arsipkan?"
 
 #: core/Objects/Project.vala:965 core/Objects/Section.vala:473
 #: core/Objects/Project.vala:970 core/Objects/Project.vala:974
 #: core/Objects/Project.vala:979 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:982
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
@@ -522,6 +527,7 @@ msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
 #: core/Objects/Project.vala:974 core/Objects/Project.vala:978
 #: src/Layouts/SectionBoard.vala:629 src/Layouts/SectionRow.vala:716
 #: core/Objects/Project.vala:983 core/Objects/Section.vala:482
+#: core/Objects/Project.vala:986
 msgid "Archive"
 msgstr "Arsipkan"
 
