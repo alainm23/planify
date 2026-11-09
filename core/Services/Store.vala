@@ -559,6 +559,7 @@ public class Services.Store : GLib.Object {
     public void insert_section (Objects.Section section) {
         if (Services.Database.get_default ().insert_section (section)) {
             sections.add (section);
+            section.project.add_section (section);
             section.project.section_added (section);
         }
     }
@@ -780,6 +781,12 @@ public class Services.Store : GLib.Object {
                 Services.CalendarEvents.get_default ().delete_event.begin (item.project.calendar_source_uid, item.calendar_event_uid);
             }
             #endif
+
+            // The database cascade removes the rows; drop them from memory too and clean up their stored copies
+            foreach (Objects.Attachment attachment in get_attachments_by_item (item)) {
+                attachments.remove (attachment);
+                attachment.delete_stored_copy ();
+            }
 
             foreach (Objects.Item subitem in get_subitems (item)) {
                 delete_item (subitem);
@@ -1009,6 +1016,13 @@ public class Services.Store : GLib.Object {
             }
 
             return return_value;
+        }
+    }
+
+    public void delete_completed_items_by_project (Objects.Project project) {
+        var completed_items = get_items_checked_by_project (project);
+        foreach (Objects.Item item in completed_items) {
+            item.delete_item ();
         }
     }
 
@@ -1526,8 +1540,11 @@ public class Services.Store : GLib.Object {
 
     // Attachments
     public void insert_attachment (Objects.Attachment attachment) {
+        // Load the collection before inserting, otherwise the lazy load already includes the new row and it's added twice
+        var collection = attachments;
+
         if (Services.Database.get_default ().insert_attachment (attachment)) {
-            attachments.add (attachment);
+            collection.add (attachment);
             attachment.item.attachment_added (attachment);
         }
     }
