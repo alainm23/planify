@@ -2045,6 +2045,7 @@ msgstr "Задание"
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1258
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemRow.vala:1268 src/Layouts/ItemRow.vala:1269
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr "Выполнить"
 
@@ -5012,15 +5013,15 @@ msgstr "Использовать стандартные цвета GNOME в св
 msgid "Not available with Adwaita colors"
 msgstr "Недоступно при использовании цветовой схемы Adwaita"
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:100 src/Services/Notification.vala:142
 msgid "10m Snooze"
 msgstr "Отложить на 10 минут"
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:102 src/Services/Notification.vala:144
 msgid "30m Snooze"
 msgstr "Отложить на 30 минут"
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:104 src/Services/Notification.vala:146
 msgid "1h Snooze"
 msgstr "Отложить на 1 час"
 

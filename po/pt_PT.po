@@ -1726,7 +1726,7 @@ msgstr "Tarefa"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr "Terminado"
 
@@ -3662,15 +3662,15 @@ msgstr "Reiniciar agora"
 msgid "Planify Backup Files"
 msgstr "Ficheiros da cópia de segurança do Planify"
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:142
 msgid "10m Snooze"
 msgstr "Adiar 10 min"
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:144
 msgid "30m Snooze"
 msgstr "Adiar 30 min"
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:146
 msgid "1h Snooze"
 msgstr "Adiar 1 h"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-10 23:45+0000\n"
+"POT-Creation-Date: 2026-11-10 23:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1675,7 +1675,7 @@ msgstr ""
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr ""
 
@@ -3515,15 +3515,15 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr ""
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:142
 msgid "10m Snooze"
 msgstr ""
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:144
 msgid "30m Snooze"
 msgstr ""
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:146
 msgid "1h Snooze"
 msgstr ""
 

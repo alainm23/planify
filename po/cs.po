@@ -1775,6 +1775,7 @@ msgstr ""
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1268
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1269
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr ""
 
@@ -4326,15 +4327,15 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr ""
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:100 src/Services/Notification.vala:142
 msgid "10m Snooze"
 msgstr "10min odložení"
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:102 src/Services/Notification.vala:144
 msgid "30m Snooze"
 msgstr "30min odložení"
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:104 src/Services/Notification.vala:146
 msgid "1h Snooze"
 msgstr "1h odložení"
 
