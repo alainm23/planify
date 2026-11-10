@@ -288,7 +288,7 @@ msgstr "por vir"
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:58
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
 #: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
 #: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:603
@@ -302,7 +302,7 @@ msgstr "hoje"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1254
 msgid "Tomorrow"
@@ -419,7 +419,7 @@ msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
 
 #: core/Objects/Project.vala:986 core/Objects/Section.vala:482
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:629
+#: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Arquivar"
@@ -514,7 +514,7 @@ msgstr "Adicionar tarefa"
 msgid "No attachments found. Add files here."
 msgstr "Nenhum anexo encontrado. Adicione os arquivos aqui."
 
-#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Abrir"
@@ -715,7 +715,7 @@ msgstr "API Token invalida"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1193,8 +1193,8 @@ msgid "%OB"
 msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:728
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:763
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "Voltar"
@@ -1302,97 +1302,97 @@ msgstr "Sexta-feita"
 msgid "Saturday"
 msgstr "Sábado"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:527
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
 msgid "Time"
 msgstr "Tempo"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:858
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1193
 msgid "until"
 msgstr "até"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
 msgid "for"
 msgstr "para"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
 msgid "times"
 msgstr "vezes"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
 msgid "time"
 msgstr "tempo"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:106
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 msgid "Repeat"
 msgstr "Repetir"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 #: src/Dialogs/DatePicker.vala:68
 msgid "Type a date…"
 msgstr "Digite uma data…"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: core/Widgets/DeadlineButton.vala:219
 msgid "Next week"
 msgstr "Próxima semana"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr "Salvar"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "Diariamente"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 #, fuzzy
 msgid "Weekdays"
 msgstr "Semanalmente"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 #, fuzzy
 msgid "Weekends"
 msgstr "Semana(s)"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "Semanalmente"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "Mensalmente"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "Anualmente"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "Personalizado"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
 msgstr "Sem data"
@@ -3161,11 +3161,11 @@ msgstr "Atrasado"
 msgid "Progress"
 msgstr ""
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Novo Projeto"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
+#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:387
 msgid "Edit Project"
 msgstr "Editar Projeto"
@@ -3286,7 +3286,7 @@ msgstr "Editar"
 
 #: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemRow.vala:1404 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:626
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
 #: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "Duplicar"
@@ -3464,42 +3464,42 @@ msgstr "Ordenar por"
 msgid "Delete Label"
 msgstr "Deletar Rótulo"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr ""
 "Classificação de projetos alterada para 'Ordem de classificação "
 "personalizada'"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696 src/Layouts/ProjectRow.vala:702
 msgid "Remove From Favorites"
 msgstr "Remover dos Favoritos"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696 src/Layouts/ProjectRow.vala:702
 msgid "Add to Favorites"
 msgstr "Adicionar aos Favoritos"
 
-#: src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:400
+#: src/Layouts/ProjectRow.vala:708 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
 msgstr "Deletar Projeto"
 
-#: src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "Compartilhar"
 
-#: src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "Enviar por E-Mail"
 
-#: src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr ""
 
@@ -3540,45 +3540,45 @@ msgstr "Deletar Seção"
 msgid "No more tasks"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "Favoritos"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:124
 #, fuzzy
 msgid "Add Account"
 msgstr "Contas"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:125
 #, fuzzy
 msgid "Customize Sidebar"
 msgstr "Personalize sua barra lateral"
 
-#: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Ir para Hoje"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Ir para Agendado"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Ir para Rótulos"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Ir para o Quadro de Anúncios"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr ""
 
