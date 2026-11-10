@@ -33,6 +33,8 @@ test_core_sources = [
     'core/test-subitem-cache.vala',
     'core/test-item-reparent.vala',
     'core/test-label-unique.vala',
+    'core/test-section-cache.vala',
+    'core/test-caldav-roundtrip.vala',
     'core/test-caldav-sync-failure.vala',
     'core/test-item-memory.vala',
     'core/test-source-lifecycle.vala',
