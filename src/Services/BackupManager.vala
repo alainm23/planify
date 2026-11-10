@@ -171,7 +171,7 @@ public class Services.BackupManager : Object {
 
         try {
             var stream = file.create (FileCreateFlags.NONE, null);
-            stream.write (export_to_json ().data, null);
+            Services.BackupExporter.get_default ().export_to_stream (stream);
             stream.close (null);
 
             if (file.query_exists ()) {

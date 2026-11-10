@@ -1600,6 +1600,24 @@ public class Services.Database : GLib.Object {
         return success;
     }
 
+    public delegate void ItemVisitor (Objects.Item item) throws GLib.Error;
+
+    // Keep only the current row alive during exports of large databases.
+    public void foreach_item (ItemVisitor visitor) throws GLib.Error {
+        Sqlite.Statement stmt;
+        const string query = "SELECT * FROM Items WHERE is_deleted = 0 AND is_trash = 0;";
+        if (db.prepare_v2 (query, query.length, out stmt) != Sqlite.OK) {
+            throw new IOError.FAILED ("Unable to read tasks: %s", db.errmsg ());
+        }
+        int result;
+        while ((result = stmt.step ()) == Sqlite.ROW) {
+            visitor (_fill_item (stmt));
+        }
+        if (result != Sqlite.DONE) {
+            throw new IOError.FAILED ("Unable to read tasks: %s", db.errmsg ());
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_items_collection () {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;

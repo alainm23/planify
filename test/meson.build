@@ -34,7 +34,12 @@ test_core_sources = [
     'core/test-item-reparent.vala',
     'core/test-label-unique.vala',
     'core/test-section-cache.vala',
-    'core/test-caldav-roundtrip.vala'
+    'core/test-caldav-roundtrip.vala',
+    'core/test-caldav-sync-failure.vala',
+    'core/test-item-memory.vala',
+    'core/test-source-lifecycle.vala',
+    'core/test-delete-completed-tasks.vala',
+    'core/test-section-cache.vala'
 ]
 
 test_core = executable(
@@ -44,5 +49,33 @@ test_core = executable(
     install: false
 )
 
-test('core', test_core, timeout: 30, suite: ['core'],
-    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data'])
+test_schema = configure_file(input: '../data/io.github.alainm23.planify.gschema.xml',
+    output: 'io.github.alainm23.planify.gschema.xml', copy: true)
+test_schemas = custom_target('test-schemas',
+    input: test_schema,
+    output: 'gschemas.compiled',
+    command: [find_program('glib-compile-schemas'), meson.current_build_dir()],
+    build_by_default: true)
+
+test('core', test_core, timeout: 30, suite: ['core'], depends: test_schemas,
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data',
+          'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(), 'GSETTINGS_BACKEND=memory'])
+
+# Repeated mapped layout transitions need more time under software rendering/profilers.
+test('ui-memory', test_ui_memory, timeout: 90, suite: ['widgets'], depends: test_schemas,
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'ui-memory/test-core-data',
+          'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
+          'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
+
+# Run under a display (for example xvfb-run); return 77 when GTK is unavailable.
+test_calendar_memory = executable(
+    'test-calendar-memory',
+    'test-calendar-memory.vala',
+    dependencies: [ core_dep, glib_dep ],
+    install: false
+)
+
+test('calendar-memory', test_calendar_memory, timeout: 30, suite: ['widgets'], depends: test_schemas,
+    env: ['GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
+          'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
+

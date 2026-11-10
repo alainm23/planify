@@ -194,11 +194,16 @@ public class Widgets.CircularProgressBar : Gtk.DrawingArea {
             valign: Gtk.Align.CENTER
         );
 
-        set_draw_func (draw);
+        // The drawing area owns this delegate; use its argument instead of retaining this.
+        set_draw_func (draw_widget);
 
         notify.connect (() => {
             queue_draw ();
         });
+    }
+
+    private static void draw_widget (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+        ((Widgets.CircularProgressBar) area).draw (area, cr, width, height);
     }
 
     private int calculate_radius () {
