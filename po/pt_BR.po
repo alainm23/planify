@@ -1424,10 +1424,12 @@ msgid "Daily"
 msgstr "Diariamente"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "Dias de semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "Fins de semana"
 
@@ -1930,7 +1932,7 @@ msgid "Delete All Completed Tasks"
 msgstr "Excluir todas as tarefas concluídas"
 
 # # c-format
-#: src/Dialogs/CompletedTasks.vala:165
+#: src/Dialogs/CompletedTasks.vala:165 src/Views/Project/Project.vala:543
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
@@ -2160,6 +2162,7 @@ msgid "Password"
 msgstr "Senha"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 msgid "Calendar Home URL"
 msgstr "URL da agenda"
 
@@ -2227,10 +2230,12 @@ msgid "URL examples"
 msgstr "Exemplos de URL"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:276
 msgid "Nextcloud Deck Detected"
 msgstr "Deck do Nextcloud detectado"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2239,10 +2244,12 @@ msgstr ""
 "com o Deck para gerenciar seus quadros e cartões diretamente no Planify?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:280
 msgid "Not Now"
 msgstr "Agora Não"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr "Habilitar Deck"
 
@@ -2272,14 +2279,17 @@ msgid "Last Sync"
 msgstr "Última Sincronização"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr "Deck do Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Sincronize quadros e cartões do Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr "O Nextcloud Deck não está disponível neste servidor"
 
@@ -2303,6 +2313,7 @@ msgid "Cannot Delete This Source"
 msgstr "Não foi possível excluir esta fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -3102,7 +3113,7 @@ msgstr[1] "%d tarefas"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:784 src/MainWindow.vala:790
 msgid "Summary & Productivity"
 msgstr "Resumo e Produtividade"
 
@@ -3502,11 +3513,11 @@ msgstr "Compartilhar"
 msgid "Send by E-Mail"
 msgstr "Enviar por E-Mail"
 
-#: src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:719 src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr "Exportar como PDF"
 
-#: src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:794 src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr "Projeto exportado como PDF"
 
@@ -3525,7 +3536,7 @@ msgid "Add tasks"
 msgstr "Adicionar tarefa"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:197
+#: src/Views/Filter.vala:197 src/Views/Filter.vala:185
 msgid "Load more"
 msgstr "Carregar mais"
 
@@ -3553,6 +3564,7 @@ msgid "Delete Section"
 msgstr "Excluir Seção"
 
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr "Não há mais tarefas"
 
@@ -3598,7 +3610,7 @@ msgstr "Ir para o Quadro de Anúncios"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr "Migração de conta necessária"
 
@@ -3665,11 +3677,11 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Redefinir banco de dados"
 
-#: src/Services/BackupManager.vala:154
+#: src/Services/BackupManager.vala:154 src/Services/BackupManager.vala:158
 msgid "Automatic backup failed"
 msgstr "Falha no backup automático"
 
-#: src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:200 src/Services/BackupManager.vala:204
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr "Falha ao copiar o backup para %s"
@@ -3682,11 +3694,11 @@ msgstr "Excluir Backup"
 msgid "Backup Successfully Imported"
 msgstr "Backup importado com sucesso"
 
-#: src/Services/BackupManager.vala:395
+#: src/Services/BackupManager.vala:395 src/Services/BackupManager.vala:399
 msgid "Planify will restart to apply the changes"
 msgstr "Planify será reiniciado para aplicar as alterações"
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:402
 msgid "Restart Now"
 msgstr "Reiniciar agora"
 
@@ -3712,6 +3724,7 @@ msgid "Snooze for 1 hour"
 msgstr "Em 1 hora"
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:864
+#: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
 msgstr "Todos os projetos"
 
@@ -3738,15 +3751,15 @@ msgstr "Adicione Algumas Tarefas"
 msgid "Press 'a' to create a new task"
 msgstr "Pressione 'a' para criar uma nova tarefa"
 
-#: src/Views/Filter.vala:580
+#: src/Views/Filter.vala:580 src/Views/Filter.vala:539
 msgid "tasks"
 msgstr "tarefas"
 
-#: src/Views/Filter.vala:818
+#: src/Views/Filter.vala:818 src/Views/Filter.vala:754
 msgid "No completed tasks"
 msgstr "Nenhuma tarefa concluída"
 
-#: src/Views/Filter.vala:819
+#: src/Views/Filter.vala:819 src/Views/Filter.vala:755
 msgid "No tasks found for the selected projects"
 msgstr "Nenhuma tarefa encontrada para os projetos selecionados"
 
@@ -3754,19 +3767,21 @@ msgstr "Nenhuma tarefa encontrada para os projetos selecionados"
 msgid "All tasks completed!"
 msgstr "Todas as tarefas foram concluídas!"
 
-#: src/Views/Filter.vala:822
+#: src/Views/Filter.vala:822 src/Views/Filter.vala:758
 msgid "Great job, nothing left to do 🎉"
 msgstr "Ótimo trabalho, nada mais a fazer 🎉"
 
-#: src/Views/Filter.vala:824
+#: src/Views/Filter.vala:824 src/Views/Filter.vala:760
+#: src/Views/Label/Label.vala:267
 msgid "No tasks found"
 msgstr "Nenhuma tarefa encontrada"
 
-#: src/Views/Filter.vala:825
+#: src/Views/Filter.vala:825 src/Views/Filter.vala:761
+#: src/Views/Label/Label.vala:268
 msgid "No tasks match the selected filters"
 msgstr "Nenhuma tarefa corresponde aos filtros selecionados"
 
-#: src/Views/Filter.vala:866
+#: src/Views/Filter.vala:866 src/Views/Filter.vala:774
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
@@ -3794,7 +3809,7 @@ msgstr[1] "Isto irá excluir %d tarefas completadas e suas subtarefas"
 msgid "Sorting"
 msgstr "Ordem"
 
-#: src/Views/Filter.vala:929
+#: src/Views/Filter.vala:929 src/Layouts/ItemSortFilter.vala:67
 msgid "Project"
 msgstr "Projeto"
 
@@ -3807,6 +3822,7 @@ msgstr "Dados adicionados"
 
 #: src/Views/Filter.vala:933 src/Views/Project/Project.vala:560
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:590
 msgid "Date Modified"
 msgstr "Data de modificação"
 
@@ -3995,10 +4011,12 @@ msgid "Custom sort order"
 msgstr "Ordem de classificação personalizada"
 
 #: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
+#: src/Views/Project/Project.vala:643
 msgid "Show Completed"
 msgstr "Exibir concluídas"
 
 #: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
+#: src/Views/Project/Project.vala:644
 msgid "Display completed tasks in the list"
 msgstr "Exibir tarefas concluídas na lista"
 

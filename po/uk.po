@@ -1879,10 +1879,12 @@ msgid "In 6 hours"
 msgstr "Через 6 годин"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
 msgstr "Виберіть час у майбутньому"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
 msgstr "На цей час уже є нагадування"
 
@@ -3553,6 +3555,7 @@ msgid "Show Sub-tasks"
 msgstr "Показати підзавдання"
 
 #: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
+#: src/Layouts/ItemRow.vala:1257 src/Layouts/ItemRow.vala:1305
 msgid "Pick a Date"
 msgstr "Вибрати дату"
 
@@ -3572,16 +3575,18 @@ msgid "Export as .ics"
 msgstr "Експортувати як .ics"
 
 #: src/Layouts/ItemRow.vala:1411 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1414
 #, c-format
 msgid "Updated: %s"
 msgstr "Оновлено: %s"
 
 #: src/Layouts/ItemRow.vala:1413 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1416
 #, c-format
 msgid "Created: %s"
 msgstr "Створено: %s"
 
-#: src/Layouts/ItemRow.vala:1631
+#: src/Layouts/ItemRow.vala:1631 src/Layouts/ItemRow.vala:1634
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr "Завершено · Наступне: %s"
@@ -3712,6 +3717,7 @@ msgstr "Видалити розділ"
 
 #: src/Layouts/SectionRow.vala:655 src/Views/Filter.vala:408
 #: src/Views/Filter.vala:583 src/Layouts/SectionRow.vala:659
+#: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr "Більше немає завдань"
 
@@ -3834,6 +3840,7 @@ msgid "Automatic backup failed"
 msgstr ""
 
 #: src/Services/BackupManager.vala:199 src/Services/BackupManager.vala:200
+#: src/Services/BackupManager.vala:204
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr "Не вдалося скопіювати резервну копію до %s"
@@ -3878,6 +3885,7 @@ msgstr "Відкласти на 1 годину"
 #: src/Views/Filter.vala:102 src/Views/Filter.vala:656
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:835
 #: src/Views/Filter.vala:852 src/Views/Filter.vala:857
+#: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
 msgstr "Усі проєкти"
 
@@ -3917,11 +3925,13 @@ msgstr "завдання"
 
 #: src/Views/Filter.vala:613 src/Views/Filter.vala:789
 #: src/Views/Filter.vala:806 src/Views/Filter.vala:811
+#: src/Views/Filter.vala:754
 msgid "No completed tasks"
 msgstr "Немає виконаних завдань"
 
 #: src/Views/Filter.vala:614 src/Views/Filter.vala:790
 #: src/Views/Filter.vala:807 src/Views/Filter.vala:812
+#: src/Views/Filter.vala:755
 msgid "No tasks found for the selected projects"
 msgstr "Не знайдено завдань для вибраних проєктів"
 

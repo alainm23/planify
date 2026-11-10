@@ -3514,7 +3514,8 @@ msgstr "Kenar Çubuğunu Aç/Kapat"
 
 #: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:806
 #: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1241
-#: src/Layouts/ItemRow.vala:1256
+#: src/Layouts/ItemRow.vala:1256 src/Layouts/ItemRow.vala:1244
+#: src/Layouts/ItemRow.vala:1259
 msgid "Unpin"
 msgstr "Sabitlemeden çıkar"
 
@@ -3575,15 +3576,16 @@ msgstr "Geri Al"
 msgid "Add Subtasks"
 msgstr "Alt Görev Ekle"
 
-#: src/Layouts/ItemRow.vala:1070
+#: src/Layouts/ItemRow.vala:1070 src/Layouts/ItemRow.vala:1073
 msgid "Hide Sub-tasks"
 msgstr "Alt Görevleri Gizle"
 
-#: src/Layouts/ItemRow.vala:1070
+#: src/Layouts/ItemRow.vala:1070 src/Layouts/ItemRow.vala:1073
 msgid "Show Sub-tasks"
 msgstr "Alt Görevleri Göster"
 
 #: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemRow.vala:1302
+#: src/Layouts/ItemRow.vala:1257 src/Layouts/ItemRow.vala:1305
 msgid "Pick a Date"
 msgstr "Bir Tarih Seç"
 
@@ -3662,7 +3664,7 @@ msgstr "Gözdelerden Kaldır"
 msgid "Add to Favorites"
 msgstr "Gözdelere Ekle"
 
-#: src/Layouts/ProjectRow.vala:702
+#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "Yenile"
 
@@ -3701,12 +3703,13 @@ msgid "Add tasks"
 msgstr "Görev Ekle"
 
 #: src/Layouts/SectionBoard.vala:175 src/Layouts/SectionRow.vala:217
-#: src/Views/Filter.vala:197
+#: src/Views/Filter.vala:197 src/Views/Filter.vala:185
 msgid "Load more"
 msgstr "Daha fazla yükle"
 
 #: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
-#: src/Widgets/SubItems.vala:420
+#: src/Widgets/SubItems.vala:420 src/Layouts/SectionBoard.vala:604
+#: src/Layouts/SectionRow.vala:666 src/Widgets/SubItems.vala:422
 msgid "completed tasks"
 msgstr "tamamlanan görevler"
 
@@ -3727,6 +3730,7 @@ msgid "Delete Section"
 msgstr "Bölümü Sil"
 
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:583
+#: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr "Başka görev yok, aferin"
 
@@ -3739,11 +3743,11 @@ msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
 "Favori bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:122 src/Layouts/Sidebar.vala:124
 msgid "Add Account"
 msgstr "Hesap Ekle"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Layouts/Sidebar.vala:125
 msgid "Customize Sidebar"
 msgstr "Kenar Çubuğunu Özelleştir"
 
@@ -3795,19 +3799,20 @@ msgstr ""
 msgid "About Planify"
 msgstr "Planify Hakkında"
 
-#: src/MainWindow.vala:870
+#: src/MainWindow.vala:870 src/MainWindow.vala:886
 msgid "Oops! Something happened"
 msgstr "Amanın! Bir şeyler oldu"
 
 #: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:905
 msgid "Task completed"
 msgstr "Görev tamamlandı"
 
-#: src/MainWindow.vala:890
+#: src/MainWindow.vala:890 src/MainWindow.vala:906
 msgid "View"
 msgstr "Göz at"
 
-#: src/MainWindow.vala:928
+#: src/MainWindow.vala:928 src/MainWindow.vala:944
 msgid "Database Integrity Check Failed"
 msgstr "Veritabanı Uyumluluğu Geçersiz"
 

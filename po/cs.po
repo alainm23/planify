@@ -343,6 +343,7 @@ msgid "unlabeled"
 msgstr "neoštítkované"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1658
 msgid "Deadline:"
 msgstr "Lhůta:"
 
@@ -350,15 +351,16 @@ msgstr "Lhůta:"
 msgid "Task copied to clipboard"
 msgstr "Úkol zkopírován do schránky"
 
-#: core/Objects/Item.vala:1692
+#: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
 msgid "iCalendar Files"
 msgstr "Soubory iCalendar"
 
-#: core/Objects/Item.vala:1708
+#: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
 msgid "Task exported successfully"
 msgstr "Úkol byl úspěšně exportován"
 
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2076
 #, c-format
 msgid "Moved to %s"
 msgstr "Přesunuto do %s"
@@ -547,7 +549,7 @@ msgstr "Přidat další"
 msgid "Select a Project"
 msgstr "Vyberte Projekt"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:376 core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -678,21 +680,21 @@ msgstr "Synchronizuji %s…"
 msgid "Sync completed"
 msgstr "Synchronizace dokončena"
 
-#: core/Services/CalDAV/Core.vala:324
+#: core/Services/CalDAV/Core.vala:324 core/Services/CalDAV/Core.vala:350
 msgid "Authentication Expired"
 msgstr "Platnost autentizace vypršela"
 
-#: core/Services/CalDAV/Core.vala:325
+#: core/Services/CalDAV/Core.vala:325 core/Services/CalDAV/Core.vala:351
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr "Vaše relace vypršela. Odeberte a znovu přidejte svůj účet v nastavení."
 
-#: core/Services/CalDAV/Core.vala:332
+#: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 msgid "Too Many Requests"
 msgstr "Příliš mnoho požadavků"
 
-#: core/Services/CalDAV/Core.vala:333
+#: core/Services/CalDAV/Core.vala:333 core/Services/CalDAV/Core.vala:359
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -1866,7 +1868,7 @@ msgstr ""
 msgid "Delete All Completed Tasks"
 msgstr ""
 
-#: src/Dialogs/CompletedTasks.vala:165
+#: src/Dialogs/CompletedTasks.vala:165 src/Views/Project/Project.vala:543
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
@@ -3327,7 +3329,8 @@ msgstr ""
 msgid "A task can only become a subtask of a task in the same account"
 msgstr "Úkol se může stát dílčím úkolem pouze úkolu pod stejným účtem"
 
-#: src/Layouts/ItemRow.vala:2161
+#: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
+#: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 msgid "Add Attachments"
 msgstr "Přidat přílohy"
 

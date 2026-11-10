@@ -1994,10 +1994,12 @@ msgid "In 6 hours"
 msgstr "Через 6 часов"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:270
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
 msgstr "Выбрать время на будущее"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:279
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
 msgstr "У вас уже есть напоминание в это время"
 
@@ -2348,6 +2350,7 @@ msgid "Connect to CalDAV"
 msgstr "Подключение к CalDAV"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:62
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
 "Подключение к любому CalDAV-совместимому серверу для синхронизации ваших "
@@ -2442,11 +2445,13 @@ msgstr "Примеры ссылок"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:265
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:276
 msgid "Nextcloud Deck Detected"
 msgstr "Обнаружено приложение Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:266
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2462,6 +2467,7 @@ msgstr "Не сейчас"
 
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr "Включить Deck"
 
@@ -2491,14 +2497,17 @@ msgid "Last Sync"
 msgstr "Последняя синхронизация"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Синхронизировать доски и карточки из Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Приложение Nextcloud Deck недоступно на этом сервере"
 
@@ -3787,6 +3796,7 @@ msgid "Export as PDF"
 msgstr "Экспортировать как PDF"
 
 #: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr "Проект экспортирован как PDF"
 
@@ -4061,6 +4071,7 @@ msgstr "задачи"
 #: src/Views/Filter.vala:362 src/Layouts/SectionRow.vala:655
 #: src/Views/Filter.vala:408 src/Views/Filter.vala:583
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:542
+#: src/Layouts/SectionRow.vala:669
 msgid "No more tasks"
 msgstr "Задач больше нет"
 
@@ -4199,7 +4210,7 @@ msgstr "По дате добавления"
 #: src/Views/Today.vala:727 src/Views/Scheduled/Scheduled.vala:235
 #: src/Views/Today.vala:842 src/Views/Filter.vala:904 src/Views/Filter.vala:921
 #: src/Views/Filter.vala:926 src/Views/Today.vala:845 src/Views/Filter.vala:933
-#: src/Layouts/ItemSortFilter.vala:71
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:590
 msgid "Date Modified"
 msgstr "По дате изменения"
 

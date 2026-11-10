@@ -1435,6 +1435,7 @@ msgstr "Próxima semana"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 msgid "Save"
 msgstr "Guardar"
 
@@ -1476,6 +1477,7 @@ msgstr "Personalizado"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 #: src/Widgets/ItemChangeHistoryRow.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 msgid "No date"
 msgstr "Sin fecha"
 
