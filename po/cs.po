@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-11-09 20:51+0000\n"
+"PO-Revision-Date: 2026-11-10 16:10+0000\n"
 "Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -4277,78 +4277,80 @@ msgstr[2] "%d úkolů přesunuto do %s"
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
-msgstr ""
+msgstr "Selhalo načítání certifikátu klienta: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
 msgid "Apply Certificate"
-msgstr ""
+msgstr "Použít certifikát"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
 msgid "Client Certificate (mTLS)"
-msgstr ""
+msgstr "Certifikát klienta (mTLS)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
 msgid ""
 "Use a client certificate to authenticate with servers that require mutual TLS"
 msgstr ""
+"Použijte certifikát klienta pro přihlášení k serverům vyžadujícím vzájemné "
+"TLS"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
 #, c-format
 msgid "Invalid certificate: %s"
-msgstr ""
+msgstr "Neplatný certifikát: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 msgid "Client certificate updated"
-msgstr ""
+msgstr "Certifikát klienta byl aktualizován"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 msgid "Client certificate removed"
-msgstr ""
+msgstr "Certifikát klienta byl odebrán"
 
 #: src/Widgets/ClientCertificateRow.vala:49
 msgid "Client certificate (mTLS)"
-msgstr ""
+msgstr "Certifikát klienta (mTLS)"
 
 #: src/Widgets/ClientCertificateRow.vala:50
 msgid "Authenticate to the server with a client certificate"
-msgstr ""
+msgstr "Přihlásit se k serveru s certifikátem klienta"
 
 #: src/Widgets/ClientCertificateRow.vala:55
 msgid "Certificate file"
-msgstr ""
+msgstr "Soubor certifikátu"
 
 #: src/Widgets/ClientCertificateRow.vala:56
 #: src/Widgets/ClientCertificateRow.vala:100
 msgid "No file selected"
-msgstr ""
+msgstr "Žádný soubor nevybrán"
 
 #: src/Widgets/ClientCertificateRow.vala:60
 msgid "Choose…"
-msgstr ""
+msgstr "Zvolte…"
 
 #: src/Widgets/ClientCertificateRow.vala:68
 msgid "Certificate password (PKCS#12)"
-msgstr ""
+msgstr "Heslo certifikátu (PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:96
 msgid "PKCS#12 certificate stored"
-msgstr ""
+msgstr "PKCS#12 certifikát byl uložen"
 
 #: src/Widgets/ClientCertificateRow.vala:97
 msgid "PEM certificate stored"
-msgstr ""
+msgstr "PEM certifikát byl uložen"
 
 #: src/Widgets/ClientCertificateRow.vala:106
 msgid "Select client certificate"
-msgstr ""
+msgstr "Vyberte certifikát klienta"
 
 #: src/Widgets/ClientCertificateRow.vala:111
 msgid "Certificates (PEM, PKCS#12)"
-msgstr ""
+msgstr "Certifikáty (PEM, PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
-msgstr ""
+msgstr "Čtení souboru selhalo"
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
