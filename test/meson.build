@@ -33,6 +33,7 @@ test_core_sources = [
     'core/test-subitem-cache.vala',
     'core/test-item-reparent.vala',
     'core/test-label-unique.vala',
+    'core/test-item-memory.vala',
     'core/test-source-lifecycle.vala',
     'core/test-delete-completed-tasks.vala',
     'core/test-section-cache.vala'
