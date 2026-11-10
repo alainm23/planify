@@ -111,6 +111,11 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             sync_group.add (last_sync_row);
         }
 
+        Adw.PreferencesGroup? cert_group = null;
+        if (source.source_type == SourceType.CALDAV) {
+            cert_group = create_certificate_group ();
+        }
+
         if (source.source_type == SourceType.CALDAV && source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD) {
             var deck_row = new Adw.SwitchRow () {
                 title = _("Nextcloud Deck"),
@@ -177,6 +182,9 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             main_content.append (default_group);
             main_content.append (deck_group);
             main_content.append (sync_group);
+            if (cert_group != null) {
+                main_content.append (cert_group);
+            }
             main_content.append (delete_stack);
 
             var content_clamp = new Adw.Clamp () {
@@ -242,6 +250,9 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             main_content.append (default_group);
             if (source.source_type != SourceType.LOCAL) {
                 main_content.append (sync_group);
+                if (cert_group != null) {
+                    main_content.append (cert_group);
+                }
                 main_content.append (delete_stack);
             }
 
@@ -307,6 +318,61 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         destroy.connect (() => {
             clean_up ();
         });
+    }
+
+    private Adw.PreferencesGroup create_certificate_group () {
+        var cert_row = new Widgets.ClientCertificateRow ();
+        cert_row.set_certificate (
+            source.caldav_data.client_cert_data,
+            source.caldav_data.client_cert_format,
+            source.caldav_data.client_cert_password
+        );
+
+        var apply_button = new Adw.ButtonRow () {
+            title = _("Apply Certificate")
+        };
+        apply_button.add_css_class ("suggested-action");
+
+        var cert_group = new Adw.PreferencesGroup () {
+            margin_top = 12,
+            title = _("Client Certificate (mTLS)"),
+            description = _("Use a client certificate to authenticate with servers that require mutual TLS")
+        };
+        cert_group.add (cert_row);
+        cert_group.add (apply_button);
+
+        signal_map[apply_button.activated.connect (() => {
+            string new_data = cert_row.has_certificate ? cert_row.cert_data : "";
+            string new_format = cert_row.has_certificate ? cert_row.cert_format : "";
+            string new_password = cert_row.has_certificate ? cert_row.cert_password : "";
+
+            // Validate before persisting so a wrong password is reported immediately.
+            if (new_data != "") {
+                try {
+                    Objects.SourceCalDAVData.build_client_certificate (new_data, new_format, new_password);
+                } catch (Error e) {
+                    var toast = Util.get_default ().create_toast (_("Invalid certificate: %s").printf (e.message));
+                    Services.EventBus.get_default ().send_toast (toast);
+                    return;
+                }
+            }
+
+            source.caldav_data.client_cert_data = new_data;
+            source.caldav_data.client_cert_format = new_format;
+            source.caldav_data.client_cert_password = new_password;
+            source.save ();
+
+            // Drop cached clients so the next request rebuilds with the new cert.
+            Services.CalDAV.Core.get_default ().remove_client (source.id);
+            Services.Deck.Core.get_default ().remove_client (source.id);
+
+            var applied_toast = Util.get_default ().create_toast (
+                new_data != "" ? _("Client certificate updated") : _("Client certificate removed")
+            );
+            Services.EventBus.get_default ().send_toast (applied_toast);
+        })] = apply_button;
+
+        return cert_group;
     }
 
     private void show_inbox_warning_dialog () {

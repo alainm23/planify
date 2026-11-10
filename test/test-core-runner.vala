@@ -32,6 +32,9 @@ int main (string[] args) {
     Planify.Tests.SubitemCache.register_tests ();
     Planify.Tests.ItemReparent.register_tests ();
     Planify.Tests.LabelUnique.register_tests ();
+    Planify.Tests.SourceLifecycle.register_tests ();
+    Planify.Tests.DeleteCompletedTasks.register_tests ();
+    Planify.Tests.SectionCache.register_tests ();
 
     return Test.run ();
 }
