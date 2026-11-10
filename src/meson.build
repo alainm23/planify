@@ -78,6 +78,7 @@ sources = files(
   'Widgets/FilterFlowBoxChild.vala',
   'Widgets/BypassResolveSwitchRow.vala',
   'Widgets/IgnoreSSLSwitchRow.vala',
+  'Widgets/ClientCertificateRow.vala',
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
