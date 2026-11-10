@@ -35,6 +35,7 @@ pkgconfig = import('pkgconfig')
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (application_id), language:'c')
 add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
+add_project_arguments('--vapidir', meson.project_source_root() / 'vapi', language: 'vala')
 
 gio_dep = dependency('gio-2.0')
 glib_dep = dependency('glib-2.0')
