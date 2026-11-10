@@ -632,7 +632,7 @@ msgstr "Đã tải nhiệm vụ cho %s…"
 msgid "Syncing task %d of %d"
 msgstr "Đang đồng bộ hóa nhiệm vụ %d của %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:683
+#: core/Services/CalDAV/CalDAVClient.vala:695
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -640,7 +640,7 @@ msgstr ""
 "Không thể tạo dự án qua CalDAV trên máy chủ này. Vui lòng tạo trực tiếp tại "
 "trang web của nhà cung cấp lịch."
 
-#: core/Services/CalDAV/CalDAVClient.vala:738
+#: core/Services/CalDAV/CalDAVClient.vala:750
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -648,7 +648,7 @@ msgstr ""
 "Không thể xóa dự án qua CalDAV trên máy chủ này. Vui lòng xóa trực tiếp tại "
 "trang web của nhà cung cấp lịch."
 
-#: core/Services/CalDAV/CalDAVClient.vala:742
+#: core/Services/CalDAV/CalDAVClient.vala:754
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -656,8 +656,8 @@ msgstr ""
 "Máy chủ này không hỗ trợ xóa dự án qua CalDAV. Vui lòng xóa trực tiếp trên "
 "máy chủ."
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
-#: core/Services/CalDAV/CalDAVClient.vala:822
+#: core/Services/CalDAV/CalDAVClient.vala:788
+#: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""

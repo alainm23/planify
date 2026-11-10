@@ -586,7 +586,7 @@ msgstr "Taken geladen voor %s…"
 msgid "Syncing task %d of %d"
 msgstr "Taak %d van de %d synchroniseren"
 
-#: core/Services/CalDAV/CalDAVClient.vala:683
+#: core/Services/CalDAV/CalDAVClient.vala:695
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -594,7 +594,7 @@ msgstr ""
 "Deze server staat het aanmaken van projecten via CalDAV niet toe. Om dit te "
 "doen kunt u de website van uw kalender provider gebruiken."
 
-#: core/Services/CalDAV/CalDAVClient.vala:738
+#: core/Services/CalDAV/CalDAVClient.vala:750
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -602,7 +602,7 @@ msgstr ""
 "Deze server staat het verwijderen van projected via CalDAV niet toe. Om dit "
 "te doen kunt u de website van uw kalender provider gebruiken."
 
-#: core/Services/CalDAV/CalDAVClient.vala:742
+#: core/Services/CalDAV/CalDAVClient.vala:754
 #, fuzzy
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
@@ -611,8 +611,8 @@ msgstr ""
 "Deze server ondersteunt het verwijderen van projecten via CalDAV niet. "
 "Verwijder het project van de server handmatig."
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
-#: core/Services/CalDAV/CalDAVClient.vala:822
+#: core/Services/CalDAV/CalDAVClient.vala:788
+#: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
