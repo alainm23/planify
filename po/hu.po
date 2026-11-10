@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2025-12-14 10:04+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-10-18 16:51+0000\n"
+"Last-Translator: Sziráki Tibor <szikar@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hu/>\n"
 "Language: hu\n"
@@ -12,37 +12,37 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
-msgstr ""
+msgstr "Projektek"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
 msgid "Sections"
-msgstr ""
+msgstr "Szakaszok"
 
 #: core/Enum.vala:174 core/Enum.vala:183
 msgid "Tasks"
-msgstr ""
+msgstr "Feladatok"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1265
 msgid "Labels"
-msgstr ""
+msgstr "Címkék"
 
 #: core/Enum.vala:180 src/Dialogs/Preferences/Pages/HomeView.vala:35
 msgid "Filters"
-msgstr ""
+msgstr "Szűrők"
 
 #: core/Enum.vala:186
 msgid "Lists"
-msgstr ""
+msgstr "Listák"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
