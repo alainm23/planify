@@ -321,23 +321,23 @@ msgstr "không có nhãn"
 msgid "unlabeled"
 msgstr "chưa có nhãn"
 
-#: core/Objects/Item.vala:1658 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Thời gian tới hạn:"
 
-#: core/Objects/Item.vala:1683
+#: core/Objects/Item.vala:1763
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
-#: core/Objects/Item.vala:1700
+#: core/Objects/Item.vala:1780
 msgid "iCalendar Files"
 msgstr "Tệp iCalendar"
 
-#: core/Objects/Item.vala:1716
+#: core/Objects/Item.vala:1796
 msgid "Task exported successfully"
 msgstr "Xuất nhiệm vụ thành công"
 
-#: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"

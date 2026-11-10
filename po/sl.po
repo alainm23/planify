@@ -340,23 +340,23 @@ msgstr "brez oznake"
 msgid "unlabeled"
 msgstr "neoznačeno"
 
-#: core/Objects/Item.vala:1658 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Skrajni rok:"
 
-#: core/Objects/Item.vala:1683
+#: core/Objects/Item.vala:1763
 msgid "Task copied to clipboard"
 msgstr "Naloga je bila kopirana v odložišče"
 
-#: core/Objects/Item.vala:1700
+#: core/Objects/Item.vala:1780
 msgid "iCalendar Files"
 msgstr "Datoteke iCalendar"
 
-#: core/Objects/Item.vala:1716
+#: core/Objects/Item.vala:1796
 msgid "Task exported successfully"
 msgstr "Naloga je bila uspešno izvožena"
 
-#: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Premaknjeno v %s"
