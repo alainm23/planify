@@ -327,23 +327,23 @@ msgstr "nenhuma etiqueta"
 msgid "unlabeled"
 msgstr "sem etiqueta"
 
-#: core/Objects/Item.vala:1658 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tempo limite:"
 
-#: core/Objects/Item.vala:1683
+#: core/Objects/Item.vala:1763
 msgid "Task copied to clipboard"
 msgstr "A tarefa foi copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1700
+#: core/Objects/Item.vala:1780
 msgid "iCalendar Files"
 msgstr "Ficheiros iCalendar"
 
-#: core/Objects/Item.vala:1716
+#: core/Objects/Item.vala:1796
 msgid "Task exported successfully"
 msgstr "Tarefa exportada com sucesso"
 
-#: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "A tarefa foi movida para %s"

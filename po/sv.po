@@ -327,23 +327,23 @@ msgstr "ingen etikett"
 msgid "unlabeled"
 msgstr "omärkt"
 
-#: core/Objects/Item.vala:1658 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1683
+#: core/Objects/Item.vala:1763
 msgid "Task copied to clipboard"
 msgstr "Uppgift kopierad till anslagstavla"
 
-#: core/Objects/Item.vala:1700
+#: core/Objects/Item.vala:1780
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1716
+#: core/Objects/Item.vala:1796
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Uppgift flyttad till %s"
