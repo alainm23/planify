@@ -32,6 +32,8 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
         );
     }
 
+    private Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
+
     construct {
         css_classes = { "no-selectable", "no-padding" };
 
@@ -64,15 +66,15 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
                 }
             });
 
-            source.sync_started.connect (() => {
+            signal_map[source.sync_started.connect (() => {
                 sync_button.sync_started ();
-            });
+            })] = source;
 
-            source.sync_finished.connect (() => {
+            signal_map[source.sync_finished.connect (() => {
                 sync_button.sync_finished ();
-            });
+            })] = source;
 
-            source.sync_failed.connect ((status) => {
+            signal_map[source.sync_failed.connect ((status) => {
                 if (status != null) {
                     sync_button.sync_failed ("<b>%s</b>\n%s".printf (status.title, status.description));
                 } else if (source.source_type == SourceType.TODOIST && source.needs_migration ()) {
@@ -83,7 +85,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
                 } else {
                     sync_button.sync_failed ();
                 }
-            });
+            })] = source;
         }
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
@@ -109,33 +111,33 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
         add_all_projects ();
         update_projects_sort ();
 
-        source.updated.connect (() => {
+        signal_map[source.updated.connect (() => {
             group.header_title = source.display_name;
             main_revealer.reveal_child = source.is_visible;
-        });
+        })] = source;
 
         add_button.clicked.connect (() => {
             prepare_new_project (source.id);
         });
 
-        Services.Store.instance ().project_added.connect (add_row_project);
-        Services.Store.instance ().project_updated.connect (update_projects_sort);
-        Services.Store.instance ().project_unarchived.connect (add_row_project);
+        signal_map[Services.Store.instance ().project_added.connect (add_row_project)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().project_updated.connect (update_projects_sort)] = Services.Store.instance ();
+        signal_map[Services.Store.instance ().project_unarchived.connect (add_row_project)] = Services.Store.instance ();
 
-        Services.Store.instance ().project_deleted.connect ((project) => {
+        signal_map[Services.Store.instance ().project_deleted.connect ((project) => {
             if (projects_hashmap.has_key (project.id)) {
                 projects_hashmap.unset (project.id);
             }
-        });
+        })] = Services.Store.instance ();
 
-        Services.Store.instance ().project_archived.connect ((project) => {
+        signal_map[Services.Store.instance ().project_archived.connect ((project) => {
             if (projects_hashmap.has_key (project.id)) {
                 projects_hashmap.unset (project.id);
             }
-        });
+        })] = Services.Store.instance ();
 
 
-        Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
+        signal_map[Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
             if (old_parent_id == "") {
                 if (projects_hashmap.has_key (project.id)) {
                     projects_hashmap[project.id].hide_destroy ();
@@ -146,9 +148,9 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
             if (project.parent_id == "") {
                 add_row_project (project);
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
+        signal_map[Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
             var row = (Layouts.ProjectRow) _row;
 
             if (old_parent_id == "") {
@@ -164,25 +166,26 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
                     }
                 }
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Settings.get_default ().settings.changed["projects-sort-by"].connect (update_projects_sort);
-        Services.Settings.get_default ().settings.changed["projects-ordered"].connect (update_projects_sort);
+        signal_map[Services.Settings.get_default ().settings.changed["projects-sort-by"].connect (update_projects_sort)] = Services.Settings.get_default ().settings;
+        signal_map[Services.Settings.get_default ().settings.changed["projects-ordered"].connect (update_projects_sort)] = Services.Settings.get_default ().settings;
 
-        Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
+        signal_map[Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
             if (source_id == source.id) {
                 group.drop_target_end_revealer.reveal_child = true;
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
+        signal_map[Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
             if (source_id == source.id) {
                 group.drop_target_end_revealer.reveal_child = false;
             }
-        });
+        })] = Services.EventBus.get_default ();
     }
 
     public void hide_destroy () {
+        clean_up ();
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
@@ -287,4 +290,17 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
             row_index++;
         } while (project_row != null);
     }
+    public void clean_up () {
+        foreach (var row in projects_hashmap.values) {
+            row.clean_up ();
+        }
+        projects_hashmap.clear ();
+        foreach (var entry in signal_map.entries) {
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
+        }
+        signal_map.clear ();
+    }
+
 }

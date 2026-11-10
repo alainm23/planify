@@ -54,14 +54,28 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
         return server_url;
     }
 
-    public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable, bool ignore_ssl = false) {
+    public async HttpResponse start_login_flow (string server_url, GLib.Cancellable cancellable, bool ignore_ssl = false, string client_cert_data = "", string client_cert_format = "", string client_cert_password = "") {
         Services.LogService.get_default ().info ("Nextcloud", "Starting login flow");
         HttpResponse response = new HttpResponse ();
+
+        GLib.TlsCertificate? client_cert = null;
+        try {
+            client_cert = Objects.SourceCalDAVData.build_client_certificate (client_cert_data, client_cert_format, client_cert_password);
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("Nextcloud", "Failed to load client certificate: %s".printf (e.message));
+            response.error_code = 495;
+            response.error = _("Failed to load client certificate: %s").printf (e.message);
+            return response;
+        }
 
         string login_url = "%s/index.php/login/v2".printf (validate_server_url (server_url));
 
         var message = new Soup.Message ("POST", login_url);
         message.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);         // The User Agent is used by Nextcloud for the App Name
+
+        if (client_cert != null) {
+            message.set_tls_client_certificate (client_cert);
+        }
 
         if (ignore_ssl) {
             message.accept_certificate.connect (() => {
@@ -95,6 +109,10 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                 poll_msg.request_headers.append ("User-Agent", Constants.SOUP_USER_AGENT);
                 poll_msg.set_request_body_from_bytes ("application/json", new Bytes ("""{ "token": "%s" }""".printf (poll_token).data));
 
+                if (client_cert != null) {
+                    poll_msg.set_tls_client_certificate (client_cert);
+                }
+
                 try {
                     GLib.Bytes poll_response = yield session.send_and_read_async (poll_msg, GLib.Priority.HIGH, cancellable);
 
@@ -115,13 +133,13 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
                             var login_name = poll_object.get_string_member ("loginName");
                             var app_password = poll_object.get_string_member ("appPassword");
 
-                            var dav_endpoint = yield Core.get_default ().resolve_well_known_caldav (session, server);
+                            var dav_endpoint = yield Core.get_default ().resolve_well_known_caldav (session, server, ignore_ssl, client_cert);
                             Services.LogService.get_default ().info ("Nextcloud", "Resolved well-known CalDAV endpoint");
 
-                            var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable, ignore_ssl);
+                            var calendar_home = yield Core.get_default ().resolve_calendar_home (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, cancellable, ignore_ssl, client_cert);
                             Services.LogService.get_default ().info ("Nextcloud", "Resolved calendar home");
-                            
-                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable, ignore_ssl);
+
+                            var login_response = yield Core.get_default ().login (CalDAVType.NEXTCLOUD, dav_endpoint, login_name, app_password, calendar_home, cancellable, ignore_ssl, client_cert_data, client_cert_format, client_cert_password);
 
                             return login_response;
                         }
