@@ -319,6 +319,7 @@ msgstr "майбутні"
 #: src/Views/Project/Project.vala:786 src/Views/Project/Project.vala:603
 #: src/Views/Project/Project.vala:796
 #: core/Widgets/Calendar/CalendarScroll.vala:58
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 msgid "Today"
 msgstr "Сьогодні"
 
@@ -333,6 +334,7 @@ msgstr "сьогодні"
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 #: src/Layouts/ItemRow.vala:1254
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 msgid "Tomorrow"
 msgstr "Завтра"
 
@@ -503,7 +505,7 @@ msgstr "%s і всі його завдання буде переміщено в 
 #: core/Objects/Project.vala:974 core/Objects/Project.vala:978
 #: src/Layouts/SectionBoard.vala:629 src/Layouts/SectionRow.vala:716
 #: core/Objects/Project.vala:983 core/Objects/Section.vala:482
-#: core/Objects/Project.vala:986
+#: core/Objects/Project.vala:986 src/Layouts/ProjectRow.vala:707
 msgid "Archive"
 msgstr "Архівувати"
 
@@ -794,7 +796,7 @@ msgstr "Недійсний токен API"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1289,6 +1291,8 @@ msgstr "%OB"
 #: src/Layouts/HeaderBar.vala:88
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:728
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:763
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 msgid "Back"
 msgstr "Назад"
 
@@ -1403,6 +1407,9 @@ msgstr "Субота"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 msgid "Time"
 msgstr "Час"
 
@@ -1414,6 +1421,8 @@ msgstr "Час"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:858
 #: src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 msgid "until"
 msgstr "до"
 
@@ -1425,6 +1434,8 @@ msgstr "до"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "for"
 msgstr "до"
 
@@ -1436,6 +1447,8 @@ msgstr "до"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "times"
 msgstr "раз(ів)"
 
@@ -1447,6 +1460,8 @@ msgstr "раз(ів)"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "time"
 msgstr "раз"
 
@@ -1455,65 +1470,78 @@ msgstr "раз"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:106
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 msgid "Repeat"
 msgstr "Повторювати"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 msgid "Type a date…"
 msgstr "Дата…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 msgid "Next week"
 msgstr "Наступний тиждень"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:544
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 msgid "Save"
 msgstr "Зберегти"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:580
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "Щодня"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:584
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "Будні"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:588
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "Вихідні"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:592
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "Щотижня"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:596
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "Щомісяця"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:600
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "Щороку"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:604
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "Власне"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:884
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 msgid "No date"
 msgstr "Без дати"
 
@@ -3342,11 +3370,13 @@ msgid "Progress"
 msgstr "Прогрес"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Новий проєкт"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:703
 msgid "Edit Project"
 msgstr "Редагувати проєкт"
 
@@ -3476,6 +3506,7 @@ msgstr "Редагувати"
 #: src/Layouts/SectionRow.vala:703 src/Layouts/ProjectRow.vala:710
 #: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemRow.vala:1404
 #: src/Layouts/SectionBoard.vala:626 src/Layouts/SectionRow.vala:713
+#: src/Layouts/ProjectRow.vala:704
 msgid "Duplicate"
 msgstr "Дублювати"
 
@@ -3583,47 +3614,56 @@ msgid "Delete Label"
 msgstr "Видалити мітку"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Сортування проєктів змінено на сортування «Вручну»"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Remove From Favorites"
 msgstr "Видалити з обраного"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Add to Favorites"
 msgstr "Додати до обраного"
 
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "Обновить"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
+#: src/Layouts/ProjectRow.vala:708
 msgid "Delete Project"
 msgstr "Видалити проєкт"
 
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "Поділитися"
 
 #: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "Надіслати електронною поштою"
 
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr "Експортувати як PDF"
 
 #: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr "Проект експортовано у форматі PDF"
 
 #: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
 #: src/Layouts/ProjectRow.vala:796 core/QuickAddCore.vala:1077
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 src/Layouts/ProjectRow.vala:790
 msgid "Open"
 msgstr "Відкрити"
 
@@ -3671,43 +3711,47 @@ msgstr "Видалити розділ"
 msgid "No more tasks"
 msgstr "Більше немає завдань"
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:40 src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "Обране"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:42 src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "В обраному нічого немає. Створіть, натиснувши кнопку «+»"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:122 src/Layouts/Sidebar.vala:124
 msgid "Add Account"
 msgstr "Додати обліковий запис"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Layouts/Sidebar.vala:125
 msgid "Customize Sidebar"
 msgstr "Налаштувати бічну панель"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Перейти до Сьогодні"
 
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Перейти до запланованих"
 
 #: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Перейти до міток"
 
 #: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Перейти до закріпленого"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:43 src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Немає жодного проєкту. Створіть новий, натиснувши кнопку «+»"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr "Потрібна міграція облікового запису"
 

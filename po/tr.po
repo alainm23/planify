@@ -319,6 +319,7 @@ msgstr "yaklaşan"
 #: src/Views/Project/Project.vala:786 src/Views/Project/Project.vala:603
 #: src/Views/Project/Project.vala:796
 #: core/Widgets/Calendar/CalendarScroll.vala:58
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 msgid "Today"
 msgstr "Bugün"
 
@@ -333,6 +334,7 @@ msgstr "bugün"
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 #: src/Layouts/ItemRow.vala:1254
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 msgid "Tomorrow"
 msgstr "Yarın"
 
@@ -507,6 +509,7 @@ msgstr "Bu, %s ve onun tüm görevlerini arşivleyecektir."
 #: core/Objects/Project.vala:978 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 core/Objects/Project.vala:983
 #: core/Objects/Section.vala:482 core/Objects/Project.vala:986
+#: src/Layouts/ProjectRow.vala:707
 msgid "Archive"
 msgstr "Arşivle"
 
@@ -793,7 +796,7 @@ msgstr "Geçersiz API tokeni"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1291,6 +1294,8 @@ msgstr "%OB"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:762
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:728
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:763
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 msgid "Back"
 msgstr "Yedekler"
 
@@ -1413,6 +1418,9 @@ msgstr "Cumartesi"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 msgid "Time"
 msgstr "Zaman"
 
@@ -1426,6 +1434,8 @@ msgstr "Zaman"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:858
 #: src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 msgid "until"
 msgstr "şu zamana kadar"
 
@@ -1438,6 +1448,8 @@ msgstr "şu zamana kadar"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "for"
 msgstr "için"
 
@@ -1450,6 +1462,8 @@ msgstr "için"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "times"
 msgstr "kere"
 
@@ -1463,6 +1477,8 @@ msgstr "kere"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "time"
 msgstr "zaman"
 
@@ -1472,72 +1488,85 @@ msgstr "zaman"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:106
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 msgid "Repeat"
 msgstr "Yinele"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 msgid "Type a date…"
 msgstr "Bir tarih girin…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 msgid "Next week"
 msgstr "Sonraki hafta"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:543
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 msgid "Save"
 msgstr "Kaydet"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:579
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:580
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "Günlük"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:584
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "Haftanın günleri"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:588
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "Hafta sonları"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:592
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "Haftalık"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:596
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "Aylık"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:600
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "Yıllık"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:604
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "Özel"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:883
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 msgid "No date"
 msgstr "Tarih yok"
 
@@ -3375,11 +3404,13 @@ msgid "Progress"
 msgstr "İlerleme"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Yeni Proje"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:703
 msgid "Edit Project"
 msgstr "Projeyi Düzenle"
 
@@ -3507,7 +3538,7 @@ msgstr "Düzenle"
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemRow.vala:1404 src/Layouts/SectionBoard.vala:626
-#: src/Layouts/SectionRow.vala:713
+#: src/Layouts/SectionRow.vala:713 src/Layouts/ProjectRow.vala:704
 msgid "Duplicate"
 msgstr "Çoğalt"
 
@@ -3612,16 +3643,19 @@ msgid "Delete Label"
 msgstr "Etiketi sil"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Proje sırası, 'Özel Sıralama Düzeni' olarak değiştirildi"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Remove From Favorites"
 msgstr "Gözdelerden Kaldır"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Add to Favorites"
 msgstr "Gözdelere Ekle"
 
@@ -3631,22 +3665,27 @@ msgstr "Yenile"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
+#: src/Layouts/ProjectRow.vala:708
 msgid "Delete Project"
 msgstr "Projeyi Sil"
 
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "Paylaş"
 
 #: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "E-posta İle Gönder"
 
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr ""
 
 #: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr ""
 
@@ -3688,11 +3727,11 @@ msgstr "Bölümü Sil"
 msgid "No more tasks"
 msgstr "Başka görev yok, aferin"
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:40 src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "Favoriler"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:42 src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr ""
 "Favori bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
@@ -3706,26 +3745,30 @@ msgid "Customize Sidebar"
 msgstr "Kenar Çubuğunu Özelleştir"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Bugün'e git"
 
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Zamanlanmış"
 
 #: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Etiketler"
 
 #: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Pano"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:43 src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Proje bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsiniz"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr ""
 
@@ -4179,7 +4222,7 @@ msgstr "Görev Ekle"
 
 #: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
 #: src/Layouts/ProjectRow.vala:796 core/QuickAddCore.vala:1077
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 src/Layouts/ProjectRow.vala:790
 msgid "Open"
 msgstr ""
 

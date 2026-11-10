@@ -328,6 +328,7 @@ msgstr "akan datang"
 #: src/Views/Project/Project.vala:786 src/Views/Project/Project.vala:603
 #: src/Views/Project/Project.vala:796
 #: core/Widgets/Calendar/CalendarScroll.vala:58
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 msgid "Today"
 msgstr "Hari ini"
 
@@ -343,6 +344,7 @@ msgstr "hari ini"
 #: src/Dialogs/DatePicker.vala:210 src/Layouts/ItemRow.vala:1251
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 #: src/Layouts/ItemRow.vala:1254
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 msgid "Tomorrow"
 msgstr "Besok"
 
@@ -527,7 +529,7 @@ msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
 #: core/Objects/Project.vala:974 core/Objects/Project.vala:978
 #: src/Layouts/SectionBoard.vala:629 src/Layouts/SectionRow.vala:716
 #: core/Objects/Project.vala:983 core/Objects/Section.vala:482
-#: core/Objects/Project.vala:986
+#: core/Objects/Project.vala:986 src/Layouts/ProjectRow.vala:707
 msgid "Archive"
 msgstr "Arsipkan"
 
@@ -846,7 +848,7 @@ msgstr "Token API tidak valid"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1342,6 +1344,8 @@ msgstr "%OB"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:762
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:728
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:763
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 msgid "Back"
 msgstr "Kembali"
 
@@ -1464,6 +1468,9 @@ msgstr "Sabtu"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 msgid "Time"
 msgstr "Waktu"
 
@@ -1478,6 +1485,8 @@ msgstr "Waktu"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:858
 #: src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 msgid "until"
 msgstr "sampai"
 
@@ -1492,6 +1501,8 @@ msgstr "sampai"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "for"
 msgstr "selama"
 
@@ -1506,6 +1517,8 @@ msgstr "selama"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "times"
 msgstr "kali"
 
@@ -1520,6 +1533,8 @@ msgstr "kali"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:861
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "time"
 msgstr "kali"
 
@@ -1529,18 +1544,22 @@ msgstr "kali"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:106
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 msgid "Repeat"
 msgstr "Ulangi"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:161
 #: src/Dialogs/DatePicker.vala:68
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 msgid "Type a date…"
 msgstr "Ketik tanggal…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:400
 #: core/Widgets/DeadlineButton.vala:219
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 msgid "Next week"
 msgstr "Minggu depan"
 
@@ -1549,6 +1568,7 @@ msgstr "Minggu depan"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:544
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 msgid "Save"
 msgstr "Simpan"
 
@@ -1556,18 +1576,21 @@ msgstr "Simpan"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:102
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:580
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "Harian"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:584
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "Hari kerja"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:588
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "Akhir pekan"
 
@@ -1575,24 +1598,28 @@ msgstr "Akhir pekan"
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:118
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:592
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "Mingguan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:596
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "Bulanan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:600
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "Tahunan"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:604
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "Kustom"
 
@@ -1600,6 +1627,7 @@ msgstr "Kustom"
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:884
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 msgid "No date"
 msgstr "Tanpa tanggal"
 
@@ -3440,11 +3468,13 @@ msgid "Progress"
 msgstr "Progres"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Proyek Baru"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:703
 msgid "Edit Project"
 msgstr "Sunting Proyek"
 
@@ -3584,6 +3614,7 @@ msgstr "Sunting"
 #: src/Layouts/SectionRow.vala:703 src/Layouts/ProjectRow.vala:710
 #: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemRow.vala:1404
 #: src/Layouts/SectionBoard.vala:626 src/Layouts/SectionRow.vala:713
+#: src/Layouts/ProjectRow.vala:704
 msgid "Duplicate"
 msgstr "Duplikasi"
 
@@ -3694,41 +3725,50 @@ msgid "Delete Label"
 msgstr "Hapus Label"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Pengurutan proyek diubah menjadi 'Urutan pengurutan kustom'"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Remove From Favorites"
 msgstr "Hapus dari Favorit"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Add to Favorites"
 msgstr "Tambahkan ke Favorit"
 
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "Muat ulang"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
+#: src/Layouts/ProjectRow.vala:708
 msgid "Delete Project"
 msgstr "Hapus Proyek"
 
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "Bagikan"
 
 #: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "Kirim melalui E-mail"
 
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr "Ekspor sebagai PDF"
 
 #: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr "Proyek berhasil diekspor sebagai PDF"
 
@@ -3777,43 +3817,47 @@ msgstr "Tampilkan Tugas yang Selesai"
 msgid "Delete Section"
 msgstr "Hapus Bagian"
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:40 src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "Favorit"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:42 src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Tidak ada favorit yang tersedia. Buat satu dengan mengeklik tombol '+'"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:122 src/Layouts/Sidebar.vala:124
 msgid "Add Account"
 msgstr "Tambahkan Akun"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Layouts/Sidebar.vala:125
 msgid "Customize Sidebar"
 msgstr "Sesuaikan Bilah Samping"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Pergi ke Hari Ini"
 
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Pergi ke Terjadwal"
 
 #: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Pergi ke Label"
 
 #: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Pergi ke Papan Sematan"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:43 src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Tidak ada proyek yang tersedia. Buat satu dengan mengeklik tombol '+'"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr "Migrasi Akun Diperlukan"
 
@@ -4269,7 +4313,7 @@ msgstr "Lampiran"
 
 #: src/Widgets/Attachments.vala:142 src/Layouts/ProjectRow.vala:787
 #: src/Layouts/ProjectRow.vala:796 core/QuickAddCore.vala:1077
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 src/Layouts/ProjectRow.vala:790
 msgid "Open"
 msgstr "Buka"
 

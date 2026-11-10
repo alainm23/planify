@@ -301,6 +301,7 @@ msgstr "sắp tới"
 #: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:620
 #: src/Views/Project/Project.vala:786 src/Views/Project/Project.vala:603
 #: src/Views/Project/Project.vala:796
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 msgid "Today"
 msgstr "Hôm Nay"
 
@@ -314,6 +315,7 @@ msgstr "hôm nay"
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1251
 #: src/Layouts/ItemRow.vala:1254
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 msgid "Tomorrow"
 msgstr "Ngày Mai"
 
@@ -465,6 +467,7 @@ msgstr "Điều này sẽ lưu trữ %s và tất cả nhiệm vụ của nó."
 #: core/Objects/Project.vala:978 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 core/Objects/Project.vala:983
 #: core/Objects/Section.vala:482 core/Objects/Project.vala:986
+#: src/Layouts/ProjectRow.vala:707
 msgid "Archive"
 msgstr "Lưu Trữ"
 
@@ -734,7 +737,7 @@ msgstr ""
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1206,6 +1209,8 @@ msgstr "%OB"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:728
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:763
 #: src/Layouts/HeaderBar.vala:88
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 msgid "Back"
 msgstr "Quay Lại"
 
@@ -1316,6 +1321,9 @@ msgstr "Thứ Bảy"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 msgid "Time"
 msgstr "Thời gian"
 
@@ -1325,6 +1333,8 @@ msgstr "Thời gian"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1190
 #: src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 msgid "until"
 msgstr "cho đến"
 
@@ -1334,6 +1344,8 @@ msgstr "cho đến"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "for"
 msgstr "trong"
 
@@ -1343,6 +1355,8 @@ msgstr "trong"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "times"
 msgstr "lần"
 
@@ -1352,60 +1366,75 @@ msgstr "lần"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1193
 #: src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "time"
 msgstr "lần"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:106
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:199
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 msgid "Repeat"
 msgstr "Lặp lại"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 #: src/Dialogs/DatePicker.vala:68
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 msgid "Type a date…"
 msgstr "Nhập ngày…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 #: core/Widgets/DeadlineButton.vala:219
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 msgid "Next week"
 msgstr "Tuần sau"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 msgid "Save"
 msgstr "Lưu"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "Hàng Ngày"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "Ngày thường"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "Cuối tuần"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "Hàng tuần"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "Hàng Tháng"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "Hàng năm"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "Tùy Chỉnh"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 #: src/Widgets/ItemChangeHistoryRow.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 msgid "No date"
 msgstr "Không có ngày"
 
@@ -3166,11 +3195,13 @@ msgid "Progress"
 msgstr ""
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Dự Án Mới"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
+#: src/Layouts/ProjectRow.vala:703
 msgid "Edit Project"
 msgstr "Chỉnh Sửa Dự Án"
 
@@ -3295,7 +3326,7 @@ msgstr "Chỉnh Sửa"
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemRow.vala:1404 src/Layouts/SectionBoard.vala:626
-#: src/Layouts/SectionRow.vala:713
+#: src/Layouts/SectionRow.vala:713 src/Layouts/ProjectRow.vala:704
 msgid "Duplicate"
 msgstr "Tạo Bản Sao"
 
@@ -3401,47 +3432,56 @@ msgid "Delete Label"
 msgstr "Xóa Nhãn"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Sắp xếp dự án đã thay đổi thành 'Thứ tự sắp xếp tùy chỉnh'"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Remove From Favorites"
 msgstr "Xóa Khỏi Mục Ưa Thích"
 
 #: src/Layouts/ProjectRow.vala:693 src/Layouts/ProjectRow.vala:699
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Add to Favorites"
 msgstr "Thêm Vào Mục Ưa Thích"
 
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "Làm Mới"
 
 #: src/Layouts/ProjectRow.vala:705 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:714
+#: src/Layouts/ProjectRow.vala:708
 msgid "Delete Project"
 msgstr "Xóa Dự Án"
 
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "Chia Sẻ"
 
 #: src/Layouts/ProjectRow.vala:709 src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "Gửi qua Email"
 
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr ""
 
 #: src/Layouts/ProjectRow.vala:785 src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr ""
 
 #: src/Layouts/ProjectRow.vala:787 src/Widgets/Attachments.vala:142
 #: src/Layouts/ProjectRow.vala:796 core/QuickAddCore.vala:1077
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 src/Layouts/ProjectRow.vala:790
 msgid "Open"
 msgstr "Mở"
 
@@ -3485,43 +3525,47 @@ msgstr "Xóa Phần"
 msgid "No more tasks"
 msgstr ""
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:40 src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "Mục Ưa Thích"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:42 src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Không có mục ưa thích nào. Tạo một mục bằng cách nhấp vào nút '+'"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:122 src/Layouts/Sidebar.vala:124
 msgid "Add Account"
 msgstr "Thêm Tài Khoản"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Layouts/Sidebar.vala:125
 msgid "Customize Sidebar"
 msgstr "Tùy Chỉnh Thanh Bên"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "Đi đến Hôm Nay"
 
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "Đi đến Đã Lên Lịch"
 
 #: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "Đi đến Nhãn"
 
 #: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "Đi đến Bảng Ghim"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:43 src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Không có dự án nào. Tạo một dự án bằng cách nhấp vào nút '+'"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr "Yêu cầu di chuyển tài khoản"
 

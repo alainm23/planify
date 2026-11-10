@@ -295,6 +295,7 @@ msgstr "近期"
 #: src/Layouts/ItemSortFilter.vala:82 src/Layouts/ItemSortFilter.vala:264
 #: src/Views/Project/Project.vala:620 src/Views/Project/Project.vala:786
 #: src/Views/Project/Project.vala:603 src/Views/Project/Project.vala:796
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 msgid "Today"
 msgstr "今天"
 
@@ -307,6 +308,7 @@ msgstr "今天"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:395
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1254
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 msgid "Tomorrow"
 msgstr "明天"
 
@@ -451,6 +453,7 @@ msgstr "将会归档%s及其所有任务。"
 #: core/Objects/Project.vala:978 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 core/Objects/Project.vala:983
 #: core/Objects/Section.vala:482 core/Objects/Project.vala:986
+#: src/Layouts/ProjectRow.vala:707
 msgid "Archive"
 msgstr "归档"
 
@@ -544,7 +547,7 @@ msgid "No attachments found. Add files here."
 msgstr "未找到附件。在此处添加文件。"
 
 #: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 src/Layouts/ProjectRow.vala:790
 msgid "Open"
 msgstr "打开"
 
@@ -725,7 +728,7 @@ msgstr "无效的 API 令牌"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1178,6 +1181,8 @@ msgstr "%OB"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:728
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:763
 #: src/Layouts/HeaderBar.vala:88
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 msgid "Back"
 msgstr "返回"
 
@@ -1288,6 +1293,9 @@ msgstr "星期六"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:197
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:527
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 msgid "Time"
 msgstr "时间"
 
@@ -1296,6 +1304,8 @@ msgstr "时间"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1193
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 msgid "until"
 msgstr "直到"
 
@@ -1304,6 +1314,8 @@ msgstr "直到"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "for"
 msgstr "持续"
 
@@ -1312,6 +1324,8 @@ msgstr "持续"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "times"
 msgstr "次"
 
@@ -1320,60 +1334,75 @@ msgstr "次"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 msgid "time"
 msgstr "次"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:106
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:199
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 msgid "Repeat"
 msgstr "重复"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:162
 #: src/Dialogs/DatePicker.vala:68
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 msgid "Type a date…"
 msgstr "输入日期…"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 #: core/Widgets/DeadlineButton.vala:219
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 msgid "Next week"
 msgstr "下周"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:545
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 msgid "Save"
 msgstr "保存"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "每天"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "工作日"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "周末"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "每周"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "每月"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "每年"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "自定义"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:885
 #: src/Widgets/ItemChangeHistoryRow.vala:281
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 msgid "No date"
 msgstr "无日期"
 
@@ -3084,11 +3113,12 @@ msgid "Progress"
 msgstr "进度"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "新建项目"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
-#: src/Views/Project/Project.vala:387
+#: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:703
 msgid "Edit Project"
 msgstr "编辑项目"
 
@@ -3207,6 +3237,7 @@ msgstr "编辑"
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 #: src/Layouts/SectionBoard.vala:626 src/Layouts/SectionRow.vala:713
+#: src/Layouts/ProjectRow.vala:704
 msgid "Duplicate"
 msgstr "复制"
 
@@ -3301,39 +3332,42 @@ msgid "Delete Label"
 msgstr "删除标签"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "项目排序已更改为'自定义排序'"
 
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Remove From Favorites"
 msgstr "从收藏中移除"
 
 #: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696
 msgid "Add to Favorites"
 msgstr "添加到收藏"
 
-#: src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:711 src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "刷新"
 
 #: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:400
-#: src/Widgets/ProjectItemRow.vala:154
+#: src/Widgets/ProjectItemRow.vala:154 src/Layouts/ProjectRow.vala:708
 msgid "Delete Project"
 msgstr "删除项目"
 
-#: src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:717 src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "分享"
 
-#: src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:718 src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "通过电子邮件发送"
 
-#: src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:719 src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr "导出为 PDF"
 
-#: src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:794 src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr "项目已导出为 PDF"
 
@@ -3377,43 +3411,47 @@ msgstr "删除分区"
 msgid "No more tasks"
 msgstr "没有更多任务"
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:40 src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "收藏"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:42 src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "暂无收藏。点击'+'按钮来创建一个。"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:122 src/Layouts/Sidebar.vala:124
 msgid "Add Account"
 msgstr "添加账户"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Layouts/Sidebar.vala:125
 msgid "Customize Sidebar"
 msgstr "自定义侧边栏"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "转到今天"
 
 #: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "转到计划"
 
 #: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "转到标签"
 
 #: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "转到置顶板"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:43 src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "暂无项目。点击'+'按钮来创建一个。"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr "需要迁移账户"
 

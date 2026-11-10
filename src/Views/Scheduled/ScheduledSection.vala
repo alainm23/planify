@@ -83,7 +83,7 @@ public abstract class Views.Scheduled.ScheduledSection : Gtk.ListBoxRow {
 
         signal_map[Services.Settings.get_default ().settings.changed["scheduled-sort-order"].connect (() => {
             listbox.invalidate_sort ();
-        })] = Services.Settings.get_default ();
+        })] = Services.Settings.get_default ().settings;
     }
 
 #if WITH_EVOLUTION
