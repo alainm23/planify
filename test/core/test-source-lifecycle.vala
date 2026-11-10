@@ -69,7 +69,10 @@ namespace Planify.Tests.SourceLifecycle {
         var source = new Objects.Source ();
         source.id = SOURCE_ID;
         source.source_type = SourceType.CALDAV;
-        source.data = new Objects.SourceCalDAVData ();
+        // insert_source () serializes the data, and server_url has no default value.
+        var caldav_data = new Objects.SourceCalDAVData ();
+        caldav_data.server_url = "https://example.invalid/";
+        source.data = caldav_data;
         source.display_name = SOURCE_ID;
         store.insert_source (source);
 
