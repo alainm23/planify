@@ -37,6 +37,7 @@ int main (string[] args) {
     Planify.Tests.SourceLifecycle.register_tests ();
     Planify.Tests.DeleteCompletedTasks.register_tests ();
     Planify.Tests.SectionCache.register_tests ();
+    Planify.Tests.CalDAVRoundtrip.register_tests ();
 
     return Test.run ();
 }
