@@ -33,7 +33,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _section_id; }
         set {
             _section_id = value;
-            _section = null;
+            _section.set (null);
         }
     }
 
@@ -42,7 +42,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _project_id; }
         set {
             _project_id = value;
-            _project = null;
+            _project.set (null);
         }
     }
 
@@ -51,7 +51,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _parent_id; }
         set {
             _parent_id = value;
-            _parent = null;
+            _parent.set (null);
         }
     }
     public string extra_data { get; set; default = ""; }
@@ -313,33 +313,40 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    Objects.Item ? _parent;
+    // The Store owns related models; a back-reference must not retain their child caches.
+    GLib.WeakRef _parent = GLib.WeakRef (null);
     public Objects.Item parent {
-        get {
-            if (_parent == null && _parent_id != null && _parent_id != "") {
-                _parent = Services.Store.instance ().get_item (_parent_id);
+        owned get {
+            var related = (Objects.Item) _parent.get ();
+            if (related == null && _parent_id != null && _parent_id != "") {
+                related = Services.Store.instance ().get_item (_parent_id);
+                _parent.set (related);
             }
-            return _parent;
+            return related;
         }
     }
 
-    Objects.Project ? _project;
+    GLib.WeakRef _project = GLib.WeakRef (null);
     public Objects.Project project {
-        get {
-            if (_project == null && _project_id != null && _project_id != "") {
-                _project = Services.Store.instance ().get_project (_project_id);
+        owned get {
+            var related = (Objects.Project) _project.get ();
+            if (related == null && _project_id != null && _project_id != "") {
+                related = Services.Store.instance ().get_project (_project_id);
+                _project.set (related);
             }
-            return _project;
+            return related;
         }
     }
 
-    Objects.Section ? _section;
+    GLib.WeakRef _section = GLib.WeakRef (null);
     public Objects.Section section {
-        get {
-            if (_section == null && _section_id != null && _section_id != "") {
-                _section = Services.Store.instance ().get_section (_section_id);
+        owned get {
+            var related = (Objects.Section) _section.get ();
+            if (related == null && _section_id != null && _section_id != "") {
+                related = Services.Store.instance ().get_section (_section_id);
+                _section.set (related);
             }
-            return _section;
+            return related;
         }
     }
 
@@ -362,6 +369,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public void invalidate_subitems () {
         _items_loaded = false;
+        _items = null;
         _items_uncomplete = null;
     }
 
@@ -564,8 +572,9 @@ public class Objects.Item : Objects.BaseObject {
             priority = Constants.PRIORITY_4;
         }
 
-        if (!ical.get_due ().is_null_time ()) {
-            due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
+        var due_time = get_caldav_due_time (ical, ical_vtodo);
+        if (due_time != null && !due_time.is_null_time ()) {
+            due.date = Utils.Datetime.ical_to_date_time_local (due_time).to_string ();
         } else if (is_update) {
             due.reset ();
         }
@@ -842,11 +851,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_section (Objects.Section section) {
-        _section = section;
+        _section.set (section);
     }
 
     public void set_parent (Objects.Item item) {
-        _parent = item;
+        _parent.set (item);
     }
 
     /**
@@ -875,7 +884,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_project (Objects.Project project) {
-        _project = project;
+        _project.set (project);
     }
 
     public override string get_add_json (string temp_id, string uuid) {
@@ -1395,6 +1404,16 @@ public class Objects.Item : Objects.BaseObject {
 
     public string to_vtodo () {
         ICal.Component ical = new ICal.Component.vtodo ();
+        ICal.Component ? original_calendar = calendar_data != "" ? ICal.Parser.parse_string (calendar_data) : null;
+        ICal.Component ? original = original_calendar != null ?
+            original_calendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT) : null;
+
+        if (original != null) {
+            var start = original.get_first_property (ICal.PropertyKind.DTSTART_PROPERTY);
+            if (start != null) {
+                ical.add_property (start.clone ());
+            }
+        }
 
         ical.set_uid (id);
         ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
@@ -1419,13 +1438,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (has_due) {
-            ICal.Time new_icaltime = Utils.Datetime.datetimes_to_icaltime (
-                due.datetime,
-                Utils.Datetime.has_time (due.datetime) ? due.datetime : null,
-                null
-            );
-
-            ical.set_due (new_icaltime);
+            ical.add_property (build_caldav_due_property (original_calendar, original));
 
             if (due.is_recurring) {
                 var rrule = new ICal.Recurrence ();
@@ -1571,13 +1584,23 @@ public class Objects.Item : Objects.BaseObject {
         ical.add_property (child_order_property);
 
         var vtodo_string = ical.as_ical_string ();
-        var valarms = build_valarm_strings ();
+        var valarms = build_valarm_strings (original);
         if (valarms != "") {
             vtodo_string = vtodo_string.replace ("END:VTODO", valarms + "END:VTODO");
         }
 
-        var result = "%s%s%s".printf (
+        var timezones = new StringBuilder ();
+        if (original_calendar != null) {
+            var timezone = original_calendar.get_first_component (ICal.ComponentKind.VTIMEZONE_COMPONENT);
+            while (timezone != null) {
+                timezones.append (timezone.as_ical_string ());
+                timezone = original_calendar.get_next_component (ICal.ComponentKind.VTIMEZONE_COMPONENT);
+            }
+        }
+
+        var result = "%s%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
+            timezones.str,
             vtodo_string,
             "END:VCALENDAR\n"
         );
@@ -1585,8 +1608,73 @@ public class Objects.Item : Objects.BaseObject {
         return result;
     }
 
-    private string build_valarm_strings () {
+    private static ICal.Time ? get_caldav_due_time (ICal.Component calendar, ICal.Component vtodo) {
+        var property = vtodo.get_first_property (ICal.PropertyKind.DUE_PROPERTY);
+        if (property == null) {
+            return null;
+        }
+
+        var time = property.get_due ();
+        var tzid = property.get_first_parameter (ICal.ParameterKind.TZID_PARAMETER);
+        if (tzid != null && !time.is_date ()) {
+            var zone = calendar.get_timezone (tzid.get_tzid ()) ??
+                ICal.Timezone.get_builtin_timezone (tzid.get_tzid ());
+            if (zone != null) {
+                time.set_timezone (zone);
+            }
+        }
+        return time;
+    }
+
+    private ICal.Property build_caldav_due_property (ICal.Component ? calendar, ICal.Component ? original) {
+        var date = due.datetime;
+        bool has_time = Utils.Datetime.has_time (date);
+        var time = Utils.Datetime.datetimes_to_icaltime (date, has_time ? date : null, null);
+        if (original != null) {
+            var original_time = get_caldav_due_time (calendar, original);
+            if (original_time != null && !original_time.is_null_time ()) {
+                var property = original.get_first_property (ICal.PropertyKind.DUE_PROPERTY);
+                if (Utils.Datetime.ical_to_date_time_local (original_time).compare (date) == 0) {
+                    return property.clone ();
+                }
+
+                var zone = original_time.get_timezone ();
+                if (has_time && zone != null) {
+                    #if IS_LIBICAL4
+                    time = new ICal.Time.from_timet_with_zone ((time_t) date.to_unix (), false, zone);
+                    #else
+                    time = new ICal.Time.from_timet_with_zone ((time_t) date.to_unix (), 0, zone);
+                    #endif
+                    var tzid = property.get_first_parameter (ICal.ParameterKind.TZID_PARAMETER);
+                    if (tzid != null) {
+                        // TZID values contain local wall time, without a UTC suffix.
+                        time.set_timezone (null);
+                    }
+                    var result = new ICal.Property.due (time);
+                    if (tzid != null) {
+                        result.add_parameter (tzid.clone ());
+                    }
+                    return result;
+                }
+            }
+        }
+        return new ICal.Property.due (time);
+    }
+
+    private string build_valarm_strings (ICal.Component ? original) {
         var sb = new StringBuilder ();
+        if (original != null) {
+            var alarm = original.get_first_component (ICal.ComponentKind.VALARM_COMPONENT);
+            while (alarm != null) {
+                var trigger = alarm.get_first_property (ICal.PropertyKind.TRIGGER_PROPERTY);
+                var value = trigger != null ? trigger.get_first_parameter (ICal.ParameterKind.VALUE_PARAMETER) : null;
+                // Relative alarms are not represented by the local reminder model.
+                if (value == null || value.get_value () != ICal.ParameterValue.DATETIME) {
+                    sb.append (alarm.as_ical_string ());
+                }
+                alarm = original.get_next_component (ICal.ComponentKind.VALARM_COMPONENT);
+            }
+        }
         foreach (var reminder in reminders) {
             var dt = reminder.datetime;
             if (dt == null) continue;

@@ -22,9 +22,11 @@
 public class Widgets.Calendar.CalendarScroll : Adw.Bin {
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.Box content_box;
+    private Gtk.Revealer today_button_revealer;
     private Gee.ArrayList<MonthSection> month_sections;
-    private int loaded_months = 0;
-    private int loaded_past_months = 0;
+    private const int MAX_MONTHS = 12;
+    private GLib.DateTime first_month;
+    private uint scroll_idle_id = 0;
 
     private GLib.DateTime _date;
     public GLib.DateTime ? date {
@@ -62,7 +64,7 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
         today_button.add_css_class ("pill");
         today_button.add_css_class ("suggested-action");
 
-        var today_button_revealer = new Gtk.Revealer () {
+        today_button_revealer = new Gtk.Revealer () {
             child = today_button,
             transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
             reveal_child = false,
@@ -78,69 +80,107 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
 
         load_initial_months ();
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
-            if (scrolled_window.vadjustment.value + scrolled_window.vadjustment.page_size >= scrolled_window.vadjustment.upper - 100) {
-                load_more_months ();
+        scrolled_window.edge_reached.connect ((edge) => {
+            if (scroll_idle_id == 0 && (edge == Gtk.PositionType.TOP || edge == Gtk.PositionType.BOTTOM)) {
+                load_more_months (edge == Gtk.PositionType.TOP);
             }
+        });
 
-            // Show today button when not viewing current month
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            int today_index = month_index (new GLib.DateTime.now_local ());
             double current_month_y = 0;
-            for (int i = 0; i < loaded_past_months; i++) {
+            for (int i = 0; i < int.min (int.max (today_index, 0), month_sections.size); i++) {
                 current_month_y += month_sections[i].get_allocated_height () + 12;
             }
-            double threshold = month_sections[loaded_past_months].get_allocated_height ();
-            bool away_from_today = scrolled_window.vadjustment.value < current_month_y - threshold ||
-                                   scrolled_window.vadjustment.value > current_month_y + threshold;
+            bool away_from_today = today_index < 0 || today_index >= month_sections.size;
+            if (!away_from_today) {
+                double threshold = month_sections[today_index].get_allocated_height ();
+                away_from_today = scrolled_window.vadjustment.value < current_month_y - threshold ||
+                                  scrolled_window.vadjustment.value > current_month_y + threshold;
+            }
             today_button_revealer.reveal_child = away_from_today;
         });
 
         today_button.clicked.connect (() => {
-            scroll_to_month_index (loaded_past_months);
+            scroll_to_date (new GLib.DateTime.now_local ());
         });
+    }
+
+    private int month_index (GLib.DateTime target) {
+        return (target.get_year () - first_month.get_year ()) * 12 +
+               target.get_month () - first_month.get_month ();
     }
 
     private void load_initial_months () {
-        var today = new GLib.DateTime.now_local ();
+        rebuild_months (new GLib.DateTime.now_local ());
+        scroll_to_date (new GLib.DateTime.now_local ());
+    }
 
-        for (int i = 3; i >= 1; i--) {
-            add_month_section (today.add_months (-i));
+    private void rebuild_months (GLib.DateTime target) {
+        foreach (var section in month_sections) {
+            content_box.remove (section);
         }
-        loaded_past_months = 3;
-
-        add_month_section (today);
-
-        for (int i = 1; i <= 2; i++) {
-            add_month_section (today.add_months (i));
+        month_sections.clear ();
+        first_month = new GLib.DateTime.local (target.get_year (), target.get_month (), 1, 0, 0, 0);
+        first_month = first_month.add_months (-3);
+        for (int i = 0; i < 6; i++) {
+            add_month_section (first_month.add_months (i));
         }
-        loaded_months = 3;
+        update_selection ();
+    }
 
-        Idle.add (() => {
-            scroll_to_month_index (loaded_past_months);
-            return false;
+    private void load_more_months (bool past) {
+        double offset = scrolled_window.vadjustment.value;
+        if (past) {
+            for (int i = 0; i < 2; i++) {
+                first_month = first_month.add_months (-1);
+                var section = create_month_section (first_month);
+                content_box.prepend (section);
+                month_sections.insert (0, section);
+            }
+            while (month_sections.size > MAX_MONTHS) {
+                var section = month_sections[month_sections.size - 1];
+                content_box.remove (section);
+                month_sections.remove (section);
+            }
+        } else {
+            for (int i = 0; i < 2; i++) {
+                add_month_section (first_month.add_months (month_sections.size));
+            }
+            while (month_sections.size > MAX_MONTHS) {
+                var section = month_sections[0];
+                offset -= section.get_allocated_height () + 12;
+                content_box.remove (section);
+                month_sections.remove (section);
+                first_month = first_month.add_months (1);
+            }
+        }
+        update_selection ();
+        if (scroll_idle_id != 0) {
+            GLib.Source.remove (scroll_idle_id);
+        }
+        scroll_idle_id = Idle.add (() => {
+            scroll_idle_id = 0;
+            if (past) {
+                offset += month_sections[0].get_allocated_height () + month_sections[1].get_allocated_height () + 24;
+            }
+            scrolled_window.vadjustment.value = double.max (0, offset);
+            return Source.REMOVE;
         });
     }
 
-    private const int MAX_FUTURE_MONTHS = 24;
-
-    private void load_more_months () {
-        if (loaded_months >= MAX_FUTURE_MONTHS) {
-            return;
-        }
-        var today = new GLib.DateTime.now_local ();
-        for (int i = 0; i < 2; i++) {
-            if (loaded_months >= MAX_FUTURE_MONTHS) break;
-            add_month_section (today.add_months (loaded_months));
-            loaded_months++;
-        }
-    }
-
-    private void add_month_section (GLib.DateTime month_date) {
+    private MonthSection create_month_section (GLib.DateTime month_date) {
         var section = new MonthSection (month_date);
         section.day_selected.connect ((date) => {
             _date = date;
             update_selection ();
             day_selected ();
         });
+        return section;
+    }
+
+    private void add_month_section (GLib.DateTime month_date) {
+        var section = create_month_section (month_date);
         content_box.append (section);
         month_sections.add (section);
     }
@@ -152,28 +192,9 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
     }
 
     private void ensure_month_loaded (GLib.DateTime target_date) {
-        var today = new GLib.DateTime.now_local ();
-        int months_diff = (target_date.get_year () - today.get_year ()) * 12 +
-                         (target_date.get_month () - today.get_month ());
-
-        if (months_diff < 0) {
-            while (loaded_past_months < -months_diff) {
-                loaded_past_months++;
-                var section = new MonthSection (today.add_months (-loaded_past_months));
-                section.day_selected.connect ((date) => {
-                    _date = date;
-                    update_selection ();
-                    day_selected ();
-                });
-                content_box.prepend (section);
-                month_sections.insert (0, section);
-            }
-            return;
-        }
-
-        while (loaded_months <= months_diff) {
-            add_month_section (today.add_months (loaded_months));
-            loaded_months++;
+        int index = month_index (target_date);
+        if (index < 0 || index >= month_sections.size) {
+            rebuild_months (target_date);
         }
     }
 
@@ -189,14 +210,23 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
     }
 
     private void scroll_to_date (GLib.DateTime target_date) {
-        var today = new GLib.DateTime.now_local ();
-        int months_diff = (target_date.get_year () - today.get_year ()) * 12 +
-                         (target_date.get_month () - today.get_month ());
-        int index = loaded_past_months + months_diff;
-        Idle.add (() => {
-            scroll_to_month_index (index);
-            return false;
+        ensure_month_loaded (target_date);
+        if (scroll_idle_id != 0) {
+            GLib.Source.remove (scroll_idle_id);
+        }
+        scroll_idle_id = Idle.add (() => {
+            scroll_idle_id = 0;
+            scroll_to_month_index (month_index (target_date));
+            return Source.REMOVE;
         });
+    }
+
+    public override void dispose () {
+        if (scroll_idle_id != 0) {
+            GLib.Source.remove (scroll_idle_id);
+            scroll_idle_id = 0;
+        }
+        base.dispose ();
     }
 
     private void update_selection () {
@@ -214,7 +244,7 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
         if (_date != null) {
             scroll_to_date (_date);
         } else {
-            scroll_to_month_index (loaded_past_months);
+            scroll_to_date (new GLib.DateTime.now_local ());
         }
     }
 
@@ -302,8 +332,8 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
                 bool is_past = day_datetime.compare (today_date) < 0;
 
                 var day_item = new DayItem (day, day_datetime, is_today, is_past);
-                day_item.clicked.connect (() => {
-                    day_selected (day_item.date);
+                day_item.clicked.connect ((date) => {
+                    day_selected (date);
                 });
 
                 days_grid.attach (day_item, col, row, 1, 1);
@@ -332,7 +362,7 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
 
         private Gtk.Button button;
 
-        public signal void clicked ();
+        public signal void clicked (GLib.DateTime date);
 
         public DayItem (int day, GLib.DateTime date, bool is_today, bool is_past) {
             Object (
@@ -361,7 +391,7 @@ public class Widgets.Calendar.CalendarScroll : Adw.Bin {
             child = button;
 
             button.clicked.connect (() => {
-                clicked ();
+                clicked (date);
             });
         }
 
