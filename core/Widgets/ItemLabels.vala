@@ -55,6 +55,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     private Adw.WrapBox box_layout;
     private Gtk.Revealer main_revealer;
 
+    private Gee.HashMap<string, ulong> label_clicked_ids = new Gee.HashMap<string, ulong> ();
     private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
@@ -106,7 +107,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     public void add_item_label (Objects.Label label) {
         if (!item_labels_map.has_key (label.id)) {
             item_labels_map[label.id] = new Widgets.ItemLabelChild (label);
-            item_labels_map[label.id].clicked.connect (() => {
+            label_clicked_ids[label.id] = item_labels_map[label.id].clicked.connect (() => {
                 label_clicked (label);
             });
             box_layout.append (item_labels_map[label.id]);
@@ -117,6 +118,7 @@ public class Widgets.ItemLabels : Adw.Bin {
 
     public void remove_item_label (Objects.Label label) {
         if (item_labels_map.has_key (label.id)) {
+            disconnect_label (label.id);
             item_labels_map[label.id].hide_destroy ();
             item_labels_map.unset (label.id);
         }
@@ -130,18 +132,24 @@ public class Widgets.ItemLabels : Adw.Bin {
     }
 
     public void reset () {
-        foreach (Widgets.ItemLabelChild item_label_row in item_labels_map.values) {
-            box_layout.remove (item_label_row);
+        foreach (var entry in item_labels_map.entries) {
+            disconnect_label (entry.key);
+            box_layout.remove (entry.value);
         }
 
         item_labels_map.clear ();
     }
 
+    private void disconnect_label (string id) {
+        if (label_clicked_ids.has_key (id)) {
+            item_labels_map[id].disconnect (label_clicked_ids[id]);
+            label_clicked_ids.unset (id);
+        }
+        item_labels_map[id].clean_up ();
+    }
+
     public void clean_up () {
         disconnect_signals ();
-
-        foreach (Widgets.ItemLabelChild item_label_row in item_labels_map.values) {
-            item_label_row.clean_up ();
-        }
+        reset ();
     }
 }
