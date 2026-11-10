@@ -393,6 +393,34 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
     public bool use_deck { get; set; default = false; }
     public string deck_last_sync { get; set; default = ""; }
 
+    public string client_cert_data { get; set; default = ""; }
+    public string client_cert_format { get; set; default = ""; }
+    public string client_cert_password { get; set; default = ""; }
+
+    public bool has_client_cert {
+        get {
+            return client_cert_data != "";
+        }
+    }
+
+    public GLib.TlsCertificate? load_client_certificate () throws GLib.Error {
+        return build_client_certificate (client_cert_data, client_cert_format, client_cert_password);
+    }
+
+    public static GLib.TlsCertificate? build_client_certificate (string data_b64, string format, string password) throws GLib.Error {
+        if (data_b64 == "") {
+            return null;
+        }
+
+        uint8[] raw = Base64.decode (data_b64);
+
+        if (format == "pkcs12") {
+            return new GLib.TlsCertificate.from_pkcs12 (raw, password == "" ? null : password);
+        }
+
+        return new GLib.TlsCertificate.from_pem ((string) raw, raw.length);
+    }
+
     public string deck_base_url {
         owned get {
             try {
@@ -451,6 +479,18 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
                 deck_last_sync = object.get_string_member ("deck_last_sync");
             }
 
+            if (object.has_member ("client_cert_data")) {
+                client_cert_data = object.get_string_member ("client_cert_data");
+            }
+
+            if (object.has_member ("client_cert_format")) {
+                client_cert_format = object.get_string_member ("client_cert_format");
+            }
+
+            if (object.has_member ("client_cert_password")) {
+                client_cert_password = object.get_string_member ("client_cert_password");
+            }
+
             if (object.has_member ("credentials")) {
                 var decoded = (string) Base64.decode (object.get_string_member ("credentials"));
 
@@ -498,6 +538,15 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("deck_last_sync");
         builder.add_string_value (deck_last_sync);
+
+        builder.set_member_name ("client_cert_data");
+        builder.add_string_value (client_cert_data);
+
+        builder.set_member_name ("client_cert_format");
+        builder.add_string_value (client_cert_format);
+
+        builder.set_member_name ("client_cert_password");
+        builder.add_string_value (client_cert_password);
 
         builder.end_object ();
 
