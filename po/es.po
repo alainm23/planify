@@ -1756,7 +1756,7 @@ msgstr "Por hacer"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr "Completar"
 
@@ -3673,17 +3673,17 @@ msgstr "Reiniciar ahora"
 msgid "Planify Backup Files"
 msgstr "Archivos de copia de seguridad de Planify"
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:142
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Posponer la alarma durante 10 minutos"
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:144
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Posponer la alarma durante 30 minutos"
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:146
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Posponer la alarma durante 1 hora"

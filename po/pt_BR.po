@@ -1745,7 +1745,7 @@ msgstr "Pendência"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr "Completar"
 
@@ -3681,17 +3681,17 @@ msgstr "Reiniciar agora"
 msgid "Planify Backup Files"
 msgstr "Planeje Arquivos de Backup"
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:142
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Em 30 minutos"
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:144
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Em 30 minutos"
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:146
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Em 1 hora"

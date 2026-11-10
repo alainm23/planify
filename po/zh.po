@@ -1672,7 +1672,7 @@ msgstr "待办"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr "完成"
 
@@ -3528,15 +3528,15 @@ msgstr "立即重启"
 msgid "Planify Backup Files"
 msgstr "Planify 备份文件"
 
-#: src/Services/Notification.vala:100
+#: src/Services/Notification.vala:142
 msgid "10m Snooze"
 msgstr "推迟 10 分钟"
 
-#: src/Services/Notification.vala:102
+#: src/Services/Notification.vala:144
 msgid "30m Snooze"
 msgstr "推迟 30 分钟"
 
-#: src/Services/Notification.vala:104
+#: src/Services/Notification.vala:146
 msgid "1h Snooze"
 msgstr "推迟 1 小时"
 
