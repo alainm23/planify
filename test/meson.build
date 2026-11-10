@@ -75,3 +75,4 @@ test_calendar_memory = executable(
 test('calendar-memory', test_calendar_memory, timeout: 30, suite: ['widgets'], depends: test_schemas,
     env: ['GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
           'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
+

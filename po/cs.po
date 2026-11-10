@@ -32,7 +32,7 @@ msgstr "Úkoly"
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
-#: src/Layouts/ItemRow.vala:1265
+#: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1266
 msgid "Labels"
 msgstr "Značky"
 
@@ -155,6 +155,7 @@ msgstr "Obsah"
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Layouts/ItemRow.vala:2098
 msgid "Description"
 msgstr "Popis"
 
@@ -165,6 +166,7 @@ msgstr "Naplánované"
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1244 src/Layouts/ItemRow.vala:1259
+#: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 msgid "Pin"
 msgstr "Připnout"
 
@@ -306,6 +308,7 @@ msgstr "nadcházející"
 #: src/Views/Project/Project.vala:620 src/Views/Project/Project.vala:786
 #: src/Views/Project/Project.vala:603 src/Views/Project/Project.vala:796
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:391
+#: src/Layouts/ItemRow.vala:1252
 msgid "Today"
 msgstr "Dnes"
 
@@ -319,6 +322,7 @@ msgstr "dnes"
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1254
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
+#: src/Layouts/ItemRow.vala:1255
 msgid "Tomorrow"
 msgstr "Zítra"
 
@@ -1134,6 +1138,7 @@ msgstr ""
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
 #: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
+#: src/Layouts/ItemRow.vala:1693 src/Layouts/ItemRow.vala:1837
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 "Přesouvání úkolů na nástěnku Nextcloud Deck nebo z ní zatím není podporováno"
@@ -1317,6 +1322,7 @@ msgstr "Čas"
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1193
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
+#: src/Layouts/ItemRow.vala:1194
 msgid "until"
 msgstr "dokud"
 
@@ -1327,6 +1333,7 @@ msgstr "dokud"
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
+#: src/Layouts/ItemRow.vala:1197
 msgid "for"
 msgstr ""
 
@@ -1337,6 +1344,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
+#: src/Layouts/ItemRow.vala:1197
 msgid "times"
 msgstr ""
 
@@ -1347,6 +1355,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
+#: src/Layouts/ItemRow.vala:1197
 msgid "time"
 msgstr "čas"
 
@@ -1475,7 +1484,7 @@ msgstr "Po"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
-#: src/Layouts/ItemRow.vala:1349
+#: src/Layouts/ItemRow.vala:1349 src/Layouts/ItemRow.vala:1350
 msgid "Apply"
 msgstr "Použít"
 
@@ -1636,6 +1645,7 @@ msgid "Press Enter to create and assign it"
 msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
+#: src/Layouts/ItemRow.vala:2108
 msgid "Task description"
 msgstr ""
 
@@ -1761,7 +1771,7 @@ msgstr ""
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1268
-#: src/Services/Notification.vala:98
+#: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1269
 msgid "Complete"
 msgstr ""
 
@@ -1890,7 +1900,7 @@ msgstr ""
 #: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:578
 #: src/Views/Project/Project.vala:749 src/Views/Project/Project.vala:625
 #: src/Views/Project/Project.vala:796 src/Views/Project/Project.vala:608
-#: src/Views/Project/Project.vala:806
+#: src/Views/Project/Project.vala:806 src/Layouts/ItemRow.vala:1262
 msgid "No Date"
 msgstr ""
 
@@ -1903,7 +1913,7 @@ msgid "Next Week"
 msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1412
-#: src/Layouts/ItemSidebarView.vala:523
+#: src/Layouts/ItemSidebarView.vala:523 src/Layouts/ItemRow.vala:1424
 msgid "Change History"
 msgstr ""
 
@@ -3189,6 +3199,7 @@ msgstr ""
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1264
 #: src/Layouts/ItemRow.vala:1405 src/Layouts/ItemSidebarView.vala:517
+#: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1417
 msgid "Move"
 msgstr ""
 
@@ -3237,7 +3248,8 @@ msgstr ""
 
 #: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:806
 #: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1244
-#: src/Layouts/ItemRow.vala:1259
+#: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemRow.vala:1245
+#: src/Layouts/ItemRow.vala:1260
 msgid "Unpin"
 msgstr ""
 
@@ -3247,10 +3259,12 @@ msgid "Completed. Next occurrence: %s"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1267
+#: src/Layouts/ItemRow.vala:1268
 msgid "Add Subtask"
 msgstr "Přidat dílčí úkol"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1269
+#: src/Layouts/ItemRow.vala:1270
 msgid "Edit"
 msgstr ""
 
@@ -3259,78 +3273,89 @@ msgstr ""
 #: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
 #: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
 #: src/Layouts/SectionBoard.vala:626 src/Layouts/SectionRow.vala:713
-#: src/Layouts/ProjectRow.vala:704
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/ItemRow.vala:1271
+#: src/Layouts/ItemRow.vala:1416
 msgid "Duplicate"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1272
 #: src/Layouts/ItemRow.vala:1409 src/Layouts/ItemSidebarView.vala:520
+#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemRow.vala:1421
 msgid "Delete Task"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1932
+#: src/Layouts/ItemRow.vala:1944
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1658
+#: src/Layouts/ItemRow.vala:1670
 #, c-format
 msgid "%s was deleted"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1659
+#: src/Layouts/ItemRow.vala:1671
 msgid "Undo"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:565
+#: src/Layouts/ItemRow.vala:565 src/Layouts/ItemRow.vala:566
 msgid "Add Subtasks"
 msgstr "Přidat dílčí úkoly"
 
-#: src/Layouts/ItemRow.vala:1073
+#: src/Layouts/ItemRow.vala:1073 src/Layouts/ItemRow.vala:1074
 msgid "Hide Sub-tasks"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1073
+#: src/Layouts/ItemRow.vala:1073 src/Layouts/ItemRow.vala:1074
 msgid "Show Sub-tasks"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1257 src/Layouts/ItemRow.vala:1305
+#: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemRow.vala:1306
 msgid "Pick a Date"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1412
 msgid "Use as a Note"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:515
-#: src/Widgets/MultiSelectToolbar.vala:274
+#: src/Widgets/MultiSelectToolbar.vala:274 src/Layouts/ItemRow.vala:1415
 msgid "Copy to Clipboard"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1418
 msgid "Export as .ics"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1414 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1426
 #, c-format
 msgid "Updated: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1428
 #, c-format
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1634
+#: src/Layouts/ItemRow.vala:1634 src/Layouts/ItemRow.vala:1646
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1817
+#: src/Layouts/ItemRow.vala:1817 src/Layouts/ItemRow.vala:1829
 msgid "A task can only become a subtask of a task in the same account"
 msgstr "Úkol se může stát dílčím úkolem pouze úkolu pod stejným účtem"
 
 #: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
+#: src/Layouts/ItemRow.vala:2175
 msgid "Add Attachments"
 msgstr "Přidat přílohy"
 
