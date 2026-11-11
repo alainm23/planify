@@ -356,6 +356,7 @@ public class Services.BackupManager : Object {
     public void patch_backup (Objects.Backup backup) {
         Services.Settings.get_default ().reset_settings ();
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
+        Services.Settings.get_default ().import_preferences (backup.preferences);
 
         // Clear Database
         Services.Database.get_default ().clear_database ();
