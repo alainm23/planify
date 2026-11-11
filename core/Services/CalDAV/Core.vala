@@ -22,6 +22,8 @@
 public class Services.CalDAV.Core : GLib.Object {
 
     private Gee.HashMap<string, Services.CalDAV.CalDAVClient> clients;
+    // Sources with a sync in progress, so a new trigger doesn't start a second one on top.
+    private Gee.HashSet<string> syncing_sources = new Gee.HashSet<string> ();
 
     public signal void sync_progress (int current, int total, string message);
     public signal void deck_detected (Objects.Source source);
@@ -311,6 +313,13 @@ public class Services.CalDAV.Core : GLib.Object {
 
 
     public async void sync (Objects.Source source) {
+        if (source.id in syncing_sources) {
+            Services.LogService.get_default ().info ("CalDAV.Core", "Sync already in progress for '%s', skipping".printf (source.display_name));
+            return;
+        }
+
+        syncing_sources.add (source.id);
+
         Services.LogService.get_default ().info ("CalDAV.Core", "Starting sync");
         var caldav_client = get_client (source);
 
@@ -364,5 +373,7 @@ public class Services.CalDAV.Core : GLib.Object {
                 source.sync_failed ();
             }
         }
+
+        syncing_sources.remove (source.id);
     }
 }
