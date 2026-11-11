@@ -19,11 +19,13 @@ msgstr ""
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
+#: src/Dialogs/Preferences/Pages/Backup.vala:685
 msgid "Projects"
 msgstr "პროექტები"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:515
 #: src/Dialogs/Preferences/Pages/Backup.vala:623
+#: src/Dialogs/Preferences/Pages/Backup.vala:689
 msgid "Sections"
 msgstr "სექციები"
 
@@ -36,6 +38,7 @@ msgstr "ამოცანები"
 #: src/Dialogs/Preferences/Pages/Backup.vala:523 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1262 src/Dialogs/Preferences/Pages/Backup.vala:631
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1266
+#: src/Dialogs/Preferences/Pages/Backup.vala:697
 msgid "Labels"
 msgstr "ჭდეები"
 
@@ -422,7 +425,7 @@ msgstr "%s ჭდის წაშლა"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
-#: core/Objects/Project.vala:907
+#: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
 msgid "This can not be undone"
 msgstr "ეს ქმედება შეუქცევადია"
 
@@ -462,6 +465,8 @@ msgstr "ეს ქმედება შეუქცევადია"
 #: core/Objects/Section.vala:435 core/Objects/Section.vala:481
 #: core/Objects/Project.vala:905 core/Objects/Project.vala:985
 #: core/Objects/Project.vala:910 core/Objects/Project.vala:990
+#: src/Dialogs/Preferences/Pages/Backup.vala:768
+#: src/Services/BackupManager.vala:254
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -486,7 +491,8 @@ msgstr "გაუქმება"
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
 #: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
 #: core/Objects/Section.vala:436 core/Objects/Project.vala:906
-#: core/Objects/Project.vala:911
+#: core/Objects/Project.vala:911 src/Dialogs/Preferences/Pages/Backup.vala:525
+#: src/Services/BackupManager.vala:255
 msgid "Delete"
 msgstr "წაშლა"
 
@@ -616,7 +622,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1449 src/MainWindow.vala:778
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808 src/MainWindow.vala:809
 msgid "Keyboard Shortcuts"
 msgstr "კლავიატურის მალსახმობები"
 
@@ -2160,6 +2166,7 @@ msgstr "ფილტრი"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:783
 #: src/MainWindow.vala:797 src/MainWindow.vala:807 src/MainWindow.vala:813
+#: src/MainWindow.vala:814
 msgid "Archived Projects"
 msgstr "დაარქივებული პროექტები"
 
@@ -2573,11 +2580,13 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Backup.vala:29
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
 #: src/Dialogs/Preferences/Pages/Backup.vala:34
+#: src/Dialogs/Preferences/Pages/Backup.vala:39
 msgid "Backups"
 msgstr "მარქაფები"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:39
 #: src/Dialogs/Preferences/Pages/Backup.vala:44
+#: src/Dialogs/Preferences/Pages/Backup.vala:49
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
@@ -2585,31 +2594,37 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:50
 #: src/Dialogs/Preferences/Pages/Backup.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:60
 msgid "Automatic Daily Backup"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:51
 #: src/Dialogs/Preferences/Pages/Backup.vala:56
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Creates a backup every day at midnight"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:58
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
+#: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Create Backup"
 msgstr "მარქაფის შექმნა"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
 #: src/Dialogs/Preferences/Pages/Backup.vala:74
+#: src/Dialogs/Preferences/Pages/Backup.vala:79
 msgid "Import Backup"
 msgstr "მარქაფის შემოტანა"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:64
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
+#: src/Dialogs/Preferences/Pages/Backup.vala:81
 msgid "Backup Files"
 msgstr "მარქაფის ფაილები"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 #: src/Dialogs/Preferences/Pages/Backup.vala:79
+#: src/Dialogs/Preferences/Pages/Backup.vala:84
 msgid "No backups found, create one clicking the button above."
 msgstr "მარქაფები აღმოჩენილი არაა. შექმენით ახალი ზემოთ ღილაკზე დაწკაპუნებით."
 
@@ -2626,16 +2641,19 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:97
 #: src/Dialogs/Preferences/Pages/Backup.vala:132
+#: src/Dialogs/Preferences/Pages/Backup.vala:137
 msgid "Extra Backup Locations"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:100
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:140
 msgid "No extra locations added yet."
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:112
 #: src/Dialogs/Preferences/Pages/Backup.vala:147
+#: src/Dialogs/Preferences/Pages/Backup.vala:152
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
@@ -2643,36 +2661,43 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:121
 #: src/Dialogs/Preferences/Pages/Backup.vala:156
+#: src/Dialogs/Preferences/Pages/Backup.vala:161
 msgid "Migrate"
 msgstr "მიგრაცია"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:123
 #: src/Dialogs/Preferences/Pages/Backup.vala:158
+#: src/Dialogs/Preferences/Pages/Backup.vala:163
 msgid "Migrate From Planner"
 msgstr "მიგრაცია დამგეგმავიდან"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:163
 #: src/Dialogs/Preferences/Pages/Backup.vala:212
+#: src/Dialogs/Preferences/Pages/Backup.vala:217
 msgid "The Backup was created successfully."
 msgstr "მარქაფი წარმატებით შეიქმნა."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:180
 #: src/Dialogs/Preferences/Pages/Backup.vala:229
+#: src/Dialogs/Preferences/Pages/Backup.vala:234
 msgid "Tasks Migrate Successfully"
 msgstr "ამოცანების მიგრაცია წარმატებით დასრულდა"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:233
+#: src/Dialogs/Preferences/Pages/Backup.vala:238
 msgid "The database file does not exist."
 msgstr "მონაცემთა ბაზის ფაილი არ არსებობს."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:261
 #: src/Dialogs/Preferences/Pages/Backup.vala:369
+#: src/Dialogs/Preferences/Pages/Backup.vala:419
 msgid "Selected file is invalid"
 msgstr "არჩეული ფაილი არასწორია"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:359
 #: src/Dialogs/Preferences/Pages/Backup.vala:467
+#: src/Dialogs/Preferences/Pages/Backup.vala:524
 msgid "Download"
 msgstr "გადმოწერა"
 
@@ -2682,31 +2707,39 @@ msgstr "გადმოწერა"
 #: src/Dialogs/Preferences/Pages/Backup.vala:603
 #: src/Dialogs/Preferences/Pages/Backup.vala:644
 #: src/Dialogs/Preferences/Pages/Backup.vala:703
+#: src/Dialogs/Preferences/Pages/Backup.vala:669
+#: src/Dialogs/Preferences/Pages/Backup.vala:710
+#: src/Dialogs/Preferences/Pages/Backup.vala:769
 msgid "Restore Backup"
 msgstr "მარქაფის აღდგენა"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:450
 #: src/Dialogs/Preferences/Pages/Backup.vala:615
+#: src/Dialogs/Preferences/Pages/Backup.vala:681
 msgid "Sources"
 msgstr "წყაროები"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:519
 #: src/Dialogs/Preferences/Pages/Backup.vala:627
+#: src/Dialogs/Preferences/Pages/Backup.vala:693
 msgid "To-Dos"
 msgstr "გეგმები"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:580
 #: src/Dialogs/Preferences/Pages/Backup.vala:688
+#: src/Dialogs/Preferences/Pages/Backup.vala:754
 msgid "This will replace all your current data"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:589
 #: src/Dialogs/Preferences/Pages/Backup.vala:697
+#: src/Dialogs/Preferences/Pages/Backup.vala:763
 msgid "Restore backup"
 msgstr "მარქაფის აღდგენა"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:590
 #: src/Dialogs/Preferences/Pages/Backup.vala:698
+#: src/Dialogs/Preferences/Pages/Backup.vala:764
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -3078,6 +3111,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:757
 #: src/MainWindow.vala:771 src/MainWindow.vala:781 src/MainWindow.vala:787
+#: src/MainWindow.vala:788
 msgid "Preferences"
 msgstr "მორგება"
 
@@ -3228,7 +3262,7 @@ msgstr[1] ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
 #: src/MainWindow.vala:760 src/MainWindow.vala:774 src/MainWindow.vala:784
-#: src/MainWindow.vala:790
+#: src/MainWindow.vala:790 src/MainWindow.vala:791
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3284,7 +3318,7 @@ msgstr "პროდუქტიულობა"
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
 #: src/MainWindow.vala:859 src/MainWindow.vala:873 src/MainWindow.vala:883
-#: src/MainWindow.vala:889
+#: src/MainWindow.vala:889 src/MainWindow.vala:890
 msgid "See More"
 msgstr "იხილეთ მეტი"
 
@@ -3761,41 +3795,42 @@ msgstr "მთავარი მენიუ"
 msgid "Open Quick Find"
 msgstr "სწრაფი ძებნის გახსნა"
 
-#: src/MainWindow.vala:340 src/MainWindow.vala:342
+#: src/MainWindow.vala:340 src/MainWindow.vala:342 src/MainWindow.vala:343
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:342 src/MainWindow.vala:344
+#: src/MainWindow.vala:342 src/MainWindow.vala:344 src/MainWindow.vala:345
 msgid "Sync Now"
 msgstr ""
 
 #: src/MainWindow.vala:781 src/MainWindow.vala:795 src/MainWindow.vala:805
-#: src/MainWindow.vala:811
+#: src/MainWindow.vala:811 src/MainWindow.vala:812
 msgid "About Planify"
 msgstr "Planify-ის შესახებ"
 
 #: src/MainWindow.vala:856 src/MainWindow.vala:870 src/MainWindow.vala:880
-#: src/MainWindow.vala:886
+#: src/MainWindow.vala:886 src/MainWindow.vala:887
 msgid "Oops! Something happened"
 msgstr "ვაი! რაღაც მოხდა"
 
 #: src/MainWindow.vala:875 src/Widgets/ItemChangeHistoryRow.vala:48
 #: src/MainWindow.vala:889 src/MainWindow.vala:899 src/MainWindow.vala:905
+#: src/MainWindow.vala:906
 msgid "Task completed"
 msgstr "ამოცანა დასრულდა"
 
 #: src/MainWindow.vala:876 src/MainWindow.vala:890 src/MainWindow.vala:900
-#: src/MainWindow.vala:906
+#: src/MainWindow.vala:906 src/MainWindow.vala:907
 msgid "View"
 msgstr "ხედი"
 
 #: src/MainWindow.vala:914 src/MainWindow.vala:928 src/MainWindow.vala:938
-#: src/MainWindow.vala:944
+#: src/MainWindow.vala:944 src/MainWindow.vala:945
 msgid "Database Integrity Check Failed"
 msgstr "მონაცემთა ბაზის მთლიანობის შემოწმება ჩავარდა"
 
 #: src/MainWindow.vala:915 src/MainWindow.vala:929 src/MainWindow.vala:939
-#: src/MainWindow.vala:945
+#: src/MainWindow.vala:945 src/MainWindow.vala:946
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3809,43 +3844,43 @@ msgid ""
 msgstr ""
 
 #: src/MainWindow.vala:917 src/MainWindow.vala:931 src/MainWindow.vala:941
-#: src/MainWindow.vala:947
+#: src/MainWindow.vala:947 src/MainWindow.vala:948
 msgid "Reset Database"
 msgstr "მონაცემთა ბაზის ჩამოყრა"
 
 #: src/Services/BackupManager.vala:153 src/Services/BackupManager.vala:154
-#: src/Services/BackupManager.vala:158
+#: src/Services/BackupManager.vala:158 src/Services/BackupManager.vala:179
 msgid "Automatic backup failed"
 msgstr ""
 
 #: src/Services/BackupManager.vala:199 src/Services/BackupManager.vala:200
-#: src/Services/BackupManager.vala:204
+#: src/Services/BackupManager.vala:204 src/Services/BackupManager.vala:226
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
 #: src/Services/BackupManager.vala:223 src/Services/BackupManager.vala:224
-#: src/Services/BackupManager.vala:228
+#: src/Services/BackupManager.vala:228 src/Services/BackupManager.vala:250
 msgid "Delete Backup"
 msgstr "მარქაფის წაშლა"
 
 #: src/Services/BackupManager.vala:355 src/Services/BackupManager.vala:394
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:422
 msgid "Backup Successfully Imported"
 msgstr "მარქაფის შემოტანა წარმატებულია"
 
 #: src/Services/BackupManager.vala:356 src/Services/BackupManager.vala:395
-#: src/Services/BackupManager.vala:399
+#: src/Services/BackupManager.vala:399 src/Services/BackupManager.vala:423
 msgid "Planify will restart to apply the changes"
 msgstr ""
 
 #: src/Services/BackupManager.vala:359 src/Services/BackupManager.vala:398
-#: src/Services/BackupManager.vala:402
+#: src/Services/BackupManager.vala:402 src/Services/BackupManager.vala:426
 msgid "Restart Now"
 msgstr ""
 
 #: src/Services/BackupManager.vala:373 src/Services/BackupManager.vala:412
-#: src/Services/BackupManager.vala:416
+#: src/Services/BackupManager.vala:416 src/Services/BackupManager.vala:440
 msgid "Planify Backup Files"
 msgstr "Planify-ის მარქაფის ფაილები"
 
@@ -4696,18 +4731,22 @@ msgid "Import"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
+#: src/Dialogs/Preferences/Pages/Backup.vala:66
 msgid "Backups to Keep"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "Older backups are removed automatically. Zero keeps them all"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:88
+#: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Open backup folder"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
+#: src/Dialogs/Preferences/Pages/Backup.vala:98
 msgid "Backup Location"
 msgstr ""
 

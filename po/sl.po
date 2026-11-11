@@ -19,10 +19,12 @@ msgstr ""
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
 #: src/Dialogs/Preferences/Pages/Backup.vala:619
 #: src/Dialogs/Preferences/Pages/General.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:685
 msgid "Projects"
 msgstr "Projekti"
 
 #: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
+#: src/Dialogs/Preferences/Pages/Backup.vala:689
 msgid "Sections"
 msgstr "Razdelki"
 
@@ -34,6 +36,7 @@ msgstr "Naloge"
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1266
+#: src/Dialogs/Preferences/Pages/Backup.vala:697
 msgid "Labels"
 msgstr "Oznake"
 
@@ -394,7 +397,7 @@ msgstr "Izbriši oznako %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
-#: core/Objects/Project.vala:907
+#: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
@@ -427,6 +430,8 @@ msgstr "Tega ni mogoče razveljaviti"
 #: core/Objects/Section.vala:435 core/Objects/Section.vala:481
 #: core/Objects/Project.vala:905 core/Objects/Project.vala:985
 #: core/Objects/Project.vala:910 core/Objects/Project.vala:990
+#: src/Dialogs/Preferences/Pages/Backup.vala:768
+#: src/Services/BackupManager.vala:254
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -446,7 +451,8 @@ msgstr "Prekliči"
 #: core/Objects/Project.vala:904 src/Views/Project/Project.vala:568
 #: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
 #: core/Objects/Section.vala:436 core/Objects/Project.vala:906
-#: core/Objects/Project.vala:911
+#: core/Objects/Project.vala:911 src/Dialogs/Preferences/Pages/Backup.vala:525
+#: src/Services/BackupManager.vala:255
 msgid "Delete"
 msgstr "Izbriši"
 
@@ -564,7 +570,7 @@ msgstr ""
 "ustvariti projekt v programu Planify."
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:808 src/MainWindow.vala:809
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice"
 
@@ -2016,7 +2022,7 @@ msgid "Filter"
 msgstr "Filter"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
-#: src/MainWindow.vala:813
+#: src/MainWindow.vala:813 src/MainWindow.vala:814
 msgid "Archived Projects"
 msgstr "Arhivirani projekti"
 
@@ -2449,10 +2455,12 @@ msgstr "Ni na voljo pri uporabi barv Adwaita"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:34
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
+#: src/Dialogs/Preferences/Pages/Backup.vala:39
 msgid "Backups"
 msgstr "Varnostne kopije"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:44
+#: src/Dialogs/Preferences/Pages/Backup.vala:49
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
@@ -2461,111 +2469,139 @@ msgstr ""
 "projektov, nalog in komentarjev ter jih pozneje uvozite."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:60
 msgid "Automatic Daily Backup"
 msgstr "Samodejno dnevno varnostno kopiranje"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:56
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Creates a backup every day at midnight"
 msgstr "Vsak dan ob polnoči ustvari varnostno kopijo"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
+#: src/Dialogs/Preferences/Pages/Backup.vala:66
 msgid "Backups to Keep"
 msgstr "Število ohranjenih varnostnih kopij"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:62
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "Older backups are removed automatically. Zero keeps them all"
 msgstr ""
 "Starejše varnostne kopije se samodejno odstranijo. Vrednost nič ohrani vse"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:70
+#: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Create Backup"
 msgstr "Ustvari varnostno kopijo"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:74
+#: src/Dialogs/Preferences/Pages/Backup.vala:79
 msgid "Import Backup"
 msgstr "Uvozi varnostno kopijo"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:76
+#: src/Dialogs/Preferences/Pages/Backup.vala:81
 msgid "Backup Files"
 msgstr "Datoteke varnostnih kopij"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:79
+#: src/Dialogs/Preferences/Pages/Backup.vala:84
 msgid "No backups found, create one clicking the button above."
 msgstr "Ni varnostnih kopij. Ustvarite jo s klikom na zgornji gumb."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:88
+#: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Open backup folder"
 msgstr "Odpri mapo varnostnih kopij"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
+#: src/Dialogs/Preferences/Pages/Backup.vala:98
 msgid "Backup Location"
 msgstr "Mesto varnostnih kopij"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:132
+#: src/Dialogs/Preferences/Pages/Backup.vala:137
 msgid "Extra Backup Locations"
 msgstr "Dodatna mesta za varnostne kopije"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:140
 msgid "No extra locations added yet."
 msgstr "Ni še dodanih dodatnih mest."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:147
+#: src/Dialogs/Preferences/Pages/Backup.vala:152
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr "Varnostne kopije bodo po vsakem ustvarjanju shranjene tudi v te mape."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:156
+#: src/Dialogs/Preferences/Pages/Backup.vala:161
 msgid "Migrate"
 msgstr "Preseli"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:158
+#: src/Dialogs/Preferences/Pages/Backup.vala:163
 msgid "Migrate From Planner"
 msgstr "Preseli iz programa Planner"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:212
+#: src/Dialogs/Preferences/Pages/Backup.vala:217
 msgid "The Backup was created successfully."
 msgstr "Varnostna kopija je bila uspešno ustvarjena."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:229
+#: src/Dialogs/Preferences/Pages/Backup.vala:234
 msgid "Tasks Migrate Successfully"
 msgstr "Naloge so bile uspešno preseljene"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:233
+#: src/Dialogs/Preferences/Pages/Backup.vala:238
 msgid "The database file does not exist."
 msgstr "Datoteka podatkovne zbirke ne obstaja."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:369
+#: src/Dialogs/Preferences/Pages/Backup.vala:419
 msgid "Selected file is invalid"
 msgstr "Izbrana datoteka ni veljavna"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:467
+#: src/Dialogs/Preferences/Pages/Backup.vala:524
 msgid "Download"
 msgstr "Prenesi"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:603
 #: src/Dialogs/Preferences/Pages/Backup.vala:644
 #: src/Dialogs/Preferences/Pages/Backup.vala:703
+#: src/Dialogs/Preferences/Pages/Backup.vala:669
+#: src/Dialogs/Preferences/Pages/Backup.vala:710
+#: src/Dialogs/Preferences/Pages/Backup.vala:769
 msgid "Restore Backup"
 msgstr "Obnovi varnostno kopijo"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:615 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681
 msgid "Sources"
 msgstr "Viri"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:627
+#: src/Dialogs/Preferences/Pages/Backup.vala:693
 msgid "To-Dos"
 msgstr "Opravila"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:688
+#: src/Dialogs/Preferences/Pages/Backup.vala:754
 msgid "This will replace all your current data"
 msgstr "S tem boste zamenjali vse trenutne podatke"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:697
+#: src/Dialogs/Preferences/Pages/Backup.vala:763
 msgid "Restore backup"
 msgstr "Obnovi varnostno kopijo"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:698
+#: src/Dialogs/Preferences/Pages/Backup.vala:764
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -2953,7 +2989,7 @@ msgstr ""
 "naloge."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
-#: src/MainWindow.vala:787
+#: src/MainWindow.vala:787 src/MainWindow.vala:788
 msgid "Preferences"
 msgstr "Nastavitve"
 
@@ -3105,7 +3141,7 @@ msgstr[3] "%d nalog"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784 src/MainWindow.vala:790
+#: src/MainWindow.vala:784 src/MainWindow.vala:790 src/MainWindow.vala:791
 msgid "Summary & Productivity"
 msgstr "Povzetek in produktivnost"
 
@@ -3160,7 +3196,7 @@ msgstr "Produktivnost"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883 src/MainWindow.vala:889
+#: src/MainWindow.vala:883 src/MainWindow.vala:889 src/MainWindow.vala:890
 msgid "See More"
 msgstr "Prikaži več"
 
@@ -3718,36 +3754,36 @@ msgstr "Glavni meni"
 msgid "Open Quick Find"
 msgstr "Odpri hitro iskanje"
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:342 src/MainWindow.vala:343
 msgid "Task was modified on another device"
 msgstr "Naloga je bila spremenjena v drugi napravi"
 
-#: src/MainWindow.vala:344
+#: src/MainWindow.vala:344 src/MainWindow.vala:345
 msgid "Sync Now"
 msgstr "Sinhroniziraj zdaj"
 
-#: src/MainWindow.vala:805 src/MainWindow.vala:811
+#: src/MainWindow.vala:805 src/MainWindow.vala:811 src/MainWindow.vala:812
 msgid "About Planify"
 msgstr "O programu Planify"
 
-#: src/MainWindow.vala:880 src/MainWindow.vala:886
+#: src/MainWindow.vala:880 src/MainWindow.vala:886 src/MainWindow.vala:887
 msgid "Oops! Something happened"
 msgstr "Ojoj! Prišlo je do težave"
 
 #: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
-#: src/MainWindow.vala:905
+#: src/MainWindow.vala:905 src/MainWindow.vala:906
 msgid "Task completed"
 msgstr "Naloga je dokončana"
 
-#: src/MainWindow.vala:900 src/MainWindow.vala:906
+#: src/MainWindow.vala:900 src/MainWindow.vala:906 src/MainWindow.vala:907
 msgid "View"
 msgstr "Pogled"
 
-#: src/MainWindow.vala:938 src/MainWindow.vala:944
+#: src/MainWindow.vala:938 src/MainWindow.vala:944 src/MainWindow.vala:945
 msgid "Database Integrity Check Failed"
 msgstr "Preverjanje celovitosti podatkovne zbirke ni uspelo"
 
-#: src/MainWindow.vala:939 src/MainWindow.vala:945
+#: src/MainWindow.vala:939 src/MainWindow.vala:945 src/MainWindow.vala:946
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3769,36 +3805,36 @@ msgstr ""
 "Po ponastavitvi boste lahko obnovili katero koli predhodno ustvarjeno "
 "varnostno kopijo. Hvala za potrpežljivost"
 
-#: src/MainWindow.vala:941 src/MainWindow.vala:947
+#: src/MainWindow.vala:941 src/MainWindow.vala:947 src/MainWindow.vala:948
 msgid "Reset Database"
 msgstr "Ponastavi podatkovno zbirko"
 
-#: src/Services/BackupManager.vala:158
+#: src/Services/BackupManager.vala:158 src/Services/BackupManager.vala:179
 msgid "Automatic backup failed"
 msgstr "Samodejno varnostno kopiranje ni uspelo"
 
-#: src/Services/BackupManager.vala:204
+#: src/Services/BackupManager.vala:204 src/Services/BackupManager.vala:226
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr "Kopiranje varnostne kopije v %s ni uspelo"
 
-#: src/Services/BackupManager.vala:228
+#: src/Services/BackupManager.vala:228 src/Services/BackupManager.vala:250
 msgid "Delete Backup"
 msgstr "Izbriši varnostno kopijo"
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:422
 msgid "Backup Successfully Imported"
 msgstr "Varnostna kopija je uspešno uvožena"
 
-#: src/Services/BackupManager.vala:399
+#: src/Services/BackupManager.vala:399 src/Services/BackupManager.vala:423
 msgid "Planify will restart to apply the changes"
 msgstr "Planify se bo znova zagnal, da uveljavi spremembe"
 
-#: src/Services/BackupManager.vala:402
+#: src/Services/BackupManager.vala:402 src/Services/BackupManager.vala:426
 msgid "Restart Now"
 msgstr "Znova zaženi zdaj"
 
-#: src/Services/BackupManager.vala:416
+#: src/Services/BackupManager.vala:416 src/Services/BackupManager.vala:440
 msgid "Planify Backup Files"
 msgstr "Datoteke varnostnih kopij programa Planify"
 
