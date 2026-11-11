@@ -321,23 +321,23 @@ msgstr "无标签"
 msgid "unlabeled"
 msgstr "尚无标签"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "截止日期："
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "任务已复制到剪贴板"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "iCalendar 文件"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "任务导出成功"
 
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"
@@ -412,6 +412,11 @@ msgstr "将会归档%s及其所有任务。"
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "归档"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 #: core/Objects/Section.vala:431
 #, c-format
@@ -1649,6 +1654,10 @@ msgstr "选择一个未来的时间"
 msgid "You already have a reminder at that time"
 msgstr "届时您已经有一个提醒"
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "设置分区"
@@ -1672,7 +1681,7 @@ msgstr "待办"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "完成"
 
@@ -3528,15 +3537,15 @@ msgstr "立即重启"
 msgid "Planify Backup Files"
 msgstr "Planify 备份文件"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 msgid "10m Snooze"
 msgstr "推迟 10 分钟"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 msgid "30m Snooze"
 msgstr "推迟 30 分钟"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr "推迟 1 小时"
 

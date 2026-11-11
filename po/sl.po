@@ -340,23 +340,23 @@ msgstr "brez oznake"
 msgid "unlabeled"
 msgstr "neoznačeno"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Skrajni rok:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Naloga je bila kopirana v odložišče"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Datoteke iCalendar"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Naloga je bila uspešno izvožena"
 
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Premaknjeno v %s"
@@ -431,6 +431,11 @@ msgstr "S tem boste arhivirali %s in vse pripadajoče naloge."
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Arhiviraj"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 #: core/Objects/Section.vala:431
 #, c-format
@@ -1724,6 +1729,10 @@ msgstr "Izberite čas v prihodnosti"
 msgid "You already have a reminder at that time"
 msgstr "Za ta čas že imate opomnik"
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "Nastavi razdelek"
@@ -1747,7 +1756,7 @@ msgstr "Za opraviti"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Dokončaj"
 
@@ -3667,15 +3676,15 @@ msgstr "Znova zaženi zdaj"
 msgid "Planify Backup Files"
 msgstr "Datoteke varnostnih kopij programa Planify"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 msgid "10m Snooze"
 msgstr "Odloži za 10 minut"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 msgid "30m Snooze"
 msgstr "Odloži za 30 minut"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr "Odloži za 1 uro"
 

@@ -327,23 +327,23 @@ msgstr "kein Label"
 msgid "unlabeled"
 msgstr "nicht gelabelt"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Frist:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Aufgabe in die Zwischenablage kopiert"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "iCalendar-Dateien"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Aufgabe erfolgreich exportiert"
 
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Verschoben nach: %s"
@@ -421,6 +421,11 @@ msgstr "Dies wird %s und alle seine Aufgaben archivieren."
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Archivieren"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 # # c-format
 #: core/Objects/Section.vala:431
@@ -1715,6 +1720,10 @@ msgstr "Wähle einen Zeitpunkt in der Zukunft"
 msgid "You already have a reminder at that time"
 msgstr "Zu diesem Zeitpunkt hast du bereits eine Erinnerung"
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "Abschnitt setzen"
@@ -1738,7 +1747,7 @@ msgstr "Zu tun"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Erledigt"
 
@@ -3671,17 +3680,17 @@ msgstr "Jetzt neustarten"
 msgid "Planify Backup Files"
 msgstr "Planify Sicherungsdateien"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Für 10 Minuten schlummern"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Für 30 Minuten schlummern"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Für 1 Stunde schlummern"
