@@ -59,6 +59,7 @@ public class Services.Store : GLib.Object {
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
+    public signal void reminder_updated (Objects.Reminder reminder);
 
     public signal void attachment_deleted (Objects.Attachment attachment);
 
@@ -1512,6 +1513,19 @@ public class Services.Store : GLib.Object {
             reminders.add (reminder);
             reminder_added (reminder);
             reminder.item.reminder_added (reminder);
+        }
+    }
+
+    public void update_reminder (Objects.Reminder reminder) {
+        if (Services.Database.get_default ().update_reminder (reminder)) {
+            reminder_updated (reminder);
+
+            // Refresh the task in open views (rows and detail view).
+            var item = reminder.item;
+            if (item != null) {
+                item.updated ();
+                item_updated (item, "");
+            }
         }
     }
 

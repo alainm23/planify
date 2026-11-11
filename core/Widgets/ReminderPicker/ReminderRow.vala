@@ -50,7 +50,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     construct {
         add_css_class ("row");
 
-        var reminder_label = new Gtk.Label (reminder.relative_text);
+        var reminder_label = new Gtk.Label (reminder.display_text);
 
         var remove_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
             hexpand = true,
@@ -67,7 +67,16 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             margin_start = 3
         };
 
-        reminder_box.append (new Gtk.Image.from_icon_name ("alarm-symbolic"));
+        var alarm_icon = new Gtk.Image.from_icon_name ("alarm-symbolic");
+
+        // Already fired on a recurring task: it will remind again on the next occurrence.
+        if (reminder.waiting_next_occurrence) {
+            alarm_icon.add_css_class ("dimmed");
+            reminder_label.add_css_class ("dimmed");
+            reminder_box.tooltip_text = _("Will remind you again when the task repeats");
+        }
+
+        reminder_box.append (alarm_icon);
         reminder_box.append (reminder_label);
         reminder_box.append (remove_button);
 

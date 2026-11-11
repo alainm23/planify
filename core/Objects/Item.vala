@@ -704,9 +704,11 @@ public class Objects.Item : Objects.BaseObject {
                         var trigger_time = trigger.get_time ();
                         if (!trigger_time.is_null_time ()) {
                             var dt = Utils.Datetime.ical_to_date_time_local (trigger_time);
-                            if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
-                                server_datetimes.add (dt.to_string ());
+                            // Past alarms still count as present on the server, so a
+                            // fired reminder kept for a recurring task isn't deleted.
+                            server_datetimes.add (dt.to_string ());
 
+                            if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
                                 var reminder = new Objects.Reminder ();
                                 reminder.item_id = id;
                                 reminder.reminder_type = ReminderType.ABSOLUTE;
@@ -1974,8 +1976,12 @@ public class Objects.Item : Objects.BaseObject {
             );
         }
 
+        GLib.DateTime previous_due = due.datetime;
         var next_recurrency = Utils.Datetime.next_recurrency (base_datetime, due);
         due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
+
+        // Before saving, so CalDAV sends the reminders with their new time.
+        shift_absolute_reminders (previous_due, due.datetime);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -2021,6 +2027,27 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return due.datetime;
+    }
+
+    /*
+     * Moves the fixed-time reminders with the task to its next occurrence, keeping
+     * the same distance from the due date. Relative reminders follow the due date
+     * on their own. Todoist keeps reminders on its server, so they are left alone.
+     */
+    private void shift_absolute_reminders (GLib.DateTime previous_due, GLib.DateTime next_due) {
+        if (project.source_type == SourceType.TODOIST) {
+            return;
+        }
+
+        foreach (Objects.Reminder reminder in reminders) {
+            if (reminder.reminder_type != ReminderType.ABSOLUTE || reminder.due.datetime == null) {
+                continue;
+            }
+
+            var offset = reminder.due.datetime.difference (previous_due);
+            reminder.due.date = Utils.Datetime.get_todoist_datetime_format (next_due.add (offset));
+            Services.Store.instance ().update_reminder (reminder);
+        }
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
