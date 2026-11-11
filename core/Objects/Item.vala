@@ -2096,25 +2096,44 @@ public class Objects.Item : Objects.BaseObject {
         bool moved = false;
 
         try {
-            var response = yield caldav_client.move_item (this, project);
+            // Each project is its own calendar: only MOVE the resource when the
+            // project changes. Within the same project the URL stays the same, and
+            // the server rejects a MOVE onto itself.
+            bool same_project = project.id == project_id;
 
-            if (!response.status) {
-                throw new IOError.FAILED (response.error);
-            }
-
-            string old_parent_id = this.parent_id;
-            if (old_parent_id != "") {
-                parent_id = "";
-                response = yield caldav_client.add_item (this, true);
+            if (!same_project) {
+                var response = yield caldav_client.move_item (this, project);
 
                 if (!response.status) {
                     throw new IOError.FAILED (response.error);
                 }
-
-                Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
             }
 
-            yield move_all_subitems_caldav (this, project, caldav_client);
+            // The section and parent are stored as RELATED-TO in the VTODO, so the
+            // server copy has to be updated when either of them changes.
+            string old_parent_id = this.parent_id;
+            string old_section_id = this.section_id;
+            if (old_parent_id != "" || old_section_id != _section_id) {
+                parent_id = "";
+                section_id = _section_id;
+                var response = yield caldav_client.add_item (this, true);
+
+                // _move () below sets the section and notifies the views with the old one.
+                section_id = old_section_id;
+
+                if (!response.status) {
+                    parent_id = old_parent_id;
+                    throw new IOError.FAILED (response.error);
+                }
+
+                if (old_parent_id != "") {
+                    Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
+                }
+            }
+
+            if (!same_project) {
+                yield move_all_subitems_caldav (this, project, caldav_client);
+            }
 
             _move (project.id, _section_id, notify);
             moved = true;
