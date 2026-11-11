@@ -24,6 +24,8 @@ public class Objects.Backup : Object {
     public string date { get; set; default = new GLib.DateTime.now_local ().to_string (); }
 
     public string local_inbox_project_id { get; set; default = ""; }
+    // Empty for backups made before preferences were included.
+    public Gee.HashMap<string, string> preferences { get; set; default = new Gee.HashMap<string, string> (); }
 
     public Gee.ArrayList<Objects.Project> projects { get; set; default = new Gee.ArrayList<Objects.Project> (); }
     public Gee.ArrayList<Objects.Section> sections { get; set; default = new Gee.ArrayList<Objects.Section> (); }
@@ -67,6 +69,17 @@ public class Objects.Backup : Object {
             // Set Settings
             var settings = node.get_object_member ("settings");
             local_inbox_project_id = settings.get_string_member ("local-inbox-project-id");
+
+            preferences.clear ();
+            if (settings.has_member ("preferences")) {
+                var _preferences = settings.get_object_member ("preferences");
+                foreach (unowned string key in _preferences.get_members ()) {
+                    var value = _preferences.get_member (key);
+                    if (value.get_value_type () == typeof (string)) {
+                        preferences[key] = value.get_string ();
+                    }
+                }
+            }
 
             // Sources
             sources.clear ();

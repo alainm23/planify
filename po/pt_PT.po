@@ -3646,19 +3646,19 @@ msgstr "Não foi possível copiar a cópia de segurança para %s"
 msgid "Delete Backup"
 msgstr "Eliminar cópia de segurança"
 
-#: src/Services/BackupManager.vala:422
+#: src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "Cópia de segurança importada com sucesso"
 
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "O Planify vai reiniciar para aplicar as alterações feitas"
 
-#: src/Services/BackupManager.vala:426
+#: src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "Reiniciar agora"
 
-#: src/Services/BackupManager.vala:440
+#: src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Ficheiros da cópia de segurança do Planify"
 

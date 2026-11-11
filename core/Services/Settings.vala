@@ -45,6 +45,63 @@ public class Services.Settings : GLib.Object {
         }
     }
 
+    // Keys that are not carried in backups: they describe this machine or
+    // app state rather than user preferences. local-inbox-project-id is
+    // stored separately in the backup.
+    private const string[] BACKUP_EXCLUDED_KEYS = {
+        "local-inbox-project-id",
+        "window-maximized",
+        "window-height",
+        "window-width",
+        "pane-position",
+        "mobile-mode",
+        "run-on-startup",
+        "quick-add-project-selected",
+        "quick-add-section-selected",
+        "dismissed-update-version",
+        "calendar-sources-disabled",
+        "backup-extra-folders",
+        "backup-last-date"
+    };
+
+    private bool is_backup_key (string key) {
+        return !(key in BACKUP_EXCLUDED_KEYS);
+    }
+
+    // Write the user preferences as "key": "<GVariant text>" members.
+    public void export_preferences (Json.Builder builder) {
+        builder.begin_object ();
+        foreach (string key in settings_schema.list_keys ()) {
+            if (!is_backup_key (key)) {
+                continue;
+            }
+
+            builder.set_member_name (key);
+            builder.add_string_value (settings.get_value (key).print (false));
+        }
+        builder.end_object ();
+    }
+
+    // Apply preferences read from a backup. Unknown keys and values that no
+    // longer match the schema are skipped, so older or newer backups still work.
+    public void import_preferences (Gee.HashMap<string, string> preferences) {
+        foreach (var entry in preferences.entries) {
+            if (!has_key (entry.key) || !is_backup_key (entry.key)) {
+                continue;
+            }
+
+            var schema_key = settings_schema.get_key (entry.key);
+            try {
+                var value = GLib.Variant.parse (schema_key.get_value_type (), entry.value);
+                if (schema_key.range_check (value)) {
+                    settings.set_value (entry.key, value);
+                }
+            } catch (Error e) {
+                warning ("Skipping preference %s: %s", entry.key, e.message);
+            }
+        }
+    }
+
     public bool has_key (string key) {
         foreach (string schema_key in settings_schema.list_keys ()) {
             if (schema_key == key) {
