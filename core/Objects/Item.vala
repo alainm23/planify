@@ -711,6 +711,8 @@ public class Objects.Item : Objects.BaseObject {
                             if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
                                 var reminder = new Objects.Reminder ();
                                 reminder.item_id = id;
+                                // Without an id, every imported reminder shared the same "" key.
+                                reminder.id = Util.get_default ().generate_id (reminder);
                                 reminder.reminder_type = ReminderType.ABSOLUTE;
                                 reminder.due.date = dt.to_string ();
                                 add_reminder_if_not_exists (reminder, id != "");
@@ -722,8 +724,11 @@ public class Objects.Item : Objects.BaseObject {
             valarm = vtodo.get_next_component (ICal.ComponentKind.VALARM_COMPONENT);
         }
 
-        foreach (var existing in reminders) {
-            if (existing.reminder_type == ReminderType.ABSOLUTE &&
+        // Iterate over a copy: deleting a reminder emits signals that rebuild the list.
+        var current = new Gee.ArrayList<Objects.Reminder> ();
+        current.add_all (reminders);
+        foreach (var existing in current) {
+            if (existing.reminder_type == ReminderType.ABSOLUTE && existing.datetime != null &&
                 !server_datetimes.contains (existing.datetime.to_string ())) {
                 existing.delete ();
             }
@@ -1049,7 +1054,9 @@ public class Objects.Item : Objects.BaseObject {
     private Objects.Reminder ? get_reminder (Objects.Reminder reminder) {
         Objects.Reminder ? return_value = null;
         lock (_reminders) {
-            foreach (var _reminder in _reminders) {
+            // Use the getter: _reminders is null until the list is loaded (e.g. a task
+            // that was never shown gets a new reminder during sync).
+            foreach (var _reminder in reminders) {
                 if (reminder.datetime.compare (_reminder.datetime) == 0) {
                     return_value = _reminder;
                     break;
@@ -1060,6 +1067,10 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     private void _add_reminder (Objects.Reminder reminder) {
+        if (_reminders == null) {
+            _reminders = new Gee.ArrayList<Objects.Reminder> ();
+        }
+
         _reminders.add (reminder);
     }
 
