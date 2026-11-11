@@ -356,7 +356,7 @@ msgstr "Datoteke iCalendar"
 msgid "Task exported successfully"
 msgstr "Naloga je bila uspešno izvožena"
 
-#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Premaknjeno v %s"

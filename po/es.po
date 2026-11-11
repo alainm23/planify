@@ -344,7 +344,7 @@ msgid "Task exported successfully"
 msgstr "Tarea exportada correctamente"
 
 # # c-format
-#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Movida a %s"
