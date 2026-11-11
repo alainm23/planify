@@ -348,28 +348,29 @@ msgstr "sem rótulo"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1658 core/Objects/Item.vala:1738
+#: core/Objects/Item.vala:1751
 msgid "Deadline:"
 msgstr "Prazo:"
 
 #: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
 #: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Arquivos do iCalendar"
 
 #: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Suas tarefas foram exportadas"
 
 # c-format
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
-#: core/Objects/Item.vala:2175
+#: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tarefas adicionadas a <b>%s</b>"
@@ -1830,7 +1831,7 @@ msgstr "Pendência"
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1268
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:140 src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Completar"
 
@@ -4546,16 +4547,19 @@ msgid "Open Previous Project"
 msgstr "Abrir projeto anterior"
 
 #: src/Services/Notification.vala:100 src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Em 30 minutos"
 
 #: src/Services/Notification.vala:102 src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Em 30 minutos"
 
 #: src/Services/Notification.vala:104 src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Em 1 hora"
@@ -4643,6 +4647,15 @@ msgstr ""
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
+msgstr ""
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
+
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
 msgstr ""
 
 #, c-format

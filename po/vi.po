@@ -348,28 +348,30 @@ msgstr "chưa có nhãn"
 
 #: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1658 core/Objects/Item.vala:1738
+#: core/Objects/Item.vala:1751
 msgid "Deadline:"
 msgstr "Thời gian tới hạn:"
 
 #: core/Objects/Item.vala:1619 core/Objects/Item.vala:1644
 #: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
 #: core/Objects/Item.vala:1636 core/Objects/Item.vala:1700
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Tệp iCalendar"
 
 #: core/Objects/Item.vala:1652 core/Objects/Item.vala:1716
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Xuất nhiệm vụ thành công"
 
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
 #: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2156 core/Objects/Item.vala:2175
+#: core/Objects/Item.vala:2213
 #, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"
@@ -1803,6 +1805,7 @@ msgstr "Cần làm"
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1265
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1268
 #: src/Layouts/ItemRow.vala:1269 src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Hoàn thành"
 
@@ -4524,16 +4527,19 @@ msgid "Not available with Adwaita colors"
 msgstr ""
 
 #: src/Services/Notification.vala:100 src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Tạm dừng 10 phút"
 
 #: src/Services/Notification.vala:102 src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Tạm dừng 30 phút"
 
 #: src/Services/Notification.vala:104 src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Tạm dừng 1 giờ"
@@ -4619,6 +4625,15 @@ msgstr ""
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
+msgstr ""
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
+
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
 msgstr ""
 
 #~ msgid "%a, %b %-e, %Y"

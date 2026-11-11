@@ -353,22 +353,24 @@ msgid "unlabeled"
 msgstr "غير مسمى"
 
 #: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751
 msgid "Deadline:"
 msgstr "الموعد النهائي:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "تم نسخ المهمة الى الحافظة"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "ملفات iCalendar"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "تم تصدير المهمة بنجاح"
 
 #: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "تم نسخ المهمة الى%s"
@@ -1732,6 +1734,7 @@ msgstr ""
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
 #: src/Services/Notification.vala:98 src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr ""
 
@@ -4268,14 +4271,17 @@ msgid "Open Previous Project"
 msgstr ""
 
 #: src/Services/Notification.vala:100 src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 msgid "10m Snooze"
 msgstr ""
 
 #: src/Services/Notification.vala:102 src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 msgid "30m Snooze"
 msgstr ""
 
 #: src/Services/Notification.vala:104 src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr ""
 
@@ -4289,6 +4295,15 @@ msgstr[2] "تم نسخ المهمة الى%s"
 msgstr[3] "تم نسخ المهمة الى%s"
 msgstr[4] "تم نسخ المهمة الى%s"
 msgstr[5] "تم نسخ المهمة الى%s"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
+
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
 
 #, c-format
 #~ msgid "Processing task %d of %d"

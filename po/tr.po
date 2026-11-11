@@ -368,24 +368,28 @@ msgstr "etiketler"
 #: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1619 core/Objects/Item.vala:1650
 #: core/Objects/Item.vala:1658 core/Objects/Item.vala:1738
+#: core/Objects/Item.vala:1751
 msgid "Deadline:"
 msgstr "Son teslim tarihi:"
 
 #: core/Objects/Item.vala:1596 core/Objects/Item.vala:1619
 #: core/Objects/Item.vala:1644 core/Objects/Item.vala:1675
 #: core/Objects/Item.vala:1683 core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
 #: core/Objects/Item.vala:1613 core/Objects/Item.vala:1636
 #: core/Objects/Item.vala:1661 core/Objects/Item.vala:1692
 #: core/Objects/Item.vala:1700 core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "iCalendar dosyaları"
 
 #: core/Objects/Item.vala:1629 core/Objects/Item.vala:1652
 #: core/Objects/Item.vala:1677 core/Objects/Item.vala:1708
 #: core/Objects/Item.vala:1716 core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Görev başarıyla dışa aktarıldı"
 
@@ -395,7 +399,7 @@ msgstr "Görev başarıyla dışa aktarıldı"
 #: core/Objects/Item.vala:1998 core/Objects/Item.vala:2037
 #: core/Utils/Util.vala:891 core/Objects/Item.vala:2068
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
-#: core/Objects/Item.vala:2175
+#: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
 #, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"
@@ -1972,6 +1976,7 @@ msgstr "Yapılacak"
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1265
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1268
 #: src/Layouts/ItemRow.vala:1269 src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Tamamlandı"
 
@@ -4821,16 +4826,19 @@ msgid "Not available with Adwaita colors"
 msgstr ""
 
 #: src/Services/Notification.vala:100 src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Her %d ayda bir"
 
 #: src/Services/Notification.vala:102 src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Her %d ayda bir"
 
 #: src/Services/Notification.vala:104 src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr ""
 
@@ -4921,6 +4929,15 @@ msgstr ""
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
+msgstr ""
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
+
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
 msgstr ""
 
 # # c-format
