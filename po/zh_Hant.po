@@ -136,7 +136,7 @@ msgid "Content"
 msgstr "目錄"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "描述"
@@ -472,7 +472,7 @@ msgid "Add Reminders"
 msgstr "添加提醒"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
-#: src/Layouts/ItemRow.vala:2175
+#: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "添加附件"
 
@@ -1088,7 +1088,7 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️跟進"
 
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
-#: src/Layouts/ItemRow.vala:1693 src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
@@ -1552,7 +1552,7 @@ msgstr "全部標籤都已由篩選器隱藏。停用篩選器才能看到它們
 msgid "Press Enter to create and assign it"
 msgstr "按 Enter 鍵進行建立並指派它"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2108
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
 msgid "Task description"
 msgstr "任務描述"
 
@@ -3179,16 +3179,16 @@ msgstr "製作複本"
 msgid "Delete Task"
 msgstr "刪除任務"
 
-#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1944
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1952
 msgid "Order changed to 'Custom sort order'"
 msgstr "順序變更為〔自訂排列順序〕"
 
-#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1670
+#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1678
 #, c-format
 msgid "%s was deleted"
 msgstr "%s 已經刪除"
 
-#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1671
+#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1679
 msgid "Undo"
 msgstr "取消動作"
 
@@ -3231,12 +3231,12 @@ msgstr "已經更新： %s"
 msgid "Created: %s"
 msgstr "已經建立： %s"
 
-#: src/Layouts/ItemRow.vala:1646
+#: src/Layouts/ItemRow.vala:1654
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1829
+#: src/Layouts/ItemRow.vala:1837
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
