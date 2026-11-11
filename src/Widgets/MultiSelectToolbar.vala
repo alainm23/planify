@@ -453,7 +453,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         }
 
         string message = GLib.ngettext (
-                "Task moved to %s",
+                "%d task moved to %s",
                 "%d tasks moved to %s",
                 count
             ).printf (count, project.name);

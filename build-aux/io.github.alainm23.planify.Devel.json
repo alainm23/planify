@@ -1,5 +1,5 @@
 {
-    "app-id" : "io.github.alainm23.planify.Devel",
+    "id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version" : "50",
     "sdk" : "org.gnome.Sdk",
@@ -52,8 +52,8 @@
             "sources" : [
                 {
                     "type" : "archive",
-                    "url": "https://github.com/libical/libical/releases/download/v4.0.1/libical-4.0.1.tar.gz",
-                    "sha256": "7c1d8b780ce305a8823e5824ec4d7eb05d85ae8f808836b495aa37b0c3d08337",
+                    "url": "https://github.com/libical/libical/releases/download/v4.0.6/libical-4.0.6.tar.gz",
+                    "sha256": "2e3729cb69c282d3bb17a8d2b198af6e4bc7502fd3621c9adf573921fe9dceb0",
                     "x-checker-data" : {
                         "type" : "anitya",
                         "project-id" : 1637,
@@ -74,13 +74,12 @@
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DENABLE_FILE_LOCKING=fcntl",
                 "-DENABLE_DOT_LOCKING=OFF",
-                "-DENABLE_OAUTH2=ON",
                 "-DENABLE_CANBERRA=OFF",
-                "-DENABLE_GTK=ON",
-                "-DENABLE_UOA=OFF",
+                "-DENABLE_GTK=OFF",
+                "-DENABLE_GTK4=OFF",
                 "-DENABLE_GOA=OFF",
-                "-DENABLE_GOOGLE=OFF",
                 "-DENABLE_EXAMPLES=OFF",
+                "-DENABLE_TESTS=OFF",
                 "-DENABLE_INTROSPECTION=ON",
                 "-DENABLE_VALA_BINDINGS=ON",
                 "-DENABLE_INSTALLED_TESTS=OFF",
@@ -90,14 +89,14 @@
                 "-DWITH_SYSTEMDUSERUNITDIR=OFF",
                 "-DWITH_LIBDB=OFF",
                 "-DWITH_OPENLDAP=OFF",
-                "-DENABLE_WEATHER=OFF",
-                "-DENABLE_OAUTH2_WEBKITGTK4=OFF"
+                "-DWITH_KRB5=OFF",
+                "-DENABLE_WEATHER=OFF"
             ],
             "sources" : [
                 {
                     "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.60/evolution-data-server-3.60.1.tar.xz",
-                    "sha256" : "33f92d3b8822eba04c313796c0778cbb65a1a38472e857edc5f98854cca9b34c",
+                    "url" : "https://download.gnome.org/sources/evolution-data-server/3.62/evolution-data-server-3.62.1.tar.xz",
+                    "sha256" : "b75c823445d7d30bca797eee929809e8d389abbb8d471f68ae2af60972779f26",
                     "x-checker-data" : {
                         "type" : "gnome",
                         "name" : "evolution-data-server"
@@ -118,7 +117,7 @@
                 {
                     "type" : "git",
                     "url" : "https://github.com/flatpak/libportal.git",
-                    "tag" : "0.9.1"
+                    "tag" : "0.11.0"
                 }
             ]
         },
@@ -152,39 +151,10 @@
             ]
         },
         {
-            "name" : "librest",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dexamples=false",
-                "-Dtests=false",
-                "-Dgtk_doc=false",
-                "-Dintrospection=false",
-                "-Dvapi=false"
-            ],
-            "sources" : [
-                {
-                    "type" : "archive",
-                    "url" : "https://download.gnome.org/sources/librest/0.10/librest-0.10.2.tar.xz",
-                    "sha256" : "7b6cb912bb3a22cfa7dcf005925dcb62883024db0c09099486e7d6851185c9b8",
-                    "x-checker-data" : {
-                        "type" : "gnome",
-                        "name" : "librest"
-                    }
-                }
-            ]
-        },
-        {
             "name" : "gnome-online-accounts",
             "buildsystem" : "meson",
             "config-opts" : [
-                "-Dgoabackend=true",
-                "-Downcloud=true",
-                "-Dwebdav=true",
-                "-Dexchange=false",
-                "-Dgoogle=false",
-                "-Dimap_smtp=false",
-                "-Dkerberos=false",
-                "-Dms_graph=false",
+                "-Dgoabackend=false",
                 "-Ddocumentation=false",
                 "-Dman=false",
                 "-Dvapi=true",

@@ -1,5 +1,4 @@
-/* Focused standalone regressions extracted from #2770. Strict descendant
- * lifetime coverage runs separately with cleanup and calendar dependencies. */
+/* Regression coverage for view transitions and task-widget lifetimes. */
 namespace PlanifyUITests {
     private Objects.Project project;
 
@@ -7,6 +6,20 @@ namespace PlanifyUITests {
         while (MainContext.default ().pending ()) {
             MainContext.default ().iteration (false);
         }
+    }
+
+    private void test_headerbar_disconnects_settings () {
+        var settings = Services.Settings.get_default ().settings;
+        bool slim_mode = settings.get_boolean ("slim-mode");
+        Layouts.HeaderBar? headerbar = new Layouts.HeaderBar ();
+        var released = GLib.WeakRef (headerbar);
+        headerbar.clean_up ();
+        // Cleanup is also safe when the owner is cleaned up a second time.
+        headerbar.clean_up ();
+        headerbar = null;
+        assert_null (released.get ());
+        settings.set_boolean ("slim-mode", !slim_mode);
+        settings.set_boolean ("slim-mode", slim_mode);
     }
 
     private void run_for (uint milliseconds) {
@@ -36,6 +49,238 @@ namespace PlanifyUITests {
         while (find_type (widget, kind) == null && get_monotonic_time () < deadline) run_for (25);
         assert_true (find_type (widget, kind) != null);
         run_for (100);
+    }
+
+    private void test_task_action_menu_is_lazy_and_reused () {
+        var item = Services.Store.instance ().get_item ("ui-memory-task-0");
+        var row = new Layouts.ItemRow (item);
+        var menu = (Gtk.MenuButton) find_type (row, typeof (Gtk.MenuButton));
+        assert_nonnull (menu);
+        assert_null (menu.popover);
+        assert_true (find_type (row, typeof (Widgets.ContextMenu.MenuSwitch)) == null);
+
+        var listbox = new Gtk.ListBox ();
+        listbox.append (row);
+        var window = new Gtk.Window () { child = listbox, default_width = 700, default_height = 600 };
+        window.present ();
+        row.edit = true;
+        settle_frames ();
+        menu.popup ();
+        run_for (100);
+        Gtk.Popover? popup = menu.popover;
+        assert_nonnull (popup);
+        var note = (Widgets.ContextMenu.MenuSwitch) find_type (popup, typeof (Widgets.ContextMenu.MenuSwitch));
+        assert_nonnull (note);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.NOTE);
+        menu.popdown ();
+        settle_frames ();
+        menu.popup ();
+        assert_true (menu.popover == popup);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.TASK);
+        menu.popdown ();
+        settle_frames ();
+
+        // Standalone coverage ends at lazy creation, actions, and popover reuse.
+        row.clean_up ();
+        popup = null;
+        note = null;
+        menu = null;
+        window.child = null;
+        listbox = null;
+        row = null;
+        window.destroy ();
+        window = null;
+    }
+
+    private void assert_widgets_released (Gee.ArrayList<TrackedWidget> tracked) {
+        var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
+        while (tracked.any_match ((widget) => widget.reference.get () != null) &&
+               get_monotonic_time () < deadline) run_for (25);
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
+    }
+
+    private void select_view_style (Views.Project page, ProjectViewStyle style) {
+        var toggles = (Adw.ToggleGroup) find_type (page, typeof (Adw.ToggleGroup));
+        assert_nonnull (toggles);
+        toggles.active_name = style.to_string ();
+        assert_true (project.view_style == style);
+    }
+
+    private void test_sidebar_list_grid_switching () {
+        var settings = Services.Settings.get_default ().settings;
+        settings.set_boolean ("filters-list-view", true);
+        var sidebar = new Layouts.Sidebar ();
+        var window = new Gtk.Window () { child = sidebar, default_width = 350, default_height = 800 };
+        window.present ();
+        wait_for_type (sidebar, typeof (Layouts.FilterPaneRow));
+        for (int cycle = 0; cycle < 6; cycle++) {
+            var tracked = new Gee.ArrayList<TrackedWidget> ();
+            var old_kind = cycle % 2 == 0 ? typeof (Layouts.FilterPaneRow) : typeof (Layouts.FilterPaneChild);
+            // Track filter controls, excluding persistent source/project rows in the sidebar.
+            collect_filter_widgets (sidebar, old_kind, tracked);
+            settings.set_boolean ("filters-list-view", cycle % 2 != 0);
+            wait_for_type (sidebar, cycle % 2 == 0 ? typeof (Layouts.FilterPaneChild) : typeof (Layouts.FilterPaneRow));
+            assert_null (find_type (sidebar, old_kind));
+            assert_widgets_released (tracked);
+        }
+        settings.set_boolean ("filters-list-view", false);
+        run_for (40);
+        var released = GLib.WeakRef (sidebar);
+        sidebar.clean_up ();
+        window.child = null;
+        sidebar = null;
+        window.destroy ();
+        window = null;
+        settle_frames ();
+        assert_null (released.get ());
+        settings.set_boolean ("filters-list-view", true);
+    }
+
+    private void collect_filter_widgets (Gtk.Widget widget, Type kind, Gee.ArrayList<TrackedWidget> tracked) {
+        if (widget.get_type ().is_a (kind)) {
+            collect_all_widgets (widget, tracked);
+            return;
+        }
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
+            collect_filter_widgets (child, kind, tracked);
+        }
+    }
+
+    private class TrackedWidget : Object {
+        public GLib.WeakRef reference;
+        public string type_name;
+
+        public TrackedWidget (Gtk.Widget widget) {
+            reference = GLib.WeakRef (widget);
+            type_name = widget.get_type ().name ();
+        }
+    }
+
+    private void collect_task_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked) {
+        if (widget is Views.Scheduled.ScheduledSection || widget is Layouts.ItemRow) {
+            tracked.add (new TrackedWidget (widget));
+        }
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
+            collect_task_widgets (child, tracked);
+        }
+    }
+
+    private void test_scheduled_releases_sections_and_rows () {
+        var date = new DateTime.now_local ();
+        foreach (var item in Services.Store.instance ().items) {
+            item.due.datetime = date;
+        }
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        Views.Scheduled.ScheduledSection? section = new Views.Scheduled.ScheduledDay (date);
+        collect_task_widgets (section, tracked);
+        section.clean_up ();
+        section = null;
+        section = new Views.Scheduled.ScheduledMonth (date);
+        collect_task_widgets (section, tracked);
+        section.clean_up ();
+        section = null;
+        settle_frames ();
+        // Both section types must exercise populated task lists.
+        assert_cmpint (tracked.size, CompareOperator.GT, 2);
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
+    }
+
+    private void test_editor_and_progress_widgets_release () {
+        var textview = new Widgets.TextView ();
+        var textview_ref = GLib.WeakRef (textview);
+        textview = null;
+        assert_null (textview_ref.get ());
+
+        var editor = new Widgets.EditableTextView ();
+        var editor_ref = GLib.WeakRef (editor);
+        editor = null;
+        assert_null (editor_ref.get ());
+
+        var menu = new Widgets.ContextMenu.MenuPicker ("Sort");
+        menu.add_item ("Name", "name");
+        var menu_ref = GLib.WeakRef (menu);
+        menu = null;
+        assert_null (menu_ref.get ());
+
+        var progress = new Widgets.CircularProgressBar ();
+        var progress_ref = GLib.WeakRef (progress);
+        progress = null;
+        assert_null (progress_ref.get ());
+    }
+
+    private void collect_all_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked, bool include_tooltips = true) {
+        // CalendarScroll lifetime fixes belong to the separate calendar split.
+        if (widget is Widgets.Calendar.CalendarScroll) return;
+        if (!include_tooltips && widget.get_type ().name () == "GtkTooltipWindow") {
+            return;
+        }
+        tracked.add (new TrackedWidget (widget));
+        for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
+            collect_all_widgets (child, tracked, include_tooltips);
+        }
+    }
+
+    private void test_date_picker_releases_descendants () {
+        var picker = new Widgets.DateTimePicker.DateTimePicker ();
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        collect_all_widgets (picker, tracked);
+        picker.clean_up ();
+        // Cleanup can be reached more than once during parent disposal.
+        picker.clean_up ();
+        picker = null;
+        settle_frames ();
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
+    }
+
+    private void check_project_children_release (ProjectViewStyle style) {
+        project.view_style = style;
+        var view = new Views.Project (project);
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        settle_frames ();
+        collect_all_widgets (view, tracked);
+        view.clean_up ();
+        view = null;
+        settle_frames ();
+        foreach (var widget in tracked) {
+            if (widget.reference.get () != null) {
+                Test.message ("Retained widget: %s", widget.type_name);
+                Test.fail ();
+            }
+        }
+    }
+
+    private void test_scheduled_range_releases_children () {
+        var today = Utils.Datetime.get_date_only (new DateTime.now_local ());
+        var original_dates = new Gee.HashMap<string, string> ();
+        foreach (var item in Services.Store.instance ().items) {
+            original_dates[item.id] = item.due.date;
+            item.due.datetime = today.add_days (1);
+        }
+        var range = new Views.Scheduled.ScheduledRange (today, today.add_days (3));
+        assert_true (find_type (range, typeof (Layouts.ItemRow)) != null);
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        collect_all_widgets (range, tracked);
+        range.clean_up ();
+        range = null;
+        assert_widgets_released (tracked);
+        foreach (var item in Services.Store.instance ().items) item.due.date = original_dates[item.id];
     }
 
     private void test_cancel_section_loading () {
@@ -129,6 +374,11 @@ namespace PlanifyUITests {
     }
 
     public int main (string[] args) {
+        if (Environment.get_variable ("PLANIFY_UI_SCENARIO") == "extended") {
+            if (!Gtk.init_check ()) return 77;
+            Adw.init ();
+            return PlanifyUIScenarios.run ();
+        }
         Test.init (ref args);
         if (!Gtk.init_check ()) {
             return 77;
@@ -178,6 +428,13 @@ namespace PlanifyUITests {
             Services.Store.instance ().insert_item (item);
             item.add_label_if_not_exists (label);
         }
+        Test.add_func ("/ui/memory/headerbar_disconnects_settings", test_headerbar_disconnects_settings);
+        Test.add_func ("/ui/memory/scheduled_range_releases_children", test_scheduled_range_releases_children);
+        Test.add_func ("/ui/memory/sidebar_list_grid_switching", test_sidebar_list_grid_switching);
+        Test.add_func ("/ui/memory/date_picker_releases_descendants", test_date_picker_releases_descendants);
+        Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
+        Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);
+        Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
         Test.add_func ("/ui/memory/pinned_card_keyboard_focus", test_pinned_card_keyboard_focus);
         Test.add_func ("/ui/memory/cancel_section_loading", test_cancel_section_loading);
         Test.add_func ("/ui/memory/cancel_project_loading", test_cancel_project_loading);

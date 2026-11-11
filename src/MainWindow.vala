@@ -183,7 +183,8 @@ public class MainWindow : Adw.ApplicationWindow {
                 Util.get_default ().create_local_source ();
             }
 
-            if (Services.Store.instance ().is_database_empty ()) {
+            bool fresh_database = Services.Store.instance ().is_database_empty ();
+            if (fresh_database) {
                 Util.get_default ().create_inbox_project ();
                 Util.get_default ().create_tutorial_project ();
                 Util.get_default ().create_default_labels ();
@@ -193,7 +194,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
             Services.Notification.get_default ();
             Services.TimeMonitor.get_default ().init_timeout ();
-            Services.BackupManager.get_default ().init_auto_backup ();
+            Services.BackupManager.get_default ().init_auto_backup (fresh_database);
 
             go_homepage ();
 
@@ -492,6 +493,11 @@ public class MainWindow : Adw.ApplicationWindow {
                 cleanup_view (item.view);
             }
             view_cache.clear ();
+        });
+        notify["is-active"].connect (() => {
+            if (is_active) {
+                Services.TimeMonitor.get_default ().check_on_window_activated ();
+            }
         });
 
         close_request.connect (() => {

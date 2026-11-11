@@ -1,10 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-07-27 08:01+0000\n"
-"Last-Translator: Jeff Wang <jeff@wangjunfeng.com.cn>\n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
+"POT-Creation-Date: 2026-07-16 18:38-0500\n"
+"Last-Translator: zhchmmx <zhchmmx@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/planner/io-github-alainm23-planify/zh_Hans/>\n"
 "Language: zh\n"
@@ -12,16 +11,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.8.dev0\n"
+"PO-Revision-Date: 2026-10-27 21:51+0000\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
-#: src/Dialogs/Preferences/Pages/Backup.vala:619
+#: src/Dialogs/Preferences/Pages/Backup.vala:685
 #: src/Dialogs/Preferences/Pages/General.vala:55
 msgid "Projects"
 msgstr "项目"
 
-#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:623
+#: core/Enum.vala:171 src/Dialogs/Preferences/Pages/Backup.vala:689
 msgid "Sections"
 msgstr "分区"
 
@@ -31,8 +31,8 @@ msgstr "任务"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
-#: src/Layouts/ItemRow.vala:1265
+#: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:825
+#: src/Layouts/ItemRow.vala:1266
 msgid "Labels"
 msgstr "标签"
 
@@ -85,19 +85,19 @@ msgid_plural "Every %d years"
 msgstr[0] "每 %d 年"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:38
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:39
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
 msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
-#: src/Views/Project/Project.vala:561 src/Views/Project/Project.vala:606
+#: src/Views/Project/Project.vala:591 src/Views/Project/Project.vala:636
 #: src/Views/Scheduled/Scheduled.vala:236
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
@@ -109,7 +109,7 @@ msgid "Label"
 msgstr "标签"
 
 #: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
-#: src/Views/Project/Project.vala:558 src/Views/Scheduled/Scheduled.vala:233
+#: src/Views/Project/Project.vala:588 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
 msgstr "截止日期"
@@ -136,7 +136,7 @@ msgid "Content"
 msgstr "目录"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "描述"
@@ -147,7 +147,7 @@ msgstr "日程"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
-#: src/Layouts/ItemRow.vala:1244 src/Layouts/ItemRow.vala:1259
+#: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 msgid "Pin"
 msgstr "置顶"
 
@@ -280,12 +280,12 @@ msgstr "近期"
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
-#: core/Widgets/Calendar/CalendarScroll.vala:56
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:389
+#: core/Widgets/Calendar/CalendarScroll.vala:58
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 #: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:813
-#: src/Layouts/ItemRow.vala:1251 src/Layouts/ItemSortFilter.vala:82
-#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:573
-#: src/Views/Project/Project.vala:739 src/Views/Today.vala:212
+#: src/Layouts/ItemRow.vala:1252 src/Layouts/ItemSortFilter.vala:82
+#: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:603
+#: src/Views/Project/Project.vala:796 src/Views/Today.vala:212
 msgid "Today"
 msgstr "今天"
 
@@ -295,9 +295,9 @@ msgstr "今天"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:395
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
-#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1254
+#: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1255
 msgid "Tomorrow"
 msgstr "明天"
 
@@ -321,23 +321,23 @@ msgstr "无标签"
 msgid "unlabeled"
 msgstr "尚无标签"
 
-#: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "截止日期："
 
-#: core/Objects/Item.vala:1675
+#: core/Objects/Item.vala:1763
 msgid "Task copied to clipboard"
 msgstr "任务已复制到剪贴板"
 
-#: core/Objects/Item.vala:1692
+#: core/Objects/Item.vala:1780
 msgid "iCalendar Files"
 msgstr "iCalendar 文件"
 
-#: core/Objects/Item.vala:1708
+#: core/Objects/Item.vala:1796
 msgid "Task exported successfully"
 msgstr "任务导出成功"
 
-#: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"
@@ -347,72 +347,73 @@ msgstr "任务已移动到%s"
 msgid "Delete Label %s"
 msgstr "已删除标签%s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:891
-#: core/Objects/Section.vala:427
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:198
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:272
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:229
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:907
+#: core/Objects/Section.vala:432
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:251
 msgid "This can not be undone"
 msgstr "无法撤销"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:894
-#: core/Objects/Project.vala:968 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:476 core/Utils/Util.vala:479
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:910
+#: core/Objects/Project.vala:990 core/Objects/Section.vala:435
+#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:148
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:115
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:200
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:274
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:318
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
-#: src/Dialogs/Preferences/Pages/Backup.vala:702
+#: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
-#: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
+#: src/Services/BackupManager.vala:254 src/Views/Filter.vala:815
+#: src/Views/Project/Project.vala:550
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
 msgid "Cancel"
 msgstr "取消"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:895
-#: core/Objects/Section.vala:431 core/Widgets/DeadlineButton.vala:242
-#: src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:201
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:275
-#: src/Dialogs/Preferences/Pages/Backup.vala:468
-#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:233
-#: src/Views/Filter.vala:816 src/Widgets/AttachmentRow.vala:52
-#: src/Widgets/MultiSelectToolbar.vala:276
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:911
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
+#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
+#: src/Dialogs/Preferences/Pages/Backup.vala:525
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:255
+#: src/Views/Filter.vala:816 src/Views/Project/Project.vala:551
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
 msgstr "删除"
 
-#: core/Objects/Project.vala:854
+#: core/Objects/Project.vala:870
 msgid "The project was copied to the Clipboard."
 msgstr "该项目已复制到剪贴板。"
 
-#: core/Objects/Project.vala:890
+#: core/Objects/Project.vala:906
 #, c-format
 msgid "Delete Project %s?"
 msgstr "删除项目%s？"
 
-#: core/Objects/Project.vala:964 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:986 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "归档？"
 
-#: core/Objects/Project.vala:965 core/Objects/Section.vala:473
+#: core/Objects/Project.vala:987 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "将会归档%s及其所有任务。"
 
-#: core/Objects/Project.vala:969 core/Objects/Section.vala:477
-#: src/Layouts/ProjectRow.vala:713 src/Layouts/SectionBoard.vala:614
-#: src/Layouts/SectionRow.vala:706 src/Views/Project/Project.vala:399
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:482
+#: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
+#: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "归档"
 
-#: core/Objects/Section.vala:426
+#: core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
 msgstr "删除部分%s"
@@ -426,38 +427,38 @@ msgstr "删除部分%s"
 msgid "Todoist"
 msgstr "Todoist 是一款用于项目管理和任务管理的任务管理器、网络服务和软件套件。"
 
-#: core/QuickAddCore.vala:149
+#: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "任务添加成功！"
 
-#: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
 msgstr "待办事项名称"
 
-#: core/QuickAddCore.vala:195
+#: core/QuickAddCore.vala:200
 msgid "This field is required"
 msgstr "必填"
 
-#: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
 msgstr "添加说明……"
 
-#: core/QuickAddCore.vala:260
+#: core/QuickAddCore.vala:265
 msgid "Set date"
 msgstr "设定日期"
 
-#: core/QuickAddCore.vala:272 core/Widgets/LabelPicker/LabelButton.vala:57
+#: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
 msgstr "添加标签"
 
-#: core/QuickAddCore.vala:277 core/Widgets/PriorityButton.vala:40
+#: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
 msgstr "设置优先级"
 
-#: core/QuickAddCore.vala:282
+#: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
 #: core/Widgets/ReminderPicker/ReminderButton.vala:50
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
@@ -465,77 +466,95 @@ msgstr "设置优先级"
 msgid "Add Reminders"
 msgstr "添加提醒"
 
-#: core/QuickAddCore.vala:326 src/Layouts/SectionBoard.vala:607
-#: src/Layouts/SectionRow.vala:699 src/Views/Scheduled/ScheduledDay.vala:148
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: src/Layouts/ItemRow.vala:2175
+msgid "Add Attachments"
+msgstr "添加附件"
+
+#: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
+#: src/Layouts/SectionRow.vala:709 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
 msgstr "创建任务"
 
-#: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
 msgstr "继续添加"
 
-#: core/QuickAddCore.vala:349
+#: core/QuickAddCore.vala:380
 msgid "Select a Project"
 msgstr "选择项目"
 
-#: core/QuickAddCore.vala:376
+#: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
 "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
-#: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
+#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+msgid "Attachments"
+msgstr "附件"
+
+#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+msgid "No attachments found. Add files here."
+msgstr "未找到附件。在此处添加文件。"
+
+#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
+#: src/Widgets/Attachments.vala:144
+msgid "Open"
+msgstr "打开"
+
+#: core/QuickAddCore.vala:1687 src/MainWindow.vala:809
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
-#: core/QuickAddCore.vala:1461
+#: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
 msgstr "用这些快捷键快速创建任务"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "Set priority"
 msgstr "设置优先级"
 
-#: core/QuickAddCore.vala:1475
+#: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高，p4 = 最低"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Add labels"
 msgstr "添加标签"
 
-#: core/QuickAddCore.vala:1476
+#: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
 msgstr "打开标签选择器"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Assign project"
 msgstr "分配到项目"
 
-#: core/QuickAddCore.vala:1477
+#: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
 msgstr "打开项目选择器"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Set reminder"
 msgstr "设置提醒"
 
-#: core/QuickAddCore.vala:1478
+#: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
 msgstr "打开提醒选项"
 
-#: core/QuickAddCore.vala:1493
+#: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
 msgstr "切换成保持开放状态，在建立任务之后"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Tip"
 msgstr "小贴士"
 
-#: core/QuickAddCore.vala:1499
+#: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "在标题栏配合快捷指令，实现快速创建"
 
@@ -555,66 +574,72 @@ msgstr "载入任务用于 %s…"
 msgid "Syncing task %d of %d"
 msgstr "正在同步任务 %d / %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:683
+#: core/Services/CalDAV/CalDAVClient.vala:695
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr "该服务器不允许经由 CalDAV 建立专案项目。请直接从日历提供者的网站建立。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:738
+#: core/Services/CalDAV/CalDAVClient.vala:750
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr "此服务器不允许通过 CalDAV 删除项目。请直接从您的日历服务商网站删除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:742
+#: core/Services/CalDAV/CalDAVClient.vala:754
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr "此服务器不支持通过 CalDAV 删除项目。请直接从服务器删除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:776
-#: core/Services/CalDAV/CalDAVClient.vala:822
+#: core/Services/CalDAV/CalDAVClient.vala:788
+#: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "任务已在其他设备上修改。请同步以获取最新版本。"
 
-#: core/Services/CalDAV/Core.vala:170
+#: core/Services/CalDAV/Core.vala:183
 msgid "Source already exists"
 msgstr "该来源已存在"
 
-#: core/Services/CalDAV/Core.vala:181 core/Services/CalDAV/Core.vala:229
+#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Providers/Nextcloud.vala:67
+#, c-format
+msgid "Failed to load client certificate: %s"
+msgstr ""
+
+#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
 msgid "Failed to resolve principal url"
 msgstr "无法解析主体 URL"
 
-#: core/Services/CalDAV/Core.vala:238
+#: core/Services/CalDAV/Core.vala:264
 msgid "Starting sync…"
 msgstr "开始进行同步…"
 
-#: core/Services/CalDAV/Core.vala:253
+#: core/Services/CalDAV/Core.vala:279
 #, c-format
 msgid "Syncing %s…"
 msgstr "正在同步 %s…"
 
-#: core/Services/CalDAV/Core.vala:274
+#: core/Services/CalDAV/Core.vala:300
 msgid "Sync completed"
 msgstr "同步已经完成"
 
-#: core/Services/CalDAV/Core.vala:324
+#: core/Services/CalDAV/Core.vala:350
 msgid "Authentication Expired"
 msgstr "身份验证已过期"
 
-#: core/Services/CalDAV/Core.vala:325
+#: core/Services/CalDAV/Core.vala:351
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr "您的会话已过期。请在偏好设置中移除并重新添加您的账户。"
 
-#: core/Services/CalDAV/Core.vala:332
+#: core/Services/CalDAV/Core.vala:358
 msgid "Too Many Requests"
 msgstr "请求过于频繁"
 
-#: core/Services/CalDAV/Core.vala:333
+#: core/Services/CalDAV/Core.vala:359
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -663,7 +688,7 @@ msgstr "无效的 API 令牌"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:81
+#: src/Layouts/SidebarSourceRow.vala:83
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -771,6 +796,7 @@ msgid "%a"
 msgstr "%a"
 
 #: core/Utils/Datetime.vala:866
+#, c-format
 msgid "%b"
 msgstr "%b"
 
@@ -1056,10 +1082,10 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️跟进"
 
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
-#: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
+#: src/Layouts/ItemRow.vala:1693 src/Layouts/ItemRow.vala:1837
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
-msgstr ""
+msgstr "暂不支持从 Nextcloud Deck board 移入或移出任务"
 
 #: core/Utils/Util.vala:971
 msgid "Task duplicated"
@@ -1102,7 +1128,7 @@ msgid "3 hours before"
 msgstr "提前 3 小时"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
-#: core/Widgets/Calendar/CalendarScroll.vala:353
+#: core/Widgets/Calendar/CalendarScroll.vala:383
 msgid "%A, %B %e, %Y"
 msgstr "%Y年%m月%d日 %A"
 
@@ -1112,8 +1138,8 @@ msgid "%OB"
 msgstr "%OB"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:64
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:728
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:763
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:730
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
 msgstr "返回"
@@ -1221,95 +1247,95 @@ msgstr "星期五"
 msgid "Saturday"
 msgstr "星期六"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:80
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:197
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:527
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:144
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:529
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:131
 msgid "Time"
 msgstr "时间"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:858
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
-#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1193
+#: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1194
 msgid "until"
 msgstr "直到"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 msgid "for"
 msgstr "持续"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 msgid "times"
 msgstr "次"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:94
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:861
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:97
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1196
+#: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 msgid "time"
 msgstr "次"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:106
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:199
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:109
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:201
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:112
 msgid "Repeat"
 msgstr "重复"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:162
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:164
 #: src/Dialogs/DatePicker.vala:68
 msgid "Type a date…"
 msgstr "输入日期…"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:401
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: core/Widgets/DeadlineButton.vala:219
 msgid "Next week"
 msgstr "下周"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:545
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
 msgstr "保存"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:581
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
 msgstr "每天"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:585
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
 msgstr "工作日"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:589
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:591
 msgid "Weekends"
 msgstr "周末"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:593
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:595
 msgid "Weekly"
 msgstr "每周"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:597
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:599
 msgid "Monthly"
 msgstr "每月"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:601
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:603
 msgid "Yearly"
 msgstr "每年"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:605
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
 msgstr "自定义"
 
-#: core/Widgets/DateTimePicker/DateTimePicker.vala:885
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 #: src/Widgets/ItemChangeHistoryRow.vala:281
 msgid "No date"
 msgstr "无日期"
@@ -1350,13 +1376,13 @@ msgstr "每月最后一天"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
-msgstr ""
+msgstr "从完成日期起重复"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
 msgid ""
 "Calculate the next occurrence from the day you complete the task instead of "
 "its due date"
-msgstr ""
+msgstr "下次发生的时间应从你完成任务之日算起，而不是从任务截止日期算起"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
@@ -1372,7 +1398,7 @@ msgstr "之后"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
-#: src/Layouts/ItemRow.vala:1349
+#: src/Layouts/ItemRow.vala:1350
 msgid "Apply"
 msgstr "应用"
 
@@ -1520,7 +1546,7 @@ msgstr "所有标签已被筛选器隐藏。禁用筛选器以查看它们。"
 msgid "Press Enter to create and assign it"
 msgstr "按回车键创建并分配"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2108
 msgid "Task description"
 msgstr "任务描述"
 
@@ -1571,51 +1597,57 @@ msgid "Type a search"
 msgstr "输入搜索"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:110
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:97
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:125
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:146
 msgid "Reminders"
 msgstr "提醒"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:112
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:99
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr "您的提醒列表将显示在此处。点击'+'按钮来添加一个。"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:158
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:145
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:191
 msgid "Add Reminder"
 msgstr "添加提醒"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:208
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:195
 msgid "In 5 minutes"
 msgstr "5 分钟后"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:209
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:196
 msgid "In 15 minutes"
 msgstr "15 分钟后"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:210
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:197
 msgid "In 30 minutes"
 msgstr "30 分钟后"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:211
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:198
 msgid "In 1 hour"
 msgstr "1 小时后"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:212
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:199
 msgid "In 3 hours"
 msgstr "3 小时后"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:213
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:200
 msgid "In 6 hours"
 msgstr "6 小时后"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:270
-msgid "Choose a time in the future"
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:241
+msgid "Suggestions"
 msgstr ""
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:279
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:257
+msgid "Choose a time in the future"
+msgstr "选择一个未来的时间"
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "届时您已经有一个提醒"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1639,8 +1671,8 @@ msgid "To Do"
 msgstr "待办"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1268
-#: src/Services/Notification.vala:98
+#: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
+#: src/Services/Notification.vala:140
 msgid "Complete"
 msgstr "完成"
 
@@ -1745,11 +1777,12 @@ msgid "No completed tasks yet."
 msgstr "暂无已完成的任务。"
 
 #: src/Dialogs/CompletedTasks.vala:122 src/Dialogs/CompletedTasks.vala:163
-#: src/Views/Filter.vala:784
+#: src/Views/Filter.vala:784 src/Views/Project/Project.vala:540
+#: src/Views/Project/Project.vala:661
 msgid "Delete All Completed Tasks"
 msgstr "删除所有已完成的任务"
 
-#: src/Dialogs/CompletedTasks.vala:165
+#: src/Dialogs/CompletedTasks.vala:165 src/Views/Project/Project.vala:543
 #, c-format
 msgid "This will delete %d completed task and its subtasks from project %s"
 msgid_plural ""
@@ -1757,15 +1790,15 @@ msgid_plural ""
 msgstr[0] "此操作将从项目 %s 中删除 %d 个已完成的任务及其子任务"
 
 #: src/Dialogs/CompletedTasks.vala:322 src/Layouts/ItemSortFilter.vala:130
-#: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
+#: src/Views/Project/Project.vala:697 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:910
 msgid "Filter By"
 msgstr "筛选方式"
 
 #: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:821
-#: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemSortFilter.vala:87
-#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:578
-#: src/Views/Project/Project.vala:749
+#: src/Layouts/ItemRow.vala:1262 src/Layouts/ItemSortFilter.vala:87
+#: src/Layouts/ItemSortFilter.vala:279 src/Views/Project/Project.vala:608
+#: src/Views/Project/Project.vala:806
 msgid "No Date"
 msgstr "无日期"
 
@@ -1777,7 +1810,7 @@ msgstr "完成"
 msgid "Next Week"
 msgstr "下周"
 
-#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1412
+#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1424
 #: src/Layouts/ItemSidebarView.vala:523
 msgid "Change History"
 msgstr "变更历史"
@@ -1823,12 +1856,12 @@ msgstr "更新标签"
 msgid "Filter"
 msgstr "筛选"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:807
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:814
 msgid "Archived Projects"
 msgstr "已归档项目"
 
-#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:610
-#: src/Layouts/SectionRow.vala:702 src/Views/Project/Project.vala:392
+#: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:625
+#: src/Layouts/SectionRow.vala:712 src/Views/Project/Project.vala:392
 msgid "Manage Sections"
 msgstr "管理分区"
 
@@ -1866,7 +1899,7 @@ msgstr "添加来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Task sources you sync with. Drag to reorder."
-msgstr ""
+msgstr "您同步的任务源。拖动即可重新排序。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 msgid "Inbox Page"
@@ -1874,21 +1907,21 @@ msgstr "收件箱页面"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 msgid "Detected Accounts"
-msgstr ""
+msgstr "已检测到的帐户"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 msgid "Accounts configured in GNOME Online Accounts"
-msgstr ""
+msgstr "在GNOME在线账号中配置账号"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
-msgstr[0] ""
+msgstr[0] "可从GNOME在线账号中导入%d个账号"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
-msgstr ""
+msgstr "导入"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
@@ -1922,7 +1955,7 @@ msgid ""
 msgstr "此账户包含您当前的收件箱项目。请先更改您的收件箱项目。"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 msgid "Change Inbox"
 msgstr "更改收件箱"
 
@@ -1930,46 +1963,46 @@ msgstr "更改收件箱"
 msgid "Syncing…"
 msgstr "同步中…"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:56
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:57
 msgid "Connect to CalDAV"
 msgstr "连接到 CalDAV"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:61
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:62
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr "连接到任何兼容 CalDAV 的服务器以同步您的任务"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:77
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:74
 msgid "Server URL"
 msgstr "服务器 URL"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:81
 msgid "Username"
 msgstr "用户名"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:84
 msgid "Password"
 msgstr "密码"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 msgid "Calendar Home URL"
 msgstr "日历主目录 URL"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:106
 msgid "Advanced"
 msgstr "高级"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:119
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Show advanced options"
 msgstr "显示高级选项"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:137
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Hide advanced options"
 msgstr "隐藏高级选项"
 
-#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:141
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:108
+#: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:144
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:111
 msgid "Log In"
 msgstr "登录"
 
@@ -1986,31 +2019,31 @@ msgstr ""
 "收件箱是新任务默认存放的位置。基于 David Allen 的 GTD（Getting Things Done）"
 "方法，它是您快速捕捉想法和任务的地方，您可以稍后再进行整理"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:52
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:53
 msgid "Connect to Nextcloud"
 msgstr "连接到 Nextcloud"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:57
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:58
 msgid "Sign in with your Nextcloud account to sync tasks via CalDAV"
 msgstr "使用您的 Nextcloud 账户登录，通过 CalDAV 同步任务"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:78
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:79
 msgid "https://cloud.example.com"
 msgstr "https://cloud.example.com"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:84
 msgid "https://example.com/nextcloud"
 msgstr "https://example.com/nextcloud"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:100
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:101
 msgid "URL examples"
 msgstr "URL 示例"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:269
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:276
 msgid "Nextcloud Deck Detected"
 msgstr "检测到 Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:270
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:277
 msgid ""
 "Nextcloud Deck is available on this server. Would you like to enable Deck "
 "integration to manage your boards and cards directly in Planify?"
@@ -2018,11 +2051,11 @@ msgstr ""
 "此服务器上已启用 Nextcloud Deck。是否要启用 Deck 集成，以便直接在 Planify 中"
 "管理您的看板和卡片？"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:273
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:280
 msgid "Not Now"
 msgstr "暂时不用"
 
-#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:274
+#: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:281
 msgid "Enable Deck"
 msgstr "启用 Deck"
 
@@ -2049,33 +2082,59 @@ msgstr "激活此设置，使 Planify 每 15 分钟自动与您的账户同步"
 msgid "Last Sync"
 msgstr "上次同步"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "从 Nextcloud Deck 同步看板和卡片"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
 msgstr "此服务器上 Nextcloud Deck 不可用"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:152
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
 msgid "Delete Source"
 msgstr "删除来源"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:197
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
 msgid "Delete Source?"
 msgstr "删除来源？"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+msgid "Apply Certificate"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#, c-format
+msgid "Invalid certificate: %s"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate updated"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+msgid "Client certificate removed"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 msgid "Cannot Delete This Source"
 msgstr "无法删除此来源"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2156,11 +2215,11 @@ msgstr "选择主题"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
-msgstr ""
+msgstr "使用 Adwaita 主题颜色"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:90
 msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
+msgstr "在亮色与暗色模式中使用标准 GNOME 颜色"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
@@ -2201,125 +2260,125 @@ msgstr "字体大小"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
-msgstr ""
+msgstr "在使用 Adwaita 主题颜色时，此项目不可用"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:34
+#: src/Dialogs/Preferences/Pages/Backup.vala:39
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
 msgid "Backups"
 msgstr "备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:44
+#: src/Dialogs/Preferences/Pages/Backup.vala:49
 msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
 "再也不用担心丢失数据。您可以创建活跃项目、任务和评论的备份，并在以后导入。"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:55
+#: src/Dialogs/Preferences/Pages/Backup.vala:60
 msgid "Automatic Daily Backup"
 msgstr "每日自动备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:56
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Creates a backup every day at midnight"
 msgstr "每天午夜创建备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:61
+#: src/Dialogs/Preferences/Pages/Backup.vala:66
 msgid "Backups to Keep"
-msgstr ""
+msgstr "需要保留的备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:62
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "Older backups are removed automatically. Zero keeps them all"
-msgstr ""
+msgstr "较旧的备份会自动删除。0 则会保留所有备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:70
+#: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Create Backup"
 msgstr "创建备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:74
+#: src/Dialogs/Preferences/Pages/Backup.vala:79
 msgid "Import Backup"
 msgstr "导入备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:76
+#: src/Dialogs/Preferences/Pages/Backup.vala:81
 msgid "Backup Files"
 msgstr "备份文件"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:79
+#: src/Dialogs/Preferences/Pages/Backup.vala:84
 msgid "No backups found, create one clicking the button above."
 msgstr "未找到备份，点击上方按钮创建一个。"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:88
-msgid "Open backup folder"
-msgstr ""
-
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
-msgid "Backup Location"
-msgstr ""
+msgid "Open backup folder"
+msgstr "打开备份文件夹"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:132
+#: src/Dialogs/Preferences/Pages/Backup.vala:98
+msgid "Backup Location"
+msgstr "备份位置"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:137
 msgid "Extra Backup Locations"
 msgstr "额外备份位置"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:135
+#: src/Dialogs/Preferences/Pages/Backup.vala:140
 msgid "No extra locations added yet."
 msgstr "尚未添加额外位置。"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:147
+#: src/Dialogs/Preferences/Pages/Backup.vala:152
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
 msgstr "每次创建备份后，备份副本也将保存到这些文件夹中。"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:156
+#: src/Dialogs/Preferences/Pages/Backup.vala:161
 msgid "Migrate"
 msgstr "迁移"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:158
+#: src/Dialogs/Preferences/Pages/Backup.vala:163
 msgid "Migrate From Planner"
 msgstr "从 Planner 迁移"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:212
+#: src/Dialogs/Preferences/Pages/Backup.vala:217
 msgid "The Backup was created successfully."
 msgstr "备份创建成功。"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:229
+#: src/Dialogs/Preferences/Pages/Backup.vala:234
 msgid "Tasks Migrate Successfully"
 msgstr "任务迁移成功"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:233
+#: src/Dialogs/Preferences/Pages/Backup.vala:238
 msgid "The database file does not exist."
 msgstr "数据库文件不存在。"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:369
+#: src/Dialogs/Preferences/Pages/Backup.vala:419
 msgid "Selected file is invalid"
 msgstr "所选文件无效"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:467
+#: src/Dialogs/Preferences/Pages/Backup.vala:524
 msgid "Download"
 msgstr "下载"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:603
-#: src/Dialogs/Preferences/Pages/Backup.vala:644
-#: src/Dialogs/Preferences/Pages/Backup.vala:703
+#: src/Dialogs/Preferences/Pages/Backup.vala:669
+#: src/Dialogs/Preferences/Pages/Backup.vala:710
+#: src/Dialogs/Preferences/Pages/Backup.vala:769
 msgid "Restore Backup"
 msgstr "恢复备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:615 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:450
 msgid "Sources"
 msgstr "来源"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:627
+#: src/Dialogs/Preferences/Pages/Backup.vala:693
 msgid "To-Dos"
 msgstr "待办事项"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:688
+#: src/Dialogs/Preferences/Pages/Backup.vala:754
 msgid "This will replace all your current data"
 msgstr "这将替换您当前的所有数据"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:697
+#: src/Dialogs/Preferences/Pages/Backup.vala:763
 msgid "Restore backup"
 msgstr "恢复备份"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:698
+#: src/Dialogs/Preferences/Pages/Backup.vala:764
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
@@ -2411,7 +2470,7 @@ msgid "Custom Sort Order"
 msgstr "自定义排序"
 
 #: src/Dialogs/Preferences/Pages/General.vala:37
-#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:557
+#: src/Layouts/ItemSortFilter.vala:68 src/Views/Project/Project.vala:587
 #: src/Views/Scheduled/Scheduled.vala:232 src/Views/Today.vala:842
 msgid "Alphabetically"
 msgstr "按字母顺序"
@@ -2690,7 +2749,7 @@ msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr "启用后，将默认在任务到期前添加提醒。"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:781
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:788
 msgid "Preferences"
 msgstr "偏好设置"
 
@@ -2835,11 +2894,11 @@ msgstr "近8周"
 #, c-format
 msgid "%d task"
 msgid_plural "%d tasks"
-msgstr[0] ""
+msgstr[0] "%d个任务"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:784
+#: src/MainWindow.vala:791
 msgid "Summary & Productivity"
 msgstr "摘要与效率"
 
@@ -2894,7 +2953,7 @@ msgstr "效率"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:883
+#: src/MainWindow.vala:890
 msgid "See More"
 msgstr "查看更多"
 
@@ -2973,11 +3032,11 @@ msgstr "已逾期"
 msgid "Progress"
 msgstr "进度"
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
+#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "新建项目"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
+#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:387
 msgid "Edit Project"
 msgstr "编辑项目"
@@ -3027,8 +3086,8 @@ msgid "Project added successfully!"
 msgstr "项目添加成功！"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1264
-#: src/Layouts/ItemRow.vala:1405 src/Layouts/ItemSidebarView.vala:517
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1265
+#: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:517
 msgid "Move"
 msgstr "移动"
 
@@ -3040,14 +3099,14 @@ msgstr "快速查找"
 #, c-format
 msgid "%u result"
 msgid_plural "%u results"
-msgstr[0] ""
+msgstr[0] "%u个结果"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "快速切换项目和视图、查找任务、按标签搜索"
 
-#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
-#: src/Layouts/SectionRow.vala:700
+#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:623
+#: src/Layouts/SectionRow.vala:710
 msgid "Edit Section"
 msgstr "编辑分区"
 
@@ -3073,8 +3132,8 @@ msgid "Open/Close Sidebar"
 msgstr "打开/关闭侧边栏"
 
 #: src/Layouts/ItemBoard.vala:155 src/Layouts/ItemBoard.vala:806
-#: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1244
-#: src/Layouts/ItemRow.vala:1259
+#: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1245
+#: src/Layouts/ItemRow.vala:1260
 msgid "Unpin"
 msgstr "取消置顶"
 
@@ -3083,90 +3142,86 @@ msgstr "取消置顶"
 msgid "Completed. Next occurrence: %s"
 msgstr "已完成。下次出现：%s"
 
-#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1267
+#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1268
 msgid "Add Subtask"
 msgstr "添加子任务"
 
-#: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1269
+#: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1270
 msgid "Edit"
 msgstr "编辑"
 
-#: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1270
-#: src/Layouts/ItemRow.vala:1404 src/Layouts/ItemSidebarView.vala:516
-#: src/Layouts/ProjectRow.vala:710 src/Layouts/SectionBoard.vala:611
-#: src/Layouts/SectionRow.vala:703 src/Views/Project/Project.vala:388
+#: src/Layouts/ItemBoard.vala:830 src/Layouts/ItemRow.vala:1271
+#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:516
+#: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
+#: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 msgid "Duplicate"
 msgstr "复制"
 
-#: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1272
-#: src/Layouts/ItemRow.vala:1409 src/Layouts/ItemSidebarView.vala:520
+#: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1273
+#: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:520
 msgid "Delete Task"
 msgstr "删除任务"
 
-#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1932
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1944
 msgid "Order changed to 'Custom sort order'"
 msgstr "排序方式已更改为'自定义排序'"
 
-#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1658
+#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1670
 #, c-format
 msgid "%s was deleted"
 msgstr "%s 已删除"
 
-#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1659
+#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1671
 msgid "Undo"
 msgstr "撤销"
 
-#: src/Layouts/ItemRow.vala:565
+#: src/Layouts/ItemRow.vala:566
 msgid "Add Subtasks"
 msgstr "添加子任务"
 
-#: src/Layouts/ItemRow.vala:1073
+#: src/Layouts/ItemRow.vala:1074
 msgid "Hide Sub-tasks"
 msgstr "隐藏子任务"
 
-#: src/Layouts/ItemRow.vala:1073
+#: src/Layouts/ItemRow.vala:1074
 msgid "Show Sub-tasks"
 msgstr "显示子任务"
 
-#: src/Layouts/ItemRow.vala:1257 src/Layouts/ItemRow.vala:1305
+#: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemRow.vala:1306
 msgid "Pick a Date"
-msgstr ""
+msgstr "选择日期"
 
-#: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1412 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
 msgstr "用作备注"
 
-#: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:515
+#: src/Layouts/ItemRow.vala:1415 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
-#: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1418 src/Layouts/ItemSidebarView.vala:518
 msgid "Export as .ics"
 msgstr "导出为 .ics"
 
-#: src/Layouts/ItemRow.vala:1414 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1426 src/Layouts/ItemSidebarView.vala:470
 #, c-format
 msgid "Updated: %s"
 msgstr "更新于：%s"
 
-#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemSidebarView.vala:472
 #, c-format
 msgid "Created: %s"
 msgstr "创建于：%s"
 
-#: src/Layouts/ItemRow.vala:1634
+#: src/Layouts/ItemRow.vala:1646
 #, c-format
 msgid "Task completed · Next: %s"
-msgstr ""
+msgstr "任务已完成 · 下一个：%s"
 
-#: src/Layouts/ItemRow.vala:1817
+#: src/Layouts/ItemRow.vala:1829
 msgid "A task can only become a subtask of a task in the same account"
-msgstr ""
-
-#: src/Layouts/ItemRow.vala:2161
-msgid "Add Attachments"
-msgstr "添加附件"
+msgstr "在同一账户中，一个任务只能有一个父任务"
 
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
@@ -3188,84 +3243,84 @@ msgstr "展开描述"
 msgid "Are you sure you want to delete?"
 msgstr "确定要删除吗？"
 
-#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:553
+#: src/Layouts/ItemSortFilter.vala:63 src/Views/Project/Project.vala:583
 #: src/Views/Scheduled/Scheduled.vala:229 src/Views/Today.vala:839
 msgid "Sorting"
 msgstr "排序"
 
 #: src/Layouts/ItemSortFilter.vala:67
 msgid "Project"
-msgstr ""
+msgstr "项目"
 
-#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:559
+#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:589
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
 msgid "Date Added"
 msgstr "添加日期"
 
-#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:560
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:590
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
 msgid "Date Modified"
 msgstr "修改日期"
 
-#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:563
+#: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:593
 msgid "Ascending Order"
 msgstr "升序"
 
-#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:569
+#: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:599
 msgid "Duedate"
 msgstr "截止日期"
 
 #: src/Layouts/ItemSortFilter.vala:81 src/Layouts/ItemSortFilter.vala:282
-#: src/Views/Project/Project.vala:572
+#: src/Views/Project/Project.vala:602
 msgid "All (default)"
 msgstr "全部（默认）"
 
 #: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:267
-#: src/Views/Project/Project.vala:574 src/Views/Project/Project.vala:741
+#: src/Views/Project/Project.vala:604 src/Views/Project/Project.vala:798
 msgid "This Week"
 msgstr "本周"
 
 #: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:270
-#: src/Views/Project/Project.vala:575 src/Views/Project/Project.vala:743
+#: src/Views/Project/Project.vala:605 src/Views/Project/Project.vala:800
 msgid "Next 7 Days"
 msgstr "未来 7 天"
 
 #: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:273
-#: src/Views/Project/Project.vala:576 src/Views/Project/Project.vala:745
+#: src/Views/Project/Project.vala:606 src/Views/Project/Project.vala:802
 msgid "This Month"
 msgstr "本月"
 
 #: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:276
-#: src/Views/Project/Project.vala:577 src/Views/Project/Project.vala:747
+#: src/Views/Project/Project.vala:607 src/Views/Project/Project.vala:804
 msgid "Next 30 Days"
 msgstr "未来 30 天"
 
-#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:584
+#: src/Layouts/ItemSortFilter.vala:92 src/Views/Project/Project.vala:614
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
 msgid "P1"
 msgstr "P1"
 
-#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:590
+#: src/Layouts/ItemSortFilter.vala:97 src/Views/Project/Project.vala:620
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
 msgid "P2"
 msgstr "P2"
 
-#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:596
+#: src/Layouts/ItemSortFilter.vala:102 src/Views/Project/Project.vala:626
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
 msgid "P3"
 msgstr "P3"
 
-#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:602
+#: src/Layouts/ItemSortFilter.vala:107 src/Views/Project/Project.vala:632
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
 msgid "P4"
 msgstr "P4"
 
-#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:609
+#: src/Layouts/ItemSortFilter.vala:114 src/Views/Project/Project.vala:639
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
 msgid "Filter by Labels"
 msgstr "按标签筛选"
 
-#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:647
+#: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:688
 msgid "Sort By"
 msgstr "排序方式"
 
@@ -3273,46 +3328,42 @@ msgstr "排序方式"
 msgid "Delete Label"
 msgstr "删除标签"
 
-#: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "项目排序已更改为'自定义排序'"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696 src/Layouts/ProjectRow.vala:702
 msgid "Remove From Favorites"
 msgstr "从收藏中移除"
 
-#: src/Layouts/ProjectRow.vala:702 src/Layouts/ProjectRow.vala:708
+#: src/Layouts/ProjectRow.vala:696 src/Layouts/ProjectRow.vala:702
 msgid "Add to Favorites"
 msgstr "添加到收藏"
 
-#: src/Layouts/ProjectRow.vala:711
+#: src/Layouts/ProjectRow.vala:705
 msgid "Refresh"
 msgstr "刷新"
 
-#: src/Layouts/ProjectRow.vala:714 src/Views/Project/Project.vala:400
+#: src/Layouts/ProjectRow.vala:708 src/Views/Project/Project.vala:400
 #: src/Widgets/ProjectItemRow.vala:154
 msgid "Delete Project"
 msgstr "删除项目"
 
-#: src/Layouts/ProjectRow.vala:717
+#: src/Layouts/ProjectRow.vala:711
 msgid "Share"
 msgstr "分享"
 
-#: src/Layouts/ProjectRow.vala:718
+#: src/Layouts/ProjectRow.vala:712
 msgid "Send by E-Mail"
 msgstr "通过电子邮件发送"
 
-#: src/Layouts/ProjectRow.vala:719
+#: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
 msgstr "导出为 PDF"
 
-#: src/Layouts/ProjectRow.vala:794
+#: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
 msgstr "项目已导出为 PDF"
-
-#: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
-msgid "Open"
-msgstr "打开"
 
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:89
 msgid "(No Section)"
@@ -3327,65 +3378,65 @@ msgstr "添加任务"
 msgid "Load more"
 msgstr "加载更多"
 
-#: src/Layouts/SectionBoard.vala:589 src/Layouts/SectionRow.vala:656
+#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:666
 #: src/Widgets/SubItems.vala:422
 msgid "completed tasks"
 msgstr "已完成的任务"
 
-#: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
+#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:711
 msgid "Move Section"
 msgstr "移动分区"
 
-#: src/Layouts/SectionBoard.vala:612 src/Layouts/SectionRow.vala:704
+#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:714
 msgid "Show Completed Tasks"
 msgstr "显示已完成的任务"
 
-#: src/Layouts/SectionBoard.vala:615 src/Layouts/SectionRow.vala:707
+#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:717
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "删除分区"
 
-#: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:542
+#: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr "没有更多任务"
 
-#: src/Layouts/Sidebar.vala:40
+#: src/Layouts/Sidebar.vala:42
 msgid "Favorites"
 msgstr "收藏"
 
-#: src/Layouts/Sidebar.vala:42
+#: src/Layouts/Sidebar.vala:44
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "暂无收藏。点击'+'按钮来创建一个。"
 
-#: src/Layouts/Sidebar.vala:122
+#: src/Layouts/Sidebar.vala:124
 msgid "Add Account"
 msgstr "添加账户"
 
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:125
 msgid "Customize Sidebar"
 msgstr "自定义侧边栏"
 
-#: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
+#: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
 msgid "Go to Today"
 msgstr "转到今天"
 
-#: src/Layouts/Sidebar.vala:317 src/Layouts/Sidebar.vala:369
+#: src/Layouts/Sidebar.vala:324 src/Layouts/Sidebar.vala:376
 msgid "Go to Scheduled"
 msgstr "转到计划"
 
-#: src/Layouts/Sidebar.vala:321 src/Layouts/Sidebar.vala:373
+#: src/Layouts/Sidebar.vala:328 src/Layouts/Sidebar.vala:380
 msgid "Go to Labels"
 msgstr "转到标签"
 
-#: src/Layouts/Sidebar.vala:325 src/Layouts/Sidebar.vala:377
+#: src/Layouts/Sidebar.vala:332 src/Layouts/Sidebar.vala:384
 msgid "Go to Pinboard"
 msgstr "转到置顶板"
 
-#: src/Layouts/SidebarSourceRow.vala:43
+#: src/Layouts/SidebarSourceRow.vala:45
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "暂无项目。点击'+'按钮来创建一个。"
 
-#: src/Layouts/SidebarSourceRow.vala:80
+#: src/Layouts/SidebarSourceRow.vala:82
 msgid "Account Migration Required"
 msgstr "需要迁移账户"
 
@@ -3397,35 +3448,35 @@ msgstr "主菜单"
 msgid "Open Quick Find"
 msgstr "打开快速查找"
 
-#: src/MainWindow.vala:342
+#: src/MainWindow.vala:343
 msgid "Task was modified on another device"
 msgstr "任务已在其他设备上修改"
 
-#: src/MainWindow.vala:344
+#: src/MainWindow.vala:345
 msgid "Sync Now"
 msgstr "立即同步"
 
-#: src/MainWindow.vala:805
+#: src/MainWindow.vala:812
 msgid "About Planify"
 msgstr "关于 Planify"
 
-#: src/MainWindow.vala:880
+#: src/MainWindow.vala:887
 msgid "Oops! Something happened"
 msgstr "糟糕！出了点问题"
 
-#: src/MainWindow.vala:899 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:906 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "任务已完成"
 
-#: src/MainWindow.vala:900
+#: src/MainWindow.vala:907
 msgid "View"
 msgstr "查看"
 
-#: src/MainWindow.vala:938
+#: src/MainWindow.vala:945
 msgid "Database Integrity Check Failed"
 msgstr "数据库完整性检查失败"
 
-#: src/MainWindow.vala:939
+#: src/MainWindow.vala:946
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3444,57 +3495,54 @@ msgstr ""
 "\n"
 "重置后，您可以恢复之前创建的任何备份。感谢您的耐心等待。"
 
-#: src/MainWindow.vala:941
+#: src/MainWindow.vala:948
 msgid "Reset Database"
 msgstr "重置数据库"
 
-#: src/Services/BackupManager.vala:158
+#: src/Services/BackupManager.vala:179
 msgid "Automatic backup failed"
 msgstr "自动备份失败"
 
-#: src/Services/BackupManager.vala:204
+#: src/Services/BackupManager.vala:226
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr "复制备份到 %s 失败"
 
-#: src/Services/BackupManager.vala:228
+#: src/Services/BackupManager.vala:250
 msgid "Delete Backup"
 msgstr "删除备份"
 
-#: src/Services/BackupManager.vala:398
+#: src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "备份导入成功"
 
-#: src/Services/BackupManager.vala:399
+#: src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "Planify 将重新启动以应用更改"
 
-#: src/Services/BackupManager.vala:402
+#: src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "立即重启"
 
-#: src/Services/BackupManager.vala:416
+#: src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Planify 备份文件"
 
-#: src/Services/Notification.vala:100
-#, fuzzy
+#: src/Services/Notification.vala:142
 msgid "10m Snooze"
-msgstr "暂停 10 分钟"
+msgstr "推迟 10 分钟"
 
-#: src/Services/Notification.vala:102
-#, fuzzy
+#: src/Services/Notification.vala:144
 msgid "30m Snooze"
-msgstr "暂停 30 分钟"
+msgstr "推迟 30 分钟"
 
-#: src/Services/Notification.vala:104
-#, fuzzy
+#: src/Services/Notification.vala:146
 msgid "1h Snooze"
-msgstr "暂停 1 小时"
+msgstr "推迟 1 小时"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
-msgstr ""
+msgstr "所有项目"
 
 #: src/Views/Filter.vala:146 src/Views/Label/Label.vala:78
 #: src/Views/Label/Labels.vala:45 src/Views/Project/Project.vala:119
@@ -3522,11 +3570,11 @@ msgstr "任务"
 
 #: src/Views/Filter.vala:754
 msgid "No completed tasks"
-msgstr ""
+msgstr "未完成的任务"
 
 #: src/Views/Filter.vala:755
 msgid "No tasks found for the selected projects"
-msgstr ""
+msgstr "在选中的项目中没有找到任务"
 
 #: src/Views/Filter.vala:757
 msgid "All tasks completed!"
@@ -3538,17 +3586,17 @@ msgstr "太棒了，没有待办事项了 🎉"
 
 #: src/Views/Filter.vala:760 src/Views/Label/Label.vala:267
 msgid "No tasks found"
-msgstr ""
+msgstr "没找到任务"
 
 #: src/Views/Filter.vala:761 src/Views/Label/Label.vala:268
 msgid "No tasks match the selected filters"
-msgstr ""
+msgstr "没有符合条件的任务"
 
 #: src/Views/Filter.vala:774
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
-msgstr[0] ""
+msgstr[0] "%d个项目"
 
 #: src/Views/Filter.vala:803
 msgid "Delete Completed Task"
@@ -3634,27 +3682,27 @@ msgstr "全部展开"
 msgid "Collapse All"
 msgstr "全部折叠"
 
-#: src/Views/Project/Project.vala:535
+#: src/Views/Project/Project.vala:565
 msgid "List"
 msgstr "列表"
 
-#: src/Views/Project/Project.vala:541
+#: src/Views/Project/Project.vala:571
 msgid "Board"
 msgstr "看板"
 
-#: src/Views/Project/Project.vala:556
+#: src/Views/Project/Project.vala:586
 msgid "Custom sort order"
 msgstr "自定义排序"
 
-#: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
+#: src/Views/Project/Project.vala:643 src/Views/Today.vala:902
 msgid "Show Completed"
 msgstr "显示已完成"
 
-#: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
+#: src/Views/Project/Project.vala:644 src/Views/Today.vala:903
 msgid "Display completed tasks in the list"
 msgstr "在列表中显示已完成的任务"
 
-#: src/Views/Project/Project.vala:620
+#: src/Views/Project/Project.vala:650
 msgid "Search completed tasks"
 msgstr "搜索已完成的任务"
 
@@ -3665,14 +3713,6 @@ msgstr "重新计划"
 #: src/Views/Today.vala:887
 msgid "Me"
 msgstr "我"
-
-#: src/Widgets/Attachments.vala:58
-msgid "Attachments"
-msgstr "附件"
-
-#: src/Widgets/Attachments.vala:248
-msgid "No attachments found. Add files here."
-msgstr "未找到附件。在此处添加文件。"
 
 #: src/Widgets/BypassResolveSwitchRow.vala:31
 msgid "Bypass Location Resolve"
@@ -3701,6 +3741,51 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:49
 msgid "Continue Anyway"
 msgstr "仍然继续"
+
+#: src/Widgets/ClientCertificateRow.vala:49
+msgid "Client certificate (mTLS)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:50
+msgid "Authenticate to the server with a client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:55
+msgid "Certificate file"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:56
+#: src/Widgets/ClientCertificateRow.vala:100
+msgid "No file selected"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:60
+msgid "Choose…"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:68
+msgid "Certificate password (PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:96
+msgid "PKCS#12 certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:97
+msgid "PEM certificate stored"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:106
+msgid "Select client certificate"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:111
+msgid "Certificates (PEM, PKCS#12)"
+msgstr ""
+
+#: src/Widgets/ClientCertificateRow.vala:149
+msgid "Failed to read file"
+msgstr ""
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:94
@@ -3895,10 +3980,10 @@ msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] "确定要删除这 %d 个待办事项吗？"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, c-format
-msgid "Task moved to %s"
+#, fuzzy, c-format
+msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] ""
+msgstr[0] "任务已移动到%s"
 
 #: src/Widgets/NewVersionPopup.vala:42
 msgid "New version available!"
@@ -4074,22 +4159,17 @@ msgstr "打开置顶板"
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
-msgstr ""
+msgstr "打开第N个项目"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
 msgid "Open Next Project"
-msgstr ""
+msgstr "打开下一个项目"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
 msgid "Open Previous Project"
-msgstr ""
-
-#, fuzzy, c-format
-#~ msgid "%d task moved to %s"
-#~ msgid_plural "%d tasks moved to %s"
-#~ msgstr[0] "任务已移动到%s"
+msgstr "打开上一个项目"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "暂停 10 分钟"
@@ -4099,6 +4179,11 @@ msgstr ""
 
 #~ msgid "Snooze for 1 hour"
 #~ msgstr "暂停 1 小时"
+
+#, c-format
+#~ msgid "Task moved to %s"
+#~ msgid_plural "%d tasks moved to %s"
+#~ msgstr[0] "任务已移动到%s"
 
 #~ msgid "%a, %b %-e, %Y"
 #~ msgstr "%Y年%m月%d日 %a"

@@ -61,8 +61,90 @@ public class Objects.Attachment : GLib.Object {
         );
     }
 
+    public static string get_storage_dir () {
+        return Path.build_filename (Environment.get_user_data_dir (), "io.github.alainm23.planify", "attachments");
+    }
+
+    // Builds an attachment for file (item_id still to be set), keeping a copy in the attachments folder.
+    // Links the original file if the copy fails. Returns null if the file can't be read.
+    public static async Objects.Attachment ? from_file (File file) {
+        var attachment = new Objects.Attachment ();
+
+        try {
+            var file_info = file.query_info ("standard::size,standard::content-type", 0);
+            var file_content_type = file_info.get_content_type ();
+            if (file_content_type == null) {
+                return null;
+            }
+
+            attachment.id = Util.get_default ().generate_id ();
+            attachment.file_size = file_info.get_size ().to_string ();
+            attachment.file_type = file_content_type.down ();
+            attachment.file_name = file.get_basename ();
+            attachment.file_path = file.get_uri ();
+        } catch (Error e) {
+            warning (e.message);
+            return null;
+        }
+
+        try {
+            var stored_file = yield store_copy (file, attachment.id);
+            attachment.file_path = stored_file.get_uri ();
+        } catch (Error e) {
+            warning ("Couldn't copy attachment, linking the original file instead: %s", e.message);
+        }
+
+        return attachment;
+    }
+
+    // Keeps a copy in Planify's data folder so the attachment still opens if the original is moved or deleted
+    private static async File store_copy (File file, string attachment_id) throws Error {
+        var dir = File.new_for_path (Path.build_filename (get_storage_dir (), attachment_id));
+        dir.make_directory_with_parents ();
+
+        var destination = dir.get_child (file.get_basename ());
+        try {
+            yield file.copy_async (destination, FileCopyFlags.NONE, Priority.DEFAULT, null, null);
+        } catch (Error e) {
+            // Don't leave a partial copy behind (e.g. disk full)
+            try {
+                destination.delete ();
+            } catch (Error ignored) {}
+
+            try {
+                dir.delete ();
+            } catch (Error ignored) {}
+
+            throw e;
+        }
+
+        return destination;
+    }
+
     public void delete () {
         Services.Store.instance ().delete_attachment (this);
+        delete_stored_copy ();
+    }
+
+    // Removes the copy kept in the attachments folder, unless another attachment (e.g. from a duplicated task) still uses it
+    public void delete_stored_copy () {
+        var file = File.new_for_uri (file_path);
+        if (!file.has_prefix (File.new_for_path (get_storage_dir ()))) {
+            return;
+        }
+
+        foreach (Objects.Attachment attachment in Services.Store.instance ().attachments) {
+            if (attachment.file_path == file_path) {
+                return;
+            }
+        }
+
+        try {
+            file.delete ();
+            file.get_parent ().delete ();
+        } catch (Error e) {
+            warning (e.message);
+        }
     }
 
     public Objects.Attachment duplicate () {
