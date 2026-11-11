@@ -333,23 +333,23 @@ msgstr "bez štítku"
 msgid "unlabeled"
 msgstr "neoštítkované"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Lhůta:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Úkol zkopírován do schránky"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Soubory iCalendar"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Úkol byl úspěšně exportován"
 
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Přesunuto do %s"
@@ -424,6 +424,11 @@ msgstr "Toto archivuje %s a všechny související úkoly."
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Archiv"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 #: core/Objects/Section.vala:431
 #, c-format
@@ -1678,6 +1683,10 @@ msgstr "Zvolte čas v budoucnosti"
 msgid "You already have a reminder at that time"
 msgstr "V tuto dobu již máte připomenutí"
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr ""
@@ -1701,7 +1710,7 @@ msgstr ""
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr ""
 
@@ -3552,15 +3561,15 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr ""
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 msgid "10m Snooze"
 msgstr "10min odložení"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 msgid "30m Snooze"
 msgstr "30min odložení"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr "1h odložení"
 

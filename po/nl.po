@@ -327,24 +327,24 @@ msgstr "geen label"
 msgid "unlabeled"
 msgstr "ongelabeld"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Deadline:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Taak gekopieerd naar klembord"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "iCalendar Bestanden"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Taak succesvol geëxporteerd"
 
 # # c-format
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Verplaatst naar %s"
@@ -422,6 +422,11 @@ msgstr "Dit zal %s en alle bijhorende taken archiveren."
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Archiveren"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 # # c-format
 #: core/Objects/Section.vala:431
@@ -1717,6 +1722,10 @@ msgstr ""
 msgid "You already have a reminder at that time"
 msgstr ""
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "Onderverdeling instellen"
@@ -1740,7 +1749,7 @@ msgstr "Open"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Afgerond"
 
@@ -3646,17 +3655,17 @@ msgstr "Nu herstarten"
 msgid "Planify Backup Files"
 msgstr "Back-up-bestanden van Planify"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "10 minuten uitstellen"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "30 minuten uitstellen"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 #, fuzzy
 msgid "1h Snooze"
 msgstr "1 uur uitstellen"

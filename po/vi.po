@@ -321,23 +321,23 @@ msgstr "không có nhãn"
 msgid "unlabeled"
 msgstr "chưa có nhãn"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Thời gian tới hạn:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Nhiệm vụ đã sao chép vào bộ nhớ tạm"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Tệp iCalendar"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Xuất nhiệm vụ thành công"
 
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"
@@ -412,6 +412,11 @@ msgstr "Điều này sẽ lưu trữ %s và tất cả nhiệm vụ của nó."
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Lưu Trữ"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 #: core/Objects/Section.vala:431
 #, c-format
@@ -1669,6 +1674,10 @@ msgstr ""
 msgid "You already have a reminder at that time"
 msgstr ""
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "Đặt Phần"
@@ -1692,7 +1701,7 @@ msgstr "Cần làm"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Hoàn thành"
 
@@ -3590,17 +3599,17 @@ msgstr "Khởi Động Lại Ngay"
 msgid "Planify Backup Files"
 msgstr "Tệp Sao Lưu Planify"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "Tạm dừng 10 phút"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "Tạm dừng 30 phút"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 #, fuzzy
 msgid "1h Snooze"
 msgstr "Tạm dừng 1 giờ"

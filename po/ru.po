@@ -328,24 +328,24 @@ msgstr "без метки"
 msgid "unlabeled"
 msgstr "непомеченн"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Срок:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "Задача скопирована в буфер обмена"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Файлы iCalendar"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Задача успешно экспортирована"
 
 # c-format
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Перемещено в %s"
@@ -423,6 +423,11 @@ msgstr "Это действие заархивирует %s и все его з�
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
 msgstr "Архивировать"
+
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
 
 # c-format
 #: core/Objects/Section.vala:431
@@ -1709,6 +1714,10 @@ msgstr "Выбрать время на будущее"
 msgid "You already have a reminder at that time"
 msgstr "У вас уже есть напоминание в это время"
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "Задать раздел"
@@ -1732,7 +1741,7 @@ msgstr "Задание"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Выполнить"
 
@@ -3654,15 +3663,15 @@ msgstr "Перезапустить сейчас"
 msgid "Planify Backup Files"
 msgstr "Резервные копии Planify"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 msgid "10m Snooze"
 msgstr "Отложить на 10 минут"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 msgid "30m Snooze"
 msgstr "Отложить на 30 минут"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr "Отложить на 1 час"
 
