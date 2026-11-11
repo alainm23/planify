@@ -173,11 +173,7 @@ public class Widgets.ErrorView : Adw.Bin {
         });
 
         issue_button.clicked.connect (() => {
-            try {
-                AppInfo.launch_default_for_uri (Constants.NEW_ISSUE_URL, null);
-            } catch (Error e) {
-                warning ("%s\n", e.message);
-            }
+            Util.get_default ().open_uri.begin (Constants.NEW_ISSUE_URL);
         });
     }
 
