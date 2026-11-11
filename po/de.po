@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-09-09 08:51+0000\n"
-"Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-11 21:42+0000\n"
+"Last-Translator: thobux <thob@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -3964,7 +3964,7 @@ msgstr "Fehlermeldung kopieren"
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr "Teile Deine Protokolldatei für mehr Details: %s"
+msgstr "Teile deinen Log für mehr Details: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -4176,6 +4176,7 @@ msgid "No tasks scheduled"
 msgstr "Keine Aufgaben geplant"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
+#, fuzzy
 msgid "Unarchive"
 msgstr "Entarchivieren"
 
