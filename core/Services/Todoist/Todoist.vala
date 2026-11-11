@@ -21,6 +21,8 @@
 
 public class Services.Todoist : GLib.Object {
     private Soup.Session session;
+    // Sources with a sync in progress.
+    private Gee.HashSet<string> syncing_sources = new Gee.HashSet<string> ();
     private TodoistAuth _auth;
     private TodoistItems _items;
     private TodoistProjects _projects;
@@ -109,6 +111,15 @@ public class Services.Todoist : GLib.Object {
             source.sync_failed ();
             return;
         }
+
+        // Two syncs at once would reuse the same sync_token and send the pending
+        // queue twice, so skip a new sync while one is running for this account.
+        if (source.id in syncing_sources) {
+            Services.LogService.get_default ().info ("Todoist", "Sync already in progress for '%s', skipping".printf (source.display_name));
+            return;
+        }
+
+        syncing_sources.add (source.id);
 
         source.sync_started ();
 
@@ -242,6 +253,7 @@ public class Services.Todoist : GLib.Object {
             Services.Store.instance ().update_project (project);
         }
 
+        syncing_sources.remove (source.id);
         source.sync_finished ();
     }
 
