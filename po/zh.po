@@ -337,7 +337,7 @@ msgstr "iCalendar 文件"
 msgid "Task exported successfully"
 msgstr "任务导出成功"
 
-#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "任务已移动到%s"

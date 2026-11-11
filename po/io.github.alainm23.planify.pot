@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 01:30+0000\n"
+"POT-Creation-Date: 2026-11-11 01:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -347,7 +347,7 @@ msgstr ""
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr ""
