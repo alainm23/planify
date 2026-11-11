@@ -156,7 +156,7 @@ msgstr "Contenido"
 #: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:2082 src/Layouts/ItemRow.vala:2086
-#: src/Layouts/ItemRow.vala:2098
+#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2106
 msgid "Description"
 msgstr "Descripción"
 
@@ -1201,7 +1201,8 @@ msgstr "🏃‍♀️️Seguimiento"
 #: src/Widgets/MultiSelectToolbar.vala:439 src/Layouts/ItemRow.vala:1681
 #: src/Layouts/ItemRow.vala:1825 core/Utils/Util.vala:826
 #: src/Layouts/ItemBoard.vala:1286 src/Layouts/ItemRow.vala:1693
-#: src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1701
+#: src/Layouts/ItemRow.vala:1845
 #, fuzzy
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr "Aún no es posible mover tareas desde o hacia el tablero Nextcloud Deck"
@@ -1740,7 +1741,7 @@ msgstr "Presione Enter para crearlo y asignarlo."
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2033
 #: src/Layouts/ItemRow.vala:2092 src/Layouts/ItemRow.vala:2096
-#: src/Layouts/ItemRow.vala:2108
+#: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
 #, fuzzy
 msgid "Task description"
 msgstr "Descripción de la tarea"
@@ -3489,20 +3490,21 @@ msgstr "Eliminar tarea"
 
 #: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1887
 #: src/Layouts/ItemRow.vala:1932 src/Layouts/ItemRow.vala:1944
+#: src/Layouts/ItemRow.vala:1952
 msgid "Order changed to 'Custom sort order'"
 msgstr "Orden cambiado a 'Orden personalizado'"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1655
 #: src/Layouts/ItemRow.vala:1658 src/Layouts/ItemBoard.vala:1263
-#: src/Layouts/ItemRow.vala:1670
+#: src/Layouts/ItemRow.vala:1670 src/Layouts/ItemRow.vala:1678
 #, c-format
 msgid "%s was deleted"
 msgstr "%s fue eliminado"
 
 #: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1656
 #: src/Layouts/ItemRow.vala:1659 src/Layouts/ItemBoard.vala:1264
-#: src/Layouts/ItemRow.vala:1671
+#: src/Layouts/ItemRow.vala:1671 src/Layouts/ItemRow.vala:1679
 msgid "Undo"
 msgstr "Deshacer"
 
@@ -3556,7 +3558,7 @@ msgid "Created: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1631 src/Layouts/ItemRow.vala:1634
-#: src/Layouts/ItemRow.vala:1646
+#: src/Layouts/ItemRow.vala:1646 src/Layouts/ItemRow.vala:1654
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
@@ -3564,7 +3566,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2157
 #: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
-#: src/Layouts/ItemRow.vala:2175
+#: src/Layouts/ItemRow.vala:2175 src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "Agregar archivos adjuntos"
 
@@ -4602,6 +4604,7 @@ msgid "Open Previous Project"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1817 src/Layouts/ItemRow.vala:1829
+#: src/Layouts/ItemRow.vala:1837
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 

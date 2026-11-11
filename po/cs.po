@@ -158,7 +158,7 @@ msgstr "Obsah"
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
-#: src/Layouts/ItemRow.vala:2098
+#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2106
 msgid "Description"
 msgstr "Popis"
 
@@ -1150,6 +1150,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1681 src/Layouts/ItemRow.vala:1825
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 #: src/Layouts/ItemRow.vala:1693 src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 "Přesouvání úkolů na nástěnku Nextcloud Deck nebo z ní zatím není podporováno"
@@ -1656,7 +1657,7 @@ msgid "Press Enter to create and assign it"
 msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
-#: src/Layouts/ItemRow.vala:2108
+#: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
 msgid "Task description"
 msgstr ""
 
@@ -3327,18 +3328,18 @@ msgid "Delete Task"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1932
-#: src/Layouts/ItemRow.vala:1944
+#: src/Layouts/ItemRow.vala:1944 src/Layouts/ItemRow.vala:1952
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1658
-#: src/Layouts/ItemRow.vala:1670
+#: src/Layouts/ItemRow.vala:1670 src/Layouts/ItemRow.vala:1678
 #, c-format
 msgid "%s was deleted"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1659
-#: src/Layouts/ItemRow.vala:1671
+#: src/Layouts/ItemRow.vala:1671 src/Layouts/ItemRow.vala:1679
 msgid "Undo"
 msgstr ""
 
@@ -3387,17 +3388,19 @@ msgid "Created: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1634 src/Layouts/ItemRow.vala:1646
+#: src/Layouts/ItemRow.vala:1654
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1817 src/Layouts/ItemRow.vala:1829
+#: src/Layouts/ItemRow.vala:1837
 msgid "A task can only become a subtask of a task in the same account"
 msgstr "Úkol se může stát dílčím úkolem pouze úkolu pod stejným účtem"
 
 #: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
-#: src/Layouts/ItemRow.vala:2175
+#: src/Layouts/ItemRow.vala:2175 src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "Přidat přílohy"
 
