@@ -369,7 +369,7 @@ msgstr "Xuất nhiệm vụ thành công"
 
 #: core/Objects/Item.vala:1992 core/Utils/Util.vala:869
 #: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
-#: core/Objects/Item.vala:2156
+#: core/Objects/Item.vala:2156 core/Objects/Item.vala:2175
 #, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"

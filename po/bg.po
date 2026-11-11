@@ -347,7 +347,7 @@ msgstr ""
 
 # c-format
 # c-format
-#: core/Objects/Item.vala:2156 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Задачата е преместена в %s"

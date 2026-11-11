@@ -380,7 +380,7 @@ msgstr "Tarea exportada correctamente"
 #: core/Objects/Item.vala:1998 core/Utils/Util.vala:869
 #: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2068 core/Objects/Item.vala:2076
-#: core/Objects/Item.vala:2156
+#: core/Objects/Item.vala:2156 core/Objects/Item.vala:2175
 #, c-format
 msgid "Moved to %s"
 msgstr "Movida a %s"

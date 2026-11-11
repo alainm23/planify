@@ -378,6 +378,7 @@ msgstr "Naloga je bila uspešno izvožena"
 
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
+#: core/Objects/Item.vala:2175
 #, c-format
 msgid "Moved to %s"
 msgstr "Premaknjeno v %s"
