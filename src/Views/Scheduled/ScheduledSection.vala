@@ -173,6 +173,28 @@ public abstract class Views.Scheduled.ScheduledSection : Gtk.ListBoxRow {
         }
     }
 
+    /*
+     * Tasks without a date but with a deadline are shown on their deadline day,
+     * so they are visible ahead of time and not only once the deadline is today.
+     */
+    protected bool valid_deadline_only_item (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date) {
+        if (item == null || item.checked || item.was_archived () || item.has_due || !item.has_deadline) {
+            return false;
+        }
+
+        var deadline = Utils.Datetime.get_date_only (item.deadline_datetime);
+        return deadline.compare (Utils.Datetime.get_date_only (start_date)) >= 0 &&
+               deadline.compare (Utils.Datetime.get_date_only (end_date)) <= 0;
+    }
+
+    protected void add_deadline_only_items (GLib.DateTime start_date, GLib.DateTime end_date) {
+        foreach (Objects.Item item in Services.Store.instance ().items) {
+            if (valid_deadline_only_item (item, start_date, end_date)) {
+                add_item (item);
+            }
+        }
+    }
+
     protected virtual void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) && valid_item_predicate (item)) {
             add_item (item);
