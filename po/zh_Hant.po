@@ -3520,19 +3520,19 @@ msgstr "複製備份至 %s 失敗"
 msgid "Delete Backup"
 msgstr "刪除備份"
 
-#: src/Services/BackupManager.vala:422
+#: src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "備份已經成功匯入"
 
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "Planify 將會重新啟動以套用變更"
 
-#: src/Services/BackupManager.vala:426
+#: src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "立即重新啟動"
 
-#: src/Services/BackupManager.vala:440
+#: src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Planify 備份檔案"
 

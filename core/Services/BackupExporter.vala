@@ -62,6 +62,9 @@ public class Services.BackupExporter : Object {
         builder.begin_object ();
         builder.set_member_name ("local-inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
+        // User preferences (sort orders, view options...), so a restore keeps them.
+        builder.set_member_name ("preferences");
+        Services.Settings.get_default ().export_preferences (builder);
         builder.end_object ();
 
         // Sources

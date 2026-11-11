@@ -3729,22 +3729,22 @@ msgid "Delete Backup"
 msgstr "Xóa Sao Lưu"
 
 #: src/Services/BackupManager.vala:394 src/Services/BackupManager.vala:398
-#: src/Services/BackupManager.vala:422
+#: src/Services/BackupManager.vala:422 src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "Nhập Sao Lưu Thành Công"
 
 #: src/Services/BackupManager.vala:395 src/Services/BackupManager.vala:399
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:423 src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "Planify sẽ khởi động lại để áp dụng các thay đổi"
 
 #: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:402
-#: src/Services/BackupManager.vala:426
+#: src/Services/BackupManager.vala:426 src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "Khởi Động Lại Ngay"
 
 #: src/Services/BackupManager.vala:412 src/Services/BackupManager.vala:416
-#: src/Services/BackupManager.vala:440
+#: src/Services/BackupManager.vala:440 src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Tệp Sao Lưu Planify"
 
