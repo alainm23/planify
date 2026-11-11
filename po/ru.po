@@ -3638,19 +3638,19 @@ msgstr "Не удалось скопировать резервную копию
 msgid "Delete Backup"
 msgstr "Удалить резервную копию"
 
-#: src/Services/BackupManager.vala:422
+#: src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "Резервная копия успешно импортирована"
 
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "Planify перезапустится, чтобы применить изменения"
 
-#: src/Services/BackupManager.vala:426
+#: src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "Перезапустить сейчас"
 
-#: src/Services/BackupManager.vala:440
+#: src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Резервные копии Planify"
 

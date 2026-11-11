@@ -3603,19 +3603,19 @@ msgstr "Gagal menyalin cadangan ke %s"
 msgid "Delete Backup"
 msgstr "Hapus Cadangan"
 
-#: src/Services/BackupManager.vala:422
+#: src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "Cadangan Berhasil Diimpor"
 
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "Planify akan dimulai ulang untuk menerapkan perubahan"
 
-#: src/Services/BackupManager.vala:426
+#: src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "Mulai Ulang Sekarang"
 
-#: src/Services/BackupManager.vala:440
+#: src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Berkas Cadangan Planify"
 

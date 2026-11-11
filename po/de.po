@@ -3655,19 +3655,19 @@ msgstr "Konnte Sicherung nicht nach %s kopieren"
 msgid "Delete Backup"
 msgstr "Sicherung löschen"
 
-#: src/Services/BackupManager.vala:422
+#: src/Services/BackupManager.vala:423
 msgid "Backup Successfully Imported"
 msgstr "Sicherung erfolgreich importiert"
 
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:424
 msgid "Planify will restart to apply the changes"
 msgstr "Planify wird neu gestartet um die Änderungen anzuwenden"
 
-#: src/Services/BackupManager.vala:426
+#: src/Services/BackupManager.vala:427
 msgid "Restart Now"
 msgstr "Jetzt neustarten"
 
-#: src/Services/BackupManager.vala:440
+#: src/Services/BackupManager.vala:441
 msgid "Planify Backup Files"
 msgstr "Planify Sicherungsdateien"
 
