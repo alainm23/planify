@@ -385,6 +385,7 @@ msgstr "Eliminar etiqueta %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Services/BackupManager.vala:229 src/Services/BackupManager.vala:251
+#: src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Isto non pode ser revertido"
 
@@ -415,7 +416,7 @@ msgstr "Isto non pode ser revertido"
 #: src/Services/BackupManager.vala:232 src/Views/Filter.vala:815
 #: src/Views/Project/Project.vala:550
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
-#: src/Services/BackupManager.vala:254
+#: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -435,7 +436,7 @@ msgstr "Cancelar"
 #: src/Services/BackupManager.vala:233 src/Views/Filter.vala:816
 #: src/Views/Project/Project.vala:551
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
-#: src/Services/BackupManager.vala:255
+#: src/Services/BackupManager.vala:255 src/Services/BackupManager.vala:289
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -3702,38 +3703,42 @@ msgid "Reset Database"
 msgstr "Restaurar base de datos"
 
 #: src/Services/BackupManager.vala:154 src/Services/BackupManager.vala:158
-#: src/Services/BackupManager.vala:179
+#: src/Services/BackupManager.vala:179 src/Services/BackupManager.vala:213
 msgid "Automatic backup failed"
 msgstr "Fallou a copia de seguranza automática"
 
 #: src/Services/BackupManager.vala:200 src/Services/BackupManager.vala:204
-#: src/Services/BackupManager.vala:226
+#: src/Services/BackupManager.vala:226 src/Services/BackupManager.vala:260
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr "Produciuse un fallo ao copiar a base de datos a %s"
 
 #: src/Services/BackupManager.vala:224 src/Services/BackupManager.vala:228
-#: src/Services/BackupManager.vala:250
+#: src/Services/BackupManager.vala:250 src/Services/BackupManager.vala:284
 msgid "Delete Backup"
 msgstr "Eliminar copia de seguranza"
 
 #: src/Services/BackupManager.vala:394 src/Services/BackupManager.vala:398
 #: src/Services/BackupManager.vala:422 src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:457
 msgid "Backup Successfully Imported"
 msgstr "Copia de seguranza importada correctamente"
 
 #: src/Services/BackupManager.vala:395 src/Services/BackupManager.vala:399
 #: src/Services/BackupManager.vala:423 src/Services/BackupManager.vala:424
+#: src/Services/BackupManager.vala:458
 msgid "Planify will restart to apply the changes"
 msgstr "Vaise reiniciar o Planify para aplicar os cambios"
 
 #: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:402
 #: src/Services/BackupManager.vala:426 src/Services/BackupManager.vala:427
+#: src/Services/BackupManager.vala:461
 msgid "Restart Now"
 msgstr "Reiniciar agora"
 
 #: src/Services/BackupManager.vala:412 src/Services/BackupManager.vala:416
 #: src/Services/BackupManager.vala:440 src/Services/BackupManager.vala:441
+#: src/Services/BackupManager.vala:475
 msgid "Planify Backup Files"
 msgstr "Ficheiros de copias de seguranza do Planify"
 

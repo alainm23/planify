@@ -423,6 +423,7 @@ msgstr "%s Etiketini Sil"
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
+#: src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Bu geri alınamaz"
 
@@ -461,7 +462,7 @@ msgstr "Bu geri alınamaz"
 #: core/Objects/Project.vala:905 core/Objects/Project.vala:985
 #: core/Objects/Project.vala:910 core/Objects/Project.vala:990
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
-#: src/Services/BackupManager.vala:254
+#: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 msgid "Cancel"
 msgstr "İptal"
 
@@ -486,7 +487,7 @@ msgstr "İptal"
 #: src/Views/Project/Project.vala:551 core/Objects/Project.vala:909
 #: core/Objects/Section.vala:436 core/Objects/Project.vala:906
 #: core/Objects/Project.vala:911 src/Dialogs/Preferences/Pages/Backup.vala:525
-#: src/Services/BackupManager.vala:255
+#: src/Services/BackupManager.vala:255 src/Services/BackupManager.vala:289
 msgid "Delete"
 msgstr "Sil"
 
@@ -3931,41 +3932,44 @@ msgstr "Tümünü sıfırla"
 
 #: src/Services/BackupManager.vala:153 src/Services/BackupManager.vala:154
 #: src/Services/BackupManager.vala:158 src/Services/BackupManager.vala:179
+#: src/Services/BackupManager.vala:213
 msgid "Automatic backup failed"
 msgstr ""
 
 #: src/Services/BackupManager.vala:199 src/Services/BackupManager.vala:200
 #: src/Services/BackupManager.vala:204 src/Services/BackupManager.vala:226
+#: src/Services/BackupManager.vala:260
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
 #: src/Services/BackupManager.vala:223 src/Services/BackupManager.vala:224
 #: src/Services/BackupManager.vala:228 src/Services/BackupManager.vala:250
+#: src/Services/BackupManager.vala:284
 msgid "Delete Backup"
 msgstr "Yedek Oluştur"
 
 #: src/Services/BackupManager.vala:355 src/Services/BackupManager.vala:394
 #: src/Services/BackupManager.vala:398 src/Services/BackupManager.vala:422
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:423 src/Services/BackupManager.vala:457
 msgid "Backup Successfully Imported"
 msgstr "Yedek Başarıyla İçe Aktarıldı"
 
 #: src/Services/BackupManager.vala:356 src/Services/BackupManager.vala:395
 #: src/Services/BackupManager.vala:399 src/Services/BackupManager.vala:423
-#: src/Services/BackupManager.vala:424
+#: src/Services/BackupManager.vala:424 src/Services/BackupManager.vala:458
 msgid "Planify will restart to apply the changes"
 msgstr ""
 
 #: src/Services/BackupManager.vala:359 src/Services/BackupManager.vala:398
 #: src/Services/BackupManager.vala:402 src/Services/BackupManager.vala:426
-#: src/Services/BackupManager.vala:427
+#: src/Services/BackupManager.vala:427 src/Services/BackupManager.vala:461
 msgid "Restart Now"
 msgstr ""
 
 #: src/Services/BackupManager.vala:373 src/Services/BackupManager.vala:412
 #: src/Services/BackupManager.vala:416 src/Services/BackupManager.vala:440
-#: src/Services/BackupManager.vala:441
+#: src/Services/BackupManager.vala:441 src/Services/BackupManager.vala:475
 msgid "Planify Backup Files"
 msgstr "Planify Yedek Dosyaları"
 
