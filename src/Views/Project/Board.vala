@@ -386,6 +386,7 @@ public class Views.Board : Adw.Bin {
     }
 
     public void clean_up () {
+        pinned_items_flowbox.clean_up ();
         flowbox.set_sort_func (null);
         flowbox.set_filter_func (null);
 
