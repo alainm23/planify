@@ -357,7 +357,7 @@ msgstr "Slett etikett %s"
 #: core/Objects/Section.vala:432
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:251
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Dette kan ikke angres"
 
@@ -374,7 +374,7 @@ msgstr "Dette kan ikke angres"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
-#: src/Services/BackupManager.vala:254 src/Views/Filter.vala:815
+#: src/Services/BackupManager.vala:288 src/Views/Filter.vala:815
 #: src/Views/Project/Project.vala:550
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
@@ -388,7 +388,7 @@ msgstr "Avbryt"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
-#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:255
+#: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:289
 #: src/Views/Filter.vala:816 src/Views/Project/Project.vala:551
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
@@ -1537,7 +1537,7 @@ msgstr "Velg etiketter"
 msgid "Label not found: Create '%s'"
 msgstr "Etikett ikke funnet: Opprett '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:85
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1545,44 +1545,48 @@ msgstr ""
 "Filtrene dine vises her. Opprett et ved å skrive inn navnet og trykke på "
 "Enter-tasten."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:86
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Opprett '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
 msgstr "Listen over filtre vil vises her."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Søk"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
 msgstr "Søk eller opprett"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
+msgid "Label color"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
 msgstr ""
 
@@ -3584,32 +3588,32 @@ msgstr ""
 msgid "Reset Database"
 msgstr "Tilbakestill database"
 
-#: src/Services/BackupManager.vala:179
+#: src/Services/BackupManager.vala:213
 msgid "Automatic backup failed"
 msgstr ""
 
-#: src/Services/BackupManager.vala:226
+#: src/Services/BackupManager.vala:260
 #, c-format
 msgid "Failed to copy backup to %s"
 msgstr ""
 
-#: src/Services/BackupManager.vala:250
+#: src/Services/BackupManager.vala:284
 msgid "Delete Backup"
 msgstr "Slett sikkerhetskopi"
 
-#: src/Services/BackupManager.vala:423
+#: src/Services/BackupManager.vala:457
 msgid "Backup Successfully Imported"
 msgstr "Sikkerhetskopien er importert"
 
-#: src/Services/BackupManager.vala:424
+#: src/Services/BackupManager.vala:458
 msgid "Planify will restart to apply the changes"
 msgstr "Planify vil starte på nytt for å implementere endringene"
 
-#: src/Services/BackupManager.vala:427
+#: src/Services/BackupManager.vala:461
 msgid "Restart Now"
 msgstr "Omstart nå"
 
-#: src/Services/BackupManager.vala:441
+#: src/Services/BackupManager.vala:475
 msgid "Planify Backup Files"
 msgstr "Planify sikkerhetskopi-filer"
 
