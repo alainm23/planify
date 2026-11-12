@@ -51,6 +51,49 @@ namespace PlanifyUITests {
         run_for (100);
     }
 
+    private void test_task_action_menu_is_lazy_and_reused () {
+        var item = Services.Store.instance ().get_item ("ui-memory-task-0");
+        var row = new Layouts.ItemRow (item);
+        var menu = (Gtk.MenuButton) find_type (row, typeof (Gtk.MenuButton));
+        assert_nonnull (menu);
+        assert_null (menu.popover);
+        assert_true (find_type (row, typeof (Widgets.ContextMenu.MenuSwitch)) == null);
+
+        var listbox = new Gtk.ListBox ();
+        listbox.append (row);
+        var window = new Gtk.Window () { child = listbox, default_width = 700, default_height = 600 };
+        window.present ();
+        row.edit = true;
+        settle_frames ();
+        menu.popup ();
+        run_for (100);
+        Gtk.Popover? popup = menu.popover;
+        assert_nonnull (popup);
+        var note = (Widgets.ContextMenu.MenuSwitch) find_type (popup, typeof (Widgets.ContextMenu.MenuSwitch));
+        assert_nonnull (note);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.NOTE);
+        menu.popdown ();
+        settle_frames ();
+        menu.popup ();
+        assert_true (menu.popover == popup);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.TASK);
+        menu.popdown ();
+        settle_frames ();
+
+        // Standalone coverage ends at lazy creation, actions, and popover reuse.
+        row.clean_up ();
+        popup = null;
+        note = null;
+        menu = null;
+        window.child = null;
+        listbox = null;
+        row = null;
+        window.destroy ();
+        window = null;
+    }
+
     private void assert_widgets_released (Gee.ArrayList<TrackedWidget> tracked) {
         var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
         while (tracked.any_match ((widget) => widget.reference.get () != null) &&
@@ -301,6 +344,7 @@ namespace PlanifyUITests {
         Test.add_func ("/ui/memory/date_picker_releases_descendants", test_date_picker_releases_descendants);
         Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
         Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);
+        Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
         return Test.run ();
     }
 }

@@ -47,7 +47,38 @@ namespace Planify.Tests.ItemMemory {
         assert_cmpstr (deferred.etag, CompareOperator.EQ, "v2");
     }
 
+    private void test_streamed_backup () {
+        ScratchDatabase.open ();
+        var item = make_item ("streamed-backup");
+        item.content = "A \"quoted\" task\nwith unicode: café";
+        item.extra_data = "{\"calendar-data\":\"payload\"}";
+        assert_true (Services.Database.get_default ().insert_item (item));
+        var second = make_item ("streamed-backup-second");
+        assert_true (Services.Database.get_default ().insert_item (second));
+        try {
+            var parser = new Json.Parser ();
+            parser.load_from_data (Services.BackupExporter.get_default ().export_to_json ());
+            var root = parser.get_root ().get_object ();
+            assert_true (root.has_member ("version"));
+            assert_true (root.has_member ("sources"));
+            assert_true (root.has_member ("projects"));
+            bool found = false;
+            foreach (var node in root.get_array_member ("items").get_elements ()) {
+                var task = node.get_object ();
+                if (task.get_string_member ("id") == item.id) {
+                    assert_cmpstr (task.get_string_member ("content"), CompareOperator.EQ, item.content);
+                    assert_cmpstr (task.get_string_member ("extra_data"), CompareOperator.EQ, item.extra_data);
+                    found = true;
+                }
+            }
+            assert_true (found);
+        } catch (Error e) {
+            error ("Backup must remain valid JSON: %s", e.message);
+        }
+    }
+
     public void register_tests () {
         Test.add_func ("/core/memory/deferred_details_preserved_on_update", test_deferred_extra_data_preserved_on_update);
+        Test.add_func ("/core/memory/streamed_backup", test_streamed_backup);
     }
 }

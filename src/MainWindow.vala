@@ -177,7 +177,8 @@ public class MainWindow : Adw.ApplicationWindow {
                 Util.get_default ().create_local_source ();
             }
 
-            if (Services.Store.instance ().is_database_empty ()) {
+            bool fresh_database = Services.Store.instance ().is_database_empty ();
+            if (fresh_database) {
                 Util.get_default ().create_inbox_project ();
                 Util.get_default ().create_tutorial_project ();
                 Util.get_default ().create_default_labels ();
@@ -187,7 +188,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
             Services.Notification.get_default ();
             Services.TimeMonitor.get_default ().init_timeout ();
-            Services.BackupManager.get_default ().init_auto_backup ();
+            Services.BackupManager.get_default ().init_auto_backup (fresh_database);
 
             go_homepage ();
 
@@ -978,14 +979,29 @@ public class MainWindow : Adw.ApplicationWindow {
     private void setup_network_monitor () {
         uint network_timeout_id = 0;
         var network_monitor = GLib.NetworkMonitor.get_default ();
+        bool was_available = network_monitor.get_network_available ();
+
         network_monitor.network_changed.connect (() => {
             bool available = network_monitor.get_network_available ();
-            Services.LogService.get_default ().info ("NetworkMonitor", "Network changed — available: %s".printf (available.to_string ()));
+
+            // network_changed fires for any routing change (VPN, Docker bridges,
+            // IPv6, Wi-Fi roaming...), even when the network stays available.
+            // Only a reconnection (unavailable -> available) needs a sync.
+            bool reconnected = available && !was_available;
+            bool still_offline = !available && !was_available;
+            was_available = available;
 
             if (_did_startup_sync == false) {
                 Services.LogService.get_default ().debug ("NetworkMonitor", "Ignoring early network change (startup sync not done yet)");
                 return;
             }
+
+            // Nothing changed for us: still online, or still offline.
+            if ((available && !reconnected) || still_offline) {
+                return;
+            }
+
+            Services.LogService.get_default ().info ("NetworkMonitor", "Network changed — available: %s".printf (available.to_string ()));
 
             if (!available) {
                 Services.LogService.get_default ().info ("NetworkMonitor", "Network unavailable, skipping sync");

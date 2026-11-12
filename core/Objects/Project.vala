@@ -103,7 +103,12 @@ public class Objects.Project : Objects.BaseObject {
     public SourceType source_type {
         get {
             Objects.Source? project_source = source;
-            return project_source != null ? project_source.source_type : backend_type;
+            if (project_source != null) {
+                return project_source.source_type;
+            }
+
+            // Sin fuente ni tipo persistido, el proyecto se trata como local (comportamiento previo).
+            return backend_type == SourceType.NONE ? SourceType.LOCAL : backend_type;
         }
     }
 

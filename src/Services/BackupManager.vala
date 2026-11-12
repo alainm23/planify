@@ -46,9 +46,14 @@ public class Services.BackupManager : Object {
     }
 
     public signal void backup_added (Objects.Backup backup);
+    public signal void backup_deleted (Objects.Backup backup);
 
-    public void init_auto_backup () {
-        if (Services.Settings.get_default ().settings.get_boolean ("backup-automatic")) {
+    // fresh_database: the database was just created with the default data
+    // (first run or after deleting the app data); there is nothing to back up yet.
+    public void init_auto_backup (bool fresh_database = false) {
+        if (fresh_database) {
+            Services.LogService.get_default ().info ("BackupManager", "Fresh database, skipping startup backup");
+        } else if (Services.Settings.get_default ().settings.get_boolean ("backup-automatic")) {
             _check_missed_backup ();
         }
 
@@ -66,22 +71,38 @@ public class Services.BackupManager : Object {
         var last_date_str = Services.Settings.get_default ().settings.get_string ("backup-last-date");
         var today = new GLib.DateTime.now_local ();
 
-        if (last_date_str == "") {
+        GLib.DateTime? last_date = null;
+        if (last_date_str != "") {
+            last_date = new GLib.DateTime.from_iso8601 (last_date_str, new GLib.TimeZone.local ());
+        }
+
+        // The setting is lost when settings are reset, but the backup files are
+        // kept; fall back to the newest one before assuming there is none.
+        if (last_date == null) {
+            last_date = get_newest_backup_date ();
+        }
+
+        if (last_date == null) {
             Services.LogService.get_default ().info ("BackupManager", "No previous backup found, running initial backup");
             create_and_distribute_backup ();
             return;
         }
 
-        var last_date = new GLib.DateTime.from_iso8601 (last_date_str, new GLib.TimeZone.local ());
-        if (last_date == null) {
+        if (today.get_day_of_year () != last_date.get_day_of_year () || today.get_year () != last_date.get_year ()) {
+            Services.LogService.get_default ().info ("BackupManager", "Missed backup detected (last: %s), running now".printf (last_date.to_string ()));
             create_and_distribute_backup ();
-            return;
+        }
+    }
+
+    private GLib.DateTime? get_newest_backup_date () {
+        GLib.DateTime? newest = null;
+        foreach (var backup in backups) {
+            if (backup.datetime != null && (newest == null || backup.datetime.compare (newest) > 0)) {
+                newest = backup.datetime;
+            }
         }
 
-        if (today.get_day_of_year () != last_date.get_day_of_year () || today.get_year () != last_date.get_year ()) {
-            Services.LogService.get_default ().info ("BackupManager", "Missed backup detected (last: %s), running now".printf (last_date_str));
-            create_and_distribute_backup ();
-        }
+        return newest;
     }
 
     construct {
@@ -91,6 +112,40 @@ public class Services.BackupManager : Object {
         builder = new Json.Builder ();
         parser = new Json.Parser ();
         path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/backups";
+        restrict_backup_permissions ();
+    }
+
+    // Backups contain account credentials, so only their owner may read them.
+    // Older versions created them readable by everyone: tighten what is there.
+    private void restrict_backup_permissions () {
+        File directory = File.new_for_path (path);
+        set_unix_mode (directory, 0700);
+
+        try {
+            var children = directory.enumerate_children (
+                FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE,
+                GLib.FileQueryInfoFlags.NOFOLLOW_SYMLINKS
+            );
+            FileInfo file_info = null;
+
+            while ((file_info = children.next_file ()) != null) {
+                if (file_info.get_file_type () == FileType.REGULAR && file_info.get_name ().has_suffix (".json")) {
+                    set_unix_mode (directory.get_child (file_info.get_name ()), 0600);
+                }
+            }
+
+            children.close ();
+        } catch (Error e) {
+            debug ("Error restricting backup permissions: %s", e.message);
+        }
+    }
+
+    private static void set_unix_mode (File file, uint32 mode) {
+        try {
+            file.set_attribute_uint32 (FileAttribute.UNIX_MODE, mode, FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+        } catch (Error e) {
+            debug ("Error setting permissions of %s: %s", file.get_path (), e.message);
+        }
     }
 
     public Gee.ArrayList<Objects.Backup> get_backups_collection () {
@@ -170,14 +225,15 @@ public class Services.BackupManager : Object {
         var file = File.new_for_path (file_path);
 
         try {
-            var stream = file.create (FileCreateFlags.NONE, null);
-            stream.write (export_to_json ().data, null);
+            var stream = file.create (FileCreateFlags.PRIVATE, null);
+            Services.BackupExporter.get_default ().export_to_stream (stream);
             stream.close (null);
 
             if (file.query_exists ()) {
                 var backup = new Objects.Backup.from_file (file);
+                // Update the list before notifying, so listeners see the new backup.
+                backups.add (backup);
                 backup_added (backup);
-                _backups.add (backup);
                 return file;
             }
         } catch (Error e) {
@@ -248,8 +304,10 @@ public class Services.BackupManager : Object {
         if (db_file.query_exists ()) {
             try {
                 if (db_file.delete ()) {
+                    // Update the list before notifying, so listeners see it without the backup.
+                    backups.remove (backup);
                     backup.deleted ();
-                    _backups.remove (backup);
+                    backup_deleted (backup);
                     return true;
                 }
             } catch (Error err) {
@@ -332,6 +390,7 @@ public class Services.BackupManager : Object {
     public void patch_backup (Objects.Backup backup) {
         Services.Settings.get_default ().reset_settings ();
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
+        Services.Settings.get_default ().import_preferences (backup.preferences);
 
         // Clear Database
         Services.Database.get_default ().clear_database ();
