@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-11-10 16:10+0000\n"
+"PO-Revision-Date: 2026-11-12 16:18+0000\n"
 "Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -4495,11 +4495,11 @@ msgstr "Čtení souboru selhalo"
 #: core/Objects/Reminder.vala:93
 #, c-format
 msgid "%s · Next occurrence"
-msgstr ""
+msgstr "%s · Další výskyt"
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
-msgstr ""
+msgstr "Připomeneme Vám to znovu, až se úkol bude opakovat"
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
