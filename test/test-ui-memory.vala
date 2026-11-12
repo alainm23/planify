@@ -333,7 +333,7 @@ namespace PlanifyUITests {
         window.destroy ();
     }
 
-    private void test_navigation_releases_previous_page () {
+    private void test_navigation_keeps_previous_and_releases_older_page () {
         var app = Planify.instance;
         try {
             assert_true (app.register ());
@@ -353,7 +353,15 @@ namespace PlanifyUITests {
             var released = GLib.WeakRef (page);
             settle_frames ();
             window.add_today_view ();
+            settle_frames ();
+            // Returning to the previous page must reuse it, not rebuild it.
+            assert_true (window.add_project_view (project) == page);
+            settle_frames ();
+            window.add_today_view ();
             page = null;
+            settle_frames ();
+            assert_nonnull (released.get ());
+            window.add_labels_view ();
             // Eviction is queued after the page transition; allow frame scheduling to settle
             // even when other tests or profiling consume CPU.
             var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
@@ -364,12 +372,20 @@ namespace PlanifyUITests {
         }
 
         // Exercise another navigation before the pending page change finishes.
-        window.add_project_view (project);
+        var page = window.add_project_view (project);
+        var released = GLib.WeakRef (page);
         window.add_today_view ();
-        window.add_project_view (project);
+        assert_true (window.add_project_view (project) == page);
+        window.add_labels_view ();
+        page = null;
         settle_frames ();
+        assert_nonnull (released.get ());
         window.add_today_view ();
-        settle_frames ();
+        var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
+        while (released.get () != null && get_monotonic_time () < deadline) {
+            settle_frames ();
+        }
+        assert_null (released.get ());
         window.destroy ();
     }
 
@@ -438,7 +454,7 @@ namespace PlanifyUITests {
         Test.add_func ("/ui/memory/pinned_card_keyboard_focus", test_pinned_card_keyboard_focus);
         Test.add_func ("/ui/memory/cancel_section_loading", test_cancel_section_loading);
         Test.add_func ("/ui/memory/cancel_project_loading", test_cancel_project_loading);
-        Test.add_func ("/ui/memory/navigation_releases_previous_page", test_navigation_releases_previous_page);
+        Test.add_func ("/ui/memory/navigation_keeps_previous_and_releases_older_page", test_navigation_keeps_previous_and_releases_older_page);
         return Test.run ();
     }
 }

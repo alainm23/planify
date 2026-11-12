@@ -682,6 +682,12 @@ public class MainWindow : Adw.ApplicationWindow {
             return;
         }
 
+        foreach (var item in view_cache) {
+            if (item.view == project_view) {
+                item.invalidated = true;
+                break;
+            }
+        }
         if (views_stack.visible_child == project_view) {
             go_homepage ();
         }
@@ -1008,6 +1014,17 @@ public class MainWindow : Adw.ApplicationWindow {
     // finishes, even when transitions are disabled. Queue cleanup outside that
     // notification: rapid navigation can emit it while the next page is being set.
     private void cleanup_unused_views () {
+        // Keep the cache in visit order, including when an existing page is reused
+        // or navigation happens again before the pending cleanup runs.
+        for (int i = 0; i < view_cache.size; i++) {
+            var item = view_cache[i];
+            if (item.view == views_stack.visible_child) {
+                view_cache.remove_at (i);
+                view_cache.add (item);
+                break;
+            }
+        }
+
         if (cleaning_up_window || view_cleanup_idle_id != 0) {
             return;
         }
@@ -1019,8 +1036,10 @@ public class MainWindow : Adw.ApplicationWindow {
             }
 
             var to_remove = new Gee.ArrayList<ViewCacheItem> ();
-            foreach (var item in view_cache) {
-                if (item.view != views_stack.visible_child) {
+            for (int i = 0; i < view_cache.size; i++) {
+                var item = view_cache[i];
+                if (item.view != views_stack.visible_child &&
+                    (item.invalidated || i < view_cache.size - 2)) {
                     to_remove.add (item);
                 }
             }
@@ -1057,6 +1076,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private class ViewCacheItem {
         public string view_id;
         public Gtk.Widget view;
+        public bool invalidated = false;
 
         public ViewCacheItem (string id, Gtk.Widget widget) {
             view_id = id;

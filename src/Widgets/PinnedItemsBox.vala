@@ -89,7 +89,9 @@ public class Widgets.PinnedItemsBox : Adw.Bin {
 
     public void clean_up () {
         foreach (var entry in signal_map.entries) {
-            if (SignalHandler.is_connected (entry.value, entry.key)) entry.value.disconnect (entry.key);
+            if (entry.value != null && SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
         }
         signal_map.clear ();
         foreach (var row in items_map.values) {
