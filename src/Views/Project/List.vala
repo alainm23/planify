@@ -418,6 +418,7 @@ public class Views.List : Adw.Bin {
     }
 
     public void clean_up () {
+        pinned_items_flowbox.clean_up ();
         listbox.set_sort_func (null);
         listbox.set_filter_func (null);
 
