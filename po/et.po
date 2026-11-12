@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-08-10 23:59+0000\n"
-"Last-Translator: user21172121683 <lukas@messing.ee>\n"
+"PO-Revision-Date: 2026-11-12 21:46+0000\n"
+"Last-Translator: Priit Jõerüüt <jrthwlate@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Estonian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/et/>\n"
 "Language: et\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -422,7 +422,7 @@ msgstr "Arhiveeri"
 #: core/Objects/Reminder.vala:93
 #, c-format
 msgid "%s · Next occurrence"
-msgstr ""
+msgstr "%s · Järgmine kordumine"
 
 #: core/Objects/Section.vala:431
 #, c-format
@@ -573,13 +573,13 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:290
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Laadin ülesandeid: %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:301
 #: core/Services/CalDAV/CalDAVClient.vala:327
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Laadisin ülesandeid: %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:320
 #, c-format
@@ -626,7 +626,7 @@ msgstr ""
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
-msgstr ""
+msgstr "Kliendisertifikaadi laadimine ei õnnestunud: %s"
 
 #: core/Services/CalDAV/Core.vala:206 core/Services/CalDAV/Core.vala:257
 msgid "Failed to resolve principal url"
@@ -1046,7 +1046,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:701
 msgid "Enable synchronization with third-party services"
-msgstr ""
+msgstr "Lülita sünkroonimine kolmandate osapoolte teenustega sisse"
 
 #: core/Utils/Util.vala:702
 msgid ""
@@ -1307,7 +1307,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 msgid "times"
-msgstr ""
+msgstr "korda"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
@@ -1315,7 +1315,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 msgid "time"
-msgstr ""
+msgstr "kord"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:109
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:201
@@ -1407,7 +1407,7 @@ msgstr "Kuu viimane päev"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:288
 msgid "Repeat from completion date"
-msgstr ""
+msgstr "Korda lõpetamise kuupäeva"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:290
 msgid ""
@@ -1417,21 +1417,21 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
-msgstr ""
+msgstr "Ei iilagi"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:309
 msgid "On Date"
-msgstr ""
+msgstr "Kindlal päeval"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:313
 msgid "After"
-msgstr ""
+msgstr "Peale"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1350
 msgid "Apply"
-msgstr ""
+msgstr "Rakenda"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 msgid "Repeat every"
@@ -1440,7 +1440,7 @@ msgstr "Korda iga"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:408
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "Lõpeta"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
@@ -1546,17 +1546,17 @@ msgstr ""
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "Loo „%s“"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
-msgstr ""
+msgstr "Sinu filtrite loend saab olema nähtav siin."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
-msgstr ""
+msgstr "Otsi"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
@@ -1573,19 +1573,20 @@ msgstr "Silte pole"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
 msgid "Label color"
-msgstr ""
+msgstr "Sildi värv"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
-msgstr ""
+msgstr "Kõik on peidetud"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
+"Kõik sildid on filtri poolt peidetud. Nende nägemiseks lülita filter välja."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Loomiseks ja määramiseks vajuta sisestusklahvi"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
 msgid "Task description"
@@ -1680,19 +1681,19 @@ msgstr "6 tunni pärast"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:241
 msgid "Suggestions"
-msgstr ""
+msgstr "Soovitused"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Vali aeg tulevikust"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "Sul juba on selleks ajaks meeldetuletuse olemas"
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
-msgstr ""
+msgstr "Ülesande kordumisel tuletame seda sulle uuesti meelde"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -1766,11 +1767,11 @@ msgstr "Vali loendist kalender"
 
 #: src/Dialogs/CalendarSync.vala:113
 msgid "Enable Sync"
-msgstr ""
+msgstr "Kasuta sünkroonimist"
 
 #: src/Dialogs/CalendarSync.vala:184
 msgid "Calendar sync disabled successfully"
-msgstr ""
+msgstr "Kalendri sünkroonimise väljalülitamine õnnestus"
 
 #: src/Dialogs/CalendarSync.vala:223 src/Views/Project/Project.vala:62
 msgid "Calendar Sync Active"
@@ -1784,16 +1785,16 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:247
 msgid "Disable Sync"
-msgstr ""
+msgstr "Ära kasuta sünkroonimist"
 
 #: src/Dialogs/CalendarSync.vala:279
 #, c-format
 msgid "Synced with: %s"
-msgstr ""
+msgstr "Sünkroonitud teenusega: %s"
 
 #: src/Dialogs/CalendarSync.vala:292
 msgid "Sync Enabled!"
-msgstr ""
+msgstr "Sünkroonimine on kasutusel!"
 
 #: src/Dialogs/CalendarSync.vala:297
 msgid ""
@@ -1803,7 +1804,7 @@ msgstr ""
 
 #: src/Dialogs/CalendarSync.vala:305
 msgid "OK"
-msgstr ""
+msgstr "Sobib"
 
 #: src/Dialogs/CompletedTasks.vala:39 src/Dialogs/CompletedTasks.vala:134
 msgid "Completed Tasks"
@@ -1811,7 +1812,7 @@ msgstr "Lõpetatud ülesanded"
 
 #: src/Dialogs/CompletedTasks.vala:59
 msgid "View Filter Menu"
-msgstr ""
+msgstr "Vaata filtrimenüüd"
 
 #: src/Dialogs/CompletedTasks.vala:95
 msgid "No completed tasks yet."
@@ -1855,7 +1856,7 @@ msgstr "Järgmisel nädalal"
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1424
 #: src/Layouts/ItemSidebarView.vala:523
 msgid "Change History"
-msgstr ""
+msgstr "Muudatuste ajalugu"
 
 #: src/Dialogs/ItemChangeHistory.vala:56
 msgid "Added at"
@@ -1867,7 +1868,7 @@ msgstr "Pole saadaval"
 
 #: src/Dialogs/ItemChangeHistory.vala:62
 msgid "Updated at"
-msgstr ""
+msgstr "Uuendamise aeg"
 
 #: src/Dialogs/ItemChangeHistory.vala:71
 msgid ""
@@ -1892,11 +1893,11 @@ msgstr "Lisa silt"
 
 #: src/Dialogs/Label.vala:89
 msgid "Update Label"
-msgstr ""
+msgstr "Uuenda silti"
 
 #: src/Dialogs/LabelPicker.vala:62
 msgid "Filter"
-msgstr ""
+msgstr "Filter"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:814
 msgid "Archived Projects"
@@ -1919,11 +1920,11 @@ msgstr "Uus alajaotus"
 
 #: src/Dialogs/ManageSectionOrder.vala:88
 msgid "No Sections"
-msgstr ""
+msgstr "Alajaotusi pole"
 
 #: src/Dialogs/ManageSectionOrder.vala:89
 msgid "Add a section to organize your tasks"
-msgstr ""
+msgstr "Oma ülesannete haldamiseks lisa alajaotus"
 
 #: src/Dialogs/ManageSectionOrder.vala:100
 msgid "Archived"
@@ -1949,7 +1950,7 @@ msgstr "Sisendkausta vaade"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 msgid "Detected Accounts"
-msgstr ""
+msgstr "Tuvastatud kasutajakontod"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 msgid "Accounts configured in GNOME Online Accounts"
@@ -1964,32 +1965,32 @@ msgstr[1] ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 msgid "Import"
-msgstr ""
+msgstr "Impordi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 msgid "Planify is syncing your tasks, this may take a few moments"
-msgstr ""
+msgstr "Planify sünkroonib sinu ülesandeid, selleks võib kuluda mõni hetk"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "SSL-i õigsuse kontrollimine on lülitatud välja"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
-msgstr ""
+msgstr "Autentimine on aegunud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 msgid "Account migration required"
-msgstr ""
+msgstr "Vajalik on kasutajakonto kolimine"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 msgid "Reconnect"
-msgstr ""
+msgstr "Ühenda uuesti"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 msgid "Cannot Hide This Account"
-msgstr ""
+msgstr "Selle kasutajakonto peitmine pole võimalik"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 msgid ""
@@ -2004,50 +2005,51 @@ msgstr "Muuda sisendkausta"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 msgid "Syncing…"
-msgstr ""
+msgstr "Sünkroonin…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:57
 msgid "Connect to CalDAV"
-msgstr ""
+msgstr "Ühenda CalDAV-i serveriga"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:62
 msgid "Connect to any CalDAV-compatible server to sync your tasks"
 msgstr ""
+"Oma ülesannete sünkroonimiseks ühenda serveriga, mis toetab CalDAV protokolli"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:78
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:74
 msgid "Server URL"
-msgstr ""
+msgstr "Serveri võrguaadress"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:81
 msgid "Username"
-msgstr ""
+msgstr "Kasutajanimi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:84
 msgid "Password"
-msgstr ""
+msgstr "Salasõna"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 msgid "Calendar Home URL"
-msgstr ""
+msgstr "Kalendri avalehe võrguaadress"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:106
 msgid "Advanced"
-msgstr ""
+msgstr "Lisavalikud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:122
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Show advanced options"
-msgstr ""
+msgstr "Näita seadistusi oskuskasutajatele"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:140
 msgid "Hide advanced options"
-msgstr ""
+msgstr "Peida seadistused oskuskasutajatele"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:144
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:111
 msgid "Log In"
-msgstr ""
+msgstr "Logi sisse"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
 msgid "Inbox Project"
@@ -2935,7 +2937,7 @@ msgstr[1] ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
 #: src/MainWindow.vala:791
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Kokkuvõte ja sinu toimekus"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
@@ -2949,12 +2951,12 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 #: src/Widgets/ProductivityMiniWidget.vala:31
 msgid "Daily Goal"
-msgstr ""
+msgstr "Igapäevane eesmärk"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Nädalaeesmärk"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
@@ -2962,16 +2964,16 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
-msgstr ""
+msgstr "Kokkuvõtte üksikasjad"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Siin saab olema nähtav üksikasjalik kokkuvõte"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
 msgid "Summary"
-msgstr ""
+msgstr "Kokkuvõte"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
@@ -2984,7 +2986,7 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
-msgstr ""
+msgstr "Toimekus"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -2996,11 +2998,11 @@ msgstr "Vaata veel"
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
 #: src/Widgets/ProductivityMiniWidget.vala:76
 msgid "(scheduled)"
-msgstr ""
+msgstr "(ajastatud)"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Oled kõik eesmärgid saavutanud! Täitsa peatumatu kohe"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
@@ -3028,35 +3030,35 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Senimaani on olnud korralik nädal, jätka samas stiilis"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Iga täidetud ülesanne on samm edasi"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
-msgstr ""
+msgstr "Lisa päeva- ja nädalaeesmärke ja saad jälgida oma toimekust"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Lisa eesmärke"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "Eesmärgid"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
-msgstr ""
+msgstr "Muuda eesmärke"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Kokku"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Tegemise ootel"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:159
@@ -3065,7 +3067,7 @@ msgstr "Üle tähtaja"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:73
 msgid "Progress"
-msgstr ""
+msgstr "Edenemine"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
 msgid "New Project"
@@ -4017,10 +4019,10 @@ msgstr[0] "Kas oled kindel, et tahad selle %d ülesande kustutada?"
 msgstr[1] "Kas oled kindel, et tahad need %d ülesannet kustutada?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
-#, fuzzy, c-format
+#, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Ülesanne asub nüüd uues kohas: %s"
+msgstr[0] "%d ülesanne asub nüüd uues kohas: %s"
 msgstr[1] "%d ülesannet asuvad nüüd uues kohas: %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
@@ -4072,24 +4074,24 @@ msgstr ""
 
 #: src/Widgets/TranslationRow.vala:129 src/Widgets/TranslationRow.vala:151
 msgid "Translations"
-msgstr ""
+msgstr "Tõlked"
 
 #: src/Widgets/TranslationRow.vala:130 src/Widgets/TranslationRow.vala:152
 msgid "Help make Planify available worldwide"
-msgstr ""
+msgstr "Aita muuta Planify'd kasutatavaks kõikjal üle maailma"
 
 #: src/Widgets/TranslationRow.vala:138
 msgid "Help improve translations"
-msgstr ""
+msgstr "Aita tõlget täiendada"
 
 #: src/Widgets/TranslationRow.vala:146
 msgid "Start a new translation"
-msgstr ""
+msgstr "Alusta uut tõlget"
 
 #: src/Widgets/TranslationRow.vala:147
 #, c-format
 msgid "<b>%s</b> is not available yet. Be the first to translate it!"
-msgstr ""
+msgstr "<b>%s</b> pole veel saadaval. Ole esimene tõlkija!"
 
 #: quick-add/MainWindow.vala:9
 msgid "Planify - Quick Add"
