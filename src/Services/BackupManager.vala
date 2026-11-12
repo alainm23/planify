@@ -112,6 +112,40 @@ public class Services.BackupManager : Object {
         builder = new Json.Builder ();
         parser = new Json.Parser ();
         path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/backups";
+        restrict_backup_permissions ();
+    }
+
+    // Backups contain account credentials, so only their owner may read them.
+    // Older versions created them readable by everyone: tighten what is there.
+    private void restrict_backup_permissions () {
+        File directory = File.new_for_path (path);
+        set_unix_mode (directory, 0700);
+
+        try {
+            var children = directory.enumerate_children (
+                FileAttribute.STANDARD_NAME + "," + FileAttribute.STANDARD_TYPE,
+                GLib.FileQueryInfoFlags.NOFOLLOW_SYMLINKS
+            );
+            FileInfo file_info = null;
+
+            while ((file_info = children.next_file ()) != null) {
+                if (file_info.get_file_type () == FileType.REGULAR && file_info.get_name ().has_suffix (".json")) {
+                    set_unix_mode (directory.get_child (file_info.get_name ()), 0600);
+                }
+            }
+
+            children.close ();
+        } catch (Error e) {
+            debug ("Error restricting backup permissions: %s", e.message);
+        }
+    }
+
+    private static void set_unix_mode (File file, uint32 mode) {
+        try {
+            file.set_attribute_uint32 (FileAttribute.UNIX_MODE, mode, FileQueryInfoFlags.NOFOLLOW_SYMLINKS);
+        } catch (Error e) {
+            debug ("Error setting permissions of %s: %s", file.get_path (), e.message);
+        }
     }
 
     public Gee.ArrayList<Objects.Backup> get_backups_collection () {
@@ -191,7 +225,7 @@ public class Services.BackupManager : Object {
         var file = File.new_for_path (file_path);
 
         try {
-            var stream = file.create (FileCreateFlags.NONE, null);
+            var stream = file.create (FileCreateFlags.PRIVATE, null);
             Services.BackupExporter.get_default ().export_to_stream (stream);
             stream.close (null);
 
