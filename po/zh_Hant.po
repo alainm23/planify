@@ -1505,50 +1505,54 @@ msgstr "選擇標籤"
 msgid "Label not found: Create '%s'"
 msgstr "標籤未找到：建立 '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:85
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr "您所篩選的清單將顯示於此。輸入名稱並按 Enter 鍵即可建立一個。"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:86
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "建立 '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
 msgstr "您所篩選的清單將會顯示於此。"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "搜尋"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
 msgstr "搜尋或建立"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
 msgstr "隱藏尚未使用的標籤"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
 msgstr "無標籤"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
+msgid "Label color"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
 msgstr "全部隱藏"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr "全部標籤都已由篩選器隱藏。停用篩選器才能看到它們。"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
 msgstr "按 Enter 鍵進行建立並指派它"
 

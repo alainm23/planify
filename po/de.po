@@ -1562,7 +1562,7 @@ msgstr "Labels auswählen"
 msgid "Label not found: Create '%s'"
 msgstr "Label nicht gefunden: Erstelle „%s“"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:85
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1571,46 +1571,50 @@ msgstr ""
 "Namen eingibst und die Eingabetaste drückst."
 
 # # c-format
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:86
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Erstelle '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
 msgstr "Die Liste an Filtern wird hier angezeigt."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Suchen"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
 msgstr "Suchen oder erstellen"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
 msgstr "Nicht verwendete Labels ausblenden"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
 msgstr "Keine Labels vorhanden"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
+msgid "Label color"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
 msgstr "Alle ausgeblendet"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
 "Durch deine Filtereinstellungen sind alle Labels ausgeblendet. Deaktiviere "
 "den Filter, um sie anzuzeigen."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
 msgstr "Drücke Enter, um das Label zu erstellen und zuzuweisen"
 
