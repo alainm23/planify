@@ -174,7 +174,7 @@
         </key>
 
         <key name="today-sort-order" type="s">
-            <default>"name"</default>
+            <default>"due-date"</default>
             <summary>Today view sort order</summary>
             <description>Controls how tasks are sorted in the Today view</description>
         </key>
@@ -216,7 +216,7 @@
         </key>
 
         <key name="scheduled-sort-order" type="s">
-            <default>"name"</default>
+            <default>"due-date"</default>
             <summary>Scheduled view sort order</summary>
             <description>Controls how tasks are sorted in the Scheduled view</description>
         </key>

@@ -33,6 +33,10 @@ test_core_sources = [
     'core/test-subitem-cache.vala',
     'core/test-item-reparent.vala',
     'core/test-label-unique.vala',
+    'core/test-section-cache.vala',
+    'core/test-caldav-roundtrip.vala',
+    'core/test-caldav-sync-failure.vala',
+    'core/test-item-memory.vala',
     'core/test-source-lifecycle.vala',
     'core/test-delete-completed-tasks.vala',
     'core/test-section-cache.vala'
@@ -57,6 +61,12 @@ test('core', test_core, timeout: 30, suite: ['core'], depends: test_schemas,
     env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-core-data',
           'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(), 'GSETTINGS_BACKEND=memory'])
 
+# Repeated mapped layout transitions need more time under software rendering/profilers.
+test('ui-memory', test_ui_memory, timeout: 90, suite: ['widgets'], depends: test_schemas,
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'ui-memory/test-core-data',
+          'GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
+          'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
+
 # Run under a display (for example xvfb-run); return 77 when GTK is unavailable.
 test_calendar_memory = executable(
     'test-calendar-memory',
@@ -68,3 +78,4 @@ test_calendar_memory = executable(
 test('calendar-memory', test_calendar_memory, timeout: 30, suite: ['widgets'], depends: test_schemas,
     env: ['GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
           'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
+

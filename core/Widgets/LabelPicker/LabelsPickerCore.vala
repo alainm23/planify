@@ -33,6 +33,17 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
     private Gtk.ToggleButton filter_button;
     private bool hide_unused;
 
+    private Gee.HashMap<string, Gtk.CheckButton> new_label_color_buttons = new Gee.HashMap<string, Gtk.CheckButton> ();
+    private Gee.ArrayList<Gtk.CheckButton> new_label_color_order = new Gee.ArrayList<Gtk.CheckButton> ();
+    private Gtk.Revealer new_label_color_revealer;
+    private string new_label_color;
+
+    private const double EDGE_SCROLL_ZONE = 24;
+    private const double EDGE_SCROLL_MAX_STEP = 6;
+
+    private uint edge_scroll_id = 0;
+    private double edge_scroll_step = 0;
+
     public Gee.ArrayList<Objects.Label> labels {
         set {
             picked.clear ();
@@ -240,7 +251,15 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             if (keyval == Gdk.Key.Escape) {
                 close ();
             } else if (key == "Down") {
-                listbox.get_row_at_index (0).grab_focus ();
+                // While creating a label, Down goes to its colors.
+                if (focus_color_strip ()) {
+                    return true;
+                }
+
+                var first_row = listbox.get_row_at_index (0);
+                if (first_row != null) {
+                    first_row.grab_focus ();
+                }
                 return true;
             }
 
@@ -254,8 +273,11 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     private void add_assign_label () {
         var label = new Objects.Label ();
-        label.color = Util.get_default ().get_random_color ();
+        label.color = new_label_color;
         label.name = search_entry.text;
+
+        // The next label starts with a new random color again.
+        reset_new_label_color ();
         label.source_id = source.id;
 
         if (source.source_type == SourceType.LOCAL || source.source_type == SourceType.CALDAV) {
@@ -324,6 +346,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             margin_top = 4
         };
 
+        new_label_color_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = build_color_strip ()
+        };
+
+        reset_new_label_color ();
+
         var spinner = new Adw.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -347,10 +376,188 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         };
         box.append (add_tag_revealer);
         box.append (placeholder_title_label);
+        box.append (new_label_color_revealer);
         box.append (placeholder_message_label);
         box.append (spinner_revealer);
 
         return box;
+    }
+
+    private Gtk.Widget build_color_strip () {
+        var colors_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6,
+            margin_end = 6,
+            margin_top = 9,
+            margin_bottom = 26
+        };
+
+        var colors_list = new Gee.ArrayList<Objects.Color> ();
+        foreach (var entry in Util.get_default ().get_colors ().entries) {
+            if (!entry.key.has_prefix ("#")) {
+                colors_list.add (entry.value);
+            }
+        }
+
+        colors_list.sort ((a, b) => {
+            return a.id - b.id;
+        });
+
+        Gtk.CheckButton? group = null;
+        foreach (Objects.Color color_obj in colors_list) {
+            var color_button = new Gtk.CheckButton () {
+                valign = Gtk.Align.CENTER,
+                tooltip_text = color_obj.name,
+                css_classes = { "color-radio", "small" },
+                group = group,
+                focus_on_click = false
+            };
+
+            if (group == null) {
+                group = color_button;
+            }
+
+            Util.get_default ().set_widget_color (color_obj.hexadecimal, color_button);
+            new_label_color_buttons[color_obj.name_code] = color_button;
+            new_label_color_order.add (color_button);
+            colors_box.append (color_button);
+
+            string name_code = color_obj.name_code;
+            signals_map[color_button.toggled.connect (() => {
+                if (color_button.active) {
+                    new_label_color = name_code;
+                }
+            })] = color_button;
+        }
+
+        var colors_key = new Gtk.EventControllerKey () {
+            propagation_phase = Gtk.PropagationPhase.CAPTURE
+        };
+        colors_box.add_controller (colors_key);
+        signals_map[colors_key.key_pressed.connect ((keyval, keycode, state) => {
+            int index = focused_color_index ();
+
+            switch (keyval) {
+                case Gdk.Key.Left:
+                case Gdk.Key.Right:
+                    if (index < 0) {
+                        return false;
+                    }
+
+                    int next = index + (keyval == Gdk.Key.Right ? 1 : -1);
+                    if (next >= 0 && next < new_label_color_order.size) {
+                        new_label_color_order[next].active = true;
+                        new_label_color_order[next].grab_focus ();
+                    }
+                    return true;
+
+                case Gdk.Key.Return:
+                case Gdk.Key.KP_Enter:
+                    if (source != null && search_entry.text.length > 0) {
+                        add_assign_label ();
+                    }
+                    return true;
+
+                case Gdk.Key.Up:
+                case Gdk.Key.Escape:
+                    search_entry.grab_focus ();
+                    search_entry.set_position (-1);
+                    return true;
+            }
+
+            return false;
+        })] = colors_key;
+
+        var scrolled = new Gtk.ScrolledWindow () {
+            child = colors_box,
+            hscrollbar_policy = Gtk.PolicyType.AUTOMATIC,
+            vscrollbar_policy = Gtk.PolicyType.NEVER,
+            overlay_scrolling = false,
+            propagate_natural_height = true,
+            width_request = 220,
+            tooltip_text = _("Label color")
+        };
+
+        setup_edge_autoscroll (scrolled);
+
+        return scrolled;
+    }
+    
+    private void setup_edge_autoscroll (Gtk.ScrolledWindow scrolled) {
+        var motion = new Gtk.EventControllerMotion ();
+        scrolled.add_controller (motion);
+
+        signals_map[motion.motion.connect ((x, y) => {
+            double width = scrolled.get_width ();
+
+            if (x < EDGE_SCROLL_ZONE) {
+                edge_scroll_step = -EDGE_SCROLL_MAX_STEP * (1 - x / EDGE_SCROLL_ZONE);
+            } else if (x > width - EDGE_SCROLL_ZONE) {
+                edge_scroll_step = EDGE_SCROLL_MAX_STEP * (1 - (width - x) / EDGE_SCROLL_ZONE);
+            } else {
+                edge_scroll_step = 0;
+            }
+
+            if (edge_scroll_step != 0 && edge_scroll_id == 0) {
+                edge_scroll_id = Timeout.add (16, () => {
+                    var adjustment = scrolled.hadjustment;
+                    double max_value = adjustment.upper - adjustment.page_size;
+                    double value = (adjustment.value + edge_scroll_step).clamp (adjustment.lower, max_value);
+
+                    // Stop at the ends or when the mouse left the edge.
+                    if (edge_scroll_step == 0 || value == adjustment.value) {
+                        edge_scroll_id = 0;
+                        return GLib.Source.REMOVE;
+                    }
+
+                    adjustment.value = value;
+                    return GLib.Source.CONTINUE;
+                });
+            }
+        })] = motion;
+
+        signals_map[motion.leave.connect (() => {
+            stop_edge_autoscroll ();
+        })] = motion;
+    }
+
+    private void stop_edge_autoscroll () {
+        edge_scroll_step = 0;
+
+        if (edge_scroll_id != 0) {
+            GLib.Source.remove (edge_scroll_id);
+            edge_scroll_id = 0;
+        }
+    }
+
+    private int focused_color_index () {
+        for (int i = 0; i < new_label_color_order.size; i++) {
+            if (new_label_color_order[i].has_focus) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private bool focus_color_strip () {
+        if (!new_label_color_revealer.reveal_child) {
+            return false;
+        }
+
+        if (new_label_color_buttons.has_key (new_label_color)) {
+            new_label_color_buttons[new_label_color].grab_focus ();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void reset_new_label_color () {
+        new_label_color = Util.get_default ().get_random_color ();
+
+        if (new_label_color_buttons.has_key (new_label_color)) {
+            new_label_color_buttons[new_label_color].active = true;
+        }
     }
 
     private void checked_toggled (Objects.Label label, bool active) {
@@ -388,17 +595,21 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             if (hide_unused && size <= 0 && search_text.length == 0) {
                 placeholder_icon.icon_name = "funnel-outline-symbolic";
                 add_tag_revealer.reveal_child = true;
+                new_label_color_revealer.reveal_child = false;
                 placeholder_title_label.label = _("All Hidden");
                 placeholder_message_label.label = _("All labels are hidden by the filter. Disable the filter to see them.");
             } else if (size <= 0) {
                 placeholder_icon.icon_name = "tag-outline-add-symbolic";
                 add_tag_revealer.reveal_child = true;
+                // Only offer a color when there is a name to create.
+                new_label_color_revealer.reveal_child = search_text.length > 0;
                 placeholder_title_label.label = PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text);
                 placeholder_message_label.label = _("Press Enter to create and assign it");
             } else {
                 placeholder_title_label.label = _("No Labels");
                 placeholder_message_label.label = PLACEHOLDER_MESSAGE;
                 add_tag_revealer.reveal_child = false;
+                new_label_color_revealer.reveal_child = false;
             }
         }
     }
@@ -436,5 +647,8 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
 
         signals_map.clear ();
+        new_label_color_buttons.clear ();
+        new_label_color_order.clear ();
+        stop_edge_autoscroll ();
     }
 }
