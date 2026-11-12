@@ -5,7 +5,8 @@ test_caldav_integration = executable(
     install: false
 )
 
-test('caldav-integration', test_caldav_integration, timeout: 60, suite: ['caldav-integration'])
+test('caldav-integration', test_caldav_integration, timeout: 60, suite: ['caldav-integration'],
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-caldav-data'])
 
 test_cli_sources = [
     'test-cli-runner.vala',
