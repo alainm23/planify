@@ -54,19 +54,16 @@ public class Objects.Item : Objects.BaseObject {
             _parent.set (null);
         }
     }
-    private string _extra_data = "";
-    private bool extra_data_deferred = false;
+    private string? _extra_data = "";
     public string extra_data {
         get {
-            if (extra_data_deferred) {
+            if (_extra_data == null) {
                 _extra_data = Services.Database.get_default ().get_item_extra_data (id);
-                extra_data_deferred = false;
             }
             return _extra_data;
         }
         set {
             _extra_data = value;
-            extra_data_deferred = false;
             _extra_data_object = null;
             extra_data_parsed = false;
         }
@@ -75,8 +72,7 @@ public class Objects.Item : Objects.BaseObject {
     // Store loads the searchable task fields up front, but CalDAV payloads are only
     // needed when a task is opened, edited or synced.
     public void defer_extra_data () {
-        _extra_data = "";
-        extra_data_deferred = true;
+        _extra_data = null;
         extra_data_parsed = false;
         _extra_data_object = null;
     }
