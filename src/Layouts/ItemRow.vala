@@ -1632,6 +1632,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("line-through");
         check_due ();
 
+        if (schedule_button != null) {
+            schedule_button.update_from_item (item);
+        }
+
+        if (reminder_button != null) {
+            reminder_button.set_reminders (item.reminders);
+        }
+
         // Re-trigger the flash even if the class is still present from a rapid previous completion.
         due_label.remove_css_class ("date-updated");
         Timeout.add (10, () => {

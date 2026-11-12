@@ -154,6 +154,7 @@ public class Services.Database : GLib.Object {
         table_columns["Reminders"].add ("due");
         table_columns["Reminders"].add ("mm_offset");
         table_columns["Reminders"].add ("is_deleted");
+        table_columns["Reminders"].add ("fired_at");
 
         table_columns["Sections"] = new Gee.ArrayList<string> ();
         table_columns["Sections"].add ("id");
@@ -315,6 +316,7 @@ public class Services.Database : GLib.Object {
                 due                 TEXT,
                 mm_offset           INTEGER,
                 is_deleted          INTEGER,
+                fired_at            TEXT,
                 FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
@@ -720,6 +722,12 @@ public class Services.Database : GLib.Object {
          * - Make label names unique per source instead of across all sources
          */
         migrate_labels_unique_per_source ();
+
+        /*
+         * - Add fired_at column to Reminders: reminders of recurring tasks are kept
+         *   after firing, so remember which occurrence already fired
+         */
+        add_text_column ("Reminders", "fired_at", "");
     }
 
     public void clear_database () {
@@ -1887,8 +1895,8 @@ public class Services.Database : GLib.Object {
         string sql;
 
         sql = """
-            INSERT OR IGNORE INTO Reminders (id, item_id, type, due, mm_offset)
-            VALUES ($id, $item_id, $type, $due, $mm_offset);
+            INSERT OR IGNORE INTO Reminders (id, item_id, type, due, mm_offset, fired_at)
+            VALUES ($id, $item_id, $type, $due, $mm_offset, $fired_at);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1897,6 +1905,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$type", reminder.reminder_type.to_string ());
         set_parameter_str (stmt, "$due", reminder.due.to_string ());
         set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
+        set_parameter_str (stmt, "$fired_at", reminder.fired_at);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1912,7 +1921,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            SELECT id, item_id, type, due, mm_offset FROM Reminders;
+            SELECT id, item_id, type, due, mm_offset, fired_at FROM Reminders;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1931,6 +1940,7 @@ public class Services.Database : GLib.Object {
         return_value.reminder_type = stmt.column_text (2) == "absolute" ? ReminderType.ABSOLUTE : ReminderType.RELATIVE;
         return_value.due.update_from_json (get_due_parameter (stmt.column_text (3)));
         return_value.mm_offset = stmt.column_int (4);
+        return_value.fired_at = stmt.column_text (5) ?? "";
         return return_value;
     }
 
@@ -1939,7 +1949,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            SELECT id, item_id, type, due, mm_offset FROM Reminders WHERE item_id=$item_id;
+            SELECT id, item_id, type, due, mm_offset, fired_at FROM Reminders WHERE item_id=$item_id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1950,6 +1960,29 @@ public class Services.Database : GLib.Object {
         }
 
         return return_value;
+    }
+
+    public bool update_reminder (Objects.Reminder reminder) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Reminders SET type=$type, due=$due, mm_offset=$mm_offset, fired_at=$fired_at WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$type", reminder.reminder_type.to_string ());
+        set_parameter_str (stmt, "$due", reminder.due.to_string ());
+        set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
+        set_parameter_str (stmt, "$fired_at", reminder.fired_at);
+        set_parameter_str (stmt, "$id", reminder.id);
+
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        return true;
     }
 
     public bool delete_reminder (Objects.Reminder reminder) {

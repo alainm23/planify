@@ -136,7 +136,7 @@ msgid "Content"
 msgstr ""
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "설명"
@@ -322,24 +322,24 @@ msgstr "라벨 없음"
 msgid "unlabeled"
 msgstr "라벨 없음"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "작업이 클립보드에 복사되었습니다"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr ""
 
 # # c-format
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "작업이 %s(으)로 이동되었습니다"
@@ -418,6 +418,11 @@ msgstr "%s 및 모든 작업이 보관됩니다."
 msgid "Archive"
 msgstr "보관"
 
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
+
 # # c-format
 #: core/Objects/Section.vala:431
 #, c-format
@@ -474,7 +479,7 @@ msgid "Add Reminders"
 msgstr "리마인더 추가"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
-#: src/Layouts/ItemRow.vala:2175
+#: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "첨부 팡리 추가"
 
@@ -613,49 +618,49 @@ msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:183
+#: core/Services/CalDAV/Core.vala:185
 msgid "Source already exists"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Core.vala:195
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
+#: core/Services/CalDAV/Core.vala:206 core/Services/CalDAV/Core.vala:257
 msgid "Failed to resolve principal url"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:264
+#: core/Services/CalDAV/Core.vala:266
 msgid "Starting sync…"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:279
+#: core/Services/CalDAV/Core.vala:281
 #, fuzzy, c-format
 msgid "Syncing %s…"
 msgstr "동기화 중..."
 
-#: core/Services/CalDAV/Core.vala:300
+#: core/Services/CalDAV/Core.vala:302
 #, fuzzy
 msgid "Sync completed"
 msgstr "완료됨"
 
-#: core/Services/CalDAV/Core.vala:350
+#: core/Services/CalDAV/Core.vala:359
 msgid "Authentication Expired"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:351
+#: core/Services/CalDAV/Core.vala:360
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:358
+#: core/Services/CalDAV/Core.vala:367
 msgid "Too Many Requests"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:359
+#: core/Services/CalDAV/Core.vala:368
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -665,36 +670,36 @@ msgstr ""
 msgid "On this computer"
 msgstr "이 컴퓨터에서"
 
-#: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:606 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "요청이 잘못되었습니다."
 
-#: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:607 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "인증이 필요하지만 실패했거나 아직 제공되지 않았습니다."
 
-#: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:608 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "요청은 유효하지만 금지된 항목에 대한 것입니다."
 
-#: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:609 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "요청한 리소스를 찾을 수 없습니다."
 
-#: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:610 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "사용자가 일정 시간 내에 너무 많은 요청을 보냈습니다."
 
-#: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:611 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "서버 오류로 인해 요청이 실패했습니다."
 
-#: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:612 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "서버가 현재 요청을 처리할 수 없습니다."
 
-#: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:613 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
@@ -1118,7 +1123,7 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍️️확인 필요"
 
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
-#: src/Layouts/ItemRow.vala:1693 src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
@@ -1538,7 +1543,7 @@ msgstr "라벨 선택"
 msgid "Label not found: Create '%s'"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:85
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1546,48 +1551,52 @@ msgstr "여기에 알림 목록이 표시됩니다. '+' 버튼을 클릭하여 �
 
 # c-format
 # c-format
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:86
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, fuzzy, c-format
 msgid "Create '%s'"
 msgstr "추가 생성"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
 msgstr "여기에 알림 목록이 표시됩니다. '+' 버튼을 클릭하여 알림을 추가하세요."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "검색"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
+msgid "Label color"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2108
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
 msgid "Task description"
 msgstr ""
 
@@ -1697,6 +1706,10 @@ msgstr ""
 msgid "You already have a reminder at that time"
 msgstr ""
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "섹션 설정"
@@ -1721,7 +1734,7 @@ msgstr "할 일"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "완료"
 
@@ -3229,17 +3242,17 @@ msgstr "복제"
 msgid "Delete Task"
 msgstr "작업 삭제"
 
-#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1944
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1952
 msgid "Order changed to 'Custom sort order'"
 msgstr "정렬이 '사용자 정의 순서'로 변경되었습니다"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1670
+#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1678
 #, c-format
 msgid "%s was deleted"
 msgstr "%s이(가) 삭제되었습니다"
 
-#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1671
+#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1679
 msgid "Undo"
 msgstr "되돌리기"
 
@@ -3284,12 +3297,12 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1646
+#: src/Layouts/ItemRow.vala:1654
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1829
+#: src/Layouts/ItemRow.vala:1837
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
@@ -3599,17 +3612,17 @@ msgstr ""
 msgid "Planify Backup Files"
 msgstr "Planify 백업 파일"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 #, fuzzy
 msgid "10m Snooze"
 msgstr "%d분마다"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 #, fuzzy
 msgid "30m Snooze"
 msgstr "%d분마다"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr ""
 

@@ -27,6 +27,8 @@ public class Objects.Reminder : Objects.BaseObject {
     public int mm_offset { get; set; default = 0; }
     public int is_deleted { get; set; default = 0; }
     public ReminderType reminder_type { get; set; default = ReminderType.ABSOLUTE; }
+    // Time of the occurrence that already fired (only kept for recurring tasks).
+    public string fired_at { get; set; default = ""; }
 
     Objects.Item ? _item;
     public Objects.Item item {
@@ -53,6 +55,46 @@ public class Objects.Reminder : Objects.BaseObject {
         }
     }
 
+
+    /*
+     * True when the reminder belongs to a recurring task and its time already
+     * passed: it stays to remind again once the task moves to its next occurrence.
+     */
+    public bool waiting_next_occurrence {
+        get {
+            var task = item;
+            if (task == null || !task.has_due || !task.due.is_recurring || task.due.is_recurrency_end) {
+                return false;
+            }
+
+            var dt = datetime;
+            return has_fired || (dt != null && dt.compare (new GLib.DateTime.now_local ()) <= 0);
+        }
+    }
+
+    // Already fired at its current time. Moving the reminder (or its task) to
+    // another time makes it pending again.
+    public bool has_fired {
+        get {
+            var dt = datetime;
+            return fired_at != "" && dt != null && fired_at == dt.to_string ();
+        }
+    }
+
+    // Text for the UI: a passed reminder of a recurring task shows only its time,
+    // since the date belongs to the occurrence that already went by.
+    public string display_text {
+        owned get {
+            if (!waiting_next_occurrence || reminder_type != ReminderType.ABSOLUTE) {
+                return relative_text;
+            }
+
+            // TRANSLATORS: %s is a time, e.g. "9:00 · Next occurrence"
+            return _("%s · Next occurrence").printf (
+                due.datetime.format (Utils.Datetime.get_default_time_format ())
+            );
+        }
+    }
 
     string _relative_text;
     public string relative_text {

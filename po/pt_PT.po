@@ -142,7 +142,7 @@ msgid "Content"
 msgstr "Conteúdo"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "Descrição"
@@ -327,23 +327,23 @@ msgstr "nenhuma etiqueta"
 msgid "unlabeled"
 msgstr "sem etiqueta"
 
-#: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tempo limite:"
 
-#: core/Objects/Item.vala:1763
+#: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
 msgstr "A tarefa foi copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1780
+#: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
 msgstr "Ficheiros iCalendar"
 
-#: core/Objects/Item.vala:1796
+#: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
 msgstr "Tarefa exportada com sucesso"
 
-#: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "A tarefa foi movida para %s"
@@ -419,6 +419,11 @@ msgstr "Isto vai arquivar o %s e todas as respetivas tarefas."
 msgid "Archive"
 msgstr "Arquivar"
 
+#: core/Objects/Reminder.vala:93
+#, c-format
+msgid "%s · Next occurrence"
+msgstr ""
+
 #: core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
@@ -473,7 +478,7 @@ msgid "Add Reminders"
 msgstr "Adicionar lembretes"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
-#: src/Layouts/ItemRow.vala:2175
+#: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "Adicionar anexos"
 
@@ -613,38 +618,38 @@ msgstr ""
 "A tarefa foi alterada noutro dispositivo. Sincronize para obter a versão "
 "mais recente."
 
-#: core/Services/CalDAV/Core.vala:183
+#: core/Services/CalDAV/Core.vala:185
 msgid "Source already exists"
 msgstr "A fonte já existe"
 
-#: core/Services/CalDAV/Core.vala:193
+#: core/Services/CalDAV/Core.vala:195
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:204 core/Services/CalDAV/Core.vala:255
+#: core/Services/CalDAV/Core.vala:206 core/Services/CalDAV/Core.vala:257
 msgid "Failed to resolve principal url"
 msgstr "Não foi possível resolver o url principal"
 
-#: core/Services/CalDAV/Core.vala:264
+#: core/Services/CalDAV/Core.vala:266
 msgid "Starting sync…"
 msgstr "A iniciar sincronização…"
 
-#: core/Services/CalDAV/Core.vala:279
+#: core/Services/CalDAV/Core.vala:281
 #, c-format
 msgid "Syncing %s…"
 msgstr "A sincronizar %s…"
 
-#: core/Services/CalDAV/Core.vala:300
+#: core/Services/CalDAV/Core.vala:302
 msgid "Sync completed"
 msgstr "Sincronização terminada"
 
-#: core/Services/CalDAV/Core.vala:350
+#: core/Services/CalDAV/Core.vala:359
 msgid "Authentication Expired"
 msgstr "A autenticação expirou"
 
-#: core/Services/CalDAV/Core.vala:351
+#: core/Services/CalDAV/Core.vala:360
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
@@ -652,11 +657,11 @@ msgstr ""
 "A sua sessão expirou. Remova e adicione novamente a sua conta em Definições, "
 "por favor."
 
-#: core/Services/CalDAV/Core.vala:358
+#: core/Services/CalDAV/Core.vala:367
 msgid "Too Many Requests"
 msgstr "Demasiados pedidos"
 
-#: core/Services/CalDAV/Core.vala:359
+#: core/Services/CalDAV/Core.vala:368
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -668,37 +673,37 @@ msgstr ""
 msgid "On this computer"
 msgstr "Neste computador"
 
-#: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:606 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "A solicitação estava incorreta."
 
-#: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:607 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "É necessário fazer a autenticação, esta falhou ou ainda não foi fornecida."
 
-#: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:608 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A solicitação foi válida mas para algo que é proibido."
 
-#: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:609 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Os recursos solicitados não foram encontrados."
 
-#: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:610 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O utilizador enviou demasiadas solicitações num curto espaço de tempo."
 
-#: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:611 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "A solicitação falhou devido a um erro de servidor."
 
-#: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:612 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Neste momento o servido é incapaz de gerir a solicitação."
 
-#: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:613 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
@@ -1121,7 +1126,7 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️Dar seguimento"
 
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
-#: src/Layouts/ItemRow.vala:1693 src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
@@ -1547,7 +1552,7 @@ msgstr "Selecionar etiquetas"
 msgid "Label not found: Create '%s'"
 msgstr "A etiqueta não foi encontrada: Criar '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:85
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1555,50 +1560,54 @@ msgstr ""
 "A sua lista de filtros vai ser exibida aqui. Crie uma ao inserir o nome "
 "desta e depois de pressionar a tecla Enter."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:86
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
 #, c-format
 msgid "Create '%s'"
 msgstr "Criar '%s'"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
 msgstr "A sua lista de filtros vai ser exibida aqui."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
 msgid "Search"
 msgstr "Procurar"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
 msgstr "Procurar ou criar"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
 msgstr "Ocultar etiquetas não usadas"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
 msgstr "Sem etiquetas"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
+msgid "Label color"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
 msgstr "Todas ocultadas"
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr ""
 "Todas as etiquetas foram ocultadas pelo filtro. Desative o filtro para as "
 "ver."
 
-#: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
 msgstr "Pressione Enter para a criar e atribuir"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2108
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
 msgid "Task description"
 msgstr "Descrição da tarefa"
 
@@ -1703,6 +1712,10 @@ msgstr "Escolha uma hora no futuro"
 msgid "You already have a reminder at that time"
 msgstr "Já tem um lembrete a essa hora"
 
+#: core/Widgets/ReminderPicker/ReminderRow.vala:76
+msgid "Will remind you again when the task repeats"
+msgstr ""
+
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
 msgstr "Definir secção"
@@ -1726,7 +1739,7 @@ msgstr "Tarefa"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
-#: src/Services/Notification.vala:140
+#: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "Terminado"
 
@@ -3292,16 +3305,16 @@ msgstr "Duplicar"
 msgid "Delete Task"
 msgstr "Eliminar tarefa"
 
-#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1944
+#: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1952
 msgid "Order changed to 'Custom sort order'"
 msgstr "Ordem alterada para 'Ordenação personalizada'"
 
-#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1670
+#: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1678
 #, c-format
 msgid "%s was deleted"
 msgstr "%s foi eliminado"
 
-#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1671
+#: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1679
 msgid "Undo"
 msgstr "Reverter"
 
@@ -3344,12 +3357,12 @@ msgstr "Atualizado: %s"
 msgid "Created: %s"
 msgstr "Criado: %s"
 
-#: src/Layouts/ItemRow.vala:1646
+#: src/Layouts/ItemRow.vala:1654
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr "Tarefa terminada · Seguinte: %s"
 
-#: src/Layouts/ItemRow.vala:1829
+#: src/Layouts/ItemRow.vala:1837
 msgid "A task can only become a subtask of a task in the same account"
 msgstr "Uma tarefa só pode tornar-se subtarefa de uma tarefa da mesma conta"
 
@@ -3662,15 +3675,15 @@ msgstr "Reiniciar agora"
 msgid "Planify Backup Files"
 msgstr "Ficheiros da cópia de segurança do Planify"
 
-#: src/Services/Notification.vala:142
+#: src/Services/Notification.vala:196
 msgid "10m Snooze"
 msgstr "Adiar 10 min"
 
-#: src/Services/Notification.vala:144
+#: src/Services/Notification.vala:198
 msgid "30m Snooze"
 msgstr "Adiar 30 min"
 
-#: src/Services/Notification.vala:146
+#: src/Services/Notification.vala:200
 msgid "1h Snooze"
 msgstr "Adiar 1 h"
 

@@ -225,6 +225,7 @@ public class Planify : Adw.Application {
                 Utils.Datetime.get_datetime_no_seconds (datetime, datetime)
             );
             item.add_reminder (reminder);
+            Services.Notification.get_default ().mark_one_shot (reminder);
         }
     }
 
