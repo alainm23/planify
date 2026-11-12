@@ -586,7 +586,7 @@ msgstr "Tarefas carregadas para %s…"
 msgid "Syncing task %d of %d"
 msgstr "A sincronizar tarefas %d de %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:695
+#: core/Services/CalDAV/CalDAVClient.vala:763
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -594,7 +594,7 @@ msgstr ""
 "Este servidor não permite criar projetos através de CalDAV. Crie-o "
 "diretamente no site do seu fornecedor de calendário."
 
-#: core/Services/CalDAV/CalDAVClient.vala:750
+#: core/Services/CalDAV/CalDAVClient.vala:818
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -602,7 +602,7 @@ msgstr ""
 "Este servidor não permite eliminar projetos através de CalDAV. Elimine-o "
 "diretamente no site do seu fornecedor de calendário."
 
-#: core/Services/CalDAV/CalDAVClient.vala:754
+#: core/Services/CalDAV/CalDAVClient.vala:822
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -610,8 +610,8 @@ msgstr ""
 "Este servidor não suporta a eliminação de projetos através de CalDAV. "
 "Elimine-o diretamente no servidor."
 
-#: core/Services/CalDAV/CalDAVClient.vala:788
-#: core/Services/CalDAV/CalDAVClient.vala:834
+#: core/Services/CalDAV/CalDAVClient.vala:856
+#: core/Services/CalDAV/CalDAVClient.vala:902
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
