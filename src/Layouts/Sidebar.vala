@@ -25,6 +25,10 @@ public class Layouts.Sidebar : Adw.Bin {
     private Widgets.NewVersionPopup update_notification;
     private Gtk.Revealer update_notification_revealer;
     private Gtk.Popover context_menu;
+    private Gtk.Stack view_stack;
+    private Layouts.SidebarMini? mini_view = null;
+    private bool initialized = false;
+    private bool mini = false;
 
     private Layouts.HeaderItem favorites_header;
     public Gee.HashMap<string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
@@ -62,6 +66,12 @@ public class Layouts.Sidebar : Adw.Bin {
 
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
+        view_stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            hhomogeneous = false
+        };
+        view_stack.add_named (scrolled_window, "full");
+
         update_notification = new Widgets.NewVersionPopup ();
 
         update_notification_revealer = new Gtk.Revealer () {
@@ -71,7 +81,7 @@ public class Layouts.Sidebar : Adw.Bin {
         };
 
         var overlay = new Gtk.Overlay () {
-            child = scrolled_window
+            child = view_stack
         };
         overlay.add_overlay (update_notification_revealer);
 
@@ -107,6 +117,11 @@ public class Layouts.Sidebar : Adw.Bin {
             } else if (filters_revealer.child is Gtk.ListBox) {
                 ((Gtk.ListBox) filters_revealer.child).invalidate_sort ();
                 ((Gtk.ListBox) filters_revealer.child).invalidate_filter ();
+            }
+
+            if (mini_view != null) {
+                mini_view.filters.invalidate_sort ();
+                mini_view.filters.invalidate_filter ();
             }
         });
 
@@ -229,6 +244,36 @@ public class Layouts.Sidebar : Adw.Bin {
         }
 
         check_for_updates.begin ();
+
+        // init () runs inside Database.opened, before is_opened is set. Rows built
+        // now would miss their badge count, so build the mini view afterwards.
+        Idle.add (() => {
+            initialized = true;
+            update_mini_view ();
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    public void set_mini (bool value) {
+        mini = value;
+        update_mini_view ();
+    }
+
+    private void update_mini_view () {
+        if (!mini) {
+            view_stack.visible_child_name = "full";
+            return;
+        }
+
+        // The mini view needs the store, so it is built after init ()
+        if (initialized && mini_view == null) {
+            mini_view = new Layouts.SidebarMini ((Gtk.ListBox) build_filters_listbox (true));
+            view_stack.add_named (mini_view, "mini");
+        }
+
+        if (mini_view != null) {
+            view_stack.visible_child_name = "mini";
+        }
     }
 
     private void add_source_row (Objects.Source source) {
@@ -351,7 +396,7 @@ public class Layouts.Sidebar : Adw.Bin {
         return flowbox;
     }
 
-    private Gtk.Widget build_filters_listbox () {
+    private Gtk.Widget build_filters_listbox (bool mini = false) {
         var listbox = new Gtk.ListBox () {
             margin_top = 3,
             margin_bottom = 3
@@ -359,30 +404,30 @@ public class Layouts.Sidebar : Adw.Bin {
         listbox.add_css_class ("bg-transparent");
         listbox.add_css_class ("listbox-separator-3");
 
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Inbox.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Inbox.get_default (), mini));
 
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Today.get_default ()) {
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Today.get_default (), mini) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
         });
 
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Scheduled.get_default ()) {
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Scheduled.get_default (), mini) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
         });
         
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Labels.get_default ()) {
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Labels.get_default (), mini) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
         });
         
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Pinboard.get_default ()) {
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Pinboard.get_default (), mini) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
         });
         
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Completed.get_default ()));
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Tomorrow.get_default ()));
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Anytime.get_default ()));
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Repeating.get_default ()));
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Unlabeled.get_default ()));
-        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.AllItems.get_default ()));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Completed.get_default (), mini));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Tomorrow.get_default (), mini));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Anytime.get_default (), mini));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Repeating.get_default (), mini));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.Unlabeled.get_default (), mini));
+        listbox.append (new Layouts.FilterPaneRow (Objects.Filters.AllItems.get_default (), mini));
 
         listbox.row_activated.connect ((row) => {
             var filter = (Layouts.FilterPaneRow) row;

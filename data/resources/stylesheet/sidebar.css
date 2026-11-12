@@ -78,3 +78,7 @@
     animation-fill-mode: none;
     animation-play-state: running;
 }
+
+.mini-project-icon label {
+    font-size: 1.25em;
+}

@@ -49,6 +49,11 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
             subtitle = _("Show filters in a simple list instead of a grid")
         };
 
+        var mini_sidebar_row = new Adw.SwitchRow () {
+            title = _("Mini Sidebar"),
+            subtitle = _("Show only icons and task counts")
+        };
+
         var count_group = new Adw.PreferencesGroup () {
             margin_start = 3,
             margin_end = 3,
@@ -58,6 +63,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
         count_group.add (show_count_row);
         count_group.add (sidebar_width_row);
         count_group.add (list_view_filters_row);
+        count_group.add (mini_sidebar_row);
 
         views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
             card = true,
@@ -124,6 +130,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Dialogs.Preferences.Pages.BaseP
         child = toolbar_view;
         Services.Settings.get_default ().settings.bind ("show-tasks-count", show_count_row, "active", GLib.SettingsBindFlags.DEFAULT);
         Services.Settings.get_default ().settings.bind ("filters-list-view", list_view_filters_row, "active", GLib.SettingsBindFlags.DEFAULT);
+        Services.Settings.get_default ().settings.bind ("mini-sidebar", mini_sidebar_row, "active", GLib.SettingsBindFlags.DEFAULT);
 
         signal_map[sidebar_width_row.output.connect (() => {
             Services.Settings.get_default ().settings.set_int ("pane-position", (int) sidebar_width_row.value);
