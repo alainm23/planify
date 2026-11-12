@@ -48,6 +48,7 @@ sources = files(
   'Utils/TaskUtils.vala',
 
   'Layouts/Sidebar.vala',
+  'Layouts/SidebarMini.vala',
   'Layouts/FilterPaneChild.vala',
   'Layouts/FilterPaneRow.vala',
   'Layouts/ProjectRow.vala',

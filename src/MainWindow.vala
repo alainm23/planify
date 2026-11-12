@@ -27,6 +27,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Layouts.Sidebar sidebar;
     private Adw.ViewStack views_stack;
     private Adw.OverlaySplitView overlay_split_view;
+    private Adw.HeaderBar sidebar_header;
     private Gtk.MenuButton settings_button;
     private Layouts.ItemSidebarView item_sidebar_view;
     private Gtk.Button fake_button;
@@ -36,11 +37,14 @@ public class MainWindow : Adw.ApplicationWindow {
     private Adw.ViewStack view_stack;
     private Gtk.Widget error_db_page;
     private string previous_inbox_project_id = "";
+    private double default_max_sidebar_width;
+    private bool mini_sidebar_applied = false;
 
     public Services.ActionManager action_manager;
 
     private const int64 VIEW_TIMEOUT = 60000000;  // 1 min
     private const int MAX_PROJECT_VIEWS = 2;
+    private const int MINI_SIDEBAR_WIDTH = 64;
     private Gee.ArrayList<ViewCacheItem> view_cache = new Gee.ArrayList<ViewCacheItem> ();
 
     public MainWindow (Planify application) {
@@ -91,7 +95,7 @@ public class MainWindow : Adw.ApplicationWindow {
         var title_label = new Gtk.Label ("Planify");
         title_label.add_css_class ("title");
 
-        var sidebar_header = new Adw.HeaderBar () {
+        sidebar_header = new Adw.HeaderBar () {
             title_widget = title_label,
             hexpand = true
         };
@@ -157,6 +161,11 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
         Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
         Services.Settings.get_default ().settings.bind ("mobile-mode", overlay_split_view, "collapsed", GLib.SettingsBindFlags.DEFAULT);
+
+        default_max_sidebar_width = overlay_split_view.max_sidebar_width;
+        update_mini_sidebar ();
+        Services.Settings.get_default ().settings.changed["mini-sidebar"].connect (update_mini_sidebar);
+        overlay_split_view.notify["collapsed"].connect (update_mini_sidebar);
 
         Timeout.add (250, () => {
             init_backend ();
@@ -498,8 +507,49 @@ public class MainWindow : Adw.ApplicationWindow {
         });
     }
 
-    public void show_hide_sidebar () {
-        overlay_split_view.show_sidebar = !overlay_split_view.show_sidebar;
+    // Sidebar button and shortcut: shown -> mini -> hidden -> shown.
+    // A collapsed (narrow) window has no mini mode and only shows or hides.
+    public void cycle_sidebar_mode () {
+        var settings = Services.Settings.get_default ().settings;
+
+        if (!overlay_split_view.show_sidebar) {
+            settings.set_boolean ("mini-sidebar", false);
+            overlay_split_view.show_sidebar = true;
+        } else if (!overlay_split_view.collapsed && !settings.get_boolean ("mini-sidebar")) {
+            settings.set_boolean ("mini-sidebar", true);
+        } else {
+            overlay_split_view.show_sidebar = false;
+        }
+    }
+
+    private void update_mini_sidebar () {
+        bool mini = Services.Settings.get_default ().settings.get_boolean ("mini-sidebar") && !overlay_split_view.collapsed;
+        if (mini == mini_sidebar_applied) {
+            return;
+        }
+
+        mini_sidebar_applied = mini;
+
+        if (mini) {
+            // Unbind first, so the mini width is not saved as the user's sidebar width
+            GLib.Settings.unbind (overlay_split_view, "min-sidebar-width");
+            overlay_split_view.min_sidebar_width = MINI_SIDEBAR_WIDTH;
+            overlay_split_view.max_sidebar_width = MINI_SIDEBAR_WIDTH;
+        } else {
+            overlay_split_view.max_sidebar_width = default_max_sidebar_width;
+            Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
+        }
+
+        sidebar.set_mini (mini);
+
+        // Mini: no title, and the menu button next to search instead of at the far end
+        sidebar_header.title_widget.visible = !mini;
+        sidebar_header.remove (settings_button);
+        if (mini) {
+            sidebar_header.pack_start (settings_button);
+        } else {
+            sidebar_header.pack_end (settings_button);
+        }
     }
 
     #if WITH_LIBPORTAL

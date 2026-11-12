@@ -23,6 +23,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
     public bool show_subprojects { get; construct; }
     public bool drag_n_drop { get; construct; }
+    public bool mini { get; construct; }
 
     private Widgets.IconColorProject icon_project;
     private Gtk.Label name_label;
@@ -77,11 +78,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
-    public ProjectRow (Objects.Project project, bool show_subprojects = true, bool drag_n_drop = true) {
+    public ProjectRow (Objects.Project project, bool show_subprojects = true, bool drag_n_drop = true, bool mini = false) {
         Object (
             project: project,
             show_subprojects: show_subprojects,
-            drag_n_drop: drag_n_drop
+            drag_n_drop: drag_n_drop,
+            mini: mini
         );
     }
 
@@ -104,7 +106,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = motion_top_grid
         };
 
-        icon_project = new Widgets.IconColorProject (22);
+        icon_project = new Widgets.IconColorProject (mini ? 26 : 22);
         icon_project.project = project;
 
         name_label = new Gtk.Label (project.name) {
@@ -112,6 +114,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             ellipsize = Pango.EllipsizeMode.END,
             hexpand = true,
             halign = Gtk.Align.START,
+            visible = !mini
         };
 
         count_label = new Gtk.Label (null) {
@@ -139,7 +142,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         arrow_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             child = arrow_button,
-            reveal_child = has_subprojects
+            reveal_child = has_subprojects,
+            visible = !mini
         };
 
         if (project.collapsed) {
@@ -180,10 +184,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_end = 3,
-            margin_start = 3,
+            margin_start = mini ? 7 : 3,
             margin_top = 3,
             margin_bottom = 3
         };
+
+        // Mini: only the icon and a larger count, the name is the tooltip
+        if (mini) {
+            icon_project.add_css_class ("mini-project-icon");
+            count_label.remove_css_class ("caption");
+            tooltip_text = project.name;
+        }
 
         projectrow_box.append (icon_project);
         projectrow_box.append (name_label);
@@ -232,9 +243,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         box.append (motion_top_revealer);
         box.append (main_content);
 
+        // Mini rows start revealed, so the mini sidebar crossfades in complete
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            child = box
+            child = box,
+            reveal_child = mini
         };
 
         child = main_revealer;
@@ -837,6 +850,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public void update_request () {
         icon_project.update_request ();
         name_label.label = project.name;
+        if (mini) {
+            tooltip_text = project.name;
+        }
         check_due_date ();
     }
 

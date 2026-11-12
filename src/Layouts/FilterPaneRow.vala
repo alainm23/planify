@@ -22,6 +22,7 @@
 
 public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
     public Objects.BaseObject filter_type { get; construct; }
+    public bool mini { get; construct; }
 
     private Gtk.Label count_label;
     private Gtk.Revealer indicator_revealer;
@@ -29,9 +30,10 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
     private ulong inbox_count_signal_id = 0;
     private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
-    public FilterPaneRow (Objects.BaseObject filter_type) {
+    public FilterPaneRow (Objects.BaseObject filter_type, bool mini = false) {
         Object (
-            filter_type: filter_type
+            filter_type: filter_type,
+            mini: mini
         );
     }
 
@@ -43,7 +45,7 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
         css_classes = { "row", "transition", "no-padding", "filter-pane-row" };
 
         var title_image = new Gtk.Image.from_icon_name (filter_type.icon_name) {
-            pixel_size = 16,
+            pixel_size = mini ? 20 : 16,
             valign = CENTER,
             halign = CENTER,
             css_classes = { "view-icon" }
@@ -52,7 +54,8 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
 
         var title_label = new Gtk.Label (filter_type.name) {
             margin_start = 3,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            visible = !mini
         };
 
         var indicator_widget = new Adw.Bin () {
@@ -73,7 +76,7 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
 
         count_label = new Gtk.Label (null) {
             hexpand = true,
-            margin_end = 12,
+            margin_end = mini ? 8 : 12,
             halign = Gtk.Align.CENTER,
             css_classes = { "caption", "dimmed" }
         };
@@ -92,7 +95,7 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
         end_box.append (count_revealer);
 
         var main_box = new Gtk.Box (HORIZONTAL, 6) {
-            margin_start = 3,
+            margin_start = mini ? 7 : 3,
             margin_end = 3,
             margin_top = 3,
             margin_bottom = 3
@@ -108,6 +111,13 @@ public class Layouts.FilterPaneRow : Gtk.ListBoxRow {
         };
 
         child = handle_grid;
+
+        // Mini: only the icon and a larger count, the name is the tooltip
+        if (mini) {
+            count_label.remove_css_class ("caption");
+            tooltip_text = filter_type.name;
+        }
+
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         Util.get_default ().set_widget_color (filter_type.theme_color (), title_image);

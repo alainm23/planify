@@ -263,6 +263,12 @@
             <description>Enable a more compact interface layout with reduced spacing and smaller elements to fit more content on screen</description>
         </key>
 
+        <key name="mini-sidebar" type="b">
+            <default>false</default>
+            <summary>Mini Sidebar</summary>
+            <description>Show the sidebar as a narrow column with only icons and task counts</description>
+        </key>
+
         <key name="description-preview" type="b">
             <default>true</default>
             <summary>Show task description preview</summary>

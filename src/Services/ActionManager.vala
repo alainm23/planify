@@ -228,7 +228,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_show_hide_sidebar () {
-        window.show_hide_sidebar ();
+        window.cycle_sidebar_mode ();
     }
 
     private void action_new_section () {

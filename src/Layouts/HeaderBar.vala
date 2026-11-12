@@ -134,8 +134,7 @@ public class Layouts.HeaderBar : Adw.Bin {
         child = headerbar;
 
         signal_map[sidebar_button.clicked.connect (() => {
-            bool slim_mode = Services.Settings.get_default ().settings.get_boolean ("slim-mode");
-            Services.Settings.get_default ().settings.set_boolean ("slim-mode", !slim_mode);
+            Planify._instance.main_window.cycle_sidebar_mode ();
         })] = sidebar_button;
 
         signal_map[back_button.clicked.connect (() => {
