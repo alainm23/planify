@@ -1876,6 +1876,7 @@ msgid "Label not found: Create '%s'"
 msgstr "Метка не найдена: создать «%s»"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:74
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:85
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
@@ -1886,25 +1887,30 @@ msgstr ""
 # c-format
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:75
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:64
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:86
 #, c-format
 msgid "Create '%s'"
 msgstr "Создать «%s»"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:93
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:104
 msgid "Your list of filters will show up here."
 msgstr "Здесь появится список фильтров."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
 #: core/Widgets/SectionPicker/SectionPicker.vala:39
 #: src/Dialogs/CompletedTasks.vala:63
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search"
 msgstr "Поиск"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:97
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
 msgid "Search or Create"
 msgstr "Создать или найти"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:108
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
 msgstr "Скрыть неиспользуемые метки"
 
@@ -1912,21 +1918,26 @@ msgstr "Скрыть неиспользуемые метки"
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:402
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:316
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:399
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
 msgstr "Нет метки"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:394
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:391
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
 msgstr "Все скрытые"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:395
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:392
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
 msgstr "Все метки скрыты фильтром. Отключить фильтр, чтобы увидеть их."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:400
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:397
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
 msgstr "Нажмите Enter, чтобы создать и назначить его"
 
@@ -5190,6 +5201,10 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
+msgstr ""
+
+#: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
+msgid "Label color"
 msgstr ""
 
 # # c-format

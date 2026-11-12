@@ -81,6 +81,24 @@ entry.flat:focus-within {
     -gtk-icon-shadow: 0 1px 1px shade(#fff, 0.85);
 }
 
+/* Keyboard focus ring; the circle has its own background, so the default
+   indicator outline isn't visible */
+.color-radio:focus-visible {
+    outline: 2px solid alpha(@accent_color, 0.6);
+    outline-offset: 2px;
+}
+
+/* Compact variant, used by the color strip when creating a label */
+.color-radio.small {
+    padding: 1px;
+}
+
+.color-radio.small radio {
+    min-width: 12px;
+    min-height: 12px;
+    -gtk-icon-size: 10px;
+}
+
 .color-label-widget {
     background: @colorAccent;
     border: 1px solid @colorAccent;
