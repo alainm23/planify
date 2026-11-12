@@ -643,26 +643,26 @@ msgstr "载入任务用于 %s…"
 msgid "Syncing task %d of %d"
 msgstr "正在同步任务 %d / %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:695
+#: core/Services/CalDAV/CalDAVClient.vala:763
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr "该服务器不允许经由 CalDAV 建立专案项目。请直接从日历提供者的网站建立。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:750
+#: core/Services/CalDAV/CalDAVClient.vala:818
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr "此服务器不允许通过 CalDAV 删除项目。请直接从您的日历服务商网站删除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:754
+#: core/Services/CalDAV/CalDAVClient.vala:822
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr "此服务器不支持通过 CalDAV 删除项目。请直接从服务器删除。"
 
-#: core/Services/CalDAV/CalDAVClient.vala:788
-#: core/Services/CalDAV/CalDAVClient.vala:834
+#: core/Services/CalDAV/CalDAVClient.vala:856
+#: core/Services/CalDAV/CalDAVClient.vala:902
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "任务已在其他设备上修改。请同步以获取最新版本。"
