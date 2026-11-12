@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-10-18 16:51+0000\n"
-"Last-Translator: Sziráki Tibor <szikar@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-12 16:18+0000\n"
+"Last-Translator: veszter007 <veszter007@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Hungarian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/hu/>\n"
 "Language: hu\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -46,60 +46,60 @@ msgstr "Listák"
 
 #: core/Enum.vala:214
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Ne ismételd"
 
 #: core/Enum.vala:216
 #, c-format
 msgid "Every minute"
 msgid_plural "Every %d minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minden percben"
+msgstr[1] "Minden %d percben"
 
 #: core/Enum.vala:218
 #, c-format
 msgid "Every hour"
 msgid_plural "Every %d hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minden órában"
+msgstr[1] "Minden %d órában"
 
 #: core/Enum.vala:220
 #, c-format
 msgid "Every day"
 msgid_plural "Every %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minden nap"
+msgstr[1] "Minden %d nap"
 
 #: core/Enum.vala:222
 #, c-format
 msgid "Every week"
 msgid_plural "Every %d weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minden héten"
+msgstr[1] "Minden %d héten"
 
 #: core/Enum.vala:224
 #, c-format
 msgid "Every month"
 msgid_plural "Every %d months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minden hónapban"
+msgstr[1] "Minden %d hónapban"
 
 #: core/Enum.vala:226
 #, c-format
 msgid "Every year"
 msgid_plural "Every %d years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Minden évben"
+msgstr[1] "Minden %d évben"
 
 #: core/Enum.vala:276 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:45
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:39
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:111
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: core/Enum.vala:345 core/Enum.vala:545 core/Widgets/PriorityButton.vala:90
 #: src/Layouts/ItemSortFilter.vala:72 src/Layouts/ItemSortFilter.vala:111
@@ -108,48 +108,48 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:265 src/Views/Today.vala:846
 #: src/Views/Today.vala:875 src/Widgets/ItemDetailCompleted.vala:82
 msgid "Priority"
-msgstr ""
+msgstr "Prioritás"
 
 #: core/Enum.vala:348
 msgid "Label"
-msgstr ""
+msgstr "Cimke"
 
 #: core/Enum.vala:351 src/Layouts/ItemSortFilter.vala:69
 #: src/Views/Project/Project.vala:588 src/Views/Scheduled/Scheduled.vala:233
 #: src/Views/Today.vala:843
 msgid "Due Date"
-msgstr ""
+msgstr "Esedékes"
 
 #: core/Enum.vala:354 core/Widgets/SectionPicker/SectionButton.vala:35
 #: src/Dialogs/CompletedTasks.vala:315 src/Widgets/ItemDetailCompleted.vala:80
 msgid "Section"
-msgstr ""
+msgstr "Szakasz"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899
 msgid "Assignment"
-msgstr ""
+msgstr "Hozzárendelés"
 
 #: core/Enum.vala:469
 msgid "Task Created"
-msgstr ""
+msgstr "Feladat létrehozva"
 
 #: core/Enum.vala:472
 msgid "Task Updated"
-msgstr ""
+msgstr "Feladat frissítve"
 
 #: core/Enum.vala:536
 msgid "Content"
-msgstr ""
+msgstr "Tartalom"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
-msgstr ""
+msgstr "Leírás"
 
 #: core/Enum.vala:542 core/Objects/Filters/Scheduled.vala:48
 msgid "Scheduled"
-msgstr ""
+msgstr "Ütemezett"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
@@ -160,31 +160,31 @@ msgstr ""
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57
 msgid "Deadline"
-msgstr ""
+msgstr "Határidő"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Szülő feladat"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr ""
+msgstr "Összes feladat"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
-msgstr ""
+msgstr "összes feladat"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all"
-msgstr ""
+msgstr "mind"
 
 #: core/Objects/Filters/Anytime.vala:33
 msgid "Anytime"
-msgstr ""
+msgstr "Bármikor"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "anytime"
-msgstr ""
+msgstr "bármikor"
 
 #: core/Objects/Filters/Anytime.vala:34 core/Objects/Filters/Completed.vala:34
 #: core/Objects/Filters/Inbox.vala:34 core/Objects/Filters/Labels.vala:34
@@ -193,25 +193,25 @@ msgstr ""
 #: core/Objects/Filters/Scheduled.vala:49 core/Objects/Filters/Today.vala:50
 #: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Unlabeled.vala:34
 msgid "filters"
-msgstr ""
+msgstr "szűrők"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr ""
+msgstr "nincs dátum"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
 #: src/Views/Today.vala:259
 msgid "Completed"
-msgstr ""
+msgstr "Befejezett"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "completed"
-msgstr ""
+msgstr "befejezett"
 
 #: core/Objects/Filters/Completed.vala:34
 msgid "logbook"
-msgstr ""
+msgstr "log könyvtár"
 
 #: core/Objects/Filters/Inbox.vala:33 core/Utils/Util.vala:258
 #: core/Utils/Util.vala:615
@@ -221,15 +221,15 @@ msgstr ""
 #: src/Views/Project/Project.vala:127 src/Views/Project/Project.vala:194
 #: src/Widgets/ProjectItemRow.vala:139
 msgid "Inbox"
-msgstr ""
+msgstr "Bejövő"
 
 #: core/Objects/Filters/Inbox.vala:34
 msgid "inbox"
-msgstr ""
+msgstr "bejövő"
 
 #: core/Objects/Filters/Labels.vala:34
 msgid "labels"
-msgstr ""
+msgstr "cimkék"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
@@ -237,51 +237,51 @@ msgstr ""
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Prioritás 1: magas"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Prioritás 2: közepes"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Prioritás 3: alacsony"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Prioritás 4: nincs"
 
 #: core/Objects/Filters/Priority.vala:182
 msgid "high"
-msgstr ""
+msgstr "magas"
 
 #: core/Objects/Filters/Priority.vala:184
 msgid "medium"
-msgstr ""
+msgstr "közepes"
 
 #: core/Objects/Filters/Priority.vala:186
 msgid "low"
-msgstr ""
+msgstr "alacsony"
 
 #: core/Objects/Filters/Priority.vala:188
 msgid "none"
-msgstr ""
+msgstr "nincs"
 
 #: core/Objects/Filters/Repeating.vala:33
 msgid "Repeating"
-msgstr ""
+msgstr "Ismétlés"
 
 #: core/Objects/Filters/Repeating.vala:34
 msgid "repeating"
-msgstr ""
+msgstr "ismétlés"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "scheduled"
-msgstr ""
+msgstr "ütemezett"
 
 #: core/Objects/Filters/Scheduled.vala:49
 msgid "upcoming"
-msgstr ""
+msgstr "közelgő"
 
 #: core/Objects/Filters/Today.vala:49 core/Utils/Datetime.vala:60
 #: core/Utils/Datetime.vala:81 core/Utils/Datetime.vala:774
@@ -293,11 +293,11 @@ msgstr ""
 #: src/Layouts/ItemSortFilter.vala:264 src/Views/Project/Project.vala:603
 #: src/Views/Project/Project.vala:796 src/Views/Today.vala:212
 msgid "Today"
-msgstr ""
+msgstr "Ma"
 
 #: core/Objects/Filters/Today.vala:50
 msgid "today"
-msgstr ""
+msgstr "ma"
 
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
@@ -305,53 +305,53 @@ msgstr ""
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1255
 msgid "Tomorrow"
-msgstr ""
+msgstr "Holnap"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "tomorrow"
-msgstr ""
+msgstr "holnap"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr ""
+msgstr "dátum"
 
 #: core/Objects/Filters/Unlabeled.vala:33
 msgid "Unlabeled"
-msgstr ""
+msgstr "Jelöletlen"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "no label"
-msgstr ""
+msgstr "nincs cimke"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 msgid "unlabeled"
-msgstr ""
+msgstr "jelöletlen"
 
 #: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
 msgid "Deadline:"
-msgstr ""
+msgstr "Határidő:"
 
 #: core/Objects/Item.vala:1776
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "Feladat vágólapra másolva"
 
 #: core/Objects/Item.vala:1793
 msgid "iCalendar Files"
-msgstr ""
+msgstr "iCalendar fájlok"
 
 #: core/Objects/Item.vala:1809
 msgid "Task exported successfully"
-msgstr ""
+msgstr "A feladat exportálása sikeresen"
 
 #: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
-msgstr ""
+msgstr "Áthelyezve %s"
 
 #: core/Objects/Label.vala:220
 #, c-format
 msgid "Delete Label %s"
-msgstr ""
+msgstr "Cimke %s törlése"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:907
 #: core/Objects/Section.vala:432
@@ -359,7 +359,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:251
 msgid "This can not be undone"
-msgstr ""
+msgstr "Nem lehet visszavonni"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:910
 #: core/Objects/Project.vala:990 core/Objects/Section.vala:435
@@ -380,7 +380,7 @@ msgstr ""
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344
 msgid "Cancel"
-msgstr ""
+msgstr "Mégsem"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:911
 #: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
@@ -393,41 +393,41 @@ msgstr ""
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:276
 #: src/Widgets/MultiSelectToolbar.vala:345
 msgid "Delete"
-msgstr ""
+msgstr "Törlés"
 
 #: core/Objects/Project.vala:870
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "A projekt vágólapra másolva."
 
 #: core/Objects/Project.vala:906
 #, c-format
 msgid "Delete Project %s?"
-msgstr ""
+msgstr "Töröljem a %s projektet?"
 
 #: core/Objects/Project.vala:986 core/Objects/Section.vala:477
 msgid "Archive?"
-msgstr ""
+msgstr "Archíváljam?"
 
 #: core/Objects/Project.vala:987 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Ez archiválja a %s-t és annak összes feladatát."
 
 #: core/Objects/Project.vala:991 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 msgid "Archive"
-msgstr ""
+msgstr "Archív"
 
 #: core/Objects/Reminder.vala:93
 #, c-format
 msgid "%s · Next occurrence"
-msgstr ""
+msgstr "%s · Következő előfordulás"
 
 #: core/Objects/Section.vala:431
 #, c-format
 msgid "Delete Section %s"
-msgstr ""
+msgstr "Szakasz törlése %s"
 
 #: core/Objects/Source.vala:60
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
@@ -436,38 +436,38 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
-msgstr ""
+msgstr "Feladat hozzáadva!"
 
 #: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
 msgid "To-do name"
-msgstr ""
+msgstr "Teendő neve"
 
 #: core/QuickAddCore.vala:200
 msgid "This field is required"
-msgstr ""
+msgstr "A mező kötelező"
 
 #: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
 msgid "Add a description…"
-msgstr ""
+msgstr "Megjegyzés hozzáadása…"
 
 #: core/QuickAddCore.vala:265
 msgid "Set date"
-msgstr ""
+msgstr "Dátum beállítása"
 
 #: core/QuickAddCore.vala:277 core/Widgets/LabelPicker/LabelButton.vala:57
 #: core/Widgets/LabelPicker/LabelButton.vala:64
 msgid "Add Labels"
-msgstr ""
+msgstr "Cimkék hozzáadása"
 
 #: core/QuickAddCore.vala:282 core/Widgets/PriorityButton.vala:40
 #: core/Widgets/PriorityButton.vala:47
 msgid "Set The Priority"
-msgstr ""
+msgstr "Prioritás beállítása"
 
 #: core/QuickAddCore.vala:287
 #: core/Widgets/ReminderPicker/ReminderButton.vala:42
@@ -475,19 +475,19 @@ msgstr ""
 #: core/Widgets/ReminderPicker/ReminderButton.vala:67
 #: core/Widgets/ReminderPicker/ReminderButton.vala:168
 msgid "Add Reminders"
-msgstr ""
+msgstr "Emlékeztetők hozzáadása"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
 #: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
-msgstr ""
+msgstr "Csatolmányok hozzáadása"
 
 #: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
 #: src/Layouts/SectionRow.vala:709 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
-msgstr ""
+msgstr "Feladat hozzáadása"
 
 #: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
 msgid "Keep adding"
@@ -495,206 +495,219 @@ msgstr ""
 
 #: core/QuickAddCore.vala:380
 msgid "Select a Project"
-msgstr ""
+msgstr "Projekt kiválasztása"
 
 #: core/QuickAddCore.vala:407
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Sajnálom, a Quick Add nem talál elérhető projektet, próbáljon meg projektet "
+"létrehozni a Planify-ból."
 
 #: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
 msgid "Attachments"
-msgstr ""
+msgstr "Csatolmányok"
 
 #: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
-msgstr ""
+msgstr "Nincs csatolmány. Adjon hozzá egyet."
 
 #: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
-msgstr ""
+msgstr "Nyitva"
 
 #: core/QuickAddCore.vala:1687 src/MainWindow.vala:809
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Billentyűparancsok"
 
 #: core/QuickAddCore.vala:1693
 msgid "Speed up task creation with these shortcuts"
-msgstr ""
+msgstr "Gyorsítsa fel a feladatkészítést ezekkel a parancsikonokkal"
 
 #: core/QuickAddCore.vala:1707
 msgid "Set priority"
-msgstr ""
+msgstr "Prioritás beállítása"
 
 #: core/QuickAddCore.vala:1707
 msgid "p1 = highest, p4 = lowest"
-msgstr ""
+msgstr "p1 = legmagasabb, p4 = legalacsonyabb"
 
 #: core/QuickAddCore.vala:1708
 msgid "Add labels"
-msgstr ""
+msgstr "Cimkék hozzáadása"
 
 #: core/QuickAddCore.vala:1708
 msgid "Opens label selector"
-msgstr ""
+msgstr "Cimke választó megnyitása"
 
 #: core/QuickAddCore.vala:1709
 msgid "Assign project"
-msgstr ""
+msgstr "Projekt hozzárendelése"
 
 #: core/QuickAddCore.vala:1709
 msgid "Opens project selector"
-msgstr ""
+msgstr "Projekt választó megnyitása"
 
 #: core/QuickAddCore.vala:1710
 msgid "Set reminder"
-msgstr ""
+msgstr "Emlékeztető beállítása"
 
 #: core/QuickAddCore.vala:1710
 msgid "Opens reminder options"
-msgstr ""
+msgstr "Emlékeztető opciók megnyitása"
 
 #: core/QuickAddCore.vala:1725
 msgid "Toggle stay open after creating task"
-msgstr ""
+msgstr "A feladat létrehozása után nyitva marad"
 
 #: core/QuickAddCore.vala:1731
 msgid "Tip"
-msgstr ""
+msgstr "Tipp"
 
 #: core/QuickAddCore.vala:1731
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
+"Kombinálja a parancsikonokat a cím mezőben a gyorsabb létrehozás érdekében"
 
 #: core/Services/CalDAV/CalDAVClient.vala:290
 #, c-format
 msgid "Loading tasks for %s…"
-msgstr ""
+msgstr "Feladatok betöltése %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:301
 #: core/Services/CalDAV/CalDAVClient.vala:327
 #, c-format
 msgid "Loaded tasks for %s…"
-msgstr ""
+msgstr "Betöltött feladatok %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:320
 #, c-format
 msgid "Syncing task %d of %d"
-msgstr ""
+msgstr "Feladat szinkronizhálása %d-ből %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:695
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ez a szerver nem engedélyezi projektek létrehozását CalDAV-on keresztül. "
+"Kérjük, hozza létre közvetlenül a naptárszolgáltató webhelyéről."
 
 #: core/Services/CalDAV/CalDAVClient.vala:750
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
 msgstr ""
+"Ez a szerver nem engedélyezi a projektek törlését CalDAV-on keresztül. "
+"Kérjük, törölje közvetlenül a naptárszolgáltató webhelyéről."
 
 #: core/Services/CalDAV/CalDAVClient.vala:754
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
 msgstr ""
+"Ez a szerver nem támogatja a projektek törlését a CalDAV-on keresztül. "
+"Kérjük, törölje közvetlenül a szerverről."
 
 #: core/Services/CalDAV/CalDAVClient.vala:788
 #: core/Services/CalDAV/CalDAVClient.vala:834
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
+"A feladat egy másik eszközön módosult. Kérjük, szinkronizálja a legújabb "
+"verziót."
 
 #: core/Services/CalDAV/Core.vala:185
 msgid "Source already exists"
-msgstr ""
+msgstr "Forrás már létezik"
 
 #: core/Services/CalDAV/Core.vala:195
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
-msgstr ""
+msgstr "Nem sikerült betölteni az ügyféltanúsítványt: %s"
 
 #: core/Services/CalDAV/Core.vala:206 core/Services/CalDAV/Core.vala:257
 msgid "Failed to resolve principal url"
-msgstr ""
+msgstr "Nem sikerült feloldani a fő URL-t"
 
 #: core/Services/CalDAV/Core.vala:266
 msgid "Starting sync…"
-msgstr ""
+msgstr "Szinkronizáció…"
 
 #: core/Services/CalDAV/Core.vala:281
 #, c-format
 msgid "Syncing %s…"
-msgstr ""
+msgstr "Szinkronizálva %s…"
 
 #: core/Services/CalDAV/Core.vala:302
 msgid "Sync completed"
-msgstr ""
+msgstr "Szinkronizálás befejezve"
 
 #: core/Services/CalDAV/Core.vala:359
 msgid "Authentication Expired"
-msgstr ""
+msgstr "Hitelesítés lejárt"
 
 #: core/Services/CalDAV/Core.vala:360
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
+"A munkameneted lejárt. Kérjük, távolítsa el és adja hozzá újra fiókját a "
+"beállítások menüpontban."
 
 #: core/Services/CalDAV/Core.vala:367
 msgid "Too Many Requests"
-msgstr ""
+msgstr "Túl sok kérés"
 
 #: core/Services/CalDAV/Core.vala:368
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
-msgstr ""
+msgstr "A kérés nem sikerült. Kérjük, várjon néhány percet, és próbálja újra."
 
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
-msgstr ""
+msgstr "Ezen a számítógépen"
 
 #: core/Services/Todoist/Todoist.vala:606 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
-msgstr ""
+msgstr "A kérés helytelen."
 
 #: core/Services/Todoist/Todoist.vala:607 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Hitelesítés szükséges és nem sikerült, vagy még nem biztosították."
 
 #: core/Services/Todoist/Todoist.vala:608 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "A kérés érvényes volt, de megtagava."
 
 #: core/Services/Todoist/Todoist.vala:609 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "A kért erőforrás nem található."
 
 #: core/Services/Todoist/Todoist.vala:610 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "A felhasználó túl sok kérést küldött egy adott idő alatt."
 
 #: core/Services/Todoist/Todoist.vala:611 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "A kérés szerverhiba miatt meghiúsult."
 
 #: core/Services/Todoist/Todoist.vala:612 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "A szerver jelenleg nem tudja kezelni a kérést."
 
 #: core/Services/Todoist/Todoist.vala:613 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
-msgstr ""
+msgstr "Ismeretlen hiba"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr ""
+msgstr "Nem valós API token"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
@@ -703,28 +716,30 @@ msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
 msgstr ""
+"A Todoist frissítette az API-ját. A szinkronizálás folytatásához "
+"csatlakoztassa újra fiókját a Beállításokban."
 
 #: core/Utils/Datetime.vala:64 core/Utils/Datetime.vala:778
 msgid "Yesterday"
-msgstr ""
+msgstr "Tegnap"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "days"
-msgstr ""
+msgstr "napok"
 
 #: core/Utils/Datetime.vala:83 core/Utils/Datetime.vala:85
 msgid "day"
-msgstr ""
+msgstr "nap"
 
 #: core/Utils/Datetime.vala:83
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s ezelőtt"
 
 #: core/Utils/Datetime.vala:85
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s maradt"
 
 #: core/Utils/Datetime.vala:95
 msgid "%-l:%M:%S %p"
@@ -744,54 +759,54 @@ msgstr ""
 
 #: core/Utils/Datetime.vala:467
 msgid "Every last day of month"
-msgstr ""
+msgstr "A hónap minden utolsó napján"
 
 #: core/Utils/Datetime.vala:468
 #, c-format
 msgid "Every %d months (last day)"
-msgstr ""
+msgstr "Minden %d hónapban (utolsó nap)"
 
 #: core/Utils/Datetime.vala:473
 msgid "Mo,"
-msgstr ""
+msgstr "H,"
 
 #: core/Utils/Datetime.vala:477
 msgid "Tu,"
-msgstr ""
+msgstr "K,"
 
 #: core/Utils/Datetime.vala:481
 msgid "We,"
-msgstr ""
+msgstr "Sze,"
 
 #: core/Utils/Datetime.vala:485
 msgid "Th,"
-msgstr ""
+msgstr "Csüt,"
 
 #: core/Utils/Datetime.vala:489
 msgid "Fr,"
-msgstr ""
+msgstr "P,"
 
 #: core/Utils/Datetime.vala:493
 msgid "Sa,"
-msgstr ""
+msgstr "Szo"
 
 #: core/Utils/Datetime.vala:497
 msgid "Su,"
-msgstr ""
+msgstr "V,"
 
 #: core/Utils/Datetime.vala:782
 #, c-format
 msgid "in %d day"
 msgid_plural "in %d days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d napon"
+msgstr[1] "%d napokon"
 
 #: core/Utils/Datetime.vala:784
 #, c-format
 msgid "%d day ago"
 msgid_plural "%d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d nappal ezelőtt"
+msgstr[1] "%d napokkal ezelőtt"
 
 #: core/Utils/Datetime.vala:853 core/Widgets/Calendar/CalendarHeader.vala:36
 #: core/Widgets/Calendar/CalendarHeader.vala:57
@@ -814,63 +829,63 @@ msgstr ""
 
 #: core/Utils/Util.vala:41
 msgid "Berry Red"
-msgstr ""
+msgstr "Bogyó Vörös"
 
 #: core/Utils/Util.vala:42
 msgid "Red"
-msgstr ""
+msgstr "Piros"
 
 #: core/Utils/Util.vala:43
 msgid "Orange"
-msgstr ""
+msgstr "Narancs"
 
 #: core/Utils/Util.vala:44
 msgid "Yellow"
-msgstr ""
+msgstr "Sárga"
 
 #: core/Utils/Util.vala:45
 msgid "Olive Green"
-msgstr ""
+msgstr "Oliva zöld"
 
 #: core/Utils/Util.vala:46
 msgid "Lime Green"
-msgstr ""
+msgstr "Lime zöld"
 
 #: core/Utils/Util.vala:47
 msgid "Green"
-msgstr ""
+msgstr "Zöld"
 
 #: core/Utils/Util.vala:48
 msgid "Mint Green"
-msgstr ""
+msgstr "Mentol zöld"
 
 #: core/Utils/Util.vala:49
 msgid "Teal"
-msgstr ""
+msgstr "Kékeszöld"
 
 #: core/Utils/Util.vala:50
 msgid "Sky Blue"
-msgstr ""
+msgstr "Ég kék"
 
 #: core/Utils/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "Világos kék"
 
 #: core/Utils/Util.vala:52
 msgid "Blue"
-msgstr ""
+msgstr "Kék"
 
 #: core/Utils/Util.vala:53
 msgid "Grape"
-msgstr ""
+msgstr "Szőlő"
 
 #: core/Utils/Util.vala:54
 msgid "Violet"
-msgstr ""
+msgstr "Ibolya"
 
 #: core/Utils/Util.vala:55
 msgid "Lavender"
-msgstr ""
+msgstr "Levendula"
 
 #: core/Utils/Util.vala:56
 msgid "Magenta"
@@ -886,7 +901,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:59
 msgid "Grey"
-msgstr ""
+msgstr "Szürke"
 
 #: core/Utils/Util.vala:60
 msgid "Taupe"
@@ -894,28 +909,28 @@ msgstr ""
 
 #: core/Utils/Util.vala:218
 msgid "Light"
-msgstr ""
+msgstr "Világos"
 
 #: core/Utils/Util.vala:221
 msgid "Dark"
-msgstr ""
+msgstr "Sötét"
 
 #: core/Utils/Util.vala:224
 msgid "Dark Blue"
-msgstr ""
+msgstr "Sötét kék"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:894 src/Widgets/ItemChangeHistoryRow.vala:268
 msgid "None"
-msgstr ""
+msgstr "Nincs"
 
 #: core/Utils/Util.vala:264
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Ma + bejövő"
 
 #: core/Utils/Util.vala:480
 msgid "Delete All"
-msgstr ""
+msgstr "Összes törlése"
 
 #: core/Utils/Util.vala:494
 msgid "Process completed, you need to start Planify again."
@@ -927,7 +942,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:606
 msgid "On This Computer"
-msgstr ""
+msgstr "Ezen a számítógépen"
 
 #: core/Utils/Util.vala:631
 msgid "Meet Planify"
@@ -942,7 +957,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:641
 msgid "Tap this task"
-msgstr ""
+msgstr "Kattints a feladatra"
 
 #: core/Utils/Util.vala:642
 msgid ""
@@ -951,7 +966,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:647
 msgid "Create a new task"
-msgstr ""
+msgstr "Új feladat létrehozása"
 
 #: core/Utils/Util.vala:648
 msgid ""
@@ -1061,23 +1076,23 @@ msgstr ""
 
 #: core/Utils/Util.vala:744
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️ Munka"
 
 #: core/Utils/Util.vala:750
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️ Iskola"
 
 #: core/Utils/Util.vala:756
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉️ Hozzárendelt"
 
 #: core/Utils/Util.vala:762
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡️ Otthon"
 
 #: core/Utils/Util.vala:768
 msgid "🏃‍♀️️Follow Up"
-msgstr ""
+msgstr "🏃‍♀️️ Követés"
 
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1286
 #: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
@@ -1099,31 +1114,31 @@ msgstr ""
 
 #: core/Utils/Util.vala:1101 src/Dialogs/Preferences/Pages/TaskSetting.vala:155
 msgid "At due time"
-msgstr ""
+msgstr "Kellő időben"
 
 #: core/Utils/Util.vala:1104 src/Dialogs/Preferences/Pages/TaskSetting.vala:156
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 perccel előtte"
 
 #: core/Utils/Util.vala:1107 src/Dialogs/Preferences/Pages/TaskSetting.vala:157
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 perccel előtte"
 
 #: core/Utils/Util.vala:1110 src/Dialogs/Preferences/Pages/TaskSetting.vala:158
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 perccel előtte"
 
 #: core/Utils/Util.vala:1113 src/Dialogs/Preferences/Pages/TaskSetting.vala:159
 msgid "1 hour before"
-msgstr ""
+msgstr "1 órával előtte"
 
 #: core/Utils/Util.vala:1116 src/Dialogs/Preferences/Pages/TaskSetting.vala:160
 msgid "2 hours before"
-msgstr ""
+msgstr "2 órával előtte"
 
 #: core/Utils/Util.vala:1119 src/Dialogs/Preferences/Pages/TaskSetting.vala:161
 msgid "3 hours before"
-msgstr ""
+msgstr "3 órával előtte"
 
 #: core/Widgets/Calendar/CalendarDay.vala:103
 #: core/Widgets/Calendar/CalendarScroll.vala:383
@@ -1140,24 +1155,24 @@ msgstr ""
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:765
 #: src/Layouts/HeaderBar.vala:88
 msgid "Back"
-msgstr ""
+msgstr "Vissza"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:66
 msgid "Previous month"
-msgstr ""
+msgstr "Előző hónap"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:71
 msgid "Forward"
-msgstr ""
+msgstr "Előre"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:73
 msgid "Next month"
-msgstr ""
+msgstr "Következő hónap"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #, c-format
 msgid "Previous month, %s"
-msgstr ""
+msgstr "Előző hónap, %s"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:110
 #: core/Widgets/Calendar/CalendarHeader.vala:112
@@ -1250,7 +1265,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:529
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:131
 msgid "Time"
-msgstr ""
+msgstr "Idő"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
@@ -1298,16 +1313,16 @@ msgstr ""
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
 #: core/Widgets/DeadlineButton.vala:219
 msgid "Next week"
-msgstr ""
+msgstr "Következő hét"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:547
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:116
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:583
 msgid "Daily"
-msgstr ""
+msgstr "Napi"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:587
 msgid "Weekdays"
@@ -1331,7 +1346,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:607
 msgid "Custom"
-msgstr ""
+msgstr "Egyéni"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:894
 #: src/Widgets/ItemChangeHistoryRow.vala:281
@@ -1384,7 +1399,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:305
 msgid "Never"
-msgstr ""
+msgstr "Soha"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:309
 msgid "On Date"
@@ -1398,7 +1413,7 @@ msgstr ""
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1350
 msgid "Apply"
-msgstr ""
+msgstr "Alkalmaz"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:399
 msgid "Repeat every"
@@ -1407,7 +1422,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:408
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:78
 msgid "End"
-msgstr ""
+msgstr "Vége"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:541
 msgid "Minute"
