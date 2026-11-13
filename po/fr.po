@@ -3,8 +3,9 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-10-27 21:51+0000\n"
-"Last-Translator: bakrav <bakrav@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-13 22:42+0000\n"
+"Last-Translator: Nicolas BUREAU "
+"<nicolasbureau1@users.noreply.hosted.weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/fr/>\n"
 "Language: fr\n"
@@ -12,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -164,11 +165,11 @@ msgstr "Échéance"
 
 #: core/Enum.vala:557
 msgid "Parent task"
-msgstr ""
+msgstr "Tâche apparentée"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr "Tâches"
+msgstr "Toutes les tâches"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
@@ -361,7 +362,7 @@ msgstr "Supprimer l’étiquette %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 msgid "This can not be undone"
-msgstr "Cette action est irréversible"
+msgstr "Action irréversible"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:910
 #: core/Objects/Project.vala:990 core/Objects/Section.vala:435
@@ -598,8 +599,8 @@ msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
 msgstr ""
-"Ce server ne permet pas de créer de projet via CalDAV. Créer le projet  "
-"directement depuis le site web de votre fournisseur de calendrier (calendar)."
+"Ce serveur ne permet pas de créer de projet via CalDAV. Vous devez le créer "
+"directement depuis le site web de votre fournisseur de calendrier."
 
 #: core/Services/CalDAV/CalDAVClient.vala:818
 msgid ""
@@ -633,7 +634,7 @@ msgstr "La source existe déjà"
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
-msgstr ""
+msgstr "Échec du chargement du certificat client : %s"
 
 #: core/Services/CalDAV/Core.vala:206 core/Services/CalDAV/Core.vala:257
 msgid "Failed to resolve principal url"
@@ -770,7 +771,7 @@ msgstr "%H:%M"
 
 #: core/Utils/Datetime.vala:467
 msgid "Every last day of month"
-msgstr ""
+msgstr "Le dernier jour de chaque mois"
 
 #: core/Utils/Datetime.vala:468
 #, c-format
@@ -1040,10 +1041,10 @@ msgid ""
 "below.\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
-"C’est à peu près tout ce que vous avez besoin de savoir pour le moment. "
-"Sentez-vous libre d'ajouter vos propres projets et tâches.\n"
-"Vous pouvez revenir à ce projet plus tard pour découvrir les fonctionnalités "
-"avancées ci-dessous…\n"
+"Voilà, nous avons fait le tour de l'essentiel. A vous de jouer maintenant : "
+"commencez à ajouter vos propres projets et tâches.\n"
+"Vous pourrez revenir à ce projet plus tard pour découvrir les "
+"fonctionnalités avancées ci-dessous.\n"
 "Nous espérons que vous apprécierez Planify !"
 
 #: core/Utils/Util.vala:686
@@ -1141,6 +1142,8 @@ msgstr "🏃‍♀️️ À suivre"
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:448
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
+"Transférer des tâches depuis ou vers un tableau Nextcloud Deck n'est pas "
+"encore pris en charge"
 
 #: core/Utils/Util.vala:971
 msgid "Task duplicated"
@@ -1600,7 +1603,7 @@ msgstr "Pas d'étiquette"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
 msgid "Label color"
-msgstr ""
+msgstr "Couleur de l'étiquette"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
