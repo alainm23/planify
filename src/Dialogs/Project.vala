@@ -52,7 +52,6 @@ public class Dialogs.Project : Adw.Dialog {
         var project = new Objects.Project ();
         project.color = "blue";
         project.emoji = "🚀️";
-        // Start with the icon style used for the last new project.
         project.icon_style = Services.Settings.get_default ().settings.get_string ("new-project-icon-style") == "emoji"
             ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.id = "";
@@ -473,7 +472,6 @@ public class Dialogs.Project : Adw.Dialog {
         if (!is_creating) {
             update_project.begin ();
         } else {
-            // Remember the choice so the next new project starts the same way.
             Services.Settings.get_default ().settings.set_string (
                 "new-project-icon-style", emoji_switch.active ? "emoji" : "progress"
             );
