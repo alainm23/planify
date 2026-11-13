@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-11-12 16:18+0000\n"
+"PO-Revision-Date: 2026-11-13 15:20+0000\n"
 "Last-Translator: Filip <316filip@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/cs/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.11.2.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -1669,33 +1669,33 @@ msgstr "Vyhledat nebo Vytvořit"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:119
 msgid "Hide unused labels"
-msgstr ""
+msgstr "Skrýt nepoužité štítky"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:338
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:609
 msgid "No Labels"
-msgstr ""
+msgstr "Žádné štítky"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
 msgid "Label color"
-msgstr ""
+msgstr "Barva štítku"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
-msgstr ""
+msgstr "Vše skryto"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:600
 msgid "All labels are hidden by the filter. Disable the filter to see them."
-msgstr ""
+msgstr "Všechny štítky jsou skryty filtrem. Zakažte filtr, aby se zobrazily."
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
-msgstr ""
+msgstr "Klávesou Enter štítek vytvoříte a přiřadíte"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 #: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
 msgid "Task description"
-msgstr ""
+msgstr "Popis úkolu"
 
 #: core/Widgets/MarkdownEditor.vala:1427
 msgid "Remove link"
@@ -1741,7 +1741,7 @@ msgstr "Žádná Sekce"
 
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:57
 msgid "Type a search"
-msgstr ""
+msgstr "Zadejte vyhledávání"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:62
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:97
@@ -1754,6 +1754,7 @@ msgstr "Připomenutí"
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the '+' button."
 msgstr ""
+"Váš seznam připomenutí se zobrazí zde. Připomenutí přidáte tlačítkem '+'."
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:145
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:191
