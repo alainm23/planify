@@ -3,8 +3,9 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-11-13 15:19+0000\n"
-"Last-Translator: C <brunsc@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-13 22:42+0000\n"
+"Last-Translator: Hosted Weblate user 47723 "
+"<brunsc@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -3921,49 +3922,51 @@ msgid "Continue Anyway"
 msgstr "Trotzdem fortfahren"
 
 #: src/Widgets/ClientCertificateRow.vala:49
+#, fuzzy
 msgid "Client certificate (mTLS)"
-msgstr ""
+msgstr "Zertifikat (mTLS)"
 
 #: src/Widgets/ClientCertificateRow.vala:50
+#, fuzzy
 msgid "Authenticate to the server with a client certificate"
-msgstr ""
+msgstr "Authentifizierung gegenüber dem Server mit einem Zertifikat"
 
 #: src/Widgets/ClientCertificateRow.vala:55
 msgid "Certificate file"
-msgstr ""
+msgstr "Zertifikatsdatei"
 
 #: src/Widgets/ClientCertificateRow.vala:56
 #: src/Widgets/ClientCertificateRow.vala:100
 msgid "No file selected"
-msgstr ""
+msgstr "Keine Datei ausgewählt"
 
 #: src/Widgets/ClientCertificateRow.vala:60
 msgid "Choose…"
-msgstr ""
+msgstr "Wähle…"
 
 #: src/Widgets/ClientCertificateRow.vala:68
 msgid "Certificate password (PKCS#12)"
-msgstr ""
+msgstr "Zertifikatskennwort (PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:96
 msgid "PKCS#12 certificate stored"
-msgstr ""
+msgstr "PKCS#12 Zertifikat gespeichert"
 
 #: src/Widgets/ClientCertificateRow.vala:97
 msgid "PEM certificate stored"
-msgstr ""
+msgstr "PEM Zertifikat gespeichert"
 
 #: src/Widgets/ClientCertificateRow.vala:106
 msgid "Select client certificate"
-msgstr ""
+msgstr "Client-Zertifikat auswählen"
 
 #: src/Widgets/ClientCertificateRow.vala:111
 msgid "Certificates (PEM, PKCS#12)"
-msgstr ""
+msgstr "Zertifikate (PEM, PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
-msgstr ""
+msgstr "Datei lesen fehlgeschlagen"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:94
@@ -4166,10 +4169,10 @@ msgstr[0] "Bist du sicher, dass du %d Aufgabe löschen möchtest?"
 msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 
 #: src/Widgets/MultiSelectToolbar.vala:456
-#, fuzzy, c-format
+#, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Aufgabe hierhin verschoben: %s"
+msgstr[0] "%d Aufgabe hierhin verschoben: %s"
 msgstr[1] "%d Aufgaben hierhin verschoben: %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
