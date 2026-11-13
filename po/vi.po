@@ -135,7 +135,7 @@ msgstr "Nhiệm Vụ Đã Cập Nhật"
 msgid "Content"
 msgstr "Nội Dung"
 
-#: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
+#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
@@ -445,7 +445,7 @@ msgstr "Tên nhiệm vụ"
 msgid "This field is required"
 msgstr "Trường này là bắt buộc"
 
-#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "Thêm mô tả…"
 
@@ -2111,7 +2111,7 @@ msgid "Enable Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Nguồn"
 
@@ -2420,7 +2420,7 @@ msgstr "Tải Xuống"
 msgid "Restore Backup"
 msgstr "Khôi Phục Sao Lưu"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "Nguồn"
 
@@ -2637,7 +2637,7 @@ msgstr ""
 "Đi tới Cài đặt Hệ thống → Bàn phím → Phím tắt → Tùy chỉnh, sau đó thêm một "
 "phím tắt mới với thông tin sau:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "Cài đặt"
 
@@ -2805,7 +2805,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Kiểm tra chính tả trong mô tả và ghi chú nhiệm vụ"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "Đã Bật"
 
@@ -3103,56 +3103,56 @@ msgstr "Quá Hạn"
 msgid "Progress"
 msgstr ""
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
+#: src/Dialogs/Project.vala:64 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Dự Án Mới"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
+#: src/Dialogs/Project.vala:72 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:393
 msgid "Edit Project"
 msgstr "Chỉnh Sửa Dự Án"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "Đặt tên cho dự án của bạn"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "Sử Dụng Biểu Tượng Cảm Xúc"
 
-#: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Thêm Dự Án"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "Cập Nhật Dự Án"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr ""
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr ""
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr ""
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr ""
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr ""
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "Dự án đã được thêm thành công!"
 

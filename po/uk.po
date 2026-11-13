@@ -141,7 +141,7 @@ msgstr "Завдання оновлено"
 msgid "Content"
 msgstr "Зміст"
 
-#: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
+#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
@@ -456,7 +456,7 @@ msgstr "Назва завдання"
 msgid "This field is required"
 msgstr "Обов'язкове поле"
 
-#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "Додати опис…"
 
@@ -2156,7 +2156,7 @@ msgid "Enable Deck"
 msgstr "Увімкнути Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Джерело"
 
@@ -2466,7 +2466,7 @@ msgstr "Завантажити"
 msgid "Restore Backup"
 msgstr "Відновити резервну копію"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "Джерела"
 
@@ -2685,7 +2685,7 @@ msgstr ""
 "Перейдіть до Системних налаштувань → Клавіатура → Скорочення → Налаштування, "
 "а потім додайте нове скорочення з наступним:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "Налаштування"
 
@@ -2854,7 +2854,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Перевірка орфографії в описах завдань та примітках"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "Увімкнено"
 
@@ -3156,56 +3156,56 @@ msgstr "Прострочено"
 msgid "Progress"
 msgstr "Прогрес"
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
+#: src/Dialogs/Project.vala:64 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Новий проєкт"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
+#: src/Dialogs/Project.vala:72 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:393
 msgid "Edit Project"
 msgstr "Редагувати проєкт"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "Надайте назву своєму проєкту"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "Використовувати емодзі"
 
-#: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Додати проєкт"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "Оновити проєкт"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr "Стандартно"
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr "Вимкнено"
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr "Форматування Markdown"
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr "Перевизначити глобальне налаштування для цього проєкту"
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr "Створити як дошку Deck"
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "Створити дошку Nextcloud Deck замість списку завдань"
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "Проєкт успішно додано!"
 

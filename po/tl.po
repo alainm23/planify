@@ -142,7 +142,7 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
+#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
@@ -452,7 +452,7 @@ msgstr ""
 msgid "This field is required"
 msgstr ""
 
-#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr ""
 
@@ -2067,7 +2067,7 @@ msgid "Enable Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr ""
 
@@ -2368,7 +2368,7 @@ msgstr ""
 msgid "Restore Backup"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr ""
 
@@ -2575,7 +2575,7 @@ msgid ""
 "shortcut with the following:"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr ""
 
@@ -2737,7 +2737,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr ""
 
@@ -3034,56 +3034,56 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
+#: src/Dialogs/Project.vala:64 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
+#: src/Dialogs/Project.vala:72 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:393
 msgid "Edit Project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr ""
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr ""
 
-#: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr ""
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr ""
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr ""
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr ""
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr ""
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr ""
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr ""
 

@@ -154,7 +154,7 @@ msgstr "Naloga posodobljena"
 msgid "Content"
 msgstr "Vsebina"
 
-#: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
+#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
@@ -464,7 +464,7 @@ msgstr "Ime opravila"
 msgid "This field is required"
 msgstr "To polje je obvezno"
 
-#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "Dodaj opis …"
 
@@ -2177,7 +2177,7 @@ msgid "Enable Deck"
 msgstr "Omogoči Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Vir"
 
@@ -2487,7 +2487,7 @@ msgstr "Prenesi"
 msgid "Restore Backup"
 msgstr "Obnovi varnostno kopijo"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "Viri"
 
@@ -2706,7 +2706,7 @@ msgstr ""
 "Odprite Sistemske nastavitve → Tipkovnica → Bližnjice → Po meri in dodajte "
 "novo bližnjico z naslednjimi podatki:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "Nastavitve"
 
@@ -2874,7 +2874,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Preverjaj črkovanje v opisih nalog in zapiskih"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "Omogočeno"
 
@@ -3176,56 +3176,56 @@ msgstr "Zamujen rok"
 msgid "Progress"
 msgstr "Napredek"
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
+#: src/Dialogs/Project.vala:64 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Nov projekt"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
+#: src/Dialogs/Project.vala:72 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:393
 msgid "Edit Project"
 msgstr "Uredi projekt"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "Poimenujte projekt"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "Uporabi čustvenček"
 
-#: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Dodaj projekt"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "Posodobi projekt"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr "Splošna privzeta nastavitev"
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr "Onemogočeno"
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr "Oblikovanje Markdown"
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr "Za ta projekt preglasi splošno nastavitev oblikovanja Markdown"
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr "Ustvari kot tablo Deck"
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "Ustvari tablo Nextcloud Deck namesto seznama nalog"
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "Projekt je bil uspešno dodan!"
 
