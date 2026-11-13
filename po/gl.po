@@ -445,7 +445,7 @@ msgstr "Cancelar"
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
 #: src/Services/BackupManager.vala:255 src/Services/BackupManager.vala:289
 #: src/Views/Project/Project.vala:557 src/Widgets/MultiSelectToolbar.vala:285
-#: src/Widgets/MultiSelectToolbar.vala:354
+#: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -546,6 +546,7 @@ msgstr "Engadir tarefa"
 
 #: core/QuickAddCore.vala:332 core/QuickAddCore.vala:1493
 #: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:1730
 msgid "Keep adding"
 msgstr "Continuar engadindo"
 
@@ -563,55 +564,67 @@ msgstr ""
 
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:802
 #: core/QuickAddCore.vala:1687 src/MainWindow.vala:808 src/MainWindow.vala:809
-#: src/MainWindow.vala:791
+#: src/MainWindow.vala:791 core/QuickAddCore.vala:1692
 msgid "Keyboard Shortcuts"
 msgstr "Atallos do teclado"
 
 #: core/QuickAddCore.vala:1461 core/QuickAddCore.vala:1693
+#: core/QuickAddCore.vala:1698
 msgid "Speed up task creation with these shortcuts"
 msgstr "Acelere a creación de tarefas con estes atallos"
 
 #: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "Set priority"
 msgstr "Estabelecer prioridade"
 
 #: core/QuickAddCore.vala:1475 core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = máis alta, p4 = máis baixa"
 
 #: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Add labels"
 msgstr "Engadir etiquetas"
 
 #: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Opens label selector"
 msgstr "Abre selector de etiquetas"
 
 #: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Assign project"
 msgstr "Asignar proxecto"
 
 #: core/QuickAddCore.vala:1477 core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Opens project selector"
 msgstr "Abre selector de proxectos"
 
 #: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Set reminder"
 msgstr "Estabelecer recordatorio"
 
 #: core/QuickAddCore.vala:1478 core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Opens reminder options"
 msgstr "Abre opcións de recordatorio"
 
 #: core/QuickAddCore.vala:1493 core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:1730
 msgid "Toggle stay open after creating task"
 msgstr "Alternar manter aberto após crear tarefa"
 
 #: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Tip"
 msgstr "Suxestión"
 
 #: core/QuickAddCore.vala:1499 core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combinar atallos no campo de título para creación máis rápida"
 
@@ -3517,6 +3530,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 #: src/Layouts/ItemRow.vala:2175 src/Layouts/ItemRow.vala:2183
+#: core/QuickAddCore.vala:962
 msgid "Add Attachments"
 msgstr "Engadir anexos"
 
@@ -3587,7 +3601,7 @@ msgstr "Proxecto exportado como PDF"
 
 #: src/Layouts/ProjectRow.vala:796 src/Widgets/Attachments.vala:142
 #: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 core/QuickAddCore.vala:1082
 msgid "Open"
 msgstr "Abrir"
 
@@ -4119,11 +4133,12 @@ msgid "Me"
 msgstr "Eu"
 
 #: src/Widgets/Attachments.vala:58 core/QuickAddCore.vala:944
+#: core/QuickAddCore.vala:949
 msgid "Attachments"
 msgstr "Anexos"
 
 #: src/Widgets/Attachments.vala:248 core/QuickAddCore.vala:976
-#: src/Widgets/Attachments.vala:231
+#: src/Widgets/Attachments.vala:231 core/QuickAddCore.vala:981
 msgid "No attachments found. Add files here."
 msgstr "Non se atoparon anexos. Engada ficheiros aquí."
 
