@@ -158,6 +158,7 @@ msgstr "Conteúdo"
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2106
+#: src/Dialogs/Project.vala:153
 msgid "Description"
 msgstr "Descrição"
 
@@ -534,7 +535,7 @@ msgid "This field is required"
 msgstr "Este campo é obrigatório"
 
 #: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
-#: core/QuickAddCore.vala:224
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "Adicionar uma descrição…"
 
@@ -2334,7 +2335,7 @@ msgid "Enable Deck"
 msgstr "Habilitar Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:181 src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Fonte"
 
@@ -2656,7 +2657,7 @@ msgid "Restore Backup"
 msgstr "Restaurar Backup"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:615 src/Dialogs/Project.vala:450
-#: src/Dialogs/Preferences/Pages/Backup.vala:681
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "Fontes"
 
@@ -2883,6 +2884,7 @@ msgstr ""
 "atalho com o seguinte:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "Configurações"
 
@@ -3058,7 +3060,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Verifique a ortografia nas descrições das tarefas e notas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:235 src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "Habilitado"
 
@@ -3364,57 +3366,58 @@ msgid "Progress"
 msgstr "Progresso"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Dialogs/Project.vala:64
 msgid "New Project"
 msgstr "Novo Projeto"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:703
-#: src/Views/Project/Project.vala:393
+#: src/Views/Project/Project.vala:393 src/Dialogs/Project.vala:72
 msgid "Edit Project"
 msgstr "Editar Projeto"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:115 src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "Dê um nome ao seu projeto"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:126 src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "Usar Emoji"
 
 #: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222
 msgid "Add Project"
 msgstr "Adicionar Projeto"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:220 src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "Atualizar Projeto"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:234 src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr "Padrão global"
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:236 src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr "Desabilitado"
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:239 src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr "Formatação Markdown"
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:240 src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr "Substitua a configuração global de Markdown para este projeto"
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:264 src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr "Criar como Deck Board"
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:265 src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "Crie um quadro no Nextcloud Deck em vez de uma lista de tarefas"
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:576 src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "Projeto adicionado com sucesso!"
 

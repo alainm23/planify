@@ -151,6 +151,7 @@ msgstr "目录"
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2106
+#: src/Dialogs/Project.vala:153
 msgid "Description"
 msgstr "描述"
 
@@ -518,6 +519,7 @@ msgid "This field is required"
 msgstr "必填"
 
 #: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "添加说明……"
 
@@ -2236,7 +2238,7 @@ msgid "Enable Deck"
 msgstr "启用 Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:181 src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "来源"
 
@@ -2547,7 +2549,7 @@ msgid "Restore Backup"
 msgstr "恢复备份"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:615 src/Dialogs/Project.vala:450
-#: src/Dialogs/Preferences/Pages/Backup.vala:681
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "来源"
 
@@ -2766,6 +2768,7 @@ msgstr ""
 "前往系统设置 → 键盘 → 快捷键 → 自定义，然后使用以下内容添加新的快捷键："
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "设置"
 
@@ -2927,7 +2930,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "在任务描述和备注中检查拼写"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:235 src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "已启用"
 
@@ -3226,57 +3229,58 @@ msgid "Progress"
 msgstr "进度"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Dialogs/Project.vala:64
 msgid "New Project"
 msgstr "新建项目"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:709
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:703
-#: src/Views/Project/Project.vala:393
+#: src/Views/Project/Project.vala:393 src/Dialogs/Project.vala:72
 msgid "Edit Project"
 msgstr "编辑项目"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:115 src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "为您的项目命名"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:126 src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "使用表情符号"
 
 #: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222
 msgid "Add Project"
 msgstr "添加项目"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:220 src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "更新项目"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:234 src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr "全局默认"
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:236 src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr "已禁用"
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:239 src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr "Markdown 格式"
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:240 src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr "覆盖此项目的全局 Markdown 设置"
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:264 src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr "创建为 Deck 看板"
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:265 src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "创建 Nextcloud Deck 看板而非任务列表"
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:576 src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "项目添加成功！"
 

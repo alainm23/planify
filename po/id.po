@@ -170,7 +170,7 @@ msgstr "Konten"
 #: src/Layouts/ItemRow.vala:2014 src/Widgets/EventRow.vala:359
 #: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemRow.vala:2082
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemRow.vala:2098
-#: src/Layouts/ItemRow.vala:2106
+#: src/Layouts/ItemRow.vala:2106 src/Dialogs/Project.vala:153
 msgid "Description"
 msgstr "Deskripsi"
 
@@ -595,7 +595,7 @@ msgid "This field is required"
 msgstr "Kolom ini wajib diisi"
 
 #: core/QuickAddCore.vala:219 src/Dialogs/Project.vala:139
-#: core/QuickAddCore.vala:224
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "Tambahkan deskripsi…"
 
@@ -2529,7 +2529,7 @@ msgid "Enable Deck"
 msgstr "Aktifkan Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:181 src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Sumber"
 
@@ -2864,7 +2864,7 @@ msgstr "Pulihkan Cadangan"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:507 src/Dialogs/Project.vala:450
 #: src/Dialogs/Preferences/Pages/Backup.vala:615
-#: src/Dialogs/Preferences/Pages/Backup.vala:681
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "Sumber"
 
@@ -3099,6 +3099,7 @@ msgstr ""
 "pintasan baru dengan berikut ini:"
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "Pengaturan"
 
@@ -3267,7 +3268,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Periksa ejaan pada deskripsi dan catatan tugas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:235 src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "Diaktifkan"
 
@@ -3580,57 +3581,59 @@ msgid "Progress"
 msgstr "Progres"
 
 #: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:121
-#: src/Layouts/Sidebar.vala:123
+#: src/Layouts/Sidebar.vala:123 src/Dialogs/Project.vala:64
 msgid "New Project"
 msgstr "Proyek Baru"
 
 #: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:700
 #: src/Views/Project/Project.vala:387 src/Layouts/ProjectRow.vala:709
 #: src/Layouts/ProjectRow.vala:703 src/Views/Project/Project.vala:393
+#: src/Dialogs/Project.vala:72
 msgid "Edit Project"
 msgstr "Sunting Proyek"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:115 src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "Beri nama proyek Anda"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:126 src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "Gunakan Emoji"
 
 #: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222
 msgid "Add Project"
 msgstr "Tambahkan Proyek"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:220 src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "Perbarui Proyek"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:234 src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr "Default Global"
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:236 src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr "Dinonaktifkan"
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:239 src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr "Pemformatan Markdown"
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:240 src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr "Timpa pengaturan markdown global untuk proyek ini"
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:264 src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr "Buat sebagai Papan Deck"
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:265 src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "Buat papan Nextcloud Deck, bukan daftar tugas"
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:576 src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "Proyek berhasil ditambahkan!"
 
