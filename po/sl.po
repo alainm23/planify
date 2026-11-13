@@ -396,7 +396,7 @@ msgid "Cancel"
 msgstr "Prekliči"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:911
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -490,7 +490,7 @@ msgstr "Nastavi prednost"
 msgid "Add Reminders"
 msgstr "Dodaj opomnike"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
 #: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "Dodaj priponke"
@@ -502,7 +502,7 @@ msgstr "Dodaj priponke"
 msgid "Add Task"
 msgstr "Dodaj nalogo"
 
-#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
 msgid "Keep adding"
 msgstr "Nadaljuj z dodajanjem"
 
@@ -518,68 +518,68 @@ msgstr ""
 "Hitro dodajanje ne najde nobenega razpoložljivega projekta. Poskusite "
 "ustvariti projekt v programu Planify."
 
-#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Priponke"
 
-#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "Ni priponk. Tukaj dodajte datoteke."
 
-#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
+#: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Odpri"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
 msgid "Keyboard Shortcuts"
 msgstr "Tipkovne bližnjice"
 
-#: core/QuickAddCore.vala:1693
+#: core/QuickAddCore.vala:1698
 msgid "Speed up task creation with these shortcuts"
 msgstr "Pospešite ustvarjanje nalog s temi bližnjicami"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "Set priority"
 msgstr "Nastavi prednost"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = najvišja, p4 = najnižja"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Add labels"
 msgstr "Dodaj oznake"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Opens label selector"
 msgstr "Odpre izbirnik oznak"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Assign project"
 msgstr "Dodeli projekt"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Opens project selector"
 msgstr "Odpre izbirnik projektov"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Set reminder"
 msgstr "Nastavi opomnik"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Opens reminder options"
 msgstr "Odpre možnosti opomnika"
 
-#: core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:1730
 msgid "Toggle stay open after creating task"
 msgstr "Preklopi ohranjanje odprtega okna po ustvarjanju naloge"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Tip"
 msgstr "Namig"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Združite bližnjice v polju za naslov za hitrejše ustvarjanje"
 

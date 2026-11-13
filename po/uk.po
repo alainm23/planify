@@ -385,7 +385,7 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:911
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -482,7 +482,7 @@ msgstr "Встановити пріоритет"
 msgid "Add Reminders"
 msgstr "Додати нагадування"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
 #: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "Додати вкладення"
@@ -494,7 +494,7 @@ msgstr "Додати вкладення"
 msgid "Add Task"
 msgstr "Додати завдання"
 
-#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
 msgid "Keep adding"
 msgstr "Додавати далі"
 
@@ -510,68 +510,68 @@ msgstr ""
 "Вибачте, функція швидкого додавання не може знайти жодного доступного "
 "проєкту. Спробуйте створити проєкт в Planify."
 
-#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Вкладення"
 
-#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "Вкладень не знайдено. Додайте файли сюди."
 
-#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
+#: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Відкрити"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
 
-#: core/QuickAddCore.vala:1693
+#: core/QuickAddCore.vala:1698
 msgid "Speed up task creation with these shortcuts"
 msgstr "Пришвидшіть створення завдань за допомогою цих скорочень"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "Set priority"
 msgstr "Встановити пріоритет"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = найвищий, p4 = найнижчий"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Add labels"
 msgstr "Додати мітки"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Opens label selector"
 msgstr "Відкриває селектор міток"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Assign project"
 msgstr "Призначити проєкт"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Opens project selector"
 msgstr "Відкриває селектор проєктів"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Set reminder"
 msgstr "Встановити нагадування"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Opens reminder options"
 msgstr "Відкриває параметри нагадування"
 
-#: core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:1730
 msgid "Toggle stay open after creating task"
 msgstr "Не закривати після створення"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Tip"
 msgstr "Підказка"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Поєднуйте комбінації клавіш у полі заголовка для швидшого створення"
 

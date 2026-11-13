@@ -377,7 +377,7 @@ msgid "Cancel"
 msgstr "Batal"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:911
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1033
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -471,7 +471,7 @@ msgstr "Atur prioritas"
 msgid "Add Reminders"
 msgstr "Tambahkan pengingat"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
 #: src/Layouts/ItemRow.vala:2183
 msgid "Add Attachments"
 msgstr "Tambahkan Lampiran"
@@ -483,7 +483,7 @@ msgstr "Tambahkan Lampiran"
 msgid "Add Task"
 msgstr "Tambahkan tugas"
 
-#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
 msgid "Keep adding"
 msgstr "Terus menambahkan"
 
@@ -499,68 +499,68 @@ msgstr ""
 "Maaf, Tambah Cepat tidak dapat menemukan proyek yang tersedia; coba buat "
 "proyek dari Planify."
 
-#: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Lampiran"
 
-#: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "Tidak ada lampiran yang ditemukan. Tambahkan berkas di sini."
 
-#: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:790
+#: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Buka"
 
-#: core/QuickAddCore.vala:1687 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
 msgid "Keyboard Shortcuts"
 msgstr "Pintasan papan ketik"
 
-#: core/QuickAddCore.vala:1693
+#: core/QuickAddCore.vala:1698
 msgid "Speed up task creation with these shortcuts"
 msgstr "Percepat pembuatan tugas dengan pintasan ini"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "Set priority"
 msgstr "Atur prioritas"
 
-#: core/QuickAddCore.vala:1707
+#: core/QuickAddCore.vala:1712
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = tertinggi, p4 = terendah"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Add labels"
 msgstr "Tambahkan label"
 
-#: core/QuickAddCore.vala:1708
+#: core/QuickAddCore.vala:1713
 msgid "Opens label selector"
 msgstr "Membuka pemilih label"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Assign project"
 msgstr "Tetapkan proyek"
 
-#: core/QuickAddCore.vala:1709
+#: core/QuickAddCore.vala:1714
 msgid "Opens project selector"
 msgstr "Membuka pemilih proyek"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Set reminder"
 msgstr "Atur pengingat"
 
-#: core/QuickAddCore.vala:1710
+#: core/QuickAddCore.vala:1715
 msgid "Opens reminder options"
 msgstr "Membuka opsi pengingat"
 
-#: core/QuickAddCore.vala:1725
+#: core/QuickAddCore.vala:1730
 msgid "Toggle stay open after creating task"
 msgstr "Alihkan tetap terbuka setelah membuat tugas"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Tip"
 msgstr "Tips"
 
-#: core/QuickAddCore.vala:1731
+#: core/QuickAddCore.vala:1736
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Gabungkan pintasan di kolom judul untuk pembuatan yang lebih cepat"
 
