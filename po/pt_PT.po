@@ -141,7 +141,7 @@ msgstr "Tarefa atualizada"
 msgid "Content"
 msgstr "Conteúdo"
 
-#: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
+#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
@@ -451,7 +451,7 @@ msgstr "Nome da tarefa"
 msgid "This field is required"
 msgstr "É necessário preencher este campo"
 
-#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:139
+#: core/QuickAddCore.vala:224 src/Dialogs/Project.vala:141
 msgid "Add a description…"
 msgstr "Adicione uma descrição…"
 
@@ -2155,7 +2155,7 @@ msgid "Enable Deck"
 msgstr "Ativar Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
-#: src/Dialogs/Project.vala:181
+#: src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Fonte"
 
@@ -2471,7 +2471,7 @@ msgstr "Transferir"
 msgid "Restore Backup"
 msgstr "Restaurar cópia de segurança"
 
-#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:450
+#: src/Dialogs/Preferences/Pages/Backup.vala:681 src/Dialogs/Project.vala:452
 msgid "Sources"
 msgstr "Fontes"
 
@@ -2692,7 +2692,7 @@ msgstr ""
 "'Adicionar um comando' e depois adicione um novo atalho com o seguinte "
 "comando:"
 
-#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:249
+#: src/Dialogs/Preferences/Pages/QuickAdd.vala:85 src/Dialogs/Project.vala:251
 msgid "Settings"
 msgstr "Definições"
 
@@ -2866,7 +2866,7 @@ msgid "Check spelling in task descriptions and notes"
 msgstr "Faz a verificação de ortografia nas descrições de tarefas e notas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:150
-#: src/Dialogs/Project.vala:235
+#: src/Dialogs/Project.vala:237
 msgid "Enabled"
 msgstr "Ativado"
 
@@ -3172,56 +3172,56 @@ msgstr "Expirou"
 msgid "Progress"
 msgstr "Progresso"
 
-#: src/Dialogs/Project.vala:62 src/Layouts/Sidebar.vala:123
+#: src/Dialogs/Project.vala:64 src/Layouts/Sidebar.vala:123
 msgid "New Project"
 msgstr "Novo projeto"
 
-#: src/Dialogs/Project.vala:70 src/Layouts/ProjectRow.vala:703
+#: src/Dialogs/Project.vala:72 src/Layouts/ProjectRow.vala:703
 #: src/Views/Project/Project.vala:393
 msgid "Edit Project"
 msgstr "Editar projeto"
 
-#: src/Dialogs/Project.vala:115
+#: src/Dialogs/Project.vala:117
 msgid "Give your project a name"
 msgstr "Dê um nome ao seu projeto"
 
-#: src/Dialogs/Project.vala:126
+#: src/Dialogs/Project.vala:128
 msgid "Use Emoji"
 msgstr "Usar um emoji"
 
-#: src/Dialogs/Project.vala:220 src/Views/Label/LabelSourceRow.vala:56
+#: src/Dialogs/Project.vala:222 src/Views/Label/LabelSourceRow.vala:56
 msgid "Add Project"
 msgstr "Adicionar projeto"
 
-#: src/Dialogs/Project.vala:220
+#: src/Dialogs/Project.vala:222
 msgid "Update Project"
 msgstr "Atualizar projeto"
 
-#: src/Dialogs/Project.vala:234
+#: src/Dialogs/Project.vala:236
 msgid "Global Default"
 msgstr "Predefinição global"
 
-#: src/Dialogs/Project.vala:236
+#: src/Dialogs/Project.vala:238
 msgid "Disabled"
 msgstr "Desativado"
 
-#: src/Dialogs/Project.vala:239
+#: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
 msgstr "Formatação em 'markdown'"
 
-#: src/Dialogs/Project.vala:240
+#: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
 msgstr "Substituir a definição global do 'markdown' para este projeto"
 
-#: src/Dialogs/Project.vala:264
+#: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
 msgstr "Criar como quadro do Deck"
 
-#: src/Dialogs/Project.vala:265
+#: src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "Criar um quadro do Nextcloud Deck em vez de uma lista de tarefas"
 
-#: src/Dialogs/Project.vala:576
+#: src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
 msgstr "O projeto foi adicionado com sucesso!"
 
