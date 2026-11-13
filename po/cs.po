@@ -223,6 +223,7 @@ msgstr "bez data"
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
 #: src/Views/Today.vala:259 src/Views/Today.vala:260
+#: src/Dialogs/QuickFind/QuickFindFactory.vala:288
 msgid "Completed"
 msgstr "Dokončené"
 

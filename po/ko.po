@@ -195,7 +195,7 @@ msgstr "날짜 없음"
 
 #: core/Objects/Filters/Completed.vala:33
 #: src/Dialogs/ProductivityReport/SummarySection.vala:58
-#: src/Views/Today.vala:260
+#: src/Dialogs/QuickFind/QuickFindFactory.vala:288 src/Views/Today.vala:260
 msgid "Completed"
 msgstr "완료됨"
 
