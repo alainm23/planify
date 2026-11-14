@@ -30,9 +30,55 @@ public class Services.Notification : GLib.Object {
     }
 
     private Gee.HashMap<string, string> reminders;
+    // Snoozes are one-off: they are deleted after firing even on recurring tasks.
+    private Gee.HashSet<string> one_shot_reminders = new Gee.HashSet<string> ();
+
+    public void mark_one_shot (Objects.Reminder reminder) {
+        one_shot_reminders.add (reminder.id);
+    }
 
     construct {
         regresh ();
+
+        Services.Settings.get_default ().settings.changed["automatic-reminders-enabled"].connect (() => {
+            automatic_reminders_changed ();
+        });
+
+        // The reminder moved (e.g. a recurring task went to its next occurrence):
+        // cancel its pending timer and schedule it again with the new time.
+        Services.Store.instance ().reminder_updated.connect ((reminder) => {
+            reminders.unset (reminder.id);
+            reminder_added (reminder);
+        });
+    }
+
+    // Recurring tasks keep their reminders so they also fire on the next occurrences.
+    // Todoist keeps reminders on its server, so it keeps the previous behavior.
+    private bool keeps_after_firing (Objects.Reminder reminder) {
+        var item = reminder.item;
+        return item != null && item.project != null &&
+               item.project.source_type != SourceType.TODOIST &&
+               item.due.is_recurring && !item.due.is_recurrency_end &&
+               !one_shot_reminders.contains (reminder.id);
+    }
+
+    // Mark the reminder as used: deleted, or remembered for recurring tasks.
+    private void consume_reminder (Objects.Reminder reminder) {
+        if (keeps_after_firing (reminder)) {
+            // Saved, so it doesn't fire again after restarting, and the views
+            // show it as waiting for the next occurrence.
+            reminder.fired_at = reminder.datetime.to_string ();
+            Services.Store.instance ().update_reminder (reminder);
+        } else {
+            one_shot_reminders.remove (reminder.id);
+            Services.Store.instance ().delete_reminder (reminder);
+        }
+    }
+
+    private void fire_reminder (Objects.Reminder reminder, string notification_id) {
+        GLib.Notification notification = build_notification (reminder);
+        Planify.instance.send_notification (notification_id, notification);
+        consume_reminder (reminder);
     }
 
     public void regresh () {
@@ -42,7 +88,10 @@ public class Services.Notification : GLib.Object {
             reminders.clear ();
         }
 
-        foreach (var reminder in Services.Store.instance ().reminders) {
+        // Iterate over a copy: reminder_added () can delete reminders from the Store's list.
+        var all_reminders = new Gee.ArrayList<Objects.Reminder> ();
+        all_reminders.add_all (Services.Store.instance ().reminders);
+        foreach (var reminder in all_reminders) {
             reminder_added (reminder);
         }
 
@@ -57,11 +106,53 @@ public class Services.Notification : GLib.Object {
         });
     }
 
-    private void reminder_added (Objects.Reminder reminder) {
-        if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
-            GLib.Notification notification = build_notification (reminder);
-            Planify.instance.send_notification (reminder.id, notification);
-            Services.Store.instance ().delete_reminder (reminder);
+    private bool is_muted (Objects.Reminder reminder) {
+        return reminder.reminder_type == ReminderType.RELATIVE &&
+               !Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled");
+    }
+
+    private void automatic_reminders_changed () {
+        var relative_reminders = new Gee.ArrayList<Objects.Reminder> ();
+        foreach (var reminder in Services.Store.instance ().reminders) {
+            if (reminder.reminder_type == ReminderType.RELATIVE) {
+                relative_reminders.add (reminder);
+            }
+        }
+
+        foreach (var reminder in relative_reminders) {
+            if (is_muted (reminder)) {
+                reminders.unset (reminder.id);
+            } else if (!reminders.has_key (reminder.id)) {
+                // Reminders whose time passed while muted are dropped by reminder_added ().
+                reminder_added (reminder, true);
+            }
+        }
+    }
+
+    private void reminder_added (Objects.Reminder reminder, bool drop_past = false) {
+        // A completed task doesn't need a reminder.
+        if (reminder.item == null || reminder.item.checked) {
+            return;
+        }
+
+        if (reminder.has_fired) {
+            return;
+        }
+
+        bool is_past = reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0;
+
+        if (is_muted (reminder) || (drop_past && is_past)) {
+            // An automatic reminder that came due while reminders were off is
+            // consumed without a notification, so it doesn't fire later.
+            if (is_past) {
+                consume_reminder (reminder);
+            }
+
+            return;
+        }
+
+        if (is_past) {
+            fire_reminder (reminder, reminder.id);
         } else if (Utils.Datetime.is_same_day (reminder.datetime, new GLib.DateTime.now_local ())) {
             uint interval = (uint) time_until_now (reminder.datetime);
             string uid = "%u-%u".printf (interval, GLib.Random.next_int ());
@@ -84,9 +175,14 @@ public class Services.Notification : GLib.Object {
             return;
         }
 
-        GLib.Notification notification = build_notification (reminder);
-        Planify.instance.send_notification (uid, notification);
-        Services.Store.instance ().delete_reminder (reminder);
+        reminders.unset (reminder.id);
+
+        // The task may have been completed while waiting.
+        if (reminder.item == null || reminder.item.checked) {
+            return;
+        }
+
+        fire_reminder (reminder, uid);
     }
 
     private GLib.Notification build_notification (Objects.Reminder reminder) {

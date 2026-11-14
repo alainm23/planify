@@ -196,7 +196,7 @@ public class Dialogs.CalendarSync : Adw.Dialog {
 
         int synced_count = 0;
         foreach (var item in project.all_items) {
-            if (item.has_due) {
+            if (Services.Store.needs_calendar_event (item)) {
                 string? event_uid = yield Services.CalendarEvents.get_default ().create_event (
                     selected_source.get_uid (),
                     item

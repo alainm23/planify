@@ -158,10 +158,10 @@ public class Views.Scheduled.ScheduledDay : Views.Scheduled.ScheduledSection {
             width_request = 250
         };
 
-        add_item.clicked.connect (() => {
+        signal_map[add_item.clicked.connect (() => {
             popover.popdown ();
             open_quick_add (date);
-        });
+        })] = add_item;
 
         return popover;
     }
@@ -171,25 +171,29 @@ public class Views.Scheduled.ScheduledDay : Views.Scheduled.ScheduledSection {
             add_item (item);
         }
 
-        // Add items with deadline today
-        if (Utils.Datetime.is_today (date)) {
-            foreach (Objects.Item item in Services.Store.instance ().items) {
-                if (!item.checked && !item.was_archived () && item.has_deadline) {
-                    var deadline_date = Utils.Datetime.get_date_only (item.deadline_datetime);
-                    if (Utils.Datetime.is_today (deadline_date) && !items.has_key (item.id)) {
-                        add_item (item);
-                    }
-                }
+        foreach (Objects.Item item in Services.Store.instance ().items) {
+            if (valid_deadline (item)) {
+                add_item (item);
             }
         }
     }
 
+    /*
+     * Today shows every task whose deadline is today, even if it has a date.
+     * Other days show tasks that only have a deadline on that day.
+     */
+    private bool valid_deadline (Objects.Item item) {
+        if (Utils.Datetime.is_today (date)) {
+            return !item.checked && !item.was_archived () && item.has_deadline &&
+                   Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
+        }
+
+        return valid_deadline_only_item (item, date, date);
+    }
+
     protected override bool valid_item_predicate (Objects.Item item) {
         bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
-        bool valid_deadline = Utils.Datetime.is_today (date) && item.has_deadline &&
-        Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
-
-        return valid_due || valid_deadline;
+        return valid_due || valid_deadline (item);
     }
 
     #if WITH_EVOLUTION
@@ -212,25 +216,13 @@ public class Views.Scheduled.ScheduledDay : Views.Scheduled.ScheduledSection {
             items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id) && !item.has_due && !item.has_deadline) {
+        if (items.has_key (item.id) && !valid_item_predicate (item)) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
             Services.EventBus.get_default ().unfocus_item ();
         }
 
-        if (items.has_key (item.id) && (item.has_due || item.has_deadline)) {
-            bool valid_due = item.has_due && Services.Store.instance ().valid_item_by_date (item, date, false);
-            bool valid_deadline = Utils.Datetime.is_today (date) && item.has_deadline && 
-                                  Utils.Datetime.is_today (Utils.Datetime.get_date_only (item.deadline_datetime));
-            
-            if (!valid_due && !valid_deadline) {
-                items[item.id].hide_destroy ();
-                items.unset (item.id);
-                Services.EventBus.get_default ().unfocus_item ();
-            }
-        }
-
-        if (item.has_due || (Utils.Datetime.is_today (date) && item.has_deadline)) {
+        if (item.has_due || item.has_deadline) {
             valid_add_item (item);
         }
 

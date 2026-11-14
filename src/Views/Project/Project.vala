@@ -306,7 +306,12 @@ public class Views.Project : Adw.Bin {
         indicator_revealer.reveal_child = !defaults;
     }
 
+    private uint update_view_timeout_id = 0;
+
     private void update_project_view () {
+        if (update_view_timeout_id != 0) {
+            GLib.Source.remove (update_view_timeout_id);
+        }
         project_stack.visible_child = loading_spinner;
         project_view_revealer.reveal_child = false;
 
@@ -314,7 +319,8 @@ public class Views.Project : Adw.Bin {
             clear_multi_select ();
         }
 
-        Timeout.add (project_view_revealer.transition_duration, () => {
+        update_view_timeout_id = Timeout.add (project_view_revealer.transition_duration, () => {
+            update_view_timeout_id = 0;
             destroy_current_view ();
 
             if (view_style == ProjectViewStyle.LIST) {
@@ -529,6 +535,36 @@ public class Views.Project : Adw.Bin {
         return popover;
     }
 
+    private void delete_completed_tasks_action () {
+        var items = Services.Store.instance ().get_items_checked_by_project (project);
+        if (items.size == 0) {
+            return;
+        }
+
+        // TRANSLATORS: Dialog title confirming deletion of completed tasks
+        var dialog = new Adw.AlertDialog (
+            _ ("Delete All Completed Tasks"),
+            // TRANSLATORS: %d is the number of completed tasks, %s is the project name
+            GLib.ngettext (
+                "This will delete %d completed task and its subtasks from project %s",
+                "This will delete %d completed tasks and their subtasks from project %s",
+                items.size
+            ).printf (items.size, project.name)
+        );
+
+        dialog.body_use_markup = true;
+        dialog.add_response ("cancel", _ ("Cancel"));
+        dialog.add_response ("delete", _ ("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (Planify._instance.main_window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                Services.Store.instance ().delete_completed_items_by_project (project);
+            }
+        });
+    }
+
     private Gtk.Popover build_view_setting_popover () {
         var list_toggle = new Adw.Toggle () {
             name = ProjectViewStyle.LIST.to_string (),
@@ -627,6 +663,17 @@ public class Views.Project : Adw.Bin {
         show_completed_box.append (show_completed_item);
         show_completed_box.append (show_completed_item_button);
 
+        // TRANSLATORS: View option menu item to delete all completed tasks of the project
+        var delete_completed_tasks_item = new Widgets.ContextMenu.MenuItem (_ ("Delete All Completed Tasks"), "user-trash-symbolic") {
+            visible = project.show_completed
+        };
+        delete_completed_tasks_item.add_css_class ("menu-item-danger");
+
+        // Separa la acción destructiva del toggle para evitar clics accidentales.
+        var delete_completed_separator = new Widgets.ContextMenu.MenuSeparator () {
+            visible = project.show_completed
+        };
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
@@ -665,6 +712,8 @@ public class Views.Project : Adw.Bin {
         menu_box.append (labels_filter);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (show_completed_box);
+        menu_box.append (delete_completed_separator);
+        menu_box.append (delete_completed_tasks_item);
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -697,7 +746,21 @@ public class Views.Project : Adw.Bin {
 
         signal_map[project.show_completed_changed.connect (() => {
             show_completed_item.active = project.show_completed;
+            // Solo se ofrece borrar completadas mientras se están mostrando.
+            delete_completed_tasks_item.visible = project.show_completed;
+            delete_completed_separator.visible = project.show_completed;
         })] = project;
+
+        signal_map[popover.notify["visible"].connect (() => {
+            if (popover.visible) {
+                delete_completed_tasks_item.sensitive = project.items_checked.size > 0;
+            }
+        })] = popover;
+
+        signal_map[delete_completed_tasks_item.clicked.connect (() => {
+            popover.popdown ();
+            delete_completed_tasks_action ();
+        })] = delete_completed_tasks_item;
 
         signal_map[show_completed_item_button.clicked.connect (() => {
             popover.popdown ();
@@ -820,12 +883,18 @@ public class Views.Project : Adw.Bin {
     }
 
     public void clean_up () {
+        if (update_view_timeout_id != 0) {
+            GLib.Source.remove (update_view_timeout_id);
+            update_view_timeout_id = 0;
+        }
+
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
 
         signal_map.clear ();
 
+        multiselect_toolbar.clean_up ();
         destroy_current_view ();
     }
 

@@ -490,11 +490,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         menu_button = new Gtk.MenuButton () {
             icon_name = "view-more-symbolic",
-            popover = build_button_context_menu (),
             css_classes = { "flat" },
             hexpand = Services.EventBus.get_default ().mobile_mode ? true : false,
             halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.END : Gtk.Align.FILL
         };
+
+        menu_button.set_create_popup_func (create_button_context_menu);
 
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 16,
@@ -1091,7 +1092,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             pin_button.sensitive = !item.completed;
             if (reminder_button != null) reminder_button.sensitive = !item.completed;
             add_subtasks_button.sensitive = !item.completed;
-            if (attachments_button != null) attachments_button.sensitive = !item.completed;
+            if (attachments != null) attachments.add_button.sensitive = !item.completed;
             if (deadline_button != null) deadline_button.sensitive = !item.completed;
             if (deadline_button_detail != null) deadline_button_detail.sensitive = !item.completed;
         } else {
@@ -1396,6 +1397,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_popover.popup ();
     }
 
+    private static void create_button_context_menu (Gtk.MenuButton button) {
+        if (button.popover != null) {
+            return;
+        }
+        // The button owns its factory; a static callback avoids retaining the row.
+        var row = (Layouts.ItemRow) button.get_ancestor (typeof (Layouts.ItemRow));
+        if (row != null) {
+            button.popover = row.build_button_context_menu ();
+        }
+    }
+
     private Gtk.Popover build_button_context_menu () {
         use_note_item = new Widgets.ContextMenu.MenuSwitch (_ ("Use as a Note"), "paper-symbolic");
         use_note_item.active = item.item_type == ItemType.NOTE;
@@ -1619,6 +1631,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("dimmed");
         content_label.remove_css_class ("line-through");
         check_due ();
+
+        if (schedule_button != null) {
+            schedule_button.update_from_item (item);
+        }
+
+        if (reminder_button != null) {
+            reminder_button.set_reminders (item.reminders);
+        }
 
         // Re-trigger the flash even if the class is still present from a rapid previous completion.
         due_label.remove_css_class ("date-updated");
@@ -2155,7 +2175,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         attachments = new Widgets.Attachments ();
         attachments.present_item (item);
+        attachments.add_button.sensitive = !item.completed;
 
+        // Kept sensitive on completed tasks so their attachments can still be opened
         attachments_button = new Gtk.MenuButton () {
             icon_name = "mail-attachment-symbolic",
             tooltip_text = _ ("Add Attachments"),
@@ -2164,8 +2186,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 child = attachments,
                 width_request = 350
             },
-            css_classes = { "flat" },
-            sensitive = !item.completed
+            css_classes = { "flat" }
         };
 
         attachments_count = new Gtk.Label (item.attachments.size.to_string ()) {
@@ -2291,6 +2312,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void clean_up () {
+        menu_button.set_create_popup_func (null);
         foreach (var entry in signals_map.entries) {
             if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
                 entry.value.disconnect (entry.key);

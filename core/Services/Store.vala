@@ -59,10 +59,12 @@ public class Services.Store : GLib.Object {
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
+    public signal void reminder_updated (Objects.Reminder reminder);
 
     public signal void attachment_deleted (Objects.Attachment attachment);
 
     private Gee.HashMap<string, Gee.ArrayList<Objects.Item> > _items_by_project_cache = new Gee.HashMap<string, Gee.ArrayList<Objects.Item> > ();
+    private Gee.ArrayList<string> _deleting_source_ids = new Gee.ArrayList<string> ();
 
     construct {
         // Dropping a task onto another task's row, and CalDAV/Todoist sync, reparent through
@@ -199,6 +201,11 @@ public class Services.Store : GLib.Object {
     }
 
     public async void delete_source (Objects.Source source) {
+        if (_deleting_source_ids.contains (source.id)) {
+            return;
+        }
+        _deleting_source_ids.add (source.id);
+
         var projects = get_projects_by_source (source.id);
         const int BATCH_SIZE = 5;
         
@@ -221,6 +228,8 @@ public class Services.Store : GLib.Object {
             source_deleted (source);
             _sources.remove (source);
         }
+
+        _deleting_source_ids.remove (source.id);
     }
     
     public void update_source (Objects.Source source) {
@@ -297,6 +306,10 @@ public class Services.Store : GLib.Object {
      */
 
     public void insert_project (Objects.Project project) {
+        if (_deleting_source_ids.contains (project.source_id)) {
+            return;
+        }
+
         if (Services.Database.get_default ().insert_project (project)) {
             projects.add (project);
 
@@ -404,6 +417,7 @@ public class Services.Store : GLib.Object {
             _items_by_project_cache.unset (item.project_id);
             item.deleted ();
             _items.remove (item);
+            clear_project_cache (item.project_id);
             item_deleted (item);
         }
         
@@ -559,6 +573,7 @@ public class Services.Store : GLib.Object {
     public void insert_section (Objects.Section section) {
         if (Services.Database.get_default ().insert_section (section)) {
             sections.add (section);
+            section.project.add_section (section);
             section.project.section_added (section);
         }
     }
@@ -703,7 +718,7 @@ public class Services.Store : GLib.Object {
             }
 
             #if WITH_EVOLUTION
-            if (persist && item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+            if (persist && item.project != null && item.project.calendar_source_uid != "" && needs_calendar_event (item)) {
                 create_calendar_event.begin (item);
             }
             #endif
@@ -716,7 +731,7 @@ public class Services.Store : GLib.Object {
                 insert_item (item, insert, false);
 
                 #if WITH_EVOLUTION
-                if (item.project != null && item.project.calendar_source_uid != "" && item.has_due) {
+                if (item.project != null && item.project.calendar_source_uid != "" && needs_calendar_event (item)) {
                     create_calendar_event.begin (item);
                 }
                 #endif
@@ -727,6 +742,26 @@ public class Services.Store : GLib.Object {
     }
 
     #if WITH_EVOLUTION
+    // A task is shown in the linked calendar while it has a date and is not completed.
+    public static bool needs_calendar_event (Objects.Item item) {
+        return item.has_due && !item.checked;
+    }
+
+    // Remove the event of a completed task, or recreate it when the task is reopened.
+    private void sync_calendar_event_on_complete (Objects.Item item) {
+        if (item.project == null || item.project.calendar_source_uid == "") {
+            return;
+        }
+
+        if (!needs_calendar_event (item) && item.calendar_event_uid != "") {
+            Services.CalendarEvents.get_default ().delete_event.begin (item.project.calendar_source_uid, item.calendar_event_uid);
+            item.calendar_event_uid = "";
+            Services.Database.get_default ().update_item (item);
+        } else if (needs_calendar_event (item) && item.calendar_event_uid == "") {
+            create_calendar_event.begin (item);
+        }
+    }
+
     private async void create_calendar_event (Objects.Item item) {
         string? event_uid = yield Services.CalendarEvents.get_default ().create_event (
             item.project.calendar_source_uid,
@@ -744,13 +779,13 @@ public class Services.Store : GLib.Object {
         if (Services.Database.get_default ().update_item (item, update_id)) {
             #if WITH_EVOLUTION
             if (item.project != null && item.project.calendar_source_uid != "") {
-                if (!item.has_due && item.calendar_event_uid != "") {
+                if (!needs_calendar_event (item) && item.calendar_event_uid != "") {
                     Services.CalendarEvents.get_default ().delete_event.begin (item.project.calendar_source_uid, item.calendar_event_uid);
                     item.calendar_event_uid = "";
                     Services.Database.get_default ().update_item (item);
-                } else if (item.has_due && item.calendar_event_uid != "") {
+                } else if (needs_calendar_event (item) && item.calendar_event_uid != "") {
                     Services.CalendarEvents.get_default ().update_event.begin (item.project.calendar_source_uid, item.calendar_event_uid, item);
-                } else if (item.has_due && item.calendar_event_uid == "") {
+                } else if (needs_calendar_event (item) && item.calendar_event_uid == "") {
                     create_calendar_event.begin (item);
                 }
             }
@@ -781,12 +816,19 @@ public class Services.Store : GLib.Object {
             }
             #endif
 
+            // The database cascade removes the rows; drop them from memory too and clean up their stored copies
+            foreach (Objects.Attachment attachment in get_attachments_by_item (item)) {
+                attachments.remove (attachment);
+                attachment.delete_stored_copy ();
+            }
+
             foreach (Objects.Item subitem in get_subitems (item)) {
                 delete_item (subitem);
             }
 
             item.deleted ();
             _items.remove (item);
+            clear_project_cache (item.project_id);
             item_deleted (item);
 
             if (item.project != null) {
@@ -811,7 +853,7 @@ public class Services.Store : GLib.Object {
             invalidate_parent_subitems (item, old_parent_id);
 
             #if WITH_EVOLUTION            
-            if (item.has_due) {
+            if (needs_calendar_event (item)) {
                 var old_project = get_project (old_project_id);
                 var new_project = item.project;
                 
@@ -856,6 +898,10 @@ public class Services.Store : GLib.Object {
     public void complete_item (Objects.Item item, bool old_checked, bool complete_subitems = true) {
         if (Services.Database.get_default ().complete_item (item, old_checked)) {
             _items_by_project_cache.unset (item.project_id);
+
+            #if WITH_EVOLUTION
+            sync_calendar_event_on_complete (item);
+            #endif
 
             // The parent's cached items_uncomplete depends on this item's checked state.
             invalidate_parent_subitems (item);
@@ -1009,6 +1055,13 @@ public class Services.Store : GLib.Object {
             }
 
             return return_value;
+        }
+    }
+
+    public void delete_completed_items_by_project (Objects.Project project) {
+        var completed_items = get_items_checked_by_project (project);
+        foreach (Objects.Item item in completed_items) {
+            item.delete_item ();
         }
     }
 
@@ -1487,6 +1540,19 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public void update_reminder (Objects.Reminder reminder) {
+        if (Services.Database.get_default ().update_reminder (reminder)) {
+            reminder_updated (reminder);
+
+            // Refresh the task in open views (rows and detail view).
+            var item = reminder.item;
+            if (item != null) {
+                item.updated ();
+                item_updated (item, "");
+            }
+        }
+    }
+
     public void delete_reminder (Objects.Reminder reminder) {
         if (Services.Database.get_default ().delete_reminder (reminder)) {
             reminder.deleted ();
@@ -1526,8 +1592,11 @@ public class Services.Store : GLib.Object {
 
     // Attachments
     public void insert_attachment (Objects.Attachment attachment) {
+        // Load the collection before inserting, otherwise the lazy load already includes the new row and it's added twice
+        var collection = attachments;
+
         if (Services.Database.get_default ().insert_attachment (attachment)) {
-            attachments.add (attachment);
+            collection.add (attachment);
             attachment.item.attachment_added (attachment);
         }
     }

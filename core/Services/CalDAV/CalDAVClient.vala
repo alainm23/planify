@@ -23,8 +23,8 @@
 
 public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
-    public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
-        base (session, base_url, username, password, ignore_ssl);
+    public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false, GLib.TlsCertificate? client_certificate = null) {
+        base (session, base_url, username, password, ignore_ssl, client_certificate);
     }
 
 
@@ -284,7 +284,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
         
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
-        var responses = multi_status.responses ();
+        var responses = sections_first (multi_status.responses ());
         
         if (progress_callback != null) {
             progress_callback (0, responses.size, _ ("Loading tasks for %s…").printf (project.name));
@@ -340,6 +340,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        try {
+            yield sync_project_changes (project, cancellable);
+        } catch (Error e) {
+            // Don't leave the project looking like it's still syncing
+            project.loading = false;
+            project.freeze_update = false;
+            project.sync_finished ();
+            throw e;
+        }
+    }
+
+    private async void sync_project_changes (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         if (project.is_deck || project.is_archived) {
             Services.LogService.get_default ().debug ("CalDAV", "Skipping sync for %s project".printf (project.is_archived ? "archived" : "deck"));
             return;
@@ -392,6 +404,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
         project.freeze_update = true;
 
+        var deferred_tasks = new Gee.ArrayList<DeferredVTodo> ();
         foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;
             var url = get_absolute_url (href);
@@ -428,9 +441,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 string etag = response.get_prop ("getetag")?.get_text () ?? "";
 
                 var fetched = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, etag, fetched.data);
+                upsert_or_defer_vtodo (project, url, etag, fetched.data, deferred_tasks);
             }
         }
+
+        upsert_deferred_vtodos (project, deferred_tasks);
 
         var sync_token = multi_status.root.get_child ("sync-token")?.get_text ();
         if (sync_token != null && sync_token != project.sync_id) {
@@ -517,6 +532,68 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
     }
 
+    private class DeferredVTodo : GLib.Object {
+        public string url;
+        public string etag;
+        public string data;
+    }
+
+    /*
+     * A task in a section points at the section's entry with RELATED-TO, and is only
+     * linked to it when that section is already known. The server returns entries in no
+     * particular order, so sections are applied before the tasks of the same response;
+     * otherwise a task read first ends up as a subtask of a missing task and is hidden.
+     */
+    private bool is_section_vtodo (string? vtodo_content) {
+        if (vtodo_content == null) {
+            return false;
+        }
+
+        ICal.Component? vcalendar = new ICal.Component.from_string (vtodo_content);
+        if (vcalendar == null) {
+            return false;
+        }
+
+        ICal.Component? vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+        return vtodo_comp != null && Objects.Section.is_vtodo_section (vtodo_comp.get_summary ());
+    }
+
+    private Gee.ArrayList<WebDAVResponse> sections_first (Gee.ArrayList<WebDAVResponse> responses) {
+        var sections = new Gee.ArrayList<WebDAVResponse> ();
+        var others = new Gee.ArrayList<WebDAVResponse> ();
+
+        foreach (var response in responses) {
+            if (is_section_vtodo (response.get_prop ("calendar-data")?.text_content)) {
+                sections.add (response);
+            } else {
+                others.add (response);
+            }
+        }
+
+        sections.add_all (others);
+        return sections;
+    }
+
+    private void upsert_or_defer_vtodo (Objects.Project project, string url, string etag, string vtodo_content,
+                                        Gee.ArrayList<DeferredVTodo> deferred_tasks) {
+        if (is_section_vtodo (vtodo_content)) {
+            upsert_vtodo_content (project, url, etag, vtodo_content);
+            return;
+        }
+
+        deferred_tasks.add (new DeferredVTodo () {
+            url = url,
+            etag = etag,
+            data = vtodo_content
+        });
+    }
+
+    private void upsert_deferred_vtodos (Objects.Project project, Gee.ArrayList<DeferredVTodo> deferred_tasks) {
+        foreach (var task in deferred_tasks) {
+            upsert_vtodo_content (project, task.url, task.etag, task.data);
+        }
+    }
+
     private void upsert_section_from_vtodo (Objects.Project project, string url, string etag, string vtodo_content) {
         ICal.Component vcalendar = new ICal.Component.from_string (vtodo_content);
         ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
@@ -598,6 +675,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 Services.Store.instance ().delete_section (stale_section);
             }
             // Step 3: fetch and update only changed/new items
+            var deferred_tasks = new Gee.ArrayList<DeferredVTodo> ();
             foreach (var entry in server_map.entries) {
                 string url = entry.key;
                 string server_etag = entry.value;
@@ -609,8 +687,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 }
 
                 var fetched = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, server_etag, fetched.data);
+                upsert_or_defer_vtodo (project, url, server_etag, fetched.data, deferred_tasks);
             }
+
+            upsert_deferred_vtodos (project, deferred_tasks);
         } finally {
             project.freeze_update = false;
             project.count_update ();
