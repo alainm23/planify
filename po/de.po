@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-09-09 08:51+0000\n"
-"Last-Translator: numerfolt <numerfolt@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-11-13 22:42+0000\n"
+"Last-Translator: Hosted Weblate user 47723 "
+"<brunsc@users.noreply.hosted.weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/de/>\n"
 "Language: de\n"
@@ -12,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.1\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -425,7 +426,7 @@ msgstr "Archivieren"
 #: core/Objects/Reminder.vala:93
 #, c-format
 msgid "%s · Next occurrence"
-msgstr ""
+msgstr "%s · Nächstes Vorkommen"
 
 # # c-format
 #: core/Objects/Section.vala:431
@@ -630,7 +631,7 @@ msgstr "Quelle existiert bereits"
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
 #, c-format
 msgid "Failed to load client certificate: %s"
-msgstr ""
+msgstr "Fehler beim Laden des Zertifikats: %s"
 
 #: core/Services/CalDAV/Core.vala:206 core/Services/CalDAV/Core.vala:257
 msgid "Failed to resolve principal url"
@@ -1141,6 +1142,8 @@ msgstr "🏃‍♀️️Nochmal aufgreifen"
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:448
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
+"Aufgaben von oder zu Nextcloud Deck zu verschieben wird noch nicht "
+"unterstützt"
 
 #: core/Utils/Util.vala:971
 msgid "Task duplicated"
@@ -1602,7 +1605,7 @@ msgstr "Keine Labels vorhanden"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
 msgid "Label color"
-msgstr ""
+msgstr "Labelfarbe"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
@@ -1714,7 +1717,7 @@ msgstr "In 6 Stunden"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:241
 msgid "Suggestions"
-msgstr ""
+msgstr "Vorschläge"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
@@ -1726,7 +1729,7 @@ msgstr "Zu diesem Zeitpunkt hast du bereits eine Erinnerung"
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
-msgstr ""
+msgstr "Wird dich erneut erinnern, wenn die Aufgabe sich wiederholt"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -2214,29 +2217,33 @@ msgstr "Quelle löschen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
 msgid "Apply Certificate"
-msgstr ""
+msgstr "Zertifikat anwenden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+#, fuzzy
 msgid "Client Certificate (mTLS)"
-msgstr ""
+msgstr "Client Zertifikat (mTLS)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+#, fuzzy
 msgid ""
 "Use a client certificate to authenticate with servers that require mutual TLS"
 msgstr ""
+"Benutze ein Client Zertifikat um sich mit Servern zu authentifizieren, die "
+"mTLS verlangen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
 #, c-format
 msgid "Invalid certificate: %s"
-msgstr ""
+msgstr "Ungültiges Zertifikat: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 msgid "Client certificate updated"
-msgstr ""
+msgstr "Zertifikat aktualisiert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 msgid "Client certificate removed"
-msgstr ""
+msgstr "Zertifikat entfernt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 msgid "Cannot Delete This Source"
@@ -2325,11 +2332,11 @@ msgstr "Design auswählen"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
-msgstr ""
+msgstr "Adwaita-Farben nutzen"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:90
 msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
+msgstr "Verwende die Standard-GNOME-Farben im hellen und dunklen Modus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
@@ -2372,7 +2379,7 @@ msgstr "Schriftgröße"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
-msgstr ""
+msgstr "Mit Adwaita-Farben nicht verfügbar"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:39
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
@@ -3370,6 +3377,8 @@ msgstr "Aufgabe abgeschlossen · Nächste: %s"
 #: src/Layouts/ItemRow.vala:1837
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
+"Eine Aufgabe kann nur eine Unteraufgabe einer Aufgabe des selben Accounts "
+"werden"
 
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
@@ -3913,49 +3922,51 @@ msgid "Continue Anyway"
 msgstr "Trotzdem fortfahren"
 
 #: src/Widgets/ClientCertificateRow.vala:49
+#, fuzzy
 msgid "Client certificate (mTLS)"
-msgstr ""
+msgstr "Zertifikat (mTLS)"
 
 #: src/Widgets/ClientCertificateRow.vala:50
+#, fuzzy
 msgid "Authenticate to the server with a client certificate"
-msgstr ""
+msgstr "Authentifizierung gegenüber dem Server mit einem Zertifikat"
 
 #: src/Widgets/ClientCertificateRow.vala:55
 msgid "Certificate file"
-msgstr ""
+msgstr "Zertifikatsdatei"
 
 #: src/Widgets/ClientCertificateRow.vala:56
 #: src/Widgets/ClientCertificateRow.vala:100
 msgid "No file selected"
-msgstr ""
+msgstr "Keine Datei ausgewählt"
 
 #: src/Widgets/ClientCertificateRow.vala:60
 msgid "Choose…"
-msgstr ""
+msgstr "Wähle…"
 
 #: src/Widgets/ClientCertificateRow.vala:68
 msgid "Certificate password (PKCS#12)"
-msgstr ""
+msgstr "Zertifikatskennwort (PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:96
 msgid "PKCS#12 certificate stored"
-msgstr ""
+msgstr "PKCS#12 Zertifikat gespeichert"
 
 #: src/Widgets/ClientCertificateRow.vala:97
 msgid "PEM certificate stored"
-msgstr ""
+msgstr "PEM Zertifikat gespeichert"
 
 #: src/Widgets/ClientCertificateRow.vala:106
 msgid "Select client certificate"
-msgstr ""
+msgstr "Client-Zertifikat auswählen"
 
 #: src/Widgets/ClientCertificateRow.vala:111
 msgid "Certificates (PEM, PKCS#12)"
-msgstr ""
+msgstr "Zertifikate (PEM, PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
-msgstr ""
+msgstr "Datei lesen fehlgeschlagen"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:94
@@ -3977,7 +3988,7 @@ msgstr "Fehlermeldung kopieren"
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr "Teile Deine Protokolldatei für mehr Details: %s"
+msgstr "Teile deinen Log für mehr Details: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -4158,10 +4169,10 @@ msgstr[0] "Bist du sicher, dass du %d Aufgabe löschen möchtest?"
 msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 
 #: src/Widgets/MultiSelectToolbar.vala:456
-#, fuzzy, c-format
+#, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Aufgabe hierhin verschoben: %s"
+msgstr[0] "%d Aufgabe hierhin verschoben: %s"
 msgstr[1] "%d Aufgaben hierhin verschoben: %s"
 
 #: src/Widgets/NewVersionPopup.vala:42
@@ -4189,6 +4200,7 @@ msgid "No tasks scheduled"
 msgstr "Keine Aufgaben geplant"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
+#, fuzzy
 msgid "Unarchive"
 msgstr "Entarchivieren"
 
