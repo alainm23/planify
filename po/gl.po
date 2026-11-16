@@ -252,18 +252,22 @@ msgid "Pinboard"
 msgstr "Taboleiro"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
+#: core/Objects/Item.vala:139
 msgid "Priority 1: high"
 msgstr "Prioridade 1: alta"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
+#: core/Objects/Item.vala:141
 msgid "Priority 2: medium"
 msgstr "Prioridade 2: media"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
+#: core/Objects/Item.vala:143
 msgid "Priority 3: low"
 msgstr "Prioridade 3: baixa"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
+#: core/Objects/Item.vala:145
 msgid "Priority 4: none"
 msgstr "Prioridade 4: ningunha"
 
@@ -353,28 +357,32 @@ msgstr "sen etiquetas"
 
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1658 core/Objects/Item.vala:1738
-#: core/Objects/Item.vala:1751
+#: core/Objects/Item.vala:1751 core/Objects/Item.vala:1773
 msgid "Deadline:"
 msgstr "Data límite:"
 
 #: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 #: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
+#: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada ao portapapeis"
 
 #: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
 #: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
+#: core/Objects/Item.vala:1815
 msgid "iCalendar Files"
 msgstr "Ficheiros iCalendar"
 
 #: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
 #: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
+#: core/Objects/Item.vala:1831
 msgid "Task exported successfully"
 msgstr "Tarefa exportada correctamente"
 
 #: core/Objects/Item.vala:2068 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
 #: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
+#: core/Objects/Item.vala:2235
 #, c-format
 msgid "Moved to %s"
 msgstr "Movida para %s"

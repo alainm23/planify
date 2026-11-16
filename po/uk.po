@@ -266,18 +266,22 @@ msgid "Pinboard"
 msgstr "Закріплене"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
+#: core/Objects/Item.vala:139
 msgid "Priority 1: high"
 msgstr "Пріоритет 1: високий"
 
 #: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
+#: core/Objects/Item.vala:141
 msgid "Priority 2: medium"
 msgstr "Пріоритет 2: середній"
 
 #: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
+#: core/Objects/Item.vala:143
 msgid "Priority 3: low"
 msgstr "Пріоритет 3: низький"
 
 #: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
+#: core/Objects/Item.vala:145
 msgid "Priority 4: none"
 msgstr "Пріоритет 4: немає"
 
@@ -377,25 +381,28 @@ msgstr "без міток"
 #: core/Objects/Item.vala:1594 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1619 core/Objects/Item.vala:1650
 #: core/Objects/Item.vala:1658 core/Objects/Item.vala:1738
-#: core/Objects/Item.vala:1751
+#: core/Objects/Item.vala:1751 core/Objects/Item.vala:1773
 msgid "Deadline:"
 msgstr "Кінцевий термін:"
 
 #: core/Objects/Item.vala:1619 core/Objects/Item.vala:1644
 #: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 #: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
+#: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
 msgstr "Завдання скопійовано до буфера"
 
 #: core/Objects/Item.vala:1636 core/Objects/Item.vala:1661
 #: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
 #: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
+#: core/Objects/Item.vala:1815
 msgid "iCalendar Files"
 msgstr "Файли iCalendar"
 
 #: core/Objects/Item.vala:1652 core/Objects/Item.vala:1677
 #: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
 #: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
+#: core/Objects/Item.vala:1831
 msgid "Task exported successfully"
 msgstr "Завдання експортовано"
 
@@ -405,7 +412,7 @@ msgstr "Завдання експортовано"
 #: core/Objects/Item.vala:2037 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2068 core/Objects/Item.vala:2076
 #: core/Objects/Item.vala:2156 core/Objects/Item.vala:2175
-#: core/Objects/Item.vala:2213
+#: core/Objects/Item.vala:2213 core/Objects/Item.vala:2235
 #, c-format
 msgid "Moved to %s"
 msgstr "Переміщено до %s"
