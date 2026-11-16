@@ -807,7 +807,12 @@ public class Layouts.QuickAddCore : Adw.Bin {
                     return;
                 }
                 
-                hide_destroy ();
+                // Closing removes this widget's event controllers, which GTK is still
+                // running for this key event, so close once the event is handled.
+                Idle.add (() => {
+                    hide_destroy ();
+                    return GLib.Source.REMOVE;
+                });
             }
         })] = destroy_controller;
     }

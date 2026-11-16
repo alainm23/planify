@@ -110,6 +110,24 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         );
     }
 
+    public override bool focus (Gtk.DirectionType direction) {
+        // Pinned cards live in a WrapBox, where ListBoxRow's focus handling
+        // cannot select a row. Keep keyboard navigation within the card's controls.
+        if (pin_mode) {
+            return child != null && child.child_focus (direction);
+        }
+
+        return base.focus (direction);
+    }
+
+    public override bool grab_focus () {
+        if (pin_mode) {
+            return child != null && child.child_focus (Gtk.DirectionType.TAB_FORWARD);
+        }
+
+        return base.grab_focus ();
+    }
+
     ~ItemBoard () {
         debug ("Destroying - Layouts.ItemBoard - %s\n".printf (item.content));
     }
@@ -313,7 +331,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         handle_grid.append (content_box);
         handle_grid.append (description_revealer);
-        handle_grid.append (deadline_revealer);
         handle_grid.append (footer_revealer);
 
         card_widget = new Adw.Bin () {

@@ -5,7 +5,8 @@ test_caldav_integration = executable(
     install: false
 )
 
-test('caldav-integration', test_caldav_integration, timeout: 60, suite: ['caldav-integration'])
+test('caldav-integration', test_caldav_integration, timeout: 60, suite: ['caldav-integration'],
+    env: ['XDG_DATA_HOME=' + meson.current_build_dir() / 'test-caldav-data'])
 
 test_cli_sources = [
     'test-cli-runner.vala',
@@ -78,4 +79,3 @@ test_calendar_memory = executable(
 test('calendar-memory', test_calendar_memory, timeout: 30, suite: ['widgets'], depends: test_schemas,
     env: ['GSETTINGS_SCHEMA_DIR=' + meson.current_build_dir(),
           'GSETTINGS_BACKEND=memory', 'GTK_A11Y=none'])
-
