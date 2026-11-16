@@ -25,6 +25,28 @@ namespace Planify.Tests.ItemMemory {
         return item;
     }
 
+    private void test_deferred_extra_data_preserved_on_update () {
+        ScratchDatabase.open ();
+        var item = make_item ("deferred-details");
+        item.extra_data = "{\"calendar-data\":\"payload\",\"etag\":\"v1\"}";
+        assert_true (Services.Database.get_default ().insert_item (item));
+        Objects.Item? deferred = null;
+        foreach (var candidate in Services.Database.get_default ().get_items_collection (false)) {
+            if (candidate.id == item.id) {
+                deferred = candidate;
+                break;
+            }
+        }
+        assert_nonnull (deferred);
+        deferred.content = "Edited without opening details";
+        assert_true (Services.Database.get_default ().update_item (deferred));
+        assert_cmpstr (Services.Database.get_default ().get_item_by_id (item.id).extra_data,
+            CompareOperator.EQ, item.extra_data);
+        deferred.defer_extra_data ();
+        deferred.extra_data = "{\"etag\":\"v2\"}";
+        assert_cmpstr (deferred.etag, CompareOperator.EQ, "v2");
+    }
+
     private void test_streamed_backup () {
         ScratchDatabase.open ();
         var item = make_item ("streamed-backup");
@@ -56,6 +78,7 @@ namespace Planify.Tests.ItemMemory {
     }
 
     public void register_tests () {
+        Test.add_func ("/core/memory/deferred_details_preserved_on_update", test_deferred_extra_data_preserved_on_update);
         Test.add_func ("/core/memory/streamed_backup", test_streamed_backup);
     }
 }
