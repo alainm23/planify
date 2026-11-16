@@ -235,19 +235,19 @@ msgstr "etiquetes"
 msgid "Pinboard"
 msgstr "Importants"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:139
 msgid "Priority 1: high"
 msgstr "Prioritat 1: alta"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:141
 msgid "Priority 2: medium"
 msgstr "Prioritat 2: mitja"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:143
 msgid "Priority 3: low"
 msgstr "Prioritat 3: baixa"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:145
 msgid "Priority 4: none"
 msgstr "Prioritat 4: cap"
 
@@ -327,23 +327,23 @@ msgstr "sense etiqueta"
 msgid "unlabeled"
 msgstr "sense etiquetar"
 
-#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1773 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1776
+#: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
 msgstr "Tasca copiada al porta-retalls"
 
-#: core/Objects/Item.vala:1793
+#: core/Objects/Item.vala:1815
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1809
+#: core/Objects/Item.vala:1831
 msgid "Task exported successfully"
 msgstr "Tasca exportada amb èxit"
 
-#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2235 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tasca moguda a %s"

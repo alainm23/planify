@@ -235,19 +235,19 @@ msgstr "etiquetas"
 msgid "Pinboard"
 msgstr "Afixados"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:139
 msgid "Priority 1: high"
 msgstr "Prioridade 1: alta"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:141
 msgid "Priority 2: medium"
 msgstr "Prioridade 2: média"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:143
 msgid "Priority 3: low"
 msgstr "Prioridade 3: baixa"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:145
 msgid "Priority 4: none"
 msgstr "Prioridade 4: nenhuma"
 
@@ -327,23 +327,23 @@ msgstr "nenhuma etiqueta"
 msgid "unlabeled"
 msgstr "sem etiqueta"
 
-#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1773 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tempo limite:"
 
-#: core/Objects/Item.vala:1776
+#: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
 msgstr "A tarefa foi copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1793
+#: core/Objects/Item.vala:1815
 msgid "iCalendar Files"
 msgstr "Ficheiros iCalendar"
 
-#: core/Objects/Item.vala:1809
+#: core/Objects/Item.vala:1831
 msgid "Task exported successfully"
 msgstr "Tarefa exportada com sucesso"
 
-#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2235 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "A tarefa foi movida para %s"
