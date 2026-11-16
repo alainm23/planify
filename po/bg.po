@@ -237,19 +237,19 @@ msgstr "етикети"
 msgid "Pinboard"
 msgstr "Закачени"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:139
 msgid "Priority 1: high"
 msgstr "Приоритет 1: високо"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:141
 msgid "Priority 2: medium"
 msgstr "Приоритет 2: средно"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:143
 msgid "Priority 3: low"
 msgstr "Приоритет 3: ниско"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:145
 msgid "Priority 4: none"
 msgstr "Priority 4: без"
 
@@ -329,25 +329,25 @@ msgstr "без етикет"
 msgid "unlabeled"
 msgstr "без етикет"
 
-#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1773 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr ""
 
-#: core/Objects/Item.vala:1776
+#: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
 msgstr "Задачата е копирана в буфера за обмен"
 
-#: core/Objects/Item.vala:1793
+#: core/Objects/Item.vala:1815
 msgid "iCalendar Files"
 msgstr ""
 
-#: core/Objects/Item.vala:1809
+#: core/Objects/Item.vala:1831
 msgid "Task exported successfully"
 msgstr ""
 
 # c-format
 # c-format
-#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2235 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Задачата е преместена в %s"

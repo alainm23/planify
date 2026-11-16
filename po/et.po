@@ -235,19 +235,19 @@ msgstr "sildid"
 msgid "Pinboard"
 msgstr "Teatetahvel"
 
-#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
+#: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:139
 msgid "Priority 1: high"
 msgstr "1. olulisus: kõrge"
 
-#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:119
+#: core/Objects/Filters/Priority.vala:129 core/Objects/Item.vala:141
 msgid "Priority 2: medium"
 msgstr "2. olulisus: keskmine"
 
-#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:121
+#: core/Objects/Filters/Priority.vala:131 core/Objects/Item.vala:143
 msgid "Priority 3: low"
 msgstr "3. olulisus: madal"
 
-#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:123
+#: core/Objects/Filters/Priority.vala:133 core/Objects/Item.vala:145
 msgid "Priority 4: none"
 msgstr "4. olulisus: puudub"
 
@@ -327,23 +327,23 @@ msgstr "silt puudub"
 msgid "unlabeled"
 msgstr "ilma sildita"
 
-#: core/Objects/Item.vala:1751 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1773 src/Services/ExportService.vala:138
 msgid "Deadline:"
 msgstr "Tähtaeg:"
 
-#: core/Objects/Item.vala:1776
+#: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
 msgstr "Ülesanne on kopeeritud lõikelauale"
 
-#: core/Objects/Item.vala:1793
+#: core/Objects/Item.vala:1815
 msgid "iCalendar Files"
 msgstr "iCalendari failid"
 
-#: core/Objects/Item.vala:1809
+#: core/Objects/Item.vala:1831
 msgid "Task exported successfully"
 msgstr "Ülesande eksportimine õnnestus"
 
-#: core/Objects/Item.vala:2213 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2235 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "Ümbertõstetud: %s"
