@@ -249,6 +249,8 @@ public class Services.Todoist : GLib.Object {
         }
 
         source.last_sync = new GLib.DateTime.now_local ().to_string ();
+        source.save ();
+
         foreach (var project in Services.Store.instance ().get_projects_by_source (source.id)) {
             project.freeze_update = false;
             project.count_update ();
