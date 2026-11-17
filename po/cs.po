@@ -122,6 +122,11 @@ msgstr "CalDAV"
 #: src/Views/Project/Project.vala:591 src/Views/Project/Project.vala:636
 #: src/Views/Project/Project.vala:597 src/Views/Project/Project.vala:642
 #: src/Views/Today.vala:847 src/Views/Today.vala:876
+#: src/Layouts/ItemSortFilter.vala:73 src/Layouts/ItemSortFilter.vala:112
+#: src/Views/Project/Project.vala:598 src/Views/Project/Project.vala:643
+#: src/Views/Scheduled/Scheduled.vala:237
+#: src/Views/Scheduled/Scheduled.vala:266 src/Views/Today.vala:848
+#: src/Views/Today.vala:877
 msgid "Priority"
 msgstr "Priorita"
 
@@ -143,6 +148,7 @@ msgid "Section"
 msgstr "Sekce"
 
 #: core/Enum.vala:357 src/Views/Today.vala:899 src/Views/Today.vala:900
+#: src/Views/Today.vala:901
 msgid "Assignment"
 msgstr "Přiřazení"
 
@@ -180,6 +186,8 @@ msgstr "Připnout"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57 core/Widgets/DeadlineButton.vala:158
+#: src/Layouts/ItemSortFilter.vala:70 src/Views/Project/Project.vala:595
+#: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:845
 msgid "Deadline"
 msgstr "Lhůta"
 
@@ -323,7 +331,9 @@ msgstr "nadcházející"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:391
 #: src/Layouts/ItemRow.vala:1252 src/Layouts/ItemBoard.vala:830
 #: src/Views/Project/Project.vala:609 src/Views/Project/Project.vala:802
-#: src/Views/Today.vala:213
+#: src/Views/Today.vala:213 src/Layouts/ItemSortFilter.vala:83
+#: src/Layouts/ItemSortFilter.vala:265 src/Views/Project/Project.vala:610
+#: src/Views/Project/Project.vala:803
 msgid "Today"
 msgstr "Dnes"
 
@@ -1035,7 +1045,7 @@ msgstr "Tmavě Modrá"
 
 #: core/Utils/Util.vala:255 src/Dialogs/Preferences/Pages/TaskSetting.vala:55
 #: src/Views/Today.vala:894 src/Widgets/ItemChangeHistoryRow.vala:268
-#: src/Views/Today.vala:895
+#: src/Views/Today.vala:895 src/Views/Today.vala:896
 msgid "None"
 msgstr "Žádná"
 
@@ -1624,6 +1634,8 @@ msgstr[2] ""
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:69
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:78
+#: src/Layouts/ItemSortFilter.vala:69 src/Views/Project/Project.vala:594
+#: src/Views/Scheduled/Scheduled.vala:233 src/Views/Today.vala:844
 msgid "Date"
 msgstr "Datum"
 
@@ -1968,7 +1980,7 @@ msgstr ""
 #: src/Views/Filter.vala:784 src/Views/Project/Project.vala:480
 #: src/Views/Project/Project.vala:557 src/Views/Project/Project.vala:540
 #: src/Views/Project/Project.vala:661 src/Views/Project/Project.vala:546
-#: src/Views/Project/Project.vala:667
+#: src/Views/Project/Project.vala:667 src/Views/Project/Project.vala:668
 msgid "Delete All Completed Tasks"
 msgstr ""
 
@@ -1987,6 +1999,8 @@ msgstr[2] ""
 #: src/Views/Project/Project.vala:656 src/Views/Scheduled/Scheduled.vala:276
 #: src/Views/Today.vala:910 src/Views/Project/Project.vala:703
 #: src/Views/Project/Project.vala:697 src/Views/Today.vala:911
+#: src/Layouts/ItemSortFilter.vala:131 src/Views/Project/Project.vala:704
+#: src/Views/Scheduled/Scheduled.vala:277 src/Views/Today.vala:912
 msgid "Filter By"
 msgstr ""
 
@@ -1997,7 +2011,9 @@ msgstr ""
 #: src/Views/Project/Project.vala:796 src/Views/Project/Project.vala:608
 #: src/Views/Project/Project.vala:806 src/Layouts/ItemRow.vala:1262
 #: src/Layouts/ItemBoard.vala:838 src/Views/Project/Project.vala:614
-#: src/Views/Project/Project.vala:812
+#: src/Views/Project/Project.vala:812 src/Layouts/ItemSortFilter.vala:88
+#: src/Layouts/ItemSortFilter.vala:280 src/Views/Project/Project.vala:615
+#: src/Views/Project/Project.vala:813
 msgid "No Date"
 msgstr ""
 
@@ -3544,6 +3560,8 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:234 src/Views/Today.vala:844
 #: src/Views/Project/Project.vala:606 src/Views/Project/Project.vala:589
 #: src/Views/Project/Project.vala:595 src/Views/Today.vala:845
+#: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:596
+#: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:846
 msgid "Date Added"
 msgstr ""
 
@@ -3551,24 +3569,30 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:845
 #: src/Views/Project/Project.vala:607 src/Views/Project/Project.vala:590
 #: src/Views/Project/Project.vala:596 src/Views/Today.vala:846
+#: src/Layouts/ItemSortFilter.vala:72 src/Views/Project/Project.vala:597
+#: src/Views/Scheduled/Scheduled.vala:236 src/Views/Today.vala:847
 msgid "Date Modified"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:563
 #: src/Views/Project/Project.vala:610 src/Views/Project/Project.vala:593
-#: src/Views/Project/Project.vala:599
+#: src/Views/Project/Project.vala:599 src/Layouts/ItemSortFilter.vala:75
+#: src/Views/Project/Project.vala:600
 msgid "Ascending Order"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:569
 #: src/Views/Project/Project.vala:616 src/Views/Project/Project.vala:599
-#: src/Views/Project/Project.vala:605
+#: src/Views/Project/Project.vala:605 src/Layouts/ItemSortFilter.vala:79
+#: src/Views/Project/Project.vala:606
 msgid "Duedate"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:81 src/Layouts/ItemSortFilter.vala:282
 #: src/Views/Project/Project.vala:572 src/Views/Project/Project.vala:619
 #: src/Views/Project/Project.vala:602 src/Views/Project/Project.vala:608
+#: src/Layouts/ItemSortFilter.vala:82 src/Layouts/ItemSortFilter.vala:283
+#: src/Views/Project/Project.vala:609
 msgid "All (default)"
 msgstr ""
 
@@ -3577,6 +3601,8 @@ msgstr ""
 #: src/Views/Project/Project.vala:621 src/Views/Project/Project.vala:788
 #: src/Views/Project/Project.vala:604 src/Views/Project/Project.vala:798
 #: src/Views/Project/Project.vala:610 src/Views/Project/Project.vala:804
+#: src/Layouts/ItemSortFilter.vala:84 src/Layouts/ItemSortFilter.vala:268
+#: src/Views/Project/Project.vala:611 src/Views/Project/Project.vala:805
 msgid "This Week"
 msgstr ""
 
@@ -3585,6 +3611,8 @@ msgstr ""
 #: src/Views/Project/Project.vala:622 src/Views/Project/Project.vala:790
 #: src/Views/Project/Project.vala:605 src/Views/Project/Project.vala:800
 #: src/Views/Project/Project.vala:611 src/Views/Project/Project.vala:806
+#: src/Layouts/ItemSortFilter.vala:85 src/Layouts/ItemSortFilter.vala:271
+#: src/Views/Project/Project.vala:612 src/Views/Project/Project.vala:807
 msgid "Next 7 Days"
 msgstr ""
 
@@ -3593,6 +3621,8 @@ msgstr ""
 #: src/Views/Project/Project.vala:623 src/Views/Project/Project.vala:792
 #: src/Views/Project/Project.vala:606 src/Views/Project/Project.vala:802
 #: src/Views/Project/Project.vala:612 src/Views/Project/Project.vala:808
+#: src/Layouts/ItemSortFilter.vala:86 src/Layouts/ItemSortFilter.vala:274
+#: src/Views/Project/Project.vala:613 src/Views/Project/Project.vala:809
 msgid "This Month"
 msgstr ""
 
@@ -3601,6 +3631,8 @@ msgstr ""
 #: src/Views/Project/Project.vala:624 src/Views/Project/Project.vala:794
 #: src/Views/Project/Project.vala:607 src/Views/Project/Project.vala:804
 #: src/Views/Project/Project.vala:613 src/Views/Project/Project.vala:810
+#: src/Layouts/ItemSortFilter.vala:87 src/Layouts/ItemSortFilter.vala:277
+#: src/Views/Project/Project.vala:614 src/Views/Project/Project.vala:811
 msgid "Next 30 Days"
 msgstr ""
 
@@ -3608,6 +3640,8 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:243 src/Views/Today.vala:853
 #: src/Views/Project/Project.vala:631 src/Views/Project/Project.vala:614
 #: src/Views/Project/Project.vala:620 src/Views/Today.vala:854
+#: src/Layouts/ItemSortFilter.vala:93 src/Views/Project/Project.vala:621
+#: src/Views/Scheduled/Scheduled.vala:244 src/Views/Today.vala:855
 msgid "P1"
 msgstr ""
 
@@ -3615,6 +3649,8 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:249 src/Views/Today.vala:859
 #: src/Views/Project/Project.vala:637 src/Views/Project/Project.vala:620
 #: src/Views/Project/Project.vala:626 src/Views/Today.vala:860
+#: src/Layouts/ItemSortFilter.vala:98 src/Views/Project/Project.vala:627
+#: src/Views/Scheduled/Scheduled.vala:250 src/Views/Today.vala:861
 msgid "P2"
 msgstr ""
 
@@ -3622,6 +3658,8 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:255 src/Views/Today.vala:865
 #: src/Views/Project/Project.vala:643 src/Views/Project/Project.vala:626
 #: src/Views/Project/Project.vala:632 src/Views/Today.vala:866
+#: src/Layouts/ItemSortFilter.vala:103 src/Views/Project/Project.vala:633
+#: src/Views/Scheduled/Scheduled.vala:256 src/Views/Today.vala:867
 msgid "P3"
 msgstr ""
 
@@ -3629,6 +3667,8 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:261 src/Views/Today.vala:871
 #: src/Views/Project/Project.vala:649 src/Views/Project/Project.vala:632
 #: src/Views/Project/Project.vala:638 src/Views/Today.vala:872
+#: src/Layouts/ItemSortFilter.vala:108 src/Views/Project/Project.vala:639
+#: src/Views/Scheduled/Scheduled.vala:262 src/Views/Today.vala:873
 msgid "P4"
 msgstr ""
 
@@ -3636,11 +3676,14 @@ msgstr ""
 #: src/Views/Scheduled/Scheduled.vala:268 src/Views/Today.vala:878
 #: src/Views/Project/Project.vala:656 src/Views/Project/Project.vala:639
 #: src/Views/Project/Project.vala:645 src/Views/Today.vala:879
+#: src/Layouts/ItemSortFilter.vala:115 src/Views/Project/Project.vala:646
+#: src/Views/Scheduled/Scheduled.vala:269 src/Views/Today.vala:880
 msgid "Filter by Labels"
 msgstr ""
 
 #: src/Layouts/ItemSortFilter.vala:120 src/Views/Project/Project.vala:647
 #: src/Views/Project/Project.vala:694 src/Views/Project/Project.vala:688
+#: src/Layouts/ItemSortFilter.vala:121 src/Views/Project/Project.vala:695
 msgid "Sort By"
 msgstr ""
 
@@ -4062,17 +4105,20 @@ msgstr ""
 #: src/Views/Project/Project.vala:613 src/Views/Today.vala:902
 #: src/Views/Project/Project.vala:660 src/Views/Project/Project.vala:643
 #: src/Views/Project/Project.vala:649 src/Views/Today.vala:903
+#: src/Views/Project/Project.vala:650 src/Views/Today.vala:904
 msgid "Show Completed"
 msgstr ""
 
 #: src/Views/Project/Project.vala:614 src/Views/Today.vala:903
 #: src/Views/Project/Project.vala:661 src/Views/Project/Project.vala:644
 #: src/Views/Project/Project.vala:650 src/Views/Today.vala:904
+#: src/Views/Project/Project.vala:651 src/Views/Today.vala:905
 msgid "Display completed tasks in the list"
 msgstr ""
 
 #: src/Views/Project/Project.vala:620 src/Views/Project/Project.vala:667
 #: src/Views/Project/Project.vala:650 src/Views/Project/Project.vala:656
+#: src/Views/Project/Project.vala:657
 msgid "Search completed tasks"
 msgstr ""
 
@@ -4081,7 +4127,7 @@ msgstr ""
 msgid "Reschedule"
 msgstr ""
 
-#: src/Views/Today.vala:887 src/Views/Today.vala:888
+#: src/Views/Today.vala:887 src/Views/Today.vala:888 src/Views/Today.vala:889
 msgid "Me"
 msgstr ""
 
