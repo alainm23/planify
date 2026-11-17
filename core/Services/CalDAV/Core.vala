@@ -54,7 +54,7 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             var client = new Services.CalDAV.CalDAVClient (
-                new Soup.Session (),
+                new Soup.Session () { timeout = Constants.SOUP_TIMEOUT },
                 source.caldav_data.server_url,
                 source.caldav_data.username,
                 source.caldav_data.password,
@@ -154,7 +154,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
     public async string? resolve_calendar_home (CalDAVType caldav_type, string dav_url, string username, string password, GLib.Cancellable cancellable, bool ignore_ssl = false, GLib.TlsCertificate? client_cert = null) throws GLib.Error {
         Services.LogService.get_default ().info ("CalDAV.Core", "Resolving calendar home");
-        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl, client_cert);
+        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session () { timeout = Constants.SOUP_TIMEOUT }, dav_url, username, password, ignore_ssl, client_cert);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);
@@ -196,7 +196,7 @@ public class Services.CalDAV.Core : GLib.Object {
             return response;
         }
 
-        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session (), dav_url, username, password, ignore_ssl, client_cert);
+        var caldav_client = new Services.CalDAV.CalDAVClient (new Soup.Session () { timeout = Constants.SOUP_TIMEOUT }, dav_url, username, password, ignore_ssl, client_cert);
 
         try {
             string? principal_url = yield caldav_client.get_principal_url (cancellable);

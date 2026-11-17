@@ -25,7 +25,7 @@ public class Services.CalDAV.Providers.Nextcloud : Object {
     private Json.Parser parser;
 
     public Nextcloud () {
-        session = new Soup.Session ();
+        session = new Soup.Session () { timeout = Constants.SOUP_TIMEOUT };
         parser = new Json.Parser ();
     }
 

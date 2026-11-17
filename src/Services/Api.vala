@@ -29,7 +29,7 @@ public class Services.Api : GLib.Object {
     }
 
     public async Objects.Release? get_latest_release () throws Error {
-        var session = new Soup.Session ();
+        var session = new Soup.Session () { timeout = Constants.SOUP_TIMEOUT };
         var message = new Soup.Message ("GET", "https://flathub.org/api/v2/appstream/io.github.alainm23.planify?locale=en");
         
         var response = yield session.send_and_read_async (message, Priority.DEFAULT, null);

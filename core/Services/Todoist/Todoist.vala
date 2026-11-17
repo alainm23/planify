@@ -44,7 +44,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public Todoist () {
-        session = new Soup.Session ();
+        session = new Soup.Session () { timeout = Constants.SOUP_TIMEOUT };
         _auth = new TodoistAuth (session);
         _items = new TodoistItems (session);
         _projects = new TodoistProjects (session);
