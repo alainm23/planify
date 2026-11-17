@@ -81,6 +81,12 @@ public class Widgets.DeadlineButton : Adw.Bin {
         }
     }
 
+    public bool visible_delete {
+        set {
+            delete_revealer.reveal_child = value;
+        }
+    }
+
     public signal void date_selected (GLib.DateTime ? date);
     public signal void picker_opened (bool active);
 
