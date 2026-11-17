@@ -764,12 +764,14 @@ msgstr "Neste computador"
 #: core/Services/Todoist/Todoist.vala:594 src/Widgets/ErrorView.vala:187
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
+#: core/Services/Todoist/Todoist.vala:610
 msgid "The request was incorrect."
 msgstr "A solicitude era incorrecta."
 
 #: core/Services/Todoist/Todoist.vala:595 src/Widgets/ErrorView.vala:188
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
+#: core/Services/Todoist/Todoist.vala:611
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Requírese autenticación e esta fallou ou aínda non foi fornecida."
@@ -777,36 +779,42 @@ msgstr "Requírese autenticación e esta fallou ou aínda non foi fornecida."
 #: core/Services/Todoist/Todoist.vala:596 src/Widgets/ErrorView.vala:189
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:612
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A solicitude era válida mais por algo que está prohibido."
 
 #: core/Services/Todoist/Todoist.vala:597 src/Widgets/ErrorView.vala:190
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:613
 msgid "The requested resource could not be found."
 msgstr "Non foi posíbel atopar o recurso solicitado."
 
 #: core/Services/Todoist/Todoist.vala:598 src/Widgets/ErrorView.vala:192
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:614
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O usuario enviou demasiadas peticións nun período de tempo dado."
 
 #: core/Services/Todoist/Todoist.vala:599 src/Widgets/ErrorView.vala:193
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:615
 msgid "The request failed due to a server error."
 msgstr "A solicitude fallou debido a un erro do servidor."
 
 #: core/Services/Todoist/Todoist.vala:600 src/Widgets/ErrorView.vala:194
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:616
 msgid "The server is currently unable to handle the request."
 msgstr "O servidor non pode xestionar a solicitude neste momento."
 
 #: core/Services/Todoist/Todoist.vala:601 src/Widgets/ErrorView.vala:197
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:617
 msgid "Unknown error"
 msgstr "Erro descoñecido"
 
