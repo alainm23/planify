@@ -187,7 +187,7 @@ msgid "Pin"
 msgstr "Закріпити"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
-#: src/Services/ExportService.vala:57
+#: src/Services/ExportService.vala:57 core/Widgets/DeadlineButton.vala:158
 msgid "Deadline"
 msgstr "Кінцевий термін"
 
@@ -355,6 +355,7 @@ msgstr "сьогодні"
 #: src/Layouts/ItemRow.vala:1254
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: src/Layouts/ItemRow.vala:1255 src/Layouts/ItemBoard.vala:833
+#: core/Widgets/DeadlineButton.vala:223
 msgid "Tomorrow"
 msgstr "Завтра"
 
@@ -476,6 +477,7 @@ msgstr "Це не можна скасувати"
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 #: src/Views/Project/Project.vala:556 src/Widgets/MultiSelectToolbar.vala:353
+#: src/Widgets/MultiSelectToolbar.vala:396
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -504,6 +506,8 @@ msgstr "Скасувати"
 #: src/Services/BackupManager.vala:255 src/Services/BackupManager.vala:289
 #: src/Views/Project/Project.vala:557 src/Widgets/MultiSelectToolbar.vala:285
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
+#: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
+#: src/Widgets/MultiSelectToolbar.vala:397
 msgid "Delete"
 msgstr "Видалити"
 
@@ -1582,6 +1586,7 @@ msgstr "Дата…"
 #: core/Widgets/DeadlineButton.vala:219
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:401
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
+#: core/Widgets/DeadlineButton.vala:225
 msgid "Next week"
 msgstr "Наступний тиждень"
 
@@ -1780,28 +1785,32 @@ msgid "When do you plan to work on this?"
 msgstr "Коли ви готові взятись за це?"
 
 #: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:135
+#: core/Widgets/DeadlineButton.vala:141
 msgid "Set Deadline"
 msgstr "Встановити термін"
 
 #: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:90
 #: core/Widgets/DeadlineButton.vala:97 core/Widgets/DeadlineButton.vala:104
-#: core/Widgets/DeadlineButton.vala:139
+#: core/Widgets/DeadlineButton.vala:139 core/Widgets/DeadlineButton.vala:96
+#: core/Widgets/DeadlineButton.vala:103 core/Widgets/DeadlineButton.vala:110
+#: core/Widgets/DeadlineButton.vala:145
 msgid "The latest date to complete this task"
 msgstr "Останній термін виконання завдання"
 
 #: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:157
+#: core/Widgets/DeadlineButton.vala:163
 msgid "What is the latest date to complete this?"
 msgstr "Який останній термін виконання цього завдання?"
 
-#: core/Widgets/DeadlineButton.vala:218
+#: core/Widgets/DeadlineButton.vala:218 core/Widgets/DeadlineButton.vala:224
 msgid "In 3 days"
 msgstr "Через 3 дні"
 
-#: core/Widgets/DeadlineButton.vala:220
+#: core/Widgets/DeadlineButton.vala:220 core/Widgets/DeadlineButton.vala:226
 msgid "In 2 weeks"
 msgstr "Через 2 тижні"
 
-#: core/Widgets/DeadlineButton.vala:221
+#: core/Widgets/DeadlineButton.vala:221 core/Widgets/DeadlineButton.vala:227
 msgid "In a month"
 msgstr "Через місяць"
 
@@ -2173,6 +2182,7 @@ msgid "No Date"
 msgstr "Без дати"
 
 #: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:90
+#: src/Widgets/MultiSelectToolbar.vala:95
 msgid "Done"
 msgstr "Готово"
 
@@ -3724,6 +3734,7 @@ msgstr "Використати як нотатку"
 #: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274 src/Layouts/ItemRow.vala:1403
 #: src/Layouts/ItemRow.vala:1415 src/Widgets/MultiSelectToolbar.vala:283
+#: src/Widgets/MultiSelectToolbar.vala:326
 msgid "Copy to Clipboard"
 msgstr "Копіювати в буфер обміну"
 
@@ -4628,16 +4639,19 @@ msgid "Completed At"
 msgstr "Завершено"
 
 #: src/Widgets/MultiSelectToolbar.vala:67
+#: src/Widgets/MultiSelectToolbar.vala:72
 msgid "Move to Project"
 msgstr "Перемістити до проєкту"
 
 #: src/Widgets/MultiSelectToolbar.vala:272
 #: src/Widgets/MultiSelectToolbar.vala:281
+#: src/Widgets/MultiSelectToolbar.vala:324
 msgid "Mark as Completed"
 msgstr "Позначити як завершене"
 
 #: src/Widgets/MultiSelectToolbar.vala:314
 #: src/Widgets/MultiSelectToolbar.vala:323
+#: src/Widgets/MultiSelectToolbar.vala:366
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
@@ -4646,17 +4660,20 @@ msgstr[1] "%d завдань скопійовано"
 
 #: src/Widgets/MultiSelectToolbar.vala:325
 #: src/Widgets/MultiSelectToolbar.vala:334
+#: src/Widgets/MultiSelectToolbar.vala:377
 msgid "Delete To-Do"
 msgstr "Видалити завдання"
 
 #: src/Widgets/MultiSelectToolbar.vala:326
 #: src/Widgets/MultiSelectToolbar.vala:335
+#: src/Widgets/MultiSelectToolbar.vala:378
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Ви впевнені, що хочете видалити це завдання?"
 
 # # c-format
 #: src/Widgets/MultiSelectToolbar.vala:329
 #: src/Widgets/MultiSelectToolbar.vala:338
+#: src/Widgets/MultiSelectToolbar.vala:381
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
@@ -4665,6 +4682,7 @@ msgstr[1] "Видалити %d завдань"
 
 #: src/Widgets/MultiSelectToolbar.vala:335
 #: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Widgets/MultiSelectToolbar.vala:387
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
@@ -4914,6 +4932,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1701
 #: src/Layouts/ItemRow.vala:1845 src/Layouts/ItemBoard.vala:1303
 #: src/Widgets/MultiSelectToolbar.vala:448
+#: src/Widgets/MultiSelectToolbar.vala:493
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
@@ -4959,6 +4978,7 @@ msgstr ""
 # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
 #: src/Widgets/MultiSelectToolbar.vala:456
+#: src/Widgets/MultiSelectToolbar.vala:501
 #, fuzzy, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"

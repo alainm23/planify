@@ -158,7 +158,7 @@ msgstr ""
 msgid "Pin"
 msgstr ""
 
-#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
+#: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:158
 #: src/Services/ExportService.vala:57
 msgid "Deadline"
 msgstr ""
@@ -303,7 +303,7 @@ msgstr ""
 #: core/Objects/Filters/Tomorrow.vala:33 core/Utils/Datetime.vala:62
 #: core/Utils/Datetime.vala:776
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
-#: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
+#: core/Widgets/DeadlineButton.vala:223 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:833 src/Layouts/ItemRow.vala:1255
 msgid "Tomorrow"
 msgstr ""
@@ -379,20 +379,20 @@ msgstr ""
 #: src/Views/Project/Project.vala:556
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
-#: src/Widgets/MultiSelectToolbar.vala:353
+#: src/Widgets/MultiSelectToolbar.vala:396
 msgid "Cancel"
 msgstr ""
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:911
 #: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
-#: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
+#: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:289
 #: src/Views/Filter.vala:816 src/Views/Project/Project.vala:557
-#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:285
-#: src/Widgets/MultiSelectToolbar.vala:354
+#: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:328
+#: src/Widgets/MultiSelectToolbar.vala:397
 msgid "Delete"
 msgstr ""
 
@@ -1082,7 +1082,7 @@ msgstr ""
 
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1303
 #: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
-#: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:448
+#: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:493
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
@@ -1297,7 +1297,7 @@ msgid "Type a date…"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:403
-#: core/Widgets/DeadlineButton.vala:219
+#: core/Widgets/DeadlineButton.vala:225
 msgid "Next week"
 msgstr ""
 
@@ -1468,29 +1468,29 @@ msgstr ""
 msgid "When do you plan to work on this?"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:135
+#: core/Widgets/DeadlineButton.vala:54 core/Widgets/DeadlineButton.vala:141
 msgid "Set Deadline"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:90
-#: core/Widgets/DeadlineButton.vala:97 core/Widgets/DeadlineButton.vala:104
-#: core/Widgets/DeadlineButton.vala:139
+#: core/Widgets/DeadlineButton.vala:57 core/Widgets/DeadlineButton.vala:96
+#: core/Widgets/DeadlineButton.vala:103 core/Widgets/DeadlineButton.vala:110
+#: core/Widgets/DeadlineButton.vala:145
 msgid "The latest date to complete this task"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:157
+#: core/Widgets/DeadlineButton.vala:59 core/Widgets/DeadlineButton.vala:163
 msgid "What is the latest date to complete this?"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:218
+#: core/Widgets/DeadlineButton.vala:224
 msgid "In 3 days"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:220
+#: core/Widgets/DeadlineButton.vala:226
 msgid "In 2 weeks"
 msgstr ""
 
-#: core/Widgets/DeadlineButton.vala:221
+#: core/Widgets/DeadlineButton.vala:227
 msgid "In a month"
 msgstr ""
 
@@ -1812,7 +1812,7 @@ msgstr ""
 msgid "No Date"
 msgstr ""
 
-#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:90
+#: src/Dialogs/DatePicker.vala:106 src/Widgets/MultiSelectToolbar.vala:95
 msgid "Done"
 msgstr ""
 
@@ -3199,7 +3199,7 @@ msgid "Use as a Note"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1415 src/Layouts/ItemSidebarView.vala:515
-#: src/Widgets/MultiSelectToolbar.vala:283
+#: src/Widgets/MultiSelectToolbar.vala:326
 msgid "Copy to Clipboard"
 msgstr ""
 
@@ -3943,44 +3943,44 @@ msgstr ""
 msgid "Completed At"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:67
+#: src/Widgets/MultiSelectToolbar.vala:72
 msgid "Move to Project"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:281
+#: src/Widgets/MultiSelectToolbar.vala:324
 msgid "Mark as Completed"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:323
+#: src/Widgets/MultiSelectToolbar.vala:366
 #, c-format
 msgid "%d task copied to clipboard"
 msgid_plural "%d tasks copied to clipboard"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/MultiSelectToolbar.vala:334
+#: src/Widgets/MultiSelectToolbar.vala:377
 msgid "Delete To-Do"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:335
+#: src/Widgets/MultiSelectToolbar.vala:378
 msgid "Are you sure you want to delete this to-do?"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:338
+#: src/Widgets/MultiSelectToolbar.vala:381
 #, c-format
 msgid "Delete %d To-Do"
 msgid_plural "Delete %d To-Dos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/MultiSelectToolbar.vala:344
+#: src/Widgets/MultiSelectToolbar.vala:387
 #, c-format
 msgid "Are you sure you want to delete this %d to-do?"
 msgid_plural "Are you sure you want to delete these %d to-dos?"
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Widgets/MultiSelectToolbar.vala:456
+#: src/Widgets/MultiSelectToolbar.vala:501
 #, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
