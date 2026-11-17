@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
 "PO-Revision-Date: 2026-11-17 16:17+0000\n"
-"Last-Translator: Kemal Temel <sskemalss14@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Akın Birdal <reend21@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
 "Language: tr\n"
@@ -1889,7 +1889,7 @@ msgstr ""
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:607
 msgid "Press Enter to create and assign it"
-msgstr "Oluşturup atamak için Enter tuşuna basın."
+msgstr "Oluşturup atamak için Enter tuşuna basın"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2019
 #: src/Layouts/ItemRow.vala:2024 src/Layouts/ItemRow.vala:2033
@@ -2389,7 +2389,7 @@ msgstr "Parola"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:94
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:95
 msgid "Calendar Home URL"
-msgstr "Takvim Ev URL'si"
+msgstr "Etkinlik Ev URL'si"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:104
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:106
@@ -3074,8 +3074,8 @@ msgstr "Görev Önceliklerini Koru"
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:105
 msgid "When 'Keep adding' is enabled, preserve date, labels, and pinned status"
 msgstr ""
-"“Eklemeye devam et” seçeneği etkinleştirildiğinde, tarih, etiketler ve "
-"sabitlenmiş durum korunur"
+"\"Eklemeye devam et\" etkinleştirilmişken, tarih, etiket ve sabitlenmiş "
+"durumu koru."
 
 #: src/Dialogs/Preferences/Pages/QuickAdd.vala:134
 msgid "The command was copied to the clipboard"
