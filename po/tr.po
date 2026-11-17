@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
 "PO-Revision-Date: 2026-11-17 16:17+0000\n"
-"Last-Translator: Kemal Temel <sskemalss14@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Akın Birdal <reend21@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/tr/>\n"
 "Language: tr\n"
@@ -3094,7 +3094,7 @@ msgstr "Kenar Çubuğu Genişliği"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:48
 msgid "List View for Filters"
-msgstr "Filitreler için liste görünümü"
+msgstr "Filtreler için Liste Görünümü"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:49
 msgid "Show filters in a simple list instead of a grid"
