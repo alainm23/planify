@@ -39,7 +39,7 @@ msgstr "Tugas"
 #: src/Layouts/ItemRow.vala:1255 src/Layouts/ItemRow.vala:1262
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemRow.vala:1266 src/Dialogs/Preferences/Pages/Backup.vala:697
-#: src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemBoard.vala:842 src/Layouts/ItemBoard.vala:843
 msgid "Labels"
 msgstr "Label"
 
@@ -176,6 +176,7 @@ msgstr "Konten"
 #: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemRow.vala:2082
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemRow.vala:2098
 #: src/Layouts/ItemRow.vala:2106 src/Dialogs/Project.vala:153
+#: src/Layouts/ItemRow.vala:2118
 msgid "Description"
 msgstr "Deskripsi"
 
@@ -190,7 +191,8 @@ msgstr "Terjadwal"
 #: src/Layouts/ItemRow.vala:1256 src/Layouts/ItemRow.vala:1244
 #: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemRow.vala:1245
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:823
-#: src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:836 src/Layouts/ItemBoard.vala:824
+#: src/Layouts/ItemBoard.vala:837
 msgid "Pin"
 msgstr "Sematkan"
 
@@ -356,7 +358,7 @@ msgstr "akan datang"
 #: src/Views/Project/Project.vala:609 src/Views/Project/Project.vala:802
 #: src/Views/Today.vala:213 src/Layouts/ItemSortFilter.vala:83
 #: src/Layouts/ItemSortFilter.vala:265 src/Views/Project/Project.vala:610
-#: src/Views/Project/Project.vala:803
+#: src/Views/Project/Project.vala:803 src/Layouts/ItemBoard.vala:831
 msgid "Today"
 msgstr "Hari ini"
 
@@ -374,7 +376,7 @@ msgstr "hari ini"
 #: src/Layouts/ItemRow.vala:1254
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: src/Layouts/ItemRow.vala:1255 src/Layouts/ItemBoard.vala:833
-#: core/Widgets/DeadlineButton.vala:223
+#: core/Widgets/DeadlineButton.vala:223 src/Layouts/ItemBoard.vala:834
 msgid "Tomorrow"
 msgstr "Besok"
 
@@ -445,6 +447,7 @@ msgstr "Tugas berhasil diekspor"
 #: core/Objects/Item.vala:2068 core/Objects/Item.vala:2076
 #: core/Objects/Item.vala:2156 core/Objects/Item.vala:2175
 #: core/Objects/Item.vala:2213 core/Objects/Item.vala:2235
+#: core/Objects/Item.vala:2254
 #, c-format
 msgid "Moved to %s"
 msgstr "Dipindahkan ke %s"
@@ -1578,6 +1581,7 @@ msgstr "Waktu"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: src/Layouts/ItemRow.vala:1194 src/Layouts/ItemBoard.vala:745
+#: src/Layouts/ItemBoard.vala:746
 msgid "until"
 msgstr "sampai"
 
@@ -1595,6 +1599,7 @@ msgstr "sampai"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:749
 msgid "for"
 msgstr "selama"
 
@@ -1612,6 +1617,7 @@ msgstr "selama"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:749
 msgid "times"
 msgstr "kali"
 
@@ -1629,6 +1635,7 @@ msgstr "kali"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:749
 msgid "time"
 msgstr "kali"
 
@@ -1795,6 +1802,7 @@ msgstr "Setelah"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: src/Layouts/ItemBoard.vala:886 src/Layouts/ItemRow.vala:1349
 #: src/Layouts/ItemRow.vala:1350 src/Layouts/ItemBoard.vala:903
+#: src/Layouts/ItemBoard.vala:904
 msgid "Apply"
 msgstr "Terapkan"
 
@@ -1981,6 +1989,7 @@ msgstr "Tekan Enter untuk membuat dan menetapkannya"
 #: src/Layouts/ItemRow.vala:2024 src/Layouts/ItemRow.vala:2033
 #: src/Layouts/ItemRow.vala:2092 src/Layouts/ItemRow.vala:2096
 #: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
+#: src/Layouts/ItemRow.vala:2128
 msgid "Task description"
 msgstr "Deskripsi tugas"
 
@@ -2119,7 +2128,7 @@ msgstr "Harus dikerjakan"
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemRow.vala:1268 src/Layouts/ItemRow.vala:1269
 #: src/Services/Notification.vala:140 src/Services/Notification.vala:194
-#: src/Layouts/ItemBoard.vala:845
+#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemBoard.vala:846
 msgid "Complete"
 msgstr "Selesai"
 
@@ -2285,6 +2294,7 @@ msgstr "Minggu Depan"
 #: src/Views/Project/Project.vala:614 src/Views/Project/Project.vala:812
 #: src/Layouts/ItemSortFilter.vala:88 src/Layouts/ItemSortFilter.vala:280
 #: src/Views/Project/Project.vala:615 src/Views/Project/Project.vala:813
+#: src/Layouts/ItemBoard.vala:839
 msgid "No Date"
 msgstr "Tanpa Tanggal"
 
@@ -3689,7 +3699,7 @@ msgstr "Proyek berhasil ditambahkan!"
 #: src/Layouts/ItemRow.vala:1261 src/Layouts/ItemRow.vala:1402
 #: src/Layouts/ItemRow.vala:1264 src/Layouts/ItemRow.vala:1405
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1417
-#: src/Layouts/ItemBoard.vala:841
+#: src/Layouts/ItemBoard.vala:841 src/Layouts/ItemBoard.vala:842
 msgid "Move"
 msgstr "Pindahkan"
 
@@ -3752,12 +3762,14 @@ msgstr "Buka/Tutup Bilah Samping"
 #: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemRow.vala:1245
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:173
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 msgid "Unpin"
 msgstr "Lepas sematan"
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1604
 #: src/Layouts/ItemSidebarView.vala:682 src/Layouts/ItemRow.vala:1626
 #: src/Layouts/ItemSidebarView.vala:697 src/Layouts/ItemBoard.vala:663
+#: src/Layouts/ItemBoard.vala:664
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Selesai. Kemunculan berikutnya: %s"
@@ -3765,12 +3777,14 @@ msgstr "Selesai. Kemunculan berikutnya: %s"
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1257
 #: src/Layouts/ItemRow.vala:1264 src/Layouts/ItemRow.vala:1267
 #: src/Layouts/ItemRow.vala:1268 src/Layouts/ItemBoard.vala:844
+#: src/Layouts/ItemBoard.vala:845
 msgid "Add Subtask"
 msgstr "Tambahkan subtugas"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1259
 #: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemRow.vala:1269
 #: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemBoard.vala:847
 msgid "Edit"
 msgstr "Sunting"
 
@@ -3786,6 +3800,7 @@ msgstr "Sunting"
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/ItemRow.vala:1271
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemBoard.vala:847
 #: src/Layouts/SectionRow.vala:720 src/Views/Project/Project.vala:394
+#: src/Layouts/ItemBoard.vala:848
 msgid "Duplicate"
 msgstr "Duplikasi"
 
@@ -3794,7 +3809,7 @@ msgstr "Duplikasi"
 #: src/Layouts/ItemRow.vala:1269 src/Layouts/ItemRow.vala:1406
 #: src/Layouts/ItemRow.vala:1272 src/Layouts/ItemRow.vala:1409
 #: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemRow.vala:1421
-#: src/Layouts/ItemBoard.vala:849
+#: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemBoard.vala:850
 msgid "Delete Task"
 msgstr "Hapus Tugas"
 
@@ -3803,7 +3818,8 @@ msgstr "Hapus Tugas"
 #: src/Layouts/ItemRow.vala:1878 src/Layouts/ItemBoard.vala:1136
 #: src/Layouts/ItemRow.vala:1887 src/Layouts/ItemRow.vala:1932
 #: src/Layouts/ItemRow.vala:1944 src/Layouts/ItemRow.vala:1952
-#: src/Layouts/ItemBoard.vala:1153
+#: src/Layouts/ItemBoard.vala:1153 src/Layouts/ItemBoard.vala:1154
+#: src/Layouts/ItemRow.vala:1964
 msgid "Order changed to 'Custom sort order'"
 msgstr "Urutan diubah menjadi 'Urutan pengurutan kustom'"
 
@@ -3813,6 +3829,7 @@ msgstr "Urutan diubah menjadi 'Urutan pengurutan kustom'"
 #: src/Layouts/ItemBoard.vala:1252 src/Layouts/ItemRow.vala:1658
 #: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1670
 #: src/Layouts/ItemRow.vala:1678 src/Layouts/ItemBoard.vala:1280
+#: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemRow.vala:1690
 #, c-format
 msgid "%s was deleted"
 msgstr "%s telah dihapus"
@@ -3823,6 +3840,7 @@ msgstr "%s telah dihapus"
 #: src/Layouts/ItemBoard.vala:1253 src/Layouts/ItemRow.vala:1659
 #: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1671
 #: src/Layouts/ItemRow.vala:1679 src/Layouts/ItemBoard.vala:1281
+#: src/Layouts/ItemBoard.vala:1282 src/Layouts/ItemRow.vala:1691
 msgid "Undo"
 msgstr "Batalkan"
 
@@ -3881,7 +3899,7 @@ msgstr "Dibuat: %s"
 #: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 #: src/Layouts/ItemRow.vala:2175 src/Layouts/ItemRow.vala:2183
-#: core/QuickAddCore.vala:962
+#: core/QuickAddCore.vala:962 src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr "Tambahkan Lampiran"
 
@@ -5125,6 +5143,7 @@ msgstr ""
 
 #: src/Layouts/ItemRow.vala:1631 src/Layouts/ItemRow.vala:1634
 #: src/Layouts/ItemRow.vala:1646 src/Layouts/ItemRow.vala:1654
+#: src/Layouts/ItemRow.vala:1666
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
@@ -5179,12 +5198,13 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1701
 #: src/Layouts/ItemRow.vala:1845 src/Layouts/ItemBoard.vala:1303
 #: src/Widgets/MultiSelectToolbar.vala:448
-#: src/Widgets/MultiSelectToolbar.vala:493
+#: src/Widgets/MultiSelectToolbar.vala:493 src/Layouts/ItemBoard.vala:1304
+#: src/Layouts/ItemRow.vala:1713 src/Layouts/ItemRow.vala:1857
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1817 src/Layouts/ItemRow.vala:1829
-#: src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1849
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 

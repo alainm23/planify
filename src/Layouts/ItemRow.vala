@@ -1640,6 +1640,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reminder_button.set_reminders (item.reminders);
         }
 
+        check_deadline ();
+
+        if (deadline_button != null) {
+            deadline_button.datetime = item.deadline_datetime;
+            deadline_button.reveal_content = !item.has_deadline;
+        }
+
+        if (deadline_button_detail != null) {
+            deadline_button_detail.datetime = item.deadline_datetime;
+            deadline_button_detail.reveal_content = item.has_deadline;
+        }
+
         // Re-trigger the flash even if the class is still present from a rapid previous completion.
         due_label.remove_css_class ("date-updated");
         Timeout.add (10, () => {

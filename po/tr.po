@@ -39,6 +39,7 @@ msgstr "Görevler"
 #: src/Layouts/ItemRow.vala:1262 src/Dialogs/Preferences/Pages/Backup.vala:631
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1266
 #: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemBoard.vala:843
 msgid "Labels"
 msgstr "Etiketler"
 
@@ -174,6 +175,7 @@ msgstr "İçerik"
 #: src/Layouts/ItemRow.vala:2023 src/Layouts/ItemRow.vala:2082
 #: src/Layouts/ItemRow.vala:2086 src/Layouts/ItemRow.vala:2098
 #: src/Layouts/ItemRow.vala:2106 src/Dialogs/Project.vala:153
+#: src/Layouts/ItemRow.vala:2118
 msgid "Description"
 msgstr "Açıklama"
 
@@ -187,6 +189,7 @@ msgstr "Zamanlanmış"
 #: src/Layouts/ItemRow.vala:1244 src/Layouts/ItemRow.vala:1259
 #: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 msgid "Pin"
 msgstr "Sabitle"
 
@@ -345,7 +348,7 @@ msgstr "yaklaşan"
 #: src/Views/Project/Project.vala:609 src/Views/Project/Project.vala:802
 #: src/Views/Today.vala:213 src/Layouts/ItemSortFilter.vala:83
 #: src/Layouts/ItemSortFilter.vala:265 src/Views/Project/Project.vala:610
-#: src/Views/Project/Project.vala:803
+#: src/Views/Project/Project.vala:803 src/Layouts/ItemBoard.vala:831
 msgid "Today"
 msgstr "Bugün"
 
@@ -362,7 +365,7 @@ msgstr "bugün"
 #: src/Layouts/ItemRow.vala:1254
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: src/Layouts/ItemRow.vala:1255 src/Layouts/ItemBoard.vala:833
-#: core/Widgets/DeadlineButton.vala:223
+#: core/Widgets/DeadlineButton.vala:223 src/Layouts/ItemBoard.vala:834
 msgid "Tomorrow"
 msgstr "Yarın"
 
@@ -422,7 +425,7 @@ msgstr "Görev başarıyla dışa aktarıldı"
 #: core/Utils/Util.vala:891 core/Objects/Item.vala:2068
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
 #: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
-#: core/Objects/Item.vala:2235
+#: core/Objects/Item.vala:2235 core/Objects/Item.vala:2254
 #, c-format
 msgid "Moved to %s"
 msgstr "Görev %s projesine taşındı"
@@ -1535,6 +1538,7 @@ msgstr "Zaman"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: src/Layouts/ItemRow.vala:1194 src/Layouts/ItemBoard.vala:745
+#: src/Layouts/ItemBoard.vala:746
 msgid "until"
 msgstr "şu zamana kadar"
 
@@ -1550,6 +1554,7 @@ msgstr "şu zamana kadar"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:749
 msgid "for"
 msgstr "için"
 
@@ -1565,6 +1570,7 @@ msgstr "için"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:749
 msgid "times"
 msgstr "kere"
 
@@ -1581,6 +1587,7 @@ msgstr "kere"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:749
 msgid "time"
 msgstr "kere"
 
@@ -1741,6 +1748,7 @@ msgstr "Sonra"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: src/Layouts/ItemBoard.vala:886 src/Layouts/ItemRow.vala:1349
 #: src/Layouts/ItemRow.vala:1350 src/Layouts/ItemBoard.vala:903
+#: src/Layouts/ItemBoard.vala:904
 msgid "Apply"
 msgstr "Uygula"
 
@@ -1922,6 +1930,7 @@ msgstr "Oluşturup atamak için Enter tuşuna basın"
 #: src/Layouts/ItemRow.vala:2024 src/Layouts/ItemRow.vala:2033
 #: src/Layouts/ItemRow.vala:2092 src/Layouts/ItemRow.vala:2096
 #: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
+#: src/Layouts/ItemRow.vala:2128
 msgid "Task description"
 msgstr "Görev açıklaması"
 
@@ -2062,6 +2071,7 @@ msgstr "Yapılacak"
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1268
 #: src/Layouts/ItemRow.vala:1269 src/Services/Notification.vala:140
 #: src/Services/Notification.vala:194 src/Layouts/ItemBoard.vala:845
+#: src/Layouts/ItemBoard.vala:846
 msgid "Complete"
 msgstr "Tamamla"
 
@@ -2218,6 +2228,7 @@ msgstr "Filtrele"
 #: src/Views/Project/Project.vala:614 src/Views/Project/Project.vala:812
 #: src/Layouts/ItemSortFilter.vala:88 src/Layouts/ItemSortFilter.vala:280
 #: src/Views/Project/Project.vala:615 src/Views/Project/Project.vala:813
+#: src/Layouts/ItemBoard.vala:839
 msgid "No Date"
 msgstr "Tarih Yok"
 
@@ -3626,7 +3637,7 @@ msgstr "Proje başarıyla eklendi!"
 #: src/Layouts/ItemRow.vala:1402 src/Layouts/ItemSidebarView.vala:517
 #: src/Layouts/ItemRow.vala:1264 src/Layouts/ItemRow.vala:1405
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1417
-#: src/Layouts/ItemBoard.vala:841
+#: src/Layouts/ItemBoard.vala:841 src/Layouts/ItemBoard.vala:842
 msgid "Move"
 msgstr "Taşı"
 
@@ -3680,26 +3691,27 @@ msgstr "Kenar Çubuğunu Aç/Kapat"
 #: src/Layouts/ItemRow.vala:1259 src/Layouts/ItemRow.vala:1245
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:173
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 msgid "Unpin"
 msgstr "Sabitlemeden çıkar"
 
 # # c-format
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemRow.vala:1626
 #: src/Layouts/ItemSidebarView.vala:682 src/Layouts/ItemSidebarView.vala:697
-#: src/Layouts/ItemBoard.vala:663
+#: src/Layouts/ItemBoard.vala:663 src/Layouts/ItemBoard.vala:664
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Tamamlandı. Sonraki gerçekleşme: %s"
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1264
 #: src/Layouts/ItemRow.vala:1267 src/Layouts/ItemRow.vala:1268
-#: src/Layouts/ItemBoard.vala:844
+#: src/Layouts/ItemBoard.vala:844 src/Layouts/ItemBoard.vala:845
 msgid "Add Subtask"
 msgstr "Alt Görev Ekle"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1266
 #: src/Layouts/ItemRow.vala:1269 src/Layouts/ItemRow.vala:1270
-#: src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemBoard.vala:847
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -3712,7 +3724,7 @@ msgstr "Düzenle"
 #: src/Layouts/SectionRow.vala:713 src/Layouts/ProjectRow.vala:704
 #: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemRow.vala:1416
 #: src/Layouts/ItemBoard.vala:847 src/Layouts/SectionRow.vala:720
-#: src/Views/Project/Project.vala:394
+#: src/Views/Project/Project.vala:394 src/Layouts/ItemBoard.vala:848
 msgid "Duplicate"
 msgstr "Çoğalt"
 
@@ -3720,7 +3732,7 @@ msgstr "Çoğalt"
 #: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:520
 #: src/Layouts/ItemRow.vala:1272 src/Layouts/ItemRow.vala:1409
 #: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemRow.vala:1421
-#: src/Layouts/ItemBoard.vala:849
+#: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemBoard.vala:850
 msgid "Delete Task"
 msgstr "Görevi Sil"
 
@@ -3728,7 +3740,8 @@ msgstr "Görevi Sil"
 #: src/Layouts/ItemRow.vala:1878 src/Layouts/ItemBoard.vala:1136
 #: src/Layouts/ItemRow.vala:1887 src/Layouts/ItemRow.vala:1932
 #: src/Layouts/ItemRow.vala:1944 src/Layouts/ItemRow.vala:1952
-#: src/Layouts/ItemBoard.vala:1153
+#: src/Layouts/ItemBoard.vala:1153 src/Layouts/ItemBoard.vala:1154
+#: src/Layouts/ItemRow.vala:1964
 msgid "Order changed to 'Custom sort order'"
 msgstr "Sıralama 'Özel Sıralama Düzeni' olarak değiştirildi"
 
@@ -3737,7 +3750,8 @@ msgstr "Sıralama 'Özel Sıralama Düzeni' olarak değiştirildi"
 #: src/Layouts/ItemRow.vala:1655 src/Layouts/ItemBoard.vala:1252
 #: src/Layouts/ItemRow.vala:1658 src/Layouts/ItemBoard.vala:1263
 #: src/Layouts/ItemRow.vala:1670 src/Layouts/ItemRow.vala:1678
-#: src/Layouts/ItemBoard.vala:1280
+#: src/Layouts/ItemBoard.vala:1280 src/Layouts/ItemBoard.vala:1281
+#: src/Layouts/ItemRow.vala:1690
 #, c-format
 msgid "%s was deleted"
 msgstr "%s silindi"
@@ -3746,7 +3760,8 @@ msgstr "%s silindi"
 #: src/Layouts/ItemRow.vala:1656 src/Layouts/ItemBoard.vala:1253
 #: src/Layouts/ItemRow.vala:1659 src/Layouts/ItemBoard.vala:1264
 #: src/Layouts/ItemRow.vala:1671 src/Layouts/ItemRow.vala:1679
-#: src/Layouts/ItemBoard.vala:1281
+#: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemBoard.vala:1282
+#: src/Layouts/ItemRow.vala:1691
 msgid "Undo"
 msgstr "Geri Al"
 
@@ -3805,7 +3820,7 @@ msgstr "Oluşturuldu: %s"
 #: src/Layouts/ItemRow.vala:2161 core/QuickAddCore.vala:298
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 #: src/Layouts/ItemRow.vala:2175 src/Layouts/ItemRow.vala:2183
-#: core/QuickAddCore.vala:962
+#: core/QuickAddCore.vala:962 src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr "Ek Ekle"
 

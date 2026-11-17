@@ -653,6 +653,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         content_label.remove_css_class ("line-through");
         content_label.remove_css_class ("dimmed");
         update_due_label ();
+        update_deadline ();
 
         due_label.add_css_class ("date-updated");
         Timeout.add (1200, () => {

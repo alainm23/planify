@@ -34,6 +34,7 @@ msgstr "Задаци"
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemBoard.vala:843
 msgid "Labels"
 msgstr "Ознаке"
 
@@ -160,7 +161,7 @@ msgstr ""
 #: core/Enum.vala:539 src/Dialogs/Project.vala:151 src/Dialogs/Section.vala:91
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
-#: src/Dialogs/Project.vala:153
+#: src/Dialogs/Project.vala:153 src/Layouts/ItemRow.vala:2118
 msgid "Description"
 msgstr ""
 
@@ -172,6 +173,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:806 src/Layouts/ItemBoard.vala:819
 #: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 msgid "Pin"
 msgstr ""
 
@@ -321,6 +323,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:802 src/Views/Today.vala:213
 #: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:265
 #: src/Views/Project/Project.vala:610 src/Views/Project/Project.vala:803
+#: src/Layouts/ItemBoard.vala:831
 msgid "Today"
 msgstr ""
 
@@ -334,6 +337,7 @@ msgstr ""
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1255
 #: src/Layouts/ItemBoard.vala:833 core/Widgets/DeadlineButton.vala:223
+#: src/Layouts/ItemBoard.vala:834
 msgid "Tomorrow"
 msgstr ""
 
@@ -379,6 +383,7 @@ msgstr ""
 
 #: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2213 core/Objects/Item.vala:2235
+#: core/Objects/Item.vala:2254
 #, c-format
 msgid "Moved to %s"
 msgstr ""
@@ -517,6 +522,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
 #: src/Layouts/ItemRow.vala:2183 core/QuickAddCore.vala:962
+#: src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr ""
 
@@ -1129,7 +1135,8 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:439
 #: src/Layouts/ItemBoard.vala:1303 src/Widgets/MultiSelectToolbar.vala:448
-#: src/Widgets/MultiSelectToolbar.vala:493
+#: src/Widgets/MultiSelectToolbar.vala:493 src/Layouts/ItemBoard.vala:1304
+#: src/Layouts/ItemRow.vala:1713 src/Layouts/ItemRow.vala:1857
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
@@ -1305,7 +1312,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1194
-#: src/Layouts/ItemBoard.vala:745
+#: src/Layouts/ItemBoard.vala:745 src/Layouts/ItemBoard.vala:746
 msgid "until"
 msgstr ""
 
@@ -1314,7 +1321,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
-#: src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemBoard.vala:749
 msgid "for"
 msgstr ""
 
@@ -1323,7 +1330,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
-#: src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemBoard.vala:749
 msgid "times"
 msgstr ""
 
@@ -1332,7 +1339,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
-#: src/Layouts/ItemBoard.vala:748
+#: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemBoard.vala:749
 msgid "time"
 msgstr ""
 
@@ -1449,6 +1456,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1350 src/Layouts/ItemBoard.vala:903
+#: src/Layouts/ItemBoard.vala:904
 msgid "Apply"
 msgstr ""
 
@@ -1619,6 +1627,7 @@ msgid "Press Enter to create and assign it"
 msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
+#: src/Layouts/ItemRow.vala:2128
 msgid "Task description"
 msgstr ""
 
@@ -1746,6 +1755,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
 #: src/Services/Notification.vala:98 src/Services/Notification.vala:140
 #: src/Services/Notification.vala:194 src/Layouts/ItemBoard.vala:845
+#: src/Layouts/ItemBoard.vala:846
 msgid "Complete"
 msgstr ""
 
@@ -1878,6 +1888,7 @@ msgstr ""
 #: src/Views/Project/Project.vala:614 src/Views/Project/Project.vala:812
 #: src/Layouts/ItemSortFilter.vala:88 src/Layouts/ItemSortFilter.vala:280
 #: src/Views/Project/Project.vala:615 src/Views/Project/Project.vala:813
+#: src/Layouts/ItemBoard.vala:839
 msgid "No Date"
 msgstr ""
 
@@ -3173,7 +3184,7 @@ msgstr ""
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:517
-#: src/Layouts/ItemBoard.vala:841
+#: src/Layouts/ItemBoard.vala:841 src/Layouts/ItemBoard.vala:842
 msgid "Move"
 msgstr ""
 
@@ -3223,22 +3234,23 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:819 src/Layouts/ItemRow.vala:1245
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:173
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 msgid "Unpin"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
-#: src/Layouts/ItemBoard.vala:663
+#: src/Layouts/ItemBoard.vala:663 src/Layouts/ItemBoard.vala:664
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1268
-#: src/Layouts/ItemBoard.vala:844
+#: src/Layouts/ItemBoard.vala:844 src/Layouts/ItemBoard.vala:845
 msgid "Add Subtask"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1270
-#: src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemBoard.vala:847
 msgid "Edit"
 msgstr ""
 
@@ -3247,29 +3259,32 @@ msgstr ""
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
 #: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 #: src/Layouts/ItemBoard.vala:847 src/Layouts/SectionRow.vala:720
-#: src/Views/Project/Project.vala:394
+#: src/Views/Project/Project.vala:394 src/Layouts/ItemBoard.vala:848
 msgid "Duplicate"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1273
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:520
-#: src/Layouts/ItemBoard.vala:849
+#: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemBoard.vala:850
 msgid "Delete Task"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1952
-#: src/Layouts/ItemBoard.vala:1153
+#: src/Layouts/ItemBoard.vala:1153 src/Layouts/ItemBoard.vala:1154
+#: src/Layouts/ItemRow.vala:1964
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1678
-#: src/Layouts/ItemBoard.vala:1280
+#: src/Layouts/ItemBoard.vala:1280 src/Layouts/ItemBoard.vala:1281
+#: src/Layouts/ItemRow.vala:1690
 #, c-format
 msgid "%s was deleted"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1679
-#: src/Layouts/ItemBoard.vala:1281
+#: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemBoard.vala:1282
+#: src/Layouts/ItemRow.vala:1691
 msgid "Undo"
 msgstr ""
 
@@ -3314,12 +3329,12 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1654
+#: src/Layouts/ItemRow.vala:1654 src/Layouts/ItemRow.vala:1666
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1849
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
