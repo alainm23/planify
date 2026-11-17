@@ -309,7 +309,11 @@ public class Dialogs.Preferences.Pages.CalDAVSetup : Dialogs.Preferences.Pages.B
         } else {
             Services.LogService.get_default ().info ("CalDAVSetup", "Resolving well-known CalDAV endpoint");
             try {
-                dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (new Soup.Session () { timeout = Constants.SOUP_TIMEOUT }, server_entry.text, ignore_ssl_row.active, client_cert);
+                dav_endpoint = yield Services.CalDAV.Core.get_default ().resolve_well_known_caldav (
+                    new Soup.Session () {
+                        timeout = Constants.SOUP_TIMEOUT
+                    }, server_entry.text, ignore_ssl_row.active, client_cert
+                );
             } catch (Error e) {
                 if (e is GLib.IOError.CANCELLED) {
                     login_button.is_loading = false;

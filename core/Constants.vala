@@ -21,9 +21,6 @@
 
 namespace Constants {
     public const string SOUP_USER_AGENT = "Planify";
-    // Seconds without any network activity before a request fails. Without it a
-    // stuck connection (after sleep or a network change) waits forever and keeps
-    // the sync running and other requests queued behind it.
     public const uint SOUP_TIMEOUT = 30;
 #if DEVELOPMENT
     public const bool IS_DEVELOPMENT = true;
