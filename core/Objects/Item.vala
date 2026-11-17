@@ -2015,6 +2015,7 @@ public class Objects.Item : Objects.BaseObject {
 
         // Before saving, so CalDAV sends the reminders with their new time.
         shift_absolute_reminders (previous_due, due.datetime);
+        shift_deadline (previous_due, due.datetime);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -2080,6 +2081,24 @@ public class Objects.Item : Objects.BaseObject {
             var offset = reminder.due.datetime.difference (previous_due);
             reminder.due.date = Utils.Datetime.get_todoist_datetime_format (next_due.add (offset));
             Services.Store.instance ().update_reminder (reminder);
+        }
+    }
+
+    /*
+     * Moves the deadline with the task to its next occurrence, by the same number
+     * of days as the date, so it keeps the same distance from it. Counted in days
+     * so a daylight saving change doesn't move it to another day.
+     */
+    private void shift_deadline (GLib.DateTime previous_due, GLib.DateTime next_due) {
+        if (!has_deadline || deadline_datetime == null) {
+            return;
+        }
+
+        var diff = Utils.Datetime.get_date_only (next_due).difference (Utils.Datetime.get_date_only (previous_due));
+        int days = (int) ((diff >= 0 ? diff + TimeSpan.DAY / 2 : diff - TimeSpan.DAY / 2) / TimeSpan.DAY);
+
+        if (days != 0) {
+            deadline_date = deadline_datetime.add_days (days).to_string ();
         }
     }
 
