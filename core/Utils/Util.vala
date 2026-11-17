@@ -1227,6 +1227,18 @@ We hope you’ll enjoy using Planify!""");
             } else if (item1.has_due && !item2.has_due) {
                 result = -1;
             }
+        } else if (sorted_by == SortedByType.DEADLINE) {
+            // Like the date: earliest deadline first, tasks without one at the end.
+            if (item1.has_deadline && item2.has_deadline) {
+                result = item1.deadline_datetime.compare (item2.deadline_datetime);
+                if (result == 0) {
+                    result = item2.priority - item1.priority;
+                }
+            } else if (!item1.has_deadline && item2.has_deadline) {
+                result = 1;
+            } else if (item1.has_deadline && !item2.has_deadline) {
+                result = -1;
+            }
         } else if (sorted_by == SortedByType.ADDED_DATE) {
             result = item1.added_datetime.compare (item2.added_datetime);
         } else if (sorted_by == SortedByType.UPDATED_DATE) {
