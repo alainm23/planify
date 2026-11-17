@@ -21,6 +21,7 @@
 
 namespace Constants {
     public const string SOUP_USER_AGENT = "Planify";
+    public const uint SOUP_TIMEOUT = 30;
 #if DEVELOPMENT
     public const bool IS_DEVELOPMENT = true;
 #else

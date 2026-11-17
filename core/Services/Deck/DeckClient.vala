@@ -33,7 +33,9 @@ public class Services.Deck.DeckClient : Object {
         this.username = username;
         this.password = password;
         this.client_certificate = client_certificate;
-        this.session = new Soup.Session ();
+        this.session = new Soup.Session () {
+            timeout = Constants.SOUP_TIMEOUT
+        };
         this.session.user_agent = Constants.SOUP_USER_AGENT;
     }
 
