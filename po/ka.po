@@ -31,7 +31,7 @@ msgstr "ამოცანები"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:842
+#: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:843
 #: src/Layouts/ItemRow.vala:1266
 msgid "Labels"
 msgstr "ჭდეები"
@@ -140,7 +140,7 @@ msgid "Content"
 msgstr "შემცველობა"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
-#: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2118 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
 msgstr "აღწერა"
@@ -150,7 +150,7 @@ msgid "Scheduled"
 msgstr "დაგეგმილია"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
-#: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 #: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 msgid "Pin"
 msgstr "მიმაგრება"
@@ -288,7 +288,7 @@ msgstr "დაგეგმილია"
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:58
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:391
-#: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:830
+#: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:831
 #: src/Layouts/ItemRow.vala:1252 src/Layouts/ItemSortFilter.vala:83
 #: src/Layouts/ItemSortFilter.vala:265 src/Views/Project/Project.vala:610
 #: src/Views/Project/Project.vala:803 src/Views/Today.vala:213
@@ -303,7 +303,7 @@ msgstr "დღეს"
 #: core/Utils/Datetime.vala:776
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: core/Widgets/DeadlineButton.vala:223 src/Dialogs/DatePicker.vala:210
-#: src/Layouts/ItemBoard.vala:833 src/Layouts/ItemRow.vala:1255
+#: src/Layouts/ItemBoard.vala:834 src/Layouts/ItemRow.vala:1255
 msgid "Tomorrow"
 msgstr "ხვალ"
 
@@ -343,7 +343,7 @@ msgstr ""
 msgid "Task exported successfully"
 msgstr ""
 
-#: core/Objects/Item.vala:2235 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2254 core/Utils/Util.vala:891
 #, c-format
 msgid "Moved to %s"
 msgstr "გადატანილია %s-ში"
@@ -478,7 +478,7 @@ msgid "Add Reminders"
 msgstr "შემხსნებლების დამატება"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
-#: src/Layouts/ItemRow.vala:2183
+#: src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr "მიმაგრებული ფაილების დამატება"
 
@@ -1087,8 +1087,8 @@ msgstr "🏡️სახლი"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍️️გაგრძელების მოლოდინში"
 
-#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1303
-#: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
+#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1304
+#: src/Layouts/ItemRow.vala:1713 src/Layouts/ItemRow.vala:1857
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:493
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
@@ -1264,7 +1264,7 @@ msgstr "დრო"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
-#: src/Layouts/ItemBoard.vala:745 src/Layouts/ItemRow.vala:1194
+#: src/Layouts/ItemBoard.vala:746 src/Layouts/ItemRow.vala:1194
 msgid "until"
 msgstr "დასასრულის დრო"
 
@@ -1272,7 +1272,7 @@ msgstr "დასასრულის დრო"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemRow.vala:1197
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1197
 msgid "for"
 msgstr "ვისთვის"
 
@@ -1280,7 +1280,7 @@ msgstr "ვისთვის"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemRow.vala:1197
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1197
 msgid "times"
 msgstr "რამდენჯერ"
 
@@ -1288,7 +1288,7 @@ msgstr "რამდენჯერ"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
-#: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemRow.vala:1197
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1197
 msgid "time"
 msgstr "დრო"
 
@@ -1403,7 +1403,7 @@ msgid "After"
 msgstr "შემდეგ"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:903
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:904
 #: src/Layouts/ItemRow.vala:1350
 msgid "Apply"
 msgstr ""
@@ -1564,7 +1564,7 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr ""
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2128
 msgid "Task description"
 msgstr ""
 
@@ -1695,7 +1695,7 @@ msgid "To Do"
 msgstr "გასაკეთებელი"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemRow.vala:1269
+#: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemRow.vala:1269
 #: src/Services/Notification.vala:194
 msgid "Complete"
 msgstr "დასრულებულია"
@@ -1816,7 +1816,7 @@ msgstr[1] "ეს წაშლის %d დასრულებულ ამო
 msgid "Filter By"
 msgstr "ფილტრი"
 
-#: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:838
+#: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:839
 #: src/Layouts/ItemRow.vala:1262 src/Layouts/ItemSortFilter.vala:88
 #: src/Layouts/ItemSortFilter.vala:280 src/Views/Project/Project.vala:615
 #: src/Views/Project/Project.vala:813
@@ -3102,7 +3102,7 @@ msgid "Project added successfully!"
 msgstr "პროექტი წარმატებით დაემატა!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
-#: src/Layouts/ItemBoard.vala:841 src/Layouts/ItemRow.vala:1265
+#: src/Layouts/ItemBoard.vala:842 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:517
 msgid "Move"
 msgstr "გადატანა"
@@ -3149,47 +3149,47 @@ msgstr "სექცია დაემატა"
 msgid "Open/Close Sidebar"
 msgstr "გვერდითი პანელის გახსნა/დახურვა"
 
-#: src/Layouts/ItemBoard.vala:173 src/Layouts/ItemBoard.vala:823
-#: src/Layouts/ItemBoard.vala:836 src/Layouts/ItemRow.vala:1245
+#: src/Layouts/ItemBoard.vala:173 src/Layouts/ItemBoard.vala:824
+#: src/Layouts/ItemBoard.vala:837 src/Layouts/ItemRow.vala:1245
 #: src/Layouts/ItemRow.vala:1260
 msgid "Unpin"
 msgstr "ჩამოხსნა"
 
-#: src/Layouts/ItemBoard.vala:663 src/Layouts/ItemSidebarView.vala:697
+#: src/Layouts/ItemBoard.vala:664 src/Layouts/ItemSidebarView.vala:697
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "დასრულდა. შემდეგი დრო: %s"
 
-#: src/Layouts/ItemBoard.vala:844 src/Layouts/ItemRow.vala:1268
+#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemRow.vala:1268
 msgid "Add Subtask"
 msgstr "ქვეამოცანის დამატება"
 
-#: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemRow.vala:1270
+#: src/Layouts/ItemBoard.vala:847 src/Layouts/ItemRow.vala:1270
 msgid "Edit"
 msgstr "ჩასწორება"
 
-#: src/Layouts/ItemBoard.vala:847 src/Layouts/ItemRow.vala:1271
+#: src/Layouts/ItemBoard.vala:848 src/Layouts/ItemRow.vala:1271
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
 #: src/Layouts/SectionRow.vala:720 src/Views/Project/Project.vala:394
 msgid "Duplicate"
 msgstr "დუბლირება"
 
-#: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemRow.vala:1273
+#: src/Layouts/ItemBoard.vala:850 src/Layouts/ItemRow.vala:1273
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:520
 msgid "Delete Task"
 msgstr "ამოცანის წაშლა"
 
-#: src/Layouts/ItemBoard.vala:1153 src/Layouts/ItemRow.vala:1952
+#: src/Layouts/ItemBoard.vala:1154 src/Layouts/ItemRow.vala:1964
 msgid "Order changed to 'Custom sort order'"
 msgstr "მიმდევრობა შეიცვალა 'მორგებულ დალაგების მიმდევრობაზე'"
 
-#: src/Layouts/ItemBoard.vala:1280 src/Layouts/ItemRow.vala:1678
+#: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemRow.vala:1690
 #, c-format
 msgid "%s was deleted"
 msgstr "%s წაშლილია"
 
-#: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemRow.vala:1679
+#: src/Layouts/ItemBoard.vala:1282 src/Layouts/ItemRow.vala:1691
 msgid "Undo"
 msgstr "დაბრუნება"
 
@@ -3232,12 +3232,12 @@ msgstr ""
 msgid "Created: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1654
+#: src/Layouts/ItemRow.vala:1666
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1849
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
