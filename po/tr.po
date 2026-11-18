@@ -826,6 +826,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
+#: core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr "Çok Fazla İstek Gönderildi"
 
@@ -846,6 +847,7 @@ msgstr "Bu bilgisayarda"
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:742
 msgid "The request was incorrect."
 msgstr "İstek yanlış."
 
@@ -853,6 +855,7 @@ msgstr "İstek yanlış."
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:743
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Kimlik doğrulama gerekiyor ve başarısız oldu veya henüz sağlanmadı."
@@ -861,6 +864,7 @@ msgstr "Kimlik doğrulama gerekiyor ve başarısız oldu veya henüz sağlanmad�
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:744
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Talep geçerliydi, ancak yasaklanmış bir şeyle ilgiliydi."
 
@@ -868,6 +872,7 @@ msgstr "Talep geçerliydi, ancak yasaklanmış bir şeyle ilgiliydi."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:745
 msgid "The requested resource could not be found."
 msgstr "İstenen kaynak bulunamadı."
 
@@ -875,6 +880,7 @@ msgstr "İstenen kaynak bulunamadı."
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:746
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Kullanıcı belirli bir süre içinde çok fazla istek gönderdi."
 
@@ -882,6 +888,7 @@ msgstr "Kullanıcı belirli bir süre içinde çok fazla istek gönderdi."
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:747
 msgid "The request failed due to a server error."
 msgstr "Sunucu hatası nedeniyle istek başarısız oldu."
 
@@ -889,6 +896,7 @@ msgstr "Sunucu hatası nedeniyle istek başarısız oldu."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
+#: core/Services/Todoist/Todoist.vala:748
 msgid "The server is currently unable to handle the request."
 msgstr "Sunucu şu anda isteği işleyemiyor."
 
@@ -896,6 +904,7 @@ msgstr "Sunucu şu anda isteği işleyemiyor."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
+#: core/Services/Todoist/Todoist.vala:749
 msgid "Unknown error"
 msgstr "Bilinmeyen hata"
 
@@ -5147,6 +5156,15 @@ msgstr "%s · Sonraki olay"
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
 msgstr "Görev tekrar ettiğinde yeniden hatırlatılacak"
+
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
+msgstr ""
 
 # # c-format
 #, fuzzy, c-format

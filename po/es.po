@@ -785,6 +785,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
+#: core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr "Demasiadas solicitudes"
 
@@ -805,6 +806,7 @@ msgstr "En este equipo"
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:742
 msgid "The request was incorrect."
 msgstr "La solicitud no era correcta."
 
@@ -812,6 +814,7 @@ msgstr "La solicitud no era correcta."
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:743
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Se requiere autenticación, y ha fallado, o aún no se ha proporcionado."
@@ -820,6 +823,7 @@ msgstr "Se requiere autenticación, y ha fallado, o aún no se ha proporcionado.
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:744
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La petición era válida, pero para algo que está prohibido."
 
@@ -827,6 +831,7 @@ msgstr "La petición era válida, pero para algo que está prohibido."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:745
 msgid "The requested resource could not be found."
 msgstr "No se ha podido encontrar el recurso solicitado."
 
@@ -834,6 +839,7 @@ msgstr "No se ha podido encontrar el recurso solicitado."
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:746
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "El usuario ha enviado demasiadas solicitudes en un tiempo determinado."
 
@@ -841,6 +847,7 @@ msgstr "El usuario ha enviado demasiadas solicitudes en un tiempo determinado."
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:747
 msgid "The request failed due to a server error."
 msgstr "La solicitud ha fallado debido a un error del servidor."
 
@@ -848,6 +855,7 @@ msgstr "La solicitud ha fallado debido a un error del servidor."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
+#: core/Services/Todoist/Todoist.vala:748
 msgid "The server is currently unable to handle the request."
 msgstr "El servidor no puede procesar la solicitud."
 
@@ -855,6 +863,7 @@ msgstr "El servidor no puede procesar la solicitud."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
+#: core/Services/Todoist/Todoist.vala:749
 msgid "Unknown error"
 msgstr "Error desconocido"
 
@@ -4954,6 +4963,15 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
+msgstr ""
+
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
 msgstr ""
 
 #~ msgid "%a, %b %-e, %Y"

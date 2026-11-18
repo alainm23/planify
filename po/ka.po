@@ -844,6 +844,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
+#: core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr ""
 
@@ -862,6 +863,7 @@ msgstr "ამ კომპიუტერზე"
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:742
 msgid "The request was incorrect."
 msgstr "მოთხოვნა არასწორია."
 
@@ -869,6 +871,7 @@ msgstr "მოთხოვნა არასწორია."
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:743
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "ავტორიზაცია მოთხოვნილია, მაგრამ ჩავარდა, ან ჯერ შეყვანილი არაა."
@@ -877,6 +880,7 @@ msgstr "ავტორიზაცია მოთხოვნილია, მ
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:744
 msgid "The request was valid, but for something that is forbidden."
 msgstr "მოთხოვნა სწორია, მაგრამ მიეკუთვნება რაღაცას, რაც აკრძალულია."
 
@@ -884,6 +888,7 @@ msgstr "მოთხოვნა სწორია, მაგრამ მი�
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:745
 msgid "The requested resource could not be found."
 msgstr "მოთხოვნილი რესურსი აღმოჩენილი არაა."
 
@@ -891,6 +896,7 @@ msgstr "მოთხოვნილი რესურსი აღმოჩე�
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:746
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "მომხმარებელმა გამოაგზავნა მეტისმეტად ბევრი მოთხოვნა მითითებული დროის "
@@ -900,6 +906,7 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:747
 msgid "The request failed due to a server error."
 msgstr "მოთხოვნა ჩავარდა სერვერის შეცდომის გამო."
 
@@ -907,6 +914,7 @@ msgstr "მოთხოვნა ჩავარდა სერვერის 
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
+#: core/Services/Todoist/Todoist.vala:748
 msgid "The server is currently unable to handle the request."
 msgstr "სერვერს ამჟამად არ შეუძლია მოთხოვნის დამუშავება."
 
@@ -914,6 +922,7 @@ msgstr "სერვერს ამჟამად არ შეუძლია
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
+#: core/Services/Todoist/Todoist.vala:749
 msgid "Unknown error"
 msgstr "უცნობ შეცდომა"
 
@@ -5112,6 +5121,15 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
+msgstr ""
+
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
 msgstr ""
 
 #, fuzzy, c-format

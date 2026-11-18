@@ -663,7 +663,7 @@ msgid ""
 msgstr ""
 "Tvoja je sesija istekla. Ukloni i ponovo dodaj svoj račun u postavkama."
 
-#: core/Services/CalDAV/Core.vala:377
+#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr "Previše zahtjeva"
 
@@ -677,36 +677,45 @@ msgstr "Server ograničava broj zahtjeva. Pričekaj par minuta i pokušaj ponovo
 msgid "On this computer"
 msgstr "Na ovom računalu"
 
-#: core/Services/Todoist/Todoist.vala:610 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
+msgstr ""
+
+#: core/Services/Todoist/Todoist.vala:742 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "Zahtjev je bio neispravan."
 
-#: core/Services/Todoist/Todoist.vala:611 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:743 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autentifikacija je potrebna, i nije uspjela ili još nije navedena."
 
-#: core/Services/Todoist/Todoist.vala:612 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:744 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Zahtjev je bio ispravan, ali za nešto što je zabranjeno."
 
-#: core/Services/Todoist/Todoist.vala:613 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:745 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Zatraženi resurs nije pronađen."
 
-#: core/Services/Todoist/Todoist.vala:614 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:746 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Korisnik je poslao previše zahtjeva u određenom vremenu."
 
-#: core/Services/Todoist/Todoist.vala:615 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:747 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "Zahtjev nije uspio zbog greške servera."
 
-#: core/Services/Todoist/Todoist.vala:616 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:748 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Server trenutačno ne može obraditi zahtjev."
 
-#: core/Services/Todoist/Todoist.vala:617 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:749 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Nepoznata greška"
 

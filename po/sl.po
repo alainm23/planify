@@ -767,6 +767,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
+#: core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr "Preveč zahtev"
 
@@ -786,6 +787,7 @@ msgstr "Na tem računalniku"
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:742
 msgid "The request was incorrect."
 msgstr "Zahteva je bila napačna."
 
@@ -793,6 +795,7 @@ msgstr "Zahteva je bila napačna."
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:743
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Zahtevana je avtentikacija, ki ni uspela ali pa še ni bila opravljena."
@@ -801,6 +804,7 @@ msgstr "Zahtevana je avtentikacija, ki ni uspela ali pa še ni bila opravljena."
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:744
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Zahteva je bila veljavna, vendar za nekaj, kar je prepovedano."
 
@@ -808,6 +812,7 @@ msgstr "Zahteva je bila veljavna, vendar za nekaj, kar je prepovedano."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:745
 msgid "The requested resource could not be found."
 msgstr "Zahtevanega vira ni bilo mogoče najti."
 
@@ -815,6 +820,7 @@ msgstr "Zahtevanega vira ni bilo mogoče najti."
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:746
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Uporabnik je v danem časovnem obdobju poslal preveč zahtev."
 
@@ -822,6 +828,7 @@ msgstr "Uporabnik je v danem časovnem obdobju poslal preveč zahtev."
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:747
 msgid "The request failed due to a server error."
 msgstr "Zahteva ni uspela zaradi napake strežnika."
 
@@ -829,6 +836,7 @@ msgstr "Zahteva ni uspela zaradi napake strežnika."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
+#: core/Services/Todoist/Todoist.vala:748
 msgid "The server is currently unable to handle the request."
 msgstr "Strežnik trenutno ne more obdelati zahteve."
 
@@ -836,6 +844,7 @@ msgstr "Strežnik trenutno ne more obdelati zahteve."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
+#: core/Services/Todoist/Todoist.vala:749
 msgid "Unknown error"
 msgstr "Neznana napaka"
 
@@ -4804,6 +4813,15 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
+msgstr ""
+
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
 msgstr ""
 
 #~ msgid "%a, %b %-e"

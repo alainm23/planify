@@ -766,6 +766,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
+#: core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr ""
 
@@ -784,6 +785,7 @@ msgstr "Trên máy tính này"
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:742
 msgid "The request was incorrect."
 msgstr "Yêu cầu không đúng."
 
@@ -791,6 +793,7 @@ msgstr "Yêu cầu không đúng."
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:743
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Xác thực là bắt buộc, và đã thất bại, hoặc chưa được cung cấp."
@@ -799,6 +802,7 @@ msgstr "Xác thực là bắt buộc, và đã thất bại, hoặc chưa đư�
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:744
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Yêu cầu hợp lệ, nhưng cho thứ gì đó bị cấm."
 
@@ -806,6 +810,7 @@ msgstr "Yêu cầu hợp lệ, nhưng cho thứ gì đó bị cấm."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:745
 msgid "The requested resource could not be found."
 msgstr "Tài nguyên yêu cầu không tìm thấy."
 
@@ -813,6 +818,7 @@ msgstr "Tài nguyên yêu cầu không tìm thấy."
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:746
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Người dùng đã gửi quá nhiều yêu cầu trong khoảng thời gian nhất định."
 
@@ -820,6 +826,7 @@ msgstr "Người dùng đã gửi quá nhiều yêu cầu trong khoảng thời 
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:747
 msgid "The request failed due to a server error."
 msgstr "Yêu cầu thất bại do lỗi máy chủ."
 
@@ -827,6 +834,7 @@ msgstr "Yêu cầu thất bại do lỗi máy chủ."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
+#: core/Services/Todoist/Todoist.vala:748
 msgid "The server is currently unable to handle the request."
 msgstr "Máy chủ hiện không thể xử lý yêu cầu."
 
@@ -834,6 +842,7 @@ msgstr "Máy chủ hiện không thể xử lý yêu cầu."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
+#: core/Services/Todoist/Todoist.vala:749
 msgid "Unknown error"
 msgstr "Lỗi không xác định"
 
@@ -4861,6 +4870,15 @@ msgstr ""
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
+msgstr ""
+
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
 msgstr ""
 
 #~ msgid "%a, %b %-e, %Y"

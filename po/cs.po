@@ -766,6 +766,7 @@ msgstr "Vaše relace vypršela. Odeberte a znovu přidejte svůj účet v nastav
 
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
+#: core/Services/Todoist/Todoist.vala:152
 msgid "Too Many Requests"
 msgstr "Příliš mnoho požadavků"
 
@@ -786,6 +787,7 @@ msgstr "Na tomto počítači"
 #: core/Services/Todoist/Todoist.vala:606
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
+#: core/Services/Todoist/Todoist.vala:742
 msgid "The request was incorrect."
 msgstr "Požadavek byl nesprávný."
 
@@ -793,6 +795,7 @@ msgstr "Požadavek byl nesprávný."
 #: core/Services/Todoist/Todoist.vala:607
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
+#: core/Services/Todoist/Todoist.vala:743
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Je vyžadována autentizace, která selhala nebo dosud nebyla poskytnuta."
@@ -801,6 +804,7 @@ msgstr "Je vyžadována autentizace, která selhala nebo dosud nebyla poskytnuta
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
+#: core/Services/Todoist/Todoist.vala:744
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Požadavek byl platný, ale žádal o něco, co je zakázané."
 
@@ -808,6 +812,7 @@ msgstr "Požadavek byl platný, ale žádal o něco, co je zakázané."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
+#: core/Services/Todoist/Todoist.vala:745
 msgid "The requested resource could not be found."
 msgstr "Požadovaný zdroj nebyl nalezen."
 
@@ -815,6 +820,7 @@ msgstr "Požadovaný zdroj nebyl nalezen."
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
+#: core/Services/Todoist/Todoist.vala:746
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Uživatel odeslal v daném časovém úseku příliš mnoho požadavků."
 
@@ -822,6 +828,7 @@ msgstr "Uživatel odeslal v daném časovém úseku příliš mnoho požadavků.
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
+#: core/Services/Todoist/Todoist.vala:747
 msgid "The request failed due to a server error."
 msgstr "Požadavek selhal kvůli chybě serveru."
 
@@ -829,6 +836,7 @@ msgstr "Požadavek selhal kvůli chybě serveru."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
+#: core/Services/Todoist/Todoist.vala:748
 msgid "The server is currently unable to handle the request."
 msgstr "Server momentálně není schopen požadavek zpracovat."
 
@@ -836,6 +844,7 @@ msgstr "Server momentálně není schopen požadavek zpracovat."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
+#: core/Services/Todoist/Todoist.vala:749
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
@@ -4708,6 +4717,15 @@ msgstr "%s · Další výskyt"
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
 msgstr "Připomeneme Vám to znovu, až se úkol bude opakovat"
+
+#: core/Services/Todoist/Todoist.vala:154
+#, c-format
+msgid ""
+"Todoist is limiting how often Planify can sync.\n"
+"Syncing will resume automatically at %s.\n"
+"Changes you make in the meantime are saved\n"
+"and will be synced then."
+msgstr ""
 
 #~ msgid "Clear"
 #~ msgstr "Vyčistit"
