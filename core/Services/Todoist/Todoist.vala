@@ -88,13 +88,13 @@ public class Services.Todoist : GLib.Object {
         GLib.Bytes stream = yield session.send_and_read_async (message, priority, null);
 
         if (message.status_code == 429) {
-            int64 seconds = parse_retry_after (message.response_headers.get_one ("Retry-After"));
-            if (seconds <= 0) {
-                // 1, 2, 4, 8, 16 min, then 30 min.
-                int level = backoff_level.has_key (key) ? backoff_level[key] : 0;
-                seconds = int64.min (BACKOFF_MIN_SECONDS << int.min (level, 5), BACKOFF_MAX_SECONDS);
-                backoff_level[key] = level + 1;
-            }
+            // Todoist sends very short Retry-After values (2, 3, 4 s...) even though the quota
+            // only frees up as the 15 min window moves, so wait for the larger of that value
+            // and our own backoff: 1, 2, 4, 8, 16 min, then 30 min.
+            int level = backoff_level.has_key (key) ? backoff_level[key] : 0;
+            int64 backoff = int64.min (BACKOFF_MIN_SECONDS << int.min (level, 5), BACKOFF_MAX_SECONDS);
+            int64 seconds = int64.max (parse_retry_after (message.response_headers.get_one ("Retry-After")), backoff);
+            backoff_level[key] = level + 1;
 
             block (key, seconds);
             throw new Services.TodoistError.RATE_LIMITED ("Rate limited by Todoist (HTTP 429), retrying in %lld s".printf (seconds));
@@ -142,10 +142,16 @@ public class Services.Todoist : GLib.Object {
     }
 
     private void report_rate_limited (Objects.Source source, int64 seconds) {
+        // A clock time instead of a countdown: the tooltip is static text.
+        string resume_at = new GLib.DateTime.now_local ()
+            .add_seconds ((double) int64.max (seconds, 1))
+            .format (Utils.Datetime.get_default_time_format ());
+
         source.sync_status = new SyncStatus (
             SyncErrorType.SERVER_ERROR,
             _("Too Many Requests"),
-            _("The server is rate limiting requests. Please wait a few minutes and try again.")
+            // TRANSLATORS: %s is a time, e.g. "14:02"
+            _("Todoist is limiting how often Planify can sync.\nSyncing will resume automatically at %s.\nChanges you make in the meantime are saved\nand will be synced then.").printf (resume_at)
         );
         source.sync_failed (source.sync_status);
         schedule_retry_sync (source, seconds);
@@ -228,7 +234,8 @@ public class Services.Todoist : GLib.Object {
         int64 waiting = rate_limit_remaining (message);
         if (waiting > 0) {
             Services.LogService.get_default ().info ("Todoist", "Rate limited, skipping sync for '%s' (%lld s left)".printf (source.display_name, waiting));
-            schedule_retry_sync (source, waiting);
+            // Show again why it doesn't sync (e.g. the user pressed the sync button).
+            report_rate_limited (source, waiting);
             return;
         }
 
