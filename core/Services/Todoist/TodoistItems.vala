@@ -49,7 +49,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -77,7 +77,8 @@ public class Services.TodoistItems : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
                 debug_error (message.status_code, e.message);
             } else {
@@ -121,7 +122,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -146,7 +147,8 @@ public class Services.TodoistItems : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
                 debug_error (message.status_code, e.message);
             } else {
@@ -183,7 +185,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -208,7 +210,8 @@ public class Services.TodoistItems : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
                 debug_error (message.status_code, e.message);
             } else {
@@ -246,7 +249,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -286,7 +289,8 @@ public class Services.TodoistItems : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
                 debug_error (message.status_code, e.message);
             } else {
@@ -324,7 +328,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -349,7 +353,8 @@ public class Services.TodoistItems : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
                 debug_error (message.status_code, e.message);
             } else {
@@ -387,7 +392,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -412,7 +417,8 @@ public class Services.TodoistItems : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
                 debug_error (message.status_code, e.message);
             } else {
@@ -452,7 +458,7 @@ public class Services.TodoistItems : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 

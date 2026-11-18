@@ -19,9 +19,20 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
+public errordomain Services.TodoistError {
+    RATE_LIMITED
+}
+
 public class Services.Todoist : GLib.Object {
     private Soup.Session session;
-    // Sources with a sync in progress.
+
+    private Gee.HashMap<string, int64?> blocked_until = new Gee.HashMap<string, int64?> ();
+    private Gee.HashMap<string, int> backoff_level = new Gee.HashMap<string, int> ();
+
+    private Gee.HashSet<string> retry_scheduled = new Gee.HashSet<string> ();
+    private const int64 BACKOFF_MIN_SECONDS = 60;
+    private const int64 BACKOFF_MAX_SECONDS = 30 * 60;
+
     private Gee.HashSet<string> syncing_sources = new Gee.HashSet<string> ();
     private TodoistAuth _auth;
     private TodoistItems _items;
@@ -50,6 +61,100 @@ public class Services.Todoist : GLib.Object {
         _auth = new TodoistAuth (session);
         _items = new TodoistItems (session);
         _projects = new TodoistProjects (session);
+    }
+
+    private string rate_limit_key (Soup.Message message) {
+        return message.request_headers.get_one ("Authorization") ?? "";
+    }
+
+    public int64 rate_limit_remaining (Soup.Message message) {
+        string key = rate_limit_key (message);
+        if (!blocked_until.has_key (key)) {
+            return 0;
+        }
+
+        int64 remaining = ((int64) blocked_until[key] - GLib.get_real_time ()) / TimeSpan.SECOND;
+        return remaining > 0 ? remaining : 0;
+    }
+
+    public async GLib.Bytes send_request (Soup.Message message, int priority = GLib.Priority.DEFAULT) throws GLib.Error {
+        string key = rate_limit_key (message);
+
+        int64 remaining = rate_limit_remaining (message);
+        if (remaining > 0) {
+            throw new Services.TodoistError.RATE_LIMITED ("Rate limited by Todoist, retrying in %lld s".printf (remaining));
+        }
+
+        GLib.Bytes stream = yield session.send_and_read_async (message, priority, null);
+
+        if (message.status_code == 429) {
+            // Todoist sends very short Retry-After values (2, 3, 4 s...) even though the quota
+            // only frees up as the 15 min window moves, so wait for the larger of that value
+            // and our own backoff: 1, 2, 4, 8, 16 min, then 30 min.
+            int level = backoff_level.has_key (key) ? backoff_level[key] : 0;
+            int64 backoff = int64.min (BACKOFF_MIN_SECONDS << int.min (level, 5), BACKOFF_MAX_SECONDS);
+            int64 seconds = int64.max (parse_retry_after (message.response_headers.get_one ("Retry-After")), backoff);
+            backoff_level[key] = level + 1;
+
+            block (key, seconds);
+            throw new Services.TodoistError.RATE_LIMITED ("Rate limited by Todoist (HTTP 429), retrying in %lld s".printf (seconds));
+        }
+
+        backoff_level.unset (key);
+        blocked_until.unset (key);
+        return stream;
+    }
+
+    private void block (string key, int64 seconds) {
+        blocked_until[key] = GLib.get_real_time () + seconds * TimeSpan.SECOND;
+        Services.LogService.get_default ().warn ("Todoist", "Rate limited, pausing requests for %lld s".printf (seconds));
+    }
+
+    private int64 parse_retry_after (string? value) {
+        if (value == null) {
+            return 0;
+        }
+
+        int64 seconds;
+        if (int64.try_parse (value.strip (), out seconds) && seconds > 0) {
+            return int64.min (seconds, BACKOFF_MAX_SECONDS * 4);
+        }
+
+        return 0;
+    }
+
+    public static bool is_rate_limited_error (GLib.Error e) {
+        return e is Services.TodoistError.RATE_LIMITED;
+    }
+
+    private void schedule_retry_sync (Objects.Source source, int64 seconds) {
+        if (source.id in retry_scheduled) {
+            return;
+        }
+
+        retry_scheduled.add (source.id);
+        Timeout.add_seconds ((uint) int64.max (seconds, 1) + 1, () => {
+            retry_scheduled.remove (source.id);
+            Services.LogService.get_default ().info ("Todoist", "Rate limit over, syncing '%s'".printf (source.display_name));
+            sync.begin (source);
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private void report_rate_limited (Objects.Source source, int64 seconds) {
+        // A clock time instead of a countdown: the tooltip is static text.
+        string resume_at = new GLib.DateTime.now_local ()
+            .add_seconds ((double) int64.max (seconds, 1))
+            .format (Utils.Datetime.get_default_time_format ());
+
+        source.sync_status = new SyncStatus (
+            SyncErrorType.SERVER_ERROR,
+            _("Too Many Requests"),
+            // TRANSLATORS: %s is a time, e.g. "14:02"
+            _("Todoist is limiting how often Planify can sync.\nSyncing will resume automatically at %s.\nChanges you make in the meantime are saved\nand will be synced then.").printf (resume_at)
+        );
+        source.sync_failed (source.sync_status);
+        schedule_retry_sync (source, seconds);
     }
 
     /*
@@ -121,24 +226,41 @@ public class Services.Todoist : GLib.Object {
             return;
         }
 
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
+
+        // Still rate limited: don't even start (no spinner, no request). A sync is
+        // already scheduled for when the limit ends.
+        int64 waiting = rate_limit_remaining (message);
+        if (waiting > 0) {
+            Services.LogService.get_default ().info ("Todoist", "Rate limited, skipping sync for '%s' (%lld s left)".printf (source.display_name, waiting));
+            // Show again why it doesn't sync (e.g. the user pressed the sync button).
+            report_rate_limited (source, waiting);
+            return;
+        }
+
         syncing_sources.add (source.id);
 
         source.sync_started ();
-
-        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
-        message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
 
         string form_data = "sync_token=%s&resource_types=%s".printf (
             source.todoist_data.sync_token, RESOURCE_TYPES
         );
         message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
 
+        bool synced = false;
+
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
+            GLib.Bytes stream = yield send_request (message, GLib.Priority.LOW);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
-            if (!parser.get_root ().get_object ().has_member ("error")) {
+            if (is_todoist_error (message.status_code) || parser.get_root ().get_object ().has_member ("error")) {
+                // An error answer used to be treated as a successful sync.
+                Services.LogService.get_default ().error ("Todoist", "Sync failed: HTTP %u".printf (message.status_code));
+                source.sync_failed ();
+            } else {
+                synced = true;
                 source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
 
                 if (parser.get_root ().get_object ().has_member ("user")) {
@@ -244,12 +366,21 @@ public class Services.Todoist : GLib.Object {
                 yield queue (source);
             }
         } catch (Error e) {
-            Services.LogService.get_default ().error ("Todoist", "Failed to sync: %s".printf (e.message));
-            source.sync_failed ();
+            if (is_rate_limited_error (e)) {
+                Services.LogService.get_default ().warn ("Todoist", "Sync paused: %s".printf (e.message));
+                report_rate_limited (source, rate_limit_remaining (message));
+            } else {
+                Services.LogService.get_default ().error ("Todoist", "Failed to sync: %s".printf (e.message));
+                source.sync_failed ();
+            }
         }
 
-        source.last_sync = new GLib.DateTime.now_local ().to_string ();
-        source.save ();
+        // Only a successful sync counts as the last sync and stores the new token.
+        if (synced) {
+            source.sync_status = null;
+            source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            source.save ();
+        }
 
         foreach (var project in Services.Store.instance ().get_projects_by_source (source.id)) {
             project.freeze_update = false;
@@ -289,7 +420,8 @@ public class Services.Todoist : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
+            // Throws on 429 / while rate limited, so the queued commands stay for later.
+            GLib.Bytes stream = yield send_request (message, GLib.Priority.LOW);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
