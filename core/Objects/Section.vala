@@ -563,6 +563,7 @@ public class Objects.Section : Objects.BaseObject {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             yield delete_item_caldav_recursive (subitem, caldav_client);
         }
-        yield caldav_client.delete_item (item);
+        
+        yield caldav_client.delete_item_online (item);
     }
 }

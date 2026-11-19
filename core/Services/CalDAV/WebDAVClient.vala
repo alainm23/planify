@@ -141,7 +141,9 @@ public class Services.CalDAV.WebDAVClient : GLib.Object {
                 Services.LogService.get_default ().info ("WebDAV", "Request cancelled");
                 throw e;
             }
-            throw new GLib.IOError.FAILED ("Request failed: %s".printf (e.message));
+            // No answer from the server (no network, DNS, timeout): a distinct error so
+            // writes can be kept for later instead of failing.
+            throw new GLib.IOError.NOT_CONNECTED ("Request failed: %s".printf (e.message));
         }
 
         bool ok = false;
