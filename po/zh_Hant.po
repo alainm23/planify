@@ -640,7 +640,7 @@ msgid ""
 "Preferences."
 msgstr "您的工作階段已經過期。請在 偏好設定 中移除，並重新添加您的帳戶。"
 
-#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:154
+#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr "請求過多"
 
@@ -654,7 +654,7 @@ msgstr "伺服器正在限制請求速率。請等待幾分鐘，然後再試一
 msgid "On this computer"
 msgstr "在此台電腦上"
 
-#: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -663,36 +663,36 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:1020 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:1054 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "所提請求不正確。"
 
-#: core/Services/Todoist/Todoist.vala:1021 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:1055 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "需要身份驗證，但遭失敗，或是尚未提供。"
 
-#: core/Services/Todoist/Todoist.vala:1022 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:1056 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "該請求是有效的，但因某些事物是禁止的。"
 
-#: core/Services/Todoist/Todoist.vala:1023 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:1057 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "所提請求的資源無法找到。"
 
-#: core/Services/Todoist/Todoist.vala:1024 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:1058 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "使用者在給定時間內發送過多請求。"
 
-#: core/Services/Todoist/Todoist.vala:1025 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:1059 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "由於伺服器錯誤，請求失敗。"
 
-#: core/Services/Todoist/Todoist.vala:1026 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:1060 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "伺服器目前無法處理該請求。"
 
-#: core/Services/Todoist/Todoist.vala:1027 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:1061 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "不明錯誤"
 
