@@ -665,7 +665,6 @@ public class Services.Todoist : GLib.Object {
             parser.load_from_data ((string) stream.get_data ());
 
             var node = parser.get_root ().get_object ();
-            source.todoist_data.sync_token = node.get_string_member ("sync_token");
 
             foreach (var q in queue_collection) {
                 var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
