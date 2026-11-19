@@ -433,7 +433,12 @@ public class Objects.Project : Objects.BaseObject {
             description = node.get_object ().get_string_member ("description");
         }
 
-        shared = node.get_object ().get_boolean_member ("shared");
+        // Todoist API v1 renamed "shared" to "is_shared".
+        if (node.get_object ().has_member ("is_shared")) {
+            shared = node.get_object ().get_boolean_member ("is_shared");
+        } else if (node.get_object ().has_member ("shared")) {
+            shared = node.get_object ().get_boolean_member ("shared");
+        }
 
         view_style = node.get_object ().get_string_member ("view_style") == "board" ?
                      ProjectViewStyle.BOARD : ProjectViewStyle.LIST;

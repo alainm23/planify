@@ -46,6 +46,8 @@ public class Services.Todoist : GLib.Object {
     private const string LABELS_COLLECTION = "labels";
     private const string REMINDERS_COLLECTION = "reminders";
 
+    private const int64 FULL_SYNC_MAX_AGE_SECONDS = 10 * 60;
+
     private static Todoist ? _instance;
     public static Todoist get_default () {
         if (_instance == null) {
@@ -177,10 +179,242 @@ public class Services.Todoist : GLib.Object {
      * Sync
      */
 
+    private static bool node_is_deleted (Json.Node node) {
+        unowned Json.Object object = node.get_object ();
+        return object.has_member ("is_deleted") && object.get_boolean_member ("is_deleted");
+    }
+
+    private Gee.HashSet<string> collect_snapshot_ids (Json.Object root, string member) {
+        var ids = new Gee.HashSet<string> ();
+        if (!root.has_member (member)) {
+            return ids;
+        }
+
+        foreach (unowned Json.Node node in root.get_array_member (member).get_elements ()) {
+            if (!node_is_deleted (node)) {
+                ids.add (node.get_object ().get_string_member ("id"));
+            }
+        }
+
+        return ids;
+    }
+
+    // Big accounts may get a snapshot generated a while ago, without the newest objects.
+    private bool is_full_sync_recent (Json.Object root) {
+        if (!root.has_member ("full_sync_date_utc")) {
+            return true;
+        }
+
+        string? value = root.get_string_member ("full_sync_date_utc");
+        if (value == null) {
+            return true;
+        }
+
+        var generated = new GLib.DateTime.from_iso8601 (value, new GLib.TimeZone.utc ());
+        if (generated == null) {
+            return false;
+        }
+
+        int64 age = new GLib.DateTime.now_utc ().difference (generated) / TimeSpan.SECOND;
+        return age <= FULL_SYNC_MAX_AGE_SECONDS;
+    }
+
+    private bool is_pending_upload (string id, Gee.HashSet<string> queued_ids) {
+        return id in queued_ids || Services.Database.get_default ().curTempIds_exists (id);
+    }
+
+    // Completed tasks and archived containers are not part of a full sync.
+    private bool is_missing_by_design (Objects.Item item) {
+        if (item.project.is_archived) {
+            return true;
+        }
+
+        if (item.has_section && item.section != null && item.section.is_archived) {
+            return true;
+        }
+
+        Objects.Item? current = item;
+        while (current != null) {
+            if (current.checked) {
+                return true;
+            }
+
+            current = current.has_parent ? current.parent : null;
+        }
+
+        return false;
+    }
+
+    private async void remove_missing_after_full_sync (Objects.Source source, Json.Object root) {
+        if (!is_full_sync_recent (root)) {
+            Services.LogService.get_default ().warn ("Todoist", "Full sync data is not recent, not removing missing objects");
+            return;
+        }
+
+        var project_ids = collect_snapshot_ids (root, PROJECTS_COLLECTION);
+        var section_ids = collect_snapshot_ids (root, SECTIONS_COLLECTION);
+        var item_ids = collect_snapshot_ids (root, ITEMS_COLLECTION);
+        var label_ids = collect_snapshot_ids (root, LABELS_COLLECTION);
+        var reminder_ids = collect_snapshot_ids (root, REMINDERS_COLLECTION);
+
+        // Every account has at least the Inbox: no projects means a bad answer, not an empty account.
+        if (project_ids.size == 0) {
+            Services.LogService.get_default ().warn ("Todoist", "Full sync without projects, not removing missing objects");
+            return;
+        }
+
+        var queued_ids = new Gee.HashSet<string> ();
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            queued_ids.add (q.object_id);
+        }
+
+        var store = Services.Store.instance ();
+
+        // Collect first, delete later: the Store lists change while deleting.
+        var reminders = new Gee.ArrayList<Objects.Reminder> ();
+        foreach (Objects.Reminder reminder in store.reminders) {
+            if (reminder.id in reminder_ids || is_pending_upload (reminder.id, queued_ids)) {
+                continue;
+            }
+
+            Objects.Item? item = store.get_item (reminder.item_id);
+            if (item == null || item.project == null || item.project.source_id != source.id || is_missing_by_design (item)) {
+                continue;
+            }
+
+            reminders.add (reminder);
+        }
+
+        var items = new Gee.ArrayList<Objects.Item> ();
+        foreach (Objects.Item item in store.items) {
+            if (item.project == null || item.project.source_id != source.id) {
+                continue;
+            }
+
+            if (item.id in item_ids || is_pending_upload (item.id, queued_ids) || is_missing_by_design (item)) {
+                continue;
+            }
+
+            // Deleting a task also deletes its subtasks: keep it if one of them is still on the server.
+            bool has_live_subitem = false;
+            foreach (Objects.Item subitem in store.get_subitems (item)) {
+                if (subitem.id in item_ids || is_pending_upload (subitem.id, queued_ids)) {
+                    has_live_subitem = true;
+                    break;
+                }
+            }
+
+            if (!has_live_subitem) {
+                items.add (item);
+            }
+        }
+
+        var sections = new Gee.ArrayList<Objects.Section> ();
+        foreach (Objects.Section section in store.sections) {
+            Objects.Project? project = store.get_project (section.project_id);
+            if (project == null || project.source_id != source.id || project.is_archived || section.is_archived) {
+                continue;
+            }
+
+            if (section.id in section_ids || is_pending_upload (section.id, queued_ids)) {
+                continue;
+            }
+
+            bool has_live_item = false;
+            foreach (Objects.Item item in section.items) {
+                if (item.id in item_ids || is_pending_upload (item.id, queued_ids)) {
+                    has_live_item = true;
+                    break;
+                }
+            }
+
+            if (!has_live_item) {
+                sections.add (section);
+            }
+        }
+
+        var projects = new Gee.ArrayList<Objects.Project> ();
+        foreach (Objects.Project project in store.get_projects_by_source (source.id)) {
+            if (project.id in project_ids || project.is_archived || project.inbox_project ||
+                is_pending_upload (project.id, queued_ids)) {
+                continue;
+            }
+
+            bool has_live_child = false;
+            foreach (Objects.Project subproject in store.get_subprojects (project)) {
+                if (subproject.id in project_ids || is_pending_upload (subproject.id, queued_ids)) {
+                    has_live_child = true;
+                }
+            }
+
+            foreach (Objects.Section section in store.get_sections_by_project (project)) {
+                if (section.id in section_ids || is_pending_upload (section.id, queued_ids)) {
+                    has_live_child = true;
+                }
+            }
+
+            foreach (Objects.Item item in store.get_items_by_project (project)) {
+                if (item.id in item_ids || is_pending_upload (item.id, queued_ids)) {
+                    has_live_child = true;
+                }
+            }
+
+            if (!has_live_child) {
+                projects.add (project);
+            }
+        }
+
+        var labels = new Gee.ArrayList<Objects.Label> ();
+        foreach (Objects.Label label in store.get_labels_by_source (source.id)) {
+            if (!(label.id in label_ids) && !is_pending_upload (label.id, queued_ids)) {
+                labels.add (label);
+            }
+        }
+
+        // Children first. A parent deletion may already have removed some of them.
+        var log = Services.LogService.get_default ();
+
+        foreach (Objects.Reminder reminder in reminders) {
+            log.debug ("Todoist", "Full sync: removing reminder %s".printf (reminder.id));
+            store.delete_reminder (reminder);
+        }
+
+        foreach (Objects.Item item in items) {
+            if (store.get_item (item.id) != null) {
+                log.debug ("Todoist", "Full sync: removing task '%s' (%s)".printf (item.content, item.id));
+                store.delete_item (item);
+            }
+        }
+
+        foreach (Objects.Section section in sections) {
+            if (store.get_section (section.id) != null) {
+                log.debug ("Todoist", "Full sync: removing section '%s' (%s)".printf (section.name, section.id));
+                store.delete_section (section);
+            }
+        }
+
+        foreach (Objects.Project project in projects) {
+            if (store.get_project (project.id) != null) {
+                log.debug ("Todoist", "Full sync: removing project '%s' (%s)".printf (project.name, project.id));
+                yield store.delete_project (project);
+            }
+        }
+
+        foreach (Objects.Label label in labels) {
+            log.debug ("Todoist", "Full sync: removing label '%s' (%s)".printf (label.name, label.id));
+            store.delete_label (label);
+        }
+
+        Services.LogService.get_default ().info ("Todoist",
+            "Full sync: removed %d projects, %d sections, %d tasks, %d labels, %d reminders missing on the server".printf (
+                projects.size, sections.size, items.size, labels.size, reminders.size
+            ));
+    }
+
     private void process_item_node (Json.Node _node) {
         Objects.Item ? item = Services.Store.instance ().get_item (_node.get_object ().get_string_member ("id"));
         if (item != null) {
-            if (_node.get_object ().get_boolean_member ("is_deleted")) {
+            if (node_is_deleted (_node)) {
                 Services.Store.instance ().delete_item (item);
             } else {
                 string old_project_id = item.project_id;
@@ -277,7 +511,7 @@ public class Services.Todoist : GLib.Object {
                     string _id = _node.get_object ().get_string_member ("id");
                     Objects.Label ? label = Services.Store.instance ().get_label (_id);
                     if (label != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_label (label);
                         } else {
                             label.update_from_json (_node);
@@ -295,7 +529,7 @@ public class Services.Todoist : GLib.Object {
                 foreach (unowned Json.Node _node in projects.get_elements ()) {
                     Objects.Project ? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("id"));
                     if (project != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_project (project);
                         } else {
                             string old_parent_id = project.parent_id;
@@ -328,7 +562,7 @@ public class Services.Todoist : GLib.Object {
                 foreach (unowned Json.Node _node in sections.get_elements ()) {
                     Objects.Section ? section = Services.Store.instance ().get_section (_node.get_object ().get_string_member ("id"));
                     if (section != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_section (section);
                         } else {
                             section.update_from_json (_node);
@@ -351,7 +585,7 @@ public class Services.Todoist : GLib.Object {
                     Objects.Reminder ? reminder = Services.Store.instance ().get_reminder (_node.get_object ().get_string_member ("id"));
 
                     if (reminder != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_reminder (reminder);
                         }
                     } else {
@@ -361,6 +595,11 @@ public class Services.Todoist : GLib.Object {
                             item.add_reminder_if_not_exists (reminder);
                         }
                     }
+                }
+
+                unowned Json.Object root = parser.get_root ().get_object ();
+                if (root.has_member ("full_sync") && root.get_boolean_member ("full_sync")) {
+                    yield remove_missing_after_full_sync (source, root);
                 }
 
                 yield queue (source);
