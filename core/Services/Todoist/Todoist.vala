@@ -48,6 +48,9 @@ public class Services.Todoist : GLib.Object {
 
     private const int64 FULL_SYNC_MAX_AGE_SECONDS = 10 * 60;
 
+    private const int QUEUE_BATCH_SIZE = 100;
+    private const int QUEUE_MAX_BATCHES = 10;
+
     private static Todoist ? _instance;
     public static Todoist get_default () {
         if (_instance == null) {
@@ -644,15 +647,35 @@ public class Services.Todoist : GLib.Object {
         }
 
         _queue_running = true;
-        Gee.ArrayList<Objects.Queue ?> queue_collection = Services.Database.get_default ().get_all_queue (source.id);
-        if (queue_collection.size <= 0) {
-            _queue_running = false;
-            return;
+
+        for (int batch_number = 1; batch_number <= QUEUE_MAX_BATCHES; batch_number++) {
+            Gee.ArrayList<Objects.Queue ?> pending = Services.Database.get_default ().get_all_queue (source.id);
+            if (pending.size <= 0) {
+                break;
+            }
+
+            var batch = new Gee.ArrayList<Objects.Queue ?> ();
+            for (int i = 0; i < pending.size && i < QUEUE_BATCH_SIZE; i++) {
+                batch.add (pending[i]);
+            }
+
+            Services.LogService.get_default ().info ("Todoist", "Flushing queue: batch %d (%d of %d commands)".printf (
+                batch_number, batch.size, pending.size
+            ));
+
+            if (!yield flush_queue_batch (source, batch)) {
+                break;
+            }
         }
 
+        _queue_running = false;
+    }
+
+    private async bool flush_queue_batch (Objects.Source source, Gee.ArrayList<Objects.Queue ?> queue_collection) {
         string json = get_queue_json (queue_collection, source.todoist_data.sync_token);
-        Services.LogService.get_default ().info ("Todoist", "Flushing queue: %d items".printf (queue_collection.size));
         Services.LogService.get_default ().debug ("Todoist", "Queue JSON: %s".printf (json));
+
+        bool all_done = true;
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
@@ -671,8 +694,7 @@ public class Services.Todoist : GLib.Object {
                 root.get_node_type () != Json.NodeType.OBJECT || !root.get_object ().has_member ("sync_status")) {
                 Services.LogService.get_default ().warn ("Todoist",
                     "Queue not sent (HTTP %u), keeping %d commands".printf (message.status_code, queue_collection.size));
-                _queue_running = false;
-                return;
+                return false;
             }
 
             var node = root.get_object ();
@@ -688,6 +710,7 @@ public class Services.Todoist : GLib.Object {
                 if (!sync_status.has_member (q.uuid)) {
                     Services.LogService.get_default ().warn ("Todoist", "No status for queue item %s (%s), keeping it".printf (q.uuid, q.query));
                     keep_failed = true;
+                    all_done = false;
                     continue;
                 }
 
@@ -700,6 +723,8 @@ public class Services.Todoist : GLib.Object {
                         if (temp_id_mapping.has_member (q.temp_id)) {
                             var id = temp_id_mapping.get_string_member (q.temp_id);
                             Services.Store.instance ().update_project_id (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.temp_id, id);
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for project_add: %s".printf (q.temp_id));
@@ -711,6 +736,8 @@ public class Services.Todoist : GLib.Object {
                         if (temp_id_mapping.has_member (q.temp_id)) {
                             var id = temp_id_mapping.get_string_member (q.temp_id);
                             Services.Store.instance ().update_section_id (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.temp_id, id);
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for section_add: %s".printf (q.temp_id));
@@ -722,6 +749,8 @@ public class Services.Todoist : GLib.Object {
                         if (temp_id_mapping.has_member (q.temp_id)) {
                             var id = temp_id_mapping.get_string_member (q.temp_id);
                             Services.Store.instance ().update_item_id (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.temp_id, id);
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for item_add: %s".printf (q.temp_id));
@@ -730,6 +759,8 @@ public class Services.Todoist : GLib.Object {
                     }
                     if (success) {
                         Services.Database.get_default ().remove_queue (q.uuid);
+                    } else {
+                        all_done = false;
                     }
                 } else {
                     string error = "";
@@ -749,6 +780,7 @@ public class Services.Todoist : GLib.Object {
                     }
 
                     if (keep_failed) {
+                        all_done = false;
                         Services.LogService.get_default ().warn ("Todoist",
                             "Queue item failed, keeping it — query: %s, HTTP %lld, error: %s".printf (q.query, http_code, error));
                     } else {
@@ -765,10 +797,12 @@ public class Services.Todoist : GLib.Object {
                 }
             }
         } catch (Error e) {
-            debug (e.message);
+            // Network error or 429: nothing was applied, the queue stays for later.
+            Services.LogService.get_default ().warn ("Todoist", "Queue not sent: %s".printf (e.message));
+            return false;
         }
 
-        _queue_running = false;
+        return all_done;
     }
 
     private string resolve_id (string id) {
