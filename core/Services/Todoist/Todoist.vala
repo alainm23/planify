@@ -665,8 +665,6 @@ public class Services.Todoist : GLib.Object {
             parser.load_from_data ((string) stream.get_data ());
 
             var node = parser.get_root ().get_object ();
-            // Only sync () moves the sync token: this one may be ahead of remote
-            // changes not read yet, and the next incremental sync would skip them.
 
             foreach (var q in queue_collection) {
                 var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
