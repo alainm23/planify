@@ -682,39 +682,39 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:980 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:1020 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "Päring polnud korrektne."
 
-#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:1021 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Autentimine on nõutav, aga ta kas pole õnnestunud või sa pole seda veel "
 "proovinud."
 
-#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:1022 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr ""
 "Päring ise oli korrektne, kuid proovisid pärida seda, mis oli keelatud."
 
-#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:1023 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Päringus märgitud ressurssi ei leidu."
 
-#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:1024 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Kasutaja on teinud antud ajavahemikus liiga palju päringuid."
 
-#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:1025 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "Päring ei toiminud serveri vea tõttu."
 
-#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:1026 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Hetkel server ei suuda seda päringut töödelda."
 
-#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:1027 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Tundmatu viga"
 
