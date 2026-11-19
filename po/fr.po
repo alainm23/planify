@@ -689,37 +689,37 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:980 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "La requête était incorrecte."
 
-#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "L’authentification est requise et a échoué ou n’a pas encore été effectuée."
 
-#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "La demande était valide, mais pour quelque chose qui est interdit."
 
-#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "La ressource demandée n’a pas pu être trouvée."
 
-#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "L’utilisateur a envoyé trop de requêtes dans un certain délai."
 
-#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "La requête a échoué à cause d’un problème du serveur."
 
-#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Le serveur est actuellement incapable de gérer la requête."
 
-#: core/Services/Todoist/Todoist.vala:988 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Erreur inconnue"
 

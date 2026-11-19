@@ -669,36 +669,36 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:980 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "הבקשה הייתה שגויה."
 
-#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:988 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr ""
 

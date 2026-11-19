@@ -896,6 +896,7 @@ msgstr "Di komputer ini"
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:742
 #: core/Services/Todoist/Todoist.vala:981
+#: core/Services/Todoist/Todoist.vala:980
 msgid "The request was incorrect."
 msgstr "Permintaan tidak benar."
 
@@ -905,6 +906,7 @@ msgstr "Permintaan tidak benar."
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:743
 #: core/Services/Todoist/Todoist.vala:982
+#: core/Services/Todoist/Todoist.vala:981
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autentikasi diperlukan, tetapi gagal, atau belum diberikan."
@@ -915,6 +917,7 @@ msgstr "Autentikasi diperlukan, tetapi gagal, atau belum diberikan."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:744
 #: core/Services/Todoist/Todoist.vala:983
+#: core/Services/Todoist/Todoist.vala:982
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Permintaan valid, tetapi untuk sesuatu yang dilarang."
 
@@ -924,6 +927,7 @@ msgstr "Permintaan valid, tetapi untuk sesuatu yang dilarang."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:745
 #: core/Services/Todoist/Todoist.vala:984
+#: core/Services/Todoist/Todoist.vala:983
 msgid "The requested resource could not be found."
 msgstr "Sumber daya yang diminta tidak dapat ditemukan."
 
@@ -933,6 +937,7 @@ msgstr "Sumber daya yang diminta tidak dapat ditemukan."
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:746
 #: core/Services/Todoist/Todoist.vala:985
+#: core/Services/Todoist/Todoist.vala:984
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "Pengguna telah mengirim terlalu banyak permintaan dalam jumlah waktu "
@@ -944,6 +949,7 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:747
 #: core/Services/Todoist/Todoist.vala:986
+#: core/Services/Todoist/Todoist.vala:985
 msgid "The request failed due to a server error."
 msgstr "Permintaan gagal karena kesalahan server."
 
@@ -953,6 +959,7 @@ msgstr "Permintaan gagal karena kesalahan server."
 #: core/Services/Todoist/Todoist.vala:616
 #: core/Services/Todoist/Todoist.vala:748
 #: core/Services/Todoist/Todoist.vala:987
+#: core/Services/Todoist/Todoist.vala:986
 msgid "The server is currently unable to handle the request."
 msgstr "Server saat ini tidak dapat menangani permintaan."
 
@@ -962,6 +969,7 @@ msgstr "Server saat ini tidak dapat menangani permintaan."
 #: core/Services/Todoist/Todoist.vala:617
 #: core/Services/Todoist/Todoist.vala:749
 #: core/Services/Todoist/Todoist.vala:988
+#: core/Services/Todoist/Todoist.vala:987
 msgid "Unknown error"
 msgstr "Kesalahan tidak dikenal"
 

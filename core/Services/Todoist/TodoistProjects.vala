@@ -59,7 +59,6 @@ public class Services.TodoistProjects : GLib.Object {
                 var uuid_member = sync_status.get_member (uuid);
 
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                    base_object.source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
                     response.status = true;
                     base_object.source.last_sync = new GLib.DateTime.now_local ().to_string ();
                     base_object.source.save ();
