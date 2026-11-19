@@ -2368,11 +2368,6 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    /*
-     * When an object created offline gets its real id, the commands still in the queue
-     * keep the local id (in object_id and inside args). Replace it so commands sent in a
-     * later batch or a later sync use the real id.
-     */
     public void update_queue_ids (string old_id, string new_id) {
         if (old_id == "" || old_id == new_id) {
             return;
@@ -2390,7 +2385,6 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$old_id", old_id);
         set_parameter_str (stmt, "$new_id", new_id);
-        // Quoted, so only whole JSON string values are replaced, never part of another id.
         set_parameter_str (stmt, "$old_quoted", "\"%s\"".printf (old_id));
         set_parameter_str (stmt, "$new_quoted", "\"%s\"".printf (new_id));
 
