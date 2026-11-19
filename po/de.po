@@ -369,7 +369,7 @@ msgstr "Verschoben nach: %s"
 msgid "Delete Label %s"
 msgstr "Label %s löschen"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:907
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:912
 #: core/Objects/Section.vala:432
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
@@ -377,8 +377,8 @@ msgstr "Label %s löschen"
 msgid "This can not be undone"
 msgstr "Dies kann nicht rückgängig gemacht werden"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:910
-#: core/Objects/Project.vala:990 core/Objects/Section.vala:435
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:915
+#: core/Objects/Project.vala:995 core/Objects/Section.vala:435
 #: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -399,7 +399,7 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:911
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:242 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
@@ -414,27 +414,27 @@ msgstr "Abbrechen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: core/Objects/Project.vala:870
+#: core/Objects/Project.vala:875
 msgid "The project was copied to the Clipboard."
 msgstr "Das Projekt wurde in die Zwischenablage kopiert."
 
 # # c-format
-#: core/Objects/Project.vala:906
+#: core/Objects/Project.vala:911
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Projekt %s löschen?"
 
-#: core/Objects/Project.vala:986 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "Archivieren?"
 
 # # c-format
-#: core/Objects/Project.vala:987 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Dies wird %s und alle seine Aufgaben archivieren."
 
-#: core/Objects/Project.vala:991 core/Objects/Section.vala:482
+#: core/Objects/Project.vala:996 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
 msgid "Archive"
@@ -679,7 +679,7 @@ msgstr ""
 "Deine Sitzung ist abgelaufen. Bitte entferne dein Konto unter Einstellungen "
 "und füge es neu hinzu."
 
-#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:152
+#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:154
 msgid "Too Many Requests"
 msgstr "Zu viele Anfragen"
 
@@ -695,7 +695,7 @@ msgstr ""
 msgid "On this computer"
 msgstr "Auf diesem Computer"
 
-#: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:156
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -704,39 +704,39 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:742 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "Die Anfrage war fehlerhaft."
 
-#: core/Services/Todoist/Todoist.vala:743 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Authentifizierung ist erforderlich und fehlgeschlagen oder wurde noch nicht "
 "übermittelt."
 
-#: core/Services/Todoist/Todoist.vala:744 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Die Anfrage war gültig, aber für etwas, das verboten ist."
 
-#: core/Services/Todoist/Todoist.vala:745 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Die angeforderte Ressource konnte nicht gefunden werden."
 
-#: core/Services/Todoist/Todoist.vala:746 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "Der Nutzer hat zu viele Anfragen in einer bestimmten Zeitspanne gesendet."
 
-#: core/Services/Todoist/Todoist.vala:747 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "Die Anfrage ist aufgrund eines Serverfehlers fehlgeschlagen."
 
-#: core/Services/Todoist/Todoist.vala:748 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Der Server ist derzeit nicht in der Lage, die Anfrage zu bearbeiten."
 
-#: core/Services/Todoist/Todoist.vala:749 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:988 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Unbekannter Fehler"
 

@@ -382,6 +382,7 @@ msgstr "Kustuta silt: %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
+#: core/Objects/Project.vala:912
 msgid "This can not be undone"
 msgstr "Seda tegevust ei saa tagasi pöörata"
 
@@ -404,7 +405,8 @@ msgstr "Seda tegevust ei saa tagasi pöörata"
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Project/Project.vala:556
 #: src/Widgets/MultiSelectToolbar.vala:353
-#: src/Widgets/MultiSelectToolbar.vala:396
+#: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
+#: core/Objects/Project.vala:995
 msgid "Cancel"
 msgstr "Katkesta"
 
@@ -421,24 +423,26 @@ msgstr "Katkesta"
 #: src/Widgets/MultiSelectToolbar.vala:285
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
-#: src/Widgets/MultiSelectToolbar.vala:397
+#: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
 msgid "Delete"
 msgstr "Kustuta"
 
-#: core/Objects/Project.vala:870
+#: core/Objects/Project.vala:870 core/Objects/Project.vala:875
 msgid "The project was copied to the Clipboard."
 msgstr "See ettevõtmine/projekt on kopeeritud lõikelauale."
 
-#: core/Objects/Project.vala:906
+#: core/Objects/Project.vala:906 core/Objects/Project.vala:911
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Kas kustutad ettevõtmise: %s?"
 
 #: core/Objects/Project.vala:986 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:991
 msgid "Archive?"
 msgstr "Kas arhiveerime?"
 
 #: core/Objects/Project.vala:987 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:992
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
@@ -447,6 +451,7 @@ msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 #: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
+#: core/Objects/Project.vala:996
 msgid "Archive"
 msgstr "Arhiveeri"
 
@@ -696,6 +701,7 @@ msgstr ""
 "kasutajakonto ning lisa siis uuesti."
 
 #: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:152
+#: core/Services/Todoist/Todoist.vala:154
 msgid "Too Many Requests"
 msgstr "Liiga palju päringuid"
 
@@ -712,6 +718,7 @@ msgid "On this computer"
 msgstr "Selles arvutis"
 
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:156
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -721,10 +728,12 @@ msgid ""
 msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:742 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:981
 msgid "The request was incorrect."
 msgstr "Päring polnud korrektne."
 
 #: core/Services/Todoist/Todoist.vala:743 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:982
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
@@ -732,27 +741,33 @@ msgstr ""
 "proovinud."
 
 #: core/Services/Todoist/Todoist.vala:744 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:983
 msgid "The request was valid, but for something that is forbidden."
 msgstr ""
 "Päring ise oli korrektne, kuid proovisid pärida seda, mis oli keelatud."
 
 #: core/Services/Todoist/Todoist.vala:745 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:984
 msgid "The requested resource could not be found."
 msgstr "Päringus märgitud ressurssi ei leidu."
 
 #: core/Services/Todoist/Todoist.vala:746 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:985
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Kasutaja on teinud antud ajavahemikus liiga palju päringuid."
 
 #: core/Services/Todoist/Todoist.vala:747 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:986
 msgid "The request failed due to a server error."
 msgstr "Päring ei toiminud serveri vea tõttu."
 
 #: core/Services/Todoist/Todoist.vala:748 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:987
 msgid "The server is currently unable to handle the request."
 msgstr "Hetkel server ei suuda seda päringut töödelda."
 
 #: core/Services/Todoist/Todoist.vala:749 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:988
 msgid "Unknown error"
 msgstr "Tundmatu viga"
 

@@ -429,7 +429,7 @@ msgstr "Izbriši oznako %s"
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
-#: src/Services/BackupManager.vala:285
+#: src/Services/BackupManager.vala:285 core/Objects/Project.vala:912
 msgid "This can not be undone"
 msgstr "Tega ni mogoče razveljaviti"
 
@@ -465,7 +465,8 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 #: src/Views/Project/Project.vala:556 src/Widgets/MultiSelectToolbar.vala:353
-#: src/Widgets/MultiSelectToolbar.vala:396
+#: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
+#: core/Objects/Project.vala:995
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -490,28 +491,32 @@ msgstr "Prekliči"
 #: src/Views/Project/Project.vala:557 src/Widgets/MultiSelectToolbar.vala:285
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
-#: src/Widgets/MultiSelectToolbar.vala:397
+#: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
 msgid "Delete"
 msgstr "Izbriši"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:863 core/Objects/Project.vala:868
 #: core/Objects/Project.vala:865 core/Objects/Project.vala:870
+#: core/Objects/Project.vala:875
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt je bil kopiran v odložišče."
 
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:906
+#: core/Objects/Project.vala:911
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Izbriši projekt %s?"
 
 #: core/Objects/Project.vala:964 core/Objects/Section.vala:472
 #: core/Objects/Project.vala:986 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:991
 msgid "Archive?"
 msgstr "Arhiviram?"
 
 #: core/Objects/Project.vala:965 core/Objects/Section.vala:473
 #: core/Objects/Project.vala:987 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:992
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "S tem boste arhivirali %s in vse pripadajoče naloge."
@@ -522,7 +527,7 @@ msgstr "S tem boste arhivirali %s in vse pripadajoče naloge."
 #: core/Objects/Project.vala:991 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 src/Layouts/SectionRow.vala:723
-#: src/Views/Project/Project.vala:405
+#: src/Views/Project/Project.vala:405 core/Objects/Project.vala:996
 msgid "Archive"
 msgstr "Arhiviraj"
 
@@ -768,6 +773,7 @@ msgstr ""
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
 #: core/Services/Todoist/Todoist.vala:152
+#: core/Services/Todoist/Todoist.vala:154
 msgid "Too Many Requests"
 msgstr "Preveč zahtev"
 
@@ -788,6 +794,7 @@ msgstr "Na tem računalniku"
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:742
+#: core/Services/Todoist/Todoist.vala:981
 msgid "The request was incorrect."
 msgstr "Zahteva je bila napačna."
 
@@ -796,6 +803,7 @@ msgstr "Zahteva je bila napačna."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:743
+#: core/Services/Todoist/Todoist.vala:982
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Zahtevana je avtentikacija, ki ni uspela ali pa še ni bila opravljena."
@@ -805,6 +813,7 @@ msgstr "Zahtevana je avtentikacija, ki ni uspela ali pa še ni bila opravljena."
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:744
+#: core/Services/Todoist/Todoist.vala:983
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Zahteva je bila veljavna, vendar za nekaj, kar je prepovedano."
 
@@ -813,6 +822,7 @@ msgstr "Zahteva je bila veljavna, vendar za nekaj, kar je prepovedano."
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:745
+#: core/Services/Todoist/Todoist.vala:984
 msgid "The requested resource could not be found."
 msgstr "Zahtevanega vira ni bilo mogoče najti."
 
@@ -821,6 +831,7 @@ msgstr "Zahtevanega vira ni bilo mogoče najti."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:746
+#: core/Services/Todoist/Todoist.vala:985
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Uporabnik je v danem časovnem obdobju poslal preveč zahtev."
 
@@ -829,6 +840,7 @@ msgstr "Uporabnik je v danem časovnem obdobju poslal preveč zahtev."
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:747
+#: core/Services/Todoist/Todoist.vala:986
 msgid "The request failed due to a server error."
 msgstr "Zahteva ni uspela zaradi napake strežnika."
 
@@ -837,6 +849,7 @@ msgstr "Zahteva ni uspela zaradi napake strežnika."
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
 #: core/Services/Todoist/Todoist.vala:748
+#: core/Services/Todoist/Todoist.vala:987
 msgid "The server is currently unable to handle the request."
 msgstr "Strežnik trenutno ne more obdelati zahteve."
 
@@ -845,6 +858,7 @@ msgstr "Strežnik trenutno ne more obdelati zahteve."
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
 #: core/Services/Todoist/Todoist.vala:749
+#: core/Services/Todoist/Todoist.vala:988
 msgid "Unknown error"
 msgstr "Neznana napaka"
 
@@ -4816,6 +4830,7 @@ msgid "Will remind you again when the task repeats"
 msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:156
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"

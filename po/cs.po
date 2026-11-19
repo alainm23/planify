@@ -422,7 +422,7 @@ msgstr "Smazat štítek %s"
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
-#: src/Services/BackupManager.vala:285
+#: src/Services/BackupManager.vala:285 core/Objects/Project.vala:912
 msgid "This can not be undone"
 msgstr "Tato akce nelze vzít zpět"
 
@@ -458,7 +458,8 @@ msgstr "Tato akce nelze vzít zpět"
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 #: src/Views/Project/Project.vala:556 src/Widgets/MultiSelectToolbar.vala:353
-#: src/Widgets/MultiSelectToolbar.vala:396
+#: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
+#: core/Objects/Project.vala:995
 msgid "Cancel"
 msgstr "Zrušit"
 
@@ -483,19 +484,21 @@ msgstr "Zrušit"
 #: src/Views/Project/Project.vala:557 src/Widgets/MultiSelectToolbar.vala:285
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
-#: src/Widgets/MultiSelectToolbar.vala:397
+#: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
 msgid "Delete"
 msgstr "Smazat"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:863 core/Objects/Project.vala:868
 #: core/Objects/Project.vala:865 core/Objects/Project.vala:870
+#: core/Objects/Project.vala:875
 msgid "The project was copied to the Clipboard."
 msgstr "Projekt zkopírován do schránky."
 
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:895
 #: core/Objects/Project.vala:899 core/Objects/Project.vala:904
 #: core/Objects/Project.vala:901 core/Objects/Project.vala:906
+#: core/Objects/Project.vala:911
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Smazat projekt %s?"
@@ -504,6 +507,7 @@ msgstr "Smazat projekt %s?"
 #: core/Objects/Project.vala:969 core/Objects/Project.vala:973
 #: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 #: core/Objects/Project.vala:981 core/Objects/Project.vala:986
+#: core/Objects/Project.vala:991
 msgid "Archive?"
 msgstr "Archivovat?"
 
@@ -511,6 +515,7 @@ msgstr "Archivovat?"
 #: core/Objects/Project.vala:970 core/Objects/Project.vala:974
 #: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #: core/Objects/Project.vala:982 core/Objects/Project.vala:987
+#: core/Objects/Project.vala:992
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Toto archivuje %s a všechny související úkoly."
@@ -523,7 +528,7 @@ msgstr "Toto archivuje %s a všechny související úkoly."
 #: core/Objects/Project.vala:983 core/Objects/Section.vala:482
 #: core/Objects/Project.vala:986 src/Layouts/ProjectRow.vala:707
 #: core/Objects/Project.vala:991 src/Layouts/SectionRow.vala:723
-#: src/Views/Project/Project.vala:405
+#: src/Views/Project/Project.vala:405 core/Objects/Project.vala:996
 msgid "Archive"
 msgstr "Archiv"
 
@@ -767,6 +772,7 @@ msgstr "Vaše relace vypršela. Odeberte a znovu přidejte svůj účet v nastav
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
 #: core/Services/Todoist/Todoist.vala:152
+#: core/Services/Todoist/Todoist.vala:154
 msgid "Too Many Requests"
 msgstr "Příliš mnoho požadavků"
 
@@ -788,6 +794,7 @@ msgstr "Na tomto počítači"
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:742
+#: core/Services/Todoist/Todoist.vala:981
 msgid "The request was incorrect."
 msgstr "Požadavek byl nesprávný."
 
@@ -796,6 +803,7 @@ msgstr "Požadavek byl nesprávný."
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:743
+#: core/Services/Todoist/Todoist.vala:982
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Je vyžadována autentizace, která selhala nebo dosud nebyla poskytnuta."
@@ -805,6 +813,7 @@ msgstr "Je vyžadována autentizace, která selhala nebo dosud nebyla poskytnuta
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:744
+#: core/Services/Todoist/Todoist.vala:983
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Požadavek byl platný, ale žádal o něco, co je zakázané."
 
@@ -813,6 +822,7 @@ msgstr "Požadavek byl platný, ale žádal o něco, co je zakázané."
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:745
+#: core/Services/Todoist/Todoist.vala:984
 msgid "The requested resource could not be found."
 msgstr "Požadovaný zdroj nebyl nalezen."
 
@@ -821,6 +831,7 @@ msgstr "Požadovaný zdroj nebyl nalezen."
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:746
+#: core/Services/Todoist/Todoist.vala:985
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Uživatel odeslal v daném časovém úseku příliš mnoho požadavků."
 
@@ -829,6 +840,7 @@ msgstr "Uživatel odeslal v daném časovém úseku příliš mnoho požadavků.
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:747
+#: core/Services/Todoist/Todoist.vala:986
 msgid "The request failed due to a server error."
 msgstr "Požadavek selhal kvůli chybě serveru."
 
@@ -837,6 +849,7 @@ msgstr "Požadavek selhal kvůli chybě serveru."
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
 #: core/Services/Todoist/Todoist.vala:748
+#: core/Services/Todoist/Todoist.vala:987
 msgid "The server is currently unable to handle the request."
 msgstr "Server momentálně není schopen požadavek zpracovat."
 
@@ -845,6 +858,7 @@ msgstr "Server momentálně není schopen požadavek zpracovat."
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
 #: core/Services/Todoist/Todoist.vala:749
+#: core/Services/Todoist/Todoist.vala:988
 msgid "Unknown error"
 msgstr "Neznámá chyba"
 
@@ -4719,6 +4733,7 @@ msgid "Will remind you again when the task repeats"
 msgstr "Připomeneme Vám to znovu, až se úkol bude opakovat"
 
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:156
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"

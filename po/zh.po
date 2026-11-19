@@ -412,7 +412,7 @@ msgstr "已删除标签%s"
 #: core/Objects/Project.vala:900 core/Objects/Project.vala:905
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
-#: src/Services/BackupManager.vala:285
+#: src/Services/BackupManager.vala:285 core/Objects/Project.vala:912
 msgid "This can not be undone"
 msgstr "无法撤销"
 
@@ -448,7 +448,8 @@ msgstr "无法撤销"
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 #: src/Views/Project/Project.vala:556 src/Widgets/MultiSelectToolbar.vala:353
-#: src/Widgets/MultiSelectToolbar.vala:396
+#: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
+#: core/Objects/Project.vala:995
 msgid "Cancel"
 msgstr "取消"
 
@@ -473,19 +474,19 @@ msgstr "取消"
 #: src/Views/Project/Project.vala:557 src/Widgets/MultiSelectToolbar.vala:285
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
-#: src/Widgets/MultiSelectToolbar.vala:397
+#: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
 msgid "Delete"
 msgstr "删除"
 
 #: core/Objects/Project.vala:859 core/Objects/Project.vala:863
 #: core/Objects/Project.vala:868 core/Objects/Project.vala:865
-#: core/Objects/Project.vala:870
+#: core/Objects/Project.vala:870 core/Objects/Project.vala:875
 msgid "The project was copied to the Clipboard."
 msgstr "该项目已复制到剪贴板。"
 
 #: core/Objects/Project.vala:895 core/Objects/Project.vala:899
 #: core/Objects/Project.vala:904 core/Objects/Project.vala:901
-#: core/Objects/Project.vala:906
+#: core/Objects/Project.vala:906 core/Objects/Project.vala:911
 #, c-format
 msgid "Delete Project %s?"
 msgstr "删除项目%s？"
@@ -493,14 +494,14 @@ msgstr "删除项目%s？"
 #: core/Objects/Project.vala:969 core/Objects/Section.vala:472
 #: core/Objects/Project.vala:973 core/Objects/Project.vala:978
 #: core/Objects/Section.vala:477 core/Objects/Project.vala:981
-#: core/Objects/Project.vala:986
+#: core/Objects/Project.vala:986 core/Objects/Project.vala:991
 msgid "Archive?"
 msgstr "归档？"
 
 #: core/Objects/Project.vala:970 core/Objects/Section.vala:473
 #: core/Objects/Project.vala:974 core/Objects/Project.vala:979
 #: core/Objects/Section.vala:478 core/Objects/Project.vala:982
-#: core/Objects/Project.vala:987
+#: core/Objects/Project.vala:987 core/Objects/Project.vala:992
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "将会归档%s及其所有任务。"
@@ -513,6 +514,7 @@ msgstr "将会归档%s及其所有任务。"
 #: core/Objects/Section.vala:482 core/Objects/Project.vala:986
 #: src/Layouts/ProjectRow.vala:707 core/Objects/Project.vala:991
 #: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
+#: core/Objects/Project.vala:996
 msgid "Archive"
 msgstr "归档"
 
@@ -754,6 +756,7 @@ msgstr "您的会话已过期。请在偏好设置中移除并重新添加您的
 #: core/Services/CalDAV/Core.vala:332 core/Services/CalDAV/Core.vala:358
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
 #: core/Services/Todoist/Todoist.vala:152
+#: core/Services/Todoist/Todoist.vala:154
 msgid "Too Many Requests"
 msgstr "请求过于频繁"
 
@@ -773,6 +776,7 @@ msgstr "此电脑"
 #: core/Services/Todoist/Todoist.vala:608
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:742
+#: core/Services/Todoist/Todoist.vala:981
 msgid "The request was incorrect."
 msgstr "所提请求不正确。"
 
@@ -781,6 +785,7 @@ msgstr "所提请求不正确。"
 #: core/Services/Todoist/Todoist.vala:609
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:743
+#: core/Services/Todoist/Todoist.vala:982
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "需要身份验证：验证失败或未提供凭据。"
@@ -790,6 +795,7 @@ msgstr "需要身份验证：验证失败或未提供凭据。"
 #: core/Services/Todoist/Todoist.vala:610
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:744
+#: core/Services/Todoist/Todoist.vala:983
 msgid "The request was valid, but for something that is forbidden."
 msgstr "请求有效，但访问被禁止。"
 
@@ -798,6 +804,7 @@ msgstr "请求有效，但访问被禁止。"
 #: core/Services/Todoist/Todoist.vala:611
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:745
+#: core/Services/Todoist/Todoist.vala:984
 msgid "The requested resource could not be found."
 msgstr "找不到请求的资源。"
 
@@ -806,6 +813,7 @@ msgstr "找不到请求的资源。"
 #: core/Services/Todoist/Todoist.vala:612
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:746
+#: core/Services/Todoist/Todoist.vala:985
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "用户在短时间内发送了过多请求。"
 
@@ -814,6 +822,7 @@ msgstr "用户在短时间内发送了过多请求。"
 #: core/Services/Todoist/Todoist.vala:613
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:747
+#: core/Services/Todoist/Todoist.vala:986
 msgid "The request failed due to a server error."
 msgstr "请求因服务器错误而失败。"
 
@@ -822,6 +831,7 @@ msgstr "请求因服务器错误而失败。"
 #: core/Services/Todoist/Todoist.vala:614
 #: core/Services/Todoist/Todoist.vala:616
 #: core/Services/Todoist/Todoist.vala:748
+#: core/Services/Todoist/Todoist.vala:987
 msgid "The server is currently unable to handle the request."
 msgstr "服务器当前无法处理该请求。"
 
@@ -830,6 +840,7 @@ msgstr "服务器当前无法处理该请求。"
 #: core/Services/Todoist/Todoist.vala:615
 #: core/Services/Todoist/Todoist.vala:617
 #: core/Services/Todoist/Todoist.vala:749
+#: core/Services/Todoist/Todoist.vala:988
 msgid "Unknown error"
 msgstr "未知错误"
 
@@ -4688,6 +4699,7 @@ msgid "Will remind you again when the task repeats"
 msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:156
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
