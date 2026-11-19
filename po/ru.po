@@ -909,6 +909,7 @@ msgstr "На этом компьютере"
 #: core/Services/Todoist/Todoist.vala:742
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
+#: core/Services/Todoist/Todoist.vala:1020
 msgid "The request was incorrect."
 msgstr "Запрос был неверным."
 
@@ -919,6 +920,7 @@ msgstr "Запрос был неверным."
 #: core/Services/Todoist/Todoist.vala:743
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
+#: core/Services/Todoist/Todoist.vala:1021
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
@@ -932,6 +934,7 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:744
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
+#: core/Services/Todoist/Todoist.vala:1022
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Запрос был корректным, но относился к чему-то, что запрещено."
 
@@ -942,6 +945,7 @@ msgstr "Запрос был корректным, но относился к ч�
 #: core/Services/Todoist/Todoist.vala:745
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
+#: core/Services/Todoist/Todoist.vala:1023
 msgid "The requested resource could not be found."
 msgstr "Запрошенный ресурс не найден."
 
@@ -952,6 +956,7 @@ msgstr "Запрошенный ресурс не найден."
 #: core/Services/Todoist/Todoist.vala:746
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
+#: core/Services/Todoist/Todoist.vala:1024
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "Пользователь отправил слишком много запросов за определённый период времени."
@@ -963,6 +968,7 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:747
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
+#: core/Services/Todoist/Todoist.vala:1025
 msgid "The request failed due to a server error."
 msgstr "Запрос не был выполнен из-за ошибки сервера."
 
@@ -973,6 +979,7 @@ msgstr "Запрос не был выполнен из-за ошибки сер�
 #: core/Services/Todoist/Todoist.vala:748
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
+#: core/Services/Todoist/Todoist.vala:1026
 msgid "The server is currently unable to handle the request."
 msgstr "В настоящее время сервер не может обработать запрос."
 
@@ -983,6 +990,7 @@ msgstr "В настоящее время сервер не может обраб
 #: core/Services/Todoist/Todoist.vala:749
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
+#: core/Services/Todoist/Todoist.vala:1027
 msgid "Unknown error"
 msgstr "Неизвестная ошибка"
 

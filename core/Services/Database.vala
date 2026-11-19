@@ -2128,13 +2128,13 @@ public class Services.Database : GLib.Object {
 
         if (source_id != "") {
             sql = """
-                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added;
+                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added, rowid;
             """;
             db.prepare_v2 (sql, sql.length, out stmt);
             set_parameter_str (stmt, "$source_id", source_id);
         } else {
             sql = """
-                SELECT * FROM Queue ORDER BY date_added;
+                SELECT * FROM Queue ORDER BY date_added, rowid;
             """;
             db.prepare_v2 (sql, sql.length, out stmt);
         }

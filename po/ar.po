@@ -748,12 +748,14 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:742 src/Widgets/ErrorView.vala:187
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
+#: core/Services/Todoist/Todoist.vala:1020
 msgid "The request was incorrect."
 msgstr "الطلب غير صحيح."
 
 #: core/Services/Todoist/Todoist.vala:743 src/Widgets/ErrorView.vala:188
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
+#: core/Services/Todoist/Todoist.vala:1021
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حتى الآن."
@@ -761,36 +763,42 @@ msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حت
 #: core/Services/Todoist/Todoist.vala:744 src/Widgets/ErrorView.vala:189
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
+#: core/Services/Todoist/Todoist.vala:1022
 msgid "The request was valid, but for something that is forbidden."
 msgstr "الطلب صالح, لكن لشيء محظور."
 
 #: core/Services/Todoist/Todoist.vala:745 src/Widgets/ErrorView.vala:190
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
+#: core/Services/Todoist/Todoist.vala:1023
 msgid "The requested resource could not be found."
 msgstr "المورد المطلوب غير موجود."
 
 #: core/Services/Todoist/Todoist.vala:746 src/Widgets/ErrorView.vala:192
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
+#: core/Services/Todoist/Todoist.vala:1024
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "لقد أرسل المستخدم طلبات في وقت محدد أكثر مما يجب."
 
 #: core/Services/Todoist/Todoist.vala:747 src/Widgets/ErrorView.vala:193
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
+#: core/Services/Todoist/Todoist.vala:1025
 msgid "The request failed due to a server error."
 msgstr "فشل الطلب بسبب خطأ في المخدم."
 
 #: core/Services/Todoist/Todoist.vala:748 src/Widgets/ErrorView.vala:194
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
+#: core/Services/Todoist/Todoist.vala:1026
 msgid "The server is currently unable to handle the request."
 msgstr "المخدم غير قادر حالياً على معالجة الطلب."
 
 #: core/Services/Todoist/Todoist.vala:749 src/Widgets/ErrorView.vala:197
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
+#: core/Services/Todoist/Todoist.vala:1027
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 

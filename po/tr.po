@@ -857,6 +857,7 @@ msgstr "Bu bilgisayarda"
 #: core/Services/Todoist/Todoist.vala:742
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
+#: core/Services/Todoist/Todoist.vala:1020
 msgid "The request was incorrect."
 msgstr "İstek yanlış."
 
@@ -867,6 +868,7 @@ msgstr "İstek yanlış."
 #: core/Services/Todoist/Todoist.vala:743
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
+#: core/Services/Todoist/Todoist.vala:1021
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Kimlik doğrulama gerekiyor ve başarısız oldu veya henüz sağlanmadı."
@@ -878,6 +880,7 @@ msgstr "Kimlik doğrulama gerekiyor ve başarısız oldu veya henüz sağlanmad�
 #: core/Services/Todoist/Todoist.vala:744
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
+#: core/Services/Todoist/Todoist.vala:1022
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Talep geçerliydi, ancak yasaklanmış bir şeyle ilgiliydi."
 
@@ -888,6 +891,7 @@ msgstr "Talep geçerliydi, ancak yasaklanmış bir şeyle ilgiliydi."
 #: core/Services/Todoist/Todoist.vala:745
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
+#: core/Services/Todoist/Todoist.vala:1023
 msgid "The requested resource could not be found."
 msgstr "İstenen kaynak bulunamadı."
 
@@ -898,6 +902,7 @@ msgstr "İstenen kaynak bulunamadı."
 #: core/Services/Todoist/Todoist.vala:746
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
+#: core/Services/Todoist/Todoist.vala:1024
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Kullanıcı belirli bir süre içinde çok fazla istek gönderdi."
 
@@ -908,6 +913,7 @@ msgstr "Kullanıcı belirli bir süre içinde çok fazla istek gönderdi."
 #: core/Services/Todoist/Todoist.vala:747
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
+#: core/Services/Todoist/Todoist.vala:1025
 msgid "The request failed due to a server error."
 msgstr "Sunucu hatası nedeniyle istek başarısız oldu."
 
@@ -918,6 +924,7 @@ msgstr "Sunucu hatası nedeniyle istek başarısız oldu."
 #: core/Services/Todoist/Todoist.vala:748
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
+#: core/Services/Todoist/Todoist.vala:1026
 msgid "The server is currently unable to handle the request."
 msgstr "Sunucu şu anda isteği işleyemiyor."
 
@@ -928,6 +935,7 @@ msgstr "Sunucu şu anda isteği işleyemiyor."
 #: core/Services/Todoist/Todoist.vala:749
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
+#: core/Services/Todoist/Todoist.vala:1027
 msgid "Unknown error"
 msgstr "Bilinmeyen hata"
 

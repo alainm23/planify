@@ -664,11 +664,34 @@ public class Services.Todoist : GLib.Object {
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
-            var node = parser.get_root ().get_object ();
+            // Request-level error (5xx, 400, 401...): there is no sync_status and no
+            // command was applied, so keep the whole queue for the next try.
+            unowned Json.Node? root = parser.get_root ();
+            if (is_todoist_error (message.status_code) || root == null ||
+                root.get_node_type () != Json.NodeType.OBJECT || !root.get_object ().has_member ("sync_status")) {
+                Services.LogService.get_default ().warn ("Todoist",
+                    "Queue not sent (HTTP %u), keeping %d commands".printf (message.status_code, queue_collection.size));
+                _queue_running = false;
+                return;
+            }
+
+            var node = root.get_object ();
+            var sync_status = node.get_object_member ("sync_status");
+
+            // Once a command is kept, later failures may depend on it (e.g. an update of a
+            // task whose add failed), so they are kept too instead of dropped.
+            bool keep_failed = false;
 
             foreach (var q in queue_collection) {
-                var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
                 Services.LogService.get_default ().debug ("Todoist", "Processing queue item — query: %s, uuid: %s, object_id: %s".printf (q.query, q.uuid, q.object_id));
+
+                if (!sync_status.has_member (q.uuid)) {
+                    Services.LogService.get_default ().warn ("Todoist", "No status for queue item %s (%s), keeping it".printf (q.uuid, q.query));
+                    keep_failed = true;
+                    continue;
+                }
+
+                var uuid_member = sync_status.get_member (q.uuid);
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                     var temp_id_mapping = node.get_object_member ("temp_id_mapping");
                     var success = true;
@@ -709,14 +732,31 @@ public class Services.Todoist : GLib.Object {
                         Services.Database.get_default ().remove_queue (q.uuid);
                     }
                 } else {
-                    var sync_status = node.get_object_member ("sync_status");
-                    if (sync_status.has_member (q.uuid)) {
-                        var error_obj = sync_status.get_object_member (q.uuid);
-                        Services.LogService.get_default ().warn ("Todoist",
-                            "Queue item failed — query: %s, error: %s".printf (
-                                q.query, error_obj.get_string_member ("error")));
+                    string error = "";
+                    int64 http_code = 0;
+                    if (uuid_member.get_node_type () == Json.NodeType.OBJECT) {
+                        unowned Json.Object error_obj = uuid_member.get_object ();
+                        error = error_obj.has_member ("error") ? error_obj.get_string_member ("error") : "";
+                        http_code = error_obj.has_member ("http_code") ? error_obj.get_int_member ("http_code") : 0;
+                    } else {
+                        // Unknown status format: don't risk dropping the change.
+                        keep_failed = true;
                     }
-                    Services.Database.get_default ().remove_queue (q.uuid);
+
+                    // Temporary server errors: retry the command next time.
+                    if (http_code == 429 || http_code >= 500) {
+                        keep_failed = true;
+                    }
+
+                    if (keep_failed) {
+                        Services.LogService.get_default ().warn ("Todoist",
+                            "Queue item failed, keeping it — query: %s, HTTP %lld, error: %s".printf (q.query, http_code, error));
+                    } else {
+                        // The command itself is invalid (e.g. the task no longer exists): drop it.
+                        Services.LogService.get_default ().warn ("Todoist",
+                            "Queue item failed, dropping it — query: %s, HTTP %lld, error: %s".printf (q.query, http_code, error));
+                        Services.Database.get_default ().remove_queue (q.uuid);
+                    }
                 }
             }
             if (node.has_member ("items")) {

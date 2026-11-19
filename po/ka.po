@@ -872,6 +872,7 @@ msgstr "ამ კომპიუტერზე"
 #: core/Services/Todoist/Todoist.vala:742
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
+#: core/Services/Todoist/Todoist.vala:1020
 msgid "The request was incorrect."
 msgstr "მოთხოვნა არასწორია."
 
@@ -882,6 +883,7 @@ msgstr "მოთხოვნა არასწორია."
 #: core/Services/Todoist/Todoist.vala:743
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
+#: core/Services/Todoist/Todoist.vala:1021
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "ავტორიზაცია მოთხოვნილია, მაგრამ ჩავარდა, ან ჯერ შეყვანილი არაა."
@@ -893,6 +895,7 @@ msgstr "ავტორიზაცია მოთხოვნილია, მ
 #: core/Services/Todoist/Todoist.vala:744
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
+#: core/Services/Todoist/Todoist.vala:1022
 msgid "The request was valid, but for something that is forbidden."
 msgstr "მოთხოვნა სწორია, მაგრამ მიეკუთვნება რაღაცას, რაც აკრძალულია."
 
@@ -903,6 +906,7 @@ msgstr "მოთხოვნა სწორია, მაგრამ მი�
 #: core/Services/Todoist/Todoist.vala:745
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
+#: core/Services/Todoist/Todoist.vala:1023
 msgid "The requested resource could not be found."
 msgstr "მოთხოვნილი რესურსი აღმოჩენილი არაა."
 
@@ -913,6 +917,7 @@ msgstr "მოთხოვნილი რესურსი აღმოჩე�
 #: core/Services/Todoist/Todoist.vala:746
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
+#: core/Services/Todoist/Todoist.vala:1024
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 "მომხმარებელმა გამოაგზავნა მეტისმეტად ბევრი მოთხოვნა მითითებული დროის "
@@ -925,6 +930,7 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:747
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
+#: core/Services/Todoist/Todoist.vala:1025
 msgid "The request failed due to a server error."
 msgstr "მოთხოვნა ჩავარდა სერვერის შეცდომის გამო."
 
@@ -935,6 +941,7 @@ msgstr "მოთხოვნა ჩავარდა სერვერის 
 #: core/Services/Todoist/Todoist.vala:748
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
+#: core/Services/Todoist/Todoist.vala:1026
 msgid "The server is currently unable to handle the request."
 msgstr "სერვერს ამჟამად არ შეუძლია მოთხოვნის დამუშავება."
 
@@ -945,6 +952,7 @@ msgstr "სერვერს ამჟამად არ შეუძლია
 #: core/Services/Todoist/Todoist.vala:749
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
+#: core/Services/Todoist/Todoist.vala:1027
 msgid "Unknown error"
 msgstr "უცნობ შეცდომა"
 

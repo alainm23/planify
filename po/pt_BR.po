@@ -804,6 +804,7 @@ msgstr "Neste computador"
 #: core/Services/Todoist/Todoist.vala:742
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
+#: core/Services/Todoist/Todoist.vala:1020
 msgid "The request was incorrect."
 msgstr "A requisição foi incorreta."
 
@@ -814,6 +815,7 @@ msgstr "A requisição foi incorreta."
 #: core/Services/Todoist/Todoist.vala:743
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
+#: core/Services/Todoist/Todoist.vala:1021
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autenticação é requerida, mas falhou ou não foi provida ainda."
@@ -825,6 +827,7 @@ msgstr "Autenticação é requerida, mas falhou ou não foi provida ainda."
 #: core/Services/Todoist/Todoist.vala:744
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
+#: core/Services/Todoist/Todoist.vala:1022
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A requisição foi válida, mas por algum motivo é proibida."
 
@@ -835,6 +838,7 @@ msgstr "A requisição foi válida, mas por algum motivo é proibida."
 #: core/Services/Todoist/Todoist.vala:745
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
+#: core/Services/Todoist/Todoist.vala:1023
 msgid "The requested resource could not be found."
 msgstr "O recurso requerido não pôde ser encontrado."
 
@@ -845,6 +849,7 @@ msgstr "O recurso requerido não pôde ser encontrado."
 #: core/Services/Todoist/Todoist.vala:746
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
+#: core/Services/Todoist/Todoist.vala:1024
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O usuário mandou muitas requisições em um dado período de tempo."
 
@@ -855,6 +860,7 @@ msgstr "O usuário mandou muitas requisições em um dado período de tempo."
 #: core/Services/Todoist/Todoist.vala:747
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
+#: core/Services/Todoist/Todoist.vala:1025
 msgid "The request failed due to a server error."
 msgstr "A requisição falhou devido a um erro de servidor."
 
@@ -865,6 +871,7 @@ msgstr "A requisição falhou devido a um erro de servidor."
 #: core/Services/Todoist/Todoist.vala:748
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
+#: core/Services/Todoist/Todoist.vala:1026
 msgid "The server is currently unable to handle the request."
 msgstr "O servidor não pode processar a requisição no momento."
 
@@ -875,6 +882,7 @@ msgstr "O servidor não pode processar a requisição no momento."
 #: core/Services/Todoist/Todoist.vala:749
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
+#: core/Services/Todoist/Todoist.vala:1027
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
