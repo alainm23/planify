@@ -2368,6 +2368,31 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void update_queue_ids (string old_id, string new_id) {
+        if (old_id == "" || old_id == new_id) {
+            return;
+        }
+
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Queue
+            SET object_id = CASE WHEN object_id = $old_id THEN $new_id ELSE object_id END,
+                args = REPLACE (args, $old_quoted, $new_quoted)
+            WHERE object_id = $old_id OR instr (args, $old_quoted) > 0;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$old_id", old_id);
+        set_parameter_str (stmt, "$new_id", new_id);
+        set_parameter_str (stmt, "$old_quoted", "\"%s\"".printf (old_id));
+        set_parameter_str (stmt, "$new_quoted", "\"%s\"".printf (new_id));
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
+
     public void remove_queue (string uuid) {
         Sqlite.Statement stmt;
 

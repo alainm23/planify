@@ -656,7 +656,7 @@ msgid ""
 "Preferences."
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:154
+#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr ""
 
@@ -670,7 +670,7 @@ msgstr ""
 msgid "On this computer"
 msgstr "Осы компьютерде"
 
-#: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -679,36 +679,36 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:1020 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:1054 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "Сұраныс дұрыс емес."
 
-#: core/Services/Todoist/Todoist.vala:1021 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:1055 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Аутентификация қажет, бірақ сәтсіз болды немесе әлі берілмеген."
 
-#: core/Services/Todoist/Todoist.vala:1022 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:1056 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Сұраныс дұрыс, бірақ тыйым салынған нәрсе үшін."
 
-#: core/Services/Todoist/Todoist.vala:1023 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:1057 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "Сұралған ресурс табылмады."
 
-#: core/Services/Todoist/Todoist.vala:1024 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:1058 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Пайдаланушы белгілі бір уақыт ішінде тым көп сұраныс жіберді."
 
-#: core/Services/Todoist/Todoist.vala:1025 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:1059 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "Сервер қатесі себебінен сұраныс сәтсіз болды."
 
-#: core/Services/Todoist/Todoist.vala:1026 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:1060 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "Сервер қазіргі уақытта сұранысты өңдей алмайды."
 
-#: core/Services/Todoist/Todoist.vala:1027 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:1061 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Белгісіз қате"
 

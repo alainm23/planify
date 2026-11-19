@@ -757,6 +757,7 @@ msgstr "您的会话已过期。请在偏好设置中移除并重新添加您的
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
 #: core/Services/Todoist/Todoist.vala:152
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr "请求过于频繁"
 
@@ -779,6 +780,7 @@ msgstr "此电脑"
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
 #: core/Services/Todoist/Todoist.vala:1020
+#: core/Services/Todoist/Todoist.vala:1054
 msgid "The request was incorrect."
 msgstr "所提请求不正确。"
 
@@ -790,6 +792,7 @@ msgstr "所提请求不正确。"
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:1021
+#: core/Services/Todoist/Todoist.vala:1055
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "需要身份验证：验证失败或未提供凭据。"
@@ -802,6 +805,7 @@ msgstr "需要身份验证：验证失败或未提供凭据。"
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:1022
+#: core/Services/Todoist/Todoist.vala:1056
 msgid "The request was valid, but for something that is forbidden."
 msgstr "请求有效，但访问被禁止。"
 
@@ -813,6 +817,7 @@ msgstr "请求有效，但访问被禁止。"
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:1023
+#: core/Services/Todoist/Todoist.vala:1057
 msgid "The requested resource could not be found."
 msgstr "找不到请求的资源。"
 
@@ -824,6 +829,7 @@ msgstr "找不到请求的资源。"
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:1024
+#: core/Services/Todoist/Todoist.vala:1058
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "用户在短时间内发送了过多请求。"
 
@@ -835,6 +841,7 @@ msgstr "用户在短时间内发送了过多请求。"
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:1025
+#: core/Services/Todoist/Todoist.vala:1059
 msgid "The request failed due to a server error."
 msgstr "请求因服务器错误而失败。"
 
@@ -846,6 +853,7 @@ msgstr "请求因服务器错误而失败。"
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:1026
+#: core/Services/Todoist/Todoist.vala:1060
 msgid "The server is currently unable to handle the request."
 msgstr "服务器当前无法处理该请求。"
 
@@ -857,6 +865,7 @@ msgstr "服务器当前无法处理该请求。"
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:1027
+#: core/Services/Todoist/Todoist.vala:1061
 msgid "Unknown error"
 msgstr "未知错误"
 
@@ -4716,6 +4725,7 @@ msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:154
 #: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"

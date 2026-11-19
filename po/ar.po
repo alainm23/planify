@@ -722,6 +722,7 @@ msgstr ""
 
 #: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:152
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr ""
 
@@ -737,6 +738,7 @@ msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:154
 #: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -749,6 +751,7 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
 #: core/Services/Todoist/Todoist.vala:1020
+#: core/Services/Todoist/Todoist.vala:1054
 msgid "The request was incorrect."
 msgstr "الطلب غير صحيح."
 
@@ -756,6 +759,7 @@ msgstr "الطلب غير صحيح."
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:1021
+#: core/Services/Todoist/Todoist.vala:1055
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حتى الآن."
@@ -764,6 +768,7 @@ msgstr "التصديق مطلوب, و فشل, أو لم يتم تقديمه حت
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:1022
+#: core/Services/Todoist/Todoist.vala:1056
 msgid "The request was valid, but for something that is forbidden."
 msgstr "الطلب صالح, لكن لشيء محظور."
 
@@ -771,6 +776,7 @@ msgstr "الطلب صالح, لكن لشيء محظور."
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:1023
+#: core/Services/Todoist/Todoist.vala:1057
 msgid "The requested resource could not be found."
 msgstr "المورد المطلوب غير موجود."
 
@@ -778,6 +784,7 @@ msgstr "المورد المطلوب غير موجود."
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:1024
+#: core/Services/Todoist/Todoist.vala:1058
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "لقد أرسل المستخدم طلبات في وقت محدد أكثر مما يجب."
 
@@ -785,6 +792,7 @@ msgstr "لقد أرسل المستخدم طلبات في وقت محدد أكث�
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:1025
+#: core/Services/Todoist/Todoist.vala:1059
 msgid "The request failed due to a server error."
 msgstr "فشل الطلب بسبب خطأ في المخدم."
 
@@ -792,6 +800,7 @@ msgstr "فشل الطلب بسبب خطأ في المخدم."
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:1026
+#: core/Services/Todoist/Todoist.vala:1060
 msgid "The server is currently unable to handle the request."
 msgstr "المخدم غير قادر حالياً على معالجة الطلب."
 
@@ -799,6 +808,7 @@ msgstr "المخدم غير قادر حالياً على معالجة الطلب
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:1027
+#: core/Services/Todoist/Todoist.vala:1061
 msgid "Unknown error"
 msgstr "خطأ غير معروف"
 

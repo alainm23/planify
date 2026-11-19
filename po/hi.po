@@ -662,7 +662,7 @@ msgid ""
 "Preferences."
 msgstr ""
 
-#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:154
+#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr ""
 
@@ -676,7 +676,7 @@ msgstr ""
 msgid "On this computer"
 msgstr "इस कंप्यूटर पर"
 
-#: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -685,36 +685,36 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:1020 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:1054 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "अनुरोध गलत था।"
 
-#: core/Services/Todoist/Todoist.vala:1021 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:1055 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "प्रमाणीकरण आवश्यक है, या तो विफल हुआ या प्रदान नहीं किया गया।"
 
-#: core/Services/Todoist/Todoist.vala:1022 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:1056 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "अनुरोध मान्य था, लेकिन निषिद्ध चीज़ के लिए।"
 
-#: core/Services/Todoist/Todoist.vala:1023 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:1057 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "अनुरोधित संसाधन नहीं मिला।"
 
-#: core/Services/Todoist/Todoist.vala:1024 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:1058 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "उपयोक्ता ने निश्चित समय में बहुत अधिक अनुरोध भेजे हैं।"
 
-#: core/Services/Todoist/Todoist.vala:1025 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:1059 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "सर्वर त्रुटि के कारण अनुरोध विफल हुआ।"
 
-#: core/Services/Todoist/Todoist.vala:1026 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:1060 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "सर्वर अनुरोध संभालने में फिलहाल असमर्थ है।"
 
-#: core/Services/Todoist/Todoist.vala:1027 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:1061 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "अज्ञात त्रुटि"
 

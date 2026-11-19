@@ -841,6 +841,7 @@ msgstr ""
 #: core/Services/CalDAV/Core.vala:367 core/Services/CalDAV/Core.vala:377
 #: core/Services/Todoist/Todoist.vala:152
 #: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr "Забагато запитів"
 
@@ -864,6 +865,7 @@ msgstr "На цьому комп'ютері"
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:980
 #: core/Services/Todoist/Todoist.vala:1020
+#: core/Services/Todoist/Todoist.vala:1054
 msgid "The request was incorrect."
 msgstr "Неправильний запит."
 
@@ -875,6 +877,7 @@ msgstr "Неправильний запит."
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:981
 #: core/Services/Todoist/Todoist.vala:1021
+#: core/Services/Todoist/Todoist.vala:1055
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Помилка автентифікації або її не надано."
@@ -887,6 +890,7 @@ msgstr "Помилка автентифікації або її не надан�
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:982
 #: core/Services/Todoist/Todoist.vala:1022
+#: core/Services/Todoist/Todoist.vala:1056
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Запит був дійсним, але щодо чогось забороненого."
 
@@ -898,6 +902,7 @@ msgstr "Запит був дійсним, але щодо чогось забо�
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:983
 #: core/Services/Todoist/Todoist.vala:1023
+#: core/Services/Todoist/Todoist.vala:1057
 msgid "The requested resource could not be found."
 msgstr "Ресурс не знайдено."
 
@@ -909,6 +914,7 @@ msgstr "Ресурс не знайдено."
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:984
 #: core/Services/Todoist/Todoist.vala:1024
+#: core/Services/Todoist/Todoist.vala:1058
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Перевищено ліміт запитів."
 
@@ -920,6 +926,7 @@ msgstr "Перевищено ліміт запитів."
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:985
 #: core/Services/Todoist/Todoist.vala:1025
+#: core/Services/Todoist/Todoist.vala:1059
 msgid "The request failed due to a server error."
 msgstr "Запит не вдалося виконати через помилку сервера."
 
@@ -931,6 +938,7 @@ msgstr "Запит не вдалося виконати через помилк�
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:986
 #: core/Services/Todoist/Todoist.vala:1026
+#: core/Services/Todoist/Todoist.vala:1060
 msgid "The server is currently unable to handle the request."
 msgstr "Сервер наразі не може обробити запит."
 
@@ -942,6 +950,7 @@ msgstr "Сервер наразі не може обробити запит."
 #: core/Services/Todoist/Todoist.vala:988
 #: core/Services/Todoist/Todoist.vala:987
 #: core/Services/Todoist/Todoist.vala:1027
+#: core/Services/Todoist/Todoist.vala:1061
 msgid "Unknown error"
 msgstr "Невідома помилка"
 
@@ -5187,6 +5196,7 @@ msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:154
 #: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
