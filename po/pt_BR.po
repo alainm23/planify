@@ -356,7 +356,7 @@ msgstr "Tarefas adicionadas a <b>%s</b>"
 msgid "Delete Label %s"
 msgstr "Excluir rótulo %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:907
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:912
 #: core/Objects/Section.vala:432
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
@@ -364,8 +364,8 @@ msgstr "Excluir rótulo %s"
 msgid "This can not be undone"
 msgstr "Isso não pode ser desfeito"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:910
-#: core/Objects/Project.vala:990 core/Objects/Section.vala:435
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:915
+#: core/Objects/Project.vala:995 core/Objects/Section.vala:435
 #: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -385,7 +385,7 @@ msgstr "Isso não pode ser desfeito"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:911
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
@@ -398,27 +398,27 @@ msgstr "Cancelar"
 msgid "Delete"
 msgstr "Deletar"
 
-#: core/Objects/Project.vala:870
+#: core/Objects/Project.vala:875
 msgid "The project was copied to the Clipboard."
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
 # c-format
-#: core/Objects/Project.vala:906
+#: core/Objects/Project.vala:911
 #, c-format
 msgid "Delete Project %s?"
 msgstr "Excluir Projeto %s?"
 
-#: core/Objects/Project.vala:986 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "Arquivar?"
 
 # # c-format
-#: core/Objects/Project.vala:987 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Isto irá arquivar %s e todas suas tarefas."
 
-#: core/Objects/Project.vala:991 core/Objects/Section.vala:482
+#: core/Objects/Project.vala:996 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
 msgid "Archive"
@@ -665,7 +665,7 @@ msgstr ""
 "Sua sessão expirou. Por favor, remova e adicione novamente sua conta em "
 "Preferências."
 
-#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:152
+#: core/Services/CalDAV/Core.vala:377 core/Services/Todoist/Todoist.vala:154
 msgid "Too Many Requests"
 msgstr "Erro: Muitas requisições"
 
@@ -681,7 +681,7 @@ msgstr ""
 msgid "On this computer"
 msgstr "Neste computador"
 
-#: core/Services/Todoist/Todoist.vala:154
+#: core/Services/Todoist/Todoist.vala:156
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -690,36 +690,36 @@ msgid ""
 "and will be synced then."
 msgstr ""
 
-#: core/Services/Todoist/Todoist.vala:742 src/Widgets/ErrorView.vala:187
+#: core/Services/Todoist/Todoist.vala:981 src/Widgets/ErrorView.vala:187
 msgid "The request was incorrect."
 msgstr "A requisição foi incorreta."
 
-#: core/Services/Todoist/Todoist.vala:743 src/Widgets/ErrorView.vala:188
+#: core/Services/Todoist/Todoist.vala:982 src/Widgets/ErrorView.vala:188
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autenticação é requerida, mas falhou ou não foi provida ainda."
 
-#: core/Services/Todoist/Todoist.vala:744 src/Widgets/ErrorView.vala:189
+#: core/Services/Todoist/Todoist.vala:983 src/Widgets/ErrorView.vala:189
 msgid "The request was valid, but for something that is forbidden."
 msgstr "A requisição foi válida, mas por algum motivo é proibida."
 
-#: core/Services/Todoist/Todoist.vala:745 src/Widgets/ErrorView.vala:190
+#: core/Services/Todoist/Todoist.vala:984 src/Widgets/ErrorView.vala:190
 msgid "The requested resource could not be found."
 msgstr "O recurso requerido não pôde ser encontrado."
 
-#: core/Services/Todoist/Todoist.vala:746 src/Widgets/ErrorView.vala:192
+#: core/Services/Todoist/Todoist.vala:985 src/Widgets/ErrorView.vala:192
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O usuário mandou muitas requisições em um dado período de tempo."
 
-#: core/Services/Todoist/Todoist.vala:747 src/Widgets/ErrorView.vala:193
+#: core/Services/Todoist/Todoist.vala:986 src/Widgets/ErrorView.vala:193
 msgid "The request failed due to a server error."
 msgstr "A requisição falhou devido a um erro de servidor."
 
-#: core/Services/Todoist/Todoist.vala:748 src/Widgets/ErrorView.vala:194
+#: core/Services/Todoist/Todoist.vala:987 src/Widgets/ErrorView.vala:194
 msgid "The server is currently unable to handle the request."
 msgstr "O servidor não pode processar a requisição no momento."
 
-#: core/Services/Todoist/Todoist.vala:749 src/Widgets/ErrorView.vala:197
+#: core/Services/Todoist/Todoist.vala:988 src/Widgets/ErrorView.vala:197
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
