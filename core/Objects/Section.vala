@@ -563,6 +563,8 @@ public class Objects.Section : Objects.BaseObject {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             yield delete_item_caldav_recursive (subitem, caldav_client);
         }
-        yield caldav_client.delete_item (item);
+        // Not kept for later when offline: the section delete itself would fail then,
+        // and its tasks would be deleted on the server while still here.
+        yield caldav_client.delete_item_online (item);
     }
 }
