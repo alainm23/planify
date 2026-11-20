@@ -1,0 +1,10 @@
+[wrap-git]
+directory = libical
+url = https://github.com/libical/libical.git
+revision = c7d638169f9b32ba2713d35ac863471762d28df3
+depth = 1
+method = cmake
+diff_files = libical-cmakefile.patch,libical-flatten.patch
+
+[provide]
+libical-glib = ical_glib_dep
