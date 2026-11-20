@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-08-10 23:58+0000\n"
-"Last-Translator: Bart Ratgers <bart@optiprise.nl>\n"
+"PO-Revision-Date: 2026-11-16 16:28+0000\n"
+"Last-Translator: Bart Ratgers <bratgers@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/io-github-"
 "alainm23-planify/nl/>\n"
 "Language: nl\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -426,7 +426,7 @@ msgstr "Archiveren"
 #: core/Objects/Reminder.vala:93
 #, c-format
 msgid "%s · Next occurrence"
-msgstr ""
+msgstr "%s · Volgende herhaling"
 
 # # c-format
 #: core/Objects/Section.vala:431
@@ -1619,7 +1619,7 @@ msgstr "Geen Labels"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
 msgid "Label color"
-msgstr ""
+msgstr "Labelkleur"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
@@ -1731,19 +1731,19 @@ msgstr "Binnen 6 uren"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:241
 msgid "Suggestions"
-msgstr ""
+msgstr "Suggesties"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
-msgstr ""
+msgstr "Kies een tijdstip in de toekomst"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:268
 msgid "You already have a reminder at that time"
-msgstr ""
+msgstr "Je hebt al een herinnering op dat tijdstip"
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
-msgstr ""
+msgstr "Je wordt opnieuw herinnerd zodra de taak zich herhaalt"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
 msgid "Set Section"
@@ -2207,11 +2207,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 msgid "Sync boards and cards from Nextcloud Deck"
-msgstr ""
+msgstr "Synchroniseer borden en kaarten vanuit Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 msgid "Nextcloud Deck is not available on this server"
-msgstr ""
+msgstr "Nextcloud Deck is niet beschikbaar op deze server"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
@@ -2225,29 +2225,31 @@ msgstr "Bron verwijderen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
 msgid "Apply Certificate"
-msgstr ""
+msgstr "Certificaat toepassen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
 msgid "Client Certificate (mTLS)"
-msgstr ""
+msgstr "Clientcertificaat (mTLS)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
 msgid ""
 "Use a client certificate to authenticate with servers that require mutual TLS"
 msgstr ""
+"Gebruik een clientcertificaat om je te authenticeren bij servers die "
+"wederzijdse TLS-authenticatie vereisen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
 #, c-format
 msgid "Invalid certificate: %s"
-msgstr ""
+msgstr "Ongeldig certificaat: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 msgid "Client certificate updated"
-msgstr ""
+msgstr "Clientcertificaat bijgewerkt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 msgid "Client certificate removed"
-msgstr ""
+msgstr "Clientcertificaat verwijderd"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 msgid "Cannot Delete This Source"
@@ -2278,19 +2280,19 @@ msgstr "Gebruik in plaats daarvan een API-token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:155
 msgid "API Token"
-msgstr ""
+msgstr "API-token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:160
 msgid "Connect using your personal Todoist API token"
-msgstr ""
+msgstr "Maak verbinding met je persoonlijke Todoist API-token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:176
 msgid "Paste your API token"
-msgstr ""
+msgstr "Plak je API-token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:181
 msgid "Connect"
-msgstr ""
+msgstr "Verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:188
 msgid "1. Go to Todoist → Settings → Integrations → Developer"
@@ -2298,7 +2300,7 @@ msgstr "1. Ga naar Todoist → Instellingen → Integraties → Ontwikkelaar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:193
 msgid "2. Copy your API token"
-msgstr ""
+msgstr "2. Kopieer je API-token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:198
 msgid "3. Paste it in the field above"
@@ -2306,7 +2308,7 @@ msgstr "3. Plak dit in het bovenstaande veld"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
-msgstr ""
+msgstr "Zo verkrijg je je API-token"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
 msgid "Waiting for login…"
@@ -2327,7 +2329,7 @@ msgstr "Systeeminstellingen volgen"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:69
 msgid "Use System Accent Color"
-msgstr ""
+msgstr "Systeemaccentkleur gebruiken"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:79
 msgid "Select theme"
@@ -2335,11 +2337,11 @@ msgstr "Thema selecteren"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
-msgstr ""
+msgstr "Gebruik Adwaita kleuren"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:90
 msgid "Use the standard GNOME colors in light and dark mode"
-msgstr ""
+msgstr "Gebruik de standaard GNOME-kleuren in de lichte en donkere modus"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:106
 msgid "Light Style"
@@ -2368,7 +2370,7 @@ msgstr "Professioneel blauw thema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:157
 msgid "Accent Color"
-msgstr ""
+msgstr "Accentkleur"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:163
 msgid "Custom themes are not available when using the system light theme"
@@ -2382,7 +2384,7 @@ msgstr "Lettergrootte"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:297
 msgid "Not available with Adwaita colors"
-msgstr ""
+msgstr "Niet beschikbaar met Adwaita-kleuren"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:39
 #: src/Dialogs/Preferences/PreferencesWindow.vala:147
@@ -2399,19 +2401,21 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:60
 msgid "Automatic Daily Backup"
-msgstr ""
+msgstr "Automatische dagelijkse back-up"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
 msgid "Creates a backup every day at midnight"
-msgstr ""
+msgstr "Maakt elke dag om middernacht een back-up"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:66
 msgid "Backups to Keep"
-msgstr ""
+msgstr "Aantal te bewaren back-ups"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "Older backups are removed automatically. Zero keeps them all"
 msgstr ""
+"Oudere back-ups worden automatisch verwijderd. Bij 0 worden alle back-ups "
+"bewaard"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Create Backup"
@@ -2431,25 +2435,25 @@ msgstr "Geen back-ups teruggevonden, maak er één aan via de '+'-knop."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:93
 msgid "Open backup folder"
-msgstr ""
+msgstr "Open back-up map"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:98
 msgid "Backup Location"
-msgstr ""
+msgstr "Back-up locatie"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:137
 msgid "Extra Backup Locations"
-msgstr ""
+msgstr "Extra back-uplocaties"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:140
 msgid "No extra locations added yet."
-msgstr ""
+msgstr "Nog geen extra locaties toegevoegd."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:152
 msgid ""
 "Backup copies will also be saved to these folders after each backup is "
 "created."
-msgstr ""
+msgstr "Na elke back-up worden ook kopieën opgeslagen in deze mappen."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:161
 msgid "Migrate"
@@ -2496,7 +2500,7 @@ msgstr "To-do's"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:754
 msgid "This will replace all your current data"
-msgstr ""
+msgstr "Hiermee worden al je huidige gegevens vervangen"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:763
 msgid "Restore backup"
@@ -2517,11 +2521,11 @@ msgstr "Kalenderevenementen"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:41
 msgid "Show Calendar Events"
-msgstr ""
+msgstr "Agenda-afspraken weergeven"
 
 #: src/Dialogs/Preferences/Pages/CalendarEvents.vala:42
 msgid "Display events from your calendars in Planify"
-msgstr ""
+msgstr "Toon afspraken uit je agenda's in Planify"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:26
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
@@ -2627,7 +2631,7 @@ msgstr "Mee opstarten met systeem"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Start Planify automatisch wanneer je je computer opstart"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2636,16 +2640,19 @@ msgstr "Op de achtergrond draaien"
 #: src/Dialogs/Preferences/Pages/General.vala:83
 msgid "Keep Planify running in the system tray when closing the window"
 msgstr ""
+"Laat Planify actief blijven in het systeemvak wanneer je het venster sluit"
 
 #: src/Dialogs/Preferences/Pages/General.vala:91
 msgid "GNOME Shell Search"
-msgstr ""
+msgstr "Zoeken via GNOME Shell"
 
 #: src/Dialogs/Preferences/Pages/General.vala:92
 msgid ""
 "Search tasks and projects directly from GNOME Shell. Enable it in Settings → "
 "Search"
 msgstr ""
+"Zoek rechtstreeks vanuit GNOME Shell naar taken en projecten. Schakel dit in "
+"via Instellingen → Zoeken"
 
 #: src/Dialogs/Preferences/Pages/General.vala:97
 msgid "Date and Time"
@@ -2906,7 +2913,7 @@ msgstr "Pas de zijbalk aan"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Manage which calendars are shown"
-msgstr ""
+msgstr "Beheer welke agenda's worden weergegeven"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Adding to-do's from anywhere"
@@ -3023,51 +3030,51 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:57
 msgid "Last 8 weeks"
-msgstr ""
+msgstr "Laatste 8 weken"
 
 #: src/Dialogs/ProductivityReport/HeatMap.vala:119
 #, c-format
 msgid "%d task"
 msgid_plural "%d tasks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d taak"
+msgstr[1] "%d taken"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
 #: src/MainWindow.vala:773
 msgid "Summary & Productivity"
-msgstr ""
+msgstr "Overzicht en productiviteit"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
-msgstr ""
+msgstr "Geplande taken als doel gebruiken"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr ""
+msgstr "Gebruik de voor vandaag geplande taken als je dagelijkse doel"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 #: src/Widgets/ProductivityMiniWidget.vala:31
 msgid "Daily Goal"
-msgstr ""
+msgstr "Dagelijks doel"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Wekelijks doel"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
-msgstr ""
+msgstr "Vaste doelen"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
-msgstr ""
+msgstr "Overzichtsdetails"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:208
 msgid "Detailed summary will appear here"
-msgstr ""
+msgstr "Hier verschijnt een gedetailleerd overzicht"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:216
 #: src/Dialogs/ProductivityReport/SummarySection.vala:33
@@ -3076,16 +3083,16 @@ msgstr "Samenvatting"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:224
 msgid "Productivity Details"
-msgstr ""
+msgstr "Productiviteitsdetails"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:225
 msgid "Detailed productivity stats will appear here"
-msgstr ""
+msgstr "Hier verschijnen gedetailleerde productiviteitsstatistieken"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:233
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:38
 msgid "Productivity"
-msgstr ""
+msgstr "Productiviteit"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
@@ -3097,67 +3104,68 @@ msgstr "Meer tonen"
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
 #: src/Widgets/ProductivityMiniWidget.vala:76
 msgid "(scheduled)"
-msgstr ""
+msgstr "(gepland)"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Alle doelen behaald! Je bent niet te stoppen"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Dagelijks doel ruimschoots behaald! Houd dit tempo vast"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Weekdoel behaald! Geniet van de rest van je week"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
-msgstr ""
+msgstr "Begin je dag, je eerste taak wacht op je"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:181
 msgid "Almost there! Just a few more tasks today"
-msgstr ""
+msgstr "Bijna zover! Nog maar een paar taken te gaan vandaag"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Goed op weg deze week! Je hebt je doel bijna bereikt"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Halverwege je dagelijkse doel, goed bezig"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
-msgstr ""
+msgstr "Goed bezig deze week, ga zo door"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:196
 msgid "Every task completed is a step forward"
-msgstr ""
+msgstr "Elke afgeronde taak is een stap vooruit"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:200
 msgid "Set your daily and weekly goals to start tracking your productivity"
 msgstr ""
+"Stel je dagelijkse en wekelijkse doelen in om je productiviteit bij te houden"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:207
 msgid "Set Up Goals"
-msgstr ""
+msgstr "Doelen instellen"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "Doelen"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
-msgstr ""
+msgstr "Doelen bewerken"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
-msgstr ""
+msgstr "Totaal"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:57
 msgid "Pending"
-msgstr ""
+msgstr "Openstaand"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:59
 #: src/Views/Scheduled/ScheduledOverdue.vala:38 src/Views/Today.vala:160
@@ -3195,27 +3203,27 @@ msgstr "Project bewerken"
 
 #: src/Dialogs/Project.vala:236
 msgid "Global Default"
-msgstr ""
+msgstr "Globale standaardinstelling"
 
 #: src/Dialogs/Project.vala:238
 msgid "Disabled"
-msgstr ""
+msgstr "Uitgeschakeld"
 
 #: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Markdown formaat"
 
 #: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "De algemene Markdown-instelling voor dit project overschrijven"
 
 #: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
-msgstr ""
+msgstr "Aanmaken als Deck-bord"
 
 #: src/Dialogs/Project.vala:267
 msgid "Create a Nextcloud Deck board instead of a task list"
-msgstr ""
+msgstr "Maak een Nextcloud Deck-bord aan in plaats van een takenlijst"
 
 #: src/Dialogs/Project.vala:581
 msgid "Project added successfully!"
@@ -3235,8 +3243,8 @@ msgstr "Snel zoeken"
 #, c-format
 msgid "%u result"
 msgid_plural "%u results"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%u resultaat"
+msgstr[1] "%u resultaten"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:352
 msgid "Quickly switch projects and views, find tasks, search by labels"
@@ -3330,7 +3338,7 @@ msgstr "Subtaken tonen"
 
 #: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemRow.vala:1306
 msgid "Pick a Date"
-msgstr ""
+msgstr "Selecteer een datum"
 
 #: src/Layouts/ItemRow.vala:1412 src/Layouts/ItemSidebarView.vala:513
 msgid "Use as a Note"
@@ -3343,26 +3351,27 @@ msgstr "Naar klembord kopiëren"
 
 #: src/Layouts/ItemRow.vala:1418 src/Layouts/ItemSidebarView.vala:518
 msgid "Export as .ics"
-msgstr ""
+msgstr "Exporteren als .ics"
 
 #: src/Layouts/ItemRow.vala:1426 src/Layouts/ItemSidebarView.vala:470
 #, c-format
 msgid "Updated: %s"
-msgstr ""
+msgstr "Bijgewerkt: %s"
 
 #: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemSidebarView.vala:472
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "Aangemaakt: %s"
 
 #: src/Layouts/ItemRow.vala:1666
 #, c-format
 msgid "Task completed · Next: %s"
-msgstr ""
+msgstr "Taak voltooid · Volgende: %s"
 
 #: src/Layouts/ItemRow.vala:1849
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
+"Een taak kan alleen een subtaak worden van een taak binnen hetzelfde account"
 
 #: src/Layouts/ItemSidebarView.vala:80
 msgid "Close Detail"
@@ -3378,7 +3387,7 @@ msgstr "Eigenschappen"
 
 #: src/Layouts/ItemSidebarView.vala:195
 msgid "Expand Description"
-msgstr ""
+msgstr "Beschrijving uitklappen"
 
 #: src/Layouts/ItemSidebarView.vala:618
 msgid "Are you sure you want to delete?"
@@ -3391,7 +3400,7 @@ msgstr "Sortering"
 
 #: src/Layouts/ItemSortFilter.vala:67
 msgid "Project"
-msgstr ""
+msgstr "Project"
 
 #: src/Layouts/ItemSortFilter.vala:71 src/Views/Project/Project.vala:596
 #: src/Views/Scheduled/Scheduled.vala:235 src/Views/Today.vala:846
@@ -3401,7 +3410,7 @@ msgstr "Datum ingesteld"
 #: src/Layouts/ItemSortFilter.vala:72 src/Views/Project/Project.vala:597
 #: src/Views/Scheduled/Scheduled.vala:236 src/Views/Today.vala:847
 msgid "Date Modified"
-msgstr ""
+msgstr "Datum gewijzigd"
 
 #: src/Layouts/ItemSortFilter.vala:75 src/Views/Project/Project.vala:600
 msgid "Ascending Order"
@@ -3500,11 +3509,11 @@ msgstr "Per e-mail verzenden"
 
 #: src/Layouts/ProjectRow.vala:713
 msgid "Export as PDF"
-msgstr ""
+msgstr "Exporteren als PDF"
 
 #: src/Layouts/ProjectRow.vala:788
 msgid "Project exported as PDF"
-msgstr ""
+msgstr "Project geëxporteerd als PDF"
 
 #: src/Layouts/SectionBoard.vala:77 src/Layouts/SectionRow.vala:91
 msgid "(No Section)"
@@ -3539,7 +3548,7 @@ msgstr "Onderverdeling verwijderen"
 
 #: src/Layouts/SectionRow.vala:676 src/Views/Filter.vala:542
 msgid "No more tasks"
-msgstr ""
+msgstr "Geen taken meer"
 
 #: src/Layouts/Sidebar.vala:42
 msgid "Favorites"
@@ -3593,11 +3602,11 @@ msgstr "Snel zoeken openen"
 
 #: src/MainWindow.vala:349
 msgid "Task was modified on another device"
-msgstr ""
+msgstr "Taak gewijzigd op een ander apparaat"
 
 #: src/MainWindow.vala:351
 msgid "Sync Now"
-msgstr ""
+msgstr "Nu synchroniseren"
 
 #: src/MainWindow.vala:794
 msgid "About Planify"
@@ -3647,12 +3656,12 @@ msgstr "Database opnieuw instellen"
 
 #: src/Services/BackupManager.vala:213
 msgid "Automatic backup failed"
-msgstr ""
+msgstr "Automatische back-up mislukt"
 
 #: src/Services/BackupManager.vala:260
 #, c-format
 msgid "Failed to copy backup to %s"
-msgstr ""
+msgstr "Kopiëren van back-up naar %s mislukt"
 
 #: src/Services/BackupManager.vala:284
 msgid "Delete Backup"
@@ -3691,7 +3700,7 @@ msgstr "1 uur uitstellen"
 
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
 msgid "All Projects"
-msgstr ""
+msgstr "Alle projecten"
 
 #: src/Views/Filter.vala:146 src/Views/Label/Label.vala:78
 #: src/Views/Label/Labels.vala:45 src/Views/Project/Project.vala:119
@@ -3719,11 +3728,11 @@ msgstr "taken"
 
 #: src/Views/Filter.vala:754
 msgid "No completed tasks"
-msgstr ""
+msgstr "Geen voltooide taken"
 
 #: src/Views/Filter.vala:755
 msgid "No tasks found for the selected projects"
-msgstr ""
+msgstr "Geen taken gevonden voor de geselecteerde projecten"
 
 #: src/Views/Filter.vala:757
 msgid "All tasks completed!"
@@ -3735,18 +3744,18 @@ msgstr "Goed gedaan, er is niets meer te doen 🎉"
 
 #: src/Views/Filter.vala:760 src/Views/Label/Label.vala:267
 msgid "No tasks found"
-msgstr ""
+msgstr "Geen taken gevonden"
 
 #: src/Views/Filter.vala:761 src/Views/Label/Label.vala:268
 msgid "No tasks match the selected filters"
-msgstr ""
+msgstr "Geen taken gevonden die voldoen aan de geselecteerde filters"
 
 #: src/Views/Filter.vala:774
 #, c-format
 msgid "%d Project"
 msgid_plural "%d Projects"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d project"
+msgstr[1] "%d projecten"
 
 #: src/Views/Filter.vala:803
 msgid "Delete Completed Task"
@@ -3769,15 +3778,17 @@ msgstr "Geen labels beschikbaar. Maak er één aan via de '+'-knop"
 
 #: src/Views/Label/LabelSourceRow.vala:122
 msgid "All labels are hidden by the filter"
-msgstr ""
+msgstr "Alle labels zijn verborgen door het filter"
 
 #: src/Views/Label/Labels.vala:148
 msgid "Only Active Projects"
-msgstr ""
+msgstr "Alleen actieve projecten"
 
 #: src/Views/Label/Labels.vala:149
 msgid "Only show labels used by tasks in active (non-archived) projects"
 msgstr ""
+"Toon alleen labels die worden gebruikt door taken in actieve (niet-"
+"gearchiveerde) projecten"
 
 #: src/Views/Project/Board.vala:76 src/Views/Project/List.vala:83
 msgid "Note"
@@ -3785,11 +3796,11 @@ msgstr "Opmerking"
 
 #: src/Views/Project/Board.vala:121
 msgid "No Sections Yet"
-msgstr ""
+msgstr "Nog geen secties"
 
 #: src/Views/Project/Board.vala:122
 msgid "Create a section to start adding tasks to this board"
-msgstr ""
+msgstr "Maak een sectie aan om taken aan dit bord toe te voegen"
 
 #: src/Views/Project/Board.vala:327
 msgid "Schedule"
@@ -3813,7 +3824,7 @@ msgstr "Nieuwe taak"
 
 #: src/Views/Project/Project.vala:363
 msgid "Add a section first to create tasks in this board"
-msgstr ""
+msgstr "Voeg eerst een sectie toe om taken op dit bord aan te maken"
 
 #: src/Views/Project/Project.vala:395 src/Views/Project/Project.vala:427
 msgid "Project Deadline"
@@ -3899,48 +3910,48 @@ msgstr "Toch doorgaan"
 
 #: src/Widgets/ClientCertificateRow.vala:49
 msgid "Client certificate (mTLS)"
-msgstr ""
+msgstr "Clientcertificaat (mTLS)"
 
 #: src/Widgets/ClientCertificateRow.vala:50
 msgid "Authenticate to the server with a client certificate"
-msgstr ""
+msgstr "Authenticeer bij de server met een clientcertificaat"
 
 #: src/Widgets/ClientCertificateRow.vala:55
 msgid "Certificate file"
-msgstr ""
+msgstr "Certificaatbestand"
 
 #: src/Widgets/ClientCertificateRow.vala:56
 #: src/Widgets/ClientCertificateRow.vala:100
 msgid "No file selected"
-msgstr ""
+msgstr "Geen bestand geselecteerd"
 
 #: src/Widgets/ClientCertificateRow.vala:60
 msgid "Choose…"
-msgstr ""
+msgstr "Kies…"
 
 #: src/Widgets/ClientCertificateRow.vala:68
 msgid "Certificate password (PKCS#12)"
-msgstr ""
+msgstr "Cettificaatwachtwoord (PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:96
 msgid "PKCS#12 certificate stored"
-msgstr ""
+msgstr "PKCS#12 certificaat opgeslagen"
 
 #: src/Widgets/ClientCertificateRow.vala:97
 msgid "PEM certificate stored"
-msgstr ""
+msgstr "PEM-certificaat opgeslagen"
 
 #: src/Widgets/ClientCertificateRow.vala:106
 msgid "Select client certificate"
-msgstr ""
+msgstr "Selecteer clientcertificaat"
 
 #: src/Widgets/ClientCertificateRow.vala:111
 msgid "Certificates (PEM, PKCS#12)"
-msgstr ""
+msgstr "Certificaten (PEM, PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
-msgstr ""
+msgstr "Kan bestand niet lezen"
 
 #: src/Widgets/CompletedTaskRow.vala:95
 #: src/Widgets/ItemDetailCompleted.vala:130 src/Widgets/SubItems.vala:94
@@ -3957,12 +3968,12 @@ msgstr "Minder tonen"
 
 #: src/Widgets/ErrorView.vala:111
 msgid "Copy error message"
-msgstr ""
+msgstr "Kopieer foutmelding"
 
 #: src/Widgets/ErrorView.vala:129
 #, c-format
 msgid "For more details, share your log file: %s"
-msgstr ""
+msgstr "Deel voor meer informatie je logbestand: %s"
 
 #: src/Widgets/ErrorView.vala:148
 msgid "Report Issue"
@@ -4075,7 +4086,7 @@ msgstr "Geen labels"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:303
 msgid "Not pinned"
-msgstr ""
+msgstr "Niet vastgezet"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:304
 #: src/Widgets/ItemChangeHistoryRow.vala:305
@@ -4089,11 +4100,11 @@ msgstr "Vastgeprikt: Inactief"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:308
 msgid "No deadline"
-msgstr ""
+msgstr "Geen deadline"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:319
 msgid "No parent"
-msgstr ""
+msgstr "Geen bovenliggende taak"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:322
 #: src/Widgets/ItemChangeHistoryRow.vala:326
@@ -4173,7 +4184,7 @@ msgstr "Negeren"
 
 #: src/Widgets/ProductivityMiniWidget.vala:75
 msgid "No tasks scheduled"
-msgstr ""
+msgstr "Geen taken gepland"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
@@ -4327,17 +4338,17 @@ msgstr "Prikbord weergeven"
 #: data/resources/ui/shortcuts.ui:136
 msgctxt "shortcut window"
 msgid "Open the Nth Project"
-msgstr ""
+msgstr "Open het bijbehorende project"
 
 #: data/resources/ui/shortcuts.ui:143
 msgctxt "shortcut window"
 msgid "Open Next Project"
-msgstr ""
+msgstr "Open het volgende project"
 
 #: data/resources/ui/shortcuts.ui:150
 msgctxt "shortcut window"
 msgid "Open Previous Project"
-msgstr ""
+msgstr "Open het vorige project"
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "10 minuten uitstellen"
