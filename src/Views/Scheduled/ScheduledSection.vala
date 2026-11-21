@@ -83,7 +83,7 @@ public abstract class Views.Scheduled.ScheduledSection : Gtk.ListBoxRow {
 
         signal_map[Services.Settings.get_default ().settings.changed["scheduled-sort-order"].connect (() => {
             listbox.invalidate_sort ();
-        })] = Services.Settings.get_default ();
+        })] = Services.Settings.get_default ().settings;
     }
 
 #if WITH_EVOLUTION
@@ -170,6 +170,28 @@ public abstract class Views.Scheduled.ScheduledSection : Gtk.ListBoxRow {
             items[item.id] = new Layouts.ItemRow (item);
             items[item.id].disable_drag_and_drop ();
             listbox.append (items[item.id]);
+        }
+    }
+
+    /*
+     * Tasks without a date but with a deadline are shown on their deadline day,
+     * so they are visible ahead of time and not only once the deadline is today.
+     */
+    protected bool valid_deadline_only_item (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date) {
+        if (item == null || item.checked || item.was_archived () || item.has_due || !item.has_deadline) {
+            return false;
+        }
+
+        var deadline = Utils.Datetime.get_date_only (item.deadline_datetime);
+        return deadline.compare (Utils.Datetime.get_date_only (start_date)) >= 0 &&
+               deadline.compare (Utils.Datetime.get_date_only (end_date)) <= 0;
+    }
+
+    protected void add_deadline_only_items (GLib.DateTime start_date, GLib.DateTime end_date) {
+        foreach (Objects.Item item in Services.Store.instance ().items) {
+            if (valid_deadline_only_item (item, start_date, end_date)) {
+                add_item (item);
+            }
         }
     }
 

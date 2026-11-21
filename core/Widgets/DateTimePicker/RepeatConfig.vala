@@ -178,7 +178,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
             };
             type_menu_items[i] = type_item;
             int index = i;
-            type_item.clicked.connect (() => {
+            signal_map[type_item.clicked.connect (() => {
                 _selected_type = index;
                 recurrency_type_label.label = get_type_label (index, (int) recurrency_interval.value);
                 recurrency_type_revealer.reveal_child = false;
@@ -196,7 +196,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
                 }
 
                 update_repeat_label ();
-            });
+            })] = type_item;
             type_items_box.append (type_item);
         }
 
@@ -625,6 +625,7 @@ public class Widgets.DateTimePicker.RepeatConfig : Adw.NavigationPage {
     }
 
     public void clean_up () {
+        calendar.clean_up ();
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }

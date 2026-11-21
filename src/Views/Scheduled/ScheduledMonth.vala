@@ -147,10 +147,10 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
             width_request = 250
         };
 
-        add_item.clicked.connect (() => {
+        signal_map[add_item.clicked.connect (() => {
             popover.popdown ();
             open_quick_add (date);
-        });
+        })] = add_item;
 
         return popover;
     }
@@ -159,10 +159,21 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
         foreach (Objects.Item item in Services.Store.instance ().get_items_by_month (date, false)) {
             add_item (item);
         }
+
+        add_deadline_only_items (month_start (), month_end ());
+    }
+
+    private GLib.DateTime month_start () {
+        return new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
+    }
+
+    private GLib.DateTime month_end () {
+        return month_start ().add_months (1).add_days (-1);
     }
 
     protected override bool valid_item_predicate (Objects.Item item) {
-        return Services.Store.instance ().valid_item_by_month (item, date, false);
+        return Services.Store.instance ().valid_item_by_month (item, date, false) ||
+               valid_deadline_only_item (item, month_start (), month_end ());
     }
 
 
@@ -181,21 +192,13 @@ public class Views.Scheduled.ScheduledMonth : Views.Scheduled.ScheduledSection {
             items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id) && !item.has_due) {
+        if (items.has_key (item.id) && !valid_item_predicate (item)) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
             Services.EventBus.get_default ().unfocus_item ();
         }
 
-        if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Store.instance ().valid_item_by_month (item, date, false)) {
-                items[item.id].hide_destroy ();
-                items.unset (item.id);
-                Services.EventBus.get_default ().unfocus_item ();
-            }
-        }
-
-        if (item.has_due) {
+        if (item.has_due || item.has_deadline) {
             valid_add_item (item);
         }
 

@@ -24,6 +24,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private Gtk.Label size_label;
     private Widgets.ScheduleButton schedule_button;
+    private Widgets.DeadlineButton deadline_button;
     private Gtk.Button move_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PriorityButton priority_button;
@@ -60,6 +61,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             sensitive = false,
             visible_clear_button = false,
             visible_no_date = true
+        };
+
+        deadline_button = new Widgets.DeadlineButton () {
+            sensitive = false
         };
 
         move_button = new Gtk.Button.from_icon_name ("arrow3-right-symbolic") {
@@ -107,6 +112,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         content_box.append (move_button);
         content_box.append (label_button);
         content_box.append (priority_button);
+        content_box.append (deadline_button);
         content_box.append (menu_button);
         content_box.append (done_button);
 
@@ -151,6 +157,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             set_datetime (schedule_button.duedate);
         });
 
+        deadline_button.date_selected.connect ((date) => {
+            set_deadline (date);
+        });
+
         move_button.clicked.connect (() => {
             var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
 
@@ -179,6 +189,15 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         priority_button.changed.connect ((priority) => {
             set_priority (priority);
         });
+    }
+
+    public void clean_up () {
+        schedule_button.clean_up ();
+        label_button.clean_up ();
+        priority_button.clean_up ();
+        items_selected.clear ();
+        labels.clear ();
+        _initial_labels.clear ();
     }
 
     private void update_items (Gee.ArrayList<Objects.Item> objects) {
@@ -211,6 +230,39 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         }
 
         update_items (objects);
+    }
+
+    private void set_deadline (GLib.DateTime? date) {
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
+        string deadline_date = date == null ? "" : date.to_string ();
+
+        foreach (string key in items_selected.keys) {
+            var item = items_selected[key].item;
+            item.deadline_date = deadline_date;
+            objects.add (item);
+        }
+
+        update_items (objects);
+    }
+
+    private void update_deadline_button () {
+        Objects.Item? first = null;
+        bool same = true;
+        bool any = false;
+
+        foreach (Layouts.ItemBase item_base in items_selected.values) {
+            var item = item_base.item;
+            any = any || item.has_deadline;
+
+            if (first == null) {
+                first = item;
+            } else if (first.deadline_date != item.deadline_date) {
+                same = false;
+            }
+        }
+
+        deadline_button.datetime = same && first != null ? first.deadline_datetime : null;
+        deadline_button.visible_delete = any;
     }
 
     private void set_priority (int priority) {
@@ -318,7 +370,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 )
             );
 
-            popover.popdown ();
+            menu_button.popover.popdown ();
         });
 
         delete_item.clicked.connect (() => {
@@ -382,6 +434,8 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
         size_label.label = items_selected.size.to_string ();
         schedule_button.sensitive = active;
+        deadline_button.sensitive = active;
+        update_deadline_button ();
         move_button.sensitive = active;
         priority_button.sensitive = active;
         label_button.sensitive = active;
@@ -444,7 +498,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         }
 
         string message = GLib.ngettext (
-                "Task moved to %s",
+                "%d task moved to %s",
                 "%d tasks moved to %s",
                 count
             ).printf (count, project.name);

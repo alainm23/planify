@@ -26,7 +26,12 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     private Adw.ToggleGroup pagination_group;
     private bool updating_pagination = false;
     private int current_page = 0;
+    private int rendered_total_pages = 0;
     private const int PAGE_SIZE = 10;
+
+    // Rows currently shown on the page, so changes only touch the rows that differ.
+    private Gee.HashMap<Objects.Backup, BackupRow> backup_rows = new Gee.HashMap<Objects.Backup, BackupRow> ();
+    private uint refresh_idle_id = 0;
 
     public Backup (Adw.PreferencesDialog preferences_dialog) {
         Object (
@@ -118,7 +123,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
             int page = (int) pagination_group.active;
             if (page != current_page) {
                 current_page = page;
-                render_backups_page ();
+                render_backups_page (false);
             }
         });
 
@@ -250,16 +255,25 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
 
         connect_backup_group_signals ();
 
-        render_backups_page ();
+        render_backups_page (false);
 
         foreach (var folder_path in Services.Settings.get_default ().settings.get_strv ("backup-extra-folders")) {
             add_extra_folder_row (folder_path);
         }
 
         signal_map[Services.BackupManager.get_default ().backup_added.connect ((backup) => {
-            // A new backup lands on page 1; jump there and re-render.
-            current_page = 0;
-            render_backups_page ();
+            // A new backup lands on page 1.
+            if (current_page != 0) {
+                current_page = 0;
+                render_backups_page (false);
+                return;
+            }
+
+            schedule_refresh ();
+        })] = Services.BackupManager.get_default ();
+
+        signal_map[Services.BackupManager.get_default ().backup_deleted.connect ((backup) => {
+            schedule_refresh ();
         })] = Services.BackupManager.get_default ();
 
         destroy.connect (() => {
@@ -283,24 +297,29 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         extra_group.add_child (row);
     }
 
-    private void add_backup_row (Objects.Backup backup, Layouts.HeaderItem group) {
+    private void add_backup_row (Objects.Backup backup) {
         var row = new BackupRow (backup);
-        group.add_child (row);
-
-        // When a backup is deleted (manually or by retention pruning), refresh
-        // the page + pagination. Deferred so a batch prune collapses into one
-        // re-render instead of one per deleted file.
-        signal_map[backup.deleted.connect (() => {
-            Idle.add (() => {
-                render_backups_page ();
-                return GLib.Source.REMOVE;
-            });
-        })] = backup;
+        backup_rows[backup] = row;
+        backups_group.add_child (row);
     }
 
-    // Render the current page of backups (PAGE_SIZE per page, newest first)
-    // and rebuild the numbered page buttons below the list.
-    private void render_backups_page () {
+    // Deferred so a batch of changes (e.g. create + prune) collapses into one update.
+    private void schedule_refresh () {
+        if (refresh_idle_id != 0) {
+            return;
+        }
+
+        refresh_idle_id = Idle.add (() => {
+            refresh_idle_id = 0;
+            render_backups_page (true);
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    // Render the current page of backups (PAGE_SIZE per page, newest first).
+    // With animate, only rows that changed are added or removed; otherwise the
+    // page is rebuilt (initial load and page switches).
+    private void render_backups_page (bool animate) {
         var all_backups = new Gee.ArrayList<Objects.Backup> ();
         all_backups.add_all (Services.BackupManager.get_default ().backups);
         all_backups.sort ((a, b) => b.datetime.compare (a.datetime));
@@ -314,43 +333,74 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         // Keep the current page within range (e.g. after pruning).
         if (current_page >= total_pages) {
             current_page = total_pages - 1;
+            animate = false;
         }
         if (current_page < 0) {
             current_page = 0;
         }
 
-        backups_group.clear ();
-
         int start = current_page * PAGE_SIZE;
         int end = int.min (start + PAGE_SIZE, total);
+        var page_backups = new Gee.HashSet<Objects.Backup> ();
         for (int i = start; i < end; i++) {
-            add_backup_row (all_backups.get (i), backups_group);
+            page_backups.add (all_backups.get (i));
+        }
+
+        if (animate) {
+            // Remove the rows that no longer belong to this page.
+            var to_remove = new Gee.ArrayList<Objects.Backup> ();
+            foreach (var backup in backup_rows.keys) {
+                if (!page_backups.contains (backup)) {
+                    to_remove.add (backup);
+                }
+            }
+
+            foreach (var backup in to_remove) {
+                backup_rows[backup].hide_destroy ();
+                backup_rows.unset (backup);
+            }
+        } else {
+            foreach (var row in backup_rows.values) {
+                row.clean_up ();
+            }
+            backup_rows.clear ();
+            backups_group.clear ();
+        }
+
+        // Add the missing ones; the sort func keeps them newest first.
+        for (int i = start; i < end; i++) {
+            var backup = all_backups.get (i);
+            if (!backup_rows.has_key (backup)) {
+                add_backup_row (backup);
+            }
         }
 
         build_pagination (total_pages);
     }
 
-    // Rebuild the numbered page toggles. Hidden when there is only one page.
+    // Rebuild the numbered page toggles only when the page count changes.
+    // Hidden when there is only one page.
     private void build_pagination (int total_pages) {
         updating_pagination = true;
 
-        pagination_group.remove_all ();
+        if (total_pages != rendered_total_pages) {
+            rendered_total_pages = total_pages;
+            pagination_group.remove_all ();
 
-        if (total_pages <= 1) {
-            pagination_group.visible = false;
-            updating_pagination = false;
-            return;
+            if (total_pages > 1) {
+                for (int page = 0; page < total_pages; page++) {
+                    var toggle = new Adw.Toggle () {
+                        label = (page + 1).to_string ()
+                    };
+                    pagination_group.add (toggle);
+                }
+            }
         }
 
-        for (int page = 0; page < total_pages; page++) {
-            var toggle = new Adw.Toggle () {
-                label = (page + 1).to_string ()
-            };
-            pagination_group.add (toggle);
+        pagination_group.visible = total_pages > 1;
+        if (total_pages > 1) {
+            pagination_group.active = current_page;
         }
-
-        pagination_group.active = current_page;
-        pagination_group.visible = true;
 
         updating_pagination = false;
     }
@@ -371,6 +421,12 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
     }
 
     public override void clean_up () {
+        if (refresh_idle_id != 0) {
+            GLib.Source.remove (refresh_idle_id);
+            refresh_idle_id = 0;
+        }
+
+        backup_rows.clear ();
         backups_group.set_sort_func (null);
         foreach (Gtk.ListBoxRow row in backups_group.get_children ()) {
             ((BackupRow) row).clean_up ();
@@ -391,6 +447,7 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         public Objects.Backup backup { get; construct; }
 
         private Gtk.Revealer main_revealer;
+        private bool hiding = false;
         public Gee.HashMap<ulong, weak GLib.Object> signal_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
         public BackupRow (Objects.Backup backup) {
@@ -504,10 +561,19 @@ public class Dialogs.Preferences.Pages.Backup : Dialogs.Preferences.Pages.BasePa
         }
 
         public void hide_destroy () {
+            // The row can be hidden by its own delete and by the page refresh.
+            if (hiding) {
+                return;
+            }
+
+            hiding = true;
             clean_up ();
             main_revealer.reveal_child = false;
             Timeout.add (main_revealer.transition_duration, () => {
-                ((Gtk.ListBox) parent).remove (this);
+                var listbox = parent as Gtk.ListBox;
+                if (listbox != null) {
+                    listbox.remove (this);
+                }
                 return GLib.Source.REMOVE;
             });
         }

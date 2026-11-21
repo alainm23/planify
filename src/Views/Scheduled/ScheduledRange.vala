@@ -157,10 +157,10 @@ public class Views.Scheduled.ScheduledRange : Views.Scheduled.ScheduledSection {
             width_request = 250
         };
 
-        add_item.clicked.connect (() => {
+        signal_map[add_item.clicked.connect (() => {
             popover.popdown ();
             open_quick_add (start_date);
-        });
+        })] = add_item;
 
         return popover;
     }
@@ -169,10 +169,13 @@ public class Views.Scheduled.ScheduledRange : Views.Scheduled.ScheduledSection {
         foreach (Objects.Item item in Services.Store.instance ().get_items_by_date_range (start_date, end_date, false)) {
             add_item (item);
         }
+
+        add_deadline_only_items (start_date, end_date);
     }
 
     protected override bool valid_item_predicate (Objects.Item item) {
-        return Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false);
+        return Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false) ||
+               valid_deadline_only_item (item, start_date, end_date);
     }
 
     protected override void valid_update_item (Objects.Item item, string? update_id = null) {
@@ -180,21 +183,13 @@ public class Views.Scheduled.ScheduledRange : Views.Scheduled.ScheduledSection {
             items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id) && !item.has_due) {
+        if (items.has_key (item.id) && !valid_item_predicate (item)) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
             Services.EventBus.get_default ().unfocus_item ();
         }
 
-        if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false)) {
-                items[item.id].hide_destroy ();
-                items.unset (item.id);
-                Services.EventBus.get_default ().unfocus_item ();
-            }
-        }
-
-        if (item.has_due) {
+        if (item.has_due || item.has_deadline) {
             valid_add_item (item);
         }
 

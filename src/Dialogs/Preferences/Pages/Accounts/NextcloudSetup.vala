@@ -30,6 +30,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
 
     // Advanced Options
     private Widgets.IgnoreSSLSwitchRow ignore_ssl_row;
+    private Widgets.ClientCertificateRow client_cert_row;
 
     public NextcloudSetup (Adw.PreferencesDialog preferences_dialog, Accounts accounts_page) {
         Object (
@@ -102,8 +103,10 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
 
         // SSL option
         ignore_ssl_row = new Widgets.IgnoreSSLSwitchRow ();
+        client_cert_row = new Widgets.ClientCertificateRow ();
 
         entries_group.add (ignore_ssl_row);
+        entries_group.add (client_cert_row);
 
         login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
             margin_top = 24,
@@ -205,8 +208,12 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
         var core_service = Services.CalDAV.Core.get_default ();
         var nextcloud_provider = new Services.CalDAV.Providers.Nextcloud ();
 
+        string cert_data = client_cert_row.has_certificate ? client_cert_row.cert_data : "";
+        string cert_format = client_cert_row.has_certificate ? client_cert_row.cert_format : "";
+        string cert_password = client_cert_row.has_certificate ? client_cert_row.cert_password : "";
+
         Services.LogService.get_default ().info ("NextcloudSetup", "Starting Nextcloud login flow");
-        nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, ignore_ssl_row.active, (obj, res) => {
+        nextcloud_provider.start_login_flow.begin (server_entry.text, cancellable, ignore_ssl_row.active, cert_data, cert_format, cert_password, (obj, res) => {
             HttpResponse response = nextcloud_provider.start_login_flow.end (res);
 
             if (response.status) {
@@ -243,7 +250,7 @@ public class Dialogs.Preferences.Pages.NextcloudSetup : Dialogs.Preferences.Page
                 login_button.is_loading = false;
                 cancel_button.visible = false;
 
-                if (response.error_code == 409) {
+                if (response.error_code == 409 || response.error_code == 495) {
                     var toast = new Adw.Toast (response.error.strip ());
                     toast.timeout = 3;
                     preferences_dialog.add_toast (toast);

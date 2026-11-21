@@ -367,9 +367,17 @@ namespace PlanifyCLI {
         if (args.output != null && args.output.strip () != "") {
             var file = File.new_for_path (args.output);
             try {
-                var stream = file.replace (null, false, FileCreateFlags.NONE, null);
+                // The backup holds account credentials: keep it readable by its owner only,
+                // also when an existing file is overwritten.
+                var stream = file.replace (null, false, FileCreateFlags.PRIVATE, null);
                 stream.write (json.data, null);
                 stream.close (null);
+                try {
+                    file.set_attribute_uint32 (FileAttribute.UNIX_MODE, 0600, FileQueryInfoFlags.NONE);
+                } catch (Error e) {
+                    // Not every filesystem has permissions (FAT, some network shares).
+                    debug ("Could not restrict permissions of %s: %s", args.output, e.message);
+                }
                 stderr.printf ("Backup saved to %s\n", args.output);
             } catch (Error e) {
                 stderr.printf ("Error writing backup: %s\n", e.message);

@@ -129,12 +129,12 @@ public class Widgets.EventsList : Adw.Bin {
 
         signal_map[Services.Settings.get_default ().settings.changed["calendar-enabled"].connect (() => {
             main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
-        })] = Services.Settings.get_default ();
+        })] = Services.Settings.get_default ().settings;
 
         signal_map[Services.Settings.get_default ().settings.changed["calendar-sources-disabled"].connect (() => {
             listbox.invalidate_filter ();
             change ();
-        })] = Services.Settings.get_default ();
+        })] = Services.Settings.get_default ().settings;
     }
 
     private void add_events () {
@@ -293,6 +293,10 @@ public class Widgets.EventsList : Adw.Bin {
     }
 
     public void clean_up () {
+        // La función de orden y el filtro capturan this; sin soltarlos, el listbox retiene la lista.
+        listbox.set_sort_func (null);
+        listbox.set_filter_func (null);
+
         foreach (var row in Util.get_default ().get_children (listbox)) {
             ((Widgets.EventRow) row).clean_up ();
         }

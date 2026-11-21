@@ -176,7 +176,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
         var parts = new Gee.ArrayList<string> ();
         foreach (Objects.Reminder reminder in reminders) {
-            parts.add (reminder.relative_text);
+            parts.add (reminder.display_text);
         }
 
         value_label.label = string.joinv (", ", parts.to_array ());

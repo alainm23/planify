@@ -59,8 +59,14 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
             margin_end = 6
         };
 
-        content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));
+        var size_label = new Gtk.Label (get_size_text ()) {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "dimmed", "caption" }
+        };
+
+        content_box.append (new Gtk.Image.from_gicon (ContentType.get_symbolic_icon (attachment.file_type)));
         content_box.append (name_label);
+        content_box.append (size_label);
         content_box.append (close_button);
 
         main_revealer = new Gtk.Revealer () {
@@ -129,6 +135,11 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
                 Util.get_default ().create_toast ("Error opening file: " + e.message)
             );
         }
+    }
+
+    private string get_size_text () {
+        var size = int64.parse (attachment.file_size);
+        return size > 0 ? GLib.format_size ((uint64) size) : "";
     }
 
     public void hide_destroy () {

@@ -78,6 +78,7 @@ sources = files(
   'Widgets/FilterFlowBoxChild.vala',
   'Widgets/BypassResolveSwitchRow.vala',
   'Widgets/IgnoreSSLSwitchRow.vala',
+  'Widgets/ClientCertificateRow.vala',
   'Widgets/Attachments.vala',
   'Widgets/AttachmentRow.vala',
   'Widgets/ItemChangeHistoryRow.vala',
@@ -166,7 +167,6 @@ executable(
 )
 
 
-
 # Keep this target in src so Vala preserves the paths of identically named files.
 test_ui_memory = executable(
   'test-ui-memory',
@@ -179,3 +179,26 @@ test_ui_memory = executable(
   vala_args: ['--main=PlanifyUITests.main'],
   install: false
 )
+
+# Opt-in review workloads, controlled through isolated fixture-local IPC files.
+executable(
+  'test-ui-review',
+  join_paths(meson.project_source_root(), 'test/ui-review-scenarios.vala'),
+  sources, asresources, config_file,
+  dependencies: deps,
+  vala_args: ['--main=PlanifyUIReview.main'],
+  install: false,
+  build_by_default: false
+)
+
+# Run explicitly under a profiler against disposable generated fixtures.
+executable(
+  'test-ui-transitions',
+  join_paths(meson.project_source_root(), 'test/ui-transition-profile.vala'),
+  sources, asresources, config_file,
+  dependencies: deps,
+  vala_args: ['--main=PlanifyTransitionProfile.main'],
+  install: false,
+  build_by_default: false
+)
+

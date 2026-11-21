@@ -154,6 +154,7 @@ public class Services.Database : GLib.Object {
         table_columns["Reminders"].add ("due");
         table_columns["Reminders"].add ("mm_offset");
         table_columns["Reminders"].add ("is_deleted");
+        table_columns["Reminders"].add ("fired_at");
 
         table_columns["Sections"] = new Gee.ArrayList<string> ();
         table_columns["Sections"].add ("id");
@@ -315,6 +316,7 @@ public class Services.Database : GLib.Object {
                 due                 TEXT,
                 mm_offset           INTEGER,
                 is_deleted          INTEGER,
+                fired_at            TEXT,
                 FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE ON UPDATE CASCADE
             );
         """;
@@ -720,6 +722,12 @@ public class Services.Database : GLib.Object {
          * - Make label names unique per source instead of across all sources
          */
         migrate_labels_unique_per_source ();
+
+        /*
+         * - Add fired_at column to Reminders: reminders of recurring tasks are kept
+         *   after firing, so remember which occurrence already fired
+         */
+        add_text_column ("Reminders", "fired_at", "");
     }
 
     public void clear_database () {
@@ -1600,7 +1608,25 @@ public class Services.Database : GLib.Object {
         return success;
     }
 
-    public Gee.ArrayList<Objects.Item> get_items_collection () {
+    public delegate void ItemVisitor (Objects.Item item) throws GLib.Error;
+
+    // Keep only the current row alive during exports of large databases.
+    public void foreach_item (ItemVisitor visitor) throws GLib.Error {
+        Sqlite.Statement stmt;
+        const string query = "SELECT * FROM Items WHERE is_deleted = 0 AND is_trash = 0;";
+        if (db.prepare_v2 (query, query.length, out stmt) != Sqlite.OK) {
+            throw new IOError.FAILED ("Unable to read tasks: %s", db.errmsg ());
+        }
+        int result;
+        while ((result = stmt.step ()) == Sqlite.ROW) {
+            visitor (_fill_item (stmt));
+        }
+        if (result != Sqlite.DONE) {
+            throw new IOError.FAILED ("Unable to read tasks: %s", db.errmsg ());
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_collection (bool load_extra_data = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;
 
@@ -1609,7 +1635,7 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
 
         while (stmt.step () == Sqlite.ROW) {
-            return_value.add (_fill_item (stmt));
+            return_value.add (_fill_item (stmt, load_extra_data));
         }
 
         return return_value;
@@ -1665,7 +1691,21 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public Objects.Item _fill_item (Sqlite.Statement stmt) {
+    public string get_item_extra_data (string id) {
+        Sqlite.Statement stmt;
+        const string query = "SELECT extra_data FROM Items WHERE id = $id LIMIT 1;";
+        if (db.prepare_v2 (query, query.length, out stmt) != Sqlite.OK) {
+            warning ("Unable to load task details: %s", db.errmsg ());
+            return "";
+        }
+        set_parameter_str (stmt, "$id", id);
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0) ?? "";
+        }
+        return "";
+    }
+
+    public Objects.Item _fill_item (Sqlite.Statement stmt, bool load_extra_data = true) {
         Objects.Item return_value = new Objects.Item ();
         return_value.id = stmt.column_text (0);
         return_value.content = stmt.column_text (1);
@@ -1685,7 +1725,11 @@ public class Services.Database : GLib.Object {
         return_value.collapsed = get_parameter_bool (stmt, 15);
         return_value.pinned = get_parameter_bool (stmt, 16);
         return_value.labels = Services.Store.instance ().get_labels_by_item_labels (stmt.column_text (17));
-        return_value.extra_data = stmt.column_text (18);
+        if (load_extra_data) {
+            return_value.extra_data = stmt.column_text (18);
+        } else {
+            return_value.defer_extra_data ();
+        }
         return_value.item_type = ItemType.parse (stmt.column_text (19));
         return_value.calendar_event_uid = stmt.column_text (20);
         return_value.deadline_date = stmt.column_text (21);
@@ -1869,8 +1913,8 @@ public class Services.Database : GLib.Object {
         string sql;
 
         sql = """
-            INSERT OR IGNORE INTO Reminders (id, item_id, type, due, mm_offset)
-            VALUES ($id, $item_id, $type, $due, $mm_offset);
+            INSERT OR IGNORE INTO Reminders (id, item_id, type, due, mm_offset, fired_at)
+            VALUES ($id, $item_id, $type, $due, $mm_offset, $fired_at);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1879,6 +1923,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$type", reminder.reminder_type.to_string ());
         set_parameter_str (stmt, "$due", reminder.due.to_string ());
         set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
+        set_parameter_str (stmt, "$fired_at", reminder.fired_at);
 
         int result = stmt.step ();
         if (result != Sqlite.DONE) {
@@ -1894,7 +1939,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            SELECT id, item_id, type, due, mm_offset FROM Reminders;
+            SELECT id, item_id, type, due, mm_offset, fired_at FROM Reminders;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1913,6 +1958,7 @@ public class Services.Database : GLib.Object {
         return_value.reminder_type = stmt.column_text (2) == "absolute" ? ReminderType.ABSOLUTE : ReminderType.RELATIVE;
         return_value.due.update_from_json (get_due_parameter (stmt.column_text (3)));
         return_value.mm_offset = stmt.column_int (4);
+        return_value.fired_at = stmt.column_text (5) ?? "";
         return return_value;
     }
 
@@ -1921,7 +1967,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            SELECT id, item_id, type, due, mm_offset FROM Reminders WHERE item_id=$item_id;
+            SELECT id, item_id, type, due, mm_offset, fired_at FROM Reminders WHERE item_id=$item_id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1932,6 +1978,29 @@ public class Services.Database : GLib.Object {
         }
 
         return return_value;
+    }
+
+    public bool update_reminder (Objects.Reminder reminder) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Reminders SET type=$type, due=$due, mm_offset=$mm_offset, fired_at=$fired_at WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$type", reminder.reminder_type.to_string ());
+        set_parameter_str (stmt, "$due", reminder.due.to_string ());
+        set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
+        set_parameter_str (stmt, "$fired_at", reminder.fired_at);
+        set_parameter_str (stmt, "$id", reminder.id);
+
+        int result = stmt.step ();
+        if (result != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            return false;
+        }
+
+        return true;
     }
 
     public bool delete_reminder (Objects.Reminder reminder) {
@@ -2059,13 +2128,13 @@ public class Services.Database : GLib.Object {
 
         if (source_id != "") {
             sql = """
-                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added;
+                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added, rowid;
             """;
             db.prepare_v2 (sql, sql.length, out stmt);
             set_parameter_str (stmt, "$source_id", source_id);
         } else {
             sql = """
-                SELECT * FROM Queue ORDER BY date_added;
+                SELECT * FROM Queue ORDER BY date_added, rowid;
             """;
             db.prepare_v2 (sql, sql.length, out stmt);
         }
@@ -2293,6 +2362,31 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", id);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
+
+    public void update_queue_ids (string old_id, string new_id) {
+        if (old_id == "" || old_id == new_id) {
+            return;
+        }
+
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Queue
+            SET object_id = CASE WHEN object_id = $old_id THEN $new_id ELSE object_id END,
+                args = REPLACE (args, $old_quoted, $new_quoted)
+            WHERE object_id = $old_id OR instr (args, $old_quoted) > 0;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$old_id", old_id);
+        set_parameter_str (stmt, "$new_id", new_id);
+        set_parameter_str (stmt, "$old_quoted", "\"%s\"".printf (old_id));
+        set_parameter_str (stmt, "$new_quoted", "\"%s\"".printf (new_id));
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());

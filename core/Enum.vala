@@ -649,7 +649,8 @@ public enum SortedByType {
     DUE_DATE,
     ADDED_DATE,
     UPDATED_DATE,
-    PRIORITY;
+    PRIORITY,
+    DEADLINE;
 
     public string to_string () {
         switch (this) {
@@ -670,6 +671,9 @@ public enum SortedByType {
 
             case PRIORITY:
                 return "priority";
+
+            case DEADLINE:
+                return "deadline";
 
             default:
                 return "manual";
@@ -695,6 +699,9 @@ public enum SortedByType {
 
             case "priority":
                 return SortedByType.PRIORITY;
+
+            case "deadline":
+                return SortedByType.DEADLINE;
 
             default:
                 return SortedByType.MANUAL;

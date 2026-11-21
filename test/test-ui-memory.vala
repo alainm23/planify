@@ -22,25 +22,6 @@ namespace PlanifyUITests {
         settings.set_boolean ("slim-mode", slim_mode);
     }
 
-    private void test_cancel_section_loading () {
-        var row = new Layouts.SectionRow.for_project (project);
-        var released = GLib.WeakRef (row);
-        row.clean_up ();
-        drain_pending ();
-        assert_cmpint (row.items_map.size, CompareOperator.EQ, 0);
-        row = null;
-        assert_null (released.get ());
-    }
-
-    private void test_cancel_project_loading () {
-        var view = new Views.Project (project);
-        var released = GLib.WeakRef (view);
-        view.clean_up ();
-        view = null;
-        drain_pending ();
-        assert_null (released.get ());
-    }
-
     private void run_for (uint milliseconds) {
         var loop = new MainLoop ();
         Timeout.add (milliseconds, () => {
@@ -68,6 +49,52 @@ namespace PlanifyUITests {
         while (find_type (widget, kind) == null && get_monotonic_time () < deadline) run_for (25);
         assert_true (find_type (widget, kind) != null);
         run_for (100);
+    }
+
+    private void test_task_action_menu_is_lazy_and_reused () {
+        var item = Services.Store.instance ().get_item ("ui-memory-task-0");
+        var row = new Layouts.ItemRow (item);
+        var menu = (Gtk.MenuButton) find_type (row, typeof (Gtk.MenuButton));
+        assert_nonnull (menu);
+        assert_null (menu.popover);
+        assert_true (find_type (row, typeof (Widgets.ContextMenu.MenuSwitch)) == null);
+
+        var listbox = new Gtk.ListBox ();
+        listbox.append (row);
+        var window = new Gtk.Window () { child = listbox, default_width = 700, default_height = 600 };
+        window.present ();
+        row.edit = true;
+        settle_frames ();
+        menu.popup ();
+        run_for (100);
+        Gtk.Popover? popup = menu.popover;
+        assert_nonnull (popup);
+        var note = (Widgets.ContextMenu.MenuSwitch) find_type (popup, typeof (Widgets.ContextMenu.MenuSwitch));
+        assert_nonnull (note);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.NOTE);
+        menu.popdown ();
+        settle_frames ();
+        menu.popup ();
+        assert_true (menu.popover == popup);
+        note.clicked ();
+        assert_true (item.item_type == ItemType.TASK);
+        menu.popdown ();
+        settle_frames ();
+
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        // GTK's shared tooltip window can be attached after hovering over editor controls.
+        collect_all_widgets (row, tracked, false);
+        row.clean_up ();
+        popup = null;
+        note = null;
+        menu = null;
+        window.child = null;
+        listbox = null;
+        row = null;
+        window.destroy ();
+        window = null;
+        assert_widgets_released (tracked);
     }
 
     private void assert_widgets_released (Gee.ArrayList<TrackedWidget> tracked) {
@@ -127,37 +154,6 @@ namespace PlanifyUITests {
         assert_widgets_released (tracked);
     }
 
-    private void test_pinned_card_keyboard_focus () {
-        var pins = new Widgets.PinnedItemsBox (project);
-        var window = new Gtk.Window () { child = pins, default_width = 500, default_height = 500 };
-        window.present ();
-        settle_frames ();
-        window.set_focus (null);
-        var card = pins.items_map["ui-memory-task-0"];
-        assert_true (card.pin_mode);
-        assert_true (card.parent is Adw.WrapBox);
-        assert_true (card.child_focus (Gtk.DirectionType.TAB_FORWARD));
-        assert_true (window.focus_widget != null && window.focus_widget.is_ancestor (card));
-        window.set_focus (null);
-        assert_true (card.grab_focus ());
-        assert_true (window.focus_widget != null && window.focus_widget.is_ancestor (card));
-        pins.clean_up ();
-        window.child = null;
-        window.destroy ();
-
-        // Ordinary board cards still focus their row inside a Gtk.ListBox.
-        var row = new Layouts.ItemBoard (Services.Store.instance ().get_item ("ui-memory-task-1"));
-        var listbox = new Gtk.ListBox ();
-        listbox.append (row);
-        window = new Gtk.Window () { child = listbox };
-        window.present ();
-        settle_frames ();
-        assert_true (row.grab_focus ());
-        assert_true (window.focus_widget == row);
-        row.clean_up ();
-        window.destroy ();
-    }
-
     private void test_sidebar_list_grid_switching () {
         var settings = Services.Settings.get_default ().settings;
         settings.set_boolean ("filters-list-view", true);
@@ -196,46 +192,6 @@ namespace PlanifyUITests {
         for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) {
             collect_filter_widgets (child, kind, tracked);
         }
-    }
-
-    private void test_navigation_releases_previous_page () {
-        var app = Planify.instance;
-        try {
-            assert_true (app.register ());
-        } catch (Error e) {
-            error ("Cannot register test application: %s", e.message);
-        }
-        Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", project.id);
-        Services.Settings.get_default ().settings.set_boolean ("backup-automatic", false);
-        var window = new MainWindow (app);
-        app.main_window = window;
-        window.present ();
-        settle_frames ();
-
-        project.view_style = ProjectViewStyle.LIST;
-        for (int cycle = 0; cycle < 3; cycle++) {
-            var page = window.add_project_view (project);
-            var released = GLib.WeakRef (page);
-            settle_frames ();
-            window.add_today_view ();
-            page = null;
-            // Eviction is queued after the page transition; allow frame scheduling to settle
-            // even when other tests or profiling consume CPU.
-            var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
-            while (released.get () != null && get_monotonic_time () < deadline) {
-                settle_frames ();
-            }
-            assert_null (released.get ());
-        }
-
-        // Exercise another navigation before the pending page change finishes.
-        window.add_project_view (project);
-        window.add_today_view ();
-        window.add_project_view (project);
-        settle_frames ();
-        window.add_today_view ();
-        settle_frames ();
-        window.destroy ();
     }
 
     private class TrackedWidget : Object {
@@ -354,52 +310,6 @@ namespace PlanifyUITests {
         check_project_children_release (ProjectViewStyle.BOARD);
     }
 
-    private void test_task_action_menu_is_lazy_and_reused () {
-        var item = Services.Store.instance ().get_item ("ui-memory-task-0");
-        var row = new Layouts.ItemRow (item);
-        var menu = (Gtk.MenuButton) find_type (row, typeof (Gtk.MenuButton));
-        assert_nonnull (menu);
-        assert_null (menu.popover);
-        assert_true (find_type (row, typeof (Widgets.ContextMenu.MenuSwitch)) == null);
-
-        var listbox = new Gtk.ListBox ();
-        listbox.append (row);
-        var window = new Gtk.Window () { child = listbox, default_width = 700, default_height = 600 };
-        window.present ();
-        row.edit = true;
-        settle_frames ();
-        menu.popup ();
-        run_for (100);
-        Gtk.Popover? popup = menu.popover;
-        assert_nonnull (popup);
-        var note = (Widgets.ContextMenu.MenuSwitch) find_type (popup, typeof (Widgets.ContextMenu.MenuSwitch));
-        assert_nonnull (note);
-        note.clicked ();
-        assert_true (item.item_type == ItemType.NOTE);
-        menu.popdown ();
-        settle_frames ();
-        menu.popup ();
-        assert_true (menu.popover == popup);
-        note.clicked ();
-        assert_true (item.item_type == ItemType.TASK);
-        menu.popdown ();
-        settle_frames ();
-
-        var tracked = new Gee.ArrayList<TrackedWidget> ();
-        // GTK's shared tooltip window can be attached after hovering over editor controls.
-        collect_all_widgets (row, tracked, false);
-        row.clean_up ();
-        popup = null;
-        note = null;
-        menu = null;
-        window.child = null;
-        listbox = null;
-        row = null;
-        window.destroy ();
-        window = null;
-        assert_widgets_released (tracked);
-    }
-
     private void test_scheduled_range_releases_children () {
         var today = Utils.Datetime.get_date_only (new DateTime.now_local ());
         var original_dates = new Gee.HashMap<string, string> ();
@@ -415,6 +325,112 @@ namespace PlanifyUITests {
         range = null;
         assert_widgets_released (tracked);
         foreach (var item in Services.Store.instance ().items) item.due.date = original_dates[item.id];
+    }
+
+    private void test_cancel_section_loading () {
+        var row = new Layouts.SectionRow.for_project (project);
+        var released = GLib.WeakRef (row);
+        row.clean_up ();
+        drain_pending ();
+        assert_cmpint (row.items_map.size, CompareOperator.EQ, 0);
+        row = null;
+        assert_null (released.get ());
+    }
+
+    private void test_cancel_project_loading () {
+        var view = new Views.Project (project);
+        var released = GLib.WeakRef (view);
+        view.clean_up ();
+        view = null;
+        drain_pending ();
+        assert_null (released.get ());
+    }
+
+    private void test_pinned_card_keyboard_focus () {
+        var pins = new Widgets.PinnedItemsBox (project);
+        var window = new Gtk.Window () { child = pins, default_width = 500, default_height = 500 };
+        window.present ();
+        settle_frames ();
+        window.set_focus (null);
+        var card = pins.items_map["ui-memory-task-0"];
+        assert_true (card.pin_mode);
+        assert_true (card.parent is Adw.WrapBox);
+        assert_true (card.child_focus (Gtk.DirectionType.TAB_FORWARD));
+        assert_true (window.focus_widget != null && window.focus_widget.is_ancestor (card));
+        window.set_focus (null);
+        assert_true (card.grab_focus ());
+        assert_true (window.focus_widget != null && window.focus_widget.is_ancestor (card));
+        pins.clean_up ();
+        window.child = null;
+        window.destroy ();
+
+        // Ordinary board cards still focus their row inside a Gtk.ListBox.
+        var row = new Layouts.ItemBoard (Services.Store.instance ().get_item ("ui-memory-task-1"));
+        var listbox = new Gtk.ListBox ();
+        listbox.append (row);
+        window = new Gtk.Window () { child = listbox };
+        window.present ();
+        settle_frames ();
+        assert_true (row.grab_focus ());
+        assert_true (window.focus_widget == row);
+        row.clean_up ();
+        window.destroy ();
+    }
+
+    private void test_navigation_keeps_previous_and_releases_older_page () {
+        var app = Planify.instance;
+        try {
+            assert_true (app.register ());
+        } catch (Error e) {
+            error ("Cannot register test application: %s", e.message);
+        }
+        Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", project.id);
+        Services.Settings.get_default ().settings.set_boolean ("backup-automatic", false);
+        var window = new MainWindow (app);
+        app.main_window = window;
+        window.present ();
+        settle_frames ();
+
+        project.view_style = ProjectViewStyle.LIST;
+        for (int cycle = 0; cycle < 3; cycle++) {
+            var page = window.add_project_view (project);
+            var released = GLib.WeakRef (page);
+            settle_frames ();
+            window.add_today_view ();
+            settle_frames ();
+            // Returning to the previous page must reuse it, not rebuild it.
+            assert_true (window.add_project_view (project) == page);
+            settle_frames ();
+            window.add_today_view ();
+            page = null;
+            settle_frames ();
+            assert_true (released.get () != null);
+            window.add_labels_view ();
+            // Eviction is queued after the page transition; allow frame scheduling to settle
+            // even when other tests or profiling consume CPU.
+            var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
+            while (released.get () != null && get_monotonic_time () < deadline) {
+                settle_frames ();
+            }
+            assert_null (released.get ());
+        }
+
+        // Exercise another navigation before the pending page change finishes.
+        var page = window.add_project_view (project);
+        var released = GLib.WeakRef (page);
+        window.add_today_view ();
+        assert_true (window.add_project_view (project) == page);
+        window.add_labels_view ();
+        page = null;
+        settle_frames ();
+        assert_true (released.get () != null);
+        window.add_today_view ();
+        var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
+        while (released.get () != null && get_monotonic_time () < deadline) {
+            settle_frames ();
+        }
+        assert_null (released.get ());
+        window.destroy ();
     }
 
     public int main (string[] args) {
@@ -472,19 +488,19 @@ namespace PlanifyUITests {
             Services.Store.instance ().insert_item (item);
             item.add_label_if_not_exists (label);
         }
-        Test.add_func ("/ui/memory/pinned_card_keyboard_focus", test_pinned_card_keyboard_focus);
         Test.add_func ("/ui/memory/headerbar_disconnects_settings", test_headerbar_disconnects_settings);
         Test.add_func ("/ui/memory/scheduled_range_releases_children", test_scheduled_range_releases_children);
-        Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
         Test.add_func ("/ui/memory/rapid_list_board_switching", test_rapid_list_board_switching);
         Test.add_func ("/ui/memory/sidebar_list_grid_switching", test_sidebar_list_grid_switching);
         Test.add_func ("/ui/memory/project_releases_populated_children", test_project_releases_populated_children);
         Test.add_func ("/ui/memory/date_picker_releases_descendants", test_date_picker_releases_descendants);
         Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
         Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);
+        Test.add_func ("/ui/memory/task_action_menu_is_lazy_and_reused", test_task_action_menu_is_lazy_and_reused);
+        Test.add_func ("/ui/memory/pinned_card_keyboard_focus", test_pinned_card_keyboard_focus);
         Test.add_func ("/ui/memory/cancel_section_loading", test_cancel_section_loading);
         Test.add_func ("/ui/memory/cancel_project_loading", test_cancel_project_loading);
-        Test.add_func ("/ui/memory/navigation_releases_previous_page", test_navigation_releases_previous_page);
+        Test.add_func ("/ui/memory/navigation_keeps_previous_and_releases_older_page", test_navigation_keeps_previous_and_releases_older_page);
         return Test.run ();
     }
 }

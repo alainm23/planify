@@ -140,7 +140,8 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
 
         var checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            sensitive = false
+            sensitive = false,
+            active = item_obj.checked
         };
         checked_button.add_css_class ("priority-color");
         Util.get_default ().set_widget_priority (item_obj.priority, checked_button);
@@ -150,6 +151,11 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
             xalign = 0,
             use_markup = true
         };
+
+        if (item_obj.checked) {
+            content_label.add_css_class ("dimmed");
+            content_label.add_css_class ("line-through");
+        }
 
         var project_label = new Gtk.Label (item_obj.project.name) {
             ellipsize = Pango.EllipsizeMode.END,
@@ -277,6 +283,11 @@ public class Dialogs.QuickFind.QuickFindFactory : GLib.Object {
         var header = (Gtk.ListHeader) object;
         var label = (Gtk.Label) header.child;
         var item = (QuickFindItem) header.item;
+
+        if (item.base_object is Objects.Item && ((Objects.Item) item.base_object).checked) {
+            label.label = _("Completed");
+            return;
+        }
 
         label.label = item.base_object.object_type.get_header ();
     }

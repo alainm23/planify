@@ -110,6 +110,7 @@ namespace PlanifyUIScenarios {
             select_view_style (page, ProjectViewStyle.BOARD);
             pause (40);
             window.add_project_view (inbox);
+            window.add_today_view ();
             page = null;
             release_check (tracked);
             pause (500);
@@ -280,6 +281,9 @@ namespace PlanifyUIScenarios {
             database_bytes = null;
             int count = (int) root.get_object_member ("counts").get_int_member ("items");
             assert_true (count == 450 || count == 5000);
+            var settings = Services.Settings.get_default ().settings;
+            settings.set_string ("local-inbox-project-id", "synthetic-inbox");
+            settings.set_boolean ("backup-automatic", false);
             Services.Database.get_default ().init_database ();
             assert_cmpint (Services.Store.instance ().items.size, CompareOperator.EQ, count);
             foreach (var source in Services.Store.instance ().sources) assert_true (source.source_type == SourceType.LOCAL);

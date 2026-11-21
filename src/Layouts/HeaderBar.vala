@@ -144,7 +144,7 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         signal_map[Services.Settings.get_default ().settings.changed["slim-mode"].connect (() => {
             update_sidebar_icon ();
-        })] = Services.Settings.get_default ();
+        })] = Services.Settings.get_default ().settings;
     }
 
     private void update_sidebar_icon () {
