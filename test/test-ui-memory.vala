@@ -82,7 +82,9 @@ namespace PlanifyUITests {
         menu.popdown ();
         settle_frames ();
 
-        // Standalone coverage ends at lazy creation, actions, and popover reuse.
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        // GTK's shared tooltip window can be attached after hovering over editor controls.
+        collect_all_widgets (row, tracked, false);
         row.clean_up ();
         popup = null;
         note = null;
@@ -92,6 +94,7 @@ namespace PlanifyUITests {
         row = null;
         window.destroy ();
         window = null;
+        assert_widgets_released (tracked);
     }
 
     private void assert_widgets_released (Gee.ArrayList<TrackedWidget> tracked) {
@@ -111,6 +114,44 @@ namespace PlanifyUITests {
         assert_nonnull (toggles);
         toggles.active_name = style.to_string ();
         assert_true (project.view_style == style);
+    }
+
+    private void test_rapid_list_board_switching () {
+        project.view_style = ProjectViewStyle.LIST;
+        var page = new Views.Project (project);
+        var window = new Gtk.Window () { child = page, default_width = 1100, default_height = 800 };
+        window.present ();
+        wait_for_type (page, typeof (Views.List));
+        for (int cycle = 0; cycle < 8; cycle++) {
+            var tracked = new Gee.ArrayList<TrackedWidget> ();
+            var old_kind = project.view_style == ProjectViewStyle.LIST ? typeof (Views.List) : typeof (Views.Board);
+            var next = project.view_style == ProjectViewStyle.LIST ? ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
+            collect_all_widgets (find_type (page, old_kind), tracked);
+            select_view_style (page, next);
+            if (cycle % 2 == 0) {
+                // Reverse twice before the 250ms layout replacement timer fires.
+                run_for (40);
+                select_view_style (page, next == ProjectViewStyle.LIST ? ProjectViewStyle.BOARD : ProjectViewStyle.LIST);
+                run_for (40);
+                select_view_style (page, next);
+            }
+            wait_for_type (page, next == ProjectViewStyle.LIST ? typeof (Views.List) : typeof (Views.Board));
+            assert_null (find_type (page, old_kind));
+            assert_widgets_released (tracked);
+        }
+
+        var tracked = new Gee.ArrayList<TrackedWidget> ();
+        collect_all_widgets (page, tracked);
+        select_view_style (page, ProjectViewStyle.BOARD);
+        run_for (40);
+        page.clean_up ();
+        window.child = null;
+        page = null;
+        window.destroy ();
+        window = null;
+        // A pending timer must not rebuild a layout after cleanup.
+        settle_frames ();
+        assert_widgets_released (tracked);
     }
 
     private void test_sidebar_list_grid_switching () {
@@ -221,8 +262,6 @@ namespace PlanifyUITests {
     }
 
     private void collect_all_widgets (Gtk.Widget widget, Gee.ArrayList<TrackedWidget> tracked, bool include_tooltips = true) {
-        // CalendarScroll lifetime fixes belong to the separate calendar split.
-        if (widget is Widgets.Calendar.CalendarScroll) return;
         if (!include_tooltips && widget.get_type ().name () == "GtkTooltipWindow") {
             return;
         }
@@ -264,6 +303,11 @@ namespace PlanifyUITests {
                 Test.fail ();
             }
         }
+    }
+
+    private void test_project_releases_populated_children () {
+        check_project_children_release (ProjectViewStyle.LIST);
+        check_project_children_release (ProjectViewStyle.BOARD);
     }
 
     private void test_scheduled_range_releases_children () {
@@ -360,7 +404,7 @@ namespace PlanifyUITests {
             window.add_today_view ();
             page = null;
             settle_frames ();
-            assert_nonnull (released.get ());
+            assert_true (released.get () != null);
             window.add_labels_view ();
             // Eviction is queued after the page transition; allow frame scheduling to settle
             // even when other tests or profiling consume CPU.
@@ -379,7 +423,7 @@ namespace PlanifyUITests {
         window.add_labels_view ();
         page = null;
         settle_frames ();
-        assert_nonnull (released.get ());
+        assert_true (released.get () != null);
         window.add_today_view ();
         var deadline = get_monotonic_time () + 3 * TimeSpan.SECOND;
         while (released.get () != null && get_monotonic_time () < deadline) {
@@ -446,7 +490,9 @@ namespace PlanifyUITests {
         }
         Test.add_func ("/ui/memory/headerbar_disconnects_settings", test_headerbar_disconnects_settings);
         Test.add_func ("/ui/memory/scheduled_range_releases_children", test_scheduled_range_releases_children);
+        Test.add_func ("/ui/memory/rapid_list_board_switching", test_rapid_list_board_switching);
         Test.add_func ("/ui/memory/sidebar_list_grid_switching", test_sidebar_list_grid_switching);
+        Test.add_func ("/ui/memory/project_releases_populated_children", test_project_releases_populated_children);
         Test.add_func ("/ui/memory/date_picker_releases_descendants", test_date_picker_releases_descendants);
         Test.add_func ("/ui/memory/editor_and_progress_widgets_release", test_editor_and_progress_widgets_release);
         Test.add_func ("/ui/memory/scheduled_releases_sections_and_rows", test_scheduled_releases_sections_and_rows);
