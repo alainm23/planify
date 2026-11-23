@@ -35,6 +35,8 @@ public class Dialogs.Section : Adw.Dialog {
 
     private Gee.HashMap<ulong, GLib.Object> signal_map = new Gee.HashMap<ulong, GLib.Object> ();
 
+    private bool submitting = false;
+
     public Section.new (Objects.Project project) {
         var section = new Objects.Section ();
         section.project_id = project.id;
@@ -154,10 +156,18 @@ public class Dialogs.Section : Adw.Dialog {
     }
 
     private void add_update_section () {
+        if (submitting) {
+            return;
+        }
+
         if (name_entry.text.length <= 0) {
             close ();
             return;
         }
+
+        submitting = true;
+        submit_button.sensitive = false;
+        name_entry.sensitive = false;
 
         string _name = section.name;
         string _description = section.description;
