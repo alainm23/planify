@@ -99,6 +99,7 @@ msgstr "Nextcloud"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:42
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 #: core/Services/CalDAV/CalDAVClient.vala:309
+#: core/Services/CalDAV/CalDAVClient.vala:392
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -160,6 +161,7 @@ msgstr "目录"
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2106
 #: src/Dialogs/Project.vala:153 src/Layouts/ItemRow.vala:2118
+#: src/Dialogs/Section.vala:93
 msgid "Description"
 msgstr "描述"
 
@@ -676,6 +678,7 @@ msgstr "在标题栏配合快捷指令，实现快速创建"
 
 #: core/Services/CalDAV/CalDAVClient.vala:290
 #: core/Services/CalDAV/CalDAVClient.vala:488
+#: core/Services/CalDAV/CalDAVClient.vala:571
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "%s 任务加载中…"
@@ -684,18 +687,22 @@ msgstr "%s 任务加载中…"
 #: core/Services/CalDAV/CalDAVClient.vala:327
 #: core/Services/CalDAV/CalDAVClient.vala:499
 #: core/Services/CalDAV/CalDAVClient.vala:525
+#: core/Services/CalDAV/CalDAVClient.vala:582
+#: core/Services/CalDAV/CalDAVClient.vala:608
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "载入任务用于 %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:320
 #: core/Services/CalDAV/CalDAVClient.vala:518
+#: core/Services/CalDAV/CalDAVClient.vala:601
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "正在同步任务 %d / %d"
 
 #: core/Services/CalDAV/CalDAVClient.vala:763
 #: core/Services/CalDAV/CalDAVClient.vala:966
+#: core/Services/CalDAV/CalDAVClient.vala:1056
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -703,6 +710,7 @@ msgstr "该服务器不允许经由 CalDAV 建立专案项目。请直接从日�
 
 #: core/Services/CalDAV/CalDAVClient.vala:818
 #: core/Services/CalDAV/CalDAVClient.vala:1019
+#: core/Services/CalDAV/CalDAVClient.vala:1109
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -710,6 +718,7 @@ msgstr "此服务器不允许通过 CalDAV 删除项目。请直接从您的日�
 
 #: core/Services/CalDAV/CalDAVClient.vala:822
 #: core/Services/CalDAV/CalDAVClient.vala:1023
+#: core/Services/CalDAV/CalDAVClient.vala:1113
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -719,6 +728,8 @@ msgstr "此服务器不支持通过 CalDAV 删除项目。请直接从服务器�
 #: core/Services/CalDAV/CalDAVClient.vala:902
 #: core/Services/CalDAV/CalDAVClient.vala:1082
 #: core/Services/CalDAV/CalDAVClient.vala:1137
+#: core/Services/CalDAV/CalDAVClient.vala:1172
+#: core/Services/CalDAV/CalDAVClient.vala:1227
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "任务已在其他设备上修改。请同步以获取最新版本。"
@@ -2147,7 +2158,7 @@ msgstr "您可以通过拖放来排序分区"
 #: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
 #: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:359
 #: src/Views/Project/Project.vala:390 src/Views/Project/Project.vala:365
-#: src/Views/Project/Project.vala:396
+#: src/Views/Project/Project.vala:396 src/Dialogs/Section.vala:48
 msgid "New Section"
 msgstr "新建分区"
 
@@ -3430,23 +3441,27 @@ msgstr "快速切换项目和视图、查找任务、按标签搜索"
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:608
 #: src/Layouts/SectionRow.vala:700 src/Layouts/SectionBoard.vala:623
 #: src/Layouts/SectionRow.vala:710 src/Layouts/SectionRow.vala:717
+#: src/Dialogs/Section.vala:55
 msgid "Edit Section"
 msgstr "编辑分区"
 
-#: src/Dialogs/Section.vala:67
+#: src/Dialogs/Section.vala:67 src/Dialogs/Section.vala:69
 msgid "Section Name"
 msgstr "分区名称"
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
+#: src/Dialogs/Section.vala:104
 msgid "Add Section"
 msgstr "添加分区"
 
-#: src/Dialogs/Section.vala:102
+#: src/Dialogs/Section.vala:102 src/Dialogs/Section.vala:104
 msgid "Update Section"
 msgstr "更新分区"
 
 #: src/Dialogs/Section.vala:244 src/Dialogs/Section.vala:258
 #: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
+#: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
+#: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
 msgid "Section added"
 msgstr "分区已添加"
 
@@ -4748,6 +4763,7 @@ msgid ""
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:72
+#: core/Services/CalDAV/CalDAVClient.vala:89
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
 

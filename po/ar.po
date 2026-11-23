@@ -125,6 +125,7 @@ msgstr "Nextcloud"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 #: core/Services/CalDAV/CalDAVClient.vala:309
+#: core/Services/CalDAV/CalDAVClient.vala:392
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -181,6 +182,7 @@ msgstr "المحتوى"
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Dialogs/Project.vala:153 src/Layouts/ItemRow.vala:2118
+#: src/Dialogs/Section.vala:93
 msgid "Description"
 msgstr "الوصف"
 
@@ -645,6 +647,7 @@ msgstr "اجمع الاختصارات في العنوان لإنشاء أسرع"
 
 #: core/Services/CalDAV/CalDAVClient.vala:290
 #: core/Services/CalDAV/CalDAVClient.vala:488
+#: core/Services/CalDAV/CalDAVClient.vala:571
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "جاري تحميل المهام ل %s…"
@@ -653,18 +656,22 @@ msgstr "جاري تحميل المهام ل %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:327
 #: core/Services/CalDAV/CalDAVClient.vala:499
 #: core/Services/CalDAV/CalDAVClient.vala:525
+#: core/Services/CalDAV/CalDAVClient.vala:582
+#: core/Services/CalDAV/CalDAVClient.vala:608
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:320
 #: core/Services/CalDAV/CalDAVClient.vala:518
+#: core/Services/CalDAV/CalDAVClient.vala:601
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:763
 #: core/Services/CalDAV/CalDAVClient.vala:966
+#: core/Services/CalDAV/CalDAVClient.vala:1056
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -672,6 +679,7 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:818
 #: core/Services/CalDAV/CalDAVClient.vala:1019
+#: core/Services/CalDAV/CalDAVClient.vala:1109
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -679,6 +687,7 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:822
 #: core/Services/CalDAV/CalDAVClient.vala:1023
+#: core/Services/CalDAV/CalDAVClient.vala:1113
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -689,6 +698,8 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:902
 #: core/Services/CalDAV/CalDAVClient.vala:1082
 #: core/Services/CalDAV/CalDAVClient.vala:1137
+#: core/Services/CalDAV/CalDAVClient.vala:1172
+#: core/Services/CalDAV/CalDAVClient.vala:1227
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
@@ -2073,7 +2084,7 @@ msgstr ""
 #: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
 #: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:359
 #: src/Views/Project/Project.vala:390 src/Views/Project/Project.vala:365
-#: src/Views/Project/Project.vala:396
+#: src/Views/Project/Project.vala:396 src/Dialogs/Section.vala:48
 msgid "New Section"
 msgstr ""
 
@@ -3323,23 +3334,27 @@ msgstr ""
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:623
 #: src/Layouts/SectionRow.vala:710 src/Layouts/SectionRow.vala:717
+#: src/Dialogs/Section.vala:55
 msgid "Edit Section"
 msgstr ""
 
-#: src/Dialogs/Section.vala:67
+#: src/Dialogs/Section.vala:67 src/Dialogs/Section.vala:69
 msgid "Section Name"
 msgstr ""
 
 #: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
+#: src/Dialogs/Section.vala:104
 msgid "Add Section"
 msgstr ""
 
-#: src/Dialogs/Section.vala:102
+#: src/Dialogs/Section.vala:102 src/Dialogs/Section.vala:104
 msgid "Update Section"
 msgstr ""
 
 #: src/Dialogs/Section.vala:244 src/Dialogs/Section.vala:258
 #: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
+#: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
+#: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
 msgid "Section added"
 msgstr ""
 
@@ -4542,6 +4557,7 @@ msgid "Will remind you again when the task repeats"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:72
+#: core/Services/CalDAV/CalDAVClient.vala:89
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
 
