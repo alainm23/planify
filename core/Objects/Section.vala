@@ -459,11 +459,11 @@ public class Objects.Section : Objects.BaseObject {
                             }
                             loading = false;
                         });
-                    } else if (ical_url != "") {
+                    } else {
+                        // Also for a section created offline (no url yet): its tasks may
+                        // be on the server, and its pending upload has to be dropped.
                         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
                         _delete_caldav_section.begin (caldav_client);
-                    } else {
-                        Services.Store.instance ().delete_section (this);
                     }
                 } else {
                     Services.Store.instance ().delete_section (this);
@@ -563,7 +563,7 @@ public class Objects.Section : Objects.BaseObject {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             yield delete_item_caldav_recursive (subitem, caldav_client);
         }
-        
-        yield caldav_client.delete_item_online (item);
+
+        yield caldav_client.delete_item (item);
     }
 }
