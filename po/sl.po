@@ -108,7 +108,7 @@ msgstr[3] "Vsakih %d let"
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:309
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:392
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
@@ -152,7 +152,7 @@ msgstr "Naloga posodobljena"
 msgid "Content"
 msgstr "Vsebina"
 
-#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:91
+#: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:93
 #: src/Layouts/ItemRow.vala:2118 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 msgid "Description"
@@ -583,27 +583,27 @@ msgstr "Namig"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Združite bližnjice v polju za naslov za hitrejše ustvarjanje"
 
-#: core/Services/CalDAV/CalDAVClient.vala:72
+#: core/Services/CalDAV/CalDAVClient.vala:89
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:488
+#: core/Services/CalDAV/CalDAVClient.vala:571
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Nalaganje nalog za %s …"
 
-#: core/Services/CalDAV/CalDAVClient.vala:499
-#: core/Services/CalDAV/CalDAVClient.vala:525
+#: core/Services/CalDAV/CalDAVClient.vala:582
+#: core/Services/CalDAV/CalDAVClient.vala:608
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Naloge za %s so naložene …"
 
-#: core/Services/CalDAV/CalDAVClient.vala:518
+#: core/Services/CalDAV/CalDAVClient.vala:601
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Sinhronizacija naloge %d od %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:966
+#: core/Services/CalDAV/CalDAVClient.vala:1056
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -611,7 +611,7 @@ msgstr ""
 "Ta strežnik ne dovoljuje ustvarjanja projektov prek protokola CalDAV. "
 "Projekt ustvarite neposredno na spletnem mestu svojega ponudnika koledarja."
 
-#: core/Services/CalDAV/CalDAVClient.vala:1019
+#: core/Services/CalDAV/CalDAVClient.vala:1109
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -619,7 +619,7 @@ msgstr ""
 "Ta strežnik ne dovoljuje brisanja projektov prek protokola CalDAV. Projekt "
 "izbrišite neposredno na spletnem mestu svojega ponudnika koledarja."
 
-#: core/Services/CalDAV/CalDAVClient.vala:1023
+#: core/Services/CalDAV/CalDAVClient.vala:1113
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -627,8 +627,8 @@ msgstr ""
 "Ta strežnik ne podpira brisanja projektov prek protokola CalDAV. Projekt "
 "izbrišite neposredno na strežniku."
 
-#: core/Services/CalDAV/CalDAVClient.vala:1082
-#: core/Services/CalDAV/CalDAVClient.vala:1137
+#: core/Services/CalDAV/CalDAVClient.vala:1172
+#: core/Services/CalDAV/CalDAVClient.vala:1227
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
@@ -1989,7 +1989,7 @@ msgstr "Upravljaj razdelke"
 msgid "You can sort your sections by dragging and dropping"
 msgstr "Razdelke lahko razvrstite z vlečenjem in spuščanjem"
 
-#: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:46
+#: src/Dialogs/ManageSectionOrder.vala:81 src/Dialogs/Section.vala:48
 #: src/Views/Project/Project.vala:258 src/Views/Project/Project.vala:365
 #: src/Views/Project/Project.vala:396
 msgid "New Section"
@@ -3269,25 +3269,25 @@ msgstr ""
 "Hitro preklapljajte med projekti in pogledi, poiščite naloge ali iščite po "
 "oznakah"
 
-#: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:623
+#: src/Dialogs/Section.vala:55 src/Layouts/SectionBoard.vala:623
 #: src/Layouts/SectionRow.vala:717
 msgid "Edit Section"
 msgstr "Uredi razdelek"
 
-#: src/Dialogs/Section.vala:67
+#: src/Dialogs/Section.vala:69
 msgid "Section Name"
 msgstr "Ime razdelka"
 
-#: src/Dialogs/Section.vala:102 src/Widgets/SectionsOrderPopover.vala:39
+#: src/Dialogs/Section.vala:104 src/Widgets/SectionsOrderPopover.vala:39
 msgid "Add Section"
 msgstr "Dodaj razdelek"
 
-#: src/Dialogs/Section.vala:102
+#: src/Dialogs/Section.vala:104
 msgid "Update Section"
 msgstr "Posodobi razdelek"
 
-#: src/Dialogs/Section.vala:244 src/Dialogs/Section.vala:258
-#: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
+#: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
+#: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
 msgid "Section added"
 msgstr "Razdelek je dodan"
 
