@@ -45,6 +45,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
      *     caldav_delete rows, queued before it.
      * Section uploads are sent before the rest, so a task created offline in a section
      * created offline never points at a section the server doesn't have yet.
+     * Calendars (projects) have their own kinds too:
+     *   - caldav_project_put: create the calendar (args has "create") or update its name
+     *     and color. The url is chosen by Planify, so a calendar created offline already
+     *     has it and its tasks can be built on it.
+     *   - caldav_project_delete: delete the calendar. args keeps its url.
+     * Calendar uploads are sent first of all, then sections, then the rest.
      * On a conflict (412) the server version wins.
      */
 
@@ -53,19 +59,54 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     private const string PENDING_DELETE = "caldav_delete";
     private const string PENDING_SECTION_PUT = "caldav_section_put";
     private const string PENDING_SECTION_DELETE = "caldav_section_delete";
+    private const string PENDING_PROJECT_PUT = "caldav_project_put";
+    private const string PENDING_PROJECT_DELETE = "caldav_project_delete";
 
-    // Tasks with a pending upload, and tasks deleted locally whose delete wasn't sent:
-    // a sync must not overwrite the first ones nor bring the second ones back.
+    private Gee.HashSet<string> pending_project_ids = new Gee.HashSet<string> ();
+    private Gee.HashSet<string> pending_deleted_project_urls = new Gee.HashSet<string> ();
+
     private Gee.HashSet<string> pending_item_ids = new Gee.HashSet<string> ();
     private Gee.HashSet<string> pending_deleted_ids = new Gee.HashSet<string> ();
 
-    // The same for sections.
     private Gee.HashSet<string> pending_section_ids = new Gee.HashSet<string> ();
     private Gee.HashSet<string> pending_deleted_section_ids = new Gee.HashSet<string> ();
 
     private static bool is_pending_kind (string query) {
         return query == PENDING_PUT || query == PENDING_MOVE || query == PENDING_DELETE ||
-               query == PENDING_SECTION_PUT || query == PENDING_SECTION_DELETE;
+               query == PENDING_SECTION_PUT || query == PENDING_SECTION_DELETE ||
+               query == PENDING_PROJECT_PUT || query == PENDING_PROJECT_DELETE;
+    }
+
+    private static string project_put_uuid (Objects.Project project) {
+        return "%s-%s".printf (PENDING_PROJECT_PUT, project.id);
+    }
+
+    private bool is_project_create_pending (Objects.Project project) {
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (project.source_id)) {
+            if (q.uuid == project_put_uuid (project)) {
+                return Utils.JsonUtils.get_bool (q.args, "create");
+            }
+        }
+
+        return false;
+    }
+
+    private void queue_project_put (Objects.Project project, bool create) {
+        var queue = new Objects.Queue ();
+        queue.uuid = project_put_uuid (project);
+        queue.object_id = project.id;
+        queue.query = PENDING_PROJECT_PUT;
+        queue.args = "{\"create\": %s}".printf (create.to_string ());
+        queue.source_id = project.source_id;
+
+        Services.Database.get_default ().insert_queue (queue);
+        pending_project_ids.add (project.id);
+        Services.LogService.get_default ().info ("CalDAV", "Offline, %s kept for later: '%s'".printf (PENDING_PROJECT_PUT, project.name));
+    }
+
+    private void forget_project_put (Objects.Project project) {
+        Services.Database.get_default ().remove_queue (project_put_uuid (project));
+        pending_project_ids.remove (project.id);
     }
 
     public static bool is_offline_error (GLib.Error e) {
@@ -171,8 +212,16 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         pending_deleted_ids.clear ();
         pending_section_ids.clear ();
         pending_deleted_section_ids.clear ();
+        pending_project_ids.clear ();
+        pending_deleted_project_urls.clear ();
 
         foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            if (q.query == PENDING_PROJECT_PUT) {
+                pending_project_ids.add (q.object_id);
+            } else if (q.query == PENDING_PROJECT_DELETE) {
+                pending_deleted_project_urls.add (Utils.JsonUtils.get_string (q.args, "ical_url"));
+            }
+
             if (q.query == PENDING_PUT || q.query == PENDING_MOVE) {
                 pending_item_ids.add (q.object_id);
             } else if (q.query == PENDING_DELETE) {
@@ -192,10 +241,13 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     public async void flush_pending (Objects.Source source) {
         reload_pending (source);
 
+        var project_puts = new Gee.ArrayList<Objects.Queue> ();
         var section_puts = new Gee.ArrayList<Objects.Queue> ();
         var others = new Gee.ArrayList<Objects.Queue> ();
         foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
-            if (q.query == PENDING_SECTION_PUT) {
+            if (q.query == PENDING_PROJECT_PUT) {
+                project_puts.add (q);
+            } else if (q.query == PENDING_SECTION_PUT) {
                 section_puts.add (q);
             } else if (is_pending_kind (q.query)) {
                 others.add (q);
@@ -203,6 +255,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
 
         var pending = new Gee.ArrayList<Objects.Queue> ();
+        pending.add_all (project_puts);
         pending.add_all (section_puts);
         pending.add_all (others);
 
@@ -249,17 +302,49 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         return true;
     }
 
+    private async bool flush_pending_project (Objects.Queue q) {
+        Objects.Project? project = Services.Store.instance ().get_project (q.object_id);
+        if (project == null || project.is_deck) {
+            return true;
+        }
+
+        HttpResponse response;
+        if (Utils.JsonUtils.get_bool (q.args, "create")) {
+            response = yield mkcol_project (project);
+        } else {
+            response = yield proppatch_project (project);
+        }
+
+        if (response.offline) {
+            return false;
+        }
+
+        if (response.status) {
+            Services.Store.instance ().update_project (project);
+        } else {
+            Services.LogService.get_default ().warn ("CalDAV", "Offline calendar upload failed for '%s', dropping it: %s".printf (project.name, response.error));
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
+
+        return true;
+    }
+
     // Returns false only when the server is still unreachable, so the row is kept.
     private async bool flush_pending_row (Objects.Queue q) {
         if (q.query == PENDING_SECTION_PUT) {
             return yield flush_pending_section (q);
         }
 
-        if (q.query == PENDING_DELETE || q.query == PENDING_SECTION_DELETE) {
+        if (q.query == PENDING_PROJECT_PUT) {
+            return yield flush_pending_project (q);
+        }
+
+        if (q.query == PENDING_DELETE || q.query == PENDING_SECTION_DELETE || q.query == PENDING_PROJECT_DELETE) {
             string url = Utils.JsonUtils.get_string (q.args, "ical_url");
             try {
                 yield send_request ("DELETE", url, "", null, null, null,
-                                    { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.NOT_FOUND });
+                                    { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.MULTI_STATUS,
+                                      Soup.Status.NOT_FOUND });
             } catch (Error e) {
                 if (is_offline_error (e)) {
                     return false;
@@ -463,6 +548,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             if (local_project.is_deck) {
                 continue;
             }
+
+            if (local_project.id in pending_project_ids) {
+                continue;
+            }
+
             if (!server_urls.contains (local_project.calendar_url)) {
                 yield Services.Store.instance ().delete_project (local_project);
             }
@@ -487,6 +577,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             if (is_vtodo_calendar (response) && href != null && response.get_prop ("displayname") != null) {
                 var project_url = get_absolute_url (href);
 
+                if (project_url in pending_deleted_project_urls) {
+                    continue;
+                }
+
                 // Deck boards are always handled by DeckClient, skip in CalDAV
                 if ("deck--board" in project_url.down ()) {
                     Objects.Project ? deck_project = Services.Store.instance ().get_project_via_url (project_url);
@@ -505,7 +599,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
                     Services.Store.instance ().insert_project (project);
                     yield fetch_items_for_project (project, cancellable);
-                } else {
+                } else if (!(project.id in pending_project_ids)) {
                     project.update_from_response (response, false);
                     Services.Store.instance ().update_project (project);
                 }
@@ -1017,6 +1111,32 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse create_project (Objects.Project project) {
+        var response = yield mkcol_project (project);
+
+        if (response.offline) {
+            queue_project_put (project, true);
+            response.status = true;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse update_project (Objects.Project project) {
+        if (is_project_create_pending (project)) {
+            return new HttpResponse () { status = true, offline = true };
+        }
+
+        var response = yield proppatch_project (project);
+
+        if (response.offline) {
+            queue_project_put (project, false);
+            response.status = true;
+        }
+
+        return response;
+    }
+
+    private async HttpResponse mkcol_project (Objects.Project project) {
         Services.LogService.get_default ().info ("CalDAV", "Creating project");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
             <d:mkcol xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:oc="http://owncloud.org/ns" xmlns:cal="urn:ietf:params:xml:ns:caldav">
@@ -1037,19 +1157,27 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         </d:mkcol>
         """.printf (project.name, project.color_hex);
 
-        var calendar_url = GLib.Uri.resolve_relative (project.source.caldav_data.calendar_home_url, project.id, GLib.UriFlags.NONE);
-        if (!calendar_url.has_suffix ("/")) {
-            calendar_url += "/";
+        if (project.calendar_url == "") {
+            var calendar_url = GLib.Uri.resolve_relative (project.source.caldav_data.calendar_home_url, project.id, GLib.UriFlags.NONE);
+            if (!calendar_url.has_suffix ("/")) {
+                calendar_url += "/";
+            }
+            project.calendar_url = calendar_url;
         }
 
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("MKCOL", calendar_url, "application/xml", xml, null, null,
+            yield send_request ("MKCOL", project.calendar_url, "application/xml", xml, null, null,
                                 { Soup.Status.CREATED, Soup.Status.OK });
-            project.calendar_url = calendar_url;
+            forget_project_put (project);
             response.status = true;
         } catch (Error e) {
+            if ("HTTP 405" in e.message) {
+                Services.LogService.get_default ().info ("CalDAV", "Calendar already exists, updating it instead");
+                return yield proppatch_project (project);
+            }
+
             if ("HTTP 403" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow creating calendars via CalDAV");
                 response.error_code = 403;
@@ -1063,7 +1191,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         return response;
     }
 
-    public async HttpResponse update_project (Objects.Project project) {
+    private async HttpResponse proppatch_project (Objects.Project project) {
         Services.LogService.get_default ().info ("CalDAV", "Updating project");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <d:propertyupdate xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/">
@@ -1082,6 +1210,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             yield send_request ("PROPPATCH", project.calendar_url, "application/xml", xml, null, null,
                                     { Soup.Status.MULTI_STATUS });
 
+            forget_project_put (project);
             response.status = true;
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV", "Failed to update project: %s".printf (e.message));
@@ -1092,8 +1221,15 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse delete_project (Objects.Project project) {
-        Services.LogService.get_default ().info ("CalDAV", "Deleting project");
         HttpResponse response = new HttpResponse ();
+
+        if (is_project_create_pending (project)) {
+            forget_project_put (project);
+            response.status = true;
+            return response;
+        }
+
+        Services.LogService.get_default ().info ("CalDAV", "Deleting project");
 
         try {
             // NOT_FOUND counts as success, as for sections and items: a calendar already removed
@@ -1101,8 +1237,19 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
                                 { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK,
                                   Soup.Status.NOT_FOUND });
+            forget_project_put (project);
             response.status = true;
         } catch (Error e) {
+            if (is_offline_error (e)) {
+                forget_project_put (project);
+                add_pending_row (PENDING_PROJECT_DELETE, project.id, project.source_id, project.name,
+                                 Util.generate_extra_data (project.calendar_url, "", ""));
+                pending_deleted_project_urls.add (project.calendar_url);
+                response.offline = true;
+                response.status = true;
+                return response;
+            }
+
             if ("HTTP 403" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow deleting calendars via CalDAV");
                 response.error_code = 403;
