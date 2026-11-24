@@ -100,6 +100,7 @@ msgstr "Nextcloud"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 #: core/Services/CalDAV/CalDAVClient.vala:309
 #: core/Services/CalDAV/CalDAVClient.vala:392
+#: core/Services/CalDAV/CalDAVClient.vala:477
 msgid "CalDAV"
 msgstr "CalDAV"
 
@@ -694,6 +695,7 @@ msgstr "Kết hợp phím tắt trong trường tiêu đề để tạo nhanh h�
 #: core/Services/CalDAV/CalDAVClient.vala:290
 #: core/Services/CalDAV/CalDAVClient.vala:488
 #: core/Services/CalDAV/CalDAVClient.vala:571
+#: core/Services/CalDAV/CalDAVClient.vala:665
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Đang tải nhiệm vụ cho %s…"
@@ -704,6 +706,8 @@ msgstr "Đang tải nhiệm vụ cho %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:525
 #: core/Services/CalDAV/CalDAVClient.vala:582
 #: core/Services/CalDAV/CalDAVClient.vala:608
+#: core/Services/CalDAV/CalDAVClient.vala:676
+#: core/Services/CalDAV/CalDAVClient.vala:702
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Đã tải nhiệm vụ cho %s…"
@@ -711,6 +715,7 @@ msgstr "Đã tải nhiệm vụ cho %s…"
 #: core/Services/CalDAV/CalDAVClient.vala:320
 #: core/Services/CalDAV/CalDAVClient.vala:518
 #: core/Services/CalDAV/CalDAVClient.vala:601
+#: core/Services/CalDAV/CalDAVClient.vala:695
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Đang đồng bộ hóa nhiệm vụ %d của %d"
@@ -718,6 +723,7 @@ msgstr "Đang đồng bộ hóa nhiệm vụ %d của %d"
 #: core/Services/CalDAV/CalDAVClient.vala:763
 #: core/Services/CalDAV/CalDAVClient.vala:966
 #: core/Services/CalDAV/CalDAVClient.vala:1056
+#: core/Services/CalDAV/CalDAVClient.vala:1184
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -728,6 +734,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:818
 #: core/Services/CalDAV/CalDAVClient.vala:1019
 #: core/Services/CalDAV/CalDAVClient.vala:1109
+#: core/Services/CalDAV/CalDAVClient.vala:1256
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -738,6 +745,7 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:822
 #: core/Services/CalDAV/CalDAVClient.vala:1023
 #: core/Services/CalDAV/CalDAVClient.vala:1113
+#: core/Services/CalDAV/CalDAVClient.vala:1260
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -751,6 +759,8 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:1137
 #: core/Services/CalDAV/CalDAVClient.vala:1172
 #: core/Services/CalDAV/CalDAVClient.vala:1227
+#: core/Services/CalDAV/CalDAVClient.vala:1319
+#: core/Services/CalDAV/CalDAVClient.vala:1374
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr ""
@@ -785,13 +795,13 @@ msgstr "Đồng bộ hoàn tất"
 
 #: core/Services/CalDAV/Core.vala:324 core/Services/CalDAV/Core.vala:350
 #: core/Services/CalDAV/Core.vala:359 core/Services/CalDAV/Core.vala:369
-#: core/Services/CalDAV/Core.vala:373
+#: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
 msgid "Authentication Expired"
 msgstr ""
 
 #: core/Services/CalDAV/Core.vala:325 core/Services/CalDAV/Core.vala:351
 #: core/Services/CalDAV/Core.vala:360 core/Services/CalDAV/Core.vala:370
-#: core/Services/CalDAV/Core.vala:374
+#: core/Services/CalDAV/Core.vala:374 core/Services/CalDAV/Core.vala:373
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
@@ -802,12 +812,13 @@ msgstr ""
 #: core/Services/Todoist/Todoist.vala:152
 #: core/Services/Todoist/Todoist.vala:154
 #: core/Services/Todoist/Todoist.vala:157 core/Services/CalDAV/Core.vala:381
+#: core/Services/CalDAV/Core.vala:380
 msgid "Too Many Requests"
 msgstr ""
 
 #: core/Services/CalDAV/Core.vala:333 core/Services/CalDAV/Core.vala:359
 #: core/Services/CalDAV/Core.vala:368 core/Services/CalDAV/Core.vala:378
-#: core/Services/CalDAV/Core.vala:382
+#: core/Services/CalDAV/Core.vala:382 core/Services/CalDAV/Core.vala:381
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -3513,6 +3524,7 @@ msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr ""
 
 #: src/Dialogs/Project.vala:576 src/Dialogs/Project.vala:581
+#: src/Dialogs/Project.vala:585
 msgid "Project added successfully!"
 msgstr "Dự án đã được thêm thành công!"
 
@@ -4964,6 +4976,7 @@ msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:72
 #: core/Services/CalDAV/CalDAVClient.vala:89
+#: core/Services/CalDAV/CalDAVClient.vala:130
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
 

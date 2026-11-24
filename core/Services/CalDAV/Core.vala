@@ -337,11 +337,10 @@ public class Services.CalDAV.Core : GLib.Object {
 
         try {
             var cancellable = new GLib.Cancellable ();
-            yield caldav_client.sync (source, cancellable);
 
-            // Send what was changed offline before reading the tasks, so the read
-            // doesn't overwrite local changes that weren't uploaded.
             yield caldav_client.flush_pending (source);
+
+            yield caldav_client.sync (source, cancellable);
 
             var projects = Services.Store.instance ().get_projects_by_source (source.id);
             Services.LogService.get_default ().debug ("CalDAV.Core", "Found %d projects to sync".printf (projects.size));
