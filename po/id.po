@@ -515,7 +515,7 @@ msgstr "Ini tidak dapat dibatalkan"
 #: src/Services/BackupManager.vala:254 src/Services/BackupManager.vala:288
 #: src/Views/Project/Project.vala:556 src/Widgets/MultiSelectToolbar.vala:353
 #: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
-#: core/Objects/Project.vala:995
+#: core/Objects/Project.vala:995 core/Objects/Section.vala:471
 msgid "Cancel"
 msgstr "Batal"
 
@@ -569,7 +569,7 @@ msgstr "Hapus Proyek %s?"
 #: core/Objects/Project.vala:969 core/Objects/Project.vala:973
 #: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 #: core/Objects/Project.vala:981 core/Objects/Project.vala:986
-#: core/Objects/Project.vala:991
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:467
 msgid "Archive?"
 msgstr "Arsipkan?"
 
@@ -577,7 +577,7 @@ msgstr "Arsipkan?"
 #: core/Objects/Project.vala:970 core/Objects/Project.vala:974
 #: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #: core/Objects/Project.vala:982 core/Objects/Project.vala:987
-#: core/Objects/Project.vala:992
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:468
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
@@ -593,6 +593,7 @@ msgstr "Ini akan mengarsipkan %s dan semua tugasnya."
 #: core/Objects/Project.vala:986 src/Layouts/ProjectRow.vala:707
 #: core/Objects/Project.vala:991 src/Layouts/SectionRow.vala:723
 #: src/Views/Project/Project.vala:405 core/Objects/Project.vala:996
+#: core/Objects/Section.vala:472 src/Layouts/SectionRow.vala:722
 msgid "Archive"
 msgstr "Arsipkan"
 
@@ -661,6 +662,7 @@ msgstr "Tambahkan pengingat"
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Layouts/SectionRow.vala:699
 #: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
 #: src/Layouts/SectionRow.vala:709 src/Layouts/SectionRow.vala:716
+#: src/Layouts/SectionRow.vala:715
 msgid "Add Task"
 msgstr "Tambahkan tugas"
 
@@ -2459,6 +2461,7 @@ msgstr "Proyek yang Diarsipkan"
 #: src/Layouts/SectionRow.vala:698 src/Layouts/SectionRow.vala:702
 #: src/Layouts/SectionBoard.vala:625 src/Layouts/SectionRow.vala:712
 #: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:398
+#: src/Layouts/SectionRow.vala:718
 msgid "Manage Sections"
 msgstr "Kelola Bagian"
 
@@ -3825,6 +3828,7 @@ msgstr "Bagian Baru"
 #: src/Layouts/SectionRow.vala:696 src/Layouts/SectionRow.vala:700
 #: src/Layouts/SectionBoard.vala:623 src/Layouts/SectionRow.vala:710
 #: src/Layouts/SectionRow.vala:717 src/Dialogs/Section.vala:55
+#: src/Layouts/SectionRow.vala:716
 msgid "Edit Section"
 msgstr "Sunting Bagian"
 
@@ -3845,6 +3849,8 @@ msgstr "Perbarui Bagian"
 #: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
 #: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
 #: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
+#: src/Dialogs/Section.vala:252 src/Dialogs/Section.vala:266
+#: src/Dialogs/Section.vala:288 src/Dialogs/Section.vala:302
 msgid "Section added"
 msgstr "Bagian ditambahkan"
 
@@ -3897,7 +3903,7 @@ msgstr "Sunting"
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/ItemRow.vala:1271
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemBoard.vala:847
 #: src/Layouts/SectionRow.vala:720 src/Views/Project/Project.vala:394
-#: src/Layouts/ItemBoard.vala:848
+#: src/Layouts/ItemBoard.vala:848 src/Layouts/SectionRow.vala:719
 msgid "Duplicate"
 msgstr "Duplikasi"
 
@@ -4096,6 +4102,7 @@ msgstr "Muat lebih banyak"
 #: src/Layouts/SectionRow.vala:652 src/Layouts/SectionRow.vala:656
 #: src/Widgets/SubItems.vala:422 src/Layouts/SectionBoard.vala:604
 #: src/Layouts/SectionRow.vala:666 src/Layouts/SectionRow.vala:673
+#: src/Layouts/SectionRow.vala:672
 msgid "completed tasks"
 msgstr "tugas yang selesai"
 
@@ -4103,6 +4110,7 @@ msgstr "tugas yang selesai"
 #: src/Layouts/SectionRow.vala:673 src/Layouts/SectionRow.vala:697
 #: src/Layouts/SectionRow.vala:701 src/Layouts/SectionBoard.vala:624
 #: src/Layouts/SectionRow.vala:711 src/Layouts/SectionRow.vala:718
+#: src/Layouts/SectionRow.vala:717
 msgid "Move Section"
 msgstr "Pindahkan Bagian"
 
@@ -4110,6 +4118,7 @@ msgstr "Pindahkan Bagian"
 #: src/Layouts/SectionRow.vala:676 src/Layouts/SectionRow.vala:700
 #: src/Layouts/SectionRow.vala:704 src/Layouts/SectionBoard.vala:627
 #: src/Layouts/SectionRow.vala:714 src/Layouts/SectionRow.vala:721
+#: src/Layouts/SectionRow.vala:720
 msgid "Show Completed Tasks"
 msgstr "Tampilkan Tugas yang Selesai"
 
@@ -4117,7 +4126,7 @@ msgstr "Tampilkan Tugas yang Selesai"
 #: src/Widgets/SectionItemRow.vala:186 src/Layouts/SectionRow.vala:679
 #: src/Layouts/SectionRow.vala:703 src/Layouts/SectionRow.vala:707
 #: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:717
-#: src/Layouts/SectionRow.vala:724
+#: src/Layouts/SectionRow.vala:724 src/Layouts/SectionRow.vala:723
 msgid "Delete Section"
 msgstr "Hapus Bagian"
 
@@ -4361,6 +4370,7 @@ msgstr "tugas"
 #: src/Views/Filter.vala:408 src/Views/Filter.vala:583
 #: src/Layouts/SectionRow.vala:659 src/Views/Filter.vala:542
 #: src/Layouts/SectionRow.vala:669 src/Layouts/SectionRow.vala:676
+#: src/Layouts/SectionRow.vala:675
 msgid "No more tasks"
 msgstr "Tidak ada tugas lagi"
 

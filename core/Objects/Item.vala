@@ -2478,26 +2478,6 @@ public class Objects.Item : Objects.BaseObject {
         print ("---------------------------------\n");
     }
 
-    private int get_deck_card_id () {
-        return (int) Utils.JsonUtils.get_int (extra_data, "deck_card_id");
-    }
-
-    private int get_deck_stack_id () {
-        return (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
-    }
-
-    private int get_deck_board_id () {
-        return (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-    }
-
-    private string? get_deck_duedate () {
-        if (!has_due) return null;
-        if (has_time) {
-            return due.datetime.to_utc ().format ("%FT%T");
-        }
-        return due.datetime.format ("%FT12:00:00");
-    }
-
     private async void _update_deck (string update_id = "") {
         var response = yield Services.Deck.Core.get_default ().save_card (this);
         if (response.status) {
@@ -2533,67 +2513,19 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    // Deck.Core creates the card on the target board and deletes the old one (or keeps
+    // both steps for the next sync when offline), and moves the task locally.
     private async void move_deck_cross_board (Objects.Project target_project, string _section_id, bool notify) {
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        int old_board_id = get_deck_board_id ();
-        int old_stack_id = get_deck_stack_id ();
-        int old_card_id = get_deck_card_id ();
+        string old_project_id = project_id;
+        string old_section_id = section_id;
 
-        int new_board_id = (int) Utils.JsonUtils.get_int (target_project.extra_data, "deck_board_id");
-        int new_stack_id = 0;
-        if (_section_id != "") {
-            var target_section = Services.Store.instance ().get_section (_section_id);
-            new_stack_id = (int) Utils.JsonUtils.get_int (target_section.extra_data, "deck_stack_id");
+        var response = yield Services.Deck.Core.get_default ().move_card_to_board (this, target_project, _section_id);
+
+        if (response.status) {
+            Services.Store.instance ().move_item (this, old_project_id, old_section_id, "");
+            Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, "");
         } else {
-            // Use first stack of target board
-            var sections = Services.Store.instance ().get_sections_by_project (target_project);
-            if (sections.size > 0) {
-                new_stack_id = (int) Utils.JsonUtils.get_int (sections[0].extra_data, "deck_stack_id");
-                _section_id = sections[0].id;
-            }
-        }
-
-        if (old_card_id <= 0) {
-            string old_project_id = project_id;
-            string old_section_id = section_id;
-            project_id = target_project.id;
-            section_id = _section_id;
-            extra_data = Services.Deck.Core.build_card_extra_data (0, new_stack_id, new_board_id, "");
-
-            yield Services.Deck.Core.get_default ().save_card (this);
-
-            Services.Store.instance ().move_item (this, old_project_id, old_section_id, "");
-            Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, "");
-            return;
-        }
-
-        try {
-            string? duedate = get_deck_duedate ();
-
-            var card = yield deck_client.create_card (new_board_id, new_stack_id, content, description, duedate, child_order);
-            int new_card_id = (int) card.get_int_member ("id");
-
-            // Delete old card
-            yield deck_client.delete_card (old_board_id, old_stack_id, old_card_id);
-
-            // Update extra_data with new IDs
-            string old_project_id = project_id;
-            string old_section_id = section_id;
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_board_id", new_board_id);
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", new_stack_id);
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_card_id", new_card_id);
-
-            // Migrate labels to new board
-            if (labels.size > 0) {
-                yield Services.Deck.Core.get_default ().sync_card_labels (deck_client, this);
-            }
-
-            project_id = target_project.id;
-            section_id = _section_id;
-            Services.Store.instance ().move_item (this, old_project_id, old_section_id, "");
-            Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, "");
-        } catch (Error e) {
-            Services.LogService.get_default ().error ("Deck", "Failed to move card cross-board: %s".printf (e.message));
+            Services.EventBus.get_default ().send_error_toast (0, response.error);
         }
     }
 }

@@ -385,7 +385,7 @@ msgstr "Kustuta silt: %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
-#: core/Objects/Project.vala:912
+#: core/Objects/Project.vala:912 core/Objects/Section.vala:427
 msgid "This can not be undone"
 msgstr "Seda tegevust ei saa tagasi pöörata"
 
@@ -409,7 +409,8 @@ msgstr "Seda tegevust ei saa tagasi pöörata"
 #: src/Widgets/MultiSelectToolbar.vala:344 src/Views/Project/Project.vala:556
 #: src/Widgets/MultiSelectToolbar.vala:353
 #: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
-#: core/Objects/Project.vala:995
+#: core/Objects/Project.vala:995 core/Objects/Section.vala:430
+#: core/Objects/Section.vala:471
 msgid "Cancel"
 msgstr "Katkesta"
 
@@ -427,7 +428,7 @@ msgstr "Katkesta"
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1029 core/Objects/Section.vala:431
 msgid "Delete"
 msgstr "Kustuta"
 
@@ -441,12 +442,12 @@ msgid "Delete Project %s?"
 msgstr "Kas kustutad ettevõtmise: %s?"
 
 #: core/Objects/Project.vala:986 core/Objects/Section.vala:477
-#: core/Objects/Project.vala:991
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:467
 msgid "Archive?"
 msgstr "Kas arhiveerime?"
 
 #: core/Objects/Project.vala:987 core/Objects/Section.vala:478
-#: core/Objects/Project.vala:992
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:468
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
@@ -455,7 +456,8 @@ msgstr "Järgnevaga arhiveerime „%s“ ja kõik tema ülesanded."
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:716 src/Views/Project/Project.vala:399
 #: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
-#: core/Objects/Project.vala:996
+#: core/Objects/Project.vala:996 core/Objects/Section.vala:472
+#: src/Layouts/SectionRow.vala:722
 msgid "Archive"
 msgstr "Arhiveeri"
 
@@ -464,7 +466,7 @@ msgstr "Arhiveeri"
 msgid "%s · Next occurrence"
 msgstr "%s · Järgmine kordumine"
 
-#: core/Objects/Section.vala:431
+#: core/Objects/Section.vala:431 core/Objects/Section.vala:426
 #, c-format
 msgid "Delete Section %s"
 msgstr "Kustuta alajaotus: %s"
@@ -528,7 +530,7 @@ msgstr "Lisa manuseid"
 #: src/Layouts/SectionRow.vala:709 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
-#: src/Layouts/SectionRow.vala:716
+#: src/Layouts/SectionRow.vala:716 src/Layouts/SectionRow.vala:715
 msgid "Add Task"
 msgstr "Lisa ülesanne"
 
@@ -2048,6 +2050,7 @@ msgstr "Arhiveeritud ettevõtmised"
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:625
 #: src/Layouts/SectionRow.vala:712 src/Views/Project/Project.vala:392
 #: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:398
+#: src/Layouts/SectionRow.vala:718
 msgid "Manage Sections"
 msgstr "Halda alajaotusi"
 
@@ -3299,7 +3302,7 @@ msgstr ""
 
 #: src/Dialogs/Section.vala:53 src/Layouts/SectionBoard.vala:623
 #: src/Layouts/SectionRow.vala:710 src/Layouts/SectionRow.vala:717
-#: src/Dialogs/Section.vala:55
+#: src/Dialogs/Section.vala:55 src/Layouts/SectionRow.vala:716
 msgid "Edit Section"
 msgstr "Muuda alajaotust"
 
@@ -3320,6 +3323,8 @@ msgstr "Uuenda alajaotust"
 #: src/Dialogs/Section.vala:282 src/Dialogs/Section.vala:296
 #: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
 #: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
+#: src/Dialogs/Section.vala:252 src/Dialogs/Section.vala:266
+#: src/Dialogs/Section.vala:288 src/Dialogs/Section.vala:302
 msgid "Section added"
 msgstr "Alajaotus on lisatud"
 
@@ -3357,6 +3362,7 @@ msgstr "Muuda"
 #: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 #: src/Layouts/ItemBoard.vala:847 src/Layouts/SectionRow.vala:720
 #: src/Views/Project/Project.vala:394 src/Layouts/ItemBoard.vala:848
+#: src/Layouts/SectionRow.vala:719
 msgid "Duplicate"
 msgstr "Tee koopia"
 
@@ -3636,26 +3642,28 @@ msgstr "Laadi veel"
 
 #: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:666
 #: src/Widgets/SubItems.vala:422 src/Layouts/SectionRow.vala:673
+#: src/Layouts/SectionRow.vala:672
 msgid "completed tasks"
 msgstr "täidetud ülesanded"
 
 #: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:711
-#: src/Layouts/SectionRow.vala:718
+#: src/Layouts/SectionRow.vala:718 src/Layouts/SectionRow.vala:717
 msgid "Move Section"
 msgstr "Teisalda alajaotus"
 
 #: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:714
-#: src/Layouts/SectionRow.vala:721
+#: src/Layouts/SectionRow.vala:721 src/Layouts/SectionRow.vala:720
 msgid "Show Completed Tasks"
 msgstr "Näita täidetud ülesandeid"
 
 #: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:717
 #: src/Widgets/SectionItemRow.vala:186 src/Layouts/SectionRow.vala:724
+#: src/Layouts/SectionRow.vala:723
 msgid "Delete Section"
 msgstr "Kustuta alajaotus"
 
 #: src/Layouts/SectionRow.vala:669 src/Views/Filter.vala:542
-#: src/Layouts/SectionRow.vala:676
+#: src/Layouts/SectionRow.vala:676 src/Layouts/SectionRow.vala:675
 msgid "No more tasks"
 msgstr ""
 

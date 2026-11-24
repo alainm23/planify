@@ -351,7 +351,7 @@ msgid "Delete Label %s"
 msgstr "라벨 %s 삭제"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:912
-#: core/Objects/Section.vala:432
+#: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
@@ -359,8 +359,8 @@ msgid "This can not be undone"
 msgstr "이 작업은 취소할 수 없습니다"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:915
-#: core/Objects/Project.vala:995 core/Objects/Section.vala:435
-#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
+#: core/Objects/Project.vala:995 core/Objects/Section.vala:430
+#: core/Objects/Section.vala:471 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
@@ -380,7 +380,7 @@ msgid "Cancel"
 msgstr "취소"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:916
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1029
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -402,19 +402,19 @@ msgstr "프로젝트가 클립보드에 복사되었습니다."
 msgid "Delete Project %s?"
 msgstr "프로젝트 %s을(를) 삭제하시겠습니까?"
 
-#: core/Objects/Project.vala:991 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:467
 msgid "Archive?"
 msgstr "보관하시겠습니까?"
 
 # # c-format
-#: core/Objects/Project.vala:992 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:468
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "%s 및 모든 작업이 보관됩니다."
 
-#: core/Objects/Project.vala:996 core/Objects/Section.vala:482
+#: core/Objects/Project.vala:996 core/Objects/Section.vala:472
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
-#: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
+#: src/Layouts/SectionRow.vala:722 src/Views/Project/Project.vala:405
 msgid "Archive"
 msgstr "보관"
 
@@ -424,7 +424,7 @@ msgid "%s · Next occurrence"
 msgstr ""
 
 # # c-format
-#: core/Objects/Section.vala:431
+#: core/Objects/Section.vala:426
 #, c-format
 msgid "Delete Section %s"
 msgstr "섹션 %s 삭제"
@@ -484,7 +484,7 @@ msgid "Add Attachments"
 msgstr "첨부 팡리 추가"
 
 #: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
-#: src/Layouts/SectionRow.vala:716 src/Views/Scheduled/ScheduledDay.vala:148
+#: src/Layouts/SectionRow.vala:715 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
@@ -1940,7 +1940,7 @@ msgid "Archived Projects"
 msgstr "보관된 프로젝트"
 
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:625
-#: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:398
+#: src/Layouts/SectionRow.vala:718 src/Views/Project/Project.vala:398
 msgid "Manage Sections"
 msgstr "섹션 관리"
 
@@ -3199,7 +3199,7 @@ msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr "빠르게 프로젝트와 보기를 전환하고, 작업을 찾고, 라벨로 검색하세요"
 
 #: src/Dialogs/Section.vala:55 src/Layouts/SectionBoard.vala:623
-#: src/Layouts/SectionRow.vala:717
+#: src/Layouts/SectionRow.vala:716
 msgid "Edit Section"
 msgstr "섹션 편집"
 
@@ -3215,8 +3215,8 @@ msgstr "섹션 추가"
 msgid "Update Section"
 msgstr "섹션 업데이트"
 
-#: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
-#: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
+#: src/Dialogs/Section.vala:252 src/Dialogs/Section.vala:266
+#: src/Dialogs/Section.vala:288 src/Dialogs/Section.vala:302
 #, fuzzy
 msgid "Section added"
 msgstr "섹션 이름"
@@ -3248,7 +3248,7 @@ msgstr "편집"
 #: src/Layouts/ItemBoard.vala:848 src/Layouts/ItemRow.vala:1271
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
-#: src/Layouts/SectionRow.vala:720 src/Views/Project/Project.vala:394
+#: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:394
 msgid "Duplicate"
 msgstr "복제"
 
@@ -3478,26 +3478,26 @@ msgstr "하위 작업 추가"
 msgid "Load more"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:673
+#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:672
 #: src/Widgets/SubItems.vala:422
 #, fuzzy
 msgid "completed tasks"
 msgstr "작업 완료"
 
-#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:718
+#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:717
 msgid "Move Section"
 msgstr "섹션 이동"
 
-#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:721
+#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:720
 msgid "Show Completed Tasks"
 msgstr "완료된 작업 표시"
 
-#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:724
+#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:723
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr "섹션 삭제"
 
-#: src/Layouts/SectionRow.vala:676 src/Views/Filter.vala:542
+#: src/Layouts/SectionRow.vala:675 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr ""
 
