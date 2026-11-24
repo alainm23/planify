@@ -252,13 +252,8 @@ public class Objects.Section : Objects.BaseObject {
                 });
             } else if (project.source_type == SourceType.CALDAV && cloud) {
                 if (project.is_deck) {
-                    var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                    int stack_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
-                    deck_client.update_stack.begin (board_id, stack_id, name, section_order, (obj, res) => {
-                        try { deck_client.update_stack.end (res); } catch (Error e) {
-                            Services.LogService.get_default ().error ("Deck", "Failed to update stack: %s".printf (e.message));
-                        }
+                    Services.Deck.Core.get_default ().save_stack.begin (this, (obj, res) => {
+                        Services.Deck.Core.get_default ().save_stack.end (res);
                     });
                 } else {
                     var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
@@ -447,21 +442,16 @@ public class Objects.Section : Objects.BaseObject {
                     });
                 } else if (project.source_type == SourceType.CALDAV) {
                     if (project.is_deck) {
-                        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-                        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                        int stack_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
-                        deck_client.delete_stack.begin (board_id, stack_id, (obj, res) => {
-                            try {
-                                deck_client.delete_stack.end (res);
+                        Services.Deck.Core.get_default ().delete_stack.begin (this, (obj, res) => {
+                            HttpResponse deck_response = Services.Deck.Core.get_default ().delete_stack.end (res);
+                            if (deck_response.status) {
                                 Services.Store.instance ().delete_section (this);
-                            } catch (Error e) {
-                                Services.EventBus.get_default ().send_error_toast (0, e.message);
+                            } else {
+                                Services.EventBus.get_default ().send_error_toast (0, deck_response.error);
                             }
                             loading = false;
                         });
                     } else {
-                        // Also for a section created offline (no url yet): its tasks may
-                        // be on the server, and its pending upload has to be dropped.
                         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
                         _delete_caldav_section.begin (caldav_client);
                     }
