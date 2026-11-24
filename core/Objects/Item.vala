@@ -2499,124 +2499,37 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     private async void _update_deck (string update_id = "") {
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        string? duedate = get_deck_duedate ();
-        try {
-            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
-                content, description, duedate, checked, child_order);
-            yield _sync_deck_labels (deck_client);
+        var response = yield Services.Deck.Core.get_default ().save_card (this);
+        if (response.status) {
             Services.Store.instance ().update_item (this, update_id);
-        } catch (Error e) {
-            Services.LogService.get_default ().error ("Deck", "Failed to update card: %s".printf (e.message));
         }
+
         loading = false;
-    }
-
-    private async void _sync_deck_labels (Services.Deck.DeckClient deck_client) throws Error {
-        int board_id = get_deck_board_id ();
-        int stack_id = get_deck_stack_id ();
-        int card_id = get_deck_card_id ();
-
-        // Get current labels on the card from server
-        var board_labels = yield deck_client.get_board_labels (board_id);
-
-        // Build map of board labels by title -> deck_label_id
-        var board_label_map = new Gee.HashMap<string, int> ();
-        board_labels.foreach_element ((a, i, node) => {
-            var obj = node.get_object ();
-            board_label_map[obj.get_string_member ("title")] = (int) obj.get_int_member ("id");
-        });
-
-        // Get current card labels from server
-        var stacks = yield deck_client.get_stacks (board_id, null);
-        var current_card_label_ids = new Gee.HashSet<int> ();
-        stacks.foreach_element ((a, i, stack_node) => {
-            var stack_obj = stack_node.get_object ();
-            if ((int) stack_obj.get_int_member ("id") != stack_id) return;
-            if (!stack_obj.has_member ("cards") || stack_obj.get_null_member ("cards")) return;
-            stack_obj.get_array_member ("cards").foreach_element ((b, j, card_node) => {
-                var card_obj = card_node.get_object ();
-                if ((int) card_obj.get_int_member ("id") != card_id) return;
-                if (card_obj.has_member ("labels") && !card_obj.get_null_member ("labels")) {
-                    card_obj.get_array_member ("labels").foreach_element ((c, k, lbl_node) => {
-                        current_card_label_ids.add ((int) lbl_node.get_object ().get_int_member ("id"));
-                    });
-                }
-            });
-        });
-
-        // Desired labels from Planify item
-        var desired_label_ids = new Gee.HashSet<int> ();
-        foreach (var label in labels) {
-            int deck_label_id = 0;
-            if (board_label_map.has_key (label.name)) {
-                deck_label_id = board_label_map[label.name];
-            } else {
-                // Create label on board
-                string hex_color = Util.get_default ().get_color (label.color);
-                var created = yield deck_client.create_label (board_id, label.name, hex_color);
-                deck_label_id = (int) created.get_int_member ("id");
-            }
-            desired_label_ids.add (deck_label_id);
-        }
-
-        // Assign missing labels
-        foreach (var lid in desired_label_ids) {
-            if (!current_card_label_ids.contains (lid)) {
-                yield deck_client.assign_label_to_card (board_id, stack_id, card_id, lid);
-            }
-        }
-
-        // Remove extra labels
-        foreach (var lid in current_card_label_ids) {
-            if (!desired_label_ids.contains (lid)) {
-                yield deck_client.remove_label_from_card (board_id, stack_id, card_id, lid);
-            }
-        }
     }
 
     private async void _delete_deck () {
         loading = true;
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        try {
-            yield deck_client.delete_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id ());
+        var response = yield Services.Deck.Core.get_default ().delete_card (this);
+        
+        if (response.status) {
             Services.Store.instance ().delete_item (this);
-        } catch (Error e) {
-            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        } else {
+            Services.EventBus.get_default ().send_error_toast (0, response.error);
         }
+        
         loading = false;
     }
 
     private async HttpResponse _complete_deck_item () {
-        HttpResponse response = new HttpResponse ();
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        string? duedate = get_deck_duedate ();
-        try {
-            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
-                content, description, duedate, checked, child_order);
-            response.status = true;
-        } catch (Error e) {
-            response.error = e.message;
-        }
-        return response;
+        return yield Services.Deck.Core.get_default ().save_card (this);
     }
 
+    // Moves the card to the stack of its current section. The caller sets section_id first.
     public async void move_deck (string old_section_id) {
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        int board_id = get_deck_board_id ();
-        int card_id = get_deck_card_id ();
-        int old_stack_id = get_deck_stack_id ();
-
-        var target_section = Services.Store.instance ().get_section (section_id);
-        int target_stack_id = (int) Utils.JsonUtils.get_int (target_section.extra_data, "deck_stack_id");
-
-        try {
-            yield deck_client.move_card (board_id, old_stack_id, card_id, target_stack_id, child_order);
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", target_stack_id);
+        var response = yield Services.Deck.Core.get_default ().move_card (this);
+        if (response.status) {
             Services.Store.instance ().move_item (this, project_id, old_section_id, "");
             Services.EventBus.get_default ().item_moved (this, project_id, old_section_id, "");
-        } catch (Error e) {
-            Services.LogService.get_default ().error ("Deck", "Failed to move card: %s".printf (e.message));
         }
     }
 
@@ -2640,6 +2553,20 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
+        if (old_card_id <= 0) {
+            string old_project_id = project_id;
+            string old_section_id = section_id;
+            project_id = target_project.id;
+            section_id = _section_id;
+            extra_data = Services.Deck.Core.build_card_extra_data (0, new_stack_id, new_board_id, "");
+
+            yield Services.Deck.Core.get_default ().save_card (this);
+
+            Services.Store.instance ().move_item (this, old_project_id, old_section_id, "");
+            Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, "");
+            return;
+        }
+
         try {
             string? duedate = get_deck_duedate ();
 
@@ -2658,7 +2585,7 @@ public class Objects.Item : Objects.BaseObject {
 
             // Migrate labels to new board
             if (labels.size > 0) {
-                yield _sync_deck_labels (deck_client);
+                yield Services.Deck.Core.get_default ().sync_card_labels (deck_client, this);
             }
 
             project_id = target_project.id;

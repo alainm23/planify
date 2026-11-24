@@ -60,6 +60,18 @@ public class Services.Deck.DeckClient : Object {
         return msg;
     }
 
+    private async GLib.Bytes send (Soup.Message msg) throws GLib.Error {
+        try {
+            return yield session.send_and_read_async (msg, Priority.DEFAULT, null);
+        } catch (Error e) {
+            if (e is GLib.IOError.CANCELLED) {
+                throw e;
+            }
+
+            throw new GLib.IOError.NOT_CONNECTED ("Request failed: %s".printf (e.message));
+        }
+    }
+
     private async Json.Array send_array_request (string method, string endpoint, string? body = null, string? if_modified_since = null) throws GLib.Error {
         var msg = build_message (method, endpoint, body);
 
@@ -87,7 +99,7 @@ public class Services.Deck.DeckClient : Object {
 
         Services.LogService.get_default ().debug ("Deck", "%s %s%s".printf (method, base_url, endpoint));
 
-        var bytes = yield session.send_and_read_async (msg, Priority.DEFAULT, null);
+        var bytes = yield send (msg);
         var response = (string) bytes.get_data ();
 
         if (msg.status_code == 304) {
@@ -106,9 +118,9 @@ public class Services.Deck.DeckClient : Object {
     private async Json.Object send_object_request (string method, string endpoint, string? body = null, bool use_internal = false) throws GLib.Error {
         var msg = build_message (method, endpoint, body, use_internal);
 
-        Services.LogService.get_default ().debug ("Deck", "%s %s%s\nBody: %s".printf (method, base_url, endpoint, body ?? "(null)"));
+        Services.LogService.get_default ().debug ("Deck", "%s %s%s\nBody: %s".printf (method, use_internal ? internal_base_url : base_url, endpoint, body ?? "(null)"));
 
-        var bytes = yield session.send_and_read_async (msg, Priority.DEFAULT, null);
+        var bytes = yield send (msg);
         var response = (string) bytes.get_data ();
 
         if (msg.status_code < 200 || msg.status_code >= 300) {
@@ -191,7 +203,7 @@ public class Services.Deck.DeckClient : Object {
         return yield send_object_request ("POST", "/boards/%d/stacks/%d/cards".printf (board_id, stack_id), body);
     }
 
-    public async void update_card (int board_id, int stack_id, int card_id, string title, string description = "", string? duedate = null, bool archived = false, int order = 0) throws GLib.Error {
+    public async void update_card (int board_id, int stack_id, int card_id, string title, string description = "", string? duedate = null, string? done = null, int order = 0, bool archived = false) throws GLib.Error {
         var builder = new Json.Builder ();
         builder.begin_object ();
         builder.set_member_name ("id"); builder.add_int_value (card_id);
@@ -201,11 +213,20 @@ public class Services.Deck.DeckClient : Object {
         builder.set_member_name ("type"); builder.add_string_value ("plain");
         builder.set_member_name ("order"); builder.add_int_value (order);
         builder.set_member_name ("archived"); builder.add_boolean_value (archived);
+
         if (duedate != null) {
             builder.set_member_name ("duedate"); builder.add_string_value (duedate);
         } else {
             builder.set_member_name ("duedate"); builder.add_null_value ();
         }
+
+        builder.set_member_name ("done");
+        if (done != null) {
+            builder.add_string_value (done);
+        } else {
+            builder.add_null_value ();
+        }
+        
         builder.end_object ();
 
         var generator = new Json.Generator ();
@@ -213,6 +234,10 @@ public class Services.Deck.DeckClient : Object {
         var body = generator.to_data (null);
 
         yield send_object_request ("PUT", "/cards/%d".printf (card_id), body, true);
+    }
+
+    public async void set_card_done (int card_id, bool done) throws GLib.Error {
+        yield send_object_request ("PUT", "/cards/%d/%s".printf (card_id, done ? "done" : "undone"), null, true);
     }
 
     public async void delete_card (int board_id, int stack_id, int card_id) throws GLib.Error {
@@ -242,8 +267,17 @@ public class Services.Deck.DeckClient : Object {
     public async Json.Array get_board_labels (int board_id) throws GLib.Error {
         var board = yield send_object_request ("GET", "/boards/%d".printf (board_id));
         var result = new Json.Array ();
-        if (board.has_member ("labels") && !board.get_null_member ("labels")) {
-            var labels_obj = board.get_object_member ("labels");
+        if (!board.has_member ("labels") || board.get_null_member ("labels")) {
+            return result;
+        }
+
+        var labels_node = board.get_member ("labels");
+        if (labels_node.get_node_type () == Json.NodeType.ARRAY) {
+            labels_node.get_array ().foreach_element ((a, i, node) => {
+                result.add_element (node.copy ());
+            });
+        } else if (labels_node.get_node_type () == Json.NodeType.OBJECT) {
+            var labels_obj = labels_node.get_object ();
             foreach (var key in labels_obj.get_members ()) {
                 result.add_object_element (labels_obj.get_object_member (key));
             }

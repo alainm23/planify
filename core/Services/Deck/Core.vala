@@ -66,12 +66,349 @@ public class Services.Deck.Core : GLib.Object {
         return yield client.probe ();
     }
 
+    /*
+     * Offline support for cards
+     *
+     * Card writes go through save_card, move_card and delete_card. When the server
+     * can't be reached, the change is applied locally and remembered in the Queue table,
+     * then sent at the start of the next Deck sync, before reading the boards:
+     *   - deck_card_put: upload the card with its state at that moment. Creates it if it
+     *     has no card id yet, moves it if its stack changed, then updates it and its
+     *     labels. Several offline edits become one upload.
+     *   - deck_card_delete: delete the card. args keeps its Deck ids, as the task is gone.
+     * Rows point at the Planify id of the task; the Deck ids are read when sending, so a
+     * card created offline needs no temporary id.
+     *
+     * Limits: a create whose answer was lost (timeout) is sent again and makes a second
+     * card. There is no conflict check: the local version overwrites the server one.
+     */
+
+    private const string PENDING_CARD_PUT = "deck_card_put";
+    private const string PENDING_CARD_DELETE = "deck_card_delete";
+
+    private Gee.HashSet<string> pending_card_item_ids = new Gee.HashSet<string> ();
+    private Gee.HashSet<int> pending_deleted_card_ids = new Gee.HashSet<int> ();
+
+    private static int card_id_of (Objects.Item item) {
+        return (int) Utils.JsonUtils.get_int (item.extra_data, "deck_card_id");
+    }
+
+    private static int stack_id_of (Objects.Item item) {
+        return (int) Utils.JsonUtils.get_int (item.extra_data, "deck_stack_id");
+    }
+
+    private static int board_id_of (Objects.Item item) {
+        return (int) Utils.JsonUtils.get_int (item.project.extra_data, "deck_board_id");
+    }
+
+    private static int target_stack_id_of (Objects.Item item) {
+        if (item.section_id != "" && item.section != null) {
+            int section_stack_id = (int) Utils.JsonUtils.get_int (item.section.extra_data, "deck_stack_id");
+            if (section_stack_id > 0) {
+                return section_stack_id;
+            }
+        }
+
+        return stack_id_of (item);
+    }
+
+    private static string? duedate_of (Objects.Item item) {
+        if (!item.has_due) return null;
+        if (item.has_time) {
+            return item.due.datetime.to_utc ().format ("%FT%T");
+        }
+
+        return item.due.datetime.format ("%FT12:00:00");
+    }
+
+    private static string? done_of (Objects.Item item) {
+        if (!item.checked) return null;
+
+        GLib.DateTime? completed = null;
+        if (item.completed_at != "") {
+            completed = new GLib.DateTime.from_iso8601 (item.completed_at, new GLib.TimeZone.local ());
+        }
+
+        return (completed ?? new GLib.DateTime.now_local ()).to_utc ().format_iso8601 ();
+    }
+
+    private void add_pending_row (string kind, Objects.Item item, string args) {
+        var queue = new Objects.Queue ();
+        queue.uuid = "%s-%s".printf (kind, item.id);
+        queue.object_id = item.id;
+        queue.query = kind;
+        queue.args = args;
+        queue.source_id = item.project.source_id;
+
+        Services.Database.get_default ().insert_queue (queue);
+        Services.LogService.get_default ().info ("Deck.Core", "Offline, %s kept for later: '%s'".printf (kind, item.content));
+    }
+
+    private void queue_card_put (Objects.Item item) {
+        add_pending_row (PENDING_CARD_PUT, item, "");
+        pending_card_item_ids.add (item.id);
+    }
+
+    private void forget_card_put (Objects.Item item) {
+        Services.Database.get_default ().remove_queue ("%s-%s".printf (PENDING_CARD_PUT, item.id));
+        pending_card_item_ids.remove (item.id);
+    }
+
+    private void queue_card_delete (Objects.Item item) {
+        forget_card_put (item);
+
+        int card_id = card_id_of (item);
+        if (card_id <= 0) {
+            return;
+        }
+
+        add_pending_row (PENDING_CARD_DELETE, item,
+                         build_card_extra_data (card_id, stack_id_of (item), (int) Utils.JsonUtils.get_int (item.extra_data, "deck_board_id"), ""));
+        pending_deleted_card_ids.add (card_id);
+    }
+
+    private void reload_pending (Objects.Source source) {
+        pending_card_item_ids.clear ();
+        pending_deleted_card_ids.clear ();
+
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            if (q.query == PENDING_CARD_PUT) {
+                pending_card_item_ids.add (q.object_id);
+            } else if (q.query == PENDING_CARD_DELETE) {
+                pending_deleted_card_ids.add ((int) Utils.JsonUtils.get_int (q.args, "deck_card_id"));
+            }
+        }
+    }
+
+    private async void upload_card (Objects.Item item) throws GLib.Error {
+        var client = get_client (item.project.source);
+        int board_id = board_id_of (item);
+        int stack_id = target_stack_id_of (item);
+        int card_id = card_id_of (item);
+        string etag = Utils.JsonUtils.get_string (item.extra_data, "deck_etag");
+
+        if (card_id <= 0) {
+            var card = yield client.create_card (board_id, stack_id, item.content, item.description, duedate_of (item), item.child_order);
+            card_id = (int) card.get_int_member ("id");
+            etag = card.has_member ("ETag") ? card.get_string_member ("ETag") : "";
+            item.extra_data = build_card_extra_data (card_id, stack_id, board_id, etag);
+
+            if (!item.checked && item.labels.size <= 0) {
+                return;
+            }
+        } else if (stack_id != stack_id_of (item)) {
+            yield client.move_card (board_id, stack_id_of (item), card_id, stack_id, item.child_order);
+            item.extra_data = build_card_extra_data (card_id, stack_id, board_id, etag);
+        }
+
+        yield client.update_card (board_id, stack_id, card_id, item.content, item.description, duedate_of (item), done_of (item), item.child_order);
+        yield client.set_card_done (card_id, item.checked);
+        yield sync_card_labels (client, item);
+    }
+
+    private HttpResponse error_response (GLib.Error e) {
+        var response = new HttpResponse ();
+        response.error = e.message;
+        return response;
+    }
+
+    public async HttpResponse save_card (Objects.Item item) {
+        try {
+            yield upload_card (item);
+            forget_card_put (item);
+            return new HttpResponse () { status = true };
+        } catch (Error e) {
+            if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                queue_card_put (item);
+                return new HttpResponse () { status = true, offline = true };
+            }
+
+            Services.LogService.get_default ().error ("Deck.Core", "Failed to save card: %s".printf (e.message));
+            return error_response (e);
+        }
+    }
+
+    public async HttpResponse move_card (Objects.Item item) {
+        int card_id = card_id_of (item);
+        int target_stack_id = target_stack_id_of (item);
+
+        if (card_id <= 0 || item.id in pending_card_item_ids) {
+            return yield save_card (item);
+        }
+
+        if (target_stack_id == stack_id_of (item)) {
+            return new HttpResponse () { status = true };
+        }
+
+        var client = get_client (item.project.source);
+        try {
+            yield client.move_card (board_id_of (item), stack_id_of (item), card_id, target_stack_id, item.child_order);
+            item.extra_data = Utils.JsonUtils.set_int (item.extra_data, "deck_stack_id", target_stack_id);
+            return new HttpResponse () { status = true };
+        } catch (Error e) {
+            if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                queue_card_put (item);
+                return new HttpResponse () { status = true, offline = true };
+            }
+
+            Services.LogService.get_default ().error ("Deck.Core", "Failed to move card: %s".printf (e.message));
+            return error_response (e);
+        }
+    }
+
+    public async HttpResponse delete_card (Objects.Item item) {
+        int card_id = card_id_of (item);
+        if (card_id <= 0) {
+            queue_card_delete (item);
+            return new HttpResponse () { status = true };
+        }
+
+        var client = get_client (item.project.source);
+        try {
+            yield client.delete_card ((int) Utils.JsonUtils.get_int (item.extra_data, "deck_board_id"), stack_id_of (item), card_id);
+            forget_card_put (item);
+            return new HttpResponse () { status = true };
+        } catch (Error e) {
+            if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                queue_card_delete (item);
+                return new HttpResponse () { status = true, offline = true };
+            }
+
+            Services.LogService.get_default ().error ("Deck.Core", "Failed to delete card: %s".printf (e.message));
+            return error_response (e);
+        }
+    }
+
+    private async void flush_pending (Objects.Source source) {
+        reload_pending (source);
+
+        var pending = new Gee.ArrayList<Objects.Queue> ();
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            if (q.query == PENDING_CARD_PUT || q.query == PENDING_CARD_DELETE) {
+                pending.add (q);
+            }
+        }
+
+        if (pending.size <= 0) {
+            return;
+        }
+
+        Services.LogService.get_default ().info ("Deck.Core", "Sending %d card changes made offline".printf (pending.size));
+
+        foreach (Objects.Queue q in pending) {
+            bool sent = yield flush_pending_row (q, source);
+            if (!sent) {
+                Services.LogService.get_default ().warn ("Deck.Core", "Server still unreachable, keeping the remaining offline changes");
+                break;
+            }
+
+            Services.Database.get_default ().remove_queue (q.uuid);
+        }
+
+        reload_pending (source);
+    }
+
+    private async bool flush_pending_row (Objects.Queue q, Objects.Source source) {
+        if (q.query == PENDING_CARD_DELETE) {
+            var client = get_client (source);
+            try {
+                yield client.delete_card ((int) Utils.JsonUtils.get_int (q.args, "deck_board_id"),
+                                          (int) Utils.JsonUtils.get_int (q.args, "deck_stack_id"),
+                                          (int) Utils.JsonUtils.get_int (q.args, "deck_card_id"));
+            } catch (Error e) {
+                if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                    return false;
+                }
+
+                Services.LogService.get_default ().warn ("Deck.Core", "Offline card delete failed, dropping it: %s".printf (e.message));
+            }
+
+            return true;
+        }
+
+        Objects.Item? item = Services.Store.instance ().get_item (q.object_id);
+        if (item == null || item.project == null || !item.project.is_deck) {
+            return true;
+        }
+
+        try {
+            yield upload_card (item);
+            Services.Store.instance ().update_item (item);
+        } catch (Error e) {
+            if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                return false;
+            }
+
+            Services.LogService.get_default ().warn ("Deck.Core", "Offline card upload failed for '%s', dropping it: %s".printf (item.content, e.message));
+        }
+
+        return true;
+    }
+
+    public async void sync_card_labels (Services.Deck.DeckClient deck_client, Objects.Item item) throws Error {
+        int board_id = (int) Utils.JsonUtils.get_int (item.extra_data, "deck_board_id");
+        int stack_id = stack_id_of (item);
+        int card_id = card_id_of (item);
+
+        var board_labels = yield deck_client.get_board_labels (board_id);
+
+        var board_label_map = new Gee.HashMap<string, int> ();
+        board_labels.foreach_element ((a, i, node) => {
+            var obj = node.get_object ();
+            board_label_map[obj.get_string_member ("title")] = (int) obj.get_int_member ("id");
+        });
+
+        var stacks = yield deck_client.get_stacks (board_id, null);
+        var current_card_label_ids = new Gee.HashSet<int> ();
+        stacks.foreach_element ((a, i, stack_node) => {
+            var stack_obj = stack_node.get_object ();
+            if ((int) stack_obj.get_int_member ("id") != stack_id) return;
+            if (!stack_obj.has_member ("cards") || stack_obj.get_null_member ("cards")) return;
+            stack_obj.get_array_member ("cards").foreach_element ((b, j, card_node) => {
+                var card_obj = card_node.get_object ();
+                if ((int) card_obj.get_int_member ("id") != card_id) return;
+                if (card_obj.has_member ("labels") && !card_obj.get_null_member ("labels")) {
+                    card_obj.get_array_member ("labels").foreach_element ((c, k, lbl_node) => {
+                        current_card_label_ids.add ((int) lbl_node.get_object ().get_int_member ("id"));
+                    });
+                }
+            });
+        });
+
+        var desired_label_ids = new Gee.HashSet<int> ();
+        foreach (var label in item.labels) {
+            int deck_label_id = 0;
+            if (board_label_map.has_key (label.name)) {
+                deck_label_id = board_label_map[label.name];
+            } else {
+                string hex_color = Util.get_default ().get_color (label.color);
+                var created = yield deck_client.create_label (board_id, label.name, hex_color);
+                deck_label_id = (int) created.get_int_member ("id");
+            }
+            desired_label_ids.add (deck_label_id);
+        }
+
+        foreach (var lid in desired_label_ids) {
+            if (!current_card_label_ids.contains (lid)) {
+                yield deck_client.assign_label_to_card (board_id, stack_id, card_id, lid);
+            }
+        }
+
+        foreach (var lid in current_card_label_ids) {
+            if (!desired_label_ids.contains (lid)) {
+                yield deck_client.remove_label_from_card (board_id, stack_id, card_id, lid);
+            }
+        }
+    }
+
     public async void sync (Objects.Source source) {
         if (!source.caldav_data.use_deck) return;
 
         Services.LogService.get_default ().info ("Deck.Core", "Starting Deck sync");
 
         var client = get_client (source);
+
+        yield flush_pending (source);
 
         try {
             var boards = yield client.get_boards ();
@@ -188,6 +525,8 @@ public class Services.Deck.Core : GLib.Object {
                 // Delete local items whose cards no longer exist on server
                 foreach (var local_item in Services.Store.instance ().get_items_by_project (project)) {
                     if (local_item.section_id != section.id) continue;
+                    // A card moved here offline is still in its old stack on the server.
+                    if (local_item.id in pending_card_item_ids) continue;
                     int local_card_id = (int) Utils.JsonUtils.get_int (local_item.extra_data, "deck_card_id");
                     if (local_card_id > 0 && !server_card_ids.contains (local_card_id)) {
                         Services.Store.instance ().delete_item (local_item);
@@ -211,6 +550,11 @@ public class Services.Deck.Core : GLib.Object {
         if (card.get_int_member ("deletedAt") > 0) return;
 
         int card_id = (int) card.get_int_member ("id");
+
+        if (card_id in pending_deleted_card_ids) {
+            return;
+        }
+
         string card_etag = card.get_string_member ("ETag");
         string card_title = card.get_string_member ("title");
         string card_description = card.has_member ("description") && !card.get_null_member ("description")
@@ -222,6 +566,12 @@ public class Services.Deck.Core : GLib.Object {
         string? parsed_duedate = parse_deck_duedate (duedate_str);
 
         Objects.Item? item = get_item_by_card_id (project, card_id);
+
+        // Changed offline and not sent yet: the local version wins.
+        if (item != null && item.id in pending_card_item_ids) {
+            Services.LogService.get_default ().debug ("Deck.Core", "Skipping card '%s', it has offline changes not sent yet".printf (item.content));
+            return;
+        }
 
         if (item == null) {
             item = new Objects.Item ();
