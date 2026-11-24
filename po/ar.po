@@ -379,7 +379,7 @@ msgid "Delete Label %s"
 msgstr "حذف الاسم %s"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:912
-#: core/Objects/Section.vala:432
+#: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
@@ -387,8 +387,8 @@ msgid "This can not be undone"
 msgstr "هذا لا يمكن الرجوع عنه"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:915
-#: core/Objects/Project.vala:995 core/Objects/Section.vala:435
-#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
+#: core/Objects/Project.vala:995 core/Objects/Section.vala:430
+#: core/Objects/Section.vala:471 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
@@ -408,7 +408,7 @@ msgid "Cancel"
 msgstr "الغاء"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:916
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1029
+#: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -429,18 +429,18 @@ msgstr "تم نسخ المشروع للحافظة."
 msgid "Delete Project %s?"
 msgstr "حذف المشروع %s؟"
 
-#: core/Objects/Project.vala:991 core/Objects/Section.vala:477
+#: core/Objects/Project.vala:991 core/Objects/Section.vala:467
 msgid "Archive?"
 msgstr "أرشفة؟"
 
-#: core/Objects/Project.vala:992 core/Objects/Section.vala:478
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:468
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "هذا سيأرشف %s وكل مهامه."
 
-#: core/Objects/Project.vala:996 core/Objects/Section.vala:482
+#: core/Objects/Project.vala:996 core/Objects/Section.vala:472
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
-#: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
+#: src/Layouts/SectionRow.vala:722 src/Views/Project/Project.vala:405
 msgid "Archive"
 msgstr "أرشيف"
 
@@ -449,7 +449,7 @@ msgstr "أرشيف"
 msgid "%s · Next occurrence"
 msgstr ""
 
-#: core/Objects/Section.vala:431
+#: core/Objects/Section.vala:426
 #, c-format
 msgid "Delete Section %s"
 msgstr "حذف القسم %s"
@@ -508,7 +508,7 @@ msgid "Add Attachments"
 msgstr ""
 
 #: core/QuickAddCore.vala:357 src/Layouts/SectionBoard.vala:622
-#: src/Layouts/SectionRow.vala:716 src/Views/Scheduled/ScheduledDay.vala:148
+#: src/Layouts/SectionRow.vala:715 src/Views/Scheduled/ScheduledDay.vala:148
 #: src/Views/Scheduled/ScheduledMonth.vala:137
 #: src/Views/Scheduled/ScheduledRange.vala:147 src/Widgets/MagicButton.vala:50
 msgid "Add Task"
@@ -1949,7 +1949,7 @@ msgid "Archived Projects"
 msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:35 src/Layouts/SectionBoard.vala:625
-#: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:398
+#: src/Layouts/SectionRow.vala:718 src/Views/Project/Project.vala:398
 msgid "Manage Sections"
 msgstr ""
 
@@ -3199,7 +3199,7 @@ msgid "Quickly switch projects and views, find tasks, search by labels"
 msgstr ""
 
 #: src/Dialogs/Section.vala:55 src/Layouts/SectionBoard.vala:623
-#: src/Layouts/SectionRow.vala:717
+#: src/Layouts/SectionRow.vala:716
 msgid "Edit Section"
 msgstr ""
 
@@ -3215,8 +3215,8 @@ msgstr ""
 msgid "Update Section"
 msgstr ""
 
-#: src/Dialogs/Section.vala:254 src/Dialogs/Section.vala:268
-#: src/Dialogs/Section.vala:292 src/Dialogs/Section.vala:306
+#: src/Dialogs/Section.vala:252 src/Dialogs/Section.vala:266
+#: src/Dialogs/Section.vala:288 src/Dialogs/Section.vala:302
 msgid "Section added"
 msgstr ""
 
@@ -3246,7 +3246,7 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:848 src/Layouts/ItemRow.vala:1271
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
-#: src/Layouts/SectionRow.vala:720 src/Views/Project/Project.vala:394
+#: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:394
 msgid "Duplicate"
 msgstr ""
 
@@ -3471,25 +3471,25 @@ msgstr ""
 msgid "Load more"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:673
+#: src/Layouts/SectionBoard.vala:604 src/Layouts/SectionRow.vala:672
 #: src/Widgets/SubItems.vala:422
 msgid "completed tasks"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:718
+#: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:717
 msgid "Move Section"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:721
+#: src/Layouts/SectionBoard.vala:627 src/Layouts/SectionRow.vala:720
 msgid "Show Completed Tasks"
 msgstr ""
 
-#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:724
+#: src/Layouts/SectionBoard.vala:630 src/Layouts/SectionRow.vala:723
 #: src/Widgets/SectionItemRow.vala:186
 msgid "Delete Section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:676 src/Views/Filter.vala:542
+#: src/Layouts/SectionRow.vala:675 src/Views/Filter.vala:542
 msgid "No more tasks"
 msgstr ""
 
