@@ -385,7 +385,7 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:916
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -482,7 +482,7 @@ msgstr "Prioriteit instellen"
 msgid "Add Reminders"
 msgstr "Herinneringen toevoegen"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:953
 #: src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
@@ -494,7 +494,7 @@ msgstr "Bijlagen toevoegen"
 msgid "Add Task"
 msgstr "Taak toevoegen"
 
-#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1721
 msgid "Keep adding"
 msgstr "Blijf toevoegen"
 
@@ -510,68 +510,68 @@ msgstr ""
 "Sorry, snel toevoegen lukt niet zonder een project, probeer eerst een "
 "project aan te maken."
 
-#: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:940 src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:972 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "Nog geen bijlagen. Voeg deze hier toe."
 
-#: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
+#: core/QuickAddCore.vala:1073 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Openen"
 
-#: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1683 src/MainWindow.vala:791
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: core/QuickAddCore.vala:1698
+#: core/QuickAddCore.vala:1689
 msgid "Speed up task creation with these shortcuts"
 msgstr "Versnel het maken van taken met deze snelkoppelingen"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "Set priority"
 msgstr "Prioriteit instellen"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = hoogste, p4 = laagste"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 msgid "Add labels"
 msgstr "Label(s) toevoegen"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 msgid "Opens label selector"
 msgstr "Toont de labelselectie"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Assign project"
 msgstr "Project toewijzen"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Opens project selector"
 msgstr "Opent projectselector"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Set reminder"
 msgstr "herinnering instellen"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Opens reminder options"
 msgstr "Opent herinneringsopties"
 
-#: core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1721
 msgid "Toggle stay open after creating task"
 msgstr "Open blijven na aanmaken nieuwe taak"
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Tip"
 msgstr "Tip"
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Combineer sneltoetsen in het titelveld om het aanmaken te versnellen"
 

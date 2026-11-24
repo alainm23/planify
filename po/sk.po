@@ -390,7 +390,7 @@ msgid "Cancel"
 msgstr "Zrušiť"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:916
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -485,7 +485,7 @@ msgstr "Nastaviť prioritu"
 msgid "Add Reminders"
 msgstr "Pridať pripomienky"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:953
 #: src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr "Pridať prílohy"
@@ -497,7 +497,7 @@ msgstr "Pridať prílohy"
 msgid "Add Task"
 msgstr "Pridať úlohu"
 
-#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1721
 msgid "Keep adding"
 msgstr ""
 
@@ -513,74 +513,74 @@ msgstr ""
 "Ľutujeme, Quick Add nemôže nájsť žiadny dostupný projekt, skúste vytvoriť "
 "projekt z Planify."
 
-#: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:940 src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr "Prílohy"
 
-#: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:972 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr "Žiadne prílohy nenájdené. Pridajte súbory sem."
 
-#: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
+#: core/QuickAddCore.vala:1073 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr "Otvoriť"
 
-#: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1683 src/MainWindow.vala:791
 msgid "Keyboard Shortcuts"
 msgstr "Klávesové skratky"
 
-#: core/QuickAddCore.vala:1698
+#: core/QuickAddCore.vala:1689
 msgid "Speed up task creation with these shortcuts"
 msgstr ""
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 #, fuzzy
 msgid "Set priority"
 msgstr "Nastaviť prioritu"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "p1 = highest, p4 = lowest"
 msgstr ""
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 #, fuzzy
 msgid "Add labels"
 msgstr "Pridať štítky"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 #, fuzzy
 msgid "Opens label selector"
 msgstr "Otvoriť štítky"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 #, fuzzy
 msgid "Assign project"
 msgstr "Pridať projekt"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Opens project selector"
 msgstr ""
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 #, fuzzy
 msgid "Set reminder"
 msgstr "Nastavte si včasné pripomienky!"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Opens reminder options"
 msgstr ""
 
-#: core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1721
 msgid "Toggle stay open after creating task"
 msgstr ""
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 #, fuzzy
 msgid "Tip"
 msgstr "Hore"
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
