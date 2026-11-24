@@ -478,6 +478,7 @@ msgstr "取消"
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
+#: core/QuickAddCore.vala:1029
 msgid "Delete"
 msgstr "删除"
 
@@ -578,7 +579,7 @@ msgstr "添加提醒"
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
 #: src/Layouts/ItemRow.vala:2163 src/Layouts/ItemRow.vala:2175
 #: src/Layouts/ItemRow.vala:2183 core/QuickAddCore.vala:962
-#: src/Layouts/ItemRow.vala:2195
+#: src/Layouts/ItemRow.vala:2195 core/QuickAddCore.vala:953
 msgid "Add Attachments"
 msgstr "添加附件"
 
@@ -592,7 +593,7 @@ msgid "Add Task"
 msgstr "创建任务"
 
 #: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1725
-#: core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1730 core/QuickAddCore.vala:1721
 msgid "Keep adding"
 msgstr "继续添加"
 
@@ -608,71 +609,84 @@ msgstr ""
 "抱歉，快速添加功能找不到任何可用的项目，请先在 Planify 中创建一个项目。"
 
 #: core/QuickAddCore.vala:944 src/Widgets/Attachments.vala:58
-#: core/QuickAddCore.vala:949
+#: core/QuickAddCore.vala:949 core/QuickAddCore.vala:940
 msgid "Attachments"
 msgstr "附件"
 
 #: core/QuickAddCore.vala:976 src/Widgets/Attachments.vala:231
-#: core/QuickAddCore.vala:981
+#: core/QuickAddCore.vala:981 core/QuickAddCore.vala:972
 msgid "No attachments found. Add files here."
 msgstr "未找到附件。在此处添加文件。"
 
 #: core/QuickAddCore.vala:1077 src/Layouts/ProjectRow.vala:796
 #: src/Widgets/Attachments.vala:144 src/Layouts/ProjectRow.vala:790
-#: core/QuickAddCore.vala:1082
+#: core/QuickAddCore.vala:1082 core/QuickAddCore.vala:1073
 msgid "Open"
 msgstr "打开"
 
 #: core/QuickAddCore.vala:1687 src/MainWindow.vala:808 src/MainWindow.vala:809
 #: src/MainWindow.vala:791 core/QuickAddCore.vala:1692
+#: core/QuickAddCore.vala:1683
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
 
 #: core/QuickAddCore.vala:1693 core/QuickAddCore.vala:1698
+#: core/QuickAddCore.vala:1689
 msgid "Speed up task creation with these shortcuts"
 msgstr "用这些快捷键快速创建任务"
 
 #: core/QuickAddCore.vala:1707 core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "Set priority"
 msgstr "设置优先级"
 
 #: core/QuickAddCore.vala:1707 core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高，p4 = 最低"
 
 #: core/QuickAddCore.vala:1708 core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 msgid "Add labels"
 msgstr "添加标签"
 
 #: core/QuickAddCore.vala:1708 core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 msgid "Opens label selector"
 msgstr "打开标签选择器"
 
 #: core/QuickAddCore.vala:1709 core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Assign project"
 msgstr "分配到项目"
 
 #: core/QuickAddCore.vala:1709 core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Opens project selector"
 msgstr "打开项目选择器"
 
 #: core/QuickAddCore.vala:1710 core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Set reminder"
 msgstr "设置提醒"
 
 #: core/QuickAddCore.vala:1710 core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Opens reminder options"
 msgstr "打开提醒选项"
 
 #: core/QuickAddCore.vala:1725 core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1721
 msgid "Toggle stay open after creating task"
 msgstr "切换成保持开放状态，在建立任务之后"
 
 #: core/QuickAddCore.vala:1731 core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Tip"
 msgstr "小贴士"
 
 #: core/QuickAddCore.vala:1731 core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "在标题栏配合快捷指令，实现快速创建"
 

@@ -377,7 +377,7 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:916
-#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1038
+#: core/Objects/Section.vala:436 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
@@ -471,7 +471,7 @@ msgstr "優先度を設定"
 msgid "Add Reminders"
 msgstr "リマインダーを追加"
 
-#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
+#: core/QuickAddCore.vala:298 core/QuickAddCore.vala:953
 #: src/Layouts/ItemRow.vala:2195
 msgid "Add Attachments"
 msgstr ""
@@ -483,7 +483,7 @@ msgstr ""
 msgid "Add Task"
 msgstr "タスクを追加"
 
-#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1721
 msgid "Keep adding"
 msgstr "続けて追加"
 
@@ -497,68 +497,68 @@ msgid ""
 "project from Planify."
 msgstr ""
 
-#: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:940 src/Widgets/Attachments.vala:58
 msgid "Attachments"
 msgstr ""
 
-#: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:972 src/Widgets/Attachments.vala:231
 msgid "No attachments found. Add files here."
 msgstr ""
 
-#: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
+#: core/QuickAddCore.vala:1073 src/Layouts/ProjectRow.vala:790
 #: src/Widgets/Attachments.vala:144
 msgid "Open"
 msgstr ""
 
-#: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1683 src/MainWindow.vala:791
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
-#: core/QuickAddCore.vala:1698
+#: core/QuickAddCore.vala:1689
 msgid "Speed up task creation with these shortcuts"
 msgstr "これらのショートカットを使用してタスク作成を高速化できます"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "Set priority"
 msgstr "優先度を設定"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1703
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = 最高、p4 = 最低"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 msgid "Add labels"
 msgstr "ラベルを追加"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1704
 msgid "Opens label selector"
 msgstr "ラベルの一覧を表示"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Assign project"
 msgstr "プロジェクトに割り当て"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1705
 msgid "Opens project selector"
 msgstr "プロジェクトの一覧を表示"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Set reminder"
 msgstr "リマインダーを設定"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1706
 msgid "Opens reminder options"
 msgstr "リマインダーを設定"
 
-#: core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1721
 msgid "Toggle stay open after creating task"
 msgstr "タスク作成後に続けて追加する"
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Tip"
 msgstr ""
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1727
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 

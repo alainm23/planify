@@ -411,7 +411,7 @@ msgstr "Abbrechen"
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:285
 #: src/Widgets/MultiSelectToolbar.vala:354 core/Widgets/DeadlineButton.vala:248
 #: src/Widgets/MultiSelectToolbar.vala:328
-#: src/Widgets/MultiSelectToolbar.vala:397
+#: src/Widgets/MultiSelectToolbar.vala:397 core/QuickAddCore.vala:1029
 msgid "Delete"
 msgstr "Löschen"
 
@@ -502,6 +502,7 @@ msgstr "Erinnerungen hinzufügen"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:962
 #: src/Layouts/ItemRow.vala:2183 src/Layouts/ItemRow.vala:2195
+#: core/QuickAddCore.vala:953
 msgid "Add Attachments"
 msgstr "Anhang hinzufügen"
 
@@ -513,6 +514,7 @@ msgid "Add Task"
 msgstr "Aufgabe hinzufügen"
 
 #: core/QuickAddCore.vala:363 core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1721
 msgid "Keep adding"
 msgstr "Weitere hinzufügen"
 
@@ -529,67 +531,70 @@ msgstr ""
 "Versuche ein Projekt in Planify zu erstellen."
 
 #: core/QuickAddCore.vala:949 src/Widgets/Attachments.vala:58
+#: core/QuickAddCore.vala:940
 msgid "Attachments"
 msgstr "Anlagen"
 
 #: core/QuickAddCore.vala:981 src/Widgets/Attachments.vala:231
+#: core/QuickAddCore.vala:972
 msgid "No attachments found. Add files here."
 msgstr "Keine Anhänge gefunden. Füge Dateien hier hinzu."
 
 #: core/QuickAddCore.vala:1082 src/Layouts/ProjectRow.vala:790
-#: src/Widgets/Attachments.vala:144
+#: src/Widgets/Attachments.vala:144 core/QuickAddCore.vala:1073
 msgid "Open"
 msgstr "Öffnen"
 
 #: core/QuickAddCore.vala:1692 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1683
 msgid "Keyboard Shortcuts"
 msgstr "Tastenkombinationen"
 
-#: core/QuickAddCore.vala:1698
+#: core/QuickAddCore.vala:1698 core/QuickAddCore.vala:1689
 msgid "Speed up task creation with these shortcuts"
 msgstr "Beschleunige die Aufgabenerstellung mit diesen Tastenkürzel"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1712 core/QuickAddCore.vala:1703
 msgid "Set priority"
 msgstr "Priorität setzen"
 
-#: core/QuickAddCore.vala:1712
+#: core/QuickAddCore.vala:1712 core/QuickAddCore.vala:1703
 msgid "p1 = highest, p4 = lowest"
 msgstr "p1 = höchste, p4 = niedrigste"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1713 core/QuickAddCore.vala:1704
 msgid "Add labels"
 msgstr "Label(s) hinzufügen"
 
-#: core/QuickAddCore.vala:1713
+#: core/QuickAddCore.vala:1713 core/QuickAddCore.vala:1704
 msgid "Opens label selector"
 msgstr "Labels öffnen"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1714 core/QuickAddCore.vala:1705
 msgid "Assign project"
 msgstr "Projekt zuweisen"
 
-#: core/QuickAddCore.vala:1714
+#: core/QuickAddCore.vala:1714 core/QuickAddCore.vala:1705
 msgid "Opens project selector"
 msgstr "Öffnet Projektauswahl"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1715 core/QuickAddCore.vala:1706
 msgid "Set reminder"
 msgstr "Erinnerungen einstellen"
 
-#: core/QuickAddCore.vala:1715
+#: core/QuickAddCore.vala:1715 core/QuickAddCore.vala:1706
 msgid "Opens reminder options"
 msgstr "Erinnerungseinstellungen öffnen"
 
-#: core/QuickAddCore.vala:1730
+#: core/QuickAddCore.vala:1730 core/QuickAddCore.vala:1721
 msgid "Toggle stay open after creating task"
 msgstr "Weiterhin geöffnet bleiben, nachdem Aufgabe erstellt wurde"
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1736 core/QuickAddCore.vala:1727
 msgid "Tip"
 msgstr "Tipp"
 
-#: core/QuickAddCore.vala:1736
+#: core/QuickAddCore.vala:1736 core/QuickAddCore.vala:1727
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Kombiniere Tastenkürzel im Titelfeld für eine schnellere Erstellung"
 
