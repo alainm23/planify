@@ -564,7 +564,11 @@ public class Dialogs.Project : Adw.Dialog {
 
                     if (response.status) {
                         Services.Store.instance ().insert_project (project);
-                        caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
+
+                        if (!response.offline) {
+                            caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
+                        }
+                        
                         go_project (project.id);
                     } else {
                         Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
