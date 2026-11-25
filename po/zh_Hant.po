@@ -347,7 +347,7 @@ msgstr "已經移至 %s"
 msgid "Delete Label %s"
 msgstr "刪除標籤 %s"
 
-#: core/Objects/Label.vala:221 core/Objects/Project.vala:912
+#: core/Objects/Label.vala:221 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:427
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
@@ -355,8 +355,8 @@ msgstr "刪除標籤 %s"
 msgid "This can not be undone"
 msgstr "此項無法取消動作"
 
-#: core/Objects/Label.vala:224 core/Objects/Project.vala:915
-#: core/Objects/Project.vala:995 core/Objects/Section.vala:430
+#: core/Objects/Label.vala:224 core/Objects/Project.vala:919
+#: core/Objects/Project.vala:992 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:471 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
@@ -376,7 +376,7 @@ msgstr "此項無法取消動作"
 msgid "Cancel"
 msgstr "取消"
 
-#: core/Objects/Label.vala:225 core/Objects/Project.vala:916
+#: core/Objects/Label.vala:225 core/Objects/Project.vala:920
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
@@ -389,25 +389,25 @@ msgstr "取消"
 msgid "Delete"
 msgstr "刪除"
 
-#: core/Objects/Project.vala:875
+#: core/Objects/Project.vala:879
 msgid "The project was copied to the Clipboard."
 msgstr "專案已經複製至剪貼簿。"
 
-#: core/Objects/Project.vala:911
+#: core/Objects/Project.vala:915
 #, c-format
 msgid "Delete Project %s?"
 msgstr "刪除專案 %s ？"
 
-#: core/Objects/Project.vala:991 core/Objects/Section.vala:467
+#: core/Objects/Project.vala:988 core/Objects/Section.vala:467
 msgid "Archive?"
 msgstr "封存？"
 
-#: core/Objects/Project.vala:992 core/Objects/Section.vala:468
+#: core/Objects/Project.vala:989 core/Objects/Section.vala:468
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "此將封存 %s 及其全部任務。"
 
-#: core/Objects/Project.vala:996 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:993 core/Objects/Section.vala:472
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:722 src/Views/Project/Project.vala:405
 msgid "Archive"
@@ -3117,7 +3117,7 @@ msgstr ""
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr ""
 
-#: src/Dialogs/Project.vala:585
+#: src/Dialogs/Project.vala:575
 msgid "Project added successfully!"
 msgstr "專案已經添加成功！"
 

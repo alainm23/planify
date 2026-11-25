@@ -463,6 +463,7 @@ msgstr "%s ჭდის წაშლა"
 #: core/Objects/Section.vala:432 core/Objects/Project.vala:902
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
 #: src/Services/BackupManager.vala:285 core/Objects/Project.vala:912
+#: core/Objects/Project.vala:916
 msgid "This can not be undone"
 msgstr "ეს ქმედება შეუქცევადია"
 
@@ -507,6 +508,7 @@ msgstr "ეს ქმედება შეუქცევადია"
 #: src/Views/Project/Project.vala:556 src/Widgets/MultiSelectToolbar.vala:353
 #: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
 #: core/Objects/Project.vala:995 core/Objects/Section.vala:471
+#: core/Objects/Project.vala:919 core/Objects/Project.vala:992
 msgid "Cancel"
 msgstr "გაუქმება"
 
@@ -537,21 +539,21 @@ msgstr "გაუქმება"
 #: src/Widgets/MultiSelectToolbar.vala:354 core/QuickAddCore.vala:1038
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
-#: core/QuickAddCore.vala:1029
+#: core/QuickAddCore.vala:1029 core/Objects/Project.vala:920
 msgid "Delete"
 msgstr "წაშლა"
 
 #: core/Objects/Project.vala:854 core/Objects/Project.vala:859
 #: core/Objects/Project.vala:863 core/Objects/Project.vala:868
 #: core/Objects/Project.vala:865 core/Objects/Project.vala:870
-#: core/Objects/Project.vala:875
+#: core/Objects/Project.vala:875 core/Objects/Project.vala:879
 msgid "The project was copied to the Clipboard."
 msgstr "პროექტი დაკოპირდა ბუფერში."
 
 #: core/Objects/Project.vala:890 core/Objects/Project.vala:895
 #: core/Objects/Project.vala:899 core/Objects/Project.vala:904
 #: core/Objects/Project.vala:901 core/Objects/Project.vala:906
-#: core/Objects/Project.vala:911
+#: core/Objects/Project.vala:911 core/Objects/Project.vala:915
 #, c-format
 msgid "Delete Project %s?"
 msgstr "წავშალო პროექტი %s?"
@@ -561,6 +563,7 @@ msgstr "წავშალო პროექტი %s?"
 #: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 #: core/Objects/Project.vala:981 core/Objects/Project.vala:986
 #: core/Objects/Project.vala:991 core/Objects/Section.vala:467
+#: core/Objects/Project.vala:988
 msgid "Archive?"
 msgstr "დავაარქივო?"
 
@@ -569,6 +572,7 @@ msgstr "დავაარქივო?"
 #: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #: core/Objects/Project.vala:982 core/Objects/Project.vala:987
 #: core/Objects/Project.vala:992 core/Objects/Section.vala:468
+#: core/Objects/Project.vala:989
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "ეს დააარქივებს %s-ს და მის ყველა ამოცანას."
@@ -584,6 +588,7 @@ msgstr "ეს დააარქივებს %s-ს და მის ყვ�
 #: core/Objects/Project.vala:991 src/Layouts/SectionRow.vala:723
 #: src/Views/Project/Project.vala:405 core/Objects/Project.vala:996
 #: core/Objects/Section.vala:472 src/Layouts/SectionRow.vala:722
+#: core/Objects/Project.vala:993
 msgid "Archive"
 msgstr "არქივი"
 
@@ -3663,7 +3668,7 @@ msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr ""
 
 #: src/Dialogs/Project.vala:576 src/Dialogs/Project.vala:581
-#: src/Dialogs/Project.vala:585
+#: src/Dialogs/Project.vala:585 src/Dialogs/Project.vala:575
 msgid "Project added successfully!"
 msgstr "პროექტი წარმატებით დაემატა!"
 
