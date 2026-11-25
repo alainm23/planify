@@ -49,7 +49,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Gtk.Revealer drop_target_end_revealer;
 
     public Gee.HashMap<string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap<string, Layouts.ProjectRow> ();
-    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
+    private Gee.HashMap<ulong, weak GLib.Object> signals_map = new Gee.HashMap<ulong, weak GLib.Object> ();
 
     private bool has_subprojects {
         get {
@@ -345,7 +345,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
         })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
+        signals_map[Services.EventBus.get_default ().projects_drag_begin.connect ((source_id) => {
             if (source_id == project.source.id) {
                 var listbox_parent = parent as Gtk.ListBox;
                 if (listbox_parent == null) {
@@ -359,26 +359,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     drop_target_end_revealer.reveal_child = true;
                 }
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
+        signals_map[Services.EventBus.get_default ().projects_drag_end.connect ((source_id) => {
             if (source_id == project.source.id) {
                 drop_target_end_revealer.reveal_child = false;
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
+        signals_map[Services.Settings.get_default ().settings.changed["local-inbox-project-id"].connect (() => {
             update_request ();
             main_revealer.reveal_child = !project.is_inbox_project;
-        });
+        })] = Services.Settings.get_default ().settings;
 
-        destroy.connect (() => {
-            foreach (var entry in signals_map.entries) {
-                entry.value.disconnect (entry.key);
-            }
-
-            signals_map.clear ();
-        });
+        destroy.connect (clean_up);
     }
 
     private void update_count_label (int count) {
@@ -873,6 +867,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     public void hide_destroy () {
+        clean_up ();
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
@@ -886,4 +881,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             listbox.append (subprojects_hashmap[project.id]);
         }
     }
+    public void clean_up () {
+        foreach (var row in subprojects_hashmap.values) {
+            row.clean_up ();
+        }
+        subprojects_hashmap.clear ();
+        foreach (var entry in signals_map.entries) {
+            if (entry.value != null && GLib.SignalHandler.is_connected (entry.value, entry.key)) {
+                entry.value.disconnect (entry.key);
+            }
+        }
+        signals_map.clear ();
+    }
+
 }

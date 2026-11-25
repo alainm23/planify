@@ -29,20 +29,25 @@ public class Dialogs.QuickFind.QuickFindSectionSorter : Gtk.Sorter {
         if (b == null)
         return Gtk.Ordering.LARGER;
 
-        var type_a = a.base_object.object_type;
-        var type_b = b.base_object.object_type;
+        int order_a = get_order_for (a);
+        int order_b = get_order_for (b);
 
-        if (type_a != type_b) {
-            int order_a = get_type_order (type_a);
-            int order_b = get_type_order (type_b);
-
-            if (order_a < order_b)
+        if (order_a < order_b) {
             return Gtk.Ordering.SMALLER;
-            else
+        } else if (order_a > order_b) {
             return Gtk.Ordering.LARGER;
         }
 
         return Gtk.Ordering.EQUAL;
+    }
+
+    // Completed tasks go last, in their own section, after every other result.
+    private int get_order_for (Dialogs.QuickFind.QuickFindItem item) {
+        if (item.base_object is Objects.Item && ((Objects.Item) item.base_object).checked) {
+            return 98;
+        }
+
+        return get_type_order (item.base_object.object_type);
     }
 
     private int get_type_order (ObjectType type) {

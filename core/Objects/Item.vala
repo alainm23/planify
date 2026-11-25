@@ -33,7 +33,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _section_id; }
         set {
             _section_id = value;
-            _section = null;
+            _section.set (null);
         }
     }
 
@@ -42,7 +42,7 @@ public class Objects.Item : Objects.BaseObject {
         get { return _project_id; }
         set {
             _project_id = value;
-            _project = null;
+            _project.set (null);
         }
     }
 
@@ -51,10 +51,32 @@ public class Objects.Item : Objects.BaseObject {
         get { return _parent_id; }
         set {
             _parent_id = value;
-            _parent = null;
+            _parent.set (null);
         }
     }
-    public string extra_data { get; set; default = ""; }
+    private string? _extra_data = "";
+    public string extra_data {
+        get {
+            if (_extra_data == null) {
+                _extra_data = Services.Database.get_default ().get_item_extra_data (id);
+            }
+            return _extra_data;
+        }
+        set {
+            _extra_data = value;
+            _extra_data_object = null;
+            extra_data_parsed = false;
+        }
+    }
+
+    // Store loads the searchable task fields up front, but CalDAV payloads are only
+    // needed when a task is opened, edited or synced.
+    public void defer_extra_data () {
+        _extra_data = null;
+        extra_data_parsed = false;
+        _extra_data_object = null;
+    }
+
     public ItemType item_type { get; set; default = ItemType.TASK; }
     public string responsible_uid { get; set; default = ""; }
 
@@ -204,13 +226,13 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    string ? _extra_data_key = null;
+    bool extra_data_parsed = false;
     Json.Object ? _extra_data_object = null;
 
     private Json.Object ? get_extra_data_object () {
-        if (_extra_data_key != extra_data) {
+        if (!extra_data_parsed) {
             _extra_data_object = Utils.JsonUtils.get_object (extra_data);
-            _extra_data_key = extra_data;
+            extra_data_parsed = true;
         }
 
         return _extra_data_object;
@@ -313,33 +335,40 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    Objects.Item ? _parent;
+    // The Store owns related models; a back-reference must not retain their child caches.
+    GLib.WeakRef _parent = GLib.WeakRef (null);
     public Objects.Item parent {
-        get {
-            if (_parent == null && _parent_id != null && _parent_id != "") {
-                _parent = Services.Store.instance ().get_item (_parent_id);
+        owned get {
+            var related = (Objects.Item) _parent.get ();
+            if (related == null && _parent_id != null && _parent_id != "") {
+                related = Services.Store.instance ().get_item (_parent_id);
+                _parent.set (related);
             }
-            return _parent;
+            return related;
         }
     }
 
-    Objects.Project ? _project;
+    GLib.WeakRef _project = GLib.WeakRef (null);
     public Objects.Project project {
-        get {
-            if (_project == null && _project_id != null && _project_id != "") {
-                _project = Services.Store.instance ().get_project (_project_id);
+        owned get {
+            var related = (Objects.Project) _project.get ();
+            if (related == null && _project_id != null && _project_id != "") {
+                related = Services.Store.instance ().get_project (_project_id);
+                _project.set (related);
             }
-            return _project;
+            return related;
         }
     }
 
-    Objects.Section ? _section;
+    GLib.WeakRef _section = GLib.WeakRef (null);
     public Objects.Section section {
-        get {
-            if (_section == null && _section_id != null && _section_id != "") {
-                _section = Services.Store.instance ().get_section (_section_id);
+        owned get {
+            var related = (Objects.Section) _section.get ();
+            if (related == null && _section_id != null && _section_id != "") {
+                related = Services.Store.instance ().get_section (_section_id);
+                _section.set (related);
             }
-            return _section;
+            return related;
         }
     }
 
@@ -362,6 +391,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public void invalidate_subitems () {
         _items_loaded = false;
+        _items = null;
         _items_uncomplete = null;
     }
 
@@ -564,8 +594,9 @@ public class Objects.Item : Objects.BaseObject {
             priority = Constants.PRIORITY_4;
         }
 
-        if (!ical.get_due ().is_null_time ()) {
-            due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
+        var due_time = get_caldav_due_time (ical, ical_vtodo);
+        if (due_time != null && !due_time.is_null_time ()) {
+            due.date = Utils.Datetime.ical_to_date_time_local (due_time).to_string ();
         } else if (is_update) {
             due.reset ();
         }
@@ -695,11 +726,15 @@ public class Objects.Item : Objects.BaseObject {
                         var trigger_time = trigger.get_time ();
                         if (!trigger_time.is_null_time ()) {
                             var dt = Utils.Datetime.ical_to_date_time_local (trigger_time);
-                            if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
-                                server_datetimes.add (dt.to_string ());
+                            // Past alarms still count as present on the server, so a
+                            // fired reminder kept for a recurring task isn't deleted.
+                            server_datetimes.add (dt.to_string ());
 
+                            if (dt.compare (new GLib.DateTime.now_local ()) > 0) {
                                 var reminder = new Objects.Reminder ();
                                 reminder.item_id = id;
+                                // Without an id, every imported reminder shared the same "" key.
+                                reminder.id = Util.get_default ().generate_id (reminder);
                                 reminder.reminder_type = ReminderType.ABSOLUTE;
                                 reminder.due.date = dt.to_string ();
                                 add_reminder_if_not_exists (reminder, id != "");
@@ -711,8 +746,11 @@ public class Objects.Item : Objects.BaseObject {
             valarm = vtodo.get_next_component (ICal.ComponentKind.VALARM_COMPONENT);
         }
 
-        foreach (var existing in reminders) {
-            if (existing.reminder_type == ReminderType.ABSOLUTE &&
+        // Iterate over a copy: deleting a reminder emits signals that rebuild the list.
+        var current = new Gee.ArrayList<Objects.Reminder> ();
+        current.add_all (reminders);
+        foreach (var existing in current) {
+            if (existing.reminder_type == ReminderType.ABSOLUTE && existing.datetime != null &&
                 !server_datetimes.contains (existing.datetime.to_string ())) {
                 existing.delete ();
             }
@@ -842,11 +880,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_section (Objects.Section section) {
-        _section = section;
+        _section.set (section);
     }
 
     public void set_parent (Objects.Item item) {
-        _parent = item;
+        _parent.set (item);
     }
 
     /**
@@ -875,7 +913,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_project (Objects.Project project) {
-        _project = project;
+        _project.set (project);
     }
 
     public override string get_add_json (string temp_id, string uuid) {
@@ -1038,7 +1076,9 @@ public class Objects.Item : Objects.BaseObject {
     private Objects.Reminder ? get_reminder (Objects.Reminder reminder) {
         Objects.Reminder ? return_value = null;
         lock (_reminders) {
-            foreach (var _reminder in _reminders) {
+            // Use the getter: _reminders is null until the list is loaded (e.g. a task
+            // that was never shown gets a new reminder during sync).
+            foreach (var _reminder in reminders) {
                 if (reminder.datetime.compare (_reminder.datetime) == 0) {
                     return_value = _reminder;
                     break;
@@ -1049,6 +1089,10 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     private void _add_reminder (Objects.Reminder reminder) {
+        if (_reminders == null) {
+            _reminders = new Gee.ArrayList<Objects.Reminder> ();
+        }
+
         _reminders.add (reminder);
     }
 
@@ -1395,6 +1439,16 @@ public class Objects.Item : Objects.BaseObject {
 
     public string to_vtodo () {
         ICal.Component ical = new ICal.Component.vtodo ();
+        ICal.Component ? original_calendar = calendar_data != "" ? ICal.Parser.parse_string (calendar_data) : null;
+        ICal.Component ? original = original_calendar != null ?
+            original_calendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT) : null;
+
+        if (original != null) {
+            var start = original.get_first_property (ICal.PropertyKind.DTSTART_PROPERTY);
+            if (start != null) {
+                ical.add_property (start.clone ());
+            }
+        }
 
         ical.set_uid (id);
         ical.set_dtstamp (new ICal.Time.current_with_zone (ICal.Timezone.get_utc_timezone ()));
@@ -1419,13 +1473,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (has_due) {
-            ICal.Time new_icaltime = Utils.Datetime.datetimes_to_icaltime (
-                due.datetime,
-                Utils.Datetime.has_time (due.datetime) ? due.datetime : null,
-                null
-            );
-
-            ical.set_due (new_icaltime);
+            ical.add_property (build_caldav_due_property (original_calendar, original));
 
             if (due.is_recurring) {
                 var rrule = new ICal.Recurrence ();
@@ -1571,13 +1619,23 @@ public class Objects.Item : Objects.BaseObject {
         ical.add_property (child_order_property);
 
         var vtodo_string = ical.as_ical_string ();
-        var valarms = build_valarm_strings ();
+        var valarms = build_valarm_strings (original);
         if (valarms != "") {
             vtodo_string = vtodo_string.replace ("END:VTODO", valarms + "END:VTODO");
         }
 
-        var result = "%s%s%s".printf (
+        var timezones = new StringBuilder ();
+        if (original_calendar != null) {
+            var timezone = original_calendar.get_first_component (ICal.ComponentKind.VTIMEZONE_COMPONENT);
+            while (timezone != null) {
+                timezones.append (timezone.as_ical_string ());
+                timezone = original_calendar.get_next_component (ICal.ComponentKind.VTIMEZONE_COMPONENT);
+            }
+        }
+
+        var result = "%s%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
+            timezones.str,
             vtodo_string,
             "END:VCALENDAR\n"
         );
@@ -1585,8 +1643,73 @@ public class Objects.Item : Objects.BaseObject {
         return result;
     }
 
-    private string build_valarm_strings () {
+    private static ICal.Time ? get_caldav_due_time (ICal.Component calendar, ICal.Component vtodo) {
+        var property = vtodo.get_first_property (ICal.PropertyKind.DUE_PROPERTY);
+        if (property == null) {
+            return null;
+        }
+
+        var time = property.get_due ();
+        var tzid = property.get_first_parameter (ICal.ParameterKind.TZID_PARAMETER);
+        if (tzid != null && !time.is_date ()) {
+            var zone = calendar.get_timezone (tzid.get_tzid ()) ??
+                ICal.Timezone.get_builtin_timezone (tzid.get_tzid ());
+            if (zone != null) {
+                time.set_timezone (zone);
+            }
+        }
+        return time;
+    }
+
+    private ICal.Property build_caldav_due_property (ICal.Component ? calendar, ICal.Component ? original) {
+        var date = due.datetime;
+        bool has_time = Utils.Datetime.has_time (date);
+        var time = Utils.Datetime.datetimes_to_icaltime (date, has_time ? date : null, null);
+        if (original != null) {
+            var original_time = get_caldav_due_time (calendar, original);
+            if (original_time != null && !original_time.is_null_time ()) {
+                var property = original.get_first_property (ICal.PropertyKind.DUE_PROPERTY);
+                if (Utils.Datetime.ical_to_date_time_local (original_time).compare (date) == 0) {
+                    return property.clone ();
+                }
+
+                var zone = original_time.get_timezone ();
+                if (has_time && zone != null) {
+                    #if IS_LIBICAL4
+                    time = new ICal.Time.from_timet_with_zone ((time_t) date.to_unix (), false, zone);
+                    #else
+                    time = new ICal.Time.from_timet_with_zone ((time_t) date.to_unix (), 0, zone);
+                    #endif
+                    var tzid = property.get_first_parameter (ICal.ParameterKind.TZID_PARAMETER);
+                    if (tzid != null) {
+                        // TZID values contain local wall time, without a UTC suffix.
+                        time.set_timezone (null);
+                    }
+                    var result = new ICal.Property.due (time);
+                    if (tzid != null) {
+                        result.add_parameter (tzid.clone ());
+                    }
+                    return result;
+                }
+            }
+        }
+        return new ICal.Property.due (time);
+    }
+
+    private string build_valarm_strings (ICal.Component ? original) {
         var sb = new StringBuilder ();
+        if (original != null) {
+            var alarm = original.get_first_component (ICal.ComponentKind.VALARM_COMPONENT);
+            while (alarm != null) {
+                var trigger = alarm.get_first_property (ICal.PropertyKind.TRIGGER_PROPERTY);
+                var value = trigger != null ? trigger.get_first_parameter (ICal.ParameterKind.VALUE_PARAMETER) : null;
+                // Relative alarms are not represented by the local reminder model.
+                if (value == null || value.get_value () != ICal.ParameterValue.DATETIME) {
+                    sb.append (alarm.as_ical_string ());
+                }
+                alarm = original.get_next_component (ICal.ComponentKind.VALARM_COMPONENT);
+            }
+        }
         foreach (var reminder in reminders) {
             var dt = reminder.datetime;
             if (dt == null) continue;
@@ -1886,8 +2009,13 @@ public class Objects.Item : Objects.BaseObject {
             );
         }
 
+        GLib.DateTime previous_due = due.datetime;
         var next_recurrency = Utils.Datetime.next_recurrency (base_datetime, due);
         due.date = Utils.Datetime.get_todoist_datetime_format (next_recurrency);
+
+        // Before saving, so CalDAV sends the reminders with their new time.
+        shift_absolute_reminders (previous_due, due.datetime);
+        shift_deadline (previous_due, due.datetime);
 
         if (due.end_type == RecurrencyEndType.AFTER) {
             due.recurrency_count = due.recurrency_count - 1;
@@ -1933,6 +2061,45 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return due.datetime;
+    }
+
+    /*
+     * Moves the fixed-time reminders with the task to its next occurrence, keeping
+     * the same distance from the due date. Relative reminders follow the due date
+     * on their own. Todoist keeps reminders on its server, so they are left alone.
+     */
+    private void shift_absolute_reminders (GLib.DateTime previous_due, GLib.DateTime next_due) {
+        if (project.source_type == SourceType.TODOIST) {
+            return;
+        }
+
+        foreach (Objects.Reminder reminder in reminders) {
+            if (reminder.reminder_type != ReminderType.ABSOLUTE || reminder.due.datetime == null) {
+                continue;
+            }
+
+            var offset = reminder.due.datetime.difference (previous_due);
+            reminder.due.date = Utils.Datetime.get_todoist_datetime_format (next_due.add (offset));
+            Services.Store.instance ().update_reminder (reminder);
+        }
+    }
+
+    /*
+     * Moves the deadline with the task to its next occurrence, by the same number
+     * of days as the date, so it keeps the same distance from it. Counted in days
+     * so a daylight saving change doesn't move it to another day.
+     */
+    private void shift_deadline (GLib.DateTime previous_due, GLib.DateTime next_due) {
+        if (!has_deadline || deadline_datetime == null) {
+            return;
+        }
+
+        var diff = Utils.Datetime.get_date_only (next_due).difference (Utils.Datetime.get_date_only (previous_due));
+        int days = (int) ((diff >= 0 ? diff + TimeSpan.DAY / 2 : diff - TimeSpan.DAY / 2) / TimeSpan.DAY);
+
+        if (days != 0) {
+            deadline_date = deadline_datetime.add_days (days).to_string ();
+        }
     }
 
     public void move (Objects.Project project, string _section_id, bool notify = true) {
@@ -2008,25 +2175,44 @@ public class Objects.Item : Objects.BaseObject {
         bool moved = false;
 
         try {
-            var response = yield caldav_client.move_item (this, project);
+            // Each project is its own calendar: only MOVE the resource when the
+            // project changes. Within the same project the URL stays the same, and
+            // the server rejects a MOVE onto itself.
+            bool same_project = project.id == project_id;
 
-            if (!response.status) {
-                throw new IOError.FAILED (response.error);
-            }
-
-            string old_parent_id = this.parent_id;
-            if (old_parent_id != "") {
-                parent_id = "";
-                response = yield caldav_client.add_item (this, true);
+            if (!same_project) {
+                var response = yield caldav_client.move_item (this, project);
 
                 if (!response.status) {
                     throw new IOError.FAILED (response.error);
                 }
-
-                Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
             }
 
-            yield move_all_subitems_caldav (this, project, caldav_client);
+            // The section and parent are stored as RELATED-TO in the VTODO, so the
+            // server copy has to be updated when either of them changes.
+            string old_parent_id = this.parent_id;
+            string old_section_id = this.section_id;
+            if (old_parent_id != "" || old_section_id != _section_id) {
+                parent_id = "";
+                section_id = _section_id;
+                var response = yield caldav_client.add_item (this, true);
+
+                // _move () below sets the section and notifies the views with the old one.
+                section_id = old_section_id;
+
+                if (!response.status) {
+                    parent_id = old_parent_id;
+                    throw new IOError.FAILED (response.error);
+                }
+
+                if (old_parent_id != "") {
+                    Services.EventBus.get_default ().item_moved (this, project_id, section_id, old_parent_id);
+                }
+            }
+
+            if (!same_project) {
+                yield move_all_subitems_caldav (this, project, caldav_client);
+            }
 
             _move (project.id, _section_id, notify);
             moved = true;
@@ -2292,195 +2478,54 @@ public class Objects.Item : Objects.BaseObject {
         print ("---------------------------------\n");
     }
 
-    private int get_deck_card_id () {
-        return (int) Utils.JsonUtils.get_int (extra_data, "deck_card_id");
-    }
-
-    private int get_deck_stack_id () {
-        return (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
-    }
-
-    private int get_deck_board_id () {
-        return (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-    }
-
-    private string? get_deck_duedate () {
-        if (!has_due) return null;
-        if (has_time) {
-            return due.datetime.to_utc ().format ("%FT%T");
-        }
-        return due.datetime.format ("%FT12:00:00");
-    }
-
     private async void _update_deck (string update_id = "") {
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        string? duedate = get_deck_duedate ();
-        try {
-            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
-                content, description, duedate, checked, child_order);
-            yield _sync_deck_labels (deck_client);
+        var response = yield Services.Deck.Core.get_default ().save_card (this);
+        if (response.status) {
             Services.Store.instance ().update_item (this, update_id);
-        } catch (Error e) {
-            Services.LogService.get_default ().error ("Deck", "Failed to update card: %s".printf (e.message));
         }
+
         loading = false;
-    }
-
-    private async void _sync_deck_labels (Services.Deck.DeckClient deck_client) throws Error {
-        int board_id = get_deck_board_id ();
-        int stack_id = get_deck_stack_id ();
-        int card_id = get_deck_card_id ();
-
-        // Get current labels on the card from server
-        var board_labels = yield deck_client.get_board_labels (board_id);
-
-        // Build map of board labels by title -> deck_label_id
-        var board_label_map = new Gee.HashMap<string, int> ();
-        board_labels.foreach_element ((a, i, node) => {
-            var obj = node.get_object ();
-            board_label_map[obj.get_string_member ("title")] = (int) obj.get_int_member ("id");
-        });
-
-        // Get current card labels from server
-        var stacks = yield deck_client.get_stacks (board_id, null);
-        var current_card_label_ids = new Gee.HashSet<int> ();
-        stacks.foreach_element ((a, i, stack_node) => {
-            var stack_obj = stack_node.get_object ();
-            if ((int) stack_obj.get_int_member ("id") != stack_id) return;
-            if (!stack_obj.has_member ("cards") || stack_obj.get_null_member ("cards")) return;
-            stack_obj.get_array_member ("cards").foreach_element ((b, j, card_node) => {
-                var card_obj = card_node.get_object ();
-                if ((int) card_obj.get_int_member ("id") != card_id) return;
-                if (card_obj.has_member ("labels") && !card_obj.get_null_member ("labels")) {
-                    card_obj.get_array_member ("labels").foreach_element ((c, k, lbl_node) => {
-                        current_card_label_ids.add ((int) lbl_node.get_object ().get_int_member ("id"));
-                    });
-                }
-            });
-        });
-
-        // Desired labels from Planify item
-        var desired_label_ids = new Gee.HashSet<int> ();
-        foreach (var label in labels) {
-            int deck_label_id = 0;
-            if (board_label_map.has_key (label.name)) {
-                deck_label_id = board_label_map[label.name];
-            } else {
-                // Create label on board
-                string hex_color = Util.get_default ().get_color (label.color);
-                var created = yield deck_client.create_label (board_id, label.name, hex_color);
-                deck_label_id = (int) created.get_int_member ("id");
-            }
-            desired_label_ids.add (deck_label_id);
-        }
-
-        // Assign missing labels
-        foreach (var lid in desired_label_ids) {
-            if (!current_card_label_ids.contains (lid)) {
-                yield deck_client.assign_label_to_card (board_id, stack_id, card_id, lid);
-            }
-        }
-
-        // Remove extra labels
-        foreach (var lid in current_card_label_ids) {
-            if (!desired_label_ids.contains (lid)) {
-                yield deck_client.remove_label_from_card (board_id, stack_id, card_id, lid);
-            }
-        }
     }
 
     private async void _delete_deck () {
         loading = true;
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        try {
-            yield deck_client.delete_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id ());
+        var response = yield Services.Deck.Core.get_default ().delete_card (this);
+        
+        if (response.status) {
             Services.Store.instance ().delete_item (this);
-        } catch (Error e) {
-            Services.EventBus.get_default ().send_error_toast (0, e.message);
+        } else {
+            Services.EventBus.get_default ().send_error_toast (0, response.error);
         }
+        
         loading = false;
     }
 
     private async HttpResponse _complete_deck_item () {
-        HttpResponse response = new HttpResponse ();
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        string? duedate = get_deck_duedate ();
-        try {
-            yield deck_client.update_card (get_deck_board_id (), get_deck_stack_id (), get_deck_card_id (),
-                content, description, duedate, checked, child_order);
-            response.status = true;
-        } catch (Error e) {
-            response.error = e.message;
-        }
-        return response;
+        return yield Services.Deck.Core.get_default ().save_card (this);
     }
 
+    // Moves the card to the stack of its current section. The caller sets section_id first.
     public async void move_deck (string old_section_id) {
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        int board_id = get_deck_board_id ();
-        int card_id = get_deck_card_id ();
-        int old_stack_id = get_deck_stack_id ();
-
-        var target_section = Services.Store.instance ().get_section (section_id);
-        int target_stack_id = (int) Utils.JsonUtils.get_int (target_section.extra_data, "deck_stack_id");
-
-        try {
-            yield deck_client.move_card (board_id, old_stack_id, card_id, target_stack_id, child_order);
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", target_stack_id);
+        var response = yield Services.Deck.Core.get_default ().move_card (this);
+        if (response.status) {
             Services.Store.instance ().move_item (this, project_id, old_section_id, "");
             Services.EventBus.get_default ().item_moved (this, project_id, old_section_id, "");
-        } catch (Error e) {
-            Services.LogService.get_default ().error ("Deck", "Failed to move card: %s".printf (e.message));
         }
     }
 
+    // Deck.Core creates the card on the target board and deletes the old one (or keeps
+    // both steps for the next sync when offline), and moves the task locally.
     private async void move_deck_cross_board (Objects.Project target_project, string _section_id, bool notify) {
-        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-        int old_board_id = get_deck_board_id ();
-        int old_stack_id = get_deck_stack_id ();
-        int old_card_id = get_deck_card_id ();
+        string old_project_id = project_id;
+        string old_section_id = section_id;
 
-        int new_board_id = (int) Utils.JsonUtils.get_int (target_project.extra_data, "deck_board_id");
-        int new_stack_id = 0;
-        if (_section_id != "") {
-            var target_section = Services.Store.instance ().get_section (_section_id);
-            new_stack_id = (int) Utils.JsonUtils.get_int (target_section.extra_data, "deck_stack_id");
-        } else {
-            // Use first stack of target board
-            var sections = Services.Store.instance ().get_sections_by_project (target_project);
-            if (sections.size > 0) {
-                new_stack_id = (int) Utils.JsonUtils.get_int (sections[0].extra_data, "deck_stack_id");
-                _section_id = sections[0].id;
-            }
-        }
+        var response = yield Services.Deck.Core.get_default ().move_card_to_board (this, target_project, _section_id);
 
-        try {
-            string? duedate = get_deck_duedate ();
-
-            var card = yield deck_client.create_card (new_board_id, new_stack_id, content, description, duedate, child_order);
-            int new_card_id = (int) card.get_int_member ("id");
-
-            // Delete old card
-            yield deck_client.delete_card (old_board_id, old_stack_id, old_card_id);
-
-            // Update extra_data with new IDs
-            string old_project_id = project_id;
-            string old_section_id = section_id;
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_board_id", new_board_id);
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_stack_id", new_stack_id);
-            extra_data = Utils.JsonUtils.set_int (extra_data, "deck_card_id", new_card_id);
-
-            // Migrate labels to new board
-            if (labels.size > 0) {
-                yield _sync_deck_labels (deck_client);
-            }
-
-            project_id = target_project.id;
-            section_id = _section_id;
+        if (response.status) {
             Services.Store.instance ().move_item (this, old_project_id, old_section_id, "");
             Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, "");
-        } catch (Error e) {
-            Services.LogService.get_default ().error ("Deck", "Failed to move card cross-board: %s".printf (e.message));
+        } else {
+            Services.EventBus.get_default ().send_error_toast (0, response.error);
         }
     }
 }

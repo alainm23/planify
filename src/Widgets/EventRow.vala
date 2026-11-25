@@ -119,7 +119,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         signal_map[cal.notify["color"].connect (update_color)] = cal;
         update_timelabel ();
 
-        signal_map[Services.Settings.get_default ().settings.changed["clock-format"].connect (update_timelabel)] = Services.Settings.get_default ();
+        signal_map[Services.Settings.get_default ().settings.changed["clock-format"].connect (update_timelabel)] = Services.Settings.get_default ().settings;
     }
 
     private void update_timelabel () {

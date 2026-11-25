@@ -102,7 +102,13 @@ public class Objects.Project : Objects.BaseObject {
 
     public SourceType source_type {
         get {
-            return source.source_type;
+            Objects.Source? project_source = source;
+            if (project_source != null) {
+                return project_source.source_type;
+            }
+
+            // Sin fuente ni tipo persistido, el proyecto se trata como local (comportamiento previo).
+            return backend_type == SourceType.NONE ? SourceType.LOCAL : backend_type;
         }
     }
 
@@ -218,11 +224,16 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    Objects.Project ? _parent;
+    // The Store owns related models; a back-reference must not retain their child caches.
+    GLib.WeakRef _parent = GLib.WeakRef (null);
     public Objects.Project parent {
-        get {
-            _parent = Services.Store.instance ().get_project (parent_id);
-            return _parent;
+        owned get {
+            var related = (Objects.Project) _parent.get ();
+            if (related == null || related.id != parent_id) {
+                related = Services.Store.instance ().get_project (parent_id);
+                _parent.set (related);
+            }
+            return related;
         }
     }
 
@@ -252,8 +263,16 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_deck {
         get {
-            return "deck--board" in calendar_url.down () ||
-                   Utils.JsonUtils.get_int (extra_data, "deck_board_id") > 0;
+            if ("deck--board" in calendar_url.down ()) {
+                return true;
+            }
+
+            if (extra_data == null || extra_data == "") {
+                return false;
+            }
+
+            var json_object = Utils.JsonUtils.get_object (extra_data);
+            return json_object != null && json_object.has_member ("deck_board_id");
         }
     }
 
@@ -422,7 +441,12 @@ public class Objects.Project : Objects.BaseObject {
             description = node.get_object ().get_string_member ("description");
         }
 
-        shared = node.get_object ().get_boolean_member ("shared");
+        // Todoist API v1 renamed "shared" to "is_shared".
+        if (node.get_object ().has_member ("is_shared")) {
+            shared = node.get_object ().get_boolean_member ("is_shared");
+        } else if (node.get_object ().has_member ("shared")) {
+            shared = node.get_object ().get_boolean_member ("shared");
+        }
 
         view_style = node.get_object ().get_string_member ("view_style") == "board" ?
                      ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
@@ -467,12 +491,8 @@ public class Objects.Project : Objects.BaseObject {
                 }
                 
                 if (is_deck) {
-                    var deck_client = Services.Deck.Core.get_default ().get_client (source);
-                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                    deck_client.update_board.begin (board_id, name, color_hex, false, (obj, res) => {
-                        try { deck_client.update_board.end (res); } catch (Error e) {
-                            Services.LogService.get_default ().error ("Deck", "Failed to update board: %s".printf (e.message));
-                        }
+                    Services.Deck.Core.get_default ().save_board.begin (this, (obj, res) => {
+                        Services.Deck.Core.get_default ().save_board.end (res);
                         Services.Store.instance ().update_project (this);
                         loading = false;
                     });
@@ -517,7 +537,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void set_parent (Objects.Project project) {
-        this._parent = project;
+        _parent.set (project);
     }
 
     public Objects.Section add_section_if_not_exists (Objects.Section new_section) {
@@ -549,6 +569,11 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void add_section (Objects.Section section) {
+        // A null cache gets built from the Store the next time it's read.
+        if (_sections == null || _sections.contains (section)) {
+            return;
+        }
+
         this._sections.add (section);
         section.deleted.connect (() => {
             _sections.remove (section);
@@ -905,9 +930,15 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private void handle_project_deletion () {
+        Objects.Source? project_source = source;
+        if (project_source == null) {
+            Services.Store.instance ().delete_project.begin (this);
+            return;
+        }
+
         loading = true;
 
-        if (source_type == SourceType.LOCAL) {
+        if (project_source.source_type == SourceType.LOCAL) {
             Services.Store.instance ().delete_project.begin (this);
             return;
         }
@@ -937,15 +968,8 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private void delete_from_deck () {
-        var deck_client = Services.Deck.Core.get_default ().get_client (source);
-        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-        deck_client.delete_board.begin (board_id, (obj, res) => {
-            try {
-                deck_client.delete_board.end (res);
-                handle_remote_delete_response (new HttpResponse () { status = true });
-            } catch (Error e) {
-                handle_remote_delete_response (new HttpResponse () { error = e.message });
-            }
+        Services.Deck.Core.get_default ().delete_board.begin (this, (obj, res) => {
+            handle_remote_delete_response (Services.Deck.Core.get_default ().delete_board.end (res));
         });
     }
 
@@ -991,13 +1015,10 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private void archive_deck_board (bool archived) {
-        var deck_client = Services.Deck.Core.get_default ().get_client (source);
-        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-        deck_client.update_board.begin (board_id, name, color.replace ("#", ""), archived, (obj, res) => {
-            try {
-                deck_client.update_board.end (res);
-            } catch (Error e) {
-                warning ("Failed to archive/unarchive Deck board: %s", e.message);
+        Services.Deck.Core.get_default ().save_board.begin (this, (obj, res) => {
+            var response = Services.Deck.Core.get_default ().save_board.end (res);
+            if (!response.status) {
+                warning ("Failed to %s Deck board: %s", archived ? "archive" : "unarchive", response.error);
             }
         });
     }

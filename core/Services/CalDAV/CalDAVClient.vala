@@ -23,8 +23,374 @@
 
 public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
-    public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false) {
-        base (session, base_url, username, password, ignore_ssl);
+    public CalDAVClient (Soup.Session session, string base_url, string username, string password, bool ignore_ssl = false, GLib.TlsCertificate? client_certificate = null) {
+        base (session, base_url, username, password, ignore_ssl, client_certificate);
+    }
+
+    /*
+     * Offline support for tasks and sections
+     *
+     * When the server can't be reached, a task write is applied locally and remembered
+     * in the Queue table (one row per task and kind), then sent at the start of the next
+     * sync, before reading the server. Rows don't store the request body: the task is
+     * uploaded with its state at that moment, so several offline edits become one PUT.
+     *   - caldav_put: create or update the task (also completes it and changes its
+     *     section or parent, which are part of the VTODO).
+     *   - caldav_move: move the resource to the task's current calendar. args keeps the
+     *     url it had on the server.
+     *   - caldav_delete: delete the resource. args keeps its url, as the task is gone.
+     * Sections are VTODOs too, with their own kinds:
+     *   - caldav_section_put: create or update the section.
+     *   - caldav_section_delete: delete the section. Its tasks get their own
+     *     caldav_delete rows, queued before it.
+     * Section uploads are sent before the rest, so a task created offline in a section
+     * created offline never points at a section the server doesn't have yet.
+     * Calendars (projects) have their own kinds too:
+     *   - caldav_project_put: create the calendar (args has "create") or update its name
+     *     and color. The url is chosen by Planify, so a calendar created offline already
+     *     has it and its tasks can be built on it.
+     *   - caldav_project_delete: delete the calendar. args keeps its url.
+     * Calendar uploads are sent first of all, then sections, then the rest.
+     * On a conflict (412) the server version wins.
+     */
+
+    private const string PENDING_PUT = "caldav_put";
+    private const string PENDING_MOVE = "caldav_move";
+    private const string PENDING_DELETE = "caldav_delete";
+    private const string PENDING_SECTION_PUT = "caldav_section_put";
+    private const string PENDING_SECTION_DELETE = "caldav_section_delete";
+    private const string PENDING_PROJECT_PUT = "caldav_project_put";
+    private const string PENDING_PROJECT_DELETE = "caldav_project_delete";
+
+    private Gee.HashSet<string> pending_project_ids = new Gee.HashSet<string> ();
+    private Gee.HashSet<string> pending_deleted_project_urls = new Gee.HashSet<string> ();
+
+    private Gee.HashSet<string> pending_item_ids = new Gee.HashSet<string> ();
+    private Gee.HashSet<string> pending_deleted_ids = new Gee.HashSet<string> ();
+
+    private Gee.HashSet<string> pending_section_ids = new Gee.HashSet<string> ();
+    private Gee.HashSet<string> pending_deleted_section_ids = new Gee.HashSet<string> ();
+
+    private static bool is_pending_kind (string query) {
+        return query == PENDING_PUT || query == PENDING_MOVE || query == PENDING_DELETE ||
+               query == PENDING_SECTION_PUT || query == PENDING_SECTION_DELETE ||
+               query == PENDING_PROJECT_PUT || query == PENDING_PROJECT_DELETE;
+    }
+
+    private static string project_put_uuid (Objects.Project project) {
+        return "%s-%s".printf (PENDING_PROJECT_PUT, project.id);
+    }
+
+    private bool is_project_create_pending (Objects.Project project) {
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (project.source_id)) {
+            if (q.uuid == project_put_uuid (project)) {
+                return Utils.JsonUtils.get_bool (q.args, "create");
+            }
+        }
+
+        return false;
+    }
+
+    private void queue_project_put (Objects.Project project, bool create) {
+        var queue = new Objects.Queue ();
+        queue.uuid = project_put_uuid (project);
+        queue.object_id = project.id;
+        queue.query = PENDING_PROJECT_PUT;
+        queue.args = "{\"create\": %s}".printf (create.to_string ());
+        queue.source_id = project.source_id;
+
+        Services.Database.get_default ().insert_queue (queue);
+        pending_project_ids.add (project.id);
+        Services.LogService.get_default ().info ("CalDAV", "Offline, %s kept for later: '%s'".printf (PENDING_PROJECT_PUT, project.name));
+    }
+
+    private void forget_project_put (Objects.Project project) {
+        Services.Database.get_default ().remove_queue (project_put_uuid (project));
+        pending_project_ids.remove (project.id);
+    }
+
+    public static bool is_offline_error (GLib.Error e) {
+        if (e is GLib.IOError.NOT_CONNECTED) {
+            return true;
+        }
+
+        // Server temporarily down (proxy error, maintenance mode, gateway timeout).
+        return "HTTP 502" in e.message || "HTTP 503" in e.message || "HTTP 504" in e.message;
+    }
+
+    /*
+     * Fills the error of a failed request. When the server can't be reached, the code
+     * of the GLib error (e.g. 45 for NOT_CONNECTED) is not an HTTP code, so it isn't
+     * shown, and the message says what happened.
+     */
+    private void set_request_error (HttpResponse response, GLib.Error e) {
+        if (is_offline_error (e)) {
+            response.offline = true;
+            response.error_code = 0;
+            response.error = _("Couldn't reach the server. Check your connection and try again.") + "\n\n" + e.message;
+        } else {
+            response.error_code = e.code;
+            response.error = e.message;
+        }
+    }
+
+    private void add_pending_row (string kind, string object_id, string source_id, string label, string args) {
+        var queue = new Objects.Queue ();
+        queue.uuid = "%s-%s".printf (kind, object_id);
+        queue.object_id = object_id;
+        queue.query = kind;
+        queue.args = args;
+        queue.source_id = source_id;
+
+        Services.Database.get_default ().insert_queue (queue);
+        Services.LogService.get_default ().info ("CalDAV", "Offline, %s kept for later: '%s'".printf (kind, label));
+    }
+
+    private void add_pending (string kind, Objects.Item item, string args = "") {
+        add_pending_row (kind, item.id, item.project.source_id, item.content, args);
+    }
+
+    private void queue_section_put (Objects.Section section) {
+        add_pending_row (PENDING_SECTION_PUT, section.id, section.project.source_id, section.name, "");
+        pending_section_ids.add (section.id);
+    }
+
+    private void forget_pending_section (Objects.Section section) {
+        Services.Database.get_default ().remove_queue ("%s-%s".printf (PENDING_SECTION_PUT, section.id));
+        pending_section_ids.remove (section.id);
+    }
+
+    private void queue_section_delete (Objects.Section section) {
+        forget_pending_section (section);
+
+        if (section.ical_url == "") {
+            return;
+        }
+
+        add_pending_row (PENDING_SECTION_DELETE, section.id, section.project.source_id, section.name,
+                         Util.generate_extra_data (section.ical_url, "", ""));
+        pending_deleted_section_ids.add (section.id);
+    }
+
+    private void queue_put (Objects.Item item) {
+        add_pending (PENDING_PUT, item);
+        pending_item_ids.add (item.id);
+    }
+
+    private void queue_move (Objects.Item item) {
+        if (item.ical_url == "") {
+            // Never uploaded: the pending PUT creates it in its current calendar.
+            queue_put (item);
+            return;
+        }
+
+        add_pending (PENDING_MOVE, item, Util.generate_extra_data (item.ical_url, "", ""));
+        pending_item_ids.add (item.id);
+    }
+
+    private void forget_pending (Objects.Item item) {
+        Services.Database.get_default ().remove_queue ("%s-%s".printf (PENDING_PUT, item.id));
+        Services.Database.get_default ().remove_queue ("%s-%s".printf (PENDING_MOVE, item.id));
+        pending_item_ids.remove (item.id);
+    }
+
+    private void queue_delete (Objects.Item item) {
+        // Whatever was pending for this task doesn't matter any more.
+        forget_pending (item);
+
+        if (item.ical_url == "") {
+            // Created offline and never uploaded: nothing to delete on the server.
+            return;
+        }
+
+        add_pending (PENDING_DELETE, item, Util.generate_extra_data (item.ical_url, "", ""));
+        pending_deleted_ids.add (item.id);
+    }
+
+    private void reload_pending (Objects.Source source) {
+        pending_item_ids.clear ();
+        pending_deleted_ids.clear ();
+        pending_section_ids.clear ();
+        pending_deleted_section_ids.clear ();
+        pending_project_ids.clear ();
+        pending_deleted_project_urls.clear ();
+
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            if (q.query == PENDING_PROJECT_PUT) {
+                pending_project_ids.add (q.object_id);
+            } else if (q.query == PENDING_PROJECT_DELETE) {
+                pending_deleted_project_urls.add (Utils.JsonUtils.get_string (q.args, "ical_url"));
+            }
+
+            if (q.query == PENDING_PUT || q.query == PENDING_MOVE) {
+                pending_item_ids.add (q.object_id);
+            } else if (q.query == PENDING_DELETE) {
+                pending_deleted_ids.add (q.object_id);
+            } else if (q.query == PENDING_SECTION_PUT) {
+                pending_section_ids.add (q.object_id);
+            } else if (q.query == PENDING_SECTION_DELETE) {
+                pending_deleted_section_ids.add (q.object_id);
+            }
+        }
+    }
+
+    /*
+     * Sends the writes kept while offline, in order. Stops at the first one the server
+     * can't take yet (still offline); the rest waits for the next sync.
+     */
+    public async void flush_pending (Objects.Source source) {
+        reload_pending (source);
+
+        var project_puts = new Gee.ArrayList<Objects.Queue> ();
+        var section_puts = new Gee.ArrayList<Objects.Queue> ();
+        var others = new Gee.ArrayList<Objects.Queue> ();
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            if (q.query == PENDING_PROJECT_PUT) {
+                project_puts.add (q);
+            } else if (q.query == PENDING_SECTION_PUT) {
+                section_puts.add (q);
+            } else if (is_pending_kind (q.query)) {
+                others.add (q);
+            }
+        }
+
+        var pending = new Gee.ArrayList<Objects.Queue> ();
+        pending.add_all (project_puts);
+        pending.add_all (section_puts);
+        pending.add_all (others);
+
+        if (pending.size <= 0) {
+            return;
+        }
+
+        Services.LogService.get_default ().info ("CalDAV", "Sending %d changes made offline".printf (pending.size));
+
+        foreach (Objects.Queue q in pending) {
+            bool sent = yield flush_pending_row (q);
+            if (!sent) {
+                Services.LogService.get_default ().warn ("CalDAV", "Server still unreachable, keeping the remaining offline changes");
+                break;
+            }
+
+            Services.Database.get_default ().remove_queue (q.uuid);
+        }
+
+        reload_pending (source);
+    }
+
+    private async bool flush_pending_section (Objects.Queue q) {
+        Objects.Section? section = Services.Store.instance ().get_section (q.object_id);
+        if (section == null || section.project == null || section.project.is_deck) {
+            return true;
+        }
+
+        HttpResponse response = yield put_section (section, true, false);
+
+        if (response.offline) {
+            return false;
+        }
+
+        if (response.status) {
+            Services.Store.instance ().update_section (section);
+        } else if (response.error_code == 412) {
+            Services.LogService.get_default ().warn ("CalDAV", "Conflict for section '%s', keeping the server version".printf (section.name));
+            Services.EventBus.get_default ().send_conflict_toast (section.project.source);
+        } else {
+            Services.LogService.get_default ().warn ("CalDAV", "Offline section upload failed for '%s', dropping it: %s".printf (section.name, response.error));
+        }
+
+        return true;
+    }
+
+    private async bool flush_pending_project (Objects.Queue q) {
+        Objects.Project? project = Services.Store.instance ().get_project (q.object_id);
+        if (project == null || project.is_deck) {
+            return true;
+        }
+
+        HttpResponse response;
+        if (Utils.JsonUtils.get_bool (q.args, "create")) {
+            response = yield mkcol_project (project);
+        } else {
+            response = yield proppatch_project (project);
+        }
+
+        if (response.offline) {
+            return false;
+        }
+
+        if (response.status) {
+            Services.Store.instance ().update_project (project);
+        } else {
+            Services.LogService.get_default ().warn ("CalDAV", "Offline calendar upload failed for '%s', dropping it: %s".printf (project.name, response.error));
+            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+        }
+
+        return true;
+    }
+
+    // Returns false only when the server is still unreachable, so the row is kept.
+    private async bool flush_pending_row (Objects.Queue q) {
+        if (q.query == PENDING_SECTION_PUT) {
+            return yield flush_pending_section (q);
+        }
+
+        if (q.query == PENDING_PROJECT_PUT) {
+            return yield flush_pending_project (q);
+        }
+
+        if (q.query == PENDING_DELETE || q.query == PENDING_SECTION_DELETE || q.query == PENDING_PROJECT_DELETE) {
+            string url = Utils.JsonUtils.get_string (q.args, "ical_url");
+            try {
+                yield send_request ("DELETE", url, "", null, null, null,
+                                    { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.MULTI_STATUS,
+                                      Soup.Status.NOT_FOUND });
+            } catch (Error e) {
+                if (is_offline_error (e)) {
+                    return false;
+                }
+
+                Services.LogService.get_default ().warn ("CalDAV", "Offline delete failed, dropping it: %s".printf (e.message));
+            }
+
+            return true;
+        }
+
+        Objects.Item? item = Services.Store.instance ().get_item (q.object_id);
+        if (item == null || item.project == null || item.project.is_deck) {
+            // Deleted or moved out of CalDAV meanwhile: nothing to send.
+            return true;
+        }
+
+        HttpResponse response;
+        if (q.query == PENDING_MOVE) {
+            // Already moved by a later write, or moved back to the calendar it is in.
+            string destination = GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
+            if (item.ical_url != Utils.JsonUtils.get_string (q.args, "ical_url") || item.ical_url == destination) {
+                return true;
+            }
+
+            response = yield move_item_internal (item, item.project, false);
+        } else {
+            response = yield put_item (item, true, false);
+        }
+
+        if (response.offline) {
+            return false;
+        }
+
+        if (response.status) {
+            // Keep the new url and etag from the server.
+            Services.Store.instance ().update_item (item);
+        } else if (response.error_code == 412) {
+            // Changed on another device too: the server version wins on the next read.
+            Services.LogService.get_default ().warn ("CalDAV", "Conflict for '%s', keeping the server version".printf (item.content));
+            Services.EventBus.get_default ().send_conflict_toast (item.project.source);
+        } else {
+            Services.LogService.get_default ().warn ("CalDAV", "Offline %s failed for '%s', dropping it: %s".printf (q.query, item.content, response.error));
+        }
+
+        return true;
     }
 
 
@@ -182,6 +548,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             if (local_project.is_deck) {
                 continue;
             }
+
+            if (local_project.id in pending_project_ids) {
+                continue;
+            }
+
             if (!server_urls.contains (local_project.calendar_url)) {
                 yield Services.Store.instance ().delete_project (local_project);
             }
@@ -206,6 +577,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             if (is_vtodo_calendar (response) && href != null && response.get_prop ("displayname") != null) {
                 var project_url = get_absolute_url (href);
 
+                if (project_url in pending_deleted_project_urls) {
+                    continue;
+                }
+
                 // Deck boards are always handled by DeckClient, skip in CalDAV
                 if ("deck--board" in project_url.down ()) {
                     Objects.Project ? deck_project = Services.Store.instance ().get_project_via_url (project_url);
@@ -224,7 +599,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
                     Services.Store.instance ().insert_project (project);
                     yield fetch_items_for_project (project, cancellable);
-                } else {
+                } else if (!(project.id in pending_project_ids)) {
                     project.update_from_response (response, false);
                     Services.Store.instance ().update_project (project);
                 }
@@ -284,7 +659,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         """;
         
         var multi_status = yield report (project.calendar_url, xml, "1", cancellable);
-        var responses = multi_status.responses ();
+        var responses = sections_first (multi_status.responses ());
         
         if (progress_callback != null) {
             progress_callback (0, responses.size, _ ("Loading tasks for %s…").printf (project.name));
@@ -340,6 +715,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async void sync_tasklist (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
+        try {
+            yield sync_project_changes (project, cancellable);
+        } catch (Error e) {
+            // Don't leave the project looking like it's still syncing
+            project.loading = false;
+            project.freeze_update = false;
+            project.sync_finished ();
+            throw e;
+        }
+    }
+
+    private async void sync_project_changes (Objects.Project project, GLib.Cancellable cancellable) throws GLib.Error {
         if (project.is_deck || project.is_archived) {
             Services.LogService.get_default ().debug ("CalDAV", "Skipping sync for %s project".printf (project.is_archived ? "archived" : "deck"));
             return;
@@ -392,6 +779,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
         project.freeze_update = true;
 
+        var deferred_tasks = new Gee.ArrayList<DeferredVTodo> ();
         foreach (WebDAVResponse response in multi_status.responses ()) {
             string? href = response.href;
             var url = get_absolute_url (href);
@@ -428,9 +816,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 string etag = response.get_prop ("getetag")?.get_text () ?? "";
 
                 var fetched = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, etag, fetched.data);
+                upsert_or_defer_vtodo (project, url, etag, fetched.data, deferred_tasks);
             }
         }
+
+        upsert_deferred_vtodos (project, deferred_tasks);
 
         var sync_token = multi_status.root.get_child ("sync-token")?.get_text ();
         if (sync_token != null && sync_token != project.sync_id) {
@@ -468,6 +858,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 // Check if this VTODO is a section (starts with "List : ")
                 if (Objects.Section.is_vtodo_section (summary)) {
                     upsert_section_from_vtodo (project, url, etag, vtodo_content);
+                } else if (uid in pending_item_ids || uid in pending_deleted_ids) {
+                    // Changed or deleted offline and not sent yet: the local version wins.
+                    Services.LogService.get_default ().debug ("CalDAV", "Skipping '%s', it has offline changes not sent yet".printf (summary));
                 } else {
                     Objects.Item ? item = Services.Store.instance ().get_item (uid);
 
@@ -517,6 +910,68 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         }
     }
 
+    private class DeferredVTodo : GLib.Object {
+        public string url;
+        public string etag;
+        public string data;
+    }
+
+    /*
+     * A task in a section points at the section's entry with RELATED-TO, and is only
+     * linked to it when that section is already known. The server returns entries in no
+     * particular order, so sections are applied before the tasks of the same response;
+     * otherwise a task read first ends up as a subtask of a missing task and is hidden.
+     */
+    private bool is_section_vtodo (string? vtodo_content) {
+        if (vtodo_content == null) {
+            return false;
+        }
+
+        ICal.Component? vcalendar = new ICal.Component.from_string (vtodo_content);
+        if (vcalendar == null) {
+            return false;
+        }
+
+        ICal.Component? vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
+        return vtodo_comp != null && Objects.Section.is_vtodo_section (vtodo_comp.get_summary ());
+    }
+
+    private Gee.ArrayList<WebDAVResponse> sections_first (Gee.ArrayList<WebDAVResponse> responses) {
+        var sections = new Gee.ArrayList<WebDAVResponse> ();
+        var others = new Gee.ArrayList<WebDAVResponse> ();
+
+        foreach (var response in responses) {
+            if (is_section_vtodo (response.get_prop ("calendar-data")?.text_content)) {
+                sections.add (response);
+            } else {
+                others.add (response);
+            }
+        }
+
+        sections.add_all (others);
+        return sections;
+    }
+
+    private void upsert_or_defer_vtodo (Objects.Project project, string url, string etag, string vtodo_content,
+                                        Gee.ArrayList<DeferredVTodo> deferred_tasks) {
+        if (is_section_vtodo (vtodo_content)) {
+            upsert_vtodo_content (project, url, etag, vtodo_content);
+            return;
+        }
+
+        deferred_tasks.add (new DeferredVTodo () {
+            url = url,
+            etag = etag,
+            data = vtodo_content
+        });
+    }
+
+    private void upsert_deferred_vtodos (Objects.Project project, Gee.ArrayList<DeferredVTodo> deferred_tasks) {
+        foreach (var task in deferred_tasks) {
+            upsert_vtodo_content (project, task.url, task.etag, task.data);
+        }
+    }
+
     private void upsert_section_from_vtodo (Objects.Project project, string url, string etag, string vtodo_content) {
         ICal.Component vcalendar = new ICal.Component.from_string (vtodo_content);
         ICal.Component vtodo_comp = vcalendar.get_first_component (ICal.ComponentKind.VTODO_COMPONENT);
@@ -524,6 +979,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
         string uid = vtodo_comp.get_uid ();
         if (uid == null || uid == "") return;
+
+        // Changed or deleted offline and not sent yet: the local version wins.
+        if (uid in pending_section_ids || uid in pending_deleted_section_ids) {
+            Services.LogService.get_default ().debug ("CalDAV", "Skipping section %s, it has offline changes not sent yet".printf (uid));
+            return;
+        }
 
         Objects.Section ? section = Services.Store.instance ().get_section (uid);
 
@@ -578,7 +1039,9 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             // Step 2: delete local items and sections no longer on server
             var stale_items = new Gee.ArrayList<Objects.Item> ();
             foreach (var local_item in Services.Store.instance ().get_items_by_project (project)) {
-                if (local_item.ical_url != "" && !server_map.has_key (local_item.ical_url)) {
+                // A task moved here offline still has its old url until the move is sent.
+                if (local_item.ical_url != "" && !server_map.has_key (local_item.ical_url) &&
+                    !(local_item.id in pending_item_ids)) {
                     stale_items.add (local_item);
                 }
             }
@@ -589,7 +1052,8 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
             var stale_sections = new Gee.ArrayList<Objects.Section> ();
             foreach (var local_section in Services.Store.instance ().get_sections_by_project (project)) {
-                if (local_section.ical_url != "" && !server_map.has_key (local_section.ical_url)) {
+                if (local_section.ical_url != "" && !server_map.has_key (local_section.ical_url) &&
+                    !(local_section.id in pending_section_ids)) {
                     stale_sections.add (local_section);
                 }
             }
@@ -598,6 +1062,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 Services.Store.instance ().delete_section (stale_section);
             }
             // Step 3: fetch and update only changed/new items
+            var deferred_tasks = new Gee.ArrayList<DeferredVTodo> ();
             foreach (var entry in server_map.entries) {
                 string url = entry.key;
                 string server_etag = entry.value;
@@ -609,8 +1074,10 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 }
 
                 var fetched = yield get_vtodo_by_url (url, cancellable);
-                upsert_vtodo_content (project, url, server_etag, fetched.data);
+                upsert_or_defer_vtodo (project, url, server_etag, fetched.data, deferred_tasks);
             }
+
+            upsert_deferred_vtodos (project, deferred_tasks);
         } finally {
             project.freeze_update = false;
             project.count_update ();
@@ -644,6 +1111,32 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse create_project (Objects.Project project) {
+        var response = yield mkcol_project (project);
+
+        if (response.offline) {
+            queue_project_put (project, true);
+            response.status = true;
+        }
+
+        return response;
+    }
+
+    public async HttpResponse update_project (Objects.Project project) {
+        if (is_project_create_pending (project)) {
+            return new HttpResponse () { status = true, offline = true };
+        }
+
+        var response = yield proppatch_project (project);
+
+        if (response.offline) {
+            queue_project_put (project, false);
+            response.status = true;
+        }
+
+        return response;
+    }
+
+    private async HttpResponse mkcol_project (Objects.Project project) {
         Services.LogService.get_default ().info ("CalDAV", "Creating project");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
             <d:mkcol xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/" xmlns:oc="http://owncloud.org/ns" xmlns:cal="urn:ietf:params:xml:ns:caldav">
@@ -664,34 +1157,41 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
         </d:mkcol>
         """.printf (project.name, project.color_hex);
 
-        var calendar_url = GLib.Uri.resolve_relative (project.source.caldav_data.calendar_home_url, project.id, GLib.UriFlags.NONE);
-        if (!calendar_url.has_suffix ("/")) {
-            calendar_url += "/";
+        if (project.calendar_url == "") {
+            var calendar_url = GLib.Uri.resolve_relative (project.source.caldav_data.calendar_home_url, project.id, GLib.UriFlags.NONE);
+            if (!calendar_url.has_suffix ("/")) {
+                calendar_url += "/";
+            }
+            project.calendar_url = calendar_url;
         }
 
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield send_request ("MKCOL", calendar_url, "application/xml", xml, null, null,
+            yield send_request ("MKCOL", project.calendar_url, "application/xml", xml, null, null,
                                 { Soup.Status.CREATED, Soup.Status.OK });
-            project.calendar_url = calendar_url;
+            forget_project_put (project);
             response.status = true;
         } catch (Error e) {
+            if ("HTTP 405" in e.message) {
+                Services.LogService.get_default ().info ("CalDAV", "Calendar already exists, updating it instead");
+                return yield proppatch_project (project);
+            }
+
             if ("HTTP 403" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow creating calendars via CalDAV");
                 response.error_code = 403;
                 response.error = _("This server does not allow creating projects via CalDAV. Please create it directly from your calendar provider's website.");
             } else {
                 Services.LogService.get_default ().error ("CalDAV", "Failed to create project: %s".printf (e.message));
-                response.error_code = e.code;
-                response.error = e.message;
+                set_request_error (response, e);
             }
         }
 
         return response;
     }
 
-    public async HttpResponse update_project (Objects.Project project) {
+    private async HttpResponse proppatch_project (Objects.Project project) {
         Services.LogService.get_default ().info ("CalDAV", "Updating project");
         var xml = """<?xml version="1.0" encoding="utf-8"?>
         <d:propertyupdate xmlns:d="DAV:" xmlns:ical="http://apple.com/ns/ical/">
@@ -710,19 +1210,26 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             yield send_request ("PROPPATCH", project.calendar_url, "application/xml", xml, null, null,
                                     { Soup.Status.MULTI_STATUS });
 
+            forget_project_put (project);
             response.status = true;
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV", "Failed to update project: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            set_request_error (response, e);
         }
 
         return response;
     }
 
     public async HttpResponse delete_project (Objects.Project project) {
-        Services.LogService.get_default ().info ("CalDAV", "Deleting project");
         HttpResponse response = new HttpResponse ();
+
+        if (is_project_create_pending (project)) {
+            forget_project_put (project);
+            response.status = true;
+            return response;
+        }
+
+        Services.LogService.get_default ().info ("CalDAV", "Deleting project");
 
         try {
             // NOT_FOUND counts as success, as for sections and items: a calendar already removed
@@ -730,8 +1237,19 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             yield send_request ("DELETE", project.calendar_url, "text/calendar", null, null, null,
                                 { Soup.Status.NO_CONTENT, Soup.Status.MULTI_STATUS, Soup.Status.OK,
                                   Soup.Status.NOT_FOUND });
+            forget_project_put (project);
             response.status = true;
         } catch (Error e) {
+            if (is_offline_error (e)) {
+                forget_project_put (project);
+                add_pending_row (PENDING_PROJECT_DELETE, project.id, project.source_id, project.name,
+                                 Util.generate_extra_data (project.calendar_url, "", ""));
+                pending_deleted_project_urls.add (project.calendar_url);
+                response.offline = true;
+                response.status = true;
+                return response;
+            }
+
             if ("HTTP 403" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Server does not allow deleting calendars via CalDAV");
                 response.error_code = 403;
@@ -742,21 +1260,36 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 response.error = _("This server does not support deleting projects via CalDAV. Please delete it from the server directly.");
             } else {
                 Services.LogService.get_default ().error ("CalDAV", "Failed to delete project: %s".printf (e.message));
-                response.error_code = e.code;
-                response.error = e.message;
+                set_request_error (response, e);
             }
         }
 
         return response;
     }
 
+    /*
+     * With @allow_offline, a write the server can't receive now is kept for the next
+     * sync and reported as done, so the change is applied locally. flush_pending passes
+     * false to see the real result.
+     */
     public async HttpResponse add_item (Objects.Item item, bool update = false) {
+        return yield put_item (item, update, true);
+    }
+
+    // allow_offline lives here and not in add_item: an extra default parameter there
+    // would take the callback of add_item.begin (item, true, callback) calls.
+    private async HttpResponse put_item (Objects.Item item, bool update, bool allow_offline) {
+        // A task created offline has no url yet: its first upload is a creation.
+        update = update && item.ical_url != "";
+
         Services.LogService.get_default ().info ("CalDAV", update ? "Updating item" : "Adding item");
         var url = update ? item.ical_url : GLib.Path.build_path ("/", item.project.calendar_url, "%s.ics".printf (item.id));
         var body = item.to_vtodo ();
 
+        // NO_CONTENT on a creation too: a retry of an upload the server got, but whose
+        // answer was lost (timeout), overwrites the same resource.
         var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }
-                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK };
+                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK, Soup.Status.NO_CONTENT };
 
         HttpResponse response = new HttpResponse ();
 
@@ -768,16 +1301,25 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             }
             var result = yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
             item.extra_data = Util.generate_extra_data (url, result.etag ?? "", body);
+            // The current state is on the server: an upload kept from before isn't needed.
+            Services.Database.get_default ().remove_queue ("%s-%s".printf (PENDING_PUT, item.id));
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 412" in e.message) {
+            if (is_offline_error (e)) {
+                response.offline = true;
+                if (allow_offline) {
+                    queue_put (item);
+                    response.status = true;
+                } else {
+                    response.error = e.message;
+                }
+            } else if ("HTTP 412" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict detected (412), re-fetching item");
                 response.error_code = 412;
                 response.error = _("Task was modified on another device. Please sync to get the latest version.");
             } else {
                 Services.LogService.get_default ().error ("CalDAV", "Failed to %s item: %s".printf (update ? "update" : "add", e.message));
-                response.error_code = e.code;
-                response.error = e.message;
+                set_request_error (response, e);
             }
         }
 
@@ -785,6 +1327,11 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse complete_item (Objects.Item item) {
+        if (item.ical_url == "") {
+            // Created offline and not uploaded yet: upload it with its new status.
+            return yield add_item (item);
+        }
+
         Services.LogService.get_default ().info ("CalDAV", "Completing item");
         var body = item.to_vtodo ();
 
@@ -800,7 +1347,12 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             item.extra_data = Util.generate_extra_data (item.ical_url, result.etag ?? "", body);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 412" in e.message) {
+            if (is_offline_error (e)) {
+                // Sent later as a normal upload of the task, which includes its status.
+                response.offline = true;
+                queue_put (item);
+                response.status = true;
+            } else if ("HTTP 412" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "Conflict on complete (412), re-fetching ETag and retrying");
                 try {
                     var retry_cancellable = new GLib.Cancellable ();
@@ -823,8 +1375,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                 }
             } else {
                 Services.LogService.get_default ().error ("CalDAV", "Failed to complete item: %s".printf (e.message));
-                response.error_code = e.code;
-                response.error = e.message;
+                set_request_error (response, e);
             }
         }
 
@@ -833,26 +1384,45 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async HttpResponse move_item (Objects.Item item, Objects.Project destination_project) {
+        return yield move_item_internal (item, destination_project, true);
+    }
+
+    private async HttpResponse move_item_internal (Objects.Item item, Objects.Project destination_project, bool allow_offline) {
+        HttpResponse response = new HttpResponse ();
+
+        if (item.ical_url == "") {
+            // Created offline and not uploaded yet: the pending PUT creates it in the
+            // calendar it belongs to then.
+            queue_put (item);
+            response.status = true;
+            return response;
+        }
+
         Services.LogService.get_default ().info ("CalDAV", "Moving item to another project");
         var destination = GLib.Path.build_path ("/", destination_project.calendar_url, "%s.ics".printf (item.id));
 
         var headers = new HashTable<string,string> (str_hash, str_equal);
         headers.insert ("Destination", destination);
 
-        HttpResponse response = new HttpResponse ();
-
         try {
             yield send_request ("MOVE", item.ical_url, "", null, null, null, { Soup.Status.NO_CONTENT, Soup.Status.CREATED }, headers);
             item.extra_data = Util.generate_extra_data (destination, "", item.calendar_data);
             response.status = true;
         } catch (Error e) {
-            if ("HTTP 502" in e.message || "HTTP 405" in e.message || "HTTP 501" in e.message) {
+            if (e is GLib.IOError.NOT_CONNECTED) {
+                response.offline = true;
+                if (allow_offline) {
+                    queue_move (item);
+                    response.status = true;
+                } else {
+                    response.error = e.message;
+                }
+            } else if ("HTTP 502" in e.message || "HTTP 405" in e.message || "HTTP 501" in e.message) {
                 Services.LogService.get_default ().warn ("CalDAV", "MOVE not supported, falling back to PUT+DELETE");
                 response = yield move_item_fallback (item, destination_project, destination);
             } else {
                 Services.LogService.get_default ().error ("CalDAV", "Failed to move item: %s".printf (e.message));
-                response.error_code = e.code;
-                response.error = e.message;
+                set_request_error (response, e);
             }
         }
 
@@ -873,8 +1443,7 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             response.status = true;
         } catch (Error e) {
             Services.LogService.get_default ().error ("CalDAV", "Failed to move item (fallback): %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            set_request_error (response, e);
         }
 
         return response;
@@ -882,8 +1451,24 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
 
 
     public async HttpResponse delete_item (Objects.Item item) {
-        Services.LogService.get_default ().info ("CalDAV", "Deleting item");
+        return yield delete_item_internal (item, true);
+    }
+
+
+    private async HttpResponse delete_item_internal (Objects.Item item, bool allow_offline) {
         HttpResponse response = new HttpResponse ();
+
+        if (item.ical_url == "") {
+            // Created offline and never uploaded: nothing to delete on the server. Its
+            // pending upload is dropped here, or when it runs and the task is gone.
+            if (allow_offline) {
+                queue_delete (item);
+            }
+            response.status = true;
+            return response;
+        }
+
+        Services.LogService.get_default ().info ("CalDAV", "Deleting item");
 
         try {
             // NOT_FOUND counts as success, as for sections: an item already deleted elsewhere would
@@ -892,10 +1477,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
                                 { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.NOT_FOUND });
 
             response.status = true;
+            // Deleted on the server: an upload kept from before is no longer needed.
+            forget_pending (item);
         } catch (Error e) {
+            if (allow_offline && is_offline_error (e)) {
+                response.offline = true;
+                queue_delete (item);
+                response.status = true;
+                return response;
+            }
+
             Services.LogService.get_default ().error ("CalDAV", "Failed to delete item: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            set_request_error (response, e);
         }
 
 
@@ -903,11 +1496,17 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
     }
 
     public async HttpResponse add_section (Objects.Section section, bool update = false) {
+        return yield put_section (section, update, true);
+    }
+
+    private async HttpResponse put_section (Objects.Section section, bool update, bool allow_offline) {
+        update = update && section.ical_url != "";
+
         Services.LogService.get_default ().info ("CalDAV", update ? "Updating section" : "Adding section");
         var url = update ? section.ical_url : GLib.Path.build_path ("/", section.project.calendar_url, "%s.ics".printf (section.id));
         var body = section.to_vtodo ();
         var expected = update ? new Soup.Status[]{ Soup.Status.NO_CONTENT, Soup.Status.CREATED, Soup.Status.OK }
-                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK };
+                              : new Soup.Status[]{ Soup.Status.CREATED, Soup.Status.OK, Soup.Status.NO_CONTENT };
 
         HttpResponse response = new HttpResponse ();
 
@@ -919,19 +1518,34 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             }
             var result = yield send_request ("PUT", url, "text/calendar", body, null, null, expected, headers);
             section.extra_data = Util.generate_extra_data (url, result.etag ?? "", body);
+
+            forget_pending_section (section);
             response.status = true;
         } catch (Error e) {
+            if (allow_offline && is_offline_error (e)) {
+                response.offline = true;
+                queue_section_put (section);
+                response.status = true;
+                return response;
+            }
+
             Services.LogService.get_default ().error ("CalDAV", "Failed to %s section: %s".printf (update ? "update" : "add", e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            set_request_error (response, e);
         }
 
         return response;
     }
 
     public async HttpResponse delete_section (Objects.Section section) {
-        Services.LogService.get_default ().info ("CalDAV", "Deleting section");
         HttpResponse response = new HttpResponse ();
+
+        if (section.ical_url == "") {
+            queue_section_delete (section);
+            response.status = true;
+            return response;
+        }
+
+        Services.LogService.get_default ().info ("CalDAV", "Deleting section");
 
         try {
             // NOT_FOUND counts as success: the section's VTODO may already have been deleted from
@@ -940,11 +1554,18 @@ public class Services.CalDAV.CalDAVClient : Services.CalDAV.WebDAVClient {
             // to delete.
             yield send_request ("DELETE", section.ical_url, "", null, null, null,
                                 { Soup.Status.NO_CONTENT, Soup.Status.OK, Soup.Status.NOT_FOUND });
+            forget_pending_section (section);
             response.status = true;
         } catch (Error e) {
+            if (is_offline_error (e)) {
+                response.offline = true;
+                queue_section_delete (section);
+                response.status = true;
+                return response;
+            }
+
             Services.LogService.get_default ().error ("CalDAV", "Failed to delete section: %s".printf (e.message));
-            response.error_code = e.code;
-            response.error = e.message;
+            set_request_error (response, e);
         }
 
         return response;

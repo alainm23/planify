@@ -52,6 +52,8 @@ public class Dialogs.Project : Adw.Dialog {
         var project = new Objects.Project ();
         project.color = "blue";
         project.emoji = "🚀️";
+        project.icon_style = Services.Settings.get_default ().settings.get_string ("new-project-icon-style") == "emoji"
+            ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.id = "";
         project.parent_id = parent_id;
         project.source_id = source_id;
@@ -470,6 +472,9 @@ public class Dialogs.Project : Adw.Dialog {
         if (!is_creating) {
             update_project.begin ();
         } else {
+            Services.Settings.get_default ().settings.set_string (
+                "new-project-icon-style", emoji_switch.active ? "emoji" : "progress"
+            );
             add_project ();
         }
     }
@@ -487,14 +492,7 @@ public class Dialogs.Project : Adw.Dialog {
             response = yield Services.Todoist.get_default ().update (project);
         } else if (project.source_type == SourceType.CALDAV) {
             if (project.is_deck) {
-                var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-                int board_id = (int) Utils.JsonUtils.get_int (project.extra_data, "deck_board_id");
-                try {
-                    yield deck_client.update_board (board_id, project.name, project.color_hex);
-                    response = new HttpResponse () { status = true };
-                } catch (Error e) {
-                    response = new HttpResponse () { error = e.message };
-                }
+                response = yield Services.Deck.Core.get_default ().save_board (project);
             } else {
                 var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
                 response = yield caldav_client.update_project (project);
@@ -535,19 +533,16 @@ public class Dialogs.Project : Adw.Dialog {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             if (deck_switch.active) {
-                // Create Deck board
                 project.id = Util.get_default ().generate_id (project);
-                var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-                deck_client.create_board.begin (project.name, project.color_hex, (obj, res) => {
-                    try {
-                        var board = deck_client.create_board.end (res);
-                        int board_id = (int) board.get_int_member ("id");
-                        string board_etag = board.get_string_member ("ETag");
-                        project.extra_data = Services.Deck.Core.build_board_extra_data (board_id, board_etag);
+                project.extra_data = Services.Deck.Core.build_board_extra_data (0, "");
+                Services.Deck.Core.get_default ().save_board.begin (project, (obj, res) => {
+                    HttpResponse response = Services.Deck.Core.get_default ().save_board.end (res);
+
+                    if (response.status) {
                         Services.Store.instance ().insert_project (project);
                         go_project (project.id);
-                    } catch (Error e) {
-                        Services.EventBus.get_default ().send_error_toast (0, e.message);
+                    } else {
+                        Services.EventBus.get_default ().send_error_toast (0, response.error);
                         close ();
                     }
                 });
@@ -559,7 +554,11 @@ public class Dialogs.Project : Adw.Dialog {
 
                     if (response.status) {
                         Services.Store.instance ().insert_project (project);
-                        caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
+
+                        if (!response.offline) {
+                            caldav_client.update_sync_token.begin (project, new GLib.Cancellable ());
+                        }
+                        
                         go_project (project.id);
                     } else {
                         Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);

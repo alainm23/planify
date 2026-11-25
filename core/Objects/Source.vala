@@ -252,7 +252,23 @@ public class Objects.SourceData : GLib.Object {
 
 public class Objects.SourceTodoistData : Objects.SourceData {
     public string access_token { get; set; default = ""; }
-    public string sync_token { get; set; default = ""; }
+
+    public const string FULL_SYNC_TOKEN = "*";
+
+    private string _sync_token = "";
+    public string sync_token {
+        owned get {
+            return is_valid_sync_token (_sync_token) ? _sync_token : FULL_SYNC_TOKEN;
+        }
+        set {
+            if (is_valid_sync_token (value)) {
+                _sync_token = value;
+            } else {
+                Services.LogService.get_default ().warn ("Todoist", "Ignoring invalid sync token, keeping the previous one");
+            }
+        }
+    }
+
     public string user_id { get; set; default = ""; }
     public string user_image_id { get; set; default = ""; }
     public string user_email { get; set; default = ""; }
@@ -348,6 +364,15 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 
         return generator.to_data (null);
     }
+
+    public static bool is_valid_sync_token (string? token) {
+        if (token == null) {
+            return false;
+        }
+
+        string value = token.strip ();
+        return value != "" && value != "(null)" && value != "null";
+    }
 }
 
 public class Objects.SourceCalDAVData : Objects.SourceData {
@@ -392,6 +417,34 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
     public bool ignore_ssl { get; set; default = false; }
     public bool use_deck { get; set; default = false; }
     public string deck_last_sync { get; set; default = ""; }
+
+    public string client_cert_data { get; set; default = ""; }
+    public string client_cert_format { get; set; default = ""; }
+    public string client_cert_password { get; set; default = ""; }
+
+    public bool has_client_cert {
+        get {
+            return client_cert_data != "";
+        }
+    }
+
+    public GLib.TlsCertificate? load_client_certificate () throws GLib.Error {
+        return build_client_certificate (client_cert_data, client_cert_format, client_cert_password);
+    }
+
+    public static GLib.TlsCertificate? build_client_certificate (string data_b64, string format, string password) throws GLib.Error {
+        if (data_b64 == "") {
+            return null;
+        }
+
+        uint8[] raw = Base64.decode (data_b64);
+
+        if (format == "pkcs12") {
+            return new GLib.TlsCertificate.from_pkcs12 (raw, password == "" ? null : password);
+        }
+
+        return new GLib.TlsCertificate.from_pem ((string) raw, raw.length);
+    }
 
     public string deck_base_url {
         owned get {
@@ -451,6 +504,18 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
                 deck_last_sync = object.get_string_member ("deck_last_sync");
             }
 
+            if (object.has_member ("client_cert_data")) {
+                client_cert_data = object.get_string_member ("client_cert_data");
+            }
+
+            if (object.has_member ("client_cert_format")) {
+                client_cert_format = object.get_string_member ("client_cert_format");
+            }
+
+            if (object.has_member ("client_cert_password")) {
+                client_cert_password = object.get_string_member ("client_cert_password");
+            }
+
             if (object.has_member ("credentials")) {
                 var decoded = (string) Base64.decode (object.get_string_member ("credentials"));
 
@@ -498,6 +563,15 @@ public class Objects.SourceCalDAVData : Objects.SourceData {
 
         builder.set_member_name ("deck_last_sync");
         builder.add_string_value (deck_last_sync);
+
+        builder.set_member_name ("client_cert_data");
+        builder.add_string_value (client_cert_data);
+
+        builder.set_member_name ("client_cert_format");
+        builder.add_string_value (client_cert_format);
+
+        builder.set_member_name ("client_cert_password");
+        builder.add_string_value (client_cert_password);
 
         builder.end_object ();
 

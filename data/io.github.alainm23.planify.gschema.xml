@@ -174,7 +174,7 @@
         </key>
 
         <key name="today-sort-order" type="s">
-            <default>"name"</default>
+            <default>"due-date"</default>
             <summary>Today view sort order</summary>
             <description>Controls how tasks are sorted in the Today view</description>
         </key>
@@ -216,7 +216,7 @@
         </key>
 
         <key name="scheduled-sort-order" type="s">
-            <default>"name"</default>
+            <default>"due-date"</default>
             <summary>Scheduled view sort order</summary>
             <description>Controls how tasks are sorted in the Scheduled view</description>
         </key>
@@ -261,6 +261,16 @@
             <default>true</default>
             <summary>Slim Mode</summary>
             <description>Enable a more compact interface layout with reduced spacing and smaller elements to fit more content on screen</description>
+        </key>
+
+        <key name="new-project-icon-style" type="s">
+            <choices>
+                <choice value="progress"/>
+                <choice value="emoji"/>
+            </choices>
+            <default>"progress"</default>
+            <summary>Icon style for new projects</summary>
+            <description>Icon style used last time a project was created ("progress" or "emoji"), so new projects start with the same choice</description>
         </key>
 
         <key name="description-preview" type="b">

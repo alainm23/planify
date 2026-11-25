@@ -230,7 +230,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             selected = Services.Settings.get_default ().settings.get_string ("scheduled-sort-order")
         };
         sorted_by_item.add_item (_("Alphabetically"), SortedByType.NAME.to_string ());
-        sorted_by_item.add_item (_("Due Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Date"), SortedByType.DUE_DATE.to_string ());
+        sorted_by_item.add_item (_("Deadline"), SortedByType.DEADLINE.to_string ());
         sorted_by_item.add_item (_("Date Added"), SortedByType.ADDED_DATE.to_string ());
         sorted_by_item.add_item (_("Date Modified"), SortedByType.UPDATED_DATE.to_string ());
         sorted_by_item.add_item (_("Priority"), SortedByType.PRIORITY.to_string ());
@@ -300,7 +301,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             } else {
                 Objects.Filters.Scheduled.get_default ().remove_filter (filter);
             }
-        })] = signal_map;
+        })] = priority_filter;
 
         signal_map[labels_filter.activate_item.connect (() => {
             Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();

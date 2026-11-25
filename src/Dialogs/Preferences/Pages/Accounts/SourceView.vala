@@ -22,6 +22,8 @@
 public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.BasePage {
     public Objects.Source source { get; construct; }
 
+    private bool cert_has_changes = false;
+
     public SourceView (Adw.PreferencesDialog preferences_dialog, Objects.Source source) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -111,6 +113,11 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             sync_group.add (last_sync_row);
         }
 
+        Adw.PreferencesGroup? cert_group = null;
+        if (source.source_type == SourceType.CALDAV) {
+            cert_group = create_certificate_group ();
+        }
+
         if (source.source_type == SourceType.CALDAV && source.caldav_data.caldav_type == CalDAVType.NEXTCLOUD) {
             var deck_row = new Adw.SwitchRow () {
                 title = _("Nextcloud Deck"),
@@ -123,18 +130,38 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             };
             deck_group.add (deck_row);
 
+            var deck_spinner = new Adw.Spinner () {
+                valign = Gtk.Align.CENTER,
+                visible = false
+            };
+            deck_row.add_suffix (deck_spinner);
+
+            bool reverting_deck = false;
+
             deck_row.notify["active"].connect (() => {
+                if (reverting_deck) {
+                    return;
+                }
+
                 if (deck_row.active) {
+                    deck_spinner.visible = true;
+                    deck_row.sensitive = false;
+
                     Services.Deck.Core.get_default ().probe.begin (source, (obj, res) => {
                         bool available = Services.Deck.Core.get_default ().probe.end (res);
+
+                        deck_spinner.visible = false;
+                        deck_row.sensitive = true;
+
                         if (available) {
                             source.caldav_data.use_deck = true;
                             Services.Store.instance ().update_source (source);
                             Services.CalDAV.Core.get_default ().sync.begin (source);
                         } else {
+                            reverting_deck = true;
                             deck_row.active = false;
-                            var toast = Util.get_default ().create_toast (_("Nextcloud Deck is not available on this server"));
-                            Services.EventBus.get_default ().send_toast (toast);
+                            reverting_deck = false;
+                            popup_toast (_("Nextcloud Deck is not available on this server"));
                         }
                     });
                 } else {
@@ -177,6 +204,9 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             main_content.append (default_group);
             main_content.append (deck_group);
             main_content.append (sync_group);
+            if (cert_group != null) {
+                main_content.append (cert_group);
+            }
             main_content.append (delete_stack);
 
             var content_clamp = new Adw.Clamp () {
@@ -242,6 +272,9 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             main_content.append (default_group);
             if (source.source_type != SourceType.LOCAL) {
                 main_content.append (sync_group);
+                if (cert_group != null) {
+                    main_content.append (cert_group);
+                }
                 main_content.append (delete_stack);
             }
 
@@ -307,6 +340,70 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         destroy.connect (() => {
             clean_up ();
         });
+    }
+
+    private void update_apply_button (Widgets.ClientCertificateRow cert_row, Adw.ButtonRow apply_button) {
+        apply_button.visible = cert_has_changes && (cert_row.expanded || !cert_row.enable_expansion);
+    }
+
+    private Adw.PreferencesGroup create_certificate_group () {
+        var cert_row = new Widgets.ClientCertificateRow ();
+        cert_row.set_certificate (
+            source.caldav_data.client_cert_data,
+            source.caldav_data.client_cert_format,
+            source.caldav_data.client_cert_password
+        );
+
+        var apply_button = new Adw.ButtonRow () {
+            title = _("Apply Certificate"),
+            visible = false
+        };
+        apply_button.add_css_class ("suggested-action");
+
+        var cert_group = new Adw.PreferencesGroup () {
+            margin_top = 12
+        };
+        cert_group.add (cert_row);
+        cert_group.add (apply_button);
+
+        signal_map[cert_row.changed.connect (() => {
+            cert_has_changes = true;
+            update_apply_button (cert_row, apply_button);
+        })] = cert_row;
+
+        signal_map[cert_row.notify["expanded"].connect (() => {
+            update_apply_button (cert_row, apply_button);
+        })] = cert_row;
+
+        signal_map[apply_button.activated.connect (() => {
+            string new_data = cert_row.has_certificate ? cert_row.cert_data : "";
+            string new_format = cert_row.has_certificate ? cert_row.cert_format : "";
+            string new_password = cert_row.has_certificate ? cert_row.cert_password : "";
+
+            if (new_data != "") {
+                try {
+                    Objects.SourceCalDAVData.build_client_certificate (new_data, new_format, new_password);
+                } catch (Error e) {
+                    popup_toast (_("Invalid certificate: %s").printf (e.message));
+                    return;
+                }
+            }
+
+            source.caldav_data.client_cert_data = new_data;
+            source.caldav_data.client_cert_format = new_format;
+            source.caldav_data.client_cert_password = new_password;
+            source.save ();
+
+            Services.CalDAV.Core.get_default ().remove_client (source.id);
+            Services.Deck.Core.get_default ().remove_client (source.id);
+
+            popup_toast (new_data != "" ? _("Client certificate updated") : _("Client certificate removed"));
+
+            cert_has_changes = false;
+            update_apply_button (cert_row, apply_button);
+        })] = apply_button;
+
+        return cert_group;
     }
 
     private void show_inbox_warning_dialog () {

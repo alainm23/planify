@@ -24,6 +24,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     private Widgets.Calendar.CalendarMonth calendar_view;
     private Widgets.Calendar.CalendarScroll calendar_scroll_view;
     private NoDateButton no_date_button;
+    private Gtk.SearchEntry search_entry;
+    private Adw.WrapBox suggested_date_box;
+    private Objects.DueDate? last_parsed_duedate;
     private OptionButton time_option_button;
     private OptionButton repeat_option_button;
     private Gtk.Revealer time_option_revealer;
@@ -153,16 +156,15 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
+        destroy.connect (() => clean_up ());
         chrono = new Chrono.Core ();
         active_revealers = new Gee.ArrayList<Gtk.Revealer> ();
 
-        Objects.DueDate ? last_parsed_duedate = null;
-
-        var search_entry = new Gtk.SearchEntry () {
+        search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a date…")
         };
 
-        var suggested_date_box = new Adw.WrapBox () {
+        suggested_date_box = new Adw.WrapBox () {
             child_spacing = 6,
             line_spacing = 6,
             margin_bottom = 6,
@@ -418,8 +420,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private void connect_suggested_date (SuggestedDate suggested_date) {
-        suggested_date.clicked.connect (() => {
-            _duedate.datetime = suggested_date.due_date.datetime;
+        suggested_date.clicked.connect ((date) => {
+            _duedate.datetime = date.datetime;
             visible_no_date = true;
             duedate_changed ();
             popdown ();
@@ -783,6 +785,13 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     public void clean_up () {
+        if (search_timeout_id != 0) {
+            Source.remove (search_timeout_id);
+            search_timeout_id = 0;
+        }
+        repeat_config_widget.clean_up ();
+        time_picker.clean_up ();
+        calendar_view.clean_up ();
         foreach (var entry in signal_map.entries) {
             entry.value.disconnect (entry.key);
         }
@@ -797,7 +806,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         private Gtk.Label date_label;
         private Gtk.Button button;
 
-        public signal void clicked ();
+        public signal void clicked (Objects.DueDate date);
 
         public string title {
             set {
@@ -833,7 +842,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 css_classes = { "suggestion-chip" },
             };
 
-            button.clicked.connect (() => clicked ());
+            button.clicked.connect (() => clicked (due_date));
 
             child = button;
 
