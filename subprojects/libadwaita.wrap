@@ -1,0 +1,8 @@
+[wrap-git]
+directory=libadwaita
+url=https://gitlab.gnome.org/GNOME/libadwaita.git
+revision=1.10.beta.1
+depth=1
+
+[provide]
+libadwaita-1=liblibadwaita_dep

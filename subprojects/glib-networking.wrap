@@ -1,0 +1,11 @@
+[wrap-file]
+directory = glib-networking-2.80.1
+source_url = https://download.gnome.org/sources/glib-networking/2.80/glib-networking-2.80.1.tar.xz
+source_filename = glib-networking-2.80.1.tar.xz
+source_hash = b80e2874157cd55071f1b6710fa0b911d5ac5de106a9ee2a4c9c7bee61782f8e
+source_fallback_url = https://github.com/mesonbuild/wrapdb/releases/download/glib-networking_2.80.1-1/glib-networking-2.80.1.tar.xz
+wrapdb_version = 2.80.1-1
+diff_files = glib-networking_remove_glib_subproject.patch
+
+[provide]
+dependency_names = gioopenssl
