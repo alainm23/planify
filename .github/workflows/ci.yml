@@ -19,6 +19,11 @@ jobs:
       options: --privileged
     steps:
       - uses: actions/checkout@v7
+      - name: Work around overlayfs EXDEV in the flatpak install
+        run: |
+          cp -a /var/lib/flatpak /var/lib/flatpak.copy
+          rm -rf /var/lib/flatpak
+          mv /var/lib/flatpak.copy /var/lib/flatpak
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: planify.Devel.flatpak
@@ -58,6 +63,11 @@ jobs:
               | (.modules[-1]["config-opts"]) += [$opt]' \
              build-aux/io.github.alainm23.planify.Devel.json \
              > build-aux/ci-matrix-${{ matrix.name }}.json
+      - name: Work around overlayfs EXDEV in the flatpak install
+        run: |
+          cp -a /var/lib/flatpak /var/lib/flatpak.copy
+          rm -rf /var/lib/flatpak
+          mv /var/lib/flatpak.copy /var/lib/flatpak
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: planify-${{ matrix.name }}.Devel.flatpak

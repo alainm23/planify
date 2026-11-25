@@ -453,6 +453,8 @@ msgstr "%s Etiketini Sil"
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
 #: src/Services/BackupManager.vala:285 core/Objects/Project.vala:912
 #: core/Objects/Project.vala:916
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
 msgid "This can not be undone"
 msgstr "Bu geri alınamaz"
 
@@ -496,6 +498,9 @@ msgstr "Bu geri alınamaz"
 #: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
 #: core/Objects/Project.vala:995 core/Objects/Section.vala:471
 #: core/Objects/Project.vala:919 core/Objects/Project.vala:992
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 msgid "Cancel"
 msgstr "İptal"
 
@@ -526,6 +531,8 @@ msgstr "İptal"
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
 #: core/QuickAddCore.vala:1029 core/Objects/Project.vala:920
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
 msgid "Delete"
 msgstr "Sil"
 
@@ -2493,6 +2500,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 msgid "Change Inbox"
 msgstr "Gelen Kutusunu Değiştir"
 
@@ -2631,18 +2639,22 @@ msgstr "Deck'i etkinleştir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181 src/Dialogs/Project.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:31
 msgid "Source"
 msgstr "Kaynak"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
 msgid "Display Name"
 msgstr "Görünen İsim"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Sync Server"
 msgstr "Senkronizasyon Sunucusu"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2651,21 +2663,25 @@ msgstr ""
 "için bu ayarı etkinleştirin"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
 msgid "Last Sync"
 msgstr "Son Senkronizasyon"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Pano ve kartlarınızı Nextcloud Deck üzerinden senkronize edin"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Nextcloud Deck bu sunucuda kullanılabilir değil"
 
@@ -2673,6 +2689,8 @@ msgstr "Nextcloud Deck bu sunucuda kullanılabilir değil"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
 msgid "Delete Source"
 msgstr "Kaynağı Sil"
 
@@ -2680,16 +2698,20 @@ msgstr "Kaynağı Sil"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
 msgid "Delete Source?"
 msgstr "Kaynağı Sil?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
 msgid "Cannot Delete This Source"
 msgstr "Bu Kaynak Silinemez"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."

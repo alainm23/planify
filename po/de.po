@@ -377,6 +377,8 @@ msgstr "Label %s löschen"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 #: core/Objects/Section.vala:427 core/Objects/Project.vala:916
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
 msgid "This can not be undone"
 msgstr "Dies kann nicht rückgängig gemacht werden"
 
@@ -401,6 +403,9 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 #: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:471 core/Objects/Project.vala:919
 #: core/Objects/Project.vala:992
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -417,6 +422,8 @@ msgstr "Abbrechen"
 #: src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397 core/QuickAddCore.vala:1029
 #: core/Objects/Section.vala:431 core/Objects/Project.vala:920
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
 msgid "Delete"
 msgstr "Löschen"
 
@@ -2143,6 +2150,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 msgid "Change Inbox"
 msgstr "Posteingang ändern"
 
@@ -2254,19 +2262,23 @@ msgstr "Aktiviere Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:31
 msgid "Source"
 msgstr "Quelle"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
 msgid "Display Name"
 msgstr "Anzeigename"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Sync Server"
 msgstr "Mit Server synchronisieren"
 
 # Assumed error "Planner" -> "Planify"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2275,28 +2287,36 @@ msgstr ""
 "deinem Todoist-Konto synchronisiert wird"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
 msgid "Last Sync"
 msgstr "Letzte Synchronisation"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Synchronisiere Boards und Karten mit Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Nextcloud Deck ist auf diesem Server nicht verfügbar"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
 msgid "Delete Source"
 msgstr "Quelle löschen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
 msgid "Delete Source?"
 msgstr "Quelle löschen?"
 
@@ -2331,10 +2351,12 @@ msgid "Client certificate removed"
 msgstr "Zertifikat entfernt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
 msgid "Cannot Delete This Source"
 msgstr "Kann diese Quelle nicht löschen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."

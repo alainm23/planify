@@ -418,6 +418,8 @@ msgstr "已删除标签%s"
 #: core/Objects/Project.vala:907 src/Services/BackupManager.vala:251
 #: src/Services/BackupManager.vala:285 core/Objects/Project.vala:912
 #: core/Objects/Project.vala:916
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
 msgid "This can not be undone"
 msgstr "无法撤销"
 
@@ -456,6 +458,9 @@ msgstr "无法撤销"
 #: src/Widgets/MultiSelectToolbar.vala:396 core/Objects/Project.vala:915
 #: core/Objects/Project.vala:995 core/Objects/Section.vala:471
 #: core/Objects/Project.vala:919 core/Objects/Project.vala:992
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 msgid "Cancel"
 msgstr "取消"
 
@@ -482,6 +487,8 @@ msgstr "取消"
 #: core/Widgets/DeadlineButton.vala:248 src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397 core/Objects/Project.vala:916
 #: core/QuickAddCore.vala:1029 core/Objects/Project.vala:920
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
 msgid "Delete"
 msgstr "删除"
 
@@ -2277,6 +2284,7 @@ msgstr "此账户包含您当前的收件箱项目。请先更改您的收件箱
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 msgid "Change Inbox"
 msgstr "更改收件箱"
 
@@ -2404,39 +2412,47 @@ msgstr "启用 Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:181 src/Dialogs/Project.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:31
 msgid "Source"
 msgstr "来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
 msgid "Display Name"
 msgstr "显示名称"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Sync Server"
 msgstr "同步服务器"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
 msgstr "激活此设置，使 Planify 每 15 分钟自动与您的账户同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
 msgid "Last Sync"
 msgstr "上次同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "从 Nextcloud Deck 同步看板和卡片"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
 msgid "Nextcloud Deck is not available on this server"
 msgstr "此服务器上 Nextcloud Deck 不可用"
 
@@ -2444,6 +2460,8 @@ msgstr "此服务器上 Nextcloud Deck 不可用"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:214
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
 msgid "Delete Source"
 msgstr "删除来源"
 
@@ -2451,16 +2469,20 @@ msgstr "删除来源"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
 msgid "Delete Source?"
 msgstr "删除来源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
 msgid "Cannot Delete This Source"
 msgstr "无法删除此来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -4710,6 +4732,7 @@ msgid "Failed to load client certificate: %s"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
 msgid "Apply Certificate"
 msgstr ""
 
@@ -4723,15 +4746,18 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate updated"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate removed"
 msgstr ""
 
