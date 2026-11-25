@@ -22,6 +22,8 @@
 public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.BasePage {
     public Objects.Source source { get; construct; }
 
+    private bool cert_has_changes = false;
+
     public SourceView (Adw.PreferencesDialog preferences_dialog, Objects.Source source) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -320,6 +322,10 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         });
     }
 
+    private void update_apply_button (Widgets.ClientCertificateRow cert_row, Adw.ButtonRow apply_button) {
+        apply_button.visible = cert_has_changes && (cert_row.expanded || !cert_row.enable_expansion);
+    }
+
     private Adw.PreferencesGroup create_certificate_group () {
         var cert_row = new Widgets.ClientCertificateRow ();
         cert_row.set_certificate (
@@ -329,24 +335,31 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         );
 
         var apply_button = new Adw.ButtonRow () {
-            title = _("Apply Certificate")
+            title = _("Apply Certificate"),
+            visible = false
         };
         apply_button.add_css_class ("suggested-action");
 
         var cert_group = new Adw.PreferencesGroup () {
-            margin_top = 12,
-            title = _("Client Certificate (mTLS)"),
-            description = _("Use a client certificate to authenticate with servers that require mutual TLS")
+            margin_top = 12
         };
         cert_group.add (cert_row);
         cert_group.add (apply_button);
+
+        signal_map[cert_row.changed.connect (() => {
+            cert_has_changes = true;
+            update_apply_button (cert_row, apply_button);
+        })] = cert_row;
+
+        signal_map[cert_row.notify["expanded"].connect (() => {
+            update_apply_button (cert_row, apply_button);
+        })] = cert_row;
 
         signal_map[apply_button.activated.connect (() => {
             string new_data = cert_row.has_certificate ? cert_row.cert_data : "";
             string new_format = cert_row.has_certificate ? cert_row.cert_format : "";
             string new_password = cert_row.has_certificate ? cert_row.cert_password : "";
 
-            // Validate before persisting so a wrong password is reported immediately.
             if (new_data != "") {
                 try {
                     Objects.SourceCalDAVData.build_client_certificate (new_data, new_format, new_password);
@@ -362,7 +375,6 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             source.caldav_data.client_cert_password = new_password;
             source.save ();
 
-            // Drop cached clients so the next request rebuilds with the new cert.
             Services.CalDAV.Core.get_default ().remove_client (source.id);
             Services.Deck.Core.get_default ().remove_client (source.id);
 
@@ -370,6 +382,9 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
                 new_data != "" ? _("Client certificate updated") : _("Client certificate removed")
             );
             Services.EventBus.get_default ().send_toast (applied_toast);
+
+            cert_has_changes = false;
+            update_apply_button (cert_row, apply_button);
         })] = apply_button;
 
         return cert_group;
