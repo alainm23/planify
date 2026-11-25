@@ -358,8 +358,8 @@ msgstr "%s Etiketini Sil"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:427
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Bu geri alınamaz"
@@ -371,9 +371,9 @@ msgstr "Bu geri alınamaz"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
@@ -388,8 +388,8 @@ msgstr "İptal"
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:920
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:289
 #: src/Views/Filter.vala:816 src/Views/Project/Project.vala:557
@@ -2065,7 +2065,7 @@ msgstr ""
 "değiştirin."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 msgid "Change Inbox"
 msgstr "Gelen Kutusunu Değiştir"
 
@@ -2175,20 +2175,20 @@ msgstr "Şimdi Olmaz"
 msgid "Enable Deck"
 msgstr "Deck'i etkinleştir"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:31
 #: src/Dialogs/Project.vala:183
 msgid "Source"
 msgstr "Kaynak"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
 msgid "Display Name"
 msgstr "Görünen ad"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Sync Server"
 msgstr "Eşzamanlama Sunucusu"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2196,63 +2196,54 @@ msgstr ""
 "Planner'ın 15 dakikada bir Todoist hesabınızla kendiliğinden eşzamanlanması "
 "için bu ayarı etkinleştirin"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
 msgid "Last Sync"
 msgstr "Son Eşzamanlama"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Pano ve kartlarınızı Nextcloud Deck üzerinden senkronize edin"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Nextcloud Deck bu sunucuda kullanılabilir değil"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
 msgid "Delete Source"
 msgstr "Kaynağı Sil"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
 msgid "Delete Source?"
 msgstr "Kaynağı sileyim mi?"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
 msgid "Apply Certificate"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
-msgid "Client Certificate (mTLS)"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
-msgid ""
-"Use a client certificate to authenticate with servers that require mutual TLS"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate updated"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate removed"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
 msgid "Cannot Delete This Source"
 msgstr "Bu Kaynağı Silemem"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
