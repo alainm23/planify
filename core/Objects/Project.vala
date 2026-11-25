@@ -263,8 +263,16 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_deck {
         get {
-            return "deck--board" in calendar_url.down () ||
-                   Utils.JsonUtils.get_int (extra_data, "deck_board_id") > 0;
+            if ("deck--board" in calendar_url.down ()) {
+                return true;
+            }
+
+            if (extra_data == null || extra_data == "") {
+                return false;
+            }
+
+            var json_object = Utils.JsonUtils.get_object (extra_data);
+            return json_object != null && json_object.has_member ("deck_board_id");
         }
     }
 
@@ -483,12 +491,8 @@ public class Objects.Project : Objects.BaseObject {
                 }
                 
                 if (is_deck) {
-                    var deck_client = Services.Deck.Core.get_default ().get_client (source);
-                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                    deck_client.update_board.begin (board_id, name, color_hex, false, (obj, res) => {
-                        try { deck_client.update_board.end (res); } catch (Error e) {
-                            Services.LogService.get_default ().error ("Deck", "Failed to update board: %s".printf (e.message));
-                        }
+                    Services.Deck.Core.get_default ().save_board.begin (this, (obj, res) => {
+                        Services.Deck.Core.get_default ().save_board.end (res);
                         Services.Store.instance ().update_project (this);
                         loading = false;
                     });
@@ -964,15 +968,8 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private void delete_from_deck () {
-        var deck_client = Services.Deck.Core.get_default ().get_client (source);
-        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-        deck_client.delete_board.begin (board_id, (obj, res) => {
-            try {
-                deck_client.delete_board.end (res);
-                handle_remote_delete_response (new HttpResponse () { status = true });
-            } catch (Error e) {
-                handle_remote_delete_response (new HttpResponse () { error = e.message });
-            }
+        Services.Deck.Core.get_default ().delete_board.begin (this, (obj, res) => {
+            handle_remote_delete_response (Services.Deck.Core.get_default ().delete_board.end (res));
         });
     }
 
@@ -1018,13 +1015,10 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     private void archive_deck_board (bool archived) {
-        var deck_client = Services.Deck.Core.get_default ().get_client (source);
-        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-        deck_client.update_board.begin (board_id, name, color.replace ("#", ""), archived, (obj, res) => {
-            try {
-                deck_client.update_board.end (res);
-            } catch (Error e) {
-                warning ("Failed to archive/unarchive Deck board: %s", e.message);
+        Services.Deck.Core.get_default ().save_board.begin (this, (obj, res) => {
+            var response = Services.Deck.Core.get_default ().save_board.end (res);
+            if (!response.status) {
+                warning ("Failed to %s Deck board: %s", archived ? "archive" : "unarchive", response.error);
             }
         });
     }
