@@ -95,7 +95,7 @@ msgstr[1] "Кожні %d років"
 msgid "Nextcloud"
 msgstr "Nextcloud"
 
-#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:392
+#: core/Enum.vala:279 core/Services/CalDAV/CalDAVClient.vala:477
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:46
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:43
 msgid "CalDAV"
@@ -575,27 +575,27 @@ msgstr "Підказка"
 msgid "Combine shortcuts in the title field for faster creation"
 msgstr "Поєднуйте комбінації клавіш у полі заголовка для швидшого створення"
 
-#: core/Services/CalDAV/CalDAVClient.vala:89
+#: core/Services/CalDAV/CalDAVClient.vala:130
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
 
-#: core/Services/CalDAV/CalDAVClient.vala:571
+#: core/Services/CalDAV/CalDAVClient.vala:665
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Завантаження завдань для %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:582
-#: core/Services/CalDAV/CalDAVClient.vala:608
+#: core/Services/CalDAV/CalDAVClient.vala:676
+#: core/Services/CalDAV/CalDAVClient.vala:702
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Завантажено завдання для %s…"
 
-#: core/Services/CalDAV/CalDAVClient.vala:601
+#: core/Services/CalDAV/CalDAVClient.vala:695
 #, c-format
 msgid "Syncing task %d of %d"
 msgstr "Синхронізація завдання %d з %d"
 
-#: core/Services/CalDAV/CalDAVClient.vala:1056
+#: core/Services/CalDAV/CalDAVClient.vala:1184
 msgid ""
 "This server does not allow creating projects via CalDAV. Please create it "
 "directly from your calendar provider's website."
@@ -603,7 +603,7 @@ msgstr ""
 "Сервер не дозволяє створювати проєкти через CalDAV. Створіть їх на сайті "
 "вашого календаря."
 
-#: core/Services/CalDAV/CalDAVClient.vala:1109
+#: core/Services/CalDAV/CalDAVClient.vala:1256
 msgid ""
 "This server does not allow deleting projects via CalDAV. Please delete it "
 "directly from your calendar provider's website."
@@ -611,7 +611,7 @@ msgstr ""
 "Сервер не дозволяє видаляти проєкти через CalDAV. Видаліть їх на сайті "
 "вашого календаря."
 
-#: core/Services/CalDAV/CalDAVClient.vala:1113
+#: core/Services/CalDAV/CalDAVClient.vala:1260
 msgid ""
 "This server does not support deleting projects via CalDAV. Please delete it "
 "from the server directly."
@@ -619,8 +619,8 @@ msgstr ""
 "Сервер не підтримує видалення проектів через CalDAV. Видаліть їх "
 "безпосередньо на сервері."
 
-#: core/Services/CalDAV/CalDAVClient.vala:1172
-#: core/Services/CalDAV/CalDAVClient.vala:1227
+#: core/Services/CalDAV/CalDAVClient.vala:1319
+#: core/Services/CalDAV/CalDAVClient.vala:1374
 msgid ""
 "Task was modified on another device. Please sync to get the latest version."
 msgstr "Завдання змінено на іншому пристрої. Синхронізуйте для оновлення."
@@ -652,22 +652,22 @@ msgstr "Синхронізація %s…"
 msgid "Sync completed"
 msgstr "Синхронізацію завершено"
 
-#: core/Services/CalDAV/Core.vala:373
+#: core/Services/CalDAV/Core.vala:372
 msgid "Authentication Expired"
 msgstr "Термін дії автентифікації минув"
 
-#: core/Services/CalDAV/Core.vala:374
+#: core/Services/CalDAV/Core.vala:373
 msgid ""
 "Your session has expired. Please remove and re-add your account in "
 "Preferences."
 msgstr ""
 "Сеанс закінчився. Видаліть і знову додайте обліковий запис у налаштуваннях."
 
-#: core/Services/CalDAV/Core.vala:381 core/Services/Todoist/Todoist.vala:157
+#: core/Services/CalDAV/Core.vala:380 core/Services/Todoist/Todoist.vala:157
 msgid "Too Many Requests"
 msgstr "Забагато запитів"
 
-#: core/Services/CalDAV/Core.vala:382
+#: core/Services/CalDAV/Core.vala:381
 msgid ""
 "The server is rate limiting requests. Please wait a few minutes and try "
 "again."
@@ -3220,7 +3220,7 @@ msgstr "Створити як дошку Deck"
 msgid "Create a Nextcloud Deck board instead of a task list"
 msgstr "Створити дошку Nextcloud Deck замість списку завдань"
 
-#: src/Dialogs/Project.vala:581
+#: src/Dialogs/Project.vala:585
 msgid "Project added successfully!"
 msgstr "Проєкт успішно додано!"
 
