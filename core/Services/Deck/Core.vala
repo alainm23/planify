@@ -101,6 +101,102 @@ public class Services.Deck.Core : GLib.Object {
     private const string PENDING_STACK_PUT = "deck_stack_put";
     private const string PENDING_STACK_DELETE = "deck_stack_delete";
 
+    /*
+     * Boards, through save_board and delete_board:
+     *   - deck_board_put: create the board if it has no board id yet, otherwise update
+     *     its title, color and archived state.
+     *   - deck_board_delete: delete the board. args keeps its board id. Deck deletes
+     *     its stacks and cards with it.
+     * Board uploads are sent first of all. Stacks of a board created offline wait until
+     * it has an id, and their cards wait for the stacks.
+     */
+    private const string PENDING_BOARD_PUT = "deck_board_put";
+    private const string PENDING_BOARD_DELETE = "deck_board_delete";
+
+    private Gee.HashSet<string> pending_board_project_ids = new Gee.HashSet<string> ();
+    private Gee.HashSet<int> pending_deleted_board_ids = new Gee.HashSet<int> ();
+
+    private static int board_id_of_project (Objects.Project project) {
+        return (int) Utils.JsonUtils.get_int (project.extra_data, "deck_board_id");
+    }
+
+    private void add_board_row (string kind, Objects.Project project, string args) {
+        var queue = new Objects.Queue ();
+        queue.uuid = "%s-%s".printf (kind, project.id);
+        queue.object_id = project.id;
+        queue.query = kind;
+        queue.args = args;
+        queue.source_id = project.source_id;
+
+        Services.Database.get_default ().insert_queue (queue);
+        Services.LogService.get_default ().info ("Deck.Core", "Offline, %s kept for later: '%s'".printf (kind, project.name));
+    }
+
+    private void forget_board_put (Objects.Project project) {
+        Services.Database.get_default ().remove_queue ("%s-%s".printf (PENDING_BOARD_PUT, project.id));
+        pending_board_project_ids.remove (project.id);
+    }
+
+    public async HttpResponse save_board (Objects.Project project) {
+        var client = get_client (project.source);
+        int board_id = board_id_of_project (project);
+
+        try {
+            if (board_id <= 0) {
+                var board = yield client.create_board (project.name, project.color_hex);
+                board_id = (int) board.get_int_member ("id");
+                string etag = board.has_member ("ETag") ? board.get_string_member ("ETag") : "";
+                project.extra_data = build_board_extra_data (board_id, etag);
+
+                if (project.is_archived) {
+                    yield client.update_board (board_id, project.name, project.color_hex, true);
+                }
+            } else {
+                yield client.update_board (board_id, project.name, project.color_hex, project.is_archived);
+            }
+
+            forget_board_put (project);
+            return new HttpResponse () { status = true };
+        } catch (Error e) {
+            if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                if (board_id <= 0) {
+                    project.extra_data = build_board_extra_data (0, "");
+                }
+
+                add_board_row (PENDING_BOARD_PUT, project, "");
+                pending_board_project_ids.add (project.id);
+                return new HttpResponse () { status = true, offline = true };
+            }
+
+            Services.LogService.get_default ().error ("Deck.Core", "Failed to save board: %s".printf (e.message));
+            return error_response (e);
+        }
+    }
+
+    public async HttpResponse delete_board (Objects.Project project) {
+        int board_id = board_id_of_project (project);
+        forget_board_put (project);
+
+        if (board_id <= 0) {
+            return new HttpResponse () { status = true };
+        }
+
+        var client = get_client (project.source);
+        try {
+            yield client.delete_board (board_id);
+            return new HttpResponse () { status = true };
+        } catch (Error e) {
+            if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                add_board_row (PENDING_BOARD_DELETE, project, build_board_extra_data (board_id, ""));
+                pending_deleted_board_ids.add (board_id);
+                return new HttpResponse () { status = true, offline = true };
+            }
+
+            Services.LogService.get_default ().error ("Deck.Core", "Failed to delete board: %s".printf (e.message));
+            return error_response (e);
+        }
+    }
+
     private Gee.HashSet<string> pending_card_item_ids = new Gee.HashSet<string> ();
     private Gee.HashSet<int> pending_deleted_card_ids = new Gee.HashSet<int> ();
     private Gee.HashSet<string> pending_stack_section_ids = new Gee.HashSet<string> ();
@@ -237,9 +333,15 @@ public class Services.Deck.Core : GLib.Object {
         pending_deleted_card_ids.clear ();
         pending_stack_section_ids.clear ();
         pending_deleted_stack_ids.clear ();
+        pending_board_project_ids.clear ();
+        pending_deleted_board_ids.clear ();
 
         foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
-            if (q.query == PENDING_CARD_PUT) {
+            if (q.query == PENDING_BOARD_PUT) {
+                pending_board_project_ids.add (q.object_id);
+            } else if (q.query == PENDING_BOARD_DELETE) {
+                pending_deleted_board_ids.add ((int) Utils.JsonUtils.get_int (q.args, "deck_board_id"));
+            } else if (q.query == PENDING_CARD_PUT) {
                 pending_card_item_ids.add (q.object_id);
             } else if (q.query == PENDING_CARD_DELETE) {
                 pending_deleted_card_ids.add ((int) Utils.JsonUtils.get_int (q.args, "deck_card_id"));
@@ -255,6 +357,11 @@ public class Services.Deck.Core : GLib.Object {
         var client = get_client (section.project.source);
         int board_id = board_id_of_section (section);
         int stack_id = stack_id_of_section (section);
+
+        if (board_id <= 0) {
+            queue_stack_put (section);
+            return new HttpResponse () { status = true, offline = true };
+        }
 
         try {
             if (stack_id <= 0) {
@@ -478,17 +585,22 @@ public class Services.Deck.Core : GLib.Object {
     private async void flush_pending (Objects.Source source) {
         reload_pending (source);
 
+        var board_puts = new Gee.ArrayList<Objects.Queue> ();
         var stack_puts = new Gee.ArrayList<Objects.Queue> ();
         var others = new Gee.ArrayList<Objects.Queue> ();
         foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
-            if (q.query == PENDING_STACK_PUT) {
+            if (q.query == PENDING_BOARD_PUT) {
+                board_puts.add (q);
+            } else if (q.query == PENDING_STACK_PUT) {
                 stack_puts.add (q);
-            } else if (q.query == PENDING_CARD_PUT || q.query == PENDING_CARD_DELETE || q.query == PENDING_STACK_DELETE) {
+            } else if (q.query == PENDING_CARD_PUT || q.query == PENDING_CARD_DELETE ||
+                       q.query == PENDING_STACK_DELETE || q.query == PENDING_BOARD_DELETE) {
                 others.add (q);
             }
         }
 
         var pending = new Gee.ArrayList<Objects.Queue> ();
+        pending.add_all (board_puts);
         pending.add_all (stack_puts);
         pending.add_all (others);
 
@@ -516,6 +628,40 @@ public class Services.Deck.Core : GLib.Object {
     private async FlushResult flush_pending_row (Objects.Queue q, Objects.Source source) {
         var client = get_client (source);
 
+        if (q.query == PENDING_BOARD_DELETE) {
+            try {
+                yield client.delete_board ((int) Utils.JsonUtils.get_int (q.args, "deck_board_id"));
+            } catch (Error e) {
+                if (Services.CalDAV.CalDAVClient.is_offline_error (e)) {
+                    return FlushResult.OFFLINE;
+                }
+
+                Services.LogService.get_default ().warn ("Deck.Core", "Offline board delete failed, dropping it: %s".printf (e.message));
+            }
+
+            return FlushResult.SENT;
+        }
+
+        if (q.query == PENDING_BOARD_PUT) {
+            Objects.Project? project = Services.Store.instance ().get_project (q.object_id);
+            if (project == null || !project.is_deck) {
+                return FlushResult.SENT;
+            }
+
+            var response = yield save_board (project);
+            if (response.offline) {
+                return FlushResult.OFFLINE;
+            }
+
+            if (response.status) {
+                Services.Store.instance ().update_project (project);
+            } else {
+                Services.LogService.get_default ().warn ("Deck.Core", "Offline board upload failed for '%s', dropping it: %s".printf (project.name, response.error));
+            }
+
+            return FlushResult.SENT;
+        }
+
         if (q.query == PENDING_CARD_DELETE || q.query == PENDING_STACK_DELETE) {
             int board_id = (int) Utils.JsonUtils.get_int (q.args, "deck_board_id");
             int stack_id = (int) Utils.JsonUtils.get_int (q.args, "deck_stack_id");
@@ -540,6 +686,11 @@ public class Services.Deck.Core : GLib.Object {
             Objects.Section? section = Services.Store.instance ().get_section (q.object_id);
             if (section == null || section.project == null || !section.project.is_deck) {
                 return FlushResult.SENT;
+            }
+
+            if (board_id_of_section (section) <= 0) {
+                Services.LogService.get_default ().warn ("Deck.Core", "Stack '%s' waits for its board to be uploaded".printf (section.name));
+                return FlushResult.WAIT;
             }
 
             var response = yield save_stack (section);
@@ -655,6 +806,9 @@ public class Services.Deck.Core : GLib.Object {
                 if (board.get_int_member ("deletedAt") > 0) return;
 
                 int board_id = (int) board.get_int_member ("id");
+
+                if (board_id in pending_deleted_board_ids) return;
+
                 string board_etag = board.get_string_member ("ETag");
                 string title = board.get_string_member ("title");
                 string color = "#%s".printf (board.get_string_member ("color"));
@@ -662,7 +816,9 @@ public class Services.Deck.Core : GLib.Object {
 
                 Objects.Project? project = get_project_by_board_id (source, board_id);
 
-                if (project == null) {
+                if (project != null && project.id in pending_board_project_ids) {
+                    Services.LogService.get_default ().debug ("Deck.Core", "Keeping board '%s', it has offline changes not sent yet".printf (project.name));
+                } else if (project == null) {
                     project = new Objects.Project ();
                     project.id = Util.get_default ().generate_id (project);
                     project.source_id = source.id;
