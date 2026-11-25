@@ -130,18 +130,38 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             };
             deck_group.add (deck_row);
 
+            var deck_spinner = new Adw.Spinner () {
+                valign = Gtk.Align.CENTER,
+                visible = false
+            };
+            deck_row.add_suffix (deck_spinner);
+
+            bool reverting_deck = false;
+
             deck_row.notify["active"].connect (() => {
+                if (reverting_deck) {
+                    return;
+                }
+
                 if (deck_row.active) {
+                    deck_spinner.visible = true;
+                    deck_row.sensitive = false;
+
                     Services.Deck.Core.get_default ().probe.begin (source, (obj, res) => {
                         bool available = Services.Deck.Core.get_default ().probe.end (res);
+
+                        deck_spinner.visible = false;
+                        deck_row.sensitive = true;
+
                         if (available) {
                             source.caldav_data.use_deck = true;
                             Services.Store.instance ().update_source (source);
                             Services.CalDAV.Core.get_default ().sync.begin (source);
                         } else {
+                            reverting_deck = true;
                             deck_row.active = false;
-                            var toast = Util.get_default ().create_toast (_("Nextcloud Deck is not available on this server"));
-                            Services.EventBus.get_default ().send_toast (toast);
+                            reverting_deck = false;
+                            popup_toast (_("Nextcloud Deck is not available on this server"));
                         }
                     });
                 } else {
@@ -364,8 +384,7 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
                 try {
                     Objects.SourceCalDAVData.build_client_certificate (new_data, new_format, new_password);
                 } catch (Error e) {
-                    var toast = Util.get_default ().create_toast (_("Invalid certificate: %s").printf (e.message));
-                    Services.EventBus.get_default ().send_toast (toast);
+                    popup_toast (_("Invalid certificate: %s").printf (e.message));
                     return;
                 }
             }
@@ -378,10 +397,7 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             Services.CalDAV.Core.get_default ().remove_client (source.id);
             Services.Deck.Core.get_default ().remove_client (source.id);
 
-            var applied_toast = Util.get_default ().create_toast (
-                new_data != "" ? _("Client certificate updated") : _("Client certificate removed")
-            );
-            Services.EventBus.get_default ().send_toast (applied_toast);
+            popup_toast (new_data != "" ? _("Client certificate updated") : _("Client certificate removed"));
 
             cert_has_changes = false;
             update_apply_button (cert_row, apply_button);
