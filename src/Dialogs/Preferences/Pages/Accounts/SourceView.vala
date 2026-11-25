@@ -22,6 +22,8 @@
 public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.BasePage {
     public Objects.Source source { get; construct; }
 
+    private bool cert_has_changes = false;
+
     public SourceView (Adw.PreferencesDialog preferences_dialog, Objects.Source source) {
         Object (
             preferences_dialog: preferences_dialog,
@@ -320,9 +322,6 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         });
     }
 
-    // Unsaved changes in the client certificate row.
-    private bool cert_has_changes = false;
-
     private void update_apply_button (Widgets.ClientCertificateRow cert_row, Adw.ButtonRow apply_button) {
         apply_button.visible = cert_has_changes && (cert_row.expanded || !cert_row.enable_expansion);
     }
@@ -335,24 +334,18 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             source.caldav_data.client_cert_password
         );
 
-        // Only shown when there are changes to apply, so a setting most users never touch
-        // stays a single collapsed row.
         var apply_button = new Adw.ButtonRow () {
             title = _("Apply Certificate"),
             visible = false
         };
         apply_button.add_css_class ("suggested-action");
 
-        // No title or description: the row already has both.
         var cert_group = new Adw.PreferencesGroup () {
             margin_top = 12
         };
         cert_group.add (cert_row);
         cert_group.add (apply_button);
 
-        // The button is a row of the group, not of the expander, so it would stay when the
-        // row is collapsed. It's shown with unsaved changes while the row is open, or
-        // while the switch is off (removing the certificate collapses the row).
         signal_map[cert_row.changed.connect (() => {
             cert_has_changes = true;
             update_apply_button (cert_row, apply_button);
@@ -367,7 +360,6 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             string new_format = cert_row.has_certificate ? cert_row.cert_format : "";
             string new_password = cert_row.has_certificate ? cert_row.cert_password : "";
 
-            // Validate before persisting so a wrong password is reported immediately.
             if (new_data != "") {
                 try {
                     Objects.SourceCalDAVData.build_client_certificate (new_data, new_format, new_password);
@@ -383,7 +375,6 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             source.caldav_data.client_cert_password = new_password;
             source.save ();
 
-            // Drop cached clients so the next request rebuilds with the new cert.
             Services.CalDAV.Core.get_default ().remove_client (source.id);
             Services.Deck.Core.get_default ().remove_client (source.id);
 
