@@ -320,6 +320,13 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
         });
     }
 
+    // Unsaved changes in the client certificate row.
+    private bool cert_has_changes = false;
+
+    private void update_apply_button (Widgets.ClientCertificateRow cert_row, Adw.ButtonRow apply_button) {
+        apply_button.visible = cert_has_changes && (cert_row.expanded || !cert_row.enable_expansion);
+    }
+
     private Adw.PreferencesGroup create_certificate_group () {
         var cert_row = new Widgets.ClientCertificateRow ();
         cert_row.set_certificate (
@@ -328,18 +335,32 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
             source.caldav_data.client_cert_password
         );
 
+        // Only shown when there are changes to apply, so a setting most users never touch
+        // stays a single collapsed row.
         var apply_button = new Adw.ButtonRow () {
-            title = _("Apply Certificate")
+            title = _("Apply Certificate"),
+            visible = false
         };
         apply_button.add_css_class ("suggested-action");
 
+        // No title or description: the row already has both.
         var cert_group = new Adw.PreferencesGroup () {
-            margin_top = 12,
-            title = _("Client Certificate (mTLS)"),
-            description = _("Use a client certificate to authenticate with servers that require mutual TLS")
+            margin_top = 12
         };
         cert_group.add (cert_row);
         cert_group.add (apply_button);
+
+        // The button is a row of the group, not of the expander, so it would stay when the
+        // row is collapsed. It's shown with unsaved changes while the row is open, or
+        // while the switch is off (removing the certificate collapses the row).
+        signal_map[cert_row.changed.connect (() => {
+            cert_has_changes = true;
+            update_apply_button (cert_row, apply_button);
+        })] = cert_row;
+
+        signal_map[cert_row.notify["expanded"].connect (() => {
+            update_apply_button (cert_row, apply_button);
+        })] = cert_row;
 
         signal_map[apply_button.activated.connect (() => {
             string new_data = cert_row.has_certificate ? cert_row.cert_data : "";
@@ -370,6 +391,9 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
                 new_data != "" ? _("Client certificate updated") : _("Client certificate removed")
             );
             Services.EventBus.get_default ().send_toast (applied_toast);
+
+            cert_has_changes = false;
+            update_apply_button (cert_row, apply_button);
         })] = apply_button;
 
         return cert_group;
