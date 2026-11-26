@@ -37,8 +37,6 @@ namespace PlanifyUIScenarios {
     }
 
     private void collect (Gtk.Widget widget, Gee.ArrayList<Tracked> tracked) {
-        // Calendar descendants are verified after the calendar split is integrated.
-        if (widget is Widgets.Calendar.CalendarScroll) return;
         tracked.add (new Tracked (widget));
         for (var child = widget.get_first_child (); child != null; child = child.get_next_sibling ()) collect (child, tracked);
     }
@@ -112,6 +110,7 @@ namespace PlanifyUIScenarios {
             select_view_style (page, ProjectViewStyle.BOARD);
             pause (40);
             window.add_project_view (inbox);
+            window.add_today_view ();
             page = null;
             release_check (tracked);
             pause (500);
@@ -234,6 +233,34 @@ namespace PlanifyUIScenarios {
         record ("model_mutations_end", 0, 40);
     }
 
+    private void backup (int task_count) throws Error {
+        record ("backup_start");
+        var file = File.new_for_path (output_dir + "/scenario-backup.json");
+        var stream = file.replace (null, false, FileCreateFlags.NONE);
+        Services.BackupExporter.get_default ().export_to_stream (stream);
+        stream.close ();
+        record ("backup_export_end");
+        var imported = new Objects.Backup.from_file (file);
+        assert_cmpstr (imported.error, CompareOperator.EQ, "");
+        assert_cmpint (imported.items.size, CompareOperator.EQ, task_count);
+        assert_cmpint (imported.projects.size, CompareOperator.EQ, Services.Store.instance ().projects.size);
+        assert_cmpint (imported.sections.size, CompareOperator.EQ, Services.Store.instance ().sections.size);
+        assert_cmpint (imported.labels.size, CompareOperator.EQ, Services.Store.instance ().labels.size);
+        foreach (int index in new int[] { 0, task_count / 2, task_count - 1 }) {
+            var item = imported.items[index];
+            var original = Services.Store.instance ().get_item (item.id);
+            assert_nonnull (original);
+            assert_cmpstr (item.extra_data, CompareOperator.EQ, original.extra_data);
+            assert_cmpstr (item.description, CompareOperator.EQ, original.description);
+        }
+        var released = GLib.WeakRef (imported);
+        var task_released = GLib.WeakRef (imported.items[0]);
+        imported = null;
+        assert_true (released.get () == null);
+        assert_true (task_released.get () == null);
+        record ("backup_import_parse_end", 0, task_count);
+    }
+
     public int run () {
         started = get_monotonic_time ();
         events = new StringBuilder ();
@@ -254,6 +281,9 @@ namespace PlanifyUIScenarios {
             database_bytes = null;
             int count = (int) root.get_object_member ("counts").get_int_member ("items");
             assert_true (count == 450 || count == 5000);
+            var settings = Services.Settings.get_default ().settings;
+            settings.set_string ("local-inbox-project-id", "synthetic-inbox");
+            settings.set_boolean ("backup-automatic", false);
             Services.Database.get_default ().init_database ();
             assert_cmpint (Services.Store.instance ().items.size, CompareOperator.EQ, count);
             foreach (var source in Services.Store.instance ().sources) assert_true (source.source_type == SourceType.LOCAL);
@@ -269,7 +299,11 @@ namespace PlanifyUIScenarios {
             record ("clock_anchor");
             clock_marker = null;
             record ("ready", 0, count);
+            rapid_views (window);
+            calendar ();
             sidebar (window);
+            model_mutations (count);
+            backup (count);
             pause (10000);
             record ("final_idle_end");
             assert_cmpint (Services.Store.instance ().items.size, CompareOperator.EQ, count);
