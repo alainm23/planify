@@ -295,7 +295,7 @@ namespace PlanifyCLI.Tests.ArgumentParser {
     void test_delete_section () {
         print ("Testing: 'delete' command with section-id\n");
         int exit_code;
-        string[] args = {"planify-cli", "delete", "-s", "section-789"};
+        string[] args = {"planify-cli", "delete", "-S", "section-789"};
 
         var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
 
@@ -305,6 +305,83 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         assert (parsed.delete_args != null);
         assert (parsed.delete_args.section_id == "section-789");
         print ("  ✓ Parses delete command with section-id\n---\n");
+    }
+
+    void test_delete_long_options () {
+        print ("Testing: 'delete' command with long options\n");
+        int exit_code;
+
+        string[] task_args = {"planify-cli", "delete", "--task-id", "task-1"};
+        var parsed = PlanifyCLI.ArgumentParser.parse (task_args, out exit_code);
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.delete_args.task_id == "task-1");
+
+        string[] section_args = {"planify-cli", "delete", "--section-id", "section-1"};
+        parsed = PlanifyCLI.ArgumentParser.parse (section_args, out exit_code);
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.delete_args.section_id == "section-1");
+
+        string[] project_args = {"planify-cli", "delete", "--project-id", "project-1"};
+        parsed = PlanifyCLI.ArgumentParser.parse (project_args, out exit_code);
+        assert (parsed != null);
+        assert (exit_code == 0);
+        assert (parsed.delete_args.project_id == "project-1");
+        print ("  ✓ Parses --task-id, --section-id and --project-id\n---\n");
+    }
+
+    void test_delete_without_target () {
+        print ("Testing: 'delete' command without any ID\n");
+        int exit_code;
+        string[] args = {"planify-cli", "delete"};
+
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+
+        assert (parsed == null);
+        assert (exit_code == 1);
+        print ("  ✓ Returns error when no ID is given\n---\n");
+    }
+
+    void test_delete_empty_target () {
+        print ("Testing: 'delete' command with an empty ID\n");
+        int exit_code;
+        string[] args = {"planify-cli", "delete", "-t", "  "};
+
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+
+        assert (parsed == null);
+        assert (exit_code == 1);
+        print ("  ✓ Returns error for an empty ID\n---\n");
+    }
+
+    void test_delete_several_targets () {
+        print ("Testing: 'delete' command with more than one ID\n");
+        int exit_code;
+
+        string[] task_and_project = {"planify-cli", "delete", "-t", "task-1", "-i", "project-1"};
+        var parsed = PlanifyCLI.ArgumentParser.parse (task_and_project, out exit_code);
+        assert (parsed == null);
+        assert (exit_code == 1);
+
+        string[] section_and_task = {"planify-cli", "delete", "-S", "section-1", "-t", "task-1"};
+        parsed = PlanifyCLI.ArgumentParser.parse (section_and_task, out exit_code);
+        assert (parsed == null);
+        assert (exit_code == 1);
+        print ("  ✓ Returns error when more than one ID is given\n---\n");
+    }
+
+    void test_delete_short_s_is_not_section () {
+        print ("Testing: 'delete' -s is not the section ID\n");
+        int exit_code;
+        // -s is the section name in add/update; delete has no name options.
+        string[] args = {"planify-cli", "delete", "-s", "section-1"};
+
+        var parsed = PlanifyCLI.ArgumentParser.parse (args, out exit_code);
+
+        assert (parsed == null);
+        assert (exit_code == 1);
+        print ("  ✓ Rejects -s\n---\n");
     }
 
     public void register_tests () {
@@ -325,5 +402,10 @@ namespace PlanifyCLI.Tests.ArgumentParser {
         Test.add_func ("/cli/argument_parser/delete_task", test_delete_task);
         Test.add_func ("/cli/argument_parser/delete_project", test_delete_project);
         Test.add_func ("/cli/argument_parser/delete_section", test_delete_section);
+        Test.add_func ("/cli/argument_parser/delete_long_options", test_delete_long_options);
+        Test.add_func ("/cli/argument_parser/delete_without_target", test_delete_without_target);
+        Test.add_func ("/cli/argument_parser/delete_empty_target", test_delete_empty_target);
+        Test.add_func ("/cli/argument_parser/delete_several_targets", test_delete_several_targets);
+        Test.add_func ("/cli/argument_parser/delete_short_s_is_not_section", test_delete_short_s_is_not_section);
     }
 }

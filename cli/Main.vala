@@ -359,41 +359,124 @@ namespace PlanifyCLI {
         return 0;
     }
 
+    private enum DeleteTarget {
+        TASK,
+        SECTION,
+        PROJECT
+    }
+
+    /*
+     * Deletes a task, section or project. Remote deletes (Todoist, CalDAV, Deck) are
+     * async, so the command waits for them before reporting and exiting. Offline, the
+     * delete is applied locally and kept for the app's next sync.
+     */
     private static int delete_item (DeleteArguments args) {
-        if (args.task_id == null && args.project_id == null && args.section_id == null) {
-            stderr.printf ("Error: one of --task-id, --project-id or --section-id is required\n");
+        Services.Database.get_default ().init_database ();
+
+        string id;
+        string kind;
+        string name;
+        DeleteTarget target;
+        HttpResponse? response = null;
+        var loop = new MainLoop ();
+
+        if (args.task_id != null) {
+            id = args.task_id.strip ();
+            Objects.Item? item = Services.Store.instance ().get_item (id);
+            if (item == null) {
+                stderr.printf ("Error: Task ID '%s' not found\n", id);
+                return 1;
+            }
+
+            kind = "Task";
+            name = item.content;
+            target = DeleteTarget.TASK;
+            item.delete_item_async.begin ((obj, res) => {
+                response = item.delete_item_async.end (res);
+                loop.quit ();
+            });
+        } else if (args.section_id != null) {
+            id = args.section_id.strip ();
+            Objects.Section? section = Services.Store.instance ().get_section (id);
+            if (section == null) {
+                stderr.printf ("Error: Section ID '%s' not found\n", id);
+                return 1;
+            }
+
+            kind = "Section";
+            name = section.name;
+            target = DeleteTarget.SECTION;
+            section.delete_section_async.begin ((obj, res) => {
+                response = section.delete_section_async.end (res);
+                loop.quit ();
+            });
+        } else {
+            id = args.project_id.strip ();
+            Objects.Project? project = Services.Store.instance ().get_project (id);
+            if (project == null) {
+                stderr.printf ("Error: Project ID '%s' not found\n", id);
+                return 1;
+            }
+
+            if (project.is_inbox_project) {
+                stderr.printf ("Error: The Inbox project can't be deleted\n");
+                return 1;
+            }
+
+            kind = "Project";
+            name = project.name;
+            target = DeleteTarget.PROJECT;
+            project.delete_project_async.begin ((obj, res) => {
+                response = project.delete_project_async.end (res);
+                loop.quit ();
+            });
+        }
+
+        // Local deletes finish right away; don't run the loop if it already quit.
+        if (response == null) {
+            loop.run ();
+        }
+
+        if (!response.status) {
+            stderr.printf ("Error: Could not delete %s '%s': %s\n", kind.down (), name, response.error);
             return 1;
         }
 
-        Services.Database.get_default ().init_database ();
+        notify_deleted (target, id);
 
-        if (args.task_id != null) {
-            Objects.Item? item = Services.Store.instance ().get_item (args.task_id.strip ());
-            if (item == null) {
-                stderr.printf ("Error: Task ID '%s' not found\n", args.task_id);
-                return 1;
-            }
-            item.delete_item ();
-            stdout.printf ("Task '%s' deleted\n", item.content);
-        } else if (args.section_id != null) {
-            Objects.Section? section = Services.Store.instance ().get_section (args.section_id.strip ());
-            if (section == null) {
-                stderr.printf ("Error: Section ID '%s' not found\n", args.section_id);
-                return 1;
-            }
-            section.delete_section (null);
-            stdout.printf ("Section '%s' deleted\n", section.name);
+        if (response.offline) {
+            stdout.printf ("%s '%s' deleted locally, it will be removed from the server on the next sync\n", kind, name);
         } else {
-            Objects.Project? project = Services.Store.instance ().get_project (args.project_id.strip ());
-            if (project == null) {
-                stderr.printf ("Error: Project ID '%s' not found\n", args.project_id);
-                return 1;
-            }
-            project.delete_project (null);
-            stdout.printf ("Project '%s' deleted\n", project.name);
+            stdout.printf ("%s '%s' deleted\n", kind, name);
         }
 
         return 0;
+    }
+
+    // Tells a running Planify to drop the object, so it doesn't stay on screen.
+    private static void notify_deleted (DeleteTarget target, string id) {
+        try {
+            switch (target) {
+                case DeleteTarget.TASK:
+                    DBusClient.get_default ().interface.delete_item (id);
+                    break;
+                case DeleteTarget.SECTION:
+                    DBusClient.get_default ().interface.delete_section (id);
+                    break;
+                case DeleteTarget.PROJECT:
+                    DBusClient.get_default ().interface.delete_project (id);
+                    break;
+            }
+        } catch (Error e) {
+            // Not critical: the app may not be running.
+            debug ("DBus notification failed: %s", e.message);
+            return;
+        }
+
+        var main_context = MainContext.default ();
+        while (main_context.pending ()) {
+            main_context.iteration (false);
+        }
     }
 
     private static int backup (BackupArguments args) {

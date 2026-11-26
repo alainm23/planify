@@ -214,6 +214,27 @@ public class MainWindow : Adw.ApplicationWindow {
                 }
             });
 
+            Services.DBusServer.get_default ().item_deleted.connect ((id) => {
+                Objects.Item? item = Services.Store.instance ().get_item (id);
+                if (item != null) {
+                    Services.Store.instance ().delete_item (item);
+                }
+            });
+
+            Services.DBusServer.get_default ().section_deleted.connect ((id) => {
+                Objects.Section? section = Services.Store.instance ().get_section (id);
+                if (section != null) {
+                    Services.Store.instance ().delete_section (section);
+                }
+            });
+
+            Services.DBusServer.get_default ().project_deleted.connect ((id) => {
+                Objects.Project? project = Services.Store.instance ().get_project (id);
+                if (project != null) {
+                    Services.Store.instance ().delete_project.begin (project);
+                }
+            });
+
             var did_startup_sync = false; // Remove hack when upstream issue is resolved
 
             Timeout.add (Constants.STARTUP_SYNC_TIMEOUT, () => {

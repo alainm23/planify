@@ -221,6 +221,7 @@ public class Services.TodoistItems : GLib.Object {
 
                 Services.Database.get_default ().insert_queue (queue);
                 response.status = true;
+                response.offline = true;
             }
         }
 

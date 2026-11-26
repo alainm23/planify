@@ -336,7 +336,8 @@ namespace PlanifyCLI {
                           "Task ID to delete", "ID" };
             options[1] = { "project-id", 'i', 0, OptionArg.STRING, ref project_id,
                           "Project ID to delete", "ID" };
-            options[2] = { "section-id", 's', 0, OptionArg.STRING, ref section_id,
+            // -S, like the section ID in add and update (-s is the section name there).
+            options[2] = { "section-id", 'S', 0, OptionArg.STRING, ref section_id,
                           "Section ID to delete", "ID" };
             options[3] = { null };
 
@@ -346,6 +347,26 @@ namespace PlanifyCLI {
 
             unowned string[] tmp = args;
             context.parse (ref tmp);
+
+            // Exactly one target: with several, which one gets deleted would be a guess.
+            int targets = 0;
+            if (task_id != null && task_id.strip () != "") {
+                targets++;
+            }
+            if (project_id != null && project_id.strip () != "") {
+                targets++;
+            }
+            if (section_id != null && section_id.strip () != "") {
+                targets++;
+            }
+
+            if (targets == 0) {
+                throw new OptionError.FAILED ("One of --task-id, --project-id or --section-id is required");
+            }
+
+            if (targets > 1) {
+                throw new OptionError.FAILED ("Only one of --task-id, --project-id or --section-id can be used");
+            }
 
             var delete_args = new DeleteArguments ();
             delete_args.task_id = task_id;

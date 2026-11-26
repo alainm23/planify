@@ -434,32 +434,42 @@ public class Objects.Section : Objects.BaseObject {
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
-                loading = true;
-                if (project.source_type == SourceType.TODOIST) {
-                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                        Services.Todoist.get_default ().delete.end (res);
-                        Services.Store.instance ().delete_section (this);
-                    });
-                } else if (project.source_type == SourceType.CALDAV) {
-                    if (project.is_deck) {
-                        Services.Deck.Core.get_default ().delete_stack.begin (this, (obj, res) => {
-                            HttpResponse deck_response = Services.Deck.Core.get_default ().delete_stack.end (res);
-                            if (deck_response.status) {
-                                Services.Store.instance ().delete_section (this);
-                            } else {
-                                Services.EventBus.get_default ().send_error_toast (0, deck_response.error);
-                            }
-                            loading = false;
-                        });
-                    } else {
-                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-                        _delete_caldav_section.begin (caldav_client);
+                delete_section_async.begin ((obj, res) => {
+                    HttpResponse delete_response = delete_section_async.end (res);
+                    if (!delete_response.status) {
+                        Services.EventBus.get_default ().send_error_toast (delete_response.error_code, delete_response.error);
                     }
-                } else {
-                    Services.Store.instance ().delete_section (this);
-                }
+                });
             }
         });
+    }
+
+    public async HttpResponse delete_section_async () {
+        HttpResponse response;
+
+        if (project.source_type == SourceType.TODOIST) {
+            loading = true;
+            response = yield Services.Todoist.get_default ().delete (this);
+            Services.Store.instance ().delete_section (this);
+        } else if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+            if (project.is_deck) {
+                response = yield Services.Deck.Core.get_default ().delete_stack (this);
+            } else {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                response = yield _delete_caldav_section (caldav_client);
+            }
+
+            if (response.status) {
+                Services.Store.instance ().delete_section (this);
+            }
+        } else {
+            Services.Store.instance ().delete_section (this);
+            response = new HttpResponse () { status = true };
+        }
+
+        loading = false;
+        return response;
     }
 
     public void archive_section (Gtk.Window window) {
@@ -528,25 +538,16 @@ public class Objects.Section : Objects.BaseObject {
         return summary != null && summary.has_prefix (CALDAV_PREFIX);
     }
 
-    private async void _delete_caldav_section (Services.CalDAV.CalDAVClient caldav_client) {
-        loading = true;
+    private async HttpResponse _delete_caldav_section (Services.CalDAV.CalDAVClient caldav_client) {
         try {
-            // Delete all items in this section from server recursively
             foreach (Objects.Item item in items) {
                 yield delete_item_caldav_recursive (item, caldav_client);
             }
-
-            // Delete the section VTODO itself
-            HttpResponse caldav_response = yield caldav_client.delete_section (this);
-            if (caldav_response.status) {
-                Services.Store.instance ().delete_section (this);
-            } else {
-                Services.EventBus.get_default ().send_error_toast (caldav_response.error_code, caldav_response.error);
-            }
         } catch (Error e) {
-            Services.EventBus.get_default ().send_error_toast (0, e.message);
+            return new HttpResponse () { error = e.message };
         }
-        loading = false;
+
+        return yield caldav_client.delete_section (this);
     }
 
     private async void delete_item_caldav_recursive (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
