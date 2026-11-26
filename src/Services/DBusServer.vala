@@ -31,6 +31,9 @@ public class Services.DBusServer : Object {
     }
 
     public signal void item_added (string id);
+    public signal void item_deleted (string id);
+    public signal void section_deleted (string id);
+    public signal void project_deleted (string id);
 
     construct {
         Bus.own_name (
@@ -45,6 +48,18 @@ public class Services.DBusServer : Object {
 
     public void add_item (string id) throws IOError, DBusError {
         item_added (id);
+    }
+
+    public void delete_item (string id) throws IOError, DBusError {
+        item_deleted (id);
+    }
+
+    public void delete_section (string id) throws IOError, DBusError {
+        section_deleted (id);
+    }
+
+    public void delete_project (string id) throws IOError, DBusError {
+        project_deleted (id);
     }
 
     private void on_bus_aquired (DBusConnection conn) {

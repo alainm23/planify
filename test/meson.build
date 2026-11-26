@@ -41,6 +41,7 @@ test_core_sources = [
     'core/test-item-memory.vala',
     'core/test-source-lifecycle.vala',
     'core/test-delete-completed-tasks.vala',
+    'core/test-delete-async.vala',
     'core/test-section-cache.vala'
 ]
 

@@ -344,7 +344,7 @@ msgid "Task exported successfully"
 msgstr "Tâche exportée avec succès"
 
 # # c-format
-#: core/Objects/Item.vala:2254 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2256 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "Tâche déplacée vers %s"
@@ -364,8 +364,8 @@ msgid "This can not be undone"
 msgstr "Action irréversible"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:919
-#: core/Objects/Project.vala:992 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:471 core/Utils/Util.vala:479
+#: core/Objects/Project.vala:979 core/Objects/Section.vala:430
+#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
@@ -407,17 +407,17 @@ msgstr "Projet copié vers le presse-papiers."
 msgid "Delete Project %s?"
 msgstr "Supprimer le projet %s?"
 
-#: core/Objects/Project.vala:988 core/Objects/Section.vala:467
+#: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "Archiver  ?"
 
 # # c-format
-#: core/Objects/Project.vala:989 core/Objects/Section.vala:468
+#: core/Objects/Project.vala:976 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "%s et toutes ses tâches seront archivés."
 
-#: core/Objects/Project.vala:993 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:980 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:722 src/Views/Project/Project.vala:405
 msgid "Archive"
@@ -523,7 +523,7 @@ msgstr "Aucune pièce-jointe trouvée. Ajoutez des fichiers ici."
 msgid "Open"
 msgstr "Ouvrir"
 
-#: core/QuickAddCore.vala:1683 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1683 src/MainWindow.vala:812
 msgid "Keyboard Shortcuts"
 msgstr "Raccourcis clavier"
 
@@ -1972,7 +1972,7 @@ msgstr "Mettre à jour l’étiquette"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:796
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:817
 msgid "Archived Projects"
 msgstr "Projets archivés"
 
@@ -2885,7 +2885,7 @@ msgstr ""
 "Si cette option est activée, il y aura un rappel avant l’échéance de la "
 "tâche par défaut."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:770
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:791
 msgid "Preferences"
 msgstr "Préférences"
 
@@ -3036,7 +3036,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:773
+#: src/MainWindow.vala:794
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3091,7 +3091,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:872
+#: src/MainWindow.vala:893
 msgid "See More"
 msgstr "Créer plus"
 
@@ -3593,35 +3593,35 @@ msgstr "Menu principal"
 msgid "Open Quick Find"
 msgstr "Ouvrir la recherche rapide"
 
-#: src/MainWindow.vala:349
+#: src/MainWindow.vala:370
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:351
+#: src/MainWindow.vala:372
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:794
+#: src/MainWindow.vala:815
 msgid "About Planify"
 msgstr "À propos de Planify"
 
-#: src/MainWindow.vala:869
+#: src/MainWindow.vala:890
 msgid "Oops! Something happened"
 msgstr "Oups ! Il s’est passé quelque chose"
 
-#: src/MainWindow.vala:888 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:909 src/Widgets/ItemChangeHistoryRow.vala:48
 msgid "Task completed"
 msgstr "Tache accomplie"
 
-#: src/MainWindow.vala:889
+#: src/MainWindow.vala:910
 msgid "View"
 msgstr "Afficher"
 
-#: src/MainWindow.vala:927
+#: src/MainWindow.vala:948
 msgid "Database Integrity Check Failed"
 msgstr "Échec de la vérification de l'intégrité de la base de données"
 
-#: src/MainWindow.vala:928
+#: src/MainWindow.vala:949
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3644,7 +3644,7 @@ msgstr ""
 "Après la réinitialisation, vous pourrez restaurer toute sauvegarde que vous "
 "avez créée auparavant. Merci de votre compréhension."
 
-#: src/MainWindow.vala:930
+#: src/MainWindow.vala:951
 msgid "Reset Database"
 msgstr "Réinitialisez la base de données"
 

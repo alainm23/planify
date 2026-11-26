@@ -345,7 +345,7 @@ msgid "Task exported successfully"
 msgstr ""
 
 # # c-format
-#: core/Objects/Item.vala:2254 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2256 core/Utils/Util.vala:891
 #, fuzzy, c-format
 msgid "Moved to %s"
 msgstr "कार्य को %s पर भेजा गया"
@@ -365,8 +365,8 @@ msgid "This can not be undone"
 msgstr "इसे पूर्ववत नहीं किया जा सकता"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:919
-#: core/Objects/Project.vala:992 core/Objects/Section.vala:430
-#: core/Objects/Section.vala:471 core/Utils/Util.vala:479
+#: core/Objects/Project.vala:979 core/Objects/Section.vala:430
+#: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
@@ -408,17 +408,17 @@ msgstr "परियोजना को क्लिपबोर्ड पर �
 msgid "Delete Project %s?"
 msgstr "परियोजना %s मिटाएं?"
 
-#: core/Objects/Project.vala:988 core/Objects/Section.vala:467
+#: core/Objects/Project.vala:975 core/Objects/Section.vala:477
 msgid "Archive?"
 msgstr "संग्रहित करें?"
 
 # # c-format
-#: core/Objects/Project.vala:989 core/Objects/Section.vala:468
+#: core/Objects/Project.vala:976 core/Objects/Section.vala:478
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "यह %s और उसके सभी कार्यों को संग्रहीत करेगा।"
 
-#: core/Objects/Project.vala:993 core/Objects/Section.vala:472
+#: core/Objects/Project.vala:980 core/Objects/Section.vala:482
 #: src/Layouts/ProjectRow.vala:707 src/Layouts/SectionBoard.vala:629
 #: src/Layouts/SectionRow.vala:722 src/Views/Project/Project.vala:405
 msgid "Archive"
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Open"
 msgstr "खोलें"
 
-#: core/QuickAddCore.vala:1683 src/MainWindow.vala:791
+#: core/QuickAddCore.vala:1683 src/MainWindow.vala:812
 msgid "Keyboard Shortcuts"
 msgstr "कीबोर्ड शॉर्टकट"
 
@@ -1950,7 +1950,7 @@ msgstr "लेबल अद्यतन"
 msgid "Filter"
 msgstr "फिल्टर"
 
-#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:796
+#: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:817
 msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
@@ -2851,7 +2851,7 @@ msgid ""
 msgstr ""
 "सक्षम होने पर, कार्य के नियत समय से पहले एक रिमाइंडर तयशुदा रूप से जोड़ दिया जाएगा।"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:770
+#: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:791
 msgid "Preferences"
 msgstr "प्राथमिकताएं"
 
@@ -3001,7 +3001,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:773
+#: src/MainWindow.vala:794
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3056,7 +3056,7 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
-#: src/MainWindow.vala:872
+#: src/MainWindow.vala:893
 msgid "See More"
 msgstr "और बनाएं"
 
@@ -3562,36 +3562,36 @@ msgstr "मुख्य मेनू"
 msgid "Open Quick Find"
 msgstr "शीघ्र खोज खोलें"
 
-#: src/MainWindow.vala:349
+#: src/MainWindow.vala:370
 msgid "Task was modified on another device"
 msgstr ""
 
-#: src/MainWindow.vala:351
+#: src/MainWindow.vala:372
 msgid "Sync Now"
 msgstr ""
 
-#: src/MainWindow.vala:794
+#: src/MainWindow.vala:815
 msgid "About Planify"
 msgstr "प्लॅानिफाई के बारे में"
 
-#: src/MainWindow.vala:869
+#: src/MainWindow.vala:890
 msgid "Oops! Something happened"
 msgstr "उफ़! कुछ हुआ"
 
-#: src/MainWindow.vala:888 src/Widgets/ItemChangeHistoryRow.vala:48
+#: src/MainWindow.vala:909 src/Widgets/ItemChangeHistoryRow.vala:48
 #, fuzzy
 msgid "Task completed"
 msgstr "पूर्ण"
 
-#: src/MainWindow.vala:889
+#: src/MainWindow.vala:910
 msgid "View"
 msgstr ""
 
-#: src/MainWindow.vala:927
+#: src/MainWindow.vala:948
 msgid "Database Integrity Check Failed"
 msgstr ""
 
-#: src/MainWindow.vala:928
+#: src/MainWindow.vala:949
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3604,7 +3604,7 @@ msgid ""
 "previously. Thank you for your patience"
 msgstr ""
 
-#: src/MainWindow.vala:930
+#: src/MainWindow.vala:951
 msgid "Reset Database"
 msgstr ""
 

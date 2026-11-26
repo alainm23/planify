@@ -404,7 +404,7 @@ msgstr "Xuất nhiệm vụ thành công"
 #: core/Objects/Item.vala:2076 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2156 core/Objects/Item.vala:2175
 #: core/Objects/Item.vala:2213 core/Objects/Item.vala:2235
-#: core/Objects/Item.vala:2254
+#: core/Objects/Item.vala:2254 core/Objects/Item.vala:2256
 #, c-format
 msgid "Moved to %s"
 msgstr "%d nhiệm vụ đã di chuyển đến %s"
@@ -472,6 +472,7 @@ msgstr "Không thể hoàn tác"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
+#: core/Objects/Project.vala:979
 msgid "Cancel"
 msgstr "Hủy"
 
@@ -524,7 +525,7 @@ msgstr "Xóa Dự Án %s?"
 #: core/Objects/Project.vala:978 core/Objects/Section.vala:477
 #: core/Objects/Project.vala:981 core/Objects/Project.vala:986
 #: core/Objects/Project.vala:991 core/Objects/Section.vala:467
-#: core/Objects/Project.vala:988
+#: core/Objects/Project.vala:988 core/Objects/Project.vala:975
 msgid "Archive?"
 msgstr "Lưu Trữ?"
 
@@ -533,7 +534,7 @@ msgstr "Lưu Trữ?"
 #: core/Objects/Project.vala:979 core/Objects/Section.vala:478
 #: core/Objects/Project.vala:982 core/Objects/Project.vala:987
 #: core/Objects/Project.vala:992 core/Objects/Section.vala:468
-#: core/Objects/Project.vala:989
+#: core/Objects/Project.vala:989 core/Objects/Project.vala:976
 #, c-format
 msgid "This will archive %s and all its tasks."
 msgstr "Điều này sẽ lưu trữ %s và tất cả nhiệm vụ của nó."
@@ -549,6 +550,7 @@ msgstr "Điều này sẽ lưu trữ %s và tất cả nhiệm vụ của nó."
 #: src/Layouts/SectionRow.vala:723 src/Views/Project/Project.vala:405
 #: core/Objects/Project.vala:996 core/Objects/Section.vala:472
 #: src/Layouts/SectionRow.vala:722 core/Objects/Project.vala:993
+#: core/Objects/Project.vala:980
 msgid "Archive"
 msgstr "Lưu Trữ"
 
@@ -639,7 +641,7 @@ msgstr ""
 #: core/QuickAddCore.vala:1455 src/MainWindow.vala:792 src/MainWindow.vala:802
 #: core/QuickAddCore.vala:1687 src/MainWindow.vala:808 src/MainWindow.vala:809
 #: src/MainWindow.vala:791 core/QuickAddCore.vala:1692
-#: core/QuickAddCore.vala:1683
+#: core/QuickAddCore.vala:1683 src/MainWindow.vala:812
 msgid "Keyboard Shortcuts"
 msgstr "Phím Tắt"
 
@@ -2232,7 +2234,7 @@ msgstr "Bộ lọc"
 
 #: src/Dialogs/ManageProjects.vala:29 src/MainWindow.vala:797
 #: src/MainWindow.vala:807 src/MainWindow.vala:813 src/MainWindow.vala:814
-#: src/MainWindow.vala:796
+#: src/MainWindow.vala:796 src/MainWindow.vala:817
 msgid "Archived Projects"
 msgstr "Dự Án Đã Lưu Trữ"
 
@@ -3210,7 +3212,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:40 src/MainWindow.vala:771
 #: src/MainWindow.vala:781 src/MainWindow.vala:787 src/MainWindow.vala:788
-#: src/MainWindow.vala:770
+#: src/MainWindow.vala:770 src/MainWindow.vala:791
 msgid "Preferences"
 msgstr "Tùy Chọn"
 
@@ -3360,7 +3362,7 @@ msgstr[0] ""
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
 #: src/MainWindow.vala:774 src/MainWindow.vala:784 src/MainWindow.vala:790
-#: src/MainWindow.vala:791 src/MainWindow.vala:773
+#: src/MainWindow.vala:791 src/MainWindow.vala:773 src/MainWindow.vala:794
 msgid "Summary & Productivity"
 msgstr ""
 
@@ -3416,7 +3418,7 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:43
 #: src/Dialogs/ProductivityReport/SummarySection.vala:38
 #: src/MainWindow.vala:873 src/MainWindow.vala:883 src/MainWindow.vala:889
-#: src/MainWindow.vala:890 src/MainWindow.vala:872
+#: src/MainWindow.vala:890 src/MainWindow.vala:872 src/MainWindow.vala:893
 msgid "See More"
 msgstr "Xem Thêm"
 
@@ -3931,43 +3933,43 @@ msgid "Open Quick Find"
 msgstr "Mở Tìm Kiếm Nhanh"
 
 #: src/MainWindow.vala:340 src/MainWindow.vala:342 src/MainWindow.vala:343
-#: src/MainWindow.vala:349
+#: src/MainWindow.vala:349 src/MainWindow.vala:370
 msgid "Task was modified on another device"
 msgstr ""
 
 #: src/MainWindow.vala:342 src/MainWindow.vala:344 src/MainWindow.vala:345
-#: src/MainWindow.vala:351
+#: src/MainWindow.vala:351 src/MainWindow.vala:372
 msgid "Sync Now"
 msgstr ""
 
 #: src/MainWindow.vala:795 src/MainWindow.vala:805 src/MainWindow.vala:811
-#: src/MainWindow.vala:812 src/MainWindow.vala:794
+#: src/MainWindow.vala:812 src/MainWindow.vala:794 src/MainWindow.vala:815
 msgid "About Planify"
 msgstr "Về Planify"
 
 #: src/MainWindow.vala:870 src/MainWindow.vala:880 src/MainWindow.vala:886
-#: src/MainWindow.vala:887 src/MainWindow.vala:869
+#: src/MainWindow.vala:887 src/MainWindow.vala:869 src/MainWindow.vala:890
 msgid "Oops! Something happened"
 msgstr "Ối! Đã xảy ra lỗi"
 
 #: src/MainWindow.vala:889 src/Widgets/ItemChangeHistoryRow.vala:48
 #: src/MainWindow.vala:899 src/MainWindow.vala:905 src/MainWindow.vala:906
-#: src/MainWindow.vala:888
+#: src/MainWindow.vala:888 src/MainWindow.vala:909
 msgid "Task completed"
 msgstr "Nhiệm vụ đã hoàn thành"
 
 #: src/MainWindow.vala:890 src/MainWindow.vala:900 src/MainWindow.vala:906
-#: src/MainWindow.vala:907 src/MainWindow.vala:889
+#: src/MainWindow.vala:907 src/MainWindow.vala:889 src/MainWindow.vala:910
 msgid "View"
 msgstr "Xem"
 
 #: src/MainWindow.vala:928 src/MainWindow.vala:938 src/MainWindow.vala:944
-#: src/MainWindow.vala:945 src/MainWindow.vala:927
+#: src/MainWindow.vala:945 src/MainWindow.vala:927 src/MainWindow.vala:948
 msgid "Database Integrity Check Failed"
 msgstr "Kiểm Tra Tính Toàn Vẹn Cơ Sở Dữ Liệu Thất Bại"
 
 #: src/MainWindow.vala:929 src/MainWindow.vala:939 src/MainWindow.vala:945
-#: src/MainWindow.vala:946 src/MainWindow.vala:928
+#: src/MainWindow.vala:946 src/MainWindow.vala:928 src/MainWindow.vala:949
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -3990,7 +3992,7 @@ msgstr ""
 "trước đó. Cảm ơn sự kiên nhẫn của bạn"
 
 #: src/MainWindow.vala:931 src/MainWindow.vala:941 src/MainWindow.vala:947
-#: src/MainWindow.vala:948 src/MainWindow.vala:930
+#: src/MainWindow.vala:948 src/MainWindow.vala:930 src/MainWindow.vala:951
 msgid "Reset Database"
 msgstr "Đặt Lại Cơ Sở Dữ Liệu"
 
