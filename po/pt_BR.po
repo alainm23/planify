@@ -4,8 +4,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
 "PO-Revision-Date: 2026-11-26 15:53+0000\n"
-"Last-Translator: Davi B C Silva "
-"<davibarbosa91@users.noreply.hosted.weblate.org>\n"
+"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
+"fs@users.noreply.github.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1214,9 +1214,8 @@ msgstr ""
 "projeto. "
 
 #: core/Utils/Util.vala:647
-#, fuzzy
 msgid "Create a new task"
-msgstr "Criar uma Nova Tarefa"
+msgstr "Criar uma nova tarefa"
 
 #: core/Utils/Util.vala:648
 msgid ""
@@ -2364,12 +2363,10 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
-#, fuzzy
 msgid "Change Inbox"
-msgstr "Abrir Caixa de Entrada"
+msgstr "Alterar Caixa de Entrada"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
-#, fuzzy
 msgid "Syncing…"
 msgstr "Sincronizando…"
 
@@ -2646,9 +2643,8 @@ msgid "Use System Accent Color"
 msgstr "Use a cor de destaque do sistema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:79
-#, fuzzy
 msgid "Select theme"
-msgstr "Selecionar"
+msgstr "Selecionar tema"
 
 #: src/Dialogs/Preferences/Pages/Appearance.vala:89
 msgid "Use Adwaita Colors"
@@ -3119,9 +3115,8 @@ msgid "Task Settings"
 msgstr "Configurações da Tarefa"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:40
-#, fuzzy
 msgid "Complete Instantly"
-msgstr "Imediatamente"
+msgstr "Completar instantaneamente"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
 #, fuzzy
