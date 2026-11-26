@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-10-28 06:15+0000\n"
-"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
-"fs@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-11-26 15:53+0000\n"
+"Last-Translator: Davi B C Silva "
+"<davibarbosa91@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.11.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -404,9 +404,9 @@ msgstr "Suas tarefas foram exportadas"
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
 #: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
 #: core/Objects/Item.vala:2235 core/Objects/Item.vala:2254
-#, fuzzy, c-format
+#, c-format
 msgid "Moved to %s"
-msgstr "Tarefas adicionadas a <b>%s</b>"
+msgstr "Tarefas movidas para <b>%s</b>"
 
 # c-format
 #: core/Objects/Label.vala:220
@@ -663,7 +663,6 @@ msgstr "p1 = mais alto, p4 = mais baixo"
 
 #: core/QuickAddCore.vala:1476 core/QuickAddCore.vala:1708
 #: core/QuickAddCore.vala:1713 core/QuickAddCore.vala:1704
-#, fuzzy
 msgid "Add labels"
 msgstr "Adicionar rótulo(s)"
 
@@ -1332,13 +1331,12 @@ msgid "Add labels to your tasks!"
 msgstr "Adicione etiqueta(s) às suas tarefas!"
 
 #: core/Utils/Util.vala:726
-#, fuzzy
 msgid ""
 "Labels help you organize and categorize your tasks. To add a label, click "
 "the label button at the bottom."
 msgstr ""
-"As tags permitem que você melhore seu fluxo de trabalho no Planify. Para "
-"adicionar uma tag, clique no botão tag na parte inferior."
+"Os Rótulos permitem que você melhore seu fluxo de trabalho no Planify. Para "
+"adicionar um rótulo, clique no botão \"rótulo\" na parte inferior."
 
 #: core/Utils/Util.vala:732
 msgid "Set timely reminders!"
@@ -1888,7 +1886,7 @@ msgstr "Sem rótulos"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:477
 msgid "Label color"
-msgstr ""
+msgstr "Cor do rótulo"
 
 #: core/Widgets/LabelPicker/LabelsPickerCore.vala:599
 msgid "All Hidden"
@@ -2003,7 +2001,7 @@ msgstr "Em 6 horas"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:241
 msgid "Suggestions"
-msgstr ""
+msgstr "Sugestões"
 
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:257
 msgid "Choose a time in the future"
@@ -2077,8 +2075,8 @@ msgid ""
 "Get mobile notifications for your tasks through Google Calendar, Outlook, or "
 "any calendar app"
 msgstr ""
-"Receba notificações para as suas tarefas através do Google Calendar, "
-"Outlook, ou qualquer aplicativo de agenda"
+"Receba notificações das suas tarefas no celular pelo Google Calendar, "
+"Outlook ou qualquer aplicativo de agenda"
 
 #: src/Dialogs/CalendarSync.vala:63
 msgid ""
@@ -2396,9 +2394,8 @@ msgstr "URL do servidor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:80
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:81
-#, fuzzy
 msgid "Username"
-msgstr "Nome de Usuário"
+msgstr "Nome de usuário"
 
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:83
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:84
@@ -3101,9 +3098,8 @@ msgid "Sidebar Width"
 msgstr "Largura da Barra Lateral"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:48
-#, fuzzy
 msgid "List View for Filters"
-msgstr "Novos Filtros"
+msgstr "Ver filtros como lista"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:49
 msgid "Show filters in a simple list instead of a grid"
@@ -4549,7 +4545,7 @@ msgstr "Organizador"
 
 #: src/Widgets/EventRow.vala:314
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/Widgets/EventRow.vala:324
 msgid "Calendar"
@@ -4936,91 +4932,93 @@ msgstr[1] "Tarefas movidas para <b>%s</b>"
 #: core/Services/CalDAV/Providers/Nextcloud.vala:69
 #, c-format
 msgid "Failed to load client certificate: %s"
-msgstr ""
+msgstr "Falhou ao carregar o certificado do cliente: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
 msgid "Apply Certificate"
-msgstr ""
+msgstr "Aplicar Certificado"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
 msgid "Client Certificate (mTLS)"
-msgstr ""
+msgstr "Certificado do cliente (mTLS)"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
 msgid ""
 "Use a client certificate to authenticate with servers that require mutual TLS"
 msgstr ""
+"Use um certificado de cliente para se autenticar em servidores que exigem "
+"TLS mútuo"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
 #, c-format
 msgid "Invalid certificate: %s"
-msgstr ""
+msgstr "Certificado Inválido: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate updated"
-msgstr ""
+msgstr "Certificado do cliente atualizado"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate removed"
-msgstr ""
+msgstr "Certificado do cliente removido"
 
 #: src/Widgets/ClientCertificateRow.vala:49
 msgid "Client certificate (mTLS)"
-msgstr ""
+msgstr "Certificado do cliente (mTLS)"
 
 #: src/Widgets/ClientCertificateRow.vala:50
 msgid "Authenticate to the server with a client certificate"
-msgstr ""
+msgstr "Autentique-se no servidor com um certificado de cliente"
 
 #: src/Widgets/ClientCertificateRow.vala:55
 msgid "Certificate file"
-msgstr ""
+msgstr "Arquivo de certificado"
 
 #: src/Widgets/ClientCertificateRow.vala:56
 #: src/Widgets/ClientCertificateRow.vala:100
 msgid "No file selected"
-msgstr ""
+msgstr "Nenhum arquivo selecionado"
 
 #: src/Widgets/ClientCertificateRow.vala:60
 msgid "Choose…"
-msgstr ""
+msgstr "Escolha…"
 
 #: src/Widgets/ClientCertificateRow.vala:68
 msgid "Certificate password (PKCS#12)"
-msgstr ""
+msgstr "Senha do certificado (PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:96
 msgid "PKCS#12 certificate stored"
-msgstr ""
+msgstr "PKCS#12 certificado armazenado"
 
 #: src/Widgets/ClientCertificateRow.vala:97
 msgid "PEM certificate stored"
-msgstr ""
+msgstr "PEM certificado armazenado"
 
 #: src/Widgets/ClientCertificateRow.vala:106
 msgid "Select client certificate"
-msgstr ""
+msgstr "Selecione o certificado do cliente"
 
 #: src/Widgets/ClientCertificateRow.vala:111
 msgid "Certificates (PEM, PKCS#12)"
-msgstr ""
+msgstr "Certificados (PEM,PKCS#12)"
 
 #: src/Widgets/ClientCertificateRow.vala:149
 msgid "Failed to read file"
-msgstr ""
+msgstr "Falhou em ler o arquivo"
 
 #: core/Objects/Reminder.vala:93
 #, c-format
 msgid "%s · Next occurrence"
-msgstr ""
+msgstr "%s · Próxima ocorrência"
 
 #: core/Widgets/ReminderPicker/ReminderRow.vala:76
 msgid "Will remind you again when the task repeats"
-msgstr ""
+msgstr "Você receberá outro lembrete quando a tarefa se repetir"
 
 #: core/Services/Todoist/Todoist.vala:154
 #: core/Services/Todoist/Todoist.vala:156
@@ -5032,12 +5030,19 @@ msgid ""
 "Changes you make in the meantime are saved\n"
 "and will be synced then."
 msgstr ""
+"O Todoist está limitando a frequência com que o Planify pode realizar a "
+"sincronização.\n"
+"A sincronização será retomada automaticamente em %s.\n"
+"As alterações feitas nesse período são salvas\n"
+"e serão sincronizadas posteriormente."
 
 #: core/Services/CalDAV/CalDAVClient.vala:72
 #: core/Services/CalDAV/CalDAVClient.vala:89
 #: core/Services/CalDAV/CalDAVClient.vala:130
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
+"Não foi possível contatar o servidor. Verifique sua conexão e tente "
+"novamente."
 
 #, c-format
 #~ msgid "Backup files are stored in: %s"
