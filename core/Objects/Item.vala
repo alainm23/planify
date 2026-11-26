@@ -1861,48 +1861,50 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void delete_item () {
-        if (project.source_type == SourceType.LOCAL) {
-            Services.Store.instance ().delete_item (this);
-        } else if (project.source_type == SourceType.TODOIST) {
-            loading = true;
-            Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                HttpResponse response = Services.Todoist.get_default ().delete.end (res);
-                loading = false;
-
-                if (response.status) {
-                    Services.Store.instance ().delete_item (this);
-                } else {
-                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
-                }
-            });
-        } else if (project.source_type == SourceType.CALDAV) {
-            if (project.is_deck) {
-                _delete_deck.begin ();
-            } else {
-                delete_caldav.begin ();
+        delete_item_async.begin ((obj, res) => {
+            HttpResponse response = delete_item_async.end (res);
+            if (!response.status) {
+                Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
             }
-        }
+        });
     }
 
-    private async void delete_caldav () {
+    public async HttpResponse delete_item_async () {
+        if (project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().delete_item (this);
+            return new HttpResponse () { status = true };
+        }
+
+        HttpResponse response;
         loading = true;
+
+        if (project.source_type == SourceType.TODOIST) {
+            response = yield Services.Todoist.get_default ().delete (this);
+        } else if (project.is_deck) {
+            response = yield Services.Deck.Core.get_default ().delete_card (this);
+        } else {
+            response = yield delete_caldav ();
+        }
+
+        loading = false;
+
+        if (response.status) {
+            Services.Store.instance ().delete_item (this);
+        }
+
+        return response;
+    }
+
+    private async HttpResponse delete_caldav () {
         var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
 
         try {
             yield delete_subitems_caldav (this, caldav_client);
-
-            var response = yield caldav_client.delete_item (this);
-
-            if (!response.status) {
-                throw new IOError.FAILED (response.error);
-            }
-
-            Services.Store.instance ().delete_item (this);
         } catch (Error e) {
-            Services.EventBus.get_default ().send_error_toast (0, e.message);
+            return new HttpResponse () { error = e.message };
         }
 
-        loading = false;
+        return yield caldav_client.delete_item (this);
     }
 
     private async void delete_subitems_caldav (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
@@ -2487,18 +2489,6 @@ public class Objects.Item : Objects.BaseObject {
         loading = false;
     }
 
-    private async void _delete_deck () {
-        loading = true;
-        var response = yield Services.Deck.Core.get_default ().delete_card (this);
-        
-        if (response.status) {
-            Services.Store.instance ().delete_item (this);
-        } else {
-            Services.EventBus.get_default ().send_error_toast (0, response.error);
-        }
-        
-        loading = false;
-    }
 
     private async HttpResponse _complete_deck_item () {
         return yield Services.Deck.Core.get_default ().save_card (this);
