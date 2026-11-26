@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-08 17:08-0500\n"
-"PO-Revision-Date: 2026-09-16 01:51+0000\n"
-"Last-Translator: João Pedro Pitarelo <joao.pitarelo@proton.me>\n"
+"PO-Revision-Date: 2026-11-27 16:51+0000\n"
+"Last-Translator: Davi B C Silva "
+"<davibarbosa91@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/planify-extra/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.10.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:7
 #: data/io.github.alainm23.planify.desktop.in.in:4
@@ -48,11 +49,11 @@ msgstr "Arraste e solte tarefas e projetos facilmente"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:18
 msgid "Visual progress indicators for each project"
-msgstr "Indicadores visuais de progressão para cada projeto"
+msgstr "Indicadores visuais de progresso para cada projeto"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:19
 msgid "Smart organization with sections and custom labels"
-msgstr "Organização inteligente com seções e rótulos personalizados"
+msgstr "Organização inteligente com seções e rótulos personalizados."
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:20
 msgid "Calendar integration to visualize your schedule"
@@ -76,7 +77,7 @@ msgstr "Tarefas recorrentes com modelos flexíveis"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:25
 msgid "Attachments and links in your tasks"
-msgstr "Anexos e links nas suas tarefas"
+msgstr "Anexos e links em suas tarefas"
 
 #: data/io.github.alainm23.planify.appdata.xml.in.in:27
 msgid "☁️ Cloud Synchronization:"
