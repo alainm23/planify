@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-11-26 15:53+0000\n"
-"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
-"fs@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-11-26 18:46+0000\n"
+"Last-Translator: Davi B C Silva "
+"<davibarbosa91@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -184,7 +184,7 @@ msgstr "Agendado"
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
 msgid "Pin"
-msgstr "Fixado"
+msgstr "Fixar"
 
 #: core/Enum.vala:554 core/Widgets/DeadlineButton.vala:152
 #: src/Services/ExportService.vala:57 core/Widgets/DeadlineButton.vala:158
@@ -199,7 +199,7 @@ msgstr "Tarefa principal"
 
 #: core/Objects/Filters/AllItems.vala:33
 msgid "All Tasks"
-msgstr "Todas as Tarefas"
+msgstr "Todas as tarefas"
 
 #: core/Objects/Filters/AllItems.vala:34
 msgid "all tasks"
@@ -265,7 +265,7 @@ msgstr "rótulos"
 
 #: core/Objects/Filters/Pinboard.vala:34
 msgid "Pinboard"
-msgstr "Quadro de anúncios"
+msgstr "Fixados"
 
 #: core/Objects/Filters/Priority.vala:127 core/Objects/Item.vala:117
 #: core/Objects/Item.vala:139
@@ -430,7 +430,7 @@ msgstr "Excluir rótulo %s"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
 msgid "This can not be undone"
-msgstr "Isso não pode ser desfeito"
+msgstr "Isto não pode ser desfeito"
 
 #: core/Objects/Label.vala:224 core/Objects/Project.vala:894
 #: core/Objects/Project.vala:968 core/Objects/Section.vala:430
@@ -3119,14 +3119,12 @@ msgid "Complete Instantly"
 msgstr "Completar instantaneamente"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:41
-#, fuzzy
 msgid "Complete with Undo"
-msgstr "Concluído"
+msgstr "Concluir com opção de desfazer"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:44
-#, fuzzy
 msgid "Task Completion"
-msgstr "Concluir Tarefa"
+msgstr "Conclusão de tarefas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:45
 msgid "Choose how tasks behave when marked as complete"
@@ -3177,9 +3175,8 @@ msgid "Play a sound when tasks are completed"
 msgstr "Tocar um som quando as tarefas forem concluídas"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:104
-#, fuzzy
 msgid "Open Tasks in Sidebar View"
-msgstr "Abrir tarefa na visualização da barra lateral"
+msgstr "Abrir tarefas na barra lateral"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:105
 msgid ""
@@ -3878,9 +3875,8 @@ msgstr "Carregar mais"
 #: src/Widgets/SubItems.vala:422 src/Layouts/SectionBoard.vala:604
 #: src/Layouts/SectionRow.vala:666 src/Layouts/SectionRow.vala:673
 #: src/Layouts/SectionRow.vala:672
-#, fuzzy
 msgid "completed tasks"
-msgstr "Tarefas concluídas"
+msgstr "tarefas concluídas"
 
 #: src/Layouts/SectionBoard.vala:609 src/Layouts/SectionRow.vala:701
 #: src/Layouts/SectionBoard.vala:624 src/Layouts/SectionRow.vala:711
@@ -3916,14 +3912,12 @@ msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
 #: src/Layouts/Sidebar.vala:122 src/Layouts/Sidebar.vala:124
-#, fuzzy
 msgid "Add Account"
 msgstr "Contas"
 
 #: src/Layouts/Sidebar.vala:123 src/Layouts/Sidebar.vala:125
-#, fuzzy
 msgid "Customize Sidebar"
-msgstr "Personalize sua barra lateral"
+msgstr "Personalizar barra lateral"
 
 #: src/Layouts/Sidebar.vala:313 src/Layouts/Sidebar.vala:365
 #: src/Layouts/Sidebar.vala:320 src/Layouts/Sidebar.vala:372
@@ -3986,9 +3980,8 @@ msgstr "Tarefa concluída"
 
 #: src/MainWindow.vala:900 src/MainWindow.vala:906 src/MainWindow.vala:907
 #: src/MainWindow.vala:889
-#, fuzzy
 msgid "View"
-msgstr "Exibição de Lista"
+msgstr "Exibir"
 
 #: src/MainWindow.vala:938 src/MainWindow.vala:944 src/MainWindow.vala:945
 #: src/MainWindow.vala:927
@@ -3997,7 +3990,6 @@ msgstr "Falha na verificação de integridade do banco de dados"
 
 #: src/MainWindow.vala:939 src/MainWindow.vala:945 src/MainWindow.vala:946
 #: src/MainWindow.vala:928
-#, fuzzy
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "
@@ -4012,10 +4004,13 @@ msgstr ""
 "Detectamos problemas com a estrutura do banco de dados que podem impedir o "
 "funcionamento correto do aplicativo. Isso pode ser devido à ausência de "
 "tabelas ou colunas, provavelmente causadas por corrupção de dados ou uma "
-"atualização incompleta. O banco de dados será redefinido para restaurar a "
-"funcionalidade normal e todos os dados existentes serão removidos. Após a "
-"redefinição, você poderá restaurar qualquer backup criado anteriormente. "
-"Agradecemos a sua paciência"
+"atualização incompleta.\n"
+"\n"
+"O banco de dados será redefinido para restaurar a funcionalidade normal e "
+"todos os dados existentes serão removidos.\n"
+"\n"
+"Após a redefinição, você poderá restaurar qualquer backup criado "
+"anteriormente. Agradecemos a sua paciência"
 
 #: src/MainWindow.vala:941 src/MainWindow.vala:947 src/MainWindow.vala:948
 #: src/MainWindow.vala:930
@@ -4064,20 +4059,17 @@ msgstr "Planeje Arquivos de Backup"
 
 # # c-format
 #: src/Services/Notification.vala:99
-#, fuzzy
 msgid "Snooze for 10 minutes"
-msgstr "Em 30 minutos"
+msgstr "Adiar por 10 minutos"
 
 # # c-format
 #: src/Services/Notification.vala:100
-#, fuzzy
 msgid "Snooze for 30 minutes"
-msgstr "Em 30 minutos"
+msgstr "Adiar por 30 minutos"
 
 #: src/Services/Notification.vala:101
-#, fuzzy
 msgid "Snooze for 1 hour"
-msgstr "Em 1 hora"
+msgstr "Adiar por 1 hora"
 
 #: src/Views/Filter.vala:132 src/Views/Filter.vala:864
 #: src/Views/Filter.vala:120 src/Views/Filter.vala:772
@@ -4195,9 +4187,8 @@ msgstr "Data de modificação"
 #: src/Layouts/ItemSortFilter.vala:74 src/Views/Project/Project.vala:610
 #: src/Views/Project/Project.vala:593 src/Views/Project/Project.vala:599
 #: src/Layouts/ItemSortFilter.vala:75 src/Views/Project/Project.vala:600
-#, fuzzy
 msgid "Ascending Order"
-msgstr "Ascendente"
+msgstr "Ordem crescente"
 
 #: src/Views/Filter.vala:940 src/Views/Project/Project.vala:569
 #: src/Layouts/ItemSortFilter.vala:78 src/Views/Project/Project.vala:616
@@ -4572,9 +4563,8 @@ msgstr "Tarefa não concluída"
 
 # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:52
-#, fuzzy
 msgid "Task moved to project"
-msgstr "Tarefa movida para o projeto: %s"
+msgstr "Tarefa movida para o projeto"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:53
 msgid "Unknown project"
@@ -4590,9 +4580,8 @@ msgstr "Seção desconhecida"
 
 # c-format
 #: src/Widgets/ItemChangeHistoryRow.vala:63
-#, fuzzy
 msgid "Task moved to"
-msgstr "Tarefas adicionadas a <b>%s</b>"
+msgstr "Tarefa movida para"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:169
 #: src/Widgets/ItemChangeHistoryRow.vala:199
@@ -4895,31 +4884,28 @@ msgstr "Abrir projeto anterior"
 
 #: src/Services/Notification.vala:100 src/Services/Notification.vala:142
 #: src/Services/Notification.vala:196
-#, fuzzy
 msgid "10m Snooze"
-msgstr "Em 30 minutos"
+msgstr "Adiada por 10 min"
 
 #: src/Services/Notification.vala:102 src/Services/Notification.vala:144
 #: src/Services/Notification.vala:198
-#, fuzzy
 msgid "30m Snooze"
-msgstr "Em 30 minutos"
+msgstr "Adiada por 30 min"
 
 #: src/Services/Notification.vala:104 src/Services/Notification.vala:146
 #: src/Services/Notification.vala:200
-#, fuzzy
 msgid "1h Snooze"
-msgstr "Em 1 hora"
+msgstr "Adiada por 1 h"
 
 # c-format
 #: src/Widgets/MultiSelectToolbar.vala:447
 #: src/Widgets/MultiSelectToolbar.vala:456
 #: src/Widgets/MultiSelectToolbar.vala:501
-#, fuzzy, c-format
+#, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
-msgstr[0] "Tarefa movida para <b>%s</b>"
-msgstr[1] "Tarefas movidas para <b>%s</b>"
+msgstr[0] "%d tarefa movida para <b>%s</b>"
+msgstr[1] "%d tarefas movidas para <b>%s</b>"
 
 #: core/Services/CalDAV/Core.vala:193
 #: core/Services/CalDAV/Providers/Nextcloud.vala:67
