@@ -358,8 +358,8 @@ msgstr "Удалить метку %s"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:427
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:311
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Это действие не может быть отменено"
@@ -372,9 +372,9 @@ msgstr "Это действие не может быть отменено"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
@@ -389,8 +389,8 @@ msgstr "Отмена"
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:920
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:237
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:289
 #: src/Views/Filter.vala:816 src/Views/Project/Project.vala:557
@@ -664,7 +664,7 @@ msgid "Sync completed"
 msgstr "Синхронизация завершена"
 
 #: core/Services/CalDAV/Core.vala:372
-#: core/Services/GoogleTasks/GoogleTasks.vala:123
+#: core/Services/GoogleTasks/GoogleTasks.vala:233
 msgid "Authentication Expired"
 msgstr "Срок действия аутентификации истёк"
 
@@ -692,11 +692,11 @@ msgstr ""
 msgid "On this computer"
 msgstr "На этом компьютере"
 
-#: core/Services/GoogleTasks/GoogleTasks.vala:71
+#: core/Services/GoogleTasks/GoogleTasks.vala:73
 msgid "This Google account is already added"
 msgstr ""
 
-#: core/Services/GoogleTasks/GoogleTasks.vala:124
+#: core/Services/GoogleTasks/GoogleTasks.vala:234
 msgid ""
 "Your Google session has expired. Please remove and re-add your account in "
 "Preferences."
@@ -777,7 +777,7 @@ msgstr "Недействительный API-токен"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:83
+#: src/Layouts/SidebarSourceRow.vala:86
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -2107,7 +2107,7 @@ msgstr ""
 "измените проект «Входящие»."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
 msgid "Change Inbox"
 msgstr "Изменить «Входящие»"
 
@@ -2239,15 +2239,15 @@ msgstr "Включить Deck"
 msgid "Source"
 msgstr "Источник"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Display Name"
 msgstr "Отображаемое имя"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:88
 msgid "Sync Server"
 msgstr "Синхронизация с сервером"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:91
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2255,54 +2255,54 @@ msgstr ""
 "Активируйте эту настройку, чтобы Planify автоматически синхронизировался с "
 "вашей учётной записью каждые 15 минут"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:104
 msgid "Last Sync"
 msgstr "Последняя синхронизация"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:129
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:130
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Синхронизировать доски и карточки из Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:170
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Приложение Nextcloud Deck недоступно на этом сервере"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:185
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:250
 msgid "Delete Source"
 msgstr "Удалить источник"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:310
 msgid "Delete Source?"
 msgstr "Удалить источник?"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:364
 msgid "Apply Certificate"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:393
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate updated"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate removed"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:417
 msgid "Cannot Delete This Source"
 msgstr "Невозможно удалить этот источник"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:418
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -3522,7 +3522,7 @@ msgstr "Сортировать по"
 msgid "Delete Label"
 msgstr "Удалить метку"
 
-#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:246
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Сортировка проектов изменена на сортировку «Вручную»"
 
@@ -3630,7 +3630,7 @@ msgstr "Перейти в «Закреплённые»"
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Нет доступного проекта. Создайте его, нажав кнопку «+»"
 
-#: src/Layouts/SidebarSourceRow.vala:82
+#: src/Layouts/SidebarSourceRow.vala:85
 msgid "Account Migration Required"
 msgstr "Требуется перенос учётной записи"
 

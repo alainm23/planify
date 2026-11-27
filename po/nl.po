@@ -357,8 +357,8 @@ msgstr "Label %s verwijderen"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:427
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:311
 #: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Dit kan niet ongedaan gemaakt worden"
@@ -371,9 +371,9 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
@@ -388,8 +388,8 @@ msgstr "Annuleren"
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:920
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:237
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:289
 #: src/Views/Filter.vala:816 src/Views/Project/Project.vala:557
@@ -664,7 +664,7 @@ msgid "Sync completed"
 msgstr "Synchronisatie voltooid"
 
 #: core/Services/CalDAV/Core.vala:372
-#: core/Services/GoogleTasks/GoogleTasks.vala:123
+#: core/Services/GoogleTasks/GoogleTasks.vala:233
 msgid "Authentication Expired"
 msgstr "Aanmelding Verlopen"
 
@@ -692,11 +692,11 @@ msgstr ""
 msgid "On this computer"
 msgstr "Op deze computer"
 
-#: core/Services/GoogleTasks/GoogleTasks.vala:71
+#: core/Services/GoogleTasks/GoogleTasks.vala:73
 msgid "This Google account is already added"
 msgstr ""
 
-#: core/Services/GoogleTasks/GoogleTasks.vala:124
+#: core/Services/GoogleTasks/GoogleTasks.vala:234
 msgid ""
 "Your Google session has expired. Please remove and re-add your account in "
 "Preferences."
@@ -775,7 +775,7 @@ msgstr "Ongeldig API token"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:83
+#: src/Layouts/SidebarSourceRow.vala:86
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -2115,7 +2115,7 @@ msgstr ""
 "eerst te wijzigen."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
 msgid "Change Inbox"
 msgstr "Postvak veranderen"
 
@@ -2241,16 +2241,16 @@ msgstr ""
 msgid "Source"
 msgstr "Bron"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Display Name"
 msgstr "Weergavenaam"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:88
 msgid "Sync Server"
 msgstr "Met server synchroniseren"
 
 # Assumed error "Planner" -> "Planify"
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:91
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2258,54 +2258,54 @@ msgstr ""
 "Activeer deze instelling om Planify elke 15 minuten automatisch te laten "
 "synchroniseren met je account"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:104
 msgid "Last Sync"
 msgstr "Laatste synchronisatie"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:129
 msgid "Nextcloud Deck"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:130
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Synchroniseer borden en kaarten vanuit Nextcloud Deck"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:170
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Nextcloud Deck is niet beschikbaar op deze server"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:185
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:250
 msgid "Delete Source"
 msgstr "Bron verwijderen"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:310
 msgid "Delete Source?"
 msgstr "Bron verwijderen?"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:364
 msgid "Apply Certificate"
 msgstr "Certificaat toepassen"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:393
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr "Ongeldig certificaat: %s"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate updated"
 msgstr "Clientcertificaat bijgewerkt"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate removed"
 msgstr "Clientcertificaat verwijderd"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:417
 msgid "Cannot Delete This Source"
 msgstr "Deze bron kan niet worden verwijderd"
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:418
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -3520,7 +3520,7 @@ msgstr "Sorteren op"
 msgid "Delete Label"
 msgstr "Label verwijderen"
 
-#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:246
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Sortering van projecten aangepast naar 'Aangepaste volgorde'"
 
@@ -3630,7 +3630,7 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "Geen project beschikbaar. Maak er één aan door op de '+'-knop te klikken"
 
-#: src/Layouts/SidebarSourceRow.vala:82
+#: src/Layouts/SidebarSourceRow.vala:85
 msgid "Account Migration Required"
 msgstr "Accountmigratie vereist"
 
