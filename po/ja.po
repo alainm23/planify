@@ -2407,9 +2407,9 @@ msgid ""
 "development, new features, and maintenance. Every contribution, no matter "
 "the size, makes a difference."
 msgstr ""
-"Planify が無料かつオープンソースであり続けるために、ご協力をお願いいたします"
-"。皆様からの寄付は、開発や新機能の追加、そしてメンテナンスを直接支える力とな"
-"ります。金額の大小にかかわらず、どのようなご支援も大きな助けとなります。"
+"Planify が無料かつオープンソースであり続けるために、ご協力をお願いいたしま"
+"す。皆様からの寄付は、開発や新機能の追加、そしてメンテナンスを直接支える力と"
+"なります。金額の大小にかかわらず、どのようなご支援も大きな助けとなります。"
 
 #: src/Dialogs/Preferences/Pages/Donate.vala:73
 msgid "Patreon"
@@ -2781,8 +2781,8 @@ msgstr "チュートリアルプロジェクトを作成"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:155
 msgid "Learn the app step by step with a short tutorial project"
 msgstr ""
-"簡単なチュートリアルプロジェクトを使って、アプリの操作方法を段階的に学びまし"
-"ょう"
+"簡単なチュートリアルプロジェクトを使って、アプリの操作方法を段階的に学びま"
+"しょう"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Want to buy me a drink?"

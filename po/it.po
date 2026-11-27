@@ -3001,7 +3001,8 @@ msgstr "Utilizza le attività programmate come obiettivo"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr "Utlizza le attività programmate per oggi come tuo obiettivo giornaliero"
+msgstr ""
+"Utlizza le attività programmate per oggi come tuo obiettivo giornaliero"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
