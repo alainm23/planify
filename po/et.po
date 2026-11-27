@@ -651,12 +651,15 @@ msgid "Combine shortcuts in the title field for faster creation"
 msgstr ""
 
 #: core/Services/CalDAV/CalDAVClient.vala:290
+#: core/Services/CalDAV/CalDAVClient.vala:665
 #, c-format
 msgid "Loading tasks for %s…"
 msgstr "Laadin ülesandeid: %s…"
 
 #: core/Services/CalDAV/CalDAVClient.vala:301
 #: core/Services/CalDAV/CalDAVClient.vala:327
+#: core/Services/CalDAV/CalDAVClient.vala:676
+#: core/Services/CalDAV/CalDAVClient.vala:702
 #, c-format
 msgid "Loaded tasks for %s…"
 msgstr "Laadisin ülesandeid: %s…"
@@ -1459,6 +1462,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
+#: src/Layouts/ItemBoard.vala:749
 msgid "times"
 msgstr "korda"
 
@@ -1467,6 +1471,7 @@ msgstr "korda"
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
+#: src/Layouts/ItemBoard.vala:749
 msgid "time"
 msgstr "kord"
 
@@ -1582,7 +1587,7 @@ msgstr "Peale"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
-#: src/Layouts/ItemRow.vala:1350
+#: src/Layouts/ItemRow.vala:1350 src/Layouts/ItemBoard.vala:904
 msgid "Apply"
 msgstr "Rakenda"
 
@@ -3133,7 +3138,7 @@ msgstr[1] ""
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:30
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:199
-#: src/MainWindow.vala:791
+#: src/MainWindow.vala:791 src/MainWindow.vala:794
 msgid "Summary & Productivity"
 msgstr "Kokkuvõte ja sinu toimekus"
 
@@ -4318,6 +4323,7 @@ msgstr[0] "Kas oled kindel, et tahad selle %d ülesande kustutada?"
 msgstr[1] "Kas oled kindel, et tahad need %d ülesannet kustutada?"
 
 #: src/Widgets/MultiSelectToolbar.vala:447
+#: src/Widgets/MultiSelectToolbar.vala:501
 #, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"

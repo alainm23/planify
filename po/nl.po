@@ -2220,10 +2220,12 @@ msgid "Nextcloud Deck"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Synchroniseer borden en kaarten vanuit Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Nextcloud Deck is niet beschikbaar op deze server"
 
@@ -2242,6 +2244,7 @@ msgid "Delete Source?"
 msgstr "Bron verwijderen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
 msgid "Apply Certificate"
 msgstr "Certificaat toepassen"
 
@@ -2257,15 +2260,18 @@ msgstr ""
 "wederzijdse TLS-authenticatie vereisen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr "Ongeldig certificaat: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate updated"
 msgstr "Clientcertificaat bijgewerkt"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate removed"
 msgstr "Clientcertificaat verwijderd"
 

@@ -1864,6 +1864,7 @@ msgstr "Klávesou Enter štítek vytvoříte a přiřadíte"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 #: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
+#: src/Layouts/ItemRow.vala:2128
 msgid "Task description"
 msgstr "Popis úkolu"
 
@@ -4850,6 +4851,7 @@ msgstr "Připomeneme Vám to znovu, až se úkol bude opakovat"
 
 #: core/Services/Todoist/Todoist.vala:154
 #: core/Services/Todoist/Todoist.vala:156
+#: core/Services/Todoist/Todoist.vala:159
 #, c-format
 msgid ""
 "Todoist is limiting how often Planify can sync.\n"
@@ -4863,6 +4865,7 @@ msgstr ""
 "a budou synchronizovány tehdy."
 
 #: core/Services/CalDAV/CalDAVClient.vala:72
+#: core/Services/CalDAV/CalDAVClient.vala:130
 msgid "Couldn't reach the server. Check your connection and try again."
 msgstr ""
 "Nepodařilo se spojit se serverem. Zkontrolujte připojení a zkuste to znovu."

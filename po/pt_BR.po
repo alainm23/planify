@@ -404,6 +404,7 @@ msgstr "Suas tarefas foram exportadas"
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
 #: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
 #: core/Objects/Item.vala:2235 core/Objects/Item.vala:2254
+#: core/Objects/Item.vala:2256
 #, c-format
 msgid "Moved to %s"
 msgstr "Tarefas movidas para <b>%s</b>"
@@ -3984,7 +3985,7 @@ msgid "Task completed"
 msgstr "Tarefa concluída"
 
 #: src/MainWindow.vala:900 src/MainWindow.vala:906 src/MainWindow.vala:907
-#: src/MainWindow.vala:889
+#: src/MainWindow.vala:889 src/MainWindow.vala:910
 msgid "View"
 msgstr "Exibir"
 
@@ -3994,7 +3995,7 @@ msgid "Database Integrity Check Failed"
 msgstr "Falha na verificação de integridade do banco de dados"
 
 #: src/MainWindow.vala:939 src/MainWindow.vala:945 src/MainWindow.vala:946
-#: src/MainWindow.vala:928
+#: src/MainWindow.vala:928 src/MainWindow.vala:949
 msgid ""
 "We've detected issues with the database structure that may prevent the "
 "application from functioning properly. This may be due to missing tables or "

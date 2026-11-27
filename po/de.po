@@ -1218,6 +1218,8 @@ msgstr "🏃‍♀️️Nochmal aufgreifen"
 #: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1303
 #: src/Layouts/ItemRow.vala:1701 src/Layouts/ItemRow.vala:1845
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:448
+#: src/Layouts/ItemBoard.vala:1304 src/Layouts/ItemRow.vala:1713
+#: src/Layouts/ItemRow.vala:1857 src/Widgets/MultiSelectToolbar.vala:493
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 "Aufgaben von oder zu Nextcloud Deck zu verschieben wird noch nicht "
@@ -2325,6 +2327,7 @@ msgid "Delete Source?"
 msgstr "Quelle löschen?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
 msgid "Apply Certificate"
 msgstr "Zertifikat anwenden"
 
@@ -2342,15 +2345,18 @@ msgstr ""
 "mTLS verlangen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr "Ungültiges Zertifikat: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate updated"
 msgstr "Zertifikat aktualisiert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 msgid "Client certificate removed"
 msgstr "Zertifikat entfernt"
 
@@ -3504,7 +3510,7 @@ msgstr "Erstellt: %s"
 msgid "Task completed · Next: %s"
 msgstr "Aufgabe abgeschlossen · Nächste: %s"
 
-#: src/Layouts/ItemRow.vala:1837
+#: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1849
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 "Eine Aufgabe kann nur eine Unteraufgabe einer Aufgabe des selben Accounts "
@@ -4338,6 +4344,7 @@ msgstr[0] "Bist du sicher, dass du %d Aufgabe löschen möchtest?"
 msgstr[1] "Bist du sicher, dass du %d Aufgaben löschen möchtest?"
 
 #: src/Widgets/MultiSelectToolbar.vala:456
+#: src/Widgets/MultiSelectToolbar.vala:501
 #, c-format
 msgid "%d task moved to %s"
 msgid_plural "%d tasks moved to %s"
