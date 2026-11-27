@@ -46,6 +46,8 @@ core/Services/Deck/Core.vala
 core/Services/Deck/DeckClient.vala
 core/Services/EventBus.vala
 core/Services/GOA.vala
+core/Services/GoogleTasks/GoogleTasks.vala
+core/Services/GoogleTasks/GoogleTasksAuth.vala
 core/Services/HttpResponse.vala
 core/Services/LogService.vala
 core/Services/Settings.vala
@@ -113,6 +115,7 @@ src/Dialogs/ManageProjects.vala
 src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/Preferences/Pages/Accounts/Accounts.vala
 src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala
+src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala
 src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala
 src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala
 src/Dialogs/Preferences/Pages/Accounts/SourceView.vala

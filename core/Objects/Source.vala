@@ -47,6 +47,27 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
+    Objects.SourceGoogleTasksData _google_tasks_data;
+    public Objects.SourceGoogleTasksData google_tasks_data {
+        get {
+            _google_tasks_data = data as Objects.SourceGoogleTasksData;
+            return _google_tasks_data;
+        }
+    }
+
+    public static Objects.SourceData? data_from_json (SourceType source_type, string json) {
+        switch (source_type) {
+            case SourceType.TODOIST:
+                return new Objects.SourceTodoistData.from_json (json);
+            case SourceType.CALDAV:
+                return new Objects.SourceCalDAVData.from_json (json);
+            case SourceType.GOOGLE_TASKS:
+                return new Objects.SourceGoogleTasksData.from_json (json);
+            default:
+                return null;
+        }
+    }
+
     public string header_text {
         get {
             return display_name;
@@ -65,13 +86,17 @@ public class Objects.Source : Objects.BaseObject {
                 return _subheader_text;
             }
 
+            if (source_type == SourceType.GOOGLE_TASKS) {
+                return _("Google Tasks");
+            }
+
             return "";
         }
     }
 
     public string avatar_path {
         get {
-            return todoist_data.user_image_id;
+            return todoist_data != null ? todoist_data.user_image_id : "";
         }
     }
 
@@ -83,6 +108,10 @@ public class Objects.Source : Objects.BaseObject {
 
             if (source_type == SourceType.CALDAV) {
                 return caldav_data.user_displayname;
+            }
+
+            if (source_type == SourceType.GOOGLE_TASKS) {
+                return google_tasks_data.user_name;
             }
 
             return "";
@@ -97,6 +126,10 @@ public class Objects.Source : Objects.BaseObject {
 
             if (source_type == SourceType.CALDAV) {
                 return caldav_data.user_email;
+            }
+
+            if (source_type == SourceType.GOOGLE_TASKS) {
+                return google_tasks_data.user_email;
             }
 
             return "";
@@ -126,11 +159,7 @@ public class Objects.Source : Objects.BaseObject {
             last_sync = node.get_object ().get_string_member ("last_sync");
         }
 
-        if (source_type == SourceType.TODOIST) {
-            data = new Objects.SourceTodoistData.from_json (node.get_object ().get_string_member ("data"));
-        } else if (source_type == SourceType.CALDAV) {
-            data = new Objects.SourceCalDAVData.from_json (node.get_object ().get_string_member ("data"));
-        }
+        data = data_from_json (source_type, node.get_object ().get_string_member ("data"));
     }
 
     public void run_server (bool skip_first_sync = false) {
@@ -372,6 +401,97 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 
         string value = token.strip ();
         return value != "" && value != "(null)" && value != "null";
+    }
+}
+
+public class Objects.SourceGoogleTasksData : Objects.SourceData {
+    public string access_token { get; set; default = ""; }
+    public string refresh_token { get; set; default = ""; }
+    public int64 expires_at { get; set; default = 0; }
+    public string user_id { get; set; default = ""; }
+    public string user_email { get; set; default = ""; }
+    public string user_name { get; set; default = ""; }
+    public string user_avatar { get; set; default = ""; }
+    public string last_updated_min { get; set; default = ""; }
+
+    public SourceGoogleTasksData.from_json (string json) {
+        Json.Parser parser = new Json.Parser ();
+
+        try {
+            parser.load_from_data (json, -1);
+            var object = parser.get_root ().get_object ();
+
+            if (object.has_member ("access_token")) {
+                access_token = object.get_string_member ("access_token");
+            }
+
+            if (object.has_member ("refresh_token")) {
+                refresh_token = object.get_string_member ("refresh_token");
+            }
+
+            if (object.has_member ("expires_at")) {
+                expires_at = object.get_int_member ("expires_at");
+            }
+
+            if (object.has_member ("user_id")) {
+                user_id = object.get_string_member ("user_id");
+            }
+
+            if (object.has_member ("user_email")) {
+                user_email = object.get_string_member ("user_email");
+            }
+
+            if (object.has_member ("user_name")) {
+                user_name = object.get_string_member ("user_name");
+            }
+
+            if (object.has_member ("user_avatar")) {
+                user_avatar = object.get_string_member ("user_avatar");
+            }
+
+            if (object.has_member ("last_updated_min")) {
+                last_updated_min = object.get_string_member ("last_updated_min");
+            }
+        } catch (Error e) {
+            debug (e.message);
+        }
+    }
+
+    public override string to_json () {
+        builder.reset ();
+
+        builder.begin_object ();
+
+        builder.set_member_name ("access_token");
+        builder.add_string_value (access_token);
+
+        builder.set_member_name ("refresh_token");
+        builder.add_string_value (refresh_token);
+
+        builder.set_member_name ("expires_at");
+        builder.add_int_value (expires_at);
+
+        builder.set_member_name ("user_id");
+        builder.add_string_value (user_id);
+
+        builder.set_member_name ("user_email");
+        builder.add_string_value (user_email);
+
+        builder.set_member_name ("user_name");
+        builder.add_string_value (user_name);
+
+        builder.set_member_name ("user_avatar");
+        builder.add_string_value (user_avatar);
+
+        builder.set_member_name ("last_updated_min");
+        builder.add_string_value (last_updated_min);
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        generator.set_root (builder.get_root ());
+
+        return generator.to_data (null);
     }
 }
 

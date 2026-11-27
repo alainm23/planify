@@ -480,6 +480,8 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 #: core/Objects/Project.vala:979
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:644
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -562,6 +564,7 @@ msgstr "Izbriši razdelek %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: core/Objects/Source.vala:81
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -808,6 +811,7 @@ msgstr "Sinhronizacija je končana"
 #: core/Services/CalDAV/Core.vala:324 core/Services/CalDAV/Core.vala:350
 #: core/Services/CalDAV/Core.vala:359 core/Services/CalDAV/Core.vala:369
 #: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
+#: core/Services/GoogleTasks/GoogleTasks.vala:123
 msgid "Authentication Expired"
 msgstr "Veljavnost prijave je potekla"
 
@@ -2282,32 +2286,39 @@ msgstr "Arhivirano"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:71
 msgid "Accounts"
 msgstr "Računi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:67
 msgid "Add Source"
 msgstr "Dodaj vir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:75
 msgid "Task sources you sync with. Drag to reorder."
 msgstr ""
 "Viri nalog, s katerimi se sinhronizirate. Povlecite jih za spremembo "
 "vrstnega reda."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:99
 msgid "Inbox Page"
 msgstr "Stran Prejeto"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:233
 msgid "Detected Accounts"
 msgstr "Zaznani računi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:240
 msgid "Accounts configured in GNOME Online Accounts"
 msgstr "Računi, nastavljeni v Spletnih računih GNOME"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:288
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
@@ -2317,35 +2328,44 @@ msgstr[2] "Za uvoz iz Spletnih računov GNOME so na voljo %d računi"
 msgstr[3] "Za uvoz iz Spletnih računov GNOME je na voljo %d računov"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:332
 msgid "Import"
 msgstr "Uvozi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:417
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:784
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify sinhronizira vaše naloge. To lahko traja nekaj trenutkov"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:490
 msgid "SSL verification is disabled"
 msgstr "Preverjanje SSL je onemogočeno"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:500
 msgid "Authentication expired"
 msgstr "Veljavnost prijave je potekla"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 msgid "Account migration required"
 msgstr "Potrebna je selitev računa"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:522
 msgid "Reconnect"
 msgstr "Znova poveži"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:640
 msgid "Cannot Hide This Account"
 msgstr "Tega računa ni mogoče skriti"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:641
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2357,10 +2377,12 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
 msgid "Change Inbox"
 msgstr "Spremeni Prejeto"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:754
 msgid "Syncing…"
 msgstr "Sinhronizacija …"
 
@@ -2578,6 +2600,7 @@ msgid "Sign in with your Todoist account to sync your tasks"
 msgstr "Prijavite se z računom Todoist za sinhronizacijo nalog"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:57
 msgid "Sign in with Browser"
 msgstr "Prijavi se z brskalnikom"
 
@@ -2620,6 +2643,7 @@ msgid "How to get your token"
 msgstr "Kako pridobiti žeton"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:113
 msgid "Waiting for login…"
 msgstr "Čakanje na prijavo …"
 
@@ -4960,6 +4984,55 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:89
 #: core/Services/CalDAV/CalDAVClient.vala:130
 msgid "Couldn't reach the server. Check your connection and try again."
+msgstr ""
+
+#: core/Objects/Source.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
+msgid "Google Tasks"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:71
+msgid "This Google account is already added"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:124
+msgid ""
+"Your Google session has expired. Please remove and re-add your account in "
+"Preferences."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:91
+msgid "This sign-in link isn't valid anymore. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:97
+msgid "Access was denied"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:99
+msgid "Sign-in was cancelled. You can close this tab."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:102
+msgid "Something went wrong. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:105
+msgid "You're signed in. You can close this tab and go back to Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:114
+msgid "Sign-in took too long"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:45
+msgid "Connect to Google Tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:50
+msgid "Sign in with your Google account in the browser to sync your tasks"
 msgstr ""
 
 #~ msgid "%a, %b %-e"

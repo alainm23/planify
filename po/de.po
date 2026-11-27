@@ -407,6 +407,8 @@ msgstr "Dies kann nicht rückgängig gemacht werden"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 #: core/Objects/Project.vala:979
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:644
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -477,6 +479,7 @@ msgstr "Abschnitt %s löschen"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: core/Objects/Source.vala:81
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -718,6 +721,7 @@ msgid "Sync completed"
 msgstr "Synchronisierung ist abgeschlossen"
 
 #: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
+#: core/Services/GoogleTasks/GoogleTasks.vala:123
 msgid "Authentication Expired"
 msgstr "Authentifizierung abgelaufen"
 
@@ -2087,30 +2091,37 @@ msgstr "Archiviert"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:71
 msgid "Accounts"
 msgstr "Konten"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:67
 msgid "Add Source"
 msgstr "Quelle hinzufügen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:75
 msgid "Task sources you sync with. Drag to reorder."
 msgstr "Aufgabenquellen, die synchronisiert werden. Zum Umsortieren ziehen."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:99
 msgid "Inbox Page"
 msgstr "Posteingang-Seite"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:233
 msgid "Detected Accounts"
 msgstr "Gelöschte Konten"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:240
 msgid "Accounts configured in GNOME Online Accounts"
 msgstr "Konten, die In GNOME-Online-Konten konfiguriert sind"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:288
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
@@ -2118,35 +2129,44 @@ msgstr[0] "%d Konto kann aus GNOME-Online-Konten importiert werden"
 msgstr[1] "%d Konten können aus GNOME-Online-Konten importiert werden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:332
 msgid "Import"
 msgstr "Importieren"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:417
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:784
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify synchronisiert deine Aufgaben, dies kann einige Momente dauern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:490
 msgid "SSL verification is disabled"
 msgstr "SSL-Überprüfung ist deaktiviert"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:500
 msgid "Authentication expired"
 msgstr "Authentifizierung abgelaufen"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 msgid "Account migration required"
 msgstr "Kontoübertragung erforderlich"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:522
 msgid "Reconnect"
 msgstr "Erneut verbinden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:640
 msgid "Cannot Hide This Account"
 msgstr "Dieses Konto kann nicht verborgen werden"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:641
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2157,10 +2177,12 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
 msgid "Change Inbox"
 msgstr "Posteingang ändern"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:754
 msgid "Syncing…"
 msgstr "Synchronisieren…"
 
@@ -2383,6 +2405,7 @@ msgid "Sign in with your Todoist account to sync your tasks"
 msgstr "Bei Todoist-Konto anmelden, um Deine Aufgaben zu synchronisieren"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:57
 msgid "Sign in with Browser"
 msgstr "Über den Browser einloggen"
 
@@ -2423,6 +2446,7 @@ msgid "How to get your token"
 msgstr "Wie Du Dein Token erhältst"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:113
 msgid "Waiting for login…"
 msgstr "Auf Login warten…"
 
@@ -4540,6 +4564,55 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Öffne das vorherige Projekt"
 
+#: core/Objects/Source.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
+msgid "Google Tasks"
+msgstr "Google Tasks"
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:71
+msgid "This Google account is already added"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:124
+msgid ""
+"Your Google session has expired. Please remove and re-add your account in "
+"Preferences."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:91
+msgid "This sign-in link isn't valid anymore. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:97
+msgid "Access was denied"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:99
+msgid "Sign-in was cancelled. You can close this tab."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:102
+msgid "Something went wrong. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:105
+msgid "You're signed in. You can close this tab and go back to Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:114
+msgid "Sign-in took too long"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:45
+msgid "Connect to Google Tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:50
+msgid "Sign in with your Google account in the browser to sync your tasks"
+msgstr ""
+
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "Für 10 Minuten schlummern"
 
@@ -5192,9 +5265,6 @@ msgstr "Öffne das vorherige Projekt"
 #~ msgstr ""
 #~ "Drücke 'a' oder tippe auf den Plus-Knopf, um eine neue Aufgabe zu "
 #~ "erstellen."
-
-#~ msgid "Google Tasks"
-#~ msgstr "Google Tasks"
 
 #~ msgid "No to-dos for this filter yet"
 #~ msgstr "Keine Aufgaben für diesen Filter vorhanden"

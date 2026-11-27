@@ -503,6 +503,8 @@ msgstr "Це не можна скасувати"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
 #: core/Objects/Project.vala:979
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:644
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -602,6 +604,7 @@ msgstr "Видали розділ %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: core/Objects/Source.vala:81
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -874,6 +877,7 @@ msgstr "Синхронізацію завершено"
 #: core/Services/CalDAV/Core.vala:324 core/Services/CalDAV/Core.vala:350
 #: core/Services/CalDAV/Core.vala:359 core/Services/CalDAV/Core.vala:369
 #: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
+#: core/Services/GoogleTasks/GoogleTasks.vala:123
 msgid "Authentication Expired"
 msgstr "Термін дії автентифікації минув"
 
@@ -2410,30 +2414,37 @@ msgstr "Архівовано"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:71
 msgid "Accounts"
 msgstr "Облікові записи"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:67
 msgid "Add Source"
 msgstr "Додати джерело"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:75
 msgid "Task sources you sync with. Drag to reorder."
 msgstr "Джерела завдань для синхронізації. Перетягніть для зміни порядку."
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:99
 msgid "Inbox Page"
 msgstr "Вхідні"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:233
 msgid "Detected Accounts"
 msgstr "Виявлені облікові записи"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:240
 msgid "Accounts configured in GNOME Online Accounts"
 msgstr "Облікові записи, налаштовані в GNOME Online Accounts"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:288
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
@@ -2441,35 +2452,44 @@ msgstr[0] "%d обліковий запис доступний для імпор
 msgstr[1] "%d облікових записів доступні для імпорту з GNOME Online Accounts"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:332
 msgid "Import"
 msgstr "Імпорт"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:417
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:784
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify синхронізує ваші завдання, це може тривати кілька хвилин"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:490
 msgid "SSL verification is disabled"
 msgstr "SSL-перевірку вимкнено"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:500
 msgid "Authentication expired"
 msgstr "Термін дії автентифікації минув"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 msgid "Account migration required"
 msgstr "Потрібна міграція облікового запису"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:522
 msgid "Reconnect"
 msgstr "Знову підключитися"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:640
 msgid "Cannot Hide This Account"
 msgstr "Неможливо приховати цей обліковий запис"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:641
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2481,10 +2501,12 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:319
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
 msgid "Change Inbox"
 msgstr "Змінити папку \"Вхідні\""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:754
 msgid "Syncing…"
 msgstr "Синхронізація…"
 
@@ -2702,6 +2724,7 @@ msgid "Sign in with your Todoist account to sync your tasks"
 msgstr "Увійдіть у свій обліковий запис Todoist, щоб синхронізувати завдання"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:57
 msgid "Sign in with Browser"
 msgstr "Увійти за допомогою браузера"
 
@@ -2742,6 +2765,7 @@ msgid "How to get your token"
 msgstr "Як отримати свій токен"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:113
 msgid "Waiting for login…"
 msgstr "Очікування входу…"
 
@@ -5298,6 +5322,55 @@ msgstr ""
 #: core/Services/CalDAV/CalDAVClient.vala:89
 #: core/Services/CalDAV/CalDAVClient.vala:130
 msgid "Couldn't reach the server. Check your connection and try again."
+msgstr ""
+
+#: core/Objects/Source.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
+msgid "Google Tasks"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:71
+msgid "This Google account is already added"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:124
+msgid ""
+"Your Google session has expired. Please remove and re-add your account in "
+"Preferences."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:91
+msgid "This sign-in link isn't valid anymore. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:97
+msgid "Access was denied"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:99
+msgid "Sign-in was cancelled. You can close this tab."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:102
+msgid "Something went wrong. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:105
+msgid "You're signed in. You can close this tab and go back to Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:114
+msgid "Sign-in took too long"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:45
+msgid "Connect to Google Tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:50
+msgid "Sign in with your Google account in the browser to sync your tasks"
 msgstr ""
 
 #~ msgid "You can sort your accounts by dragging and dropping"
