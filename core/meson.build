@@ -18,6 +18,8 @@ core_files = files(
     'Services/Todoist/TodoistAuth.vala',
     'Services/Todoist/TodoistItems.vala',
     'Services/Todoist/TodoistProjects.vala',
+    'Services/GoogleTasks/GoogleTasksAuth.vala',
+    'Services/GoogleTasks/GoogleTasks.vala',
     'Services/BackupExporter.vala',
     'Services/ColorSchemeSettings.vala',
 

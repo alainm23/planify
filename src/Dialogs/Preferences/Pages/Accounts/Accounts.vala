@@ -44,12 +44,14 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
         var nextcloud_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
         var caldav_item = new Widgets.ContextMenu.MenuItem (_("CalDAV"));
+        var google_tasks_item = new Widgets.ContextMenu.MenuItem (_("Google Tasks"));
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (todoist_item);
         menu_box.append (nextcloud_item);
         menu_box.append (caldav_item);
+        menu_box.append (google_tasks_item);
 
         var popover = new Gtk.Popover () {
             has_arrow = true,
@@ -182,6 +184,10 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         signal_map[caldav_item.clicked.connect (() => {
             preferences_dialog.push_subpage (new CalDAVSetup (preferences_dialog, this));
         })] = caldav_item;
+
+        signal_map[google_tasks_item.clicked.connect (() => {
+            preferences_dialog.push_subpage (new GoogleTasksSetup (preferences_dialog, this));
+        })] = google_tasks_item;
 
         signal_map[sources_group.row_activated.connect ((row) => {
             var source = ((SourceRow) row).source;
