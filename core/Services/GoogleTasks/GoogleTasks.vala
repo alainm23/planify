@@ -29,6 +29,8 @@ public class Services.GoogleTasks : GLib.Object {
     private Soup.Session session;
     private Services.GoogleTasksAuth auth;
 
+    private Gee.HashSet<string> syncing_sources = new Gee.HashSet<string> ();
+
     private static GoogleTasks? _instance;
     public static GoogleTasks get_default () {
         if (_instance == null) {
@@ -80,6 +82,7 @@ public class Services.GoogleTasks : GLib.Object {
             source.data = data;
 
             Services.Store.instance ().insert_source (source);
+            yield download_avatar (source);
 
             response.status = true;
             Services.LogService.get_default ().info ("GoogleTasks", "Account added");
@@ -95,6 +98,113 @@ public class Services.GoogleTasks : GLib.Object {
         }
 
         return response;
+    }
+
+    public async void sync (Objects.Source source) {
+        if (source.id in syncing_sources) {
+            Services.LogService.get_default ().info ("GoogleTasks", "Sync already in progress, skipping");
+            return;
+        }
+
+        syncing_sources.add (source.id);
+        source.sync_started ();
+        Services.LogService.get_default ().info ("GoogleTasks", "Starting sync");
+
+        try {
+            yield sync_tasklists (source);
+
+            source.sync_status = null;
+            source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            source.sync_finished ();
+            Services.LogService.get_default ().info ("GoogleTasks", "Sync completed successfully");
+        } catch (Error e) {
+            Services.LogService.get_default ().error ("GoogleTasks", "Sync failed: %s".printf (e.message));
+
+            // get_access_token ya emitió sync_failed con AUTH_EXPIRED.
+            if (!(e is GLib.IOError.PERMISSION_DENIED)) {
+                source.sync_status = null;
+                source.sync_failed ();
+            }
+        }
+
+        syncing_sources.remove (source.id);
+    }
+
+    private async void sync_tasklists (Objects.Source source) throws GLib.Error {
+        var server_lists = new Gee.ArrayList<Json.Node> ();
+        string? page_token = null;
+
+        do {
+            string url = "%s/users/@me/lists?maxResults=100".printf (Constants.GOOGLE_TASKS_API);
+            if (page_token != null) {
+                url += "&pageToken=%s".printf (GLib.Uri.escape_string (page_token, null, false));
+            }
+
+            var root = yield get_json (source, url);
+
+            if (root.has_member ("items")) {
+                foreach (unowned Json.Node node in root.get_array_member ("items").get_elements ()) {
+                    server_lists.add (node.copy ());
+                }
+            }
+
+            page_token = root.has_member ("nextPageToken") ? root.get_string_member ("nextPageToken") : null;
+        } while (page_token != null);
+
+        Services.LogService.get_default ().debug ("GoogleTasks", "Found %d task lists".printf (server_lists.size));
+
+        var server_ids = new Gee.HashSet<string> ();
+        foreach (var node in server_lists) {
+            server_ids.add (node.get_object ().get_string_member ("id"));
+        }
+
+        foreach (Objects.Project local_project in Services.Store.instance ().get_projects_by_source (source.id)) {
+            if (!server_ids.contains (local_project.id)) {
+                Services.LogService.get_default ().info ("GoogleTasks", "Removing task list deleted on the server");
+                yield Services.Store.instance ().delete_project (local_project);
+            }
+        }
+
+        foreach (var node in server_lists) {
+            string id = node.get_object ().get_string_member ("id");
+            Objects.Project? project = Services.Store.instance ().get_project (id);
+
+            if (project == null) {
+                project = new Objects.Project.from_google_tasklist_json (node);
+                project.source_id = source.id;
+                Services.Store.instance ().insert_project (project);
+            } else if (project.name != node.get_object ().get_string_member ("title")) {
+                project.update_from_google_tasklist_json (node);
+                Services.Store.instance ().update_project (project);
+            }
+        }
+    }
+
+    private async Json.Object get_json (Objects.Source source, string url, bool retried = false) throws GLib.Error {
+        string token = yield get_access_token (source);
+
+        var message = new Soup.Message ("GET", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (token));
+
+        GLib.Bytes bytes;
+        try {
+            bytes = yield session.send_and_read_async (message, GLib.Priority.DEFAULT, null);
+        } catch (Error e) {
+            throw new GLib.IOError.NOT_CONNECTED ("Request failed: %s".printf (e.message));
+        }
+
+        if (message.status_code == 401 && !retried) {
+            source.google_tasks_data.expires_at = 0;
+            return yield get_json (source, url, true);
+        }
+
+        if (message.status_code != 200) {
+            throw new GLib.IOError.FAILED ("HTTP %u".printf (message.status_code));
+        }
+
+        var parser = new Json.Parser ();
+        parser.load_from_data ((string) bytes.get_data (), (ssize_t) bytes.get_size ());
+        return parser.get_root ().get_object ();
     }
 
     /*
@@ -127,6 +237,42 @@ public class Services.GoogleTasks : GLib.Object {
             }
 
             throw e;
+        }
+    }
+
+    public async bool download_avatar (Objects.Source source) {
+        var data = source.google_tasks_data;
+        if (data == null || data.user_avatar == "" || source.avatar_path == "") {
+            return false;
+        }
+
+        string url = data.user_avatar;
+        int size_index = url.last_index_of ("=s");
+        if (size_index > 0) {
+            url = url.substring (0, size_index) + "=s256-c";
+        }
+
+        try {
+            var message = new Soup.Message ("GET", url);
+            var bytes = yield session.send_and_read_async (message, GLib.Priority.DEFAULT, null);
+
+            if (message.status_code != 200) {
+                Services.LogService.get_default ().warn ("GoogleTasks", "Could not download avatar: HTTP %u".printf (message.status_code));
+                return false;
+            }
+
+            var file = GLib.File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
+            var parent = file.get_parent ();
+            if (parent != null && !parent.query_exists ()) {
+                parent.make_directory_with_parents ();
+            }
+
+            string? etag;
+            yield file.replace_contents_bytes_async (bytes, null, false, GLib.FileCreateFlags.REPLACE_DESTINATION, null, out etag);
+            return true;
+        } catch (Error e) {
+            Services.LogService.get_default ().warn ("GoogleTasks", "Could not download avatar: %s".printf (e.message));
+            return false;
         }
     }
 
