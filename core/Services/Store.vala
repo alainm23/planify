@@ -284,6 +284,18 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public bool source_google_tasks_exists (string email) {
+        lock (_sources) {
+            foreach (Objects.Source source in sources) {
+                if (source.source_type == SourceType.GOOGLE_TASKS && source.google_tasks_data.user_email == email) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
     public bool source_caldav_exists (string server_url, string username) {
         bool return_value = false;
 

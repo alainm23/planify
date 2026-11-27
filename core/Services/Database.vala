@@ -845,11 +845,7 @@ public class Services.Database : GLib.Object {
         return_value.sync_server = get_parameter_bool (stmt, 7);
         return_value.last_sync = stmt.column_text (8);
 
-        if (return_value.source_type == SourceType.TODOIST) {
-            return_value.data = new Objects.SourceTodoistData.from_json (stmt.column_text (9));
-        } else if (return_value.source_type == SourceType.CALDAV) {
-            return_value.data = new Objects.SourceCalDAVData.from_json (stmt.column_text (9));
-        }
+        return_value.data = Objects.Source.data_from_json (return_value.source_type, stmt.column_text (9));
 
         return return_value;
     }

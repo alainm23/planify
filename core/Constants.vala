@@ -31,6 +31,14 @@ namespace Constants {
     public const string TODOIST_CLIENT_SECRET = "a86dfeb12139459da3e5e2a8c197c678";
     public const string TODOIST_SCOPE = "data:read_write,data:delete,project:delete";
     public const string TODOIST_REDIRECT_URI = "planify://auth";
+
+    public const string GOOGLE_CLIENT_ID = "201400688647-v61vqd1tvstdggveebdu0r3o30o41flf.apps.googleusercontent.com";
+    public const string GOOGLE_CLIENT_SECRET = "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";
+    public const string GOOGLE_SCOPE = "https://www.googleapis.com/auth/tasks https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+    public const string GOOGLE_AUTH_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth";
+    public const string GOOGLE_TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
+    public const string GOOGLE_TASKS_API = "https://tasks.googleapis.com/tasks/v1";
+    
     public const string BACKUP_VERSION = "2.0";
     public const int UPDATE_TIMEOUT = 1500;
     public const int DESTROY_TIMEOUT = 750;
