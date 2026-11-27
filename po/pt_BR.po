@@ -430,6 +430,8 @@ msgstr "Excluir rótulo %s"
 #: core/Objects/Project.vala:916
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:311
 msgid "This can not be undone"
 msgstr "Isto não pode ser desfeito"
 
@@ -475,6 +477,9 @@ msgstr "Isto não pode ser desfeito"
 #: core/Objects/Project.vala:979
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:644
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -504,6 +509,8 @@ msgstr "Cancelar"
 #: core/QuickAddCore.vala:1029 core/Objects/Project.vala:920
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:237
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 msgid "Delete"
 msgstr "Deletar"
 
@@ -818,6 +825,7 @@ msgstr "Sincronização completa"
 #: core/Services/CalDAV/Core.vala:359 core/Services/CalDAV/Core.vala:369
 #: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
 #: core/Services/GoogleTasks/GoogleTasks.vala:123
+#: core/Services/GoogleTasks/GoogleTasks.vala:233
 msgid "Authentication Expired"
 msgstr "Autenticação expirada"
 
@@ -958,6 +966,7 @@ msgstr "Token de API inválido"
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
 #: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
+#: src/Layouts/SidebarSourceRow.vala:86
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -2386,6 +2395,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
 msgid "Change Inbox"
 msgstr "Alterar Caixa de Entrada"
 
@@ -2523,16 +2533,19 @@ msgstr "Fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Display Name"
 msgstr "Nome de exibição"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:88
 msgid "Sync Server"
 msgstr "Sincronizar Servidor"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:91
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2542,24 +2555,28 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:104
 msgid "Last Sync"
 msgstr "Última Sincronização"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:129
 msgid "Nextcloud Deck"
 msgstr "Deck do Nextcloud"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:130
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Sincronize quadros e cartões do Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:170
 msgid "Nextcloud Deck is not available on this server"
 msgstr "O Nextcloud Deck não está disponível neste servidor"
 
@@ -2569,6 +2586,8 @@ msgstr "O Nextcloud Deck não está disponível neste servidor"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:185
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:250
 msgid "Delete Source"
 msgstr "Excluir fonte"
 
@@ -2578,18 +2597,22 @@ msgstr "Excluir fonte"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:310
 msgid "Delete Source?"
 msgstr "Excluir fonte?"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:417
 msgid "Cannot Delete This Source"
 msgstr "Não foi possível excluir esta fonte"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:418
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -3834,6 +3857,7 @@ msgstr "Excluir Rótulo"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
 #: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
+#: src/Layouts/SidebarSourceRow.vala:246
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr ""
 "Classificação de projetos alterada para 'Ordem de classificação "
@@ -3971,6 +3995,7 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
 #: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
+#: src/Layouts/SidebarSourceRow.vala:85
 msgid "Account Migration Required"
 msgstr "Migração de conta necessária"
 
@@ -4947,6 +4972,7 @@ msgstr "Falhou ao carregar o certificado do cliente: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:364
 msgid "Apply Certificate"
 msgstr "Aplicar Certificado"
 
@@ -4963,17 +4989,20 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:393
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr "Certificado Inválido: %s"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate updated"
 msgstr "Certificado do cliente atualizado"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate removed"
 msgstr "Certificado do cliente removido"
 
@@ -5063,10 +5092,12 @@ msgid "Google Tasks"
 msgstr "Google Tasks"
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:71
+#: core/Services/GoogleTasks/GoogleTasks.vala:73
 msgid "This Google account is already added"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:124
+#: core/Services/GoogleTasks/GoogleTasks.vala:234
 msgid ""
 "Your Google session has expired. Please remove and re-add your account in "
 "Preferences."

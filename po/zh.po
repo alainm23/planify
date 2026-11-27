@@ -421,6 +421,8 @@ msgstr "已删除标签%s"
 #: core/Objects/Project.vala:916
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:311
 msgid "This can not be undone"
 msgstr "无法撤销"
 
@@ -465,6 +467,9 @@ msgstr "无法撤销"
 #: core/Objects/Project.vala:979
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:644
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
 msgid "Cancel"
 msgstr "取消"
 
@@ -493,6 +498,8 @@ msgstr "取消"
 #: core/QuickAddCore.vala:1029 core/Objects/Project.vala:920
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:237
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 msgid "Delete"
 msgstr "删除"
 
@@ -812,6 +819,7 @@ msgstr "同步已经完成"
 #: core/Services/CalDAV/Core.vala:359 core/Services/CalDAV/Core.vala:369
 #: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
 #: core/Services/GoogleTasks/GoogleTasks.vala:123
+#: core/Services/GoogleTasks/GoogleTasks.vala:233
 msgid "Authentication Expired"
 msgstr "身份验证已过期"
 
@@ -948,6 +956,7 @@ msgstr "无效的 API 令牌"
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
 #: src/Layouts/SidebarSourceRow.vala:81 src/Layouts/SidebarSourceRow.vala:83
+#: src/Layouts/SidebarSourceRow.vala:86
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -2311,6 +2320,7 @@ msgstr "此账户包含您当前的收件箱项目。请先更改您的收件箱
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
 msgid "Change Inbox"
 msgstr "更改收件箱"
 
@@ -2445,16 +2455,19 @@ msgstr "来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Display Name"
 msgstr "显示名称"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:88
 msgid "Sync Server"
 msgstr "同步服务器"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:91
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
@@ -2462,24 +2475,28 @@ msgstr "激活此设置，使 Planify 每 15 分钟自动与您的账户同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:104
 msgid "Last Sync"
 msgstr "上次同步"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:116
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:129
 msgid "Nextcloud Deck"
 msgstr "Nextcloud Deck"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:117
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:130
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "从 Nextcloud Deck 同步看板和卡片"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:136
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:170
 msgid "Nextcloud Deck is not available on this server"
 msgstr "此服务器上 Nextcloud Deck 不可用"
 
@@ -2489,6 +2506,8 @@ msgstr "此服务器上 Nextcloud Deck 不可用"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:185
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:250
 msgid "Delete Source"
 msgstr "删除来源"
 
@@ -2498,18 +2517,22 @@ msgstr "删除来源"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:310
 msgid "Delete Source?"
 msgstr "删除来源？"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:417
 msgid "Cannot Delete This Source"
 msgstr "无法删除此来源"
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:315
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:418
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -3709,6 +3732,7 @@ msgstr "删除标签"
 
 #: src/Layouts/ProjectRow.vala:440 src/Layouts/SidebarSourceRow.vala:240
 #: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
+#: src/Layouts/SidebarSourceRow.vala:246
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "项目排序已更改为'自定义排序'"
 
@@ -3837,6 +3861,7 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr "暂无项目。点击'+'按钮来创建一个。"
 
 #: src/Layouts/SidebarSourceRow.vala:80 src/Layouts/SidebarSourceRow.vala:82
+#: src/Layouts/SidebarSourceRow.vala:85
 msgid "Account Migration Required"
 msgstr "需要迁移账户"
 
@@ -4772,6 +4797,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:364
 msgid "Apply Certificate"
 msgstr ""
 
@@ -4786,17 +4812,20 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:393
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate updated"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate removed"
 msgstr ""
 
@@ -4879,10 +4908,12 @@ msgid "Google Tasks"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:71
+#: core/Services/GoogleTasks/GoogleTasks.vala:73
 msgid "This Google account is already added"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:124
+#: core/Services/GoogleTasks/GoogleTasks.vala:234
 msgid ""
 "Your Google session has expired. Please remove and re-add your account in "
 "Preferences."
