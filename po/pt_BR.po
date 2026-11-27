@@ -3,9 +3,9 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-07-16 18:38-0500\n"
-"PO-Revision-Date: 2026-11-26 18:46+0000\n"
-"Last-Translator: Sabrina Ferreira <81946935+sabrina-"
-"fs@users.noreply.github.com>\n"
+"PO-Revision-Date: 2026-11-27 18:04+0000\n"
+"Last-Translator: Davi B C Silva "
+"<davibarbosa91@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/io-github-alainm23-planify/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -949,7 +949,7 @@ msgstr "Erro desconhecido"
 
 #: core/Services/Todoist/TodoistAuth.vala:96
 msgid "Invalid API token"
-msgstr "API Token invalida"
+msgstr ""
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
