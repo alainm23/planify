@@ -45,7 +45,8 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
         group.placeholder_message = _("No project available. Create one by clicking on the '+' button");
         group.margin_top = 12;
 
-        if (source.source_type == SourceType.TODOIST || source.source_type == SourceType.CALDAV) {
+        if (source.source_type == SourceType.TODOIST || source.source_type == SourceType.CALDAV ||
+            source.source_type == SourceType.GOOGLE_TASKS) {
             var sync_button = new Widgets.SyncButton () {
                 reveal_child = true
             };
@@ -63,6 +64,8 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
                     Services.Todoist.get_default ().sync.begin (source);
                 } else if (source.source_type == SourceType.CALDAV) {
                     Services.CalDAV.Core.get_default ().sync.begin (source);
+                } else if (source.source_type == SourceType.GOOGLE_TASKS) {
+                    Services.GoogleTasks.get_default ().sync.begin (source);
                 }
             });
 

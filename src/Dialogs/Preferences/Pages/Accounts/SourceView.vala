@@ -39,11 +39,17 @@ public class Dialogs.Preferences.Pages.SourceView : Dialogs.Preferences.Pages.Ba
     construct {
         var avatar = new Adw.Avatar (84, source.user_displayname, true);
 
-        if (source.source_type == SourceType.TODOIST) {
+        if (source.source_type == SourceType.TODOIST || source.source_type == SourceType.GOOGLE_TASKS) {
             var file = File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
             if (file.query_exists ()) {
                 var image = new Gtk.Image.from_file (file.get_path ());
                 avatar.custom_image = image.get_paintable ();
+            } else if (source.source_type == SourceType.GOOGLE_TASKS) {
+                Services.GoogleTasks.get_default ().download_avatar.begin (source, (obj, res) => {
+                    if (Services.GoogleTasks.get_default ().download_avatar.end (res)) {
+                        avatar.custom_image = new Gtk.Image.from_file (file.get_path ()).get_paintable ();
+                    }
+                });
             }
         }
 

@@ -95,7 +95,12 @@ public class Objects.Source : Objects.BaseObject {
     }
 
     public string avatar_path {
-        get {
+        owned get {
+            if (source_type == SourceType.GOOGLE_TASKS) {
+                return google_tasks_data != null && google_tasks_data.user_id != ""
+                    ? "google-%s".printf (google_tasks_data.user_id) : "";
+            }
+
             return todoist_data != null ? todoist_data.user_image_id : "";
         }
     }
@@ -202,6 +207,8 @@ public class Objects.Source : Objects.BaseObject {
             Services.Todoist.get_default ().sync.begin (this);
         } else if (source_type == SourceType.CALDAV) {
             Services.CalDAV.Core.get_default ().sync.begin (this);
+        } else if (source_type == SourceType.GOOGLE_TASKS) {
+            Services.GoogleTasks.get_default ().sync.begin (this);
         }
     }
 
