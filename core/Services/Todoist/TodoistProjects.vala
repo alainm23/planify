@@ -47,7 +47,7 @@ public class Services.TodoistProjects : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
@@ -59,7 +59,6 @@ public class Services.TodoistProjects : GLib.Object {
                 var uuid_member = sync_status.get_member (uuid);
 
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                    base_object.source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
                     response.status = true;
                     base_object.source.last_sync = new GLib.DateTime.now_local ().to_string ();
                     base_object.source.save ();
@@ -68,7 +67,8 @@ public class Services.TodoistProjects : GLib.Object {
                 }
             }
         } catch (Error e) {
-            if (Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
+            // Rate limited: queue the change like when offline, it's sent once the limit ends.
+            if (!Services.Todoist.is_rate_limited_error (e) && Services.Todoist.get_default ().is_todoist_error (message.status_code)) {
                 response.error = e.message;
             } else {
                 var queue = new Objects.Queue ();
@@ -106,7 +106,7 @@ public class Services.TodoistProjects : GLib.Object {
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            GLib.Bytes stream = yield Services.Todoist.get_default ().send_request (message, GLib.Priority.HIGH);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 

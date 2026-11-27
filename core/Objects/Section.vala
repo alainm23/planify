@@ -252,13 +252,8 @@ public class Objects.Section : Objects.BaseObject {
                 });
             } else if (project.source_type == SourceType.CALDAV && cloud) {
                 if (project.is_deck) {
-                    var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-                    int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                    int stack_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
-                    deck_client.update_stack.begin (board_id, stack_id, name, section_order, (obj, res) => {
-                        try { deck_client.update_stack.end (res); } catch (Error e) {
-                            Services.LogService.get_default ().error ("Deck", "Failed to update stack: %s".printf (e.message));
-                        }
+                    Services.Deck.Core.get_default ().save_stack.begin (this, (obj, res) => {
+                        Services.Deck.Core.get_default ().save_stack.end (res);
                     });
                 } else {
                     var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
@@ -439,37 +434,42 @@ public class Objects.Section : Objects.BaseObject {
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
-                loading = true;
-                if (project.source_type == SourceType.TODOIST) {
-                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                        Services.Todoist.get_default ().delete.end (res);
-                        Services.Store.instance ().delete_section (this);
-                    });
-                } else if (project.source_type == SourceType.CALDAV) {
-                    if (project.is_deck) {
-                        var deck_client = Services.Deck.Core.get_default ().get_client (project.source);
-                        int board_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_board_id");
-                        int stack_id = (int) Utils.JsonUtils.get_int (extra_data, "deck_stack_id");
-                        deck_client.delete_stack.begin (board_id, stack_id, (obj, res) => {
-                            try {
-                                deck_client.delete_stack.end (res);
-                                Services.Store.instance ().delete_section (this);
-                            } catch (Error e) {
-                                Services.EventBus.get_default ().send_error_toast (0, e.message);
-                            }
-                            loading = false;
-                        });
-                    } else if (ical_url != "") {
-                        var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
-                        _delete_caldav_section.begin (caldav_client);
-                    } else {
-                        Services.Store.instance ().delete_section (this);
+                delete_section_async.begin ((obj, res) => {
+                    HttpResponse delete_response = delete_section_async.end (res);
+                    if (!delete_response.status) {
+                        Services.EventBus.get_default ().send_error_toast (delete_response.error_code, delete_response.error);
                     }
-                } else {
-                    Services.Store.instance ().delete_section (this);
-                }
+                });
             }
         });
+    }
+
+    public async HttpResponse delete_section_async () {
+        HttpResponse response;
+
+        if (project.source_type == SourceType.TODOIST) {
+            loading = true;
+            response = yield Services.Todoist.get_default ().delete (this);
+            Services.Store.instance ().delete_section (this);
+        } else if (project.source_type == SourceType.CALDAV) {
+            loading = true;
+            if (project.is_deck) {
+                response = yield Services.Deck.Core.get_default ().delete_stack (this);
+            } else {
+                var caldav_client = Services.CalDAV.Core.get_default ().get_client (project.source);
+                response = yield _delete_caldav_section (caldav_client);
+            }
+
+            if (response.status) {
+                Services.Store.instance ().delete_section (this);
+            }
+        } else {
+            Services.Store.instance ().delete_section (this);
+            response = new HttpResponse () { status = true };
+        }
+
+        loading = false;
+        return response;
     }
 
     public void archive_section (Gtk.Window window) {
@@ -538,31 +538,23 @@ public class Objects.Section : Objects.BaseObject {
         return summary != null && summary.has_prefix (CALDAV_PREFIX);
     }
 
-    private async void _delete_caldav_section (Services.CalDAV.CalDAVClient caldav_client) {
-        loading = true;
+    private async HttpResponse _delete_caldav_section (Services.CalDAV.CalDAVClient caldav_client) {
         try {
-            // Delete all items in this section from server recursively
             foreach (Objects.Item item in items) {
                 yield delete_item_caldav_recursive (item, caldav_client);
             }
-
-            // Delete the section VTODO itself
-            HttpResponse caldav_response = yield caldav_client.delete_section (this);
-            if (caldav_response.status) {
-                Services.Store.instance ().delete_section (this);
-            } else {
-                Services.EventBus.get_default ().send_error_toast (caldav_response.error_code, caldav_response.error);
-            }
         } catch (Error e) {
-            Services.EventBus.get_default ().send_error_toast (0, e.message);
+            return new HttpResponse () { error = e.message };
         }
-        loading = false;
+
+        return yield caldav_client.delete_section (this);
     }
 
     private async void delete_item_caldav_recursive (Objects.Item item, Services.CalDAV.CalDAVClient caldav_client) throws Error {
         foreach (Objects.Item subitem in Services.Store.instance ().get_subitems (item)) {
             yield delete_item_caldav_recursive (subitem, caldav_client);
         }
+
         yield caldav_client.delete_item (item);
     }
 }

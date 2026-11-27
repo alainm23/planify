@@ -36,8 +36,10 @@ int main (string[] args) {
     Planify.Tests.ItemMemory.register_tests ();
     Planify.Tests.SourceLifecycle.register_tests ();
     Planify.Tests.DeleteCompletedTasks.register_tests ();
+    Planify.Tests.DeleteAsync.register_tests ();
     Planify.Tests.SectionCache.register_tests ();
     Planify.Tests.CalDAVRoundtrip.register_tests ();
+    Planify.Tests.RecurringDeadline.register_tests ();
 
     return Test.run ();
 }

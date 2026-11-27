@@ -19,9 +19,20 @@
  * Authored by: Alain M. <alainmh23@gmail.com>
  */
 
+public errordomain Services.TodoistError {
+    RATE_LIMITED
+}
+
 public class Services.Todoist : GLib.Object {
     private Soup.Session session;
-    // Sources with a sync in progress.
+
+    private Gee.HashMap<string, int64?> blocked_until = new Gee.HashMap<string, int64?> ();
+    private Gee.HashMap<string, int> backoff_level = new Gee.HashMap<string, int> ();
+
+    private Gee.HashSet<string> retry_scheduled = new Gee.HashSet<string> ();
+    private const int64 BACKOFF_MIN_SECONDS = 60;
+    private const int64 BACKOFF_MAX_SECONDS = 30 * 60;
+
     private Gee.HashSet<string> syncing_sources = new Gee.HashSet<string> ();
     private TodoistAuth _auth;
     private TodoistItems _items;
@@ -35,6 +46,11 @@ public class Services.Todoist : GLib.Object {
     private const string LABELS_COLLECTION = "labels";
     private const string REMINDERS_COLLECTION = "reminders";
 
+    private const int64 FULL_SYNC_MAX_AGE_SECONDS = 10 * 60;
+
+    private const int QUEUE_BATCH_SIZE = 100;
+    private const int QUEUE_MAX_BATCHES = 10;
+
     private static Todoist ? _instance;
     public static Todoist get_default () {
         if (_instance == null) {
@@ -44,10 +60,106 @@ public class Services.Todoist : GLib.Object {
     }
 
     public Todoist () {
-        session = new Soup.Session ();
+        session = new Soup.Session () {
+            timeout = Constants.SOUP_TIMEOUT
+        };
         _auth = new TodoistAuth (session);
         _items = new TodoistItems (session);
         _projects = new TodoistProjects (session);
+    }
+
+    private string rate_limit_key (Soup.Message message) {
+        return message.request_headers.get_one ("Authorization") ?? "";
+    }
+
+    public int64 rate_limit_remaining (Soup.Message message) {
+        string key = rate_limit_key (message);
+        if (!blocked_until.has_key (key)) {
+            return 0;
+        }
+
+        int64 remaining = ((int64) blocked_until[key] - GLib.get_real_time ()) / TimeSpan.SECOND;
+        return remaining > 0 ? remaining : 0;
+    }
+
+    public async GLib.Bytes send_request (Soup.Message message, int priority = GLib.Priority.DEFAULT) throws GLib.Error {
+        string key = rate_limit_key (message);
+
+        int64 remaining = rate_limit_remaining (message);
+        if (remaining > 0) {
+            throw new Services.TodoistError.RATE_LIMITED ("Rate limited by Todoist, retrying in %lld s".printf (remaining));
+        }
+
+        GLib.Bytes stream = yield session.send_and_read_async (message, priority, null);
+
+        if (message.status_code == 429) {
+            // Todoist sends very short Retry-After values (2, 3, 4 s...) even though the quota
+            // only frees up as the 15 min window moves, so wait for the larger of that value
+            // and our own backoff: 1, 2, 4, 8, 16 min, then 30 min.
+            int level = backoff_level.has_key (key) ? backoff_level[key] : 0;
+            int64 backoff = int64.min (BACKOFF_MIN_SECONDS << int.min (level, 5), BACKOFF_MAX_SECONDS);
+            int64 seconds = int64.max (parse_retry_after (message.response_headers.get_one ("Retry-After")), backoff);
+            backoff_level[key] = level + 1;
+
+            block (key, seconds);
+            throw new Services.TodoistError.RATE_LIMITED ("Rate limited by Todoist (HTTP 429), retrying in %lld s".printf (seconds));
+        }
+
+        backoff_level.unset (key);
+        blocked_until.unset (key);
+        return stream;
+    }
+
+    private void block (string key, int64 seconds) {
+        blocked_until[key] = GLib.get_real_time () + seconds * TimeSpan.SECOND;
+        Services.LogService.get_default ().warn ("Todoist", "Rate limited, pausing requests for %lld s".printf (seconds));
+    }
+
+    private int64 parse_retry_after (string? value) {
+        if (value == null) {
+            return 0;
+        }
+
+        int64 seconds;
+        if (int64.try_parse (value.strip (), out seconds) && seconds > 0) {
+            return int64.min (seconds, BACKOFF_MAX_SECONDS * 4);
+        }
+
+        return 0;
+    }
+
+    public static bool is_rate_limited_error (GLib.Error e) {
+        return e is Services.TodoistError.RATE_LIMITED;
+    }
+
+    private void schedule_retry_sync (Objects.Source source, int64 seconds) {
+        if (source.id in retry_scheduled) {
+            return;
+        }
+
+        retry_scheduled.add (source.id);
+        Timeout.add_seconds ((uint) int64.max (seconds, 1) + 1, () => {
+            retry_scheduled.remove (source.id);
+            Services.LogService.get_default ().info ("Todoist", "Rate limit over, syncing '%s'".printf (source.display_name));
+            sync.begin (source);
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private void report_rate_limited (Objects.Source source, int64 seconds) {
+        // A clock time instead of a countdown: the tooltip is static text.
+        string resume_at = new GLib.DateTime.now_local ()
+            .add_seconds ((double) int64.max (seconds, 1))
+            .format (Utils.Datetime.get_default_time_format ());
+
+        source.sync_status = new SyncStatus (
+            SyncErrorType.SERVER_ERROR,
+            _("Too Many Requests"),
+            // TRANSLATORS: %s is a time, e.g. "14:02"
+            _("Todoist is limiting how often Planify can sync.\nSyncing will resume automatically at %s.\nChanges you make in the meantime are saved\nand will be synced then.").printf (resume_at)
+        );
+        source.sync_failed (source.sync_status);
+        schedule_retry_sync (source, seconds);
     }
 
     /*
@@ -70,10 +182,242 @@ public class Services.Todoist : GLib.Object {
      * Sync
      */
 
+    private static bool node_is_deleted (Json.Node node) {
+        unowned Json.Object object = node.get_object ();
+        return object.has_member ("is_deleted") && object.get_boolean_member ("is_deleted");
+    }
+
+    private Gee.HashSet<string> collect_snapshot_ids (Json.Object root, string member) {
+        var ids = new Gee.HashSet<string> ();
+        if (!root.has_member (member)) {
+            return ids;
+        }
+
+        foreach (unowned Json.Node node in root.get_array_member (member).get_elements ()) {
+            if (!node_is_deleted (node)) {
+                ids.add (node.get_object ().get_string_member ("id"));
+            }
+        }
+
+        return ids;
+    }
+
+    // Big accounts may get a snapshot generated a while ago, without the newest objects.
+    private bool is_full_sync_recent (Json.Object root) {
+        if (!root.has_member ("full_sync_date_utc")) {
+            return true;
+        }
+
+        string? value = root.get_string_member ("full_sync_date_utc");
+        if (value == null) {
+            return true;
+        }
+
+        var generated = new GLib.DateTime.from_iso8601 (value, new GLib.TimeZone.utc ());
+        if (generated == null) {
+            return false;
+        }
+
+        int64 age = new GLib.DateTime.now_utc ().difference (generated) / TimeSpan.SECOND;
+        return age <= FULL_SYNC_MAX_AGE_SECONDS;
+    }
+
+    private bool is_pending_upload (string id, Gee.HashSet<string> queued_ids) {
+        return id in queued_ids || Services.Database.get_default ().curTempIds_exists (id);
+    }
+
+    // Completed tasks and archived containers are not part of a full sync.
+    private bool is_missing_by_design (Objects.Item item) {
+        if (item.project.is_archived) {
+            return true;
+        }
+
+        if (item.has_section && item.section != null && item.section.is_archived) {
+            return true;
+        }
+
+        Objects.Item? current = item;
+        while (current != null) {
+            if (current.checked) {
+                return true;
+            }
+
+            current = current.has_parent ? current.parent : null;
+        }
+
+        return false;
+    }
+
+    private async void remove_missing_after_full_sync (Objects.Source source, Json.Object root) {
+        if (!is_full_sync_recent (root)) {
+            Services.LogService.get_default ().warn ("Todoist", "Full sync data is not recent, not removing missing objects");
+            return;
+        }
+
+        var project_ids = collect_snapshot_ids (root, PROJECTS_COLLECTION);
+        var section_ids = collect_snapshot_ids (root, SECTIONS_COLLECTION);
+        var item_ids = collect_snapshot_ids (root, ITEMS_COLLECTION);
+        var label_ids = collect_snapshot_ids (root, LABELS_COLLECTION);
+        var reminder_ids = collect_snapshot_ids (root, REMINDERS_COLLECTION);
+
+        // Every account has at least the Inbox: no projects means a bad answer, not an empty account.
+        if (project_ids.size == 0) {
+            Services.LogService.get_default ().warn ("Todoist", "Full sync without projects, not removing missing objects");
+            return;
+        }
+
+        var queued_ids = new Gee.HashSet<string> ();
+        foreach (Objects.Queue q in Services.Database.get_default ().get_all_queue (source.id)) {
+            queued_ids.add (q.object_id);
+        }
+
+        var store = Services.Store.instance ();
+
+        // Collect first, delete later: the Store lists change while deleting.
+        var reminders = new Gee.ArrayList<Objects.Reminder> ();
+        foreach (Objects.Reminder reminder in store.reminders) {
+            if (reminder.id in reminder_ids || is_pending_upload (reminder.id, queued_ids)) {
+                continue;
+            }
+
+            Objects.Item? item = store.get_item (reminder.item_id);
+            if (item == null || item.project == null || item.project.source_id != source.id || is_missing_by_design (item)) {
+                continue;
+            }
+
+            reminders.add (reminder);
+        }
+
+        var items = new Gee.ArrayList<Objects.Item> ();
+        foreach (Objects.Item item in store.items) {
+            if (item.project == null || item.project.source_id != source.id) {
+                continue;
+            }
+
+            if (item.id in item_ids || is_pending_upload (item.id, queued_ids) || is_missing_by_design (item)) {
+                continue;
+            }
+
+            // Deleting a task also deletes its subtasks: keep it if one of them is still on the server.
+            bool has_live_subitem = false;
+            foreach (Objects.Item subitem in store.get_subitems (item)) {
+                if (subitem.id in item_ids || is_pending_upload (subitem.id, queued_ids)) {
+                    has_live_subitem = true;
+                    break;
+                }
+            }
+
+            if (!has_live_subitem) {
+                items.add (item);
+            }
+        }
+
+        var sections = new Gee.ArrayList<Objects.Section> ();
+        foreach (Objects.Section section in store.sections) {
+            Objects.Project? project = store.get_project (section.project_id);
+            if (project == null || project.source_id != source.id || project.is_archived || section.is_archived) {
+                continue;
+            }
+
+            if (section.id in section_ids || is_pending_upload (section.id, queued_ids)) {
+                continue;
+            }
+
+            bool has_live_item = false;
+            foreach (Objects.Item item in section.items) {
+                if (item.id in item_ids || is_pending_upload (item.id, queued_ids)) {
+                    has_live_item = true;
+                    break;
+                }
+            }
+
+            if (!has_live_item) {
+                sections.add (section);
+            }
+        }
+
+        var projects = new Gee.ArrayList<Objects.Project> ();
+        foreach (Objects.Project project in store.get_projects_by_source (source.id)) {
+            if (project.id in project_ids || project.is_archived || project.inbox_project ||
+                is_pending_upload (project.id, queued_ids)) {
+                continue;
+            }
+
+            bool has_live_child = false;
+            foreach (Objects.Project subproject in store.get_subprojects (project)) {
+                if (subproject.id in project_ids || is_pending_upload (subproject.id, queued_ids)) {
+                    has_live_child = true;
+                }
+            }
+
+            foreach (Objects.Section section in store.get_sections_by_project (project)) {
+                if (section.id in section_ids || is_pending_upload (section.id, queued_ids)) {
+                    has_live_child = true;
+                }
+            }
+
+            foreach (Objects.Item item in store.get_items_by_project (project)) {
+                if (item.id in item_ids || is_pending_upload (item.id, queued_ids)) {
+                    has_live_child = true;
+                }
+            }
+
+            if (!has_live_child) {
+                projects.add (project);
+            }
+        }
+
+        var labels = new Gee.ArrayList<Objects.Label> ();
+        foreach (Objects.Label label in store.get_labels_by_source (source.id)) {
+            if (!(label.id in label_ids) && !is_pending_upload (label.id, queued_ids)) {
+                labels.add (label);
+            }
+        }
+
+        // Children first. A parent deletion may already have removed some of them.
+        var log = Services.LogService.get_default ();
+
+        foreach (Objects.Reminder reminder in reminders) {
+            log.debug ("Todoist", "Full sync: removing reminder %s".printf (reminder.id));
+            store.delete_reminder (reminder);
+        }
+
+        foreach (Objects.Item item in items) {
+            if (store.get_item (item.id) != null) {
+                log.debug ("Todoist", "Full sync: removing task '%s' (%s)".printf (item.content, item.id));
+                store.delete_item (item);
+            }
+        }
+
+        foreach (Objects.Section section in sections) {
+            if (store.get_section (section.id) != null) {
+                log.debug ("Todoist", "Full sync: removing section '%s' (%s)".printf (section.name, section.id));
+                store.delete_section (section);
+            }
+        }
+
+        foreach (Objects.Project project in projects) {
+            if (store.get_project (project.id) != null) {
+                log.debug ("Todoist", "Full sync: removing project '%s' (%s)".printf (project.name, project.id));
+                yield store.delete_project (project);
+            }
+        }
+
+        foreach (Objects.Label label in labels) {
+            log.debug ("Todoist", "Full sync: removing label '%s' (%s)".printf (label.name, label.id));
+            store.delete_label (label);
+        }
+
+        Services.LogService.get_default ().info ("Todoist",
+            "Full sync: removed %d projects, %d sections, %d tasks, %d labels, %d reminders missing on the server".printf (
+                projects.size, sections.size, items.size, labels.size, reminders.size
+            ));
+    }
+
     private void process_item_node (Json.Node _node) {
         Objects.Item ? item = Services.Store.instance ().get_item (_node.get_object ().get_string_member ("id"));
         if (item != null) {
-            if (_node.get_object ().get_boolean_member ("is_deleted")) {
+            if (node_is_deleted (_node)) {
                 Services.Store.instance ().delete_item (item);
             } else {
                 string old_project_id = item.project_id;
@@ -119,24 +463,41 @@ public class Services.Todoist : GLib.Object {
             return;
         }
 
+        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
+
+        // Still rate limited: don't even start (no spinner, no request). A sync is
+        // already scheduled for when the limit ends.
+        int64 waiting = rate_limit_remaining (message);
+        if (waiting > 0) {
+            Services.LogService.get_default ().info ("Todoist", "Rate limited, skipping sync for '%s' (%lld s left)".printf (source.display_name, waiting));
+            // Show again why it doesn't sync (e.g. the user pressed the sync button).
+            report_rate_limited (source, waiting);
+            return;
+        }
+
         syncing_sources.add (source.id);
 
         source.sync_started ();
-
-        var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
-        message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
 
         string form_data = "sync_token=%s&resource_types=%s".printf (
             source.todoist_data.sync_token, RESOURCE_TYPES
         );
         message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (form_data.data));
 
+        bool synced = false;
+
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
+            GLib.Bytes stream = yield send_request (message, GLib.Priority.LOW);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
-            if (!parser.get_root ().get_object ().has_member ("error")) {
+            if (is_todoist_error (message.status_code) || parser.get_root ().get_object ().has_member ("error")) {
+                // An error answer used to be treated as a successful sync.
+                Services.LogService.get_default ().error ("Todoist", "Sync failed: HTTP %u".printf (message.status_code));
+                source.sync_failed ();
+            } else {
+                synced = true;
                 source.todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
 
                 if (parser.get_root ().get_object ().has_member ("user")) {
@@ -153,7 +514,7 @@ public class Services.Todoist : GLib.Object {
                     string _id = _node.get_object ().get_string_member ("id");
                     Objects.Label ? label = Services.Store.instance ().get_label (_id);
                     if (label != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_label (label);
                         } else {
                             label.update_from_json (_node);
@@ -171,7 +532,7 @@ public class Services.Todoist : GLib.Object {
                 foreach (unowned Json.Node _node in projects.get_elements ()) {
                     Objects.Project ? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("id"));
                     if (project != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_project (project);
                         } else {
                             string old_parent_id = project.parent_id;
@@ -204,7 +565,7 @@ public class Services.Todoist : GLib.Object {
                 foreach (unowned Json.Node _node in sections.get_elements ()) {
                     Objects.Section ? section = Services.Store.instance ().get_section (_node.get_object ().get_string_member ("id"));
                     if (section != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_section (section);
                         } else {
                             section.update_from_json (_node);
@@ -227,7 +588,7 @@ public class Services.Todoist : GLib.Object {
                     Objects.Reminder ? reminder = Services.Store.instance ().get_reminder (_node.get_object ().get_string_member ("id"));
 
                     if (reminder != null) {
-                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                        if (node_is_deleted (_node)) {
                             Services.Store.instance ().delete_reminder (reminder);
                         }
                     } else {
@@ -239,14 +600,30 @@ public class Services.Todoist : GLib.Object {
                     }
                 }
 
+                unowned Json.Object root = parser.get_root ().get_object ();
+                if (root.has_member ("full_sync") && root.get_boolean_member ("full_sync")) {
+                    yield remove_missing_after_full_sync (source, root);
+                }
+
                 yield queue (source);
             }
         } catch (Error e) {
-            Services.LogService.get_default ().error ("Todoist", "Failed to sync: %s".printf (e.message));
-            source.sync_failed ();
+            if (is_rate_limited_error (e)) {
+                Services.LogService.get_default ().warn ("Todoist", "Sync paused: %s".printf (e.message));
+                report_rate_limited (source, rate_limit_remaining (message));
+            } else {
+                Services.LogService.get_default ().error ("Todoist", "Failed to sync: %s".printf (e.message));
+                source.sync_failed ();
+            }
         }
 
-        source.last_sync = new GLib.DateTime.now_local ().to_string ();
+        // Only a successful sync counts as the last sync and stores the new token.
+        if (synced) {
+            source.sync_status = null;
+            source.last_sync = new GLib.DateTime.now_local ().to_string ();
+            source.save ();
+        }
+
         foreach (var project in Services.Store.instance ().get_projects_by_source (source.id)) {
             project.freeze_update = false;
             project.count_update ();
@@ -270,31 +647,74 @@ public class Services.Todoist : GLib.Object {
         }
 
         _queue_running = true;
-        Gee.ArrayList<Objects.Queue ?> queue_collection = Services.Database.get_default ().get_all_queue (source.id);
-        if (queue_collection.size <= 0) {
-            _queue_running = false;
-            return;
+
+        for (int batch_number = 1; batch_number <= QUEUE_MAX_BATCHES; batch_number++) {
+            Gee.ArrayList<Objects.Queue ?> pending = Services.Database.get_default ().get_all_queue (source.id);
+            if (pending.size <= 0) {
+                break;
+            }
+
+            var batch = new Gee.ArrayList<Objects.Queue ?> ();
+            for (int i = 0; i < pending.size && i < QUEUE_BATCH_SIZE; i++) {
+                batch.add (pending[i]);
+            }
+
+            Services.LogService.get_default ().info ("Todoist", "Flushing queue: batch %d (%d of %d commands)".printf (
+                batch_number, batch.size, pending.size
+            ));
+
+            if (!yield flush_queue_batch (source, batch)) {
+                break;
+            }
         }
 
+        _queue_running = false;
+    }
+
+    private async bool flush_queue_batch (Objects.Source source, Gee.ArrayList<Objects.Queue ?> queue_collection) {
         string json = get_queue_json (queue_collection, source.todoist_data.sync_token);
-        Services.LogService.get_default ().info ("Todoist", "Flushing queue: %d items".printf (queue_collection.size));
         Services.LogService.get_default ().debug ("Todoist", "Queue JSON: %s".printf (json));
+
+        bool all_done = true;
 
         var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
         message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
         message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
         try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
+            // Throws on 429 / while rate limited, so the queued commands stay for later.
+            GLib.Bytes stream = yield send_request (message, GLib.Priority.LOW);
             var parser = new Json.Parser ();
             parser.load_from_data ((string) stream.get_data ());
 
-            var node = parser.get_root ().get_object ();
-            source.todoist_data.sync_token = node.get_string_member ("sync_token");
+            // Request-level error (5xx, 400, 401...): there is no sync_status and no
+            // command was applied, so keep the whole queue for the next try.
+            unowned Json.Node? root = parser.get_root ();
+            if (is_todoist_error (message.status_code) || root == null ||
+                root.get_node_type () != Json.NodeType.OBJECT || !root.get_object ().has_member ("sync_status")) {
+                Services.LogService.get_default ().warn ("Todoist",
+                    "Queue not sent (HTTP %u), keeping %d commands".printf (message.status_code, queue_collection.size));
+                return false;
+            }
+
+            var node = root.get_object ();
+            var sync_status = node.get_object_member ("sync_status");
+
+            // Once a command is kept, later failures may depend on it (e.g. an update of a
+            // task whose add failed), so they are kept too instead of dropped.
+            bool keep_failed = false;
 
             foreach (var q in queue_collection) {
-                var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
                 Services.LogService.get_default ().debug ("Todoist", "Processing queue item — query: %s, uuid: %s, object_id: %s".printf (q.query, q.uuid, q.object_id));
+
+                if (!sync_status.has_member (q.uuid)) {
+                    Services.LogService.get_default ().warn ("Todoist", "No status for queue item %s (%s), keeping it".printf (q.uuid, q.query));
+                    keep_failed = true;
+                    all_done = false;
+                    continue;
+                }
+
+                var uuid_member = sync_status.get_member (q.uuid);
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                     var temp_id_mapping = node.get_object_member ("temp_id_mapping");
                     var success = true;
@@ -303,6 +723,8 @@ public class Services.Todoist : GLib.Object {
                         if (temp_id_mapping.has_member (q.temp_id)) {
                             var id = temp_id_mapping.get_string_member (q.temp_id);
                             Services.Store.instance ().update_project_id (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.temp_id, id);
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for project_add: %s".printf (q.temp_id));
@@ -314,6 +736,8 @@ public class Services.Todoist : GLib.Object {
                         if (temp_id_mapping.has_member (q.temp_id)) {
                             var id = temp_id_mapping.get_string_member (q.temp_id);
                             Services.Store.instance ().update_section_id (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.temp_id, id);
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for section_add: %s".printf (q.temp_id));
@@ -325,6 +749,8 @@ public class Services.Todoist : GLib.Object {
                         if (temp_id_mapping.has_member (q.temp_id)) {
                             var id = temp_id_mapping.get_string_member (q.temp_id);
                             Services.Store.instance ().update_item_id (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.object_id, id);
+                            Services.Database.get_default ().update_queue_ids (q.temp_id, id);
                             Services.Database.get_default ().remove_CurTempIds (q.object_id);
                         } else {
                             Services.LogService.get_default ().warn ("Todoist", "temp_id_mapping missing for item_add: %s".printf (q.temp_id));
@@ -333,16 +759,36 @@ public class Services.Todoist : GLib.Object {
                     }
                     if (success) {
                         Services.Database.get_default ().remove_queue (q.uuid);
+                    } else {
+                        all_done = false;
                     }
                 } else {
-                    var sync_status = node.get_object_member ("sync_status");
-                    if (sync_status.has_member (q.uuid)) {
-                        var error_obj = sync_status.get_object_member (q.uuid);
-                        Services.LogService.get_default ().warn ("Todoist",
-                            "Queue item failed — query: %s, error: %s".printf (
-                                q.query, error_obj.get_string_member ("error")));
+                    string error = "";
+                    int64 http_code = 0;
+                    if (uuid_member.get_node_type () == Json.NodeType.OBJECT) {
+                        unowned Json.Object error_obj = uuid_member.get_object ();
+                        error = error_obj.has_member ("error") ? error_obj.get_string_member ("error") : "";
+                        http_code = error_obj.has_member ("http_code") ? error_obj.get_int_member ("http_code") : 0;
+                    } else {
+                        // Unknown status format: don't risk dropping the change.
+                        keep_failed = true;
                     }
-                    Services.Database.get_default ().remove_queue (q.uuid);
+
+                    // Temporary server errors: retry the command next time.
+                    if (http_code == 429 || http_code >= 500) {
+                        keep_failed = true;
+                    }
+
+                    if (keep_failed) {
+                        all_done = false;
+                        Services.LogService.get_default ().warn ("Todoist",
+                            "Queue item failed, keeping it — query: %s, HTTP %lld, error: %s".printf (q.query, http_code, error));
+                    } else {
+                        // The command itself is invalid (e.g. the task no longer exists): drop it.
+                        Services.LogService.get_default ().warn ("Todoist",
+                            "Queue item failed, dropping it — query: %s, HTTP %lld, error: %s".printf (q.query, http_code, error));
+                        Services.Database.get_default ().remove_queue (q.uuid);
+                    }
                 }
             }
             if (node.has_member ("items")) {
@@ -351,10 +797,12 @@ public class Services.Todoist : GLib.Object {
                 }
             }
         } catch (Error e) {
-            debug (e.message);
+            // Network error or 429: nothing was applied, the queue stays for later.
+            Services.LogService.get_default ().warn ("Todoist", "Queue not sent: %s".printf (e.message));
+            return false;
         }
 
-        _queue_running = false;
+        return all_done;
     }
 
     private string resolve_id (string id) {

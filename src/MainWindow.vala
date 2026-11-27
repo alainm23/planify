@@ -214,6 +214,27 @@ public class MainWindow : Adw.ApplicationWindow {
                 }
             });
 
+            Services.DBusServer.get_default ().item_deleted.connect ((id) => {
+                Objects.Item? item = Services.Store.instance ().get_item (id);
+                if (item != null) {
+                    Services.Store.instance ().delete_item (item);
+                }
+            });
+
+            Services.DBusServer.get_default ().section_deleted.connect ((id) => {
+                Objects.Section? section = Services.Store.instance ().get_section (id);
+                if (section != null) {
+                    Services.Store.instance ().delete_section (section);
+                }
+            });
+
+            Services.DBusServer.get_default ().project_deleted.connect ((id) => {
+                Objects.Project? project = Services.Store.instance ().get_project (id);
+                if (project != null) {
+                    Services.Store.instance ().delete_project.begin (project);
+                }
+            });
+
             var did_startup_sync = false; // Remove hack when upstream issue is resolved
 
             Timeout.add (Constants.STARTUP_SYNC_TIMEOUT, () => {
@@ -958,6 +979,11 @@ public class MainWindow : Adw.ApplicationWindow {
         return toolbar_view;
     }
 
+    // Minimum time between syncs started by a network change while the network stayed
+    // available, only to send changes kept offline.
+    private const int64 NETWORK_RETRY_MIN_SECONDS = 60;
+    private int64 last_offline_retry = 0;
+
     private void setup_network_monitor () {
         uint network_timeout_id = 0;
         var network_monitor = GLib.NetworkMonitor.get_default ();
@@ -966,12 +992,25 @@ public class MainWindow : Adw.ApplicationWindow {
         network_monitor.network_changed.connect (() => {
             bool available = network_monitor.get_network_available ();
 
-            // network_changed fires for any routing change (VPN, Docker bridges,
-            // IPv6, Wi-Fi roaming...), even when the network stays available.
-            // Only a reconnection (unavailable -> available) needs a sync.
-            bool reconnected = available && !was_available;
+            Services.LogService.get_default ().debug ("NetworkMonitor", "network-changed — available: %s, connectivity: %s".printf (
+                available.to_string (), network_monitor.connectivity.to_string ()
+            ));
+
+            bool real_reconnect = available && !was_available;
+            bool retry_offline_changes = false;
+            if (available && was_available) {
+                int64 since_last = (GLib.get_monotonic_time () - last_offline_retry) / TimeSpan.SECOND;
+                retry_offline_changes = since_last >= NETWORK_RETRY_MIN_SECONDS &&
+                                        Services.Database.get_default ().get_all_queue ().size > 0;
+            }
+
+            bool reconnected = real_reconnect || retry_offline_changes;
             bool still_offline = !available && !was_available;
             was_available = available;
+
+            if (retry_offline_changes && _did_startup_sync) {
+                last_offline_retry = GLib.get_monotonic_time ();
+            }
 
             if (_did_startup_sync == false) {
                 Services.LogService.get_default ().debug ("NetworkMonitor", "Ignoring early network change (startup sync not done yet)");

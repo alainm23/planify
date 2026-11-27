@@ -37,9 +37,11 @@ test_core_sources = [
     'core/test-section-cache.vala',
     'core/test-caldav-roundtrip.vala',
     'core/test-caldav-sync-failure.vala',
+    'core/test-recurring-deadline.vala',
     'core/test-item-memory.vala',
     'core/test-source-lifecycle.vala',
     'core/test-delete-completed-tasks.vala',
+    'core/test-delete-async.vala',
     'core/test-section-cache.vala'
 ]
 

@@ -252,7 +252,23 @@ public class Objects.SourceData : GLib.Object {
 
 public class Objects.SourceTodoistData : Objects.SourceData {
     public string access_token { get; set; default = ""; }
-    public string sync_token { get; set; default = ""; }
+
+    public const string FULL_SYNC_TOKEN = "*";
+
+    private string _sync_token = "";
+    public string sync_token {
+        owned get {
+            return is_valid_sync_token (_sync_token) ? _sync_token : FULL_SYNC_TOKEN;
+        }
+        set {
+            if (is_valid_sync_token (value)) {
+                _sync_token = value;
+            } else {
+                Services.LogService.get_default ().warn ("Todoist", "Ignoring invalid sync token, keeping the previous one");
+            }
+        }
+    }
+
     public string user_id { get; set; default = ""; }
     public string user_image_id { get; set; default = ""; }
     public string user_email { get; set; default = ""; }
@@ -347,6 +363,15 @@ public class Objects.SourceTodoistData : Objects.SourceData {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public static bool is_valid_sync_token (string? token) {
+        if (token == null) {
+            return false;
+        }
+
+        string value = token.strip ();
+        return value != "" && value != "(null)" && value != "null";
     }
 }
 

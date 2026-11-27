@@ -1626,7 +1626,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Item> get_items_collection () {
+    public Gee.ArrayList<Objects.Item> get_items_collection (bool load_extra_data = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;
 
@@ -1635,7 +1635,7 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
 
         while (stmt.step () == Sqlite.ROW) {
-            return_value.add (_fill_item (stmt));
+            return_value.add (_fill_item (stmt, load_extra_data));
         }
 
         return return_value;
@@ -1691,7 +1691,21 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public Objects.Item _fill_item (Sqlite.Statement stmt) {
+    public string get_item_extra_data (string id) {
+        Sqlite.Statement stmt;
+        const string query = "SELECT extra_data FROM Items WHERE id = $id LIMIT 1;";
+        if (db.prepare_v2 (query, query.length, out stmt) != Sqlite.OK) {
+            warning ("Unable to load task details: %s", db.errmsg ());
+            return "";
+        }
+        set_parameter_str (stmt, "$id", id);
+        if (stmt.step () == Sqlite.ROW) {
+            return stmt.column_text (0) ?? "";
+        }
+        return "";
+    }
+
+    public Objects.Item _fill_item (Sqlite.Statement stmt, bool load_extra_data = true) {
         Objects.Item return_value = new Objects.Item ();
         return_value.id = stmt.column_text (0);
         return_value.content = stmt.column_text (1);
@@ -1711,7 +1725,11 @@ public class Services.Database : GLib.Object {
         return_value.collapsed = get_parameter_bool (stmt, 15);
         return_value.pinned = get_parameter_bool (stmt, 16);
         return_value.labels = Services.Store.instance ().get_labels_by_item_labels (stmt.column_text (17));
-        return_value.extra_data = stmt.column_text (18);
+        if (load_extra_data) {
+            return_value.extra_data = stmt.column_text (18);
+        } else {
+            return_value.defer_extra_data ();
+        }
         return_value.item_type = ItemType.parse (stmt.column_text (19));
         return_value.calendar_event_uid = stmt.column_text (20);
         return_value.deadline_date = stmt.column_text (21);
@@ -2110,13 +2128,13 @@ public class Services.Database : GLib.Object {
 
         if (source_id != "") {
             sql = """
-                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added;
+                SELECT * FROM Queue WHERE source_id=$source_id ORDER BY date_added, rowid;
             """;
             db.prepare_v2 (sql, sql.length, out stmt);
             set_parameter_str (stmt, "$source_id", source_id);
         } else {
             sql = """
-                SELECT * FROM Queue ORDER BY date_added;
+                SELECT * FROM Queue ORDER BY date_added, rowid;
             """;
             db.prepare_v2 (sql, sql.length, out stmt);
         }
@@ -2344,6 +2362,31 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", id);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+    }
+
+    public void update_queue_ids (string old_id, string new_id) {
+        if (old_id == "" || old_id == new_id) {
+            return;
+        }
+
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Queue
+            SET object_id = CASE WHEN object_id = $old_id THEN $new_id ELSE object_id END,
+                args = REPLACE (args, $old_quoted, $new_quoted)
+            WHERE object_id = $old_id OR instr (args, $old_quoted) > 0;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$old_id", old_id);
+        set_parameter_str (stmt, "$new_id", new_id);
+        set_parameter_str (stmt, "$old_quoted", "\"%s\"".printf (old_id));
+        set_parameter_str (stmt, "$new_quoted", "\"%s\"".printf (new_id));
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());

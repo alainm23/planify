@@ -25,6 +25,8 @@ public class HttpResponse {
     public int error_code { get; set; default = 0; }
     public int http_code { get; set; default = 0; }
     public string? etag { get; set; default = null; }
+    // The server couldn't be reached (no network, timeout, 502/503/504).
+    public bool offline { get; set; default = false; }
     public string data { get; set; }
     public GLib.Value data_object { get; set; }
 }

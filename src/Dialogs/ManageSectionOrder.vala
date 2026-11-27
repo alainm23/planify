@@ -205,10 +205,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
                 Services.Store.instance ().update_section (section_row.section);
 
                 if (section_row.section.project.is_deck) {
-                    var deck_client = Services.Deck.Core.get_default ().get_client (section_row.section.project.source);
-                    int board_id = (int) Utils.JsonUtils.get_int (section_row.section.extra_data, "deck_board_id");
-                    int stack_id = (int) Utils.JsonUtils.get_int (section_row.section.extra_data, "deck_stack_id");
-                    deck_client.update_stack.begin (board_id, stack_id, section_row.section.name, row_index);
+                    Services.Deck.Core.get_default ().save_stack.begin (section_row.section);
                 }
             }
 

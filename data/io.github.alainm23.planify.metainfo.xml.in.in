@@ -61,6 +61,107 @@
   <url type="donation">https://useplanify.com/donate</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.21.0" date="2026-11-24" urgency="medium">
+      <description translate="no">
+        <p>Planify 4.21.0 brings offline support for CalDAV, Nextcloud and Nextcloud Deck, a more reliable Todoist sync, client certificates (mTLS), attachments that keep working after the original file moves, and many fixes and memory improvements.</p>
+        <p>New Features:</p>
+        <ul>
+          <li>Added offline support for CalDAV and Nextcloud: tasks, sections and calendars can be created, edited, completed, moved and deleted without a connection, and are sent on the next sync.</li>
+          <li>Added offline support for Nextcloud Deck: cards, stacks and boards work without a connection, including moving cards between boards.</li>
+          <li>Added client certificate (mTLS) authentication for CalDAV and Nextcloud, with .pem and .p12/.pfx files.</li>
+          <li>Attachments are now copied into Planify's data folder, so they keep opening after the original file is moved or deleted. Files can also be attached while creating a task.</li>
+          <li>Added dragging tasks in All Tasks onto sidebar lists and onto other tasks to make them subtasks.</li>
+          <li>Added sort and filter options to the Label view.</li>
+          <li>Added sorting by deadline in projects, Today, Scheduled, filters and labels.</li>
+          <li>Added setting a deadline on multiple selected tasks.</li>
+          <li>Recurring tasks now move their deadline to the next occurrence, keeping the same distance from the date.</li>
+          <li>Tasks with only a deadline now appear on their deadline day in Scheduled.</li>
+          <li>Added an option to delete all completed tasks in a project.</li>
+          <li>Added an optional "Use Adwaita Colors" switch in Appearance.</li>
+          <li>Added choosing the color when creating a label from the label picker.</li>
+          <li>New projects remember whether the last one used an emoji or the progress icon.</li>
+          <li>Quick Find shows completed tasks separately, after the other results.</li>
+          <li>Backups now include preferences, and Today and Scheduled sort by due date by default.</li>
+          <li>Reminders on recurring tasks are kept after they fire, so the next occurrences notify too.</li>
+        </ul>
+        <p>Sync:</p>
+        <ul>
+          <li>Todoist: Planify now backs off when Todoist rate-limits it (HTTP 429), and shows when syncing will resume.</li>
+          <li>Todoist: fixed changes made on the web being skipped after creating or editing a task in Planify.</li>
+          <li>Todoist: tasks, projects and labels deleted on the web are now removed after a full sync.</li>
+          <li>Todoist: offline changes are no longer lost when a request fails, are sent in order, and are sent in batches of 100.</li>
+          <li>Todoist: fixed invalid sync tokens being sent or stored, and project descriptions now sync both ways.</li>
+          <li>CalDAV: fixed moving a task to another list or section deleting the wrong copy on servers without MOVE support.</li>
+          <li>CalDAV: fixed moving a task to a section of the same project, and tasks losing their section when the server lists them first.</li>
+          <li>CalDAV: relative reminders and due date timezones from apps like Tasks.org are now kept when editing a task.</li>
+          <li>CalDAV: fixed labels being dropped when another account had a label with the same name.</li>
+          <li>CalDAV: fixed project names and colors from servers that use CDATA (e.g. Fastmail), and completing tasks on servers that answer 200 OK.</li>
+          <li>Syncs no longer run on every network change or pile up periodic timers, and a sync no longer starts while another one is running.</li>
+          <li>Network requests now time out after 30 seconds instead of hanging.</li>
+        </ul>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed a crash when moving a single task from the multi-select toolbar.</li>
+          <li>Fixed reminders set in Quick Add being lost on save.</li>
+          <li>Fixed automatic reminders firing after turning reminders off.</li>
+          <li>Fixed completing Nextcloud Deck cards, which were archived instead of marked as done.</li>
+          <li>Fixed the "Add tasks" button missing from Deck stacks in list view.</li>
+          <li>Fixed subtasks missing from views until a restart, and subtasks shown twice in All Tasks.</li>
+          <li>Fixed moved tasks staying greyed out.</li>
+          <li>Fixed Quick Add breaking the title when picking a label after non-ASCII text.</li>
+          <li>Fixed backup file names that cloud storage rejects, and the backup list reloading entirely.</li>
+          <li>Fixed the sidebar order in Preferences resetting, and the wrong style being selected in Appearance.</li>
+          <li>Fixed the reminder popover closing when adding a reminder, and truncated snooze buttons in notifications.</li>
+          <li>Fixed calendar events staying after a task was completed.</li>
+          <li>Fixed a project's sync spinner staying on after a failed sync, and new sections missing from Manage Sections.</li>
+          <li>Fixed the Today view not moving to the new day after a missed day change.</li>
+          <li>Fixed the date and reminder buttons after completing a recurring task.</li>
+          <li>The client certificate setting now takes less space, and account messages are shown in the preferences window.</li>
+        </ul>
+        <p>Performance:</p>
+        <ul>
+          <li>Reduced memory usage: views, calendar months, menus and widgets are released when no longer needed, task details load on demand, and backups are written without loading every task into memory.</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/alainm23/planify/issues/2411">Client certificate (mTLS) support</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2664">Drag tasks in All Tasks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2646">Sort tasks in the Label view</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2725">Sort by deadline</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2739">Deadline for multiple selected tasks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2724">Deadline not moved with recurring tasks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2791">Deadline-only tasks in Scheduled</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2684">Delete all completed tasks in a project</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2690">Use Adwaita colors</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2751">Choose label color in the label picker</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2750">Remember "Use Emoji" for new projects</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2745">Completed tasks in Quick Find</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2789">Preferences in backups</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2784">Reminders lost on recurring tasks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2689">Todoist project description sync</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2578">CalDAV move reverts after sync</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2787">CalDAV move to a section in the same project</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2816">CalDAV tasks lose their section</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2788">CalDAV relative reminders and timezones</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2586">Labels dropped across accounts</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2669">CalDAV XML parsing</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2698">CalDAV completion with HTTP 200</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2691">Moving tasks between Deck and other projects</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2696">Periodic sync timers piling up</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2769">Sync on every network change</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2742">Quick Add reminders lost</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2709">Subtasks missing until restart</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2711">Moved task stays greyed out</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2334">Quick Add label with unicode text</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2722">Backup file names on cloud storage</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2744">Sidebar order in Preferences</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2730">Wrong style selected in Appearance</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2699">Reminder popover closes</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2740">Truncated snooze buttons</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2786">Calendar events of completed tasks</issue>
+        <issue url="https://github.com/alainm23/planify/issues/2186">Memory usage</issue>
+      </issues>
+    </release>
     <release version="4.20.0" date="2026-09-10" urgency="medium">
       <description translate="no">
         <p>Planify 4.20.0 is a big release with Nextcloud Deck integration, CalDAV reminder sync, productivity goals, GNOME Online Accounts detection, and many features, fixes and performance improvements. Update now and enjoy a smoother experience.</p>

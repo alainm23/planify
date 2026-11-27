@@ -871,7 +871,6 @@ public class Layouts.QuickAddCore : Adw.Bin {
             is_loading = true;
             item.id = Util.get_default ().generate_id ();
             if (item.project.is_deck) {
-                var deck_client = Services.Deck.Core.get_default ().get_client (item.project.source);
                 int board_id = (int) Utils.JsonUtils.get_int (item.project.extra_data, "deck_board_id");
                 int stack_id = 0;
                 if (item.section_id != "") {
@@ -883,24 +882,16 @@ public class Layouts.QuickAddCore : Adw.Bin {
                         item.section_id = sections[0].id;
                     }
                 }
-                string? duedate = null;
-                if (item.has_due) {
-                    if (item.has_time) {
-                        duedate = item.due.datetime.to_utc ().format ("%FT%T");
-                    } else {
-                        duedate = item.due.datetime.format ("%FT12:00:00");
-                    }
-                }
-                deck_client.create_card.begin (board_id, stack_id, item.content, item.description, duedate, item.child_order, (obj, res) => {
+
+                item.extra_data = Services.Deck.Core.build_card_extra_data (0, stack_id, board_id, "");
+                Services.Deck.Core.get_default ().save_card.begin (item, (obj, res) => {
                     is_loading = false;
-                    try {
-                        var card = deck_client.create_card.end (res);
-                        int card_id = (int) card.get_int_member ("id");
-                        string card_etag = card.get_string_member ("ETag");
-                        item.extra_data = Services.Deck.Core.build_card_extra_data (card_id, stack_id, board_id, card_etag);
+                    HttpResponse response = Services.Deck.Core.get_default ().save_card.end (res);
+
+                    if (response.status) {
                         _add_item (item);
-                    } catch (Error e) {
-                        error (new HttpResponse () { error = e.message });
+                    } else {
+                        error (response);
                     }
                 });
             } else {
