@@ -95,8 +95,10 @@ public class Objects.Source : Objects.BaseObject {
     }
 
     public string avatar_path {
+        // owned: para Google se construye un string nuevo en cada lectura.
         owned get {
             if (source_type == SourceType.GOOGLE_TASKS) {
+                // Prefijo para que no choque con los ids de imagen de Todoist.
                 return google_tasks_data != null && google_tasks_data.user_id != ""
                     ? "google-%s".printf (google_tasks_data.user_id) : "";
             }
