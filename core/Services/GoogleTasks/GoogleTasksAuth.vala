@@ -24,8 +24,8 @@
  * rejects redirects that this login didn't start.
  * https://developers.google.com/identity/protocols/oauth2/native-app
  */
+
 public class Services.GoogleTasksAuth : GLib.Object {
-    // Gives up if the user doesn't finish the login in the browser.
     private const uint LOGIN_TIMEOUT_SECONDS = 5 * 60;
 
     private delegate void FinishFunc ();

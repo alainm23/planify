@@ -55,7 +55,6 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
-    // Builds the data object of a source from its stored JSON.
     public static Objects.SourceData? data_from_json (SourceType source_type, string json) {
         switch (source_type) {
             case SourceType.TODOIST:
@@ -405,10 +404,6 @@ public class Objects.SourceTodoistData : Objects.SourceData {
     }
 }
 
-/*
- * Google Tasks account. The access token lasts about an hour; expires_at (Unix time,
- * seconds) says when, and the refresh token gets a new one. Both tokens are secret.
- */
 public class Objects.SourceGoogleTasksData : Objects.SourceData {
     public string access_token { get; set; default = ""; }
     public string refresh_token { get; set; default = ""; }
@@ -417,7 +412,6 @@ public class Objects.SourceGoogleTasksData : Objects.SourceData {
     public string user_email { get; set; default = ""; }
     public string user_name { get; set; default = ""; }
     public string user_avatar { get; set; default = ""; }
-    // RFC 3339 time of the last successful sync, for incremental syncs (updatedMin).
     public string last_updated_min { get; set; default = ""; }
 
     public SourceGoogleTasksData.from_json (string json) {

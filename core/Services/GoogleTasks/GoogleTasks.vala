@@ -21,10 +21,9 @@
  * Google Tasks accounts: sign-in, and a valid access token for each request. Syncing
  * tasks lists and tasks is added on top of this.
  */
+
 public class Services.GoogleTasks : GLib.Object {
     private const string USERINFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo";
-    // Refresh this long before the access token expires, so a request never uses one
-    // that expires on the way.
     private const int64 REFRESH_MARGIN_SECONDS = 60;
 
     private Soup.Session session;
