@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainmh23@gmail.com\n"
 "POT-Creation-Date: 2026-10-16 13:11+0200\n"
-"PO-Revision-Date: 2026-05-27 20:11+0000\n"
-"Last-Translator: Davide Serafini <serafini.davide@proton.me>\n"
+"PO-Revision-Date: 2026-11-16 16:28+0000\n"
+"Last-Translator: Stephnie Klim <klidd@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/io-"
 "github-alainm23-planify/it/>\n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.6.dev0\n"
+"X-Generator: Weblate 2026.12.dev0\n"
 
 #: core/Enum.vala:168 core/Widgets/ProjectPicker/ProjectPickerCore.vala:264
 #: core/Widgets/ProjectPicker/ProjectPickerCore.vala:282
@@ -329,7 +329,7 @@ msgstr "senza etichetta"
 
 #: core/Objects/Item.vala:1773 src/Services/ExportService.vala:138
 msgid "Deadline:"
-msgstr "Scadenza;"
+msgstr "Scadenza:"
 
 #: core/Objects/Item.vala:1798
 msgid "Task copied to clipboard"
@@ -1546,15 +1546,15 @@ msgstr "Qual è il termine ultimo per completare questo?"
 
 #: core/Widgets/DeadlineButton.vala:224
 msgid "In 3 days"
-msgstr ""
+msgstr "Entro 3 giorni"
 
 #: core/Widgets/DeadlineButton.vala:226
 msgid "In 2 weeks"
-msgstr ""
+msgstr "Entro 2 settimane"
 
 #: core/Widgets/DeadlineButton.vala:227
 msgid "In a month"
-msgstr ""
+msgstr "Entro un mese"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:81
 #: core/Widgets/LabelPicker/LabelButton.vala:135
@@ -2031,7 +2031,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 msgid "SSL verification is disabled"
-msgstr ""
+msgstr "La verifica SSL è disattivata"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 msgid "Authentication expired"
@@ -2570,15 +2570,15 @@ msgstr "Ordina per"
 
 #: src/Dialogs/Preferences/Pages/General.vala:45
 msgid "Ascending"
-msgstr "Ascendente"
+msgstr "Crescente"
 
 #: src/Dialogs/Preferences/Pages/General.vala:46
 msgid "Descending"
-msgstr "Discendente"
+msgstr "Decrescente"
 
 #: src/Dialogs/Preferences/Pages/General.vala:49
 msgid "Ordered"
-msgstr "Ordinato"
+msgstr "Ordinamento"
 
 #: src/Dialogs/Preferences/Pages/General.vala:60
 msgid "DE Integration"
@@ -2590,7 +2590,7 @@ msgstr "Esegui all'avvio"
 
 #: src/Dialogs/Preferences/Pages/General.vala:70
 msgid "Launch Planify automatically when you start your computer"
-msgstr ""
+msgstr "Avvia Planify in automatico quando accendi il tuo computer"
 
 #: src/Dialogs/Preferences/Pages/General.vala:82
 msgid "Run in Background"
@@ -2632,7 +2632,7 @@ msgstr "Inizio della settimana"
 
 #: src/Dialogs/Preferences/Pages/General.vala:132
 msgid "Smart Date Recognition"
-msgstr ""
+msgstr "Riconoscimento data intelligente"
 
 #: src/Dialogs/Preferences/Pages/General.vala:133
 msgid "Automatically detect dates like \"tomorrow\" or \"next week\""
@@ -2803,7 +2803,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:122
 msgid "Enable Markdown Formatting"
-msgstr ""
+msgstr "Attiva formattazione Markdown"
 
 #: src/Dialogs/Preferences/Pages/TaskSetting.vala:123
 msgid "Toggle Markdown support for tasks on or off"
@@ -2997,26 +2997,26 @@ msgstr "Riepilogo & Produttività"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:87
 msgid "Use Scheduled Tasks as Goal"
-msgstr ""
+msgstr "Utilizza le attività programmate come obiettivo"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:88
 msgid "Use today's scheduled tasks as your daily goal"
-msgstr ""
+msgstr "Utlizza le attività programmate per oggi come tuo obiettivo giornaliero"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:93
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:235
 #: src/Widgets/ProductivityMiniWidget.vala:31
 msgid "Daily Goal"
-msgstr ""
+msgstr "Obiettivo giornaliero"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:98
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:263
 msgid "Weekly Goal"
-msgstr ""
+msgstr "Obiettivo settimanale"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:103
 msgid "Fixed Goals"
-msgstr ""
+msgstr "Obiettivi fissi"
 
 #: src/Dialogs/ProductivityReport/ProductivityReport.vala:207
 msgid "Summary Details"
@@ -3054,19 +3054,19 @@ msgstr ""
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:121
 #: src/Widgets/ProductivityMiniWidget.vala:76
 msgid "(scheduled)"
-msgstr ""
+msgstr "(programmate)"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:165
 msgid "All goals achieved! You're unstoppable"
-msgstr ""
+msgstr "Tutti gli obiettivi completati! Sei inarrestabile"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:169
 msgid "Daily goal crushed! Keep the momentum going"
-msgstr ""
+msgstr "Obiettivo giornaliero raggiunto! Mantieni questo ritmo"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:173
 msgid "Weekly goal achieved! Enjoy the rest of your week"
-msgstr ""
+msgstr "Obiettivo settimanale completato! Goditi il resto della settimana"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:177
 msgid "Start your day, your first task awaits"
@@ -3078,11 +3078,11 @@ msgstr ""
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:185
 msgid "Great pace this week, you're almost at your goal"
-msgstr ""
+msgstr "Ottimo ritmo questa settimana, hai quasi raggiunto l'obiettivo"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:189
 msgid "Halfway through your daily goal, nice progress"
-msgstr ""
+msgstr "Sei a metà strada rispetto al tuo obiettivo giornaliero, bel progresso"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:193
 msgid "Solid week so far, keep it up"
@@ -3104,11 +3104,11 @@ msgstr "Imposta Obiettivi"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:313
 msgid "Goals"
-msgstr ""
+msgstr "Obiettivi"
 
 #: src/Dialogs/ProductivityReport/ProductivitySection.vala:321
 msgid "Edit Goals"
-msgstr ""
+msgstr "Modifica obiettivi"
 
 #: src/Dialogs/ProductivityReport/SummarySection.vala:56
 msgid "Total"
@@ -3158,15 +3158,15 @@ msgstr ""
 
 #: src/Dialogs/Project.vala:238
 msgid "Disabled"
-msgstr ""
+msgstr "Disattivato"
 
 #: src/Dialogs/Project.vala:241
 msgid "Markdown Formatting"
-msgstr ""
+msgstr "Formattazione Markdown"
 
 #: src/Dialogs/Project.vala:242
 msgid "Override the global markdown setting for this project"
-msgstr ""
+msgstr "Sovrascrivi le impostazioni globali di Markdown per questo progetto"
 
 #: src/Dialogs/Project.vala:266
 msgid "Create as Deck Board"
@@ -3309,7 +3309,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemSidebarView.vala:472
 #, c-format
 msgid "Created: %s"
-msgstr ""
+msgstr "Creato: %s"
 
 #: src/Layouts/ItemRow.vala:1666
 #, c-format
@@ -3357,15 +3357,15 @@ msgstr "Data di aggiunta"
 #: src/Layouts/ItemSortFilter.vala:72 src/Views/Project/Project.vala:597
 #: src/Views/Scheduled/Scheduled.vala:236 src/Views/Today.vala:847
 msgid "Date Modified"
-msgstr ""
+msgstr "Data di modifica"
 
 #: src/Layouts/ItemSortFilter.vala:75 src/Views/Project/Project.vala:600
 msgid "Ascending Order"
-msgstr ""
+msgstr "Ordine crescente"
 
 #: src/Layouts/ItemSortFilter.vala:79 src/Views/Project/Project.vala:606
 msgid "Duedate"
-msgstr ""
+msgstr "Termine ultimo"
 
 #: src/Layouts/ItemSortFilter.vala:82 src/Layouts/ItemSortFilter.vala:283
 #: src/Views/Project/Project.vala:609
@@ -3760,7 +3760,7 @@ msgstr ""
 
 #: src/Views/Project/Project.vala:395 src/Views/Project/Project.vala:427
 msgid "Project Deadline"
-msgstr ""
+msgstr "Scadenza del progetto"
 
 #: src/Views/Project/Project.vala:400
 msgid "Select"
@@ -4103,7 +4103,7 @@ msgstr ""
 
 #: src/Widgets/ProductivityMiniWidget.vala:75
 msgid "No tasks scheduled"
-msgstr ""
+msgstr "Nessuna attività programmata"
 
 #: src/Widgets/ProjectItemRow.vala:153 src/Widgets/SectionItemRow.vala:185
 msgid "Unarchive"
