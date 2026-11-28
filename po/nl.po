@@ -31,7 +31,8 @@ msgstr "Taken"
 
 #: core/Enum.vala:177 core/Enum.vala:548 core/Objects/Filters/Labels.vala:33
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
-#: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:846
+#: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:843
+#: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemBoard.vala:846
 #: src/Layouts/ItemRow.vala:1268
 msgid "Labels"
 msgstr "Labels"
@@ -140,8 +141,9 @@ msgid "Content"
 msgstr "Inhoud"
 
 #: core/Enum.vala:539 src/Dialogs/Project.vala:153 src/Dialogs/Section.vala:93
-#: src/Layouts/ItemRow.vala:2120 src/Layouts/ItemSidebarView.vala:184
+#: src/Layouts/ItemRow.vala:2118 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
+#: src/Layouts/ItemRow.vala:2120
 msgid "Description"
 msgstr "Beschrijving"
 
@@ -150,6 +152,8 @@ msgid "Scheduled"
 msgstr "Gepland"
 
 #: core/Enum.vala:551 core/Widgets/PinButton.vala:47
+#: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
+#: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemBoard.vala:840
 #: src/Layouts/ItemRow.vala:1247 src/Layouts/ItemRow.vala:1262
 msgid "Pin"
@@ -288,10 +292,11 @@ msgstr "aankomend"
 #: core/Utils/Util.vala:261 core/Widgets/Calendar/CalendarHeader.vala:82
 #: core/Widgets/Calendar/CalendarScroll.vala:58
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:391
-#: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:834
-#: src/Layouts/ItemRow.vala:1254 src/Layouts/ItemSortFilter.vala:83
+#: src/Dialogs/DatePicker.vala:209 src/Layouts/ItemBoard.vala:831
+#: src/Layouts/ItemRow.vala:1252 src/Layouts/ItemSortFilter.vala:83
 #: src/Layouts/ItemSortFilter.vala:265 src/Views/Project/Project.vala:610
 #: src/Views/Project/Project.vala:803 src/Views/Today.vala:213
+#: src/Layouts/ItemBoard.vala:834 src/Layouts/ItemRow.vala:1254
 msgid "Today"
 msgstr "Vandaag"
 
@@ -303,6 +308,7 @@ msgstr "vandaag"
 #: core/Utils/Datetime.vala:776
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: core/Widgets/DeadlineButton.vala:223 src/Dialogs/DatePicker.vala:210
+#: src/Layouts/ItemBoard.vala:834 src/Layouts/ItemRow.vala:1255
 #: src/Layouts/ItemBoard.vala:837 src/Layouts/ItemRow.vala:1257
 msgid "Tomorrow"
 msgstr "Morgen"
@@ -327,24 +333,26 @@ msgstr "geen label"
 msgid "unlabeled"
 msgstr "ongelabeld"
 
-#: core/Objects/Item.vala:1838 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1773 src/Services/ExportService.vala:138
+#: core/Objects/Item.vala:1838
 msgid "Deadline:"
 msgstr "Deadline:"
 
-#: core/Objects/Item.vala:1863
+#: core/Objects/Item.vala:1798 core/Objects/Item.vala:1863
 msgid "Task copied to clipboard"
 msgstr "Taak gekopieerd naar klembord"
 
-#: core/Objects/Item.vala:1880
+#: core/Objects/Item.vala:1815 core/Objects/Item.vala:1880
 msgid "iCalendar Files"
 msgstr "iCalendar Bestanden"
 
-#: core/Objects/Item.vala:1896
+#: core/Objects/Item.vala:1831 core/Objects/Item.vala:1896
 msgid "Task exported successfully"
 msgstr "Taak succesvol geëxporteerd"
 
 # # c-format
-#: core/Objects/Item.vala:2321 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2256 core/Utils/Util.vala:891
+#: core/Objects/Item.vala:2321
 #, c-format
 msgid "Moved to %s"
 msgstr "Verplaatst naar %s"
@@ -357,9 +365,13 @@ msgstr "Label %s verwijderen"
 
 #: core/Objects/Label.vala:221 core/Objects/Project.vala:916
 #: core/Objects/Section.vala:427
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:206
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:283
+#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:228
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:305
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:311
-#: src/Layouts/ItemSidebarView.vala:619 src/Services/BackupManager.vala:285
 msgid "This can not be undone"
 msgstr "Dit kan niet ongedaan gemaakt worden"
 
@@ -367,13 +379,12 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: core/Objects/Project.vala:979 core/Objects/Section.vala:430
 #: core/Objects/Section.vala:481 core/Utils/Util.vala:479
 #: src/Dialogs/CompletedTasks.vala:172
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:646
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:638
 #: src/Dialogs/Preferences/Pages/Accounts/CalDAVSetup.vala:151
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:118
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:208
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:285
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:384
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:107
 #: src/Dialogs/Preferences/Pages/Backup.vala:768
 #: src/Dialogs/QuickFind/QuickFind.vala:56 src/Layouts/ItemSidebarView.vala:622
@@ -382,19 +393,32 @@ msgstr "Dit kan niet ongedaan gemaakt worden"
 #: src/Widgets/BypassResolveSwitchRow.vala:48
 #: src/Widgets/IgnoreSSLSwitchRow.vala:48
 #: src/Widgets/MultiSelectToolbar.vala:396
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:230
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:307
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:415
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:644
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:63
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:646
 msgid "Cancel"
 msgstr "Annuleren"
 
 #: core/Objects/Label.vala:225 core/Objects/Project.vala:920
 #: core/Objects/Section.vala:431 core/QuickAddCore.vala:1029
 #: core/Widgets/DeadlineButton.vala:248 src/Dialogs/CompletedTasks.vala:173
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:237
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:209
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:286
 #: src/Dialogs/Preferences/Pages/Backup.vala:525
 #: src/Layouts/ItemSidebarView.vala:623 src/Services/BackupManager.vala:289
 #: src/Views/Filter.vala:816 src/Views/Project/Project.vala:557
 #: src/Widgets/AttachmentRow.vala:52 src/Widgets/MultiSelectToolbar.vala:328
 #: src/Widgets/MultiSelectToolbar.vala:397
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:231
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:308
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:237
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:314
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -435,28 +459,23 @@ msgstr "%s · Volgende herhaling"
 msgid "Delete Section %s"
 msgstr "Onderverdeling %s verwijderen"
 
-#: core/Objects/Source.vala:85
+#: core/Objects/Source.vala:60
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:44
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:38
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
+#: core/Objects/Source.vala:81 core/Objects/Source.vala:85
 msgid "Todoist"
 msgstr "Todoist"
-
-#: core/Objects/Source.vala:94
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
-msgid "Google Tasks"
-msgstr "Google Tasks"
 
 #: core/QuickAddCore.vala:154
 msgid "Task added successfully!"
 msgstr "Taak succesvol toegevoegd!"
 
-#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:406
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemRow.vala:406
 msgid "To-do name"
 msgstr "Naam taak"
 
@@ -491,7 +510,7 @@ msgid "Add Reminders"
 msgstr "Herinneringen toevoegen"
 
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:953
-#: src/Layouts/ItemRow.vala:2197
+#: src/Layouts/ItemRow.vala:2195 src/Layouts/ItemRow.vala:2197
 msgid "Add Attachments"
 msgstr "Bijlagen toevoegen"
 
@@ -664,6 +683,8 @@ msgid "Sync completed"
 msgstr "Synchronisatie voltooid"
 
 #: core/Services/CalDAV/Core.vala:372
+#: core/Services/GoogleTasks/GoogleTasks.vala:123
+#: core/Services/GoogleTasks/GoogleTasks.vala:233
 #: core/Services/GoogleTasks/GoogleTasks.vala:418
 msgid "Authentication Expired"
 msgstr "Aanmelding Verlopen"
@@ -691,40 +712,6 @@ msgstr ""
 #: core/Services/CalendarEvents/Util.vala:244
 msgid "On this computer"
 msgstr "Op deze computer"
-
-#: core/Services/GoogleTasks/GoogleTasks.vala:77
-msgid "This Google account is already added"
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasks.vala:419
-msgid ""
-"Your Google session has expired. Please remove and re-add your account in "
-"Preferences."
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasksAuth.vala:91
-msgid "This sign-in link isn't valid anymore. Please try again from Planify."
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasksAuth.vala:97
-msgid "Access was denied"
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasksAuth.vala:99
-msgid "Sign-in was cancelled. You can close this tab."
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasksAuth.vala:102
-msgid "Something went wrong. Please try again from Planify."
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasksAuth.vala:105
-msgid "You're signed in. You can close this tab and go back to Planify."
-msgstr ""
-
-#: core/Services/GoogleTasks/GoogleTasksAuth.vala:114
-msgid "Sign-in took too long"
-msgstr ""
 
 #: core/Services/Todoist/Todoist.vala:159
 #, c-format
@@ -775,7 +762,7 @@ msgstr "Ongeldig API token"
 
 #: core/Services/Todoist/TodoistItems.vala:26
 #: core/Services/Todoist/TodoistProjects.vala:26
-#: src/Layouts/SidebarSourceRow.vala:86
+#: src/Layouts/SidebarSourceRow.vala:83 src/Layouts/SidebarSourceRow.vala:86
 msgid ""
 "Todoist has updated their API. Please reconnect your account in Preferences "
 "to continue syncing."
@@ -1194,9 +1181,11 @@ msgstr "🏡️ Thuis"
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️ Opvolging"
 
-#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1307
-#: src/Layouts/ItemRow.vala:1715 src/Layouts/ItemRow.vala:1859
+#: core/Utils/Util.vala:826 src/Layouts/ItemBoard.vala:1304
+#: src/Layouts/ItemRow.vala:1713 src/Layouts/ItemRow.vala:1857
 #: src/Layouts/ItemSidebarView.vala:601 src/Widgets/MultiSelectToolbar.vala:493
+#: src/Layouts/ItemBoard.vala:1307 src/Layouts/ItemRow.vala:1715
+#: src/Layouts/ItemRow.vala:1859
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
@@ -1373,6 +1362,7 @@ msgstr "Tijd"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:610
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
+#: src/Layouts/ItemBoard.vala:746 src/Layouts/ItemRow.vala:1194
 #: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1196
 msgid "until"
 msgstr "tot"
@@ -1381,6 +1371,7 @@ msgstr "tot"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1197
 #: src/Layouts/ItemBoard.vala:752 src/Layouts/ItemRow.vala:1199
 msgid "for"
 msgstr "voor"
@@ -1389,6 +1380,7 @@ msgstr "voor"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1197
 #: src/Layouts/ItemBoard.vala:752 src/Layouts/ItemRow.vala:1199
 msgid "times"
 msgstr "tijden"
@@ -1397,6 +1389,7 @@ msgstr "tijden"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:614
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1197
 #: src/Layouts/ItemBoard.vala:752 src/Layouts/ItemRow.vala:1199
 msgid "time"
 msgstr "tijd"
@@ -1512,7 +1505,8 @@ msgid "After"
 msgstr "Na"
 
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
-#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:907
+#: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:904
+#: src/Layouts/ItemRow.vala:1350 src/Layouts/ItemBoard.vala:907
 #: src/Layouts/ItemRow.vala:1352
 msgid "Apply"
 msgstr "Toepassen"
@@ -1678,7 +1672,8 @@ msgstr ""
 msgid "Press Enter to create and assign it"
 msgstr "Druk op Enter om het aan te maken en toe te voegen"
 
-#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2130
+#: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2128
+#: src/Layouts/ItemRow.vala:2130
 msgid "Task description"
 msgstr "Taakomschrijving"
 
@@ -1810,8 +1805,9 @@ msgid "To Do"
 msgstr "Open"
 
 #: core/Widgets/StatusButton.vala:77 core/Widgets/StatusButton.vala:111
-#: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemRow.vala:1271
-#: src/Services/Notification.vala:194
+#: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemRow.vala:1269
+#: src/Services/Notification.vala:194 src/Layouts/ItemBoard.vala:849
+#: src/Layouts/ItemRow.vala:1271
 msgid "Complete"
 msgstr "Afgerond"
 
@@ -1951,10 +1947,11 @@ msgstr[1] ""
 msgid "Filter By"
 msgstr "Filteren op"
 
-#: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemRow.vala:1264 src/Layouts/ItemSortFilter.vala:88
+#: src/Dialogs/DatePicker.vala:84 src/Layouts/ItemBoard.vala:839
+#: src/Layouts/ItemRow.vala:1262 src/Layouts/ItemSortFilter.vala:88
 #: src/Layouts/ItemSortFilter.vala:280 src/Views/Project/Project.vala:615
-#: src/Views/Project/Project.vala:813
+#: src/Views/Project/Project.vala:813 src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemRow.vala:1264
 msgid "No Date"
 msgstr "Geen datum"
 
@@ -1966,8 +1963,8 @@ msgstr "Toepassen"
 msgid "Next Week"
 msgstr "Volgende week"
 
-#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1426
-#: src/Layouts/ItemSidebarView.vala:523
+#: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1424
+#: src/Layouts/ItemSidebarView.vala:523 src/Layouts/ItemRow.vala:1426
 msgid "Change History"
 msgstr "Geschiedenis wijzigen"
 
@@ -2045,31 +2042,45 @@ msgid "Archived"
 msgstr "Gearchiveerd"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:35
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:71
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Accounts"
 msgstr "Accounts"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:67
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 msgid "Add Source"
 msgstr "Bron toevoegen"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:75
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:77
 msgid "Task sources you sync with. Drag to reorder."
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:99
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:101
 msgid "Inbox Page"
 msgstr "Postvak-pagina"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:233
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:235
 msgid "Detected Accounts"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:240
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:242
 msgid "Accounts configured in GNOME Online Accounts"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:288
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:290
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
@@ -2077,35 +2088,53 @@ msgid_plural "%d accounts available to import from GNOME Online Accounts"
 msgstr[0] ""
 msgstr[1] ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:332
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:334
 msgid "Import"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:411
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:417
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:784
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:419
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:786
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify synchroniseert je taken, even geduld"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:490
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:492
 msgid "SSL verification is disabled"
 msgstr "SSL-verificatie staat uit"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:500
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:502
 msgid "Authentication expired"
 msgstr "Aanmelding verlopen"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:520
 msgid "Account migration required"
 msgstr "Accountmigratie vereist"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:522
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:524
 msgid "Reconnect"
 msgstr "Opnieuw verbinden"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:640
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:642
 msgid "Cannot Hide This Account"
 msgstr "Dit account kan niet worden verborgen"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:641
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:643
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
@@ -2114,11 +2143,17 @@ msgstr ""
 "Deze account bevat je huidige postvak-project. Gelieve je postvak-project "
 "eerst te wijzigen."
 
-#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:647
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:639
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:385
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:647
 msgid "Change Inbox"
 msgstr "Postvak veranderen"
 
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:754
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:756
 msgid "Syncing…"
 msgstr "Synchroniseren…"
@@ -2165,24 +2200,6 @@ msgstr "Verberg geavanceerd opties"
 #: src/Dialogs/Preferences/Pages/Accounts/NextcloudSetup.vala:111
 msgid "Log In"
 msgstr "Aanmelden"
-
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:45
-msgid "Connect to Google Tasks"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:50
-msgid "Sign in with your Google account in the browser to sync your tasks"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:57
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
-msgid "Sign in with Browser"
-msgstr "Aanmelden met browser"
-
-#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:113
-#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
-msgid "Waiting for login…"
-msgstr "Wachten op inloggen…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/InboxPage.vala:28
 msgid "Inbox Project"
@@ -2236,20 +2253,27 @@ msgstr ""
 msgid "Enable Deck"
 msgstr ""
 
-#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:31
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:29
 #: src/Dialogs/Project.vala:183
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:31
 msgid "Source"
 msgstr "Bron"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:74
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:76
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 msgid "Display Name"
 msgstr "Weergavenaam"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:80
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:82
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:88
 msgid "Sync Server"
 msgstr "Met server synchroniseren"
 
 # Assumed error "Planner" -> "Planify"
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:83
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:85
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:91
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
@@ -2258,53 +2282,92 @@ msgstr ""
 "Activeer deze instelling om Planify elke 15 minuten automatisch te laten "
 "synchroniseren met je account"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:96
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:98
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:104
 msgid "Last Sync"
 msgstr "Laatste synchronisatie"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:121
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:123
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:129
 msgid "Nextcloud Deck"
 msgstr ""
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:122
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:124
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:130
 msgid "Sync boards and cards from Nextcloud Deck"
 msgstr "Synchroniseer borden en kaarten vanuit Nextcloud Deck"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:141
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:164
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:170
 msgid "Nextcloud Deck is not available on this server"
 msgstr "Nextcloud Deck is niet beschikbaar op deze server"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:157
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:222
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:179
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:244
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:185
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:250
 msgid "Delete Source"
 msgstr "Bron verwijderen"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:205
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:282
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:227
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:304
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:233
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:310
 msgid "Delete Source?"
 msgstr "Bron verwijderen?"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:358
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:364
 msgid "Apply Certificate"
 msgstr "Certificaat toepassen"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:338
+msgid "Client Certificate (mTLS)"
+msgstr "Clientcertificaat (mTLS)"
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:339
+msgid ""
+"Use a client certificate to authenticate with servers that require mutual TLS"
+msgstr ""
+"Gebruik een clientcertificaat om je te authenticeren bij servers die "
+"wederzijdse TLS-authenticatie vereisen"
+
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:354
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:387
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:393
 #, c-format
 msgid "Invalid certificate: %s"
 msgstr "Ongeldig certificaat: %s"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate updated"
 msgstr "Clientcertificaat bijgewerkt"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:370
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:400
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:406
 msgid "Client certificate removed"
 msgstr "Clientcertificaat verwijderd"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:380
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:411
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:417
 msgid "Cannot Delete This Source"
 msgstr "Deze bron kan niet worden verwijderd"
 
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:381
+#: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:412
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:418
 msgid ""
 "This source contains your current Inbox project. Please change your Inbox "
@@ -2319,6 +2382,11 @@ msgstr "Verbinden met Todoist"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:94
 msgid "Sign in with your Todoist account to sync your tasks"
 msgstr "Meld je aan met je Todoist-account om je taken te synchroniseren"
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:101
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:57
+msgid "Sign in with Browser"
+msgstr "Aanmelden met browser"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:113
 msgid "Use API Token instead"
@@ -2355,6 +2423,11 @@ msgstr "3. Plak dit in het bovenstaande veld"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:216
 msgid "How to get your token"
 msgstr "Zo verkrijg je je API-token"
+
+#: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:255
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:113
+msgid "Waiting for login…"
+msgstr "Wachten op inloggen…"
 
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:292
 msgid "Synchronizing…"
@@ -3272,8 +3345,10 @@ msgid "Project added successfully!"
 msgstr "Project met succes toegevoegd!"
 
 #: src/Dialogs/ProjectPicker.vala:38 src/Dialogs/ProjectPicker.vala:47
+#: src/Layouts/ItemBoard.vala:842 src/Layouts/ItemRow.vala:1265
+#: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:517
 #: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemRow.vala:1267
-#: src/Layouts/ItemRow.vala:1419 src/Layouts/ItemSidebarView.vala:517
+#: src/Layouts/ItemRow.vala:1419
 msgid "Move"
 msgstr "Verplaatsen"
 
@@ -3320,97 +3395,114 @@ msgstr "Onderverdeling toegevoegd"
 msgid "Open/Close Sidebar"
 msgstr "Zijbalk tonen/verbergen"
 
-#: src/Layouts/ItemBoard.vala:174 src/Layouts/ItemBoard.vala:827
-#: src/Layouts/ItemBoard.vala:840 src/Layouts/ItemRow.vala:1247
-#: src/Layouts/ItemRow.vala:1262
+#: src/Layouts/ItemBoard.vala:173 src/Layouts/ItemBoard.vala:824
+#: src/Layouts/ItemBoard.vala:837 src/Layouts/ItemRow.vala:1245
+#: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:174
+#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemBoard.vala:840
+#: src/Layouts/ItemRow.vala:1247 src/Layouts/ItemRow.vala:1262
 msgid "Unpin"
 msgstr "Losmaken"
 
 # # c-format
-#: src/Layouts/ItemBoard.vala:665 src/Layouts/ItemSidebarView.vala:697
+#: src/Layouts/ItemBoard.vala:664 src/Layouts/ItemSidebarView.vala:697
+#: src/Layouts/ItemBoard.vala:665
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Afgewerkt. Volgende datum: %s"
 
+#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemRow.vala:1268
 #: src/Layouts/ItemBoard.vala:848 src/Layouts/ItemRow.vala:1270
 msgid "Add Subtask"
 msgstr "Subtaak toevoegen"
 
+#: src/Layouts/ItemBoard.vala:847 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemBoard.vala:850 src/Layouts/ItemRow.vala:1272
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/Layouts/ItemBoard.vala:851 src/Layouts/ItemRow.vala:1273
-#: src/Layouts/ItemRow.vala:1418 src/Layouts/ItemSidebarView.vala:516
+#: src/Layouts/ItemBoard.vala:848 src/Layouts/ItemRow.vala:1271
+#: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:516
 #: src/Layouts/ProjectRow.vala:704 src/Layouts/SectionBoard.vala:626
 #: src/Layouts/SectionRow.vala:719 src/Views/Project/Project.vala:394
+#: src/Layouts/ItemBoard.vala:851 src/Layouts/ItemRow.vala:1273
+#: src/Layouts/ItemRow.vala:1418
 msgid "Duplicate"
 msgstr "Dupliceren"
 
+#: src/Layouts/ItemBoard.vala:850 src/Layouts/ItemRow.vala:1273
+#: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:520
 #: src/Layouts/ItemBoard.vala:853 src/Layouts/ItemRow.vala:1275
-#: src/Layouts/ItemRow.vala:1423 src/Layouts/ItemSidebarView.vala:520
+#: src/Layouts/ItemRow.vala:1423
 msgid "Delete Task"
 msgstr "Taak verwijderen"
 
+#: src/Layouts/ItemBoard.vala:1154 src/Layouts/ItemRow.vala:1964
 #: src/Layouts/ItemBoard.vala:1157 src/Layouts/ItemRow.vala:1966
 msgid "Order changed to 'Custom sort order'"
 msgstr "Volgorde aangepast naar 'Aangepaste volgorde'"
 
 # # c-format
+#: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemRow.vala:1690
 #: src/Layouts/ItemBoard.vala:1284 src/Layouts/ItemRow.vala:1692
 #, c-format
 msgid "%s was deleted"
 msgstr "%s werd verwijderd"
 
+#: src/Layouts/ItemBoard.vala:1282 src/Layouts/ItemRow.vala:1691
 #: src/Layouts/ItemBoard.vala:1285 src/Layouts/ItemRow.vala:1693
 msgid "Undo"
 msgstr "Ongedaan maken"
 
-#: src/Layouts/ItemRow.vala:567
+#: src/Layouts/ItemRow.vala:566 src/Layouts/ItemRow.vala:567
 msgid "Add Subtasks"
 msgstr "Subtaken toevoegen"
 
-#: src/Layouts/ItemRow.vala:1076
+#: src/Layouts/ItemRow.vala:1074 src/Layouts/ItemRow.vala:1076
 msgid "Hide Sub-tasks"
 msgstr "Subtaken verbergen"
 
-#: src/Layouts/ItemRow.vala:1076
+#: src/Layouts/ItemRow.vala:1074 src/Layouts/ItemRow.vala:1076
 msgid "Show Sub-tasks"
 msgstr "Subtaken tonen"
 
+#: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemRow.vala:1306
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemRow.vala:1308
 msgid "Pick a Date"
 msgstr "Selecteer een datum"
 
-#: src/Layouts/ItemRow.vala:1414 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1412 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1414
 msgid "Use as a Note"
 msgstr "Als opmerking gebruiken"
 
-#: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:515
-#: src/Widgets/MultiSelectToolbar.vala:326
+#: src/Layouts/ItemRow.vala:1415 src/Layouts/ItemSidebarView.vala:515
+#: src/Widgets/MultiSelectToolbar.vala:326 src/Layouts/ItemRow.vala:1417
 msgid "Copy to Clipboard"
 msgstr "Naar klembord kopiëren"
 
-#: src/Layouts/ItemRow.vala:1420 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1418 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1420
 msgid "Export as .ics"
 msgstr "Exporteren als .ics"
 
-#: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1426 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1428
 #, c-format
 msgid "Updated: %s"
 msgstr "Bijgewerkt: %s"
 
-#: src/Layouts/ItemRow.vala:1430 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1430
 #, c-format
 msgid "Created: %s"
 msgstr "Aangemaakt: %s"
 
-#: src/Layouts/ItemRow.vala:1668
+#: src/Layouts/ItemRow.vala:1666 src/Layouts/ItemRow.vala:1668
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr "Taak voltooid · Volgende: %s"
 
-#: src/Layouts/ItemRow.vala:1851
+#: src/Layouts/ItemRow.vala:1849 src/Layouts/ItemRow.vala:1851
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 "Een taak kan alleen een subtaak worden van een taak binnen hetzelfde account"
@@ -3520,7 +3612,8 @@ msgstr "Sorteren op"
 msgid "Delete Label"
 msgstr "Label verwijderen"
 
-#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:246
+#: src/Layouts/ProjectRow.vala:434 src/Layouts/SidebarSourceRow.vala:243
+#: src/Layouts/SidebarSourceRow.vala:246
 msgid "Projects sort changed to 'Custom sort order'"
 msgstr "Sortering van projecten aangepast naar 'Aangepaste volgorde'"
 
@@ -3630,7 +3723,7 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr ""
 "Geen project beschikbaar. Maak er één aan door op de '+'-knop te klikken"
 
-#: src/Layouts/SidebarSourceRow.vala:85
+#: src/Layouts/SidebarSourceRow.vala:82 src/Layouts/SidebarSourceRow.vala:85
 msgid "Account Migration Required"
 msgstr "Accountmigratie vereist"
 
@@ -4392,15 +4485,59 @@ msgctxt "shortcut window"
 msgid "Open Previous Project"
 msgstr "Open het vorige project"
 
-#~ msgid "Client Certificate (mTLS)"
-#~ msgstr "Clientcertificaat (mTLS)"
+#: core/Objects/Source.vala:90
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
+#: core/Objects/Source.vala:94
+msgid "Google Tasks"
+msgstr "Google Tasks"
 
-#~ msgid ""
-#~ "Use a client certificate to authenticate with servers that require mutual "
-#~ "TLS"
-#~ msgstr ""
-#~ "Gebruik een clientcertificaat om je te authenticeren bij servers die "
-#~ "wederzijdse TLS-authenticatie vereisen"
+#: core/Services/GoogleTasks/GoogleTasks.vala:71
+#: core/Services/GoogleTasks/GoogleTasks.vala:73
+#: core/Services/GoogleTasks/GoogleTasks.vala:77
+msgid "This Google account is already added"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasks.vala:124
+#: core/Services/GoogleTasks/GoogleTasks.vala:234
+#: core/Services/GoogleTasks/GoogleTasks.vala:419
+msgid ""
+"Your Google session has expired. Please remove and re-add your account in "
+"Preferences."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:91
+msgid "This sign-in link isn't valid anymore. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:97
+msgid "Access was denied"
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:99
+msgid "Sign-in was cancelled. You can close this tab."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:102
+msgid "Something went wrong. Please try again from Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:105
+msgid "You're signed in. You can close this tab and go back to Planify."
+msgstr ""
+
+#: core/Services/GoogleTasks/GoogleTasksAuth.vala:114
+msgid "Sign-in took too long"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:45
+msgid "Connect to Google Tasks"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:50
+msgid "Sign in with your Google account in the browser to sync your tasks"
+msgstr ""
 
 #~ msgid "Snooze for 10 minutes"
 #~ msgstr "10 minuten uitstellen"
