@@ -51,7 +51,9 @@ public class Dialogs.Preferences.Pages.Accounts : Dialogs.Preferences.Pages.Base
         menu_box.append (todoist_item);
         menu_box.append (nextcloud_item);
         menu_box.append (caldav_item);
+        #if WITH_GOOGLE_TASKS
         menu_box.append (google_tasks_item);
+        #endif
 
         var popover = new Gtk.Popover () {
             has_arrow = true,

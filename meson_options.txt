@@ -5,3 +5,4 @@ option('portal', type : 'boolean', description: 'build with xdg-portal support f
 option('evolution', type : 'boolean', description: 'build with evolution for integration with evolution calendars')
 option('goa', type : 'boolean', description: 'build with GNOME Online Accounts support for detecting linked Nextcloud/CalDAV accounts')
 option('manpage', type: 'boolean', value: false, description: 'install man page')
+option('google-tasks', type: 'boolean', value: false, description: 'show the Google Tasks account option (in development)')
