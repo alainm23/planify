@@ -62,6 +62,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     public uint complete_timeout { get; set; default = 0; }
     private bool _recurrency_reset = false;
+    private bool _syncing_checked = false;
 
     private bool _is_loading;
     public bool is_loading {
@@ -393,7 +394,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         })] = checked_button_gesture;
 
         signals_map[checked_button.toggled.connect (() => {
-            if (!checked_button_gesture.is_active () && !_recurrency_reset) {
+            if (!checked_button_gesture.is_active () && !_recurrency_reset && !_syncing_checked) {
                 checked_toggled (checked_button.active);
             }
         })] = checked_button;
@@ -674,7 +675,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
+            _syncing_checked = true;
             checked_button.active = item.completed;
+            _syncing_checked = false;
         }
 
         content_label.label = MarkdownProcessor.get_default ().markup_string (item.content);

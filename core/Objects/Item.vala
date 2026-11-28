@@ -279,6 +279,12 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    public string google_position {
+        owned get {
+            return get_extra_data_member ("google_position");
+        }
+    }
+
     GLib.DateTime _added_datetime;
     string _added_at_cached = "";
     public GLib.DateTime added_datetime {
@@ -516,6 +522,65 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             responsible_uid = "";
         }
+    }
+
+    public Item.from_google_task_json (Json.Node node, string _project_id) {
+        id = node.get_object ().get_string_member ("id");
+        update_from_google_task_json (node, _project_id);
+    }
+
+    public void update_from_google_task_json (Json.Node node, string _project_id) {
+        var object = node.get_object ();
+
+        project_id = _project_id;
+        section_id = "";
+        content = google_string (object, "title");
+        description = google_string (object, "notes");
+        parent_id = google_string (object, "parent");
+        checked = google_string (object, "status") == "completed";
+
+        if (checked) {
+            var completed = parse_google_datetime (google_string (object, "completed"));
+            completed_at = (completed ?? new GLib.DateTime.now_local ()).to_string ();
+        } else {
+            completed_at = "";
+        }
+
+        string due_string = google_string (object, "due");
+        if (due_string.length >= 10) {
+            due.date = due_string.substring (0, 10);
+        } else {
+            due.reset ();
+        }
+
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        builder.set_member_name ("google_position");
+        builder.add_string_value (google_string (object, "position"));
+        builder.set_member_name ("etag");
+        builder.add_string_value (google_string (object, "etag"));
+        builder.end_object ();
+
+        var generator = new Json.Generator ();
+        generator.set_root (builder.get_root ());
+        extra_data = generator.to_data (null);
+    }
+
+    private static string google_string (Json.Object object, string member) {
+        if (object.has_member (member) && !object.get_null_member (member)) {
+            return object.get_string_member (member);
+        }
+
+        return "";
+    }
+
+    private static GLib.DateTime? parse_google_datetime (string value) {
+        if (value == "") {
+            return null;
+        }
+
+        var datetime = new GLib.DateTime.from_iso8601 (value, null);
+        return datetime != null ? datetime.to_local () : null;
     }
 
     public Item.from_import_json (Json.Node node, Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ()) {
@@ -2395,6 +2460,13 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().complete_item (this, old_checked);
+            response.status = true;
+
+            return response;
+        }
+
+        if (project.source_type == SourceType.GOOGLE_TASKS) {
+            Services.Store.instance ().complete_item (this, old_checked, false);
             response.status = true;
 
             return response;

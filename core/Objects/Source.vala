@@ -55,7 +55,11 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
-    public static Objects.SourceData? data_from_json (SourceType source_type, string json) {
+    public static Objects.SourceData? data_from_json (SourceType source_type, string? json) {
+        if (json == null) {
+            return null;
+        }
+
         switch (source_type) {
             case SourceType.TODOIST:
                 return new Objects.SourceTodoistData.from_json (json);

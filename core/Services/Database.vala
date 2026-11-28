@@ -1854,10 +1854,10 @@ public class Services.Database : GLib.Object {
 
     public bool complete_item (Objects.Item item, bool old_checked) {
         Sqlite.Statement stmt;
-
+        
         sql = """
             UPDATE Items SET checked=$checked, completed_at=$completed_at
-            WHERE id=$id OR parent_id=$id;
+            WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);

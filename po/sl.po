@@ -37,7 +37,8 @@ msgstr "Naloge"
 #: src/Dialogs/Preferences/Pages/Backup.vala:631 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1266
 #: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemBoard.vala:843
+#: src/Layouts/ItemBoard.vala:843 src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemRow.vala:1268
 msgid "Labels"
 msgstr "Oznake"
 
@@ -180,7 +181,7 @@ msgstr "Vsebina"
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Layouts/ItemRow.vala:2098 src/Layouts/ItemRow.vala:2106
 #: src/Dialogs/Project.vala:153 src/Layouts/ItemRow.vala:2118
-#: src/Dialogs/Section.vala:93
+#: src/Dialogs/Section.vala:93 src/Layouts/ItemRow.vala:2120
 msgid "Description"
 msgstr "Opis"
 
@@ -194,6 +195,8 @@ msgstr "Načrtovano"
 #: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
+#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemBoard.vala:840
+#: src/Layouts/ItemRow.vala:1247 src/Layouts/ItemRow.vala:1262
 msgid "Pin"
 msgstr "Pripni"
 
@@ -347,6 +350,7 @@ msgstr "prihajajoči"
 #: src/Views/Today.vala:213 src/Layouts/ItemSortFilter.vala:83
 #: src/Layouts/ItemSortFilter.vala:265 src/Views/Project/Project.vala:610
 #: src/Views/Project/Project.vala:803 src/Layouts/ItemBoard.vala:831
+#: src/Layouts/ItemBoard.vala:834 src/Layouts/ItemRow.vala:1254
 msgid "Today"
 msgstr "Danes"
 
@@ -362,6 +366,7 @@ msgstr "danes"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:397
 #: src/Layouts/ItemRow.vala:1255 src/Layouts/ItemBoard.vala:833
 #: core/Widgets/DeadlineButton.vala:223 src/Layouts/ItemBoard.vala:834
+#: src/Layouts/ItemBoard.vala:837 src/Layouts/ItemRow.vala:1257
 msgid "Tomorrow"
 msgstr "Jutri"
 
@@ -388,24 +393,25 @@ msgstr "neoznačeno"
 #: core/Objects/Item.vala:1650 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1658 core/Objects/Item.vala:1738
 #: core/Objects/Item.vala:1751 core/Objects/Item.vala:1773
+#: core/Objects/Item.vala:1838
 msgid "Deadline:"
 msgstr "Skrajni rok:"
 
 #: core/Objects/Item.vala:1675 core/Objects/Item.vala:1683
 #: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
-#: core/Objects/Item.vala:1798
+#: core/Objects/Item.vala:1798 core/Objects/Item.vala:1863
 msgid "Task copied to clipboard"
 msgstr "Naloga je bila kopirana v odložišče"
 
 #: core/Objects/Item.vala:1692 core/Objects/Item.vala:1700
 #: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
-#: core/Objects/Item.vala:1815
+#: core/Objects/Item.vala:1815 core/Objects/Item.vala:1880
 msgid "iCalendar Files"
 msgstr "Datoteke iCalendar"
 
 #: core/Objects/Item.vala:1708 core/Objects/Item.vala:1716
 #: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
-#: core/Objects/Item.vala:1831
+#: core/Objects/Item.vala:1831 core/Objects/Item.vala:1896
 msgid "Task exported successfully"
 msgstr "Naloga je bila uspešno izvožena"
 
@@ -413,7 +419,7 @@ msgstr "Naloga je bila uspešno izvožena"
 #: core/Objects/Item.vala:2076 core/Objects/Item.vala:2156
 #: core/Objects/Item.vala:2175 core/Objects/Item.vala:2213
 #: core/Objects/Item.vala:2235 core/Objects/Item.vala:2254
-#: core/Objects/Item.vala:2256
+#: core/Objects/Item.vala:2256 core/Objects/Item.vala:2321
 #, c-format
 msgid "Moved to %s"
 msgstr "Premaknjeno v %s"
@@ -487,6 +493,7 @@ msgstr "Tega ni mogoče razveljaviti"
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:646
 msgid "Cancel"
 msgstr "Prekliči"
 
@@ -571,7 +578,7 @@ msgstr "Izbriši razdelek %s"
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
-#: core/Objects/Source.vala:81
+#: core/Objects/Source.vala:81 core/Objects/Source.vala:85
 msgid "Todoist"
 msgstr "Todoist"
 
@@ -581,7 +588,7 @@ msgstr "Naloga je bila uspešno dodana!"
 
 #: core/QuickAddCore.vala:165 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
-#: core/QuickAddCore.vala:170
+#: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:406
 msgid "To-do name"
 msgstr "Ime opravila"
 
@@ -820,6 +827,7 @@ msgstr "Sinhronizacija je končana"
 #: core/Services/CalDAV/Core.vala:373 core/Services/CalDAV/Core.vala:372
 #: core/Services/GoogleTasks/GoogleTasks.vala:123
 #: core/Services/GoogleTasks/GoogleTasks.vala:233
+#: core/Services/GoogleTasks/GoogleTasks.vala:418
 msgid "Authentication Expired"
 msgstr "Veljavnost prijave je potekla"
 
@@ -1382,6 +1390,8 @@ msgstr "🏃‍♀️️Nadaljnji koraki"
 #: src/Layouts/ItemBoard.vala:1303 src/Widgets/MultiSelectToolbar.vala:448
 #: src/Widgets/MultiSelectToolbar.vala:493 src/Layouts/ItemBoard.vala:1304
 #: src/Layouts/ItemRow.vala:1713 src/Layouts/ItemRow.vala:1857
+#: src/Layouts/ItemBoard.vala:1307 src/Layouts/ItemRow.vala:1715
+#: src/Layouts/ItemRow.vala:1859
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr "Premikanje nalog na tablo Nextcloud Deck ali z nje še ni podprto"
 
@@ -1565,7 +1575,8 @@ msgstr "Čas"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:94
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:867
 #: src/Layouts/ItemRow.vala:1194 src/Layouts/ItemBoard.vala:745
-#: src/Layouts/ItemBoard.vala:746
+#: src/Layouts/ItemBoard.vala:746 src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemRow.vala:1196
 msgid "until"
 msgstr "do"
 
@@ -1577,7 +1588,8 @@ msgstr "do"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
-#: src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemBoard.vala:752
+#: src/Layouts/ItemRow.vala:1199
 msgid "for"
 msgstr "za"
 
@@ -1589,7 +1601,8 @@ msgstr "za"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
-#: src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemBoard.vala:752
+#: src/Layouts/ItemRow.vala:1199
 msgid "times"
 msgstr "krat"
 
@@ -1601,7 +1614,8 @@ msgstr "krat"
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:97
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:870
 #: src/Layouts/ItemRow.vala:1197 src/Layouts/ItemBoard.vala:748
-#: src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemBoard.vala:752
+#: src/Layouts/ItemRow.vala:1199
 msgid "time"
 msgstr "krat"
 
@@ -1735,6 +1749,7 @@ msgstr "Po"
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1349 src/Layouts/ItemRow.vala:1350
 #: src/Layouts/ItemBoard.vala:903 src/Layouts/ItemBoard.vala:904
+#: src/Layouts/ItemBoard.vala:907 src/Layouts/ItemRow.vala:1352
 msgid "Apply"
 msgstr "Uveljavi"
 
@@ -1914,7 +1929,7 @@ msgstr "Pritisnite Enter, da jo ustvarite in dodelite"
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2096
 #: src/Layouts/ItemRow.vala:2108 src/Layouts/ItemRow.vala:2116
-#: src/Layouts/ItemRow.vala:2128
+#: src/Layouts/ItemRow.vala:2128 src/Layouts/ItemRow.vala:2130
 msgid "Task description"
 msgstr "Opis naloge"
 
@@ -2044,6 +2059,7 @@ msgstr "Za opraviti"
 #: src/Services/Notification.vala:98 src/Layouts/ItemRow.vala:1269
 #: src/Services/Notification.vala:140 src/Services/Notification.vala:194
 #: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemRow.vala:1271
 msgid "Complete"
 msgstr "Dokončaj"
 
@@ -2197,6 +2213,7 @@ msgstr "Filtriraj po"
 #: src/Views/Project/Project.vala:812 src/Layouts/ItemSortFilter.vala:88
 #: src/Layouts/ItemSortFilter.vala:280 src/Views/Project/Project.vala:615
 #: src/Views/Project/Project.vala:813 src/Layouts/ItemBoard.vala:839
+#: src/Layouts/ItemBoard.vala:842 src/Layouts/ItemRow.vala:1264
 msgid "No Date"
 msgstr "Brez datuma"
 
@@ -2211,6 +2228,7 @@ msgstr "Naslednji teden"
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1412
 #: src/Layouts/ItemSidebarView.vala:523 src/Layouts/ItemRow.vala:1424
+#: src/Layouts/ItemRow.vala:1426
 msgid "Change History"
 msgstr "Zgodovina sprememb"
 
@@ -2296,16 +2314,19 @@ msgstr "Arhivirano"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:71
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Accounts"
 msgstr "Računi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:67
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 msgid "Add Source"
 msgstr "Dodaj vir"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:75
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:77
 msgid "Task sources you sync with. Drag to reorder."
 msgstr ""
 "Viri nalog, s katerimi se sinhronizirate. Povlecite jih za spremembo "
@@ -2313,21 +2334,25 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:99
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:101
 msgid "Inbox Page"
 msgstr "Stran Prejeto"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:235
 msgid "Detected Accounts"
 msgstr "Zaznani računi"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:240
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:242
 msgid "Accounts configured in GNOME Online Accounts"
 msgstr "Računi, nastavljeni v Spletnih računih GNOME"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:288
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:290
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
@@ -2338,6 +2363,7 @@ msgstr[3] "Za uvoz iz Spletnih računov GNOME je na voljo %d računov"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:334
 msgid "Import"
 msgstr "Uvozi"
 
@@ -2345,36 +2371,44 @@ msgstr "Uvozi"
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:417
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:784
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:419
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:786
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr "Planify sinhronizira vaše naloge. To lahko traja nekaj trenutkov"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:490
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:492
 msgid "SSL verification is disabled"
 msgstr "Preverjanje SSL je onemogočeno"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:500
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:502
 msgid "Authentication expired"
 msgstr "Veljavnost prijave je potekla"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:520
 msgid "Account migration required"
 msgstr "Potrebna je selitev računa"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:522
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:524
 msgid "Reconnect"
 msgstr "Znova poveži"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:640
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:642
 msgid "Cannot Hide This Account"
 msgstr "Tega računa ni mogoče skriti"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:641
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:643
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2388,11 +2422,13 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:647
 msgid "Change Inbox"
 msgstr "Spremeni Prejeto"
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:754
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:756
 msgid "Syncing…"
 msgstr "Sinhronizacija …"
 
@@ -3631,6 +3667,8 @@ msgstr "Projekt je bil uspešno dodan!"
 #: src/Layouts/ItemRow.vala:1405 src/Layouts/ItemSidebarView.vala:517
 #: src/Layouts/ItemRow.vala:1265 src/Layouts/ItemRow.vala:1417
 #: src/Layouts/ItemBoard.vala:841 src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemRow.vala:1267
+#: src/Layouts/ItemRow.vala:1419
 msgid "Move"
 msgstr "Premakni"
 
@@ -3692,24 +3730,30 @@ msgstr "Odpri/zapri stransko vrstico"
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:173
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
+#: src/Layouts/ItemBoard.vala:174 src/Layouts/ItemBoard.vala:827
+#: src/Layouts/ItemBoard.vala:840 src/Layouts/ItemRow.vala:1247
+#: src/Layouts/ItemRow.vala:1262
 msgid "Unpin"
 msgstr "Odpni"
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
 #: src/Layouts/ItemBoard.vala:663 src/Layouts/ItemBoard.vala:664
+#: src/Layouts/ItemBoard.vala:665
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Dokončano. Naslednja ponovitev: %s"
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1267
 #: src/Layouts/ItemRow.vala:1268 src/Layouts/ItemBoard.vala:844
-#: src/Layouts/ItemBoard.vala:845
+#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemBoard.vala:848
+#: src/Layouts/ItemRow.vala:1270
 msgid "Add Subtask"
 msgstr "Dodaj podnalogo"
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1269
 #: src/Layouts/ItemRow.vala:1270 src/Layouts/ItemBoard.vala:846
-#: src/Layouts/ItemBoard.vala:847
+#: src/Layouts/ItemBoard.vala:847 src/Layouts/ItemBoard.vala:850
+#: src/Layouts/ItemRow.vala:1272
 msgid "Edit"
 msgstr "Uredi"
 
@@ -3722,6 +3766,8 @@ msgstr "Uredi"
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemBoard.vala:847
 #: src/Layouts/SectionRow.vala:720 src/Views/Project/Project.vala:394
 #: src/Layouts/ItemBoard.vala:848 src/Layouts/SectionRow.vala:719
+#: src/Layouts/ItemBoard.vala:851 src/Layouts/ItemRow.vala:1273
+#: src/Layouts/ItemRow.vala:1418
 msgid "Duplicate"
 msgstr "Podvoji"
 
@@ -3729,20 +3775,24 @@ msgstr "Podvoji"
 #: src/Layouts/ItemRow.vala:1409 src/Layouts/ItemSidebarView.vala:520
 #: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemRow.vala:1421
 #: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemBoard.vala:850
+#: src/Layouts/ItemBoard.vala:853 src/Layouts/ItemRow.vala:1275
+#: src/Layouts/ItemRow.vala:1423
 msgid "Delete Task"
 msgstr "Izbriši nalogo"
 
 #: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1932
 #: src/Layouts/ItemRow.vala:1944 src/Layouts/ItemRow.vala:1952
 #: src/Layouts/ItemBoard.vala:1153 src/Layouts/ItemBoard.vala:1154
-#: src/Layouts/ItemRow.vala:1964
+#: src/Layouts/ItemRow.vala:1964 src/Layouts/ItemBoard.vala:1157
+#: src/Layouts/ItemRow.vala:1966
 msgid "Order changed to 'Custom sort order'"
 msgstr "Vrstni red je spremenjen v »Vrstni red po meri«"
 
 #: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1658
 #: src/Layouts/ItemRow.vala:1670 src/Layouts/ItemRow.vala:1678
 #: src/Layouts/ItemBoard.vala:1280 src/Layouts/ItemBoard.vala:1281
-#: src/Layouts/ItemRow.vala:1690
+#: src/Layouts/ItemRow.vala:1690 src/Layouts/ItemBoard.vala:1284
+#: src/Layouts/ItemRow.vala:1692
 #, c-format
 msgid "%s was deleted"
 msgstr "Izbrisano: %s"
@@ -3750,64 +3800,71 @@ msgstr "Izbrisano: %s"
 #: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1659
 #: src/Layouts/ItemRow.vala:1671 src/Layouts/ItemRow.vala:1679
 #: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemBoard.vala:1282
-#: src/Layouts/ItemRow.vala:1691
+#: src/Layouts/ItemRow.vala:1691 src/Layouts/ItemBoard.vala:1285
+#: src/Layouts/ItemRow.vala:1693
 msgid "Undo"
 msgstr "Razveljavi"
 
 #: src/Layouts/ItemRow.vala:565 src/Layouts/ItemRow.vala:566
+#: src/Layouts/ItemRow.vala:567
 msgid "Add Subtasks"
 msgstr "Dodaj podnaloge"
 
 #: src/Layouts/ItemRow.vala:1073 src/Layouts/ItemRow.vala:1074
+#: src/Layouts/ItemRow.vala:1076
 msgid "Hide Sub-tasks"
 msgstr "Skrij podnaloge"
 
 #: src/Layouts/ItemRow.vala:1073 src/Layouts/ItemRow.vala:1074
+#: src/Layouts/ItemRow.vala:1076
 msgid "Show Sub-tasks"
 msgstr "Prikaži podnaloge"
 
 #: src/Layouts/ItemRow.vala:1257 src/Layouts/ItemRow.vala:1305
 #: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemRow.vala:1306
+#: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemRow.vala:1308
 msgid "Pick a Date"
 msgstr "Izberi datum"
 
 #: src/Layouts/ItemRow.vala:1400 src/Layouts/ItemSidebarView.vala:513
-#: src/Layouts/ItemRow.vala:1412
+#: src/Layouts/ItemRow.vala:1412 src/Layouts/ItemRow.vala:1414
 msgid "Use as a Note"
 msgstr "Uporabi kot zapisek"
 
 #: src/Layouts/ItemRow.vala:1403 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274 src/Layouts/ItemRow.vala:1415
 #: src/Widgets/MultiSelectToolbar.vala:283
-#: src/Widgets/MultiSelectToolbar.vala:326
+#: src/Widgets/MultiSelectToolbar.vala:326 src/Layouts/ItemRow.vala:1417
 msgid "Copy to Clipboard"
 msgstr "Kopiraj v odložišče"
 
 #: src/Layouts/ItemRow.vala:1406 src/Layouts/ItemSidebarView.vala:518
-#: src/Layouts/ItemRow.vala:1418
+#: src/Layouts/ItemRow.vala:1418 src/Layouts/ItemRow.vala:1420
 msgid "Export as .ics"
 msgstr "Izvozi kot .ics"
 
 #: src/Layouts/ItemRow.vala:1414 src/Layouts/ItemSidebarView.vala:470
-#: src/Layouts/ItemRow.vala:1426
+#: src/Layouts/ItemRow.vala:1426 src/Layouts/ItemRow.vala:1428
 #, c-format
 msgid "Updated: %s"
 msgstr "Posodobljeno: %s"
 
 #: src/Layouts/ItemRow.vala:1416 src/Layouts/ItemSidebarView.vala:472
-#: src/Layouts/ItemRow.vala:1428
+#: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemRow.vala:1430
 #, c-format
 msgid "Created: %s"
 msgstr "Ustvarjeno: %s"
 
 #: src/Layouts/ItemRow.vala:1634 src/Layouts/ItemRow.vala:1646
 #: src/Layouts/ItemRow.vala:1654 src/Layouts/ItemRow.vala:1666
+#: src/Layouts/ItemRow.vala:1668
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr "Naloga je dokončana · Naslednja ponovitev: %s"
 
 #: src/Layouts/ItemRow.vala:1817 src/Layouts/ItemRow.vala:1829
 #: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1849
+#: src/Layouts/ItemRow.vala:1851
 msgid "A task can only become a subtask of a task in the same account"
 msgstr "Naloga lahko postane podnaloga samo naloge v istem računu"
 
@@ -3815,7 +3872,7 @@ msgstr "Naloga lahko postane podnaloga samo naloge v istem računu"
 #: core/QuickAddCore.vala:957 src/Layouts/ItemRow.vala:2163
 #: src/Layouts/ItemRow.vala:2175 src/Layouts/ItemRow.vala:2183
 #: core/QuickAddCore.vala:962 src/Layouts/ItemRow.vala:2195
-#: core/QuickAddCore.vala:953
+#: core/QuickAddCore.vala:953 src/Layouts/ItemRow.vala:2197
 msgid "Add Attachments"
 msgstr "Dodaj priponke"
 
@@ -5019,16 +5076,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
+#: core/Objects/Source.vala:94
 msgid "Google Tasks"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:71
 #: core/Services/GoogleTasks/GoogleTasks.vala:73
+#: core/Services/GoogleTasks/GoogleTasks.vala:77
 msgid "This Google account is already added"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:124
 #: core/Services/GoogleTasks/GoogleTasks.vala:234
+#: core/Services/GoogleTasks/GoogleTasks.vala:419
 msgid ""
 "Your Google session has expired. Please remove and re-add your account in "
 "Preferences."

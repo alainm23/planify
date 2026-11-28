@@ -34,7 +34,8 @@ msgstr "Задаци"
 #: core/Widgets/LabelPicker/LabelButton.vala:76 src/Dialogs/LabelPicker.vala:46
 #: src/Dialogs/Preferences/Pages/Backup.vala:697 src/Layouts/ItemBoard.vala:825
 #: src/Layouts/ItemRow.vala:1266 src/Layouts/ItemBoard.vala:842
-#: src/Layouts/ItemBoard.vala:843
+#: src/Layouts/ItemBoard.vala:843 src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemRow.vala:1268
 msgid "Labels"
 msgstr "Ознаке"
 
@@ -165,7 +166,7 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:2106 src/Layouts/ItemSidebarView.vala:184
 #: src/Widgets/EventRow.vala:359 src/Widgets/ItemDetailCompleted.vala:115
 #: src/Dialogs/Project.vala:153 src/Layouts/ItemRow.vala:2118
-#: src/Dialogs/Section.vala:93
+#: src/Dialogs/Section.vala:93 src/Layouts/ItemRow.vala:2120
 msgid "Description"
 msgstr ""
 
@@ -178,6 +179,8 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1245 src/Layouts/ItemRow.vala:1260
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
+#: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemBoard.vala:840
+#: src/Layouts/ItemRow.vala:1247 src/Layouts/ItemRow.vala:1262
 msgid "Pin"
 msgstr ""
 
@@ -327,7 +330,8 @@ msgstr ""
 #: src/Views/Project/Project.vala:802 src/Views/Today.vala:213
 #: src/Layouts/ItemSortFilter.vala:83 src/Layouts/ItemSortFilter.vala:265
 #: src/Views/Project/Project.vala:610 src/Views/Project/Project.vala:803
-#: src/Layouts/ItemBoard.vala:831
+#: src/Layouts/ItemBoard.vala:831 src/Layouts/ItemBoard.vala:834
+#: src/Layouts/ItemRow.vala:1254
 msgid "Today"
 msgstr ""
 
@@ -341,7 +345,8 @@ msgstr ""
 #: core/Widgets/DeadlineButton.vala:217 src/Dialogs/DatePicker.vala:210
 #: src/Layouts/ItemBoard.vala:816 src/Layouts/ItemRow.vala:1255
 #: src/Layouts/ItemBoard.vala:833 core/Widgets/DeadlineButton.vala:223
-#: src/Layouts/ItemBoard.vala:834
+#: src/Layouts/ItemBoard.vala:834 src/Layouts/ItemBoard.vala:837
+#: src/Layouts/ItemRow.vala:1257
 msgid "Tomorrow"
 msgstr ""
 
@@ -367,27 +372,29 @@ msgstr ""
 
 #: core/Objects/Item.vala:1738 src/Services/ExportService.vala:138
 #: core/Objects/Item.vala:1751 core/Objects/Item.vala:1773
+#: core/Objects/Item.vala:1838
 msgid "Deadline:"
 msgstr ""
 
 #: core/Objects/Item.vala:1763 core/Objects/Item.vala:1776
-#: core/Objects/Item.vala:1798
+#: core/Objects/Item.vala:1798 core/Objects/Item.vala:1863
 msgid "Task copied to clipboard"
 msgstr ""
 
 #: core/Objects/Item.vala:1780 core/Objects/Item.vala:1793
-#: core/Objects/Item.vala:1815
+#: core/Objects/Item.vala:1815 core/Objects/Item.vala:1880
 msgid "iCalendar Files"
 msgstr ""
 
 #: core/Objects/Item.vala:1796 core/Objects/Item.vala:1809
-#: core/Objects/Item.vala:1831
+#: core/Objects/Item.vala:1831 core/Objects/Item.vala:1896
 msgid "Task exported successfully"
 msgstr ""
 
 #: core/Objects/Item.vala:2175 core/Utils/Util.vala:891
 #: core/Objects/Item.vala:2213 core/Objects/Item.vala:2235
 #: core/Objects/Item.vala:2254 core/Objects/Item.vala:2256
+#: core/Objects/Item.vala:2321
 #, c-format
 msgid "Moved to %s"
 msgstr ""
@@ -443,6 +450,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:236
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:313
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:421
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:646
 msgid "Cancel"
 msgstr ""
 
@@ -514,7 +522,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:263
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:271
 #: src/Dialogs/Preferences/Pages/Accounts/TodoistSetup.vala:288
-#: core/Objects/Source.vala:81
+#: core/Objects/Source.vala:81 core/Objects/Source.vala:85
 msgid "Todoist"
 msgstr ""
 
@@ -524,6 +532,7 @@ msgstr ""
 
 #: core/QuickAddCore.vala:170 src/Layouts/ItemRow.vala:405
 #: src/Layouts/ItemSidebarView.vala:123 src/Widgets/ItemDetailCompleted.vala:52
+#: src/Layouts/ItemRow.vala:406
 msgid "To-do name"
 msgstr ""
 
@@ -561,6 +570,7 @@ msgstr ""
 #: core/QuickAddCore.vala:298 core/QuickAddCore.vala:957
 #: src/Layouts/ItemRow.vala:2183 core/QuickAddCore.vala:962
 #: src/Layouts/ItemRow.vala:2195 core/QuickAddCore.vala:953
+#: src/Layouts/ItemRow.vala:2197
 msgid "Add Attachments"
 msgstr ""
 
@@ -767,6 +777,7 @@ msgstr ""
 #: core/Services/CalDAV/Core.vala:372
 #: core/Services/GoogleTasks/GoogleTasks.vala:123
 #: core/Services/GoogleTasks/GoogleTasks.vala:233
+#: core/Services/GoogleTasks/GoogleTasks.vala:418
 msgid "Authentication Expired"
 msgstr ""
 
@@ -1267,6 +1278,8 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:1303 src/Widgets/MultiSelectToolbar.vala:448
 #: src/Widgets/MultiSelectToolbar.vala:493 src/Layouts/ItemBoard.vala:1304
 #: src/Layouts/ItemRow.vala:1713 src/Layouts/ItemRow.vala:1857
+#: src/Layouts/ItemBoard.vala:1307 src/Layouts/ItemRow.vala:1715
+#: src/Layouts/ItemRow.vala:1859
 msgid "Moving tasks to or from a Nextcloud Deck board isn't supported yet"
 msgstr ""
 
@@ -1443,6 +1456,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:250
 #: src/Layouts/ItemBoard.vala:728 src/Layouts/ItemRow.vala:1194
 #: src/Layouts/ItemBoard.vala:745 src/Layouts/ItemBoard.vala:746
+#: src/Layouts/ItemBoard.vala:749 src/Layouts/ItemRow.vala:1196
 msgid "until"
 msgstr ""
 
@@ -1452,6 +1466,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 #: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemBoard.vala:752 src/Layouts/ItemRow.vala:1199
 msgid "for"
 msgstr ""
 
@@ -1461,6 +1476,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 #: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemBoard.vala:752 src/Layouts/ItemRow.vala:1199
 msgid "times"
 msgstr ""
 
@@ -1470,6 +1486,7 @@ msgstr ""
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:253
 #: src/Layouts/ItemBoard.vala:731 src/Layouts/ItemRow.vala:1197
 #: src/Layouts/ItemBoard.vala:748 src/Layouts/ItemBoard.vala:749
+#: src/Layouts/ItemBoard.vala:752 src/Layouts/ItemRow.vala:1199
 msgid "time"
 msgstr ""
 
@@ -1586,7 +1603,8 @@ msgstr ""
 #: core/Widgets/DateTimePicker/RepeatConfig.vala:386
 #: core/Widgets/MarkdownEditor.vala:1422 src/Layouts/ItemBoard.vala:886
 #: src/Layouts/ItemRow.vala:1350 src/Layouts/ItemBoard.vala:903
-#: src/Layouts/ItemBoard.vala:904
+#: src/Layouts/ItemBoard.vala:904 src/Layouts/ItemBoard.vala:907
+#: src/Layouts/ItemRow.vala:1352
 msgid "Apply"
 msgstr ""
 
@@ -1757,7 +1775,7 @@ msgid "Press Enter to create and assign it"
 msgstr ""
 
 #: core/Widgets/MarkdownEditor.vala:99 src/Layouts/ItemRow.vala:2116
-#: src/Layouts/ItemRow.vala:2128
+#: src/Layouts/ItemRow.vala:2128 src/Layouts/ItemRow.vala:2130
 msgid "Task description"
 msgstr ""
 
@@ -1885,7 +1903,8 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:828 src/Layouts/ItemRow.vala:1269
 #: src/Services/Notification.vala:98 src/Services/Notification.vala:140
 #: src/Services/Notification.vala:194 src/Layouts/ItemBoard.vala:845
-#: src/Layouts/ItemBoard.vala:846
+#: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemBoard.vala:849
+#: src/Layouts/ItemRow.vala:1271
 msgid "Complete"
 msgstr ""
 
@@ -2018,7 +2037,8 @@ msgstr ""
 #: src/Views/Project/Project.vala:614 src/Views/Project/Project.vala:812
 #: src/Layouts/ItemSortFilter.vala:88 src/Layouts/ItemSortFilter.vala:280
 #: src/Views/Project/Project.vala:615 src/Views/Project/Project.vala:813
-#: src/Layouts/ItemBoard.vala:839
+#: src/Layouts/ItemBoard.vala:839 src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemRow.vala:1264
 msgid "No Date"
 msgstr ""
 
@@ -2032,7 +2052,7 @@ msgid "Next Week"
 msgstr ""
 
 #: src/Dialogs/ItemChangeHistory.vala:36 src/Layouts/ItemRow.vala:1424
-#: src/Layouts/ItemSidebarView.vala:523
+#: src/Layouts/ItemSidebarView.vala:523 src/Layouts/ItemRow.vala:1426
 msgid "Change History"
 msgstr ""
 
@@ -2116,36 +2136,43 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:71
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 msgid "Accounts"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:65
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:67
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:69
 msgid "Add Source"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:73
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:75
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:77
 msgid "Task sources you sync with. Drag to reorder."
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:97
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:99
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:101
 msgid "Inbox Page"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:227
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:233
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:235
 msgid "Detected Accounts"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:234
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:240
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:242
 msgid "Accounts configured in GNOME Online Accounts"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:282
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:288
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:290
 #, c-format
 msgid "%d account available to import from GNOME Online Accounts"
 msgid_plural "%d accounts available to import from GNOME Online Accounts"
@@ -2155,6 +2182,7 @@ msgstr[2] ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:326
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:332
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:334
 msgid "Import"
 msgstr ""
 
@@ -2162,36 +2190,44 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:778
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:417
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:784
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:419
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:786
 msgid "Planify is syncing your tasks, this may take a few moments"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:484
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:490
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:492
 msgid "SSL verification is disabled"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:494
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:500
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:502
 msgid "Authentication expired"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:512
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:518
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:520
 msgid "Account migration required"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:516
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:522
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:524
 msgid "Reconnect"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:634
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:640
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:642
 msgid "Cannot Hide This Account"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:635
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:641
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:643
 msgid ""
 "This account contains your current Inbox project. Please change your Inbox "
 "project first."
@@ -2202,11 +2238,13 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:416
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:645
 #: src/Dialogs/Preferences/Pages/Accounts/SourceView.vala:422
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:647
 msgid "Change Inbox"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:748
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:754
+#: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:756
 msgid "Syncing…"
 msgstr ""
 
@@ -3374,6 +3412,8 @@ msgstr ""
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemRow.vala:1265
 #: src/Layouts/ItemRow.vala:1417 src/Layouts/ItemSidebarView.vala:517
 #: src/Layouts/ItemBoard.vala:841 src/Layouts/ItemBoard.vala:842
+#: src/Layouts/ItemBoard.vala:845 src/Layouts/ItemRow.vala:1267
+#: src/Layouts/ItemRow.vala:1419
 msgid "Move"
 msgstr ""
 
@@ -3430,22 +3470,28 @@ msgstr ""
 #: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemBoard.vala:173
 #: src/Layouts/ItemBoard.vala:823 src/Layouts/ItemBoard.vala:836
 #: src/Layouts/ItemBoard.vala:824 src/Layouts/ItemBoard.vala:837
+#: src/Layouts/ItemBoard.vala:174 src/Layouts/ItemBoard.vala:827
+#: src/Layouts/ItemBoard.vala:840 src/Layouts/ItemRow.vala:1247
+#: src/Layouts/ItemRow.vala:1262
 msgid "Unpin"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:646 src/Layouts/ItemSidebarView.vala:697
 #: src/Layouts/ItemBoard.vala:663 src/Layouts/ItemBoard.vala:664
+#: src/Layouts/ItemBoard.vala:665
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:827 src/Layouts/ItemRow.vala:1268
 #: src/Layouts/ItemBoard.vala:844 src/Layouts/ItemBoard.vala:845
+#: src/Layouts/ItemBoard.vala:848 src/Layouts/ItemRow.vala:1270
 msgid "Add Subtask"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:829 src/Layouts/ItemRow.vala:1270
 #: src/Layouts/ItemBoard.vala:846 src/Layouts/ItemBoard.vala:847
+#: src/Layouts/ItemBoard.vala:850 src/Layouts/ItemRow.vala:1272
 msgid "Edit"
 msgstr ""
 
@@ -3455,82 +3501,95 @@ msgstr ""
 #: src/Layouts/SectionRow.vala:713 src/Views/Project/Project.vala:388
 #: src/Layouts/ItemBoard.vala:847 src/Layouts/SectionRow.vala:720
 #: src/Views/Project/Project.vala:394 src/Layouts/ItemBoard.vala:848
-#: src/Layouts/SectionRow.vala:719
+#: src/Layouts/SectionRow.vala:719 src/Layouts/ItemBoard.vala:851
+#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemRow.vala:1418
 msgid "Duplicate"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:832 src/Layouts/ItemRow.vala:1273
 #: src/Layouts/ItemRow.vala:1421 src/Layouts/ItemSidebarView.vala:520
 #: src/Layouts/ItemBoard.vala:849 src/Layouts/ItemBoard.vala:850
+#: src/Layouts/ItemBoard.vala:853 src/Layouts/ItemRow.vala:1275
+#: src/Layouts/ItemRow.vala:1423
 msgid "Delete Task"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1136 src/Layouts/ItemRow.vala:1952
 #: src/Layouts/ItemBoard.vala:1153 src/Layouts/ItemBoard.vala:1154
-#: src/Layouts/ItemRow.vala:1964
+#: src/Layouts/ItemRow.vala:1964 src/Layouts/ItemBoard.vala:1157
+#: src/Layouts/ItemRow.vala:1966
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1263 src/Layouts/ItemRow.vala:1678
 #: src/Layouts/ItemBoard.vala:1280 src/Layouts/ItemBoard.vala:1281
-#: src/Layouts/ItemRow.vala:1690
+#: src/Layouts/ItemRow.vala:1690 src/Layouts/ItemBoard.vala:1284
+#: src/Layouts/ItemRow.vala:1692
 #, c-format
 msgid "%s was deleted"
 msgstr ""
 
 #: src/Layouts/ItemBoard.vala:1264 src/Layouts/ItemRow.vala:1679
 #: src/Layouts/ItemBoard.vala:1281 src/Layouts/ItemBoard.vala:1282
-#: src/Layouts/ItemRow.vala:1691
+#: src/Layouts/ItemRow.vala:1691 src/Layouts/ItemBoard.vala:1285
+#: src/Layouts/ItemRow.vala:1693
 msgid "Undo"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:566
+#: src/Layouts/ItemRow.vala:566 src/Layouts/ItemRow.vala:567
 msgid "Add Subtasks"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1074
+#: src/Layouts/ItemRow.vala:1074 src/Layouts/ItemRow.vala:1076
 msgid "Hide Sub-tasks"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1074
+#: src/Layouts/ItemRow.vala:1074 src/Layouts/ItemRow.vala:1076
 msgid "Show Sub-tasks"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1258 src/Layouts/ItemRow.vala:1306
+#: src/Layouts/ItemRow.vala:1260 src/Layouts/ItemRow.vala:1308
 msgid "Pick a Date"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1412 src/Layouts/ItemSidebarView.vala:513
+#: src/Layouts/ItemRow.vala:1414
 msgid "Use as a Note"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1415 src/Layouts/ItemSidebarView.vala:515
 #: src/Widgets/MultiSelectToolbar.vala:274
 #: src/Widgets/MultiSelectToolbar.vala:283
-#: src/Widgets/MultiSelectToolbar.vala:326
+#: src/Widgets/MultiSelectToolbar.vala:326 src/Layouts/ItemRow.vala:1417
 msgid "Copy to Clipboard"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1418 src/Layouts/ItemSidebarView.vala:518
+#: src/Layouts/ItemRow.vala:1420
 msgid "Export as .ics"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1426 src/Layouts/ItemSidebarView.vala:470
+#: src/Layouts/ItemRow.vala:1428
 #, c-format
 msgid "Updated: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1428 src/Layouts/ItemSidebarView.vala:472
+#: src/Layouts/ItemRow.vala:1430
 #, c-format
 msgid "Created: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1654 src/Layouts/ItemRow.vala:1666
+#: src/Layouts/ItemRow.vala:1668
 #, c-format
 msgid "Task completed · Next: %s"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:1837 src/Layouts/ItemRow.vala:1849
+#: src/Layouts/ItemRow.vala:1851
 msgid "A task can only become a subtask of a task in the same account"
 msgstr ""
 
@@ -4595,16 +4654,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Pages/Accounts/Accounts.vala:47
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:31
 #: src/Dialogs/Preferences/Pages/Accounts/GoogleTasksSetup.vala:127
+#: core/Objects/Source.vala:94
 msgid "Google Tasks"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:71
 #: core/Services/GoogleTasks/GoogleTasks.vala:73
+#: core/Services/GoogleTasks/GoogleTasks.vala:77
 msgid "This Google account is already added"
 msgstr ""
 
 #: core/Services/GoogleTasks/GoogleTasks.vala:124
 #: core/Services/GoogleTasks/GoogleTasks.vala:234
+#: core/Services/GoogleTasks/GoogleTasks.vala:419
 msgid ""
 "Your Google session has expired. Please remove and re-add your account in "
 "Preferences."

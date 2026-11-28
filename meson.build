@@ -104,6 +104,10 @@ if get_option('goa')
     endif
 endif
 
+if get_option('google-tasks')
+    add_project_arguments('-D', 'WITH_GOOGLE_TASKS', language: 'vala')
+endif
+
 ############
 # Resources #
 ############
